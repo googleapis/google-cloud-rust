@@ -43,9 +43,9 @@ pub async fn basic_topic(builder: pubsub::builder::topic_admin::ClientBuilder) -
         .send()
         .await?;
     tracing::info!("success with list_topics={topics:?}");
-    assert!(topics.topics.iter().any(|x| x.name == topic.name.clone()));
+    assert!(topics.topics.iter().any(|x| x.name == topic.name));
 
-    cleanup_test_topic(topic_admin, topic.name.clone()).await?;
+    cleanup_test_topic(topic_admin, topic.name).await?;
 
     Ok(())
 }
@@ -68,12 +68,12 @@ pub async fn create_test_topic() -> Result<(TopicAdmin, Topic)> {
         .with_tracing()
         .build()
         .await?;
-    let topic_id = random_topic_id(project.clone());
+    let topic_id = random_topic_id(project);
 
     tracing::info!("testing create_topic()");
     let topic = client
         .create_topic()
-        .set_name(topic_id.clone())
+        .set_name(topic_id)
         .set_labels([("integration-test", "true")])
         .send()
         .await?;
