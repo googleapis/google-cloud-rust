@@ -2908,6 +2908,20 @@ impl wkt::message::Message for DatasetList {
     }
 }
 
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for DatasetList {
+    type PageItem = crate::model::ListFormatDataset;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.datasets
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Request format for undeleting a dataset.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -6328,6 +6342,20 @@ impl JobList {
 impl wkt::message::Message for JobList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.JobList"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for JobList {
+    type PageItem = crate::model::ListFormatJob;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.jobs
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -28587,6 +28615,20 @@ impl wkt::message::Message for ListModelsResponse {
     }
 }
 
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListModelsResponse {
+    type PageItem = crate::model::Model;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.models
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Id path of a model.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -32377,6 +32419,20 @@ impl ListRoutinesResponse {
 impl wkt::message::Message for ListRoutinesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.ListRoutinesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRoutinesResponse {
+    type PageItem = crate::model::Routine;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.routines
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -36402,6 +36458,20 @@ impl TableList {
 impl wkt::message::Message for TableList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.TableList"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for TableList {
+    type PageItem = crate::model::ListFormatTable;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.tables
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
