@@ -24,6 +24,10 @@ extern crate serde_with;
 extern crate std;
 extern crate wkt;
 
+mod debug;
+mod deserialize;
+mod serialize;
+
 /// Message used by AlloyDB connectors to exchange client and connection metadata
 /// with the server after a successful TLS handshake. This metadata includes an
 /// IAM token, which is used to authenticate users based on their IAM identity.
@@ -43,7 +47,7 @@ pub struct MetadataExchangeRequest {
     /// `alloydb.instances.connect` permission check.
     pub oauth2_token: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MetadataExchangeRequest {
@@ -78,156 +82,6 @@ impl MetadataExchangeRequest {
 impl wkt::message::Message for MetadataExchangeRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.alloydb.connectors.v1.MetadataExchangeRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for MetadataExchangeRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __user_agent,
-            __auth_type,
-            __oauth2_token,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for MetadataExchangeRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "userAgent" => Ok(__FieldTag::__user_agent),
-                            "user_agent" => Ok(__FieldTag::__user_agent),
-                            "authType" => Ok(__FieldTag::__auth_type),
-                            "auth_type" => Ok(__FieldTag::__auth_type),
-                            "oauth2Token" => Ok(__FieldTag::__oauth2_token),
-                            "oauth2_token" => Ok(__FieldTag::__oauth2_token),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = MetadataExchangeRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct MetadataExchangeRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__user_agent => {
-                            if !fields.insert(__FieldTag::__user_agent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for user_agent",
-                                ));
-                            }
-                            result.user_agent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__auth_type => {
-                            if !fields.insert(__FieldTag::__auth_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for auth_type",
-                                ));
-                            }
-                            result.auth_type = map
-                                .next_value::<std::option::Option<
-                                    crate::model::metadata_exchange_request::AuthType,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__oauth2_token => {
-                            if !fields.insert(__FieldTag::__oauth2_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for oauth2_token",
-                                ));
-                            }
-                            result.oauth2_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for MetadataExchangeRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.user_agent.is_empty() {
-            state.serialize_entry("userAgent", &self.user_agent)?;
-        }
-        if !wkt::internal::is_default(&self.auth_type) {
-            state.serialize_entry("authType", &self.auth_type)?;
-        }
-        if !self.oauth2_token.is_empty() {
-            state.serialize_entry("oauth2Token", &self.oauth2_token)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for MetadataExchangeRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("MetadataExchangeRequest");
-        debug_struct.field("user_agent", &self.user_agent);
-        debug_struct.field("auth_type", &self.auth_type);
-        debug_struct.field("oauth2_token", &self.oauth2_token);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -381,7 +235,7 @@ pub struct MetadataExchangeResponse {
     /// Optional. Error message.
     pub error: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MetadataExchangeResponse {
@@ -410,138 +264,6 @@ impl MetadataExchangeResponse {
 impl wkt::message::Message for MetadataExchangeResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.alloydb.connectors.v1.MetadataExchangeResponse"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for MetadataExchangeResponse {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __response_code,
-            __error,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for MetadataExchangeResponse")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "responseCode" => Ok(__FieldTag::__response_code),
-                            "response_code" => Ok(__FieldTag::__response_code),
-                            "error" => Ok(__FieldTag::__error),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = MetadataExchangeResponse;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct MetadataExchangeResponse")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__response_code => {
-                            if !fields.insert(__FieldTag::__response_code) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for response_code",
-                                ));
-                            }
-                            result.response_code = map
-                                .next_value::<std::option::Option<
-                                    crate::model::metadata_exchange_response::ResponseCode,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__error => {
-                            if !fields.insert(__FieldTag::__error) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for error",
-                                ));
-                            }
-                            result.error = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for MetadataExchangeResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.response_code) {
-            state.serialize_entry("responseCode", &self.response_code)?;
-        }
-        if !self.error.is_empty() {
-            state.serialize_entry("error", &self.error)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for MetadataExchangeResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("MetadataExchangeResponse");
-        debug_struct.field("response_code", &self.response_code);
-        debug_struct.field("error", &self.error);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 

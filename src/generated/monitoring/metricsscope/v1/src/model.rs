@@ -32,6 +32,10 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
+mod debug;
+mod deserialize;
+mod serialize;
+
 /// Represents a [Metrics
 /// Scope](https://cloud.google.com/monitoring/settings#concept-scope) in Cloud
 /// Monitoring, which specifies one or more Google projects and zero or more AWS
@@ -56,7 +60,7 @@ pub struct MetricsScope {
     /// Output only. The list of projects monitored by this `Metrics Scope`.
     pub monitored_projects: std::vec::Vec<crate::model::MonitoredProject>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MetricsScope {
@@ -124,170 +128,6 @@ impl wkt::message::Message for MetricsScope {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for MetricsScope {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __create_time,
-            __update_time,
-            __monitored_projects,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for MetricsScope")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "createTime" => Ok(__FieldTag::__create_time),
-                            "create_time" => Ok(__FieldTag::__create_time),
-                            "updateTime" => Ok(__FieldTag::__update_time),
-                            "update_time" => Ok(__FieldTag::__update_time),
-                            "monitoredProjects" => Ok(__FieldTag::__monitored_projects),
-                            "monitored_projects" => Ok(__FieldTag::__monitored_projects),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = MetricsScope;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct MetricsScope")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__create_time => {
-                            if !fields.insert(__FieldTag::__create_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for create_time",
-                                ));
-                            }
-                            result.create_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__update_time => {
-                            if !fields.insert(__FieldTag::__update_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for update_time",
-                                ));
-                            }
-                            result.update_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__monitored_projects => {
-                            if !fields.insert(__FieldTag::__monitored_projects) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for monitored_projects",
-                                ));
-                            }
-                            result.monitored_projects =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::MonitoredProject>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for MetricsScope {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.create_time.is_some() {
-            state.serialize_entry("createTime", &self.create_time)?;
-        }
-        if self.update_time.is_some() {
-            state.serialize_entry("updateTime", &self.update_time)?;
-        }
-        if !self.monitored_projects.is_empty() {
-            state.serialize_entry("monitoredProjects", &self.monitored_projects)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for MetricsScope {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("MetricsScope");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("update_time", &self.update_time);
-        debug_struct.field("monitored_projects", &self.monitored_projects);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// A [project being
 /// monitored](https://cloud.google.com/monitoring/settings/multiple-projects#create-multi)
 /// by a `Metrics Scope`.
@@ -304,7 +144,7 @@ pub struct MonitoredProject {
     /// Output only. The time when this `MonitoredProject` was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MonitoredProject {
@@ -343,135 +183,6 @@ impl wkt::message::Message for MonitoredProject {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for MonitoredProject {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __create_time,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for MonitoredProject")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "createTime" => Ok(__FieldTag::__create_time),
-                            "create_time" => Ok(__FieldTag::__create_time),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = MonitoredProject;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct MonitoredProject")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__create_time => {
-                            if !fields.insert(__FieldTag::__create_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for create_time",
-                                ));
-                            }
-                            result.create_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for MonitoredProject {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.create_time.is_some() {
-            state.serialize_entry("createTime", &self.create_time)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for MonitoredProject {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("MonitoredProject");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("create_time", &self.create_time);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for the `GetMetricsScope` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -481,7 +192,7 @@ pub struct GetMetricsScopeRequest {
     /// `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}`
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetMetricsScopeRequest {
@@ -502,119 +213,6 @@ impl wkt::message::Message for GetMetricsScopeRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GetMetricsScopeRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GetMetricsScopeRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GetMetricsScopeRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GetMetricsScopeRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GetMetricsScopeRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GetMetricsScopeRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetMetricsScopeRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for the `ListMetricsScopesByMonitoredProject` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -624,7 +222,7 @@ pub struct ListMetricsScopesByMonitoredProjectRequest {
     /// `projects/{MONITORED_PROJECT_ID_OR_NUMBER}`
     pub monitored_resource_container: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMetricsScopesByMonitoredProjectRequest {
@@ -648,132 +246,6 @@ impl wkt::message::Message for ListMetricsScopesByMonitoredProjectRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListMetricsScopesByMonitoredProjectRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __monitored_resource_container,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str(
-                            "a field name for ListMetricsScopesByMonitoredProjectRequest",
-                        )
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "monitoredResourceContainer" => {
-                                Ok(__FieldTag::__monitored_resource_container)
-                            }
-                            "monitored_resource_container" => {
-                                Ok(__FieldTag::__monitored_resource_container)
-                            }
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListMetricsScopesByMonitoredProjectRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListMetricsScopesByMonitoredProjectRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__monitored_resource_container => {
-                            if !fields.insert(__FieldTag::__monitored_resource_container) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for monitored_resource_container",
-                                ));
-                            }
-                            result.monitored_resource_container = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListMetricsScopesByMonitoredProjectRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.monitored_resource_container.is_empty() {
-            state.serialize_entry(
-                "monitoredResourceContainer",
-                &self.monitored_resource_container,
-            )?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListMetricsScopesByMonitoredProjectRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListMetricsScopesByMonitoredProjectRequest");
-        debug_struct.field(
-            "monitored_resource_container",
-            &self.monitored_resource_container,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Response for the `ListMetricsScopesByMonitoredProject` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -782,7 +254,7 @@ pub struct ListMetricsScopesByMonitoredProjectResponse {
     /// added to.
     pub metrics_scopes: std::vec::Vec<crate::model::MetricsScope>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMetricsScopesByMonitoredProjectResponse {
@@ -808,120 +280,6 @@ impl wkt::message::Message for ListMetricsScopesByMonitoredProjectResponse {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListMetricsScopesByMonitoredProjectResponse {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __metrics_scopes,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str(
-                            "a field name for ListMetricsScopesByMonitoredProjectResponse",
-                        )
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "metricsScopes" => Ok(__FieldTag::__metrics_scopes),
-                            "metrics_scopes" => Ok(__FieldTag::__metrics_scopes),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListMetricsScopesByMonitoredProjectResponse;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListMetricsScopesByMonitoredProjectResponse")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__metrics_scopes => {
-                            if !fields.insert(__FieldTag::__metrics_scopes) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for metrics_scopes",
-                                ));
-                            }
-                            result.metrics_scopes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::MetricsScope>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListMetricsScopesByMonitoredProjectResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.metrics_scopes.is_empty() {
-            state.serialize_entry("metricsScopes", &self.metrics_scopes)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListMetricsScopesByMonitoredProjectResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListMetricsScopesByMonitoredProjectResponse");
-        debug_struct.field("metrics_scopes", &self.metrics_scopes);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for the `CreateMonitoredProject` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -938,7 +296,7 @@ pub struct CreateMonitoredProjectRequest {
     /// `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}/projects/{MONITORED_PROJECT_ID_OR_NUMBER}`
     pub monitored_project: std::option::Option<crate::model::MonitoredProject>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateMonitoredProjectRequest {
@@ -977,136 +335,6 @@ impl wkt::message::Message for CreateMonitoredProjectRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for CreateMonitoredProjectRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __monitored_project,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CreateMonitoredProjectRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "monitoredProject" => Ok(__FieldTag::__monitored_project),
-                            "monitored_project" => Ok(__FieldTag::__monitored_project),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = CreateMonitoredProjectRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CreateMonitoredProjectRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__monitored_project => {
-                            if !fields.insert(__FieldTag::__monitored_project) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for monitored_project",
-                                ));
-                            }
-                            result.monitored_project = map
-                                .next_value::<std::option::Option<crate::model::MonitoredProject>>(
-                                )?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for CreateMonitoredProjectRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if self.monitored_project.is_some() {
-            state.serialize_entry("monitoredProject", &self.monitored_project)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for CreateMonitoredProjectRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateMonitoredProjectRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("monitored_project", &self.monitored_project);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for the `DeleteMonitoredProject` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1120,7 +348,7 @@ pub struct DeleteMonitoredProjectRequest {
     /// and on the `MonitoredProject`: `monitoring.metricsScopes.link`
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteMonitoredProjectRequest {
@@ -1141,119 +369,6 @@ impl wkt::message::Message for DeleteMonitoredProjectRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for DeleteMonitoredProjectRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for DeleteMonitoredProjectRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = DeleteMonitoredProjectRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct DeleteMonitoredProjectRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for DeleteMonitoredProjectRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for DeleteMonitoredProjectRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteMonitoredProjectRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Contains metadata for longrunning operation for the edit Metrics Scope
 /// endpoints.
 #[derive(Clone, Default, PartialEq)]
@@ -1268,7 +383,7 @@ pub struct OperationMetadata {
     /// The time when the operation result was last updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -1325,149 +440,6 @@ impl OperationMetadata {
 impl wkt::message::Message for OperationMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.monitoring.metricsscope.v1.OperationMetadata"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for OperationMetadata {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __state,
-            __create_time,
-            __update_time,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for OperationMetadata")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "state" => Ok(__FieldTag::__state),
-                            "createTime" => Ok(__FieldTag::__create_time),
-                            "create_time" => Ok(__FieldTag::__create_time),
-                            "updateTime" => Ok(__FieldTag::__update_time),
-                            "update_time" => Ok(__FieldTag::__update_time),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = OperationMetadata;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct OperationMetadata")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__state => {
-                            if !fields.insert(__FieldTag::__state) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for state",
-                                ));
-                            }
-                            result.state = map.next_value::<std::option::Option<crate::model::operation_metadata::State>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__create_time => {
-                            if !fields.insert(__FieldTag::__create_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for create_time",
-                                ));
-                            }
-                            result.create_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__update_time => {
-                            if !fields.insert(__FieldTag::__update_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for update_time",
-                                ));
-                            }
-                            result.update_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for OperationMetadata {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.state) {
-            state.serialize_entry("state", &self.state)?;
-        }
-        if self.create_time.is_some() {
-            state.serialize_entry("createTime", &self.create_time)?;
-        }
-        if self.update_time.is_some() {
-            state.serialize_entry("updateTime", &self.update_time)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for OperationMetadata {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("OperationMetadata");
-        debug_struct.field("state", &self.state);
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("update_time", &self.update_time);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 

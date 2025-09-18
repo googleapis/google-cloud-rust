@@ -33,6 +33,10 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
+mod debug;
+mod deserialize;
+mod serialize;
+
 /// Request for GetSchemaRegistry.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -42,7 +46,7 @@ pub struct GetSchemaRegistryRequest {
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}`
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSchemaRegistryRequest {
@@ -63,119 +67,6 @@ impl wkt::message::Message for GetSchemaRegistryRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GetSchemaRegistryRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GetSchemaRegistryRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GetSchemaRegistryRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GetSchemaRegistryRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GetSchemaRegistryRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GetSchemaRegistryRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetSchemaRegistryRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for ListSchemaRegistries.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -184,7 +75,7 @@ pub struct ListSchemaRegistriesRequest {
     /// Structured like: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSchemaRegistriesRequest {
@@ -205,119 +96,6 @@ impl wkt::message::Message for ListSchemaRegistriesRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListSchemaRegistriesRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListSchemaRegistriesRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListSchemaRegistriesRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListSchemaRegistriesRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListSchemaRegistriesRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListSchemaRegistriesRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSchemaRegistriesRequest");
-        debug_struct.field("parent", &self.parent);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for ListSchemaRegistries.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -325,7 +103,7 @@ pub struct ListSchemaRegistriesResponse {
     /// The schema registry instances.
     pub schema_registries: std::vec::Vec<crate::model::SchemaRegistry>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSchemaRegistriesResponse {
@@ -351,122 +129,6 @@ impl wkt::message::Message for ListSchemaRegistriesResponse {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListSchemaRegistriesResponse {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __schema_registries,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListSchemaRegistriesResponse")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "schemaRegistries" => Ok(__FieldTag::__schema_registries),
-                            "schema_registries" => Ok(__FieldTag::__schema_registries),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListSchemaRegistriesResponse;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListSchemaRegistriesResponse")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__schema_registries => {
-                            if !fields.insert(__FieldTag::__schema_registries) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_registries",
-                                ));
-                            }
-                            result.schema_registries =
-                                map.next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::SchemaRegistry>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListSchemaRegistriesResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.schema_registries.is_empty() {
-            state.serialize_entry("schemaRegistries", &self.schema_registries)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListSchemaRegistriesResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSchemaRegistriesResponse");
-        debug_struct.field("schema_registries", &self.schema_registries);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request to create a schema registry instance.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -485,7 +147,7 @@ pub struct CreateSchemaRegistryRequest {
     /// The name field is ignored.
     pub schema_registry: std::option::Option<crate::model::SchemaRegistry>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSchemaRegistryRequest {
@@ -533,153 +195,6 @@ impl wkt::message::Message for CreateSchemaRegistryRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for CreateSchemaRegistryRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __schema_registry_id,
-            __schema_registry,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CreateSchemaRegistryRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "schemaRegistryId" => Ok(__FieldTag::__schema_registry_id),
-                            "schema_registry_id" => Ok(__FieldTag::__schema_registry_id),
-                            "schemaRegistry" => Ok(__FieldTag::__schema_registry),
-                            "schema_registry" => Ok(__FieldTag::__schema_registry),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = CreateSchemaRegistryRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CreateSchemaRegistryRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__schema_registry_id => {
-                            if !fields.insert(__FieldTag::__schema_registry_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_registry_id",
-                                ));
-                            }
-                            result.schema_registry_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__schema_registry => {
-                            if !fields.insert(__FieldTag::__schema_registry) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_registry",
-                                ));
-                            }
-                            result.schema_registry = map
-                                .next_value::<std::option::Option<crate::model::SchemaRegistry>>(
-                                )?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for CreateSchemaRegistryRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if !self.schema_registry_id.is_empty() {
-            state.serialize_entry("schemaRegistryId", &self.schema_registry_id)?;
-        }
-        if self.schema_registry.is_some() {
-            state.serialize_entry("schemaRegistry", &self.schema_registry)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for CreateSchemaRegistryRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateSchemaRegistryRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("schema_registry_id", &self.schema_registry_id);
-        debug_struct.field("schema_registry", &self.schema_registry);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for DeleteSchemaRegistry.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -689,7 +204,7 @@ pub struct DeleteSchemaRegistryRequest {
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}`
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSchemaRegistryRequest {
@@ -710,119 +225,6 @@ impl wkt::message::Message for DeleteSchemaRegistryRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for DeleteSchemaRegistryRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for DeleteSchemaRegistryRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = DeleteSchemaRegistryRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct DeleteSchemaRegistryRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for DeleteSchemaRegistryRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for DeleteSchemaRegistryRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteSchemaRegistryRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for GetContext
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -831,7 +233,7 @@ pub struct GetContextRequest {
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/contexts/{context}`
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetContextRequest {
@@ -852,119 +254,6 @@ impl wkt::message::Message for GetContextRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GetContextRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GetContextRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GetContextRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GetContextRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GetContextRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GetContextRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetContextRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for ListContexts.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -973,7 +262,7 @@ pub struct ListContextsRequest {
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}`
     pub parent: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListContextsRequest {
@@ -994,119 +283,6 @@ impl wkt::message::Message for ListContextsRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListContextsRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListContextsRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListContextsRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListContextsRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListContextsRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListContextsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListContextsRequest");
-        debug_struct.field("parent", &self.parent);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for GetSchema.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1120,7 +296,7 @@ pub struct GetSchemaRequest {
     /// specified context.
     pub subject: std::option::Option<std::string::String>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSchemaRequest {
@@ -1159,134 +335,6 @@ impl wkt::message::Message for GetSchemaRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GetSchemaRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __subject,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GetSchemaRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "subject" => Ok(__FieldTag::__subject),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GetSchemaRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GetSchemaRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__subject => {
-                            if !fields.insert(__FieldTag::__subject) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for subject",
-                                ));
-                            }
-                            result.subject =
-                                map.next_value::<std::option::Option<std::string::String>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GetSchemaRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.subject.is_some() {
-            state.serialize_entry("subject", &self.subject)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GetSchemaRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetSchemaRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("subject", &self.subject);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for ListSchemaTypes.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1296,7 +344,7 @@ pub struct ListSchemaTypesRequest {
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}`
     pub parent: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSchemaTypesRequest {
@@ -1314,119 +362,6 @@ impl ListSchemaTypesRequest {
 impl wkt::message::Message for ListSchemaTypesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.managedkafka.schemaregistry.v1.ListSchemaTypesRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListSchemaTypesRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListSchemaTypesRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListSchemaTypesRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListSchemaTypesRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListSchemaTypesRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListSchemaTypesRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSchemaTypesRequest");
-        debug_struct.field("parent", &self.parent);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -1448,7 +383,7 @@ pub struct ListSchemaVersionsRequest {
     /// schema, even if the subject is soft-deleted. The default is false.
     pub deleted: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSchemaVersionsRequest {
@@ -1505,148 +440,6 @@ impl wkt::message::Message for ListSchemaVersionsRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListSchemaVersionsRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __subject,
-            __deleted,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListSchemaVersionsRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "subject" => Ok(__FieldTag::__subject),
-                            "deleted" => Ok(__FieldTag::__deleted),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListSchemaVersionsRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListSchemaVersionsRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__subject => {
-                            if !fields.insert(__FieldTag::__subject) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for subject",
-                                ));
-                            }
-                            result.subject =
-                                map.next_value::<std::option::Option<std::string::String>>()?;
-                        }
-                        __FieldTag::__deleted => {
-                            if !fields.insert(__FieldTag::__deleted) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for deleted",
-                                ));
-                            }
-                            result.deleted = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListSchemaVersionsRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if self.subject.is_some() {
-            state.serialize_entry("subject", &self.subject)?;
-        }
-        if self.deleted.is_some() {
-            state.serialize_entry("deleted", &self.deleted)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListSchemaVersionsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSchemaVersionsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("subject", &self.subject);
-        debug_struct.field("deleted", &self.deleted);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for listing subjects.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1669,7 +462,7 @@ pub struct ListSubjectsRequest {
     /// default is false.
     pub deleted: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSubjectsRequest {
@@ -1726,149 +519,6 @@ impl wkt::message::Message for ListSubjectsRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListSubjectsRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __subject_prefix,
-            __deleted,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListSubjectsRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "subjectPrefix" => Ok(__FieldTag::__subject_prefix),
-                            "subject_prefix" => Ok(__FieldTag::__subject_prefix),
-                            "deleted" => Ok(__FieldTag::__deleted),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListSubjectsRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListSubjectsRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__subject_prefix => {
-                            if !fields.insert(__FieldTag::__subject_prefix) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for subject_prefix",
-                                ));
-                            }
-                            result.subject_prefix =
-                                map.next_value::<std::option::Option<std::string::String>>()?;
-                        }
-                        __FieldTag::__deleted => {
-                            if !fields.insert(__FieldTag::__deleted) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for deleted",
-                                ));
-                            }
-                            result.deleted = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListSubjectsRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if self.subject_prefix.is_some() {
-            state.serialize_entry("subjectPrefix", &self.subject_prefix)?;
-        }
-        if self.deleted.is_some() {
-            state.serialize_entry("deleted", &self.deleted)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListSubjectsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSubjectsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("subject_prefix", &self.subject_prefix);
-        debug_struct.field("deleted", &self.deleted);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for listing subjects.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1887,7 +537,7 @@ pub struct ListSubjectsBySchemaIdRequest {
     /// default is false.
     pub deleted: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSubjectsBySchemaIdRequest {
@@ -1944,148 +594,6 @@ impl wkt::message::Message for ListSubjectsBySchemaIdRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListSubjectsBySchemaIdRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __subject,
-            __deleted,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListSubjectsBySchemaIdRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "subject" => Ok(__FieldTag::__subject),
-                            "deleted" => Ok(__FieldTag::__deleted),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListSubjectsBySchemaIdRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListSubjectsBySchemaIdRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__subject => {
-                            if !fields.insert(__FieldTag::__subject) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for subject",
-                                ));
-                            }
-                            result.subject =
-                                map.next_value::<std::option::Option<std::string::String>>()?;
-                        }
-                        __FieldTag::__deleted => {
-                            if !fields.insert(__FieldTag::__deleted) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for deleted",
-                                ));
-                            }
-                            result.deleted = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListSubjectsBySchemaIdRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if self.subject.is_some() {
-            state.serialize_entry("subject", &self.subject)?;
-        }
-        if self.deleted.is_some() {
-            state.serialize_entry("deleted", &self.deleted)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListSubjectsBySchemaIdRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSubjectsBySchemaIdRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("subject", &self.subject);
-        debug_struct.field("deleted", &self.deleted);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for GetVersions.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2100,7 +608,7 @@ pub struct ListVersionsRequest {
     /// active or soft-deleted subject. The default is false.
     pub deleted: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVersionsRequest {
@@ -2139,133 +647,6 @@ impl wkt::message::Message for ListVersionsRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListVersionsRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __deleted,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListVersionsRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "deleted" => Ok(__FieldTag::__deleted),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListVersionsRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListVersionsRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__deleted => {
-                            if !fields.insert(__FieldTag::__deleted) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for deleted",
-                                ));
-                            }
-                            result.deleted = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListVersionsRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if self.deleted.is_some() {
-            state.serialize_entry("deleted", &self.deleted)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListVersionsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListVersionsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("deleted", &self.deleted);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for DeleteSubject.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2283,7 +664,7 @@ pub struct DeleteSubjectRequest {
     /// soft-delete of a subject must be performed before a hard-delete.
     pub permanent: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSubjectRequest {
@@ -2322,133 +703,6 @@ impl wkt::message::Message for DeleteSubjectRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for DeleteSubjectRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __permanent,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for DeleteSubjectRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "permanent" => Ok(__FieldTag::__permanent),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = DeleteSubjectRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct DeleteSubjectRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__permanent => {
-                            if !fields.insert(__FieldTag::__permanent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for permanent",
-                                ));
-                            }
-                            result.permanent = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for DeleteSubjectRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.permanent.is_some() {
-            state.serialize_entry("permanent", &self.permanent)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for DeleteSubjectRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteSubjectRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("permanent", &self.permanent);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for GetVersion.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2464,7 +718,7 @@ pub struct GetVersionRequest {
     /// subject/version is soft-deleted. The default is false.
     pub deleted: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetVersionRequest {
@@ -2503,133 +757,6 @@ impl wkt::message::Message for GetVersionRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GetVersionRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __deleted,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GetVersionRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "deleted" => Ok(__FieldTag::__deleted),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GetVersionRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GetVersionRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__deleted => {
-                            if !fields.insert(__FieldTag::__deleted) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for deleted",
-                                ));
-                            }
-                            result.deleted = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GetVersionRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.deleted.is_some() {
-            state.serialize_entry("deleted", &self.deleted)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GetVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetVersionRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("deleted", &self.deleted);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for CreateVersion.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2665,7 +792,7 @@ pub struct CreateVersionRequest {
     /// default is false.
     pub normalize: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateVersionRequest {
@@ -2775,255 +902,6 @@ impl wkt::message::Message for CreateVersionRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for CreateVersionRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __version,
-            __id,
-            __schema_type,
-            __schema,
-            __references,
-            __normalize,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CreateVersionRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "version" => Ok(__FieldTag::__version),
-                            "id" => Ok(__FieldTag::__id),
-                            "schemaType" => Ok(__FieldTag::__schema_type),
-                            "schema_type" => Ok(__FieldTag::__schema_type),
-                            "schema" => Ok(__FieldTag::__schema),
-                            "references" => Ok(__FieldTag::__references),
-                            "normalize" => Ok(__FieldTag::__normalize),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = CreateVersionRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CreateVersionRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__version => {
-                            if !fields.insert(__FieldTag::__version) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for version",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.version = map.next_value::<__With>()?.0;
-                        }
-                        __FieldTag::__id => {
-                            if !fields.insert(__FieldTag::__id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for id",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.id = map.next_value::<__With>()?.0;
-                        }
-                        __FieldTag::__schema_type => {
-                            if !fields.insert(__FieldTag::__schema_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_type",
-                                ));
-                            }
-                            result.schema_type = map.next_value::<std::option::Option<crate::model::schema::SchemaType>>()?
-                                ;
-                        }
-                        __FieldTag::__schema => {
-                            if !fields.insert(__FieldTag::__schema) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema",
-                                ));
-                            }
-                            result.schema = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__references => {
-                            if !fields.insert(__FieldTag::__references) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for references",
-                                ));
-                            }
-                            result.references = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::schema::SchemaReference>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__normalize => {
-                            if !fields.insert(__FieldTag::__normalize) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for normalize",
-                                ));
-                            }
-                            result.normalize = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for CreateVersionRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if self.version.is_some() {
-            struct __With<'a>(&'a std::option::Option<i32>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("version", &__With(&self.version))?;
-        }
-        if self.id.is_some() {
-            struct __With<'a>(&'a std::option::Option<i32>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("id", &__With(&self.id))?;
-        }
-        if self.schema_type.is_some() {
-            state.serialize_entry("schemaType", &self.schema_type)?;
-        }
-        if !self.schema.is_empty() {
-            state.serialize_entry("schema", &self.schema)?;
-        }
-        if !self.references.is_empty() {
-            state.serialize_entry("references", &self.references)?;
-        }
-        if self.normalize.is_some() {
-            state.serialize_entry("normalize", &self.normalize)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for CreateVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateVersionRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("version", &self.version);
-        debug_struct.field("id", &self.id);
-        debug_struct.field("schema_type", &self.schema_type);
-        debug_struct.field("schema", &self.schema);
-        debug_struct.field("references", &self.references);
-        debug_struct.field("normalize", &self.normalize);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Response for CreateVersion.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -3031,7 +909,7 @@ pub struct CreateVersionResponse {
     /// The unique identifier of the schema created.
     pub id: i32,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateVersionResponse {
@@ -3049,137 +927,6 @@ impl CreateVersionResponse {
 impl wkt::message::Message for CreateVersionResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.managedkafka.schemaregistry.v1.CreateVersionResponse"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for CreateVersionResponse {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __id,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CreateVersionResponse")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "id" => Ok(__FieldTag::__id),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = CreateVersionResponse;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CreateVersionResponse")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__id => {
-                            if !fields.insert(__FieldTag::__id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for id",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.id = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for CreateVersionResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.id) {
-            struct __With<'a>(&'a i32);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("id", &__With(&self.id))?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for CreateVersionResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateVersionResponse");
-        debug_struct.field("id", &self.id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -3211,7 +958,7 @@ pub struct LookupVersionRequest {
     /// versions will be excluded. The default is false.
     pub deleted: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LookupVersionRequest {
@@ -3303,197 +1050,6 @@ impl wkt::message::Message for LookupVersionRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for LookupVersionRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __schema_type,
-            __schema,
-            __references,
-            __normalize,
-            __deleted,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for LookupVersionRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "schemaType" => Ok(__FieldTag::__schema_type),
-                            "schema_type" => Ok(__FieldTag::__schema_type),
-                            "schema" => Ok(__FieldTag::__schema),
-                            "references" => Ok(__FieldTag::__references),
-                            "normalize" => Ok(__FieldTag::__normalize),
-                            "deleted" => Ok(__FieldTag::__deleted),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = LookupVersionRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct LookupVersionRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__schema_type => {
-                            if !fields.insert(__FieldTag::__schema_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_type",
-                                ));
-                            }
-                            result.schema_type = map.next_value::<std::option::Option<crate::model::schema::SchemaType>>()?
-                                ;
-                        }
-                        __FieldTag::__schema => {
-                            if !fields.insert(__FieldTag::__schema) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema",
-                                ));
-                            }
-                            result.schema = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__references => {
-                            if !fields.insert(__FieldTag::__references) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for references",
-                                ));
-                            }
-                            result.references = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::schema::SchemaReference>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__normalize => {
-                            if !fields.insert(__FieldTag::__normalize) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for normalize",
-                                ));
-                            }
-                            result.normalize = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::__deleted => {
-                            if !fields.insert(__FieldTag::__deleted) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for deleted",
-                                ));
-                            }
-                            result.deleted = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for LookupVersionRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if self.schema_type.is_some() {
-            state.serialize_entry("schemaType", &self.schema_type)?;
-        }
-        if !self.schema.is_empty() {
-            state.serialize_entry("schema", &self.schema)?;
-        }
-        if !self.references.is_empty() {
-            state.serialize_entry("references", &self.references)?;
-        }
-        if self.normalize.is_some() {
-            state.serialize_entry("normalize", &self.normalize)?;
-        }
-        if self.deleted.is_some() {
-            state.serialize_entry("deleted", &self.deleted)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for LookupVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("LookupVersionRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("schema_type", &self.schema_type);
-        debug_struct.field("schema", &self.schema);
-        debug_struct.field("references", &self.references);
-        debug_struct.field("normalize", &self.normalize);
-        debug_struct.field("deleted", &self.deleted);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for DeleteVersion.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -3511,7 +1067,7 @@ pub struct DeleteVersionRequest {
     /// soft-delete of a version must be performed before a hard-delete.
     pub permanent: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteVersionRequest {
@@ -3550,133 +1106,6 @@ impl wkt::message::Message for DeleteVersionRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for DeleteVersionRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __permanent,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for DeleteVersionRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "permanent" => Ok(__FieldTag::__permanent),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = DeleteVersionRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct DeleteVersionRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__permanent => {
-                            if !fields.insert(__FieldTag::__permanent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for permanent",
-                                ));
-                            }
-                            result.permanent = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for DeleteVersionRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.permanent.is_some() {
-            state.serialize_entry("permanent", &self.permanent)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for DeleteVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteVersionRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("permanent", &self.permanent);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for ListReferencedSchemas.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -3687,7 +1116,7 @@ pub struct ListReferencedSchemasRequest {
     /// `projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/contexts/{context}/subjects/{subject}/versions/{version}`
     pub parent: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReferencedSchemasRequest {
@@ -3705,119 +1134,6 @@ impl ListReferencedSchemasRequest {
 impl wkt::message::Message for ListReferencedSchemasRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.managedkafka.schemaregistry.v1.ListReferencedSchemasRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListReferencedSchemasRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListReferencedSchemasRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListReferencedSchemasRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListReferencedSchemasRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListReferencedSchemasRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListReferencedSchemasRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListReferencedSchemasRequest");
-        debug_struct.field("parent", &self.parent);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -3847,7 +1163,7 @@ pub struct CheckCompatibilityRequest {
     /// with reasons for failed checks. The default is false.
     pub verbose: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CheckCompatibilityRequest {
@@ -3921,183 +1237,6 @@ impl wkt::message::Message for CheckCompatibilityRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for CheckCompatibilityRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __schema_type,
-            __schema,
-            __references,
-            __verbose,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CheckCompatibilityRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "schemaType" => Ok(__FieldTag::__schema_type),
-                            "schema_type" => Ok(__FieldTag::__schema_type),
-                            "schema" => Ok(__FieldTag::__schema),
-                            "references" => Ok(__FieldTag::__references),
-                            "verbose" => Ok(__FieldTag::__verbose),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = CheckCompatibilityRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CheckCompatibilityRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__schema_type => {
-                            if !fields.insert(__FieldTag::__schema_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_type",
-                                ));
-                            }
-                            result.schema_type = map.next_value::<std::option::Option<crate::model::schema::SchemaType>>()?
-                                ;
-                        }
-                        __FieldTag::__schema => {
-                            if !fields.insert(__FieldTag::__schema) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema",
-                                ));
-                            }
-                            result.schema = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__references => {
-                            if !fields.insert(__FieldTag::__references) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for references",
-                                ));
-                            }
-                            result.references = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::schema::SchemaReference>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__verbose => {
-                            if !fields.insert(__FieldTag::__verbose) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for verbose",
-                                ));
-                            }
-                            result.verbose = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for CheckCompatibilityRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.schema_type.is_some() {
-            state.serialize_entry("schemaType", &self.schema_type)?;
-        }
-        if !self.schema.is_empty() {
-            state.serialize_entry("schema", &self.schema)?;
-        }
-        if !self.references.is_empty() {
-            state.serialize_entry("references", &self.references)?;
-        }
-        if self.verbose.is_some() {
-            state.serialize_entry("verbose", &self.verbose)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for CheckCompatibilityRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CheckCompatibilityRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("schema_type", &self.schema_type);
-        debug_struct.field("schema", &self.schema);
-        debug_struct.field("references", &self.references);
-        debug_struct.field("verbose", &self.verbose);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Response for CheckCompatibility.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4109,7 +1248,7 @@ pub struct CheckCompatibilityResponse {
     /// Failure reasons if verbose = true.
     pub messages: std::vec::Vec<std::string::String>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CheckCompatibilityResponse {
@@ -4141,133 +1280,6 @@ impl wkt::message::Message for CheckCompatibilityResponse {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for CheckCompatibilityResponse {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __is_compatible,
-            __messages,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CheckCompatibilityResponse")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "is_compatible" => Ok(__FieldTag::__is_compatible),
-                            "messages" => Ok(__FieldTag::__messages),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = CheckCompatibilityResponse;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CheckCompatibilityResponse")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__is_compatible => {
-                            if !fields.insert(__FieldTag::__is_compatible) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for is_compatible",
-                                ));
-                            }
-                            result.is_compatible = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__messages => {
-                            if !fields.insert(__FieldTag::__messages) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for messages",
-                                ));
-                            }
-                            result.messages = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for CheckCompatibilityResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.is_compatible) {
-            state.serialize_entry("is_compatible", &self.is_compatible)?;
-        }
-        if !self.messages.is_empty() {
-            state.serialize_entry("messages", &self.messages)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for CheckCompatibilityResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CheckCompatibilityResponse");
-        debug_struct.field("is_compatible", &self.is_compatible);
-        debug_struct.field("messages", &self.messages);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for getting config.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4283,7 +1295,7 @@ pub struct GetSchemaConfigRequest {
     /// level if no subject level config is found.
     pub default_to_global: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSchemaConfigRequest {
@@ -4322,135 +1334,6 @@ impl wkt::message::Message for GetSchemaConfigRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GetSchemaConfigRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __default_to_global,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GetSchemaConfigRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "defaultToGlobal" => Ok(__FieldTag::__default_to_global),
-                            "default_to_global" => Ok(__FieldTag::__default_to_global),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GetSchemaConfigRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GetSchemaConfigRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__default_to_global => {
-                            if !fields.insert(__FieldTag::__default_to_global) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for default_to_global",
-                                ));
-                            }
-                            result.default_to_global =
-                                map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GetSchemaConfigRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.default_to_global.is_some() {
-            state.serialize_entry("defaultToGlobal", &self.default_to_global)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GetSchemaConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetSchemaConfigRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("default_to_global", &self.default_to_global);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for updating schema config.
 /// On a SchemaSubject-level SchemaConfig, an unset field will be removed from
 /// the SchemaConfig.
@@ -4476,7 +1359,7 @@ pub struct UpdateSchemaConfigRequest {
     /// normalize field for the SchemaConfig.
     pub normalize: std::option::Option<bool>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSchemaConfigRequest {
@@ -4533,149 +1416,6 @@ impl wkt::message::Message for UpdateSchemaConfigRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for UpdateSchemaConfigRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __compatibility,
-            __normalize,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for UpdateSchemaConfigRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "compatibility" => Ok(__FieldTag::__compatibility),
-                            "normalize" => Ok(__FieldTag::__normalize),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = UpdateSchemaConfigRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct UpdateSchemaConfigRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__compatibility => {
-                            if !fields.insert(__FieldTag::__compatibility) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for compatibility",
-                                ));
-                            }
-                            result.compatibility = map.next_value::<std::option::Option<
-                                crate::model::schema_config::CompatibilityType,
-                            >>()?;
-                        }
-                        __FieldTag::__normalize => {
-                            if !fields.insert(__FieldTag::__normalize) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for normalize",
-                                ));
-                            }
-                            result.normalize = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for UpdateSchemaConfigRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.compatibility.is_some() {
-            state.serialize_entry("compatibility", &self.compatibility)?;
-        }
-        if self.normalize.is_some() {
-            state.serialize_entry("normalize", &self.normalize)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for UpdateSchemaConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateSchemaConfigRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("compatibility", &self.compatibility);
-        debug_struct.field("normalize", &self.normalize);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for deleting schema config.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4686,7 +1426,7 @@ pub struct DeleteSchemaConfigRequest {
     /// * projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/config/{subject}
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSchemaConfigRequest {
@@ -4707,119 +1447,6 @@ impl wkt::message::Message for DeleteSchemaConfigRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for DeleteSchemaConfigRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for DeleteSchemaConfigRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = DeleteSchemaConfigRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct DeleteSchemaConfigRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for DeleteSchemaConfigRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for DeleteSchemaConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteSchemaConfigRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for getting schema registry or subject mode.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4830,7 +1457,7 @@ pub struct GetSchemaModeRequest {
     /// * projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/contexts/{context}/mode/{subject}: mode for a specific subject in a specific context
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSchemaModeRequest {
@@ -4851,119 +1478,6 @@ impl wkt::message::Message for GetSchemaModeRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GetSchemaModeRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GetSchemaModeRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GetSchemaModeRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GetSchemaModeRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GetSchemaModeRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GetSchemaModeRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetSchemaModeRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for updating schema registry or subject mode.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4977,7 +1491,7 @@ pub struct UpdateSchemaModeRequest {
     /// Required. The mode type.
     pub mode: crate::model::schema_mode::ModeType,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSchemaModeRequest {
@@ -5007,133 +1521,6 @@ impl wkt::message::Message for UpdateSchemaModeRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for UpdateSchemaModeRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __mode,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for UpdateSchemaModeRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "mode" => Ok(__FieldTag::__mode),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = UpdateSchemaModeRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct UpdateSchemaModeRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__mode => {
-                            if !fields.insert(__FieldTag::__mode) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for mode",
-                                ));
-                            }
-                            result.mode = map.next_value::<std::option::Option<crate::model::schema_mode::ModeType>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for UpdateSchemaModeRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !wkt::internal::is_default(&self.mode) {
-            state.serialize_entry("mode", &self.mode)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for UpdateSchemaModeRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateSchemaModeRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("mode", &self.mode);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for deleting schema mode.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5145,7 +1532,7 @@ pub struct DeleteSchemaModeRequest {
     /// * projects/{project}/locations/{location}/schemaRegistries/{schema_registry}/contexts/{context}/mode/{subject}
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSchemaModeRequest {
@@ -5166,119 +1553,6 @@ impl wkt::message::Message for DeleteSchemaModeRequest {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for DeleteSchemaModeRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for DeleteSchemaModeRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = DeleteSchemaModeRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct DeleteSchemaModeRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for DeleteSchemaModeRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for DeleteSchemaModeRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteSchemaModeRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// SchemaRegistry is a schema registry instance.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5294,7 +1568,7 @@ pub struct SchemaRegistry {
     /// Output only. The contexts of the schema registry instance.
     pub contexts: std::vec::Vec<std::string::String>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SchemaRegistry {
@@ -5326,133 +1600,6 @@ impl wkt::message::Message for SchemaRegistry {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for SchemaRegistry {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __contexts,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for SchemaRegistry")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "contexts" => Ok(__FieldTag::__contexts),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = SchemaRegistry;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct SchemaRegistry")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__contexts => {
-                            if !fields.insert(__FieldTag::__contexts) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for contexts",
-                                ));
-                            }
-                            result.contexts = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for SchemaRegistry {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.contexts.is_empty() {
-            state.serialize_entry("contexts", &self.contexts)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for SchemaRegistry {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SchemaRegistry");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("contexts", &self.contexts);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Context represents an independent schema grouping in a schema registry
 /// instance.
 #[derive(Clone, Default, PartialEq)]
@@ -5470,7 +1617,7 @@ pub struct Context {
     /// Optional. The subjects of the context.
     pub subjects: std::vec::Vec<std::string::String>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Context {
@@ -5502,133 +1649,6 @@ impl wkt::message::Message for Context {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for Context {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __subjects,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for Context")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "subjects" => Ok(__FieldTag::__subjects),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = Context;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct Context")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__subjects => {
-                            if !fields.insert(__FieldTag::__subjects) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for subjects",
-                                ));
-                            }
-                            result.subjects = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for Context {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.subjects.is_empty() {
-            state.serialize_entry("subjects", &self.subjects)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for Context {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Context");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("subjects", &self.subjects);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Schema for a Kafka message.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5642,7 +1662,7 @@ pub struct Schema {
     /// Optional. The schema references used by the schema.
     pub references: std::vec::Vec<crate::model::schema::SchemaReference>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Schema {
@@ -5683,153 +1703,6 @@ impl wkt::message::Message for Schema {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for Schema {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __schema_type,
-            __schema_payload,
-            __references,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for Schema")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "schemaType" => Ok(__FieldTag::__schema_type),
-                            "schema_type" => Ok(__FieldTag::__schema_type),
-                            "schema" => Ok(__FieldTag::__schema_payload),
-                            "schema_payload" => Ok(__FieldTag::__schema_payload),
-                            "references" => Ok(__FieldTag::__references),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = Schema;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct Schema")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__schema_type => {
-                            if !fields.insert(__FieldTag::__schema_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_type",
-                                ));
-                            }
-                            result.schema_type = map.next_value::<std::option::Option<crate::model::schema::SchemaType>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__schema_payload => {
-                            if !fields.insert(__FieldTag::__schema_payload) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_payload",
-                                ));
-                            }
-                            result.schema_payload = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__references => {
-                            if !fields.insert(__FieldTag::__references) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for references",
-                                ));
-                            }
-                            result.references = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::schema::SchemaReference>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for Schema {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.schema_type) {
-            state.serialize_entry("schemaType", &self.schema_type)?;
-        }
-        if !self.schema_payload.is_empty() {
-            state.serialize_entry("schema", &self.schema_payload)?;
-        }
-        if !self.references.is_empty() {
-            state.serialize_entry("references", &self.references)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for Schema {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Schema");
-        debug_struct.field("schema_type", &self.schema_type);
-        debug_struct.field("schema_payload", &self.schema_payload);
-        debug_struct.field("references", &self.references);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Defines additional types related to [Schema].
 pub mod schema {
     #[allow(unused_imports)]
@@ -5848,7 +1721,7 @@ pub mod schema {
         /// Required. The version of the reference.
         pub version: i32,
 
-        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SchemaReference {
@@ -5878,172 +1751,6 @@ pub mod schema {
     impl wkt::message::Message for SchemaReference {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.managedkafka.schemaregistry.v1.Schema.SchemaReference"
-        }
-    }
-
-    #[doc(hidden)]
-    impl<'de> serde::de::Deserialize<'de> for SchemaReference {
-        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-        where
-            D: serde::Deserializer<'de>,
-        {
-            #[allow(non_camel_case_types)]
-            #[doc(hidden)]
-            #[derive(PartialEq, Eq, Hash)]
-            enum __FieldTag {
-                __name,
-                __subject,
-                __version,
-                Unknown(std::string::String),
-            }
-            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-                where
-                    D: serde::Deserializer<'de>,
-                {
-                    struct Visitor;
-                    impl<'de> serde::de::Visitor<'de> for Visitor {
-                        type Value = __FieldTag;
-                        fn expecting(
-                            &self,
-                            formatter: &mut std::fmt::Formatter,
-                        ) -> std::fmt::Result {
-                            formatter.write_str("a field name for SchemaReference")
-                        }
-                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                        where
-                            E: serde::de::Error,
-                        {
-                            use std::result::Result::Ok;
-                            use std::string::ToString;
-                            match value {
-                                "name" => Ok(__FieldTag::__name),
-                                "subject" => Ok(__FieldTag::__subject),
-                                "version" => Ok(__FieldTag::__version),
-                                _ => Ok(__FieldTag::Unknown(value.to_string())),
-                            }
-                        }
-                    }
-                    deserializer.deserialize_identifier(Visitor)
-                }
-            }
-            struct Visitor;
-            impl<'de> serde::de::Visitor<'de> for Visitor {
-                type Value = SchemaReference;
-                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                    formatter.write_str("struct SchemaReference")
-                }
-                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-                where
-                    A: serde::de::MapAccess<'de>,
-                {
-                    #[allow(unused_imports)]
-                    use serde::de::Error;
-                    use std::option::Option::Some;
-                    let mut fields = std::collections::HashSet::new();
-                    let mut result = Self::Value::new();
-                    while let Some(tag) = map.next_key::<__FieldTag>()? {
-                        #[allow(clippy::match_single_binding)]
-                        match tag {
-                            __FieldTag::__name => {
-                                if !fields.insert(__FieldTag::__name) {
-                                    return std::result::Result::Err(A::Error::duplicate_field(
-                                        "multiple values for name",
-                                    ));
-                                }
-                                result.name = map
-                                    .next_value::<std::option::Option<std::string::String>>()?
-                                    .unwrap_or_default();
-                            }
-                            __FieldTag::__subject => {
-                                if !fields.insert(__FieldTag::__subject) {
-                                    return std::result::Result::Err(A::Error::duplicate_field(
-                                        "multiple values for subject",
-                                    ));
-                                }
-                                result.subject = map
-                                    .next_value::<std::option::Option<std::string::String>>()?
-                                    .unwrap_or_default();
-                            }
-                            __FieldTag::__version => {
-                                if !fields.insert(__FieldTag::__version) {
-                                    return std::result::Result::Err(A::Error::duplicate_field(
-                                        "multiple values for version",
-                                    ));
-                                }
-                                struct __With(std::option::Option<i32>);
-                                impl<'de> serde::de::Deserialize<'de> for __With {
-                                    fn deserialize<D>(
-                                        deserializer: D,
-                                    ) -> std::result::Result<Self, D::Error>
-                                    where
-                                        D: serde::de::Deserializer<'de>,
-                                    {
-                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                    }
-                                }
-                                result.version = map.next_value::<__With>()?.0.unwrap_or_default();
-                            }
-                            __FieldTag::Unknown(key) => {
-                                let value = map.next_value::<serde_json::Value>()?;
-                                result._unknown_fields.insert(key, value);
-                            }
-                        }
-                    }
-                    std::result::Result::Ok(result)
-                }
-            }
-            deserializer.deserialize_any(Visitor)
-        }
-    }
-
-    #[doc(hidden)]
-    impl serde::ser::Serialize for SchemaReference {
-        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-        where
-            S: serde::ser::Serializer,
-        {
-            use serde::ser::SerializeMap;
-            #[allow(unused_imports)]
-            use std::option::Option::Some;
-            let mut state = serializer.serialize_map(std::option::Option::None)?;
-            if !self.name.is_empty() {
-                state.serialize_entry("name", &self.name)?;
-            }
-            if !self.subject.is_empty() {
-                state.serialize_entry("subject", &self.subject)?;
-            }
-            if !wkt::internal::is_default(&self.version) {
-                struct __With<'a>(&'a i32);
-                impl<'a> serde::ser::Serialize for __With<'a> {
-                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                    where
-                        S: serde::ser::Serializer,
-                    {
-                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
-                    }
-                }
-                state.serialize_entry("version", &__With(&self.version))?;
-            }
-            if !self._unknown_fields.is_empty() {
-                for (key, value) in self._unknown_fields.iter() {
-                    state.serialize_entry(key, &value)?;
-                }
-            }
-            state.end()
-        }
-    }
-
-    impl std::fmt::Debug for SchemaReference {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            let mut debug_struct = f.debug_struct("SchemaReference");
-            debug_struct.field("name", &self.name);
-            debug_struct.field("subject", &self.subject);
-            debug_struct.field("version", &self.version);
-            if !self._unknown_fields.is_empty() {
-                debug_struct.field("_unknown_fields", &self._unknown_fields);
-            }
-            debug_struct.finish()
         }
     }
 
@@ -6207,7 +1914,7 @@ pub struct SchemaSubject {
     /// The versions of the subject.
     pub versions: std::vec::Vec<std::string::String>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SchemaSubject {
@@ -6239,133 +1946,6 @@ impl wkt::message::Message for SchemaSubject {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for SchemaSubject {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __versions,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for SchemaSubject")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "versions" => Ok(__FieldTag::__versions),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = SchemaSubject;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct SchemaSubject")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__versions => {
-                            if !fields.insert(__FieldTag::__versions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for versions",
-                                ));
-                            }
-                            result.versions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for SchemaSubject {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.versions.is_empty() {
-            state.serialize_entry("versions", &self.versions)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for SchemaSubject {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SchemaSubject");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("versions", &self.versions);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Version of a schema.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -6388,7 +1968,7 @@ pub struct SchemaVersion {
     /// Optional. The schema references used by the schema.
     pub references: std::vec::Vec<crate::model::schema::SchemaReference>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SchemaVersion {
@@ -6447,239 +2027,6 @@ impl wkt::message::Message for SchemaVersion {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for SchemaVersion {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __subject,
-            __version_id,
-            __schema_id,
-            __schema_type,
-            __schema_payload,
-            __references,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for SchemaVersion")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "subject" => Ok(__FieldTag::__subject),
-                            "version" => Ok(__FieldTag::__version_id),
-                            "version_id" => Ok(__FieldTag::__version_id),
-                            "id" => Ok(__FieldTag::__schema_id),
-                            "schema_id" => Ok(__FieldTag::__schema_id),
-                            "schemaType" => Ok(__FieldTag::__schema_type),
-                            "schema_type" => Ok(__FieldTag::__schema_type),
-                            "schema" => Ok(__FieldTag::__schema_payload),
-                            "schema_payload" => Ok(__FieldTag::__schema_payload),
-                            "references" => Ok(__FieldTag::__references),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = SchemaVersion;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct SchemaVersion")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__subject => {
-                            if !fields.insert(__FieldTag::__subject) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for subject",
-                                ));
-                            }
-                            result.subject = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__version_id => {
-                            if !fields.insert(__FieldTag::__version_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for version_id",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.version_id = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::__schema_id => {
-                            if !fields.insert(__FieldTag::__schema_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_id",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.schema_id = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::__schema_type => {
-                            if !fields.insert(__FieldTag::__schema_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_type",
-                                ));
-                            }
-                            result.schema_type = map.next_value::<std::option::Option<crate::model::schema::SchemaType>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__schema_payload => {
-                            if !fields.insert(__FieldTag::__schema_payload) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for schema_payload",
-                                ));
-                            }
-                            result.schema_payload = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__references => {
-                            if !fields.insert(__FieldTag::__references) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for references",
-                                ));
-                            }
-                            result.references = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::schema::SchemaReference>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for SchemaVersion {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.subject.is_empty() {
-            state.serialize_entry("subject", &self.subject)?;
-        }
-        if !wkt::internal::is_default(&self.version_id) {
-            struct __With<'a>(&'a i32);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("version", &__With(&self.version_id))?;
-        }
-        if !wkt::internal::is_default(&self.schema_id) {
-            struct __With<'a>(&'a i32);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("id", &__With(&self.schema_id))?;
-        }
-        if !wkt::internal::is_default(&self.schema_type) {
-            state.serialize_entry("schemaType", &self.schema_type)?;
-        }
-        if !self.schema_payload.is_empty() {
-            state.serialize_entry("schema", &self.schema_payload)?;
-        }
-        if !self.references.is_empty() {
-            state.serialize_entry("references", &self.references)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for SchemaVersion {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SchemaVersion");
-        debug_struct.field("subject", &self.subject);
-        debug_struct.field("version_id", &self.version_id);
-        debug_struct.field("schema_id", &self.schema_id);
-        debug_struct.field("schema_type", &self.schema_type);
-        debug_struct.field("schema_payload", &self.schema_payload);
-        debug_struct.field("references", &self.references);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// SchemaConfig represents configuration for a schema registry or a specific
 /// subject.
 #[derive(Clone, Default, PartialEq)]
@@ -6702,7 +2049,7 @@ pub struct SchemaConfig {
     /// for subject config.
     pub alias: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SchemaConfig {
@@ -6756,149 +2103,6 @@ impl SchemaConfig {
 impl wkt::message::Message for SchemaConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.managedkafka.schemaregistry.v1.SchemaConfig"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for SchemaConfig {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __compatibility,
-            __normalize,
-            __alias,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for SchemaConfig")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "compatibility" => Ok(__FieldTag::__compatibility),
-                            "normalize" => Ok(__FieldTag::__normalize),
-                            "alias" => Ok(__FieldTag::__alias),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = SchemaConfig;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct SchemaConfig")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__compatibility => {
-                            if !fields.insert(__FieldTag::__compatibility) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for compatibility",
-                                ));
-                            }
-                            result.compatibility = map.next_value::<std::option::Option<
-                                crate::model::schema_config::CompatibilityType,
-                            >>()?;
-                        }
-                        __FieldTag::__normalize => {
-                            if !fields.insert(__FieldTag::__normalize) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for normalize",
-                                ));
-                            }
-                            result.normalize = map.next_value::<std::option::Option<bool>>()?;
-                        }
-                        __FieldTag::__alias => {
-                            if !fields.insert(__FieldTag::__alias) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for alias",
-                                ));
-                            }
-                            result.alias = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for SchemaConfig {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.compatibility.is_some() {
-            state.serialize_entry("compatibility", &self.compatibility)?;
-        }
-        if self.normalize.is_some() {
-            state.serialize_entry("normalize", &self.normalize)?;
-        }
-        if !self.alias.is_empty() {
-            state.serialize_entry("alias", &self.alias)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for SchemaConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SchemaConfig");
-        debug_struct.field("compatibility", &self.compatibility);
-        debug_struct.field("normalize", &self.normalize);
-        debug_struct.field("alias", &self.alias);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -7086,7 +2290,7 @@ pub struct SchemaMode {
     /// setting).
     pub mode: crate::model::schema_mode::ModeType,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SchemaMode {
@@ -7107,117 +2311,6 @@ impl SchemaMode {
 impl wkt::message::Message for SchemaMode {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.managedkafka.schemaregistry.v1.SchemaMode"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for SchemaMode {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __mode,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for SchemaMode")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "mode" => Ok(__FieldTag::__mode),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = SchemaMode;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct SchemaMode")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__mode => {
-                            if !fields.insert(__FieldTag::__mode) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for mode",
-                                ));
-                            }
-                            result.mode = map.next_value::<std::option::Option<crate::model::schema_mode::ModeType>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for SchemaMode {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.mode) {
-            state.serialize_entry("mode", &self.mode)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for SchemaMode {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SchemaMode");
-        debug_struct.field("mode", &self.mode);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
