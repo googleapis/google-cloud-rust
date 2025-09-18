@@ -19,9 +19,7 @@ use rand::{Rng, distr::Alphanumeric};
 
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 
-pub async fn dataset_admin(
-    builder: bigquery::builder::dataset_service::ClientBuilder,
-) -> Result<()> {
+pub async fn dataset_admin() -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -37,7 +35,10 @@ pub async fn dataset_admin(
     };
 
     let project_id = crate::project_id()?;
-    let client: bigquery::client::DatasetService = builder.build().await?;
+    let client = bigquery::client::DatasetService::builder()
+        .with_tracing()
+        .build()
+        .await?;
     cleanup_stale_datasets(&client, &project_id).await?;
 
     let dataset_id = random_dataset_id();
@@ -187,7 +188,7 @@ fn extract_dataset_id(project_id: &str, id: &str) -> Option<String> {
         .map(|v| v.to_string())
 }
 
-pub async fn job_service(builder: bigquery::builder::job_service::ClientBuilder) -> Result<()> {
+pub async fn job_service() -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -203,7 +204,10 @@ pub async fn job_service(builder: bigquery::builder::job_service::ClientBuilder)
     };
 
     let project_id = crate::project_id()?;
-    let client: bigquery::client::JobService = builder.build().await?;
+    let client = bigquery::client::JobService::builder()
+        .with_tracing()
+        .build()
+        .await?;
     cleanup_stale_jobs(&client, &project_id).await?;
 
     let job_id = random_job_id();

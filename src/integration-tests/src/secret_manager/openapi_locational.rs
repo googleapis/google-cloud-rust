@@ -15,7 +15,7 @@
 use crate::Result;
 use rand::{Rng, distr::Alphanumeric};
 
-pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -> Result<()> {
+pub async fn run() -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -40,7 +40,11 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
     // We must override the configuration to use a regional endpoint.
     let location_id = "us-central1".to_string();
     let endpoint = format!("https://secretmanager.{location_id}.rep.googleapis.com");
-    let client = builder.with_endpoint(endpoint).build().await?;
+    let client = smo::client::SecretManagerService::builder()
+        .with_tracing()
+        .with_endpoint(endpoint)
+        .build()
+        .await?;
 
     cleanup_stale_secrets(&client, &project_id, &location_id).await?;
 
