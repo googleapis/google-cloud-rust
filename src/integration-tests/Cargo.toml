@@ -60,6 +60,10 @@ path    = "../../src/generated/cloud/bigquery/v2"
 package = "google-cloud-firestore"
 path    = "../../src/firestore"
 
+[dependencies.pubsub]
+package = "google-cloud-pubsub"
+path    = "../../src/pubsub"
+
 [dependencies.showcase]
 package = "google-cloud-showcase-v1beta1"
 path    = "../../src/generated/showcase"
