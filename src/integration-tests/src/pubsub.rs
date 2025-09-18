@@ -32,17 +32,16 @@ pub async fn basic_topic() -> Result<()> {
         tracing::subscriber::set_default(subscriber)
     };
 
-    let project = crate::project_id()?;
     let (client, topic) = create_test_topic().await?;
 
-    tracing::info!("testing list_topics()");
-    let topics = client
-        .list_topics()
-        .set_project(format!("projects/{project}"))
+    tracing::info!("testing get_topic()");
+    let get_topic = client
+        .get_topic()
+        .set_topic(topic.name.clone())
         .send()
         .await?;
-    tracing::info!("success with list_topics={topics:?}");
-    assert!(topics.topics.iter().any(|x| x.name == topic.name));
+    tracing::info!("success with get_topic={get_topic:?}");
+    assert_eq!(get_topic.name, topic.name);
 
     cleanup_test_topic(client, topic.name).await?;
 
@@ -51,7 +50,7 @@ pub async fn basic_topic() -> Result<()> {
 
 pub const TOPIC_ID_LENGTH: usize = 255;
 
-fn random_topic_id(project: String) -> String {
+fn random_topic_name(project: String) -> String {
     let prefix = "topic-";
     let topic_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
@@ -67,7 +66,7 @@ pub async fn create_test_topic() -> Result<(TopicAdmin, Topic)> {
         .with_tracing()
         .build()
         .await?;
-    let topic_id = random_topic_id(project);
+    let topic_id = random_topic_name(project);
 
     tracing::info!("testing create_topic()");
     let topic = client
