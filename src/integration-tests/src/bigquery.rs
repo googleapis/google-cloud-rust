@@ -242,14 +242,6 @@ pub async fn job_service(builder: bigquery::builder::job_service::ClientBuilder)
             .any(|v| v.as_ref().unwrap().id.contains(&job_id))
     );
 
-    client
-        .delete_job()
-        .set_project_id(&project_id)
-        .set_job_id(&job_id)
-        .send()
-        .await?;
-    println!("DELETE JOB");
-
     Ok(())
 }
 
@@ -295,6 +287,7 @@ async fn cleanup_stale_jobs(client: &bigquery::client::JobService, project_id: &
                 let job_reference = r.job_reference?;
                 if r.configuration
                     .is_some_and(|c| c.labels.get(INSTANCE_LABEL).is_some_and(|v| v == "true"))
+                    && r.status.is_some_and(|s| s.state == "DONE")
                 {
                     return Some(
                         client
