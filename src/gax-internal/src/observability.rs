@@ -309,4 +309,11 @@ mod tests {
         assert_eq!(span_info.http_response_status_code, Some(404));
         assert_eq!(span_info.error_type, Some("404 Not Found".to_string()));
     }
+
+    #[test]
+    fn test_otel_status_as_str() {
+        assert_eq!(OtelStatus::Unset.as_str(), "Unset");
+        assert_eq!(OtelStatus::Ok.as_str(), "Ok");
+        assert_eq!(OtelStatus::Error.as_str(), "Error");
+    }
 }
