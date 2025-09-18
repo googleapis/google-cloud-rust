@@ -36,6 +36,9 @@ pub mod query_parameter;
 #[cfg(feature = "_internal-http-client")]
 pub mod http;
 
+#[cfg(feature = "_internal-http-client")]
+pub mod observability;
+
 #[cfg(feature = "_internal-grpc-client")]
 pub mod grpc;
 
