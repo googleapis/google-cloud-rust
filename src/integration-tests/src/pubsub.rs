@@ -17,7 +17,7 @@ use rand::{Rng, distr::Alphanumeric};
 
 use crate::Result;
 
-pub async fn basic_topic(builder: pubsub::builder::topic_admin::ClientBuilder) -> Result<()> {
+pub async fn basic_topic() -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -33,8 +33,7 @@ pub async fn basic_topic(builder: pubsub::builder::topic_admin::ClientBuilder) -
     };
 
     let project = crate::project_id()?;
-    let client = builder.build().await?;
-    let (topic_admin, topic) = create_test_topic().await?;
+    let (client, topic) = create_test_topic().await?;
 
     tracing::info!("testing list_topics()");
     let topics = client
@@ -45,7 +44,7 @@ pub async fn basic_topic(builder: pubsub::builder::topic_admin::ClientBuilder) -
     tracing::info!("success with list_topics={topics:?}");
     assert!(topics.topics.iter().any(|x| x.name == topic.name));
 
-    cleanup_test_topic(topic_admin, topic.name).await?;
+    cleanup_test_topic(client, topic.name).await?;
 
     Ok(())
 }

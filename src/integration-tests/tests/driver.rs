@@ -49,11 +49,9 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_pubsub_basic_topic() -> integration_tests::Result<()> {
-        integration_tests::pubsub::basic_topic(
-            pubsub::client::TopicAdmin::builder().with_retry_policy(retry_policy()),
-        )
-        .await
-        .map_err(integration_tests::report_error)
+        integration_tests::pubsub::basic_topic()
+            .await
+            .map_err(integration_tests::report_error)
     }
 
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
