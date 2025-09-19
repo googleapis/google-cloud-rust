@@ -17,6 +17,88 @@
 use crate::options::InstrumentationClientInfo;
 use gax::options::RequestOptions;
 
+// OpenTelemetry Semantic Convention Keys
+// See https://opentelemetry.io/docs/specs/semconv/http/http-spans/
+
+/// Span Kind for OpenTelemetry interop.
+///
+/// Always "Client" for a span representing an outbound HTTP request.
+const KEY_OTEL_KIND: &str = "otel.kind";
+/// Span Name for OpenTelemetry interop.
+///
+/// If `url.template` is available use "{http.request.method} {url.template}", otherwise use "{http.request.method}".
+const KEY_OTEL_NAME: &str = "otel.name";
+/// Span Status for OpenTelemetry interop.
+///
+/// Use "Error" for unrecoverable errors like network issues or 5xx status codes.
+/// Otherwise, leave "Unset" (including for 4xx codes on CLIENT spans).
+const KEY_OTEL_STATUS: &str = "otel.status";
+
+/// The RPC system used.
+///
+/// Always "http" for REST calls.
+const KEY_RPC_SYSTEM: &str = "rpc.system";
+/// The HTTP request method.
+///
+/// Examples: GET, POST, HEAD.
+const KEY_HTTP_REQUEST_METHOD: &str = "http.request.method";
+/// The destination host name or IP address.
+///
+/// Examples: myservice.googleapis.com, myservice-staging.sandbox.googleapis.com, 10.0.0.1
+const KEY_SERVER_ADDRESS: &str = "server.address";
+/// The destination port number.
+///
+/// Examples: 443, 8080
+const KEY_SERVER_PORT: &str = "server.port";
+/// The absolute URL of the request.
+///
+/// Example: https://www.foo.bar/search?q=OpenTelemetry
+const KEY_URL_FULL: &str = "url.full";
+/// The URI scheme component.
+///
+/// Examples: http, https
+const KEY_URL_SCHEME: &str = "url.scheme";
+/// The low-cardinality template of the absolute path.
+///
+/// Example: /v2/locations/{location}/projects/{project}/
+const KEY_URL_TEMPLATE: &str = "url.template";
+/// The nominal domain from the original URL.
+///
+/// Example: myservice.googleapis.com
+const KEY_URL_DOMAIN: &str = "url.domain";
+
+/// The numeric HTTP response status code.
+///
+/// Examples: 200, 404, 500
+const KEY_HTTP_RESPONSE_STATUS_CODE: &str = "http.response.status_code";
+/// A low-cardinality classification of the error.
+///
+/// For HTTP status codes >= 400, this is the status code as a string.
+/// For network errors, use a short identifier like TIMEOUT, CONNECTION_ERROR.
+const KEY_ERROR_TYPE: &str = "error.type";
+/// The ordinal number of times this request has been resent.
+///
+/// None for the first attempt.
+const KEY_HTTP_REQUEST_RESEND_COUNT: &str = "http.request.resend_count";
+
+// Custom GCP Attributes
+/// The Google Cloud service name.
+///
+/// Examples: appengine, run, firestore
+const KEY_GCP_CLIENT_SERVICE: &str = "gcp.client.service";
+/// The client library version.
+///
+/// Example: v1.0.2
+const KEY_GCP_CLIENT_VERSION: &str = "gcp.client.version";
+/// The client library repository.
+///
+/// Always "googleapis/google-cloud-rust".
+const KEY_GCP_CLIENT_REPO: &str = "gcp.client.repo";
+/// The client library crate name.
+///
+/// Example: google-cloud-storage
+const KEY_GCP_CLIENT_ARTIFACT: &str = "gcp.client.artifact";
+
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) enum OtelStatus {
     Unset,
@@ -44,48 +126,84 @@ impl OtelStatus {
 #[derive(Debug, Clone)]
 pub(crate) struct HttpSpanInfo {
     // Attributes for OpenTelemetry SDK interop
-    /// Span Kind. Always CLIENT for a span representing an outbound HTTP request.
+    /// The span kind for OpenTelemetry interop.
+    ///
+    /// Always "Client" for a span representing an outbound HTTP request.
     otel_kind: String,
-    /// Span Name. Recommended to be "{http.request.method} {url.template}" if url.template is available, otherwise "{http.request.method}".
+    /// The span name for OpenTelemetry interop.
+    ///
+    /// If `url.template` is available use "{http.request.method} {url.template}", otherwise use "{http.request.method}".
     otel_name: String,
-    /// Span Status. Set to Error in the event of an unrecoverable error, for example network error, 5xx status codes. Unset otherwise (including 4xx codes for CLIENT spans).
+    /// The span status for OpenTelemetry interop.
+    ///
+    /// Use "Error" for unrecoverable errors like network issues or 5xx status codes.
+    /// Otherwise, leave "Unset" (including for 4xx codes on CLIENT spans).
     otel_status: OtelStatus,
 
     // OpenTelemetry Semantic Conventions
-    /// Which RPC system is being used. Set to "http" for REST calls.
+    /// The RPC system used.
+    ///
+    /// Always "http" for REST calls.
     rpc_system: String,
-    /// The HTTP request method, for example GET; POST; HEAD.
+    /// The HTTP request method.
+    ///
+    /// Examples: GET, POST, HEAD.
     http_request_method: String,
-    /// The actual destination host name or IP address. May differ from the URL's host if overridden, for example myservice.googleapis.com; myservice-staging.sandbox.googleapis.com; 10.0.0.1.
+    /// The destination host name or IP address.
+    ///
+    /// Examples: myservice.googleapis.com, myservice-staging.sandbox.googleapis.com, 10.0.0.1
     server_address: String,
-    /// The actual destination port number. May differ from the URL's port if overridden, for example 443; 8080.
+    /// The destination port number.
+    ///
+    /// Examples: 443, 8080
     server_port: i64,
-    /// The absolute URL of the request, for example https://www.foo.bar/search?q=OpenTelemetry.
+    /// The absolute URL of the request.
+    ///
+    /// Example: https://www.foo.bar/search?q=OpenTelemetry
     url_full: String,
-    /// The URI scheme component identifying the used protocol, for example http; https.
+    /// The URI scheme component.
+    ///
+    /// Examples: http, https
     url_scheme: Option<String>,
-    /// The low-cardinality template of the absolute path, for example /v2/locations/{location}/projects/{project}/.
+    /// The low-cardinality template of the absolute path.
+    ///
+    /// Example: /v2/locations/{location}/projects/{project}/
     url_template: Option<String>,
-    /// The nominal domain from the original URL, representing the intended service, for example myservice.googleapis.com.
+    /// The nominal domain from the original URL.
+    ///
+    /// Example: myservice.googleapis.com
     url_domain: Option<String>,
 
-    /// The numeric HTTP response status code, for example 200; 404; 500.
+    /// The numeric HTTP response status code.
+    ///
+    /// Examples: 200, 404, 500
     http_response_status_code: Option<i64>,
-    /// A low cardinality a class of error the operation ended with.
+    /// A low-cardinality classification of the error.
+    ///
     /// For HTTP status codes >= 400, this is the status code as a string.
-    /// For network errors, a short identifier like TIMEOUT, CONNECTION_ERROR.
+    /// For network errors, use a short identifier like TIMEOUT, CONNECTION_ERROR.
     error_type: Option<String>,
-    /// The ordinal number of times this request has been resent (e.g., due to retries or redirects). None for the first attempt.
+    /// The ordinal number of times this request has been resent.
+    ///
+    /// None for the first attempt.
     http_request_resend_count: Option<i64>,
 
     // Custom GCP Attributes
-    /// Identifies the Google Cloud service, for example appengine; run; firestore.
+    /// The Google Cloud service name.
+    ///
+    /// Examples: appengine, run, firestore
     gcp_client_service: Option<String>,
-    /// The version of the client library, for example v1.0.2.
+    /// The client library version.
+    ///
+    /// Example: v1.0.2
     gcp_client_version: Option<String>,
-    /// The repository of the client library. Always "googleapis/google-cloud-rust".
+    /// The client library repository.
+    ///
+    /// Always "googleapis/google-cloud-rust".
     gcp_client_repo: String,
-    /// The crate name of the client library, for example google-cloud-storage.
+    /// The client library crate name.
+    ///
+    /// Example: google-cloud-storage
     gcp_client_artifact: Option<String>,
 }
 
