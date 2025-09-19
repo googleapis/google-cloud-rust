@@ -67,6 +67,20 @@ git commit -m"chore: update googleapis SHA circa $(date +%Y-%m-%d)" .
 
 Then send a PR with whatever changed.
 
+## Bump all version numbers
+
+Run:
+
+```bash
+git checkout -b chore-bump-version-numbers-circa-$(date +%Y-%m-%d)
+go run github.com/googleapis/librarian/cmd/sidekick@main rust-bump-versions
+# The previous command fails when `gax-internal` has changed.
+git ls-files -z -- \
+    '*.toml' ':!:**/testdata/**' ':!:**/generated/**' | \
+    xargs -0 taplo fmt
+git commit -m"chore: bump version numbers circa $(date +%Y-%m-%d)" .
+```
+
 ## Refreshing the code
 
 ### All libraries

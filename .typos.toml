@@ -19,6 +19,7 @@ extend-exclude = [
   "testdata/**",
   "tools/cmd/docfx/testdata/**",
   # Generated libraries often contain typos coming from upstream protos.
+  "/go.work.sum",
   "dart/generated/**",
   "src/*/src/generated/**",
   "src/generated/**",
