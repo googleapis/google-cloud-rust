@@ -5387,6 +5387,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "bytes",
+ "chrono",
  "crc32c",
  "futures",
  "google-cloud-aiplatform-v1",
