@@ -21,7 +21,7 @@ use lro::Poller;
 use std::time::Duration;
 
 // Verify enum query parameters are serialized correctly.
-pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()> {
+pub async fn list() -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -40,7 +40,10 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
     // workflows integration tests to delete it if something fails or crashes
     // in this test.
     let parent = create_test_workflow().await?;
-    let client = builder.build().await?;
+    let client = wfe::client::Executions::builder()
+        .with_tracing()
+        .build()
+        .await?;
 
     // Create an execution with a label. The label is not returned for the `BASIC` view.
     let start = client

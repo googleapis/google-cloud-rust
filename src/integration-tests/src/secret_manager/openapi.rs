@@ -16,7 +16,7 @@ use crate::Result;
 use gax::paginator::Paginator;
 use rand::{Rng, distr::Alphanumeric};
 
-pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -> Result<()> {
+pub async fn run() -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -37,7 +37,10 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
         .map(char::from)
         .collect();
 
-    let client = builder.build().await?;
+    let client = smo::client::SecretManagerService::builder()
+        .with_tracing()
+        .build()
+        .await?;
 
     println!("\nTesting create_secret()");
     let create = client

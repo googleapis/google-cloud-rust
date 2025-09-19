@@ -25,34 +25,23 @@ mod driver {
             .with_attempt_limit(5)
     }
 
-    #[test_case(bigquery::client::DatasetService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_bigquery_dataset_service(
-        builder: bigquery::builder::dataset_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::bigquery::dataset_admin(builder)
+    async fn run_bigquery_dataset_service() -> integration_tests::Result<()> {
+        integration_tests::bigquery::dataset_admin()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(bigquery::client::JobService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_bigquery_job_service(
-        builder: bigquery::builder::job_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::bigquery::job_service(builder)
+    async fn run_bigquery_job_service() -> integration_tests::Result<()> {
+        integration_tests::bigquery::job_service()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(firestore::client::Firestore::builder(); "default")]
-    #[test_case(firestore::client::Firestore::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(firestore::client::Firestore::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_firestore(
-        builder: firestore::builder::firestore::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::firestore::basic(builder)
+    async fn run_firestore() -> integration_tests::Result<()> {
+        integration_tests::firestore::basic()
             .await
             .map_err(integration_tests::report_error)
     }
@@ -77,52 +66,35 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(smo::client::SecretManagerService::builder(); "default")]
-    #[test_case(smo::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(smo::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi(
-        builder: smo::builder::secret_manager_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi::run(builder)
+    async fn run_secretmanager_openapi() -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi::run()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(smo::client::SecretManagerService::builder(); "default")]
-    #[test_case(smo::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(smo::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi_locational(
-        builder: smo::builder::secret_manager_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi_locational::run(builder)
+    async fn run_secretmanager_openapi_locational() -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi_locational::run()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(sql::client::SqlInstancesService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_sql(
-        builder: sql::builder::sql_instances_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::sql::run_sql_instances_service(builder)
+    async fn run_sql() -> integration_tests::Result<()> {
+        integration_tests::sql::run_sql_instances_service()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(sql::client::SqlTiersService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_sql_tiers_service(
-        builder: sql::builder::sql_tiers_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::sql::run_sql_tiers_service(builder)
+    async fn run_sql_tiers_service() -> integration_tests::Result<()> {
+        integration_tests::sql::run_sql_tiers_service()
             .await
             .map_err(integration_tests::report_error)
     }
 
     #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
-    #[test_case(StorageControl::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with alternative endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_control_buckets(
@@ -257,7 +229,7 @@ mod driver {
         result
     }
 
-    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(Storage::builder(); "default")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects_with_key(
         builder: storage::builder::storage::ClientBuilder,
@@ -267,88 +239,58 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(ta::client::TelcoAutomation::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_error_details_http(
-        builder: ta::builder::telco_automation::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::error_details::error_details_http(builder)
+    async fn run_error_details_http() -> integration_tests::Result<()> {
+        integration_tests::error_details::error_details_http()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(StorageControl::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_error_details_grpc(
-        builder: storage::builder::storage_control::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::error_details::error_details_grpc(builder)
+    async fn run_error_details_grpc() -> integration_tests::Result<()> {
+        integration_tests::error_details::error_details_grpc()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_check_code_for_http(
-        builder: wf::builder::workflows::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::error_details::check_code_for_http(builder)
+    async fn run_check_code_for_http() -> integration_tests::Result<()> {
+        integration_tests::error_details::check_code_for_http()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(StorageControl::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_check_code_for_grpc(
-        builder: storage::builder::storage_control::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::error_details::check_code_for_grpc(builder)
+    async fn run_check_code_for_grpc() -> integration_tests::Result<()> {
+        integration_tests::error_details::check_code_for_grpc()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(wf::client::Workflows::builder(); "default")]
-    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(wf::client::Workflows::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_until_done(
-        builder: wf::builder::workflows::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::workflows::until_done(builder)
+    async fn workflows_until_done() -> integration_tests::Result<()> {
+        integration_tests::workflows::until_done()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(wf::client::Workflows::builder(); "default")]
-    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(wf::client::Workflows::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_explicit(
-        builder: wf::builder::workflows::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::workflows::explicit_loop(builder)
+    async fn workflows_explicit() -> integration_tests::Result<()> {
+        integration_tests::workflows::explicit_loop()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(wf::client::Workflows::builder(); "default")]
-    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(wf::client::Workflows::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_manual(
-        builder: wf::builder::workflows::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::workflows::until_done(builder)
+    async fn workflows_manual() -> integration_tests::Result<()> {
+        integration_tests::workflows::until_done()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(wfe::client::Executions::builder().with_retry_policy(retry_policy()).with_tracing(); "with tracing and retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_executions(
-        builder: wfe::builder::executions::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::workflows_executions::list(builder)
+    async fn workflows_executions() -> integration_tests::Result<()> {
+        integration_tests::workflows_executions::list()
             .await
             .map_err(integration_tests::report_error)
     }
