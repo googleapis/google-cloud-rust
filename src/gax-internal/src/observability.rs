@@ -17,6 +17,50 @@
 use crate::options::InstrumentationClientInfo;
 use gax::options::RequestOptions;
 
+// OpenTelemetry Semantic Convention Keys
+// See https://opentelemetry.io/docs/specs/semconv/http/http-spans/
+
+/// Span Kind for OpenTelemetry interop. Always CLIENT for a span representing an outbound HTTP request.
+const KEY_OTEL_KIND: &str = "otel.kind";
+/// Span Name for OpenTelemetry interop. Recommended to be "{http.request.method} {url.template}" if url.template is available, otherwise "{http.request.method}".
+const KEY_OTEL_NAME: &str = "otel.name";
+/// Span Status for OpenTelemetry interop. Set to Error in the event of an unrecoverable error, for example network error, 5xx status codes. Unset otherwise (including 4xx codes for CLIENT spans).
+const KEY_OTEL_STATUS: &str = "otel.status";
+
+/// Which RPC system is being used. Set to "http" for REST calls.
+const KEY_RPC_SYSTEM: &str = "rpc.system";
+/// The HTTP request method, for example GET; POST; HEAD.
+const KEY_HTTP_REQUEST_METHOD: &str = "http.request.method";
+/// The actual destination host name or IP address. May differ from the URL's host if overridden, for example myservice.googleapis.com; myservice-staging.sandbox.googleapis.com; 10.0.0.1.
+const KEY_SERVER_ADDRESS: &str = "server.address";
+/// The actual destination port number. May differ from the URL's port if overridden, for example 443; 8080.
+const KEY_SERVER_PORT: &str = "server.port";
+/// The absolute URL of the request, for example https://www.foo.bar/search?q=OpenTelemetry.
+const KEY_URL_FULL: &str = "url.full";
+/// The URI scheme component identifying the used protocol, for example http; https.
+const KEY_URL_SCHEME: &str = "url.scheme";
+/// The low-cardinality template of the absolute path, for example /v2/locations/{location}/projects/{project}/.
+const KEY_URL_TEMPLATE: &str = "url.template";
+/// The nominal domain from the original URL, representing the intended service, for example myservice.googleapis.com.
+const KEY_URL_DOMAIN: &str = "url.domain";
+
+/// The numeric HTTP response status code, for example 200; 404; 500.
+const KEY_HTTP_RESPONSE_STATUS_CODE: &str = "http.response.status_code";
+/// A low cardinality a class of error the operation ended with.
+const KEY_ERROR_TYPE: &str = "error.type";
+/// The ordinal number of times this request has been resent (e.g., due to retries or redirects). None for the first attempt.
+const KEY_HTTP_REQUEST_RESEND_COUNT: &str = "http.request.resend_count";
+
+// Custom GCP Attributes
+/// Identifies the Google Cloud service, for example appengine; run; firestore.
+const KEY_GCP_CLIENT_SERVICE: &str = "gcp.client.service";
+/// The version of the client library, for example v1.0.2.
+const KEY_GCP_CLIENT_VERSION: &str = "gcp.client.version";
+/// The repository of the client library. Always "googleapis/google-cloud-rust".
+const KEY_GCP_CLIENT_REPO: &str = "gcp.client.repo";
+/// The crate name of the client library, for example google-cloud-storage.
+const KEY_GCP_CLIENT_ARTIFACT: &str = "gcp.client.artifact";
+
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) enum OtelStatus {
     Unset,
@@ -44,11 +88,11 @@ impl OtelStatus {
 #[derive(Debug, Clone)]
 pub(crate) struct HttpSpanInfo {
     // Attributes for OpenTelemetry SDK interop
-    /// Span Kind. Always CLIENT for a span representing an outbound HTTP request.
+    /// Span Kind for OpenTelemetry interop. Always CLIENT for a span representing an outbound HTTP request.
     otel_kind: String,
-    /// Span Name. Recommended to be "{http.request.method} {url.template}" if url.template is available, otherwise "{http.request.method}".
+    /// Span Name for OpenTelemetry interop. Recommended to be "{http.request.method} {url.template}" if url.template is available, otherwise "{http.request.method}".
     otel_name: String,
-    /// Span Status. Set to Error in the event of an unrecoverable error, for example network error, 5xx status codes. Unset otherwise (including 4xx codes for CLIENT spans).
+    /// Span Status for OpenTelemetry interop. Set to Error in the event of an unrecoverable error, for example network error, 5xx status codes. Unset otherwise (including 4xx codes for CLIENT spans).
     otel_status: OtelStatus,
 
     // OpenTelemetry Semantic Conventions
