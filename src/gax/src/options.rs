@@ -49,7 +49,7 @@ pub struct RequestOptions {
     retry_throttler: Option<SharedRetryThrottler>,
     polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
-    path_template: Option<String>,
+    path_template: Option<&'static str>,
 }
 
 impl RequestOptions {
@@ -156,13 +156,13 @@ impl RequestOptions {
     }
 
     /// Get the current path template, if any.
-    pub(crate) fn path_template(&self) -> Option<&str> {
-        self.path_template.as_deref()
+    pub(crate) fn path_template(&self) -> Option<&'static str> {
+        self.path_template
     }
 
     /// Sets the path template for the request URL.
-    pub(crate) fn set_path_template(&mut self, v: Option<String>) {
-        self.path_template = v;
+    pub(crate) fn set_path_template(&mut self, v: &'static str) {
+        self.path_template = Some(v);
     }
 }
 
@@ -225,13 +225,13 @@ pub mod internal {
 
     pub fn set_path_template(
         mut options: RequestOptions,
-        path_template: Option<String>,
+        path_template: &'static str,
     ) -> RequestOptions {
         options.set_path_template(path_template);
         options
     }
 
-    pub fn get_path_template(options: &RequestOptions) -> Option<&str> {
+    pub fn get_path_template(options: &RequestOptions) -> Option<&'static str> {
         options.path_template()
     }
 }
@@ -337,7 +337,7 @@ mod tests {
         opts.set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
         assert!(opts.polling_backoff_policy().is_some(), "{opts:?}");
 
-        opts.set_path_template(Some("test".to_string()));
+        opts.set_path_template("test");
         assert_eq!(opts.path_template(), Some("test"));
     }
 
@@ -358,7 +358,7 @@ mod tests {
     fn request_options_path_template() {
         let opts = RequestOptions::default();
         assert_eq!(opts.path_template(), None);
-        let opts = set_path_template(opts, Some("test".to_string()));
+        let opts = set_path_template(opts, "test");
         assert_eq!(opts.path_template(), Some("test"));
     }
 
