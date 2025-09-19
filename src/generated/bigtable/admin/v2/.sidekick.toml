@@ -17,4 +17,5 @@ specification-source = 'google/bigtable/admin/v2'
 service-config = 'google/bigtable/admin/v2/bigtableadmin_v2.yaml'
 
 [codec]
+version        = '1.1.0'
 copyright-year = '2025'

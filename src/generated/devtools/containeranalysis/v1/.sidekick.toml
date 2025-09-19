@@ -17,5 +17,6 @@ specification-source = 'google/devtools/containeranalysis/v1'
 service-config = 'google/devtools/containeranalysis/v1/containeranalysis_v1.yaml'
 
 [codec]
+version        = '1.1.0'
 copyright-year = '2025'
 package-name-override = 'google-cloud-containeranalysis-v1'

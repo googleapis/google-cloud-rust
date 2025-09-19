@@ -34,5 +34,6 @@ operations.
 [gcloud-longrunning]: https://crates.io/crates/gcloud-longrunning"""
 
 [codec]
+version        = '1.1.0'
 copyright-year        = '2024'
 'package:longrunning' = 'ignore=true'

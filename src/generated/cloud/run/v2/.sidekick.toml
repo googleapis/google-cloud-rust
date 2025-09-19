@@ -17,4 +17,5 @@ specification-source = 'google/cloud/run/v2'
 service-config = 'google/cloud/run/v2/run_v2.yaml'
 
 [codec]
+version        = '1.1.0'
 copyright-year = '2025'

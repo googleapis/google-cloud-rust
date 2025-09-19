@@ -17,5 +17,6 @@ specification-source = 'google/cloud/recommender/logging/v1'
 service-config = 'google/cloud/recommender/logging/v1/recommender.yaml'
 
 [codec]
+version        = '1.1.0'
 copyright-year = '2025'
 'package:recommender' = 'package=google-cloud-recommender-v1,source=google.cloud.recommender.v1'
