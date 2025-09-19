@@ -17,6 +17,7 @@ use rand::{Rng, distr::Alphanumeric};
 
 pub type Result<T> = anyhow::Result<T>;
 pub mod bigquery;
+pub mod compute;
 pub mod error_details;
 pub mod firestore;
 pub mod pubsub;

@@ -1,0 +1,11 @@
+{
+    "api_id": "compute.googleapis.com",
+    "api_shortname": "compute",
+    "client_documentation": "https://docs.rs/google-cloud-compute-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Google Compute Engine API",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}
