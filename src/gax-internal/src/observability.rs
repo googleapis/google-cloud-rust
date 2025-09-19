@@ -131,7 +131,7 @@ impl HttpSpanInfo {
             server_port: url.port_or_known_default().map(|p| p as i64).unwrap_or(0),
             url_full: url.to_string(),
             url_scheme: Some(url.scheme().to_string()),
-            url_template: url_template.map(String::from),
+            url_template,
             url_domain,
             http_response_status_code: None,
             error_type: None,
@@ -249,7 +249,7 @@ mod tests {
         );
         let options = gax::options::internal::set_path_template(
             RequestOptions::default(),
-            Some("/items/{item_id}".to_string()),
+            "/items/{item_id}",
         );
 
         let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
