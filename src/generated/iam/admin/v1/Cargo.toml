@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-iam-admin-v1"
-version                = "1.0.0"
+version                = "1.1.0"
 description            = "Google Cloud Client Libraries for Rust - Identity and Access Management (IAM) API"
 edition.workspace      = true
 authors.workspace      = true

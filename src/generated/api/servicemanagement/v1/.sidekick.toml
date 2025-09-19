@@ -17,4 +17,5 @@ specification-source = 'google/api/servicemanagement/v1'
 service-config = 'google/api/servicemanagement/v1/servicemanagement_v1.yaml'
 
 [codec]
+version        = '1.1.0'
 copyright-year = '2025'

@@ -17,4 +17,5 @@ specification-source = 'google/monitoring/v3'
 service-config = 'google/monitoring/v3/monitoring.yaml'
 
 [codec]
+version        = '1.1.0'
 copyright-year = '2025'

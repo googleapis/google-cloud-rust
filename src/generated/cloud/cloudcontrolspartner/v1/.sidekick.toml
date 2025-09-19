@@ -17,4 +17,5 @@ specification-source = 'google/cloud/cloudcontrolspartner/v1'
 service-config = 'google/cloud/cloudcontrolspartner/v1/cloudcontrolspartner_v1.yaml'
 
 [codec]
+version        = '1.1.0'
 copyright-year = '2025'
