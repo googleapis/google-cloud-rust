@@ -67,7 +67,7 @@ git commit -m"chore: update googleapis SHA circa $(date +%Y-%m-%d)" .
 
 Then send a PR with whatever changed.
 
-## Bump all verision numbers
+## Bump all version numbers
 
 Run:
 
