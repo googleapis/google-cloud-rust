@@ -7192,6 +7192,7 @@ dependencies = [
  "crc32c",
  "futures",
  "google-cloud-aiplatform-v1",
+ "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-language-v2",
  "google-cloud-longrunning",
