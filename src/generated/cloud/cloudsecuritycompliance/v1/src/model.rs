@@ -37,8 +37,11 @@ mod debug;
 mod deserialize;
 mod serialize;
 
-/// Framework is a collection of CloudControls which represents
-/// industry/GCP/Customer defined
+/// A Framework is a collection of CloudControls to address security and
+/// compliance requirements. Frameworks can be used for prevention, detection,
+/// and auditing. They can be either built-in, industry-standard frameworks
+/// provided by GCP/AZURE/AWS (e.g., NIST, FedRAMP) or custom frameworks created
+/// by users.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Framework {
@@ -62,11 +65,6 @@ pub struct Framework {
     /// Output only. The type of the framework. The default is TYPE_CUSTOM.
     pub r#type: crate::model::framework::FrameworkType,
 
-    /// Optional. The details of the cloud control groups included in the
-    /// framework.
-    pub cloud_control_group_details:
-        std::vec::Vec<crate::model::framework::CloudControlGroupDetails>,
-
     /// Optional. The details of the cloud controls directly added without any
     /// grouping in the framework.
     pub cloud_control_details: std::vec::Vec<crate::model::CloudControlDetails>,
@@ -79,6 +77,9 @@ pub struct Framework {
 
     /// Output only. target resource types supported by the Framework.
     pub supported_target_resource_types: std::vec::Vec<crate::model::TargetResourceType>,
+
+    /// Output only. The supported enforcement modes of the framework.
+    pub supported_enforcement_modes: std::vec::Vec<crate::model::EnforcementMode>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -118,17 +119,6 @@ impl Framework {
         v: T,
     ) -> Self {
         self.r#type = v.into();
-        self
-    }
-
-    /// Sets the value of [cloud_control_group_details][crate::model::Framework::cloud_control_group_details].
-    pub fn set_cloud_control_group_details<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::framework::CloudControlGroupDetails>,
-    {
-        use std::iter::Iterator;
-        self.cloud_control_group_details = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -175,6 +165,17 @@ impl Framework {
         self.supported_target_resource_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [supported_enforcement_modes][crate::model::Framework::supported_enforcement_modes].
+    pub fn set_supported_enforcement_modes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EnforcementMode>,
+    {
+        use std::iter::Iterator;
+        self.supported_enforcement_modes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Framework {
@@ -187,94 +188,6 @@ impl wkt::message::Message for Framework {
 pub mod framework {
     #[allow(unused_imports)]
     use super::*;
-
-    /// The details of the cloud control group included in the framework.
-    #[derive(Clone, Default, PartialEq)]
-    #[non_exhaustive]
-    pub struct CloudControlGroupDetails {
-        /// The inline definition will be replaced with a reference to the
-        /// CloudControlGroup resource in future.
-        pub kind: std::option::Option<crate::model::framework::cloud_control_group_details::Kind>,
-
-        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-    }
-
-    impl CloudControlGroupDetails {
-        pub fn new() -> Self {
-            std::default::Default::default()
-        }
-
-        /// Sets the value of [kind][crate::model::framework::CloudControlGroupDetails::kind].
-        ///
-        /// Note that all the setters affecting `kind` are mutually
-        /// exclusive.
-        pub fn set_kind<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::framework::cloud_control_group_details::Kind>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind = v.into();
-            self
-        }
-
-        /// The value of [kind][crate::model::framework::CloudControlGroupDetails::kind]
-        /// if it holds a `CloudControlGroup`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn cloud_control_group(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::CloudControlGroup>> {
-            #[allow(unreachable_patterns)]
-            self.kind.as_ref().and_then(|v| match v {
-                crate::model::framework::cloud_control_group_details::Kind::CloudControlGroup(
-                    v,
-                ) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// Sets the value of [kind][crate::model::framework::CloudControlGroupDetails::kind]
-        /// to hold a `CloudControlGroup`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_cloud_control_group<
-            T: std::convert::Into<std::boxed::Box<crate::model::CloudControlGroup>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::framework::cloud_control_group_details::Kind::CloudControlGroup(
-                    v.into(),
-                ),
-            );
-            self
-        }
-    }
-
-    impl wkt::message::Message for CloudControlGroupDetails {
-        fn typename() -> &'static str {
-            "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.Framework.CloudControlGroupDetails"
-        }
-    }
-
-    /// Defines additional types related to [CloudControlGroupDetails].
-    pub mod cloud_control_group_details {
-        #[allow(unused_imports)]
-        use super::*;
-
-        /// The inline definition will be replaced with a reference to the
-        /// CloudControlGroup resource in future.
-        #[derive(Clone, Debug, PartialEq)]
-        #[non_exhaustive]
-        pub enum Kind {
-            /// The cloud control group included in the framework.
-            CloudControlGroup(std::boxed::Box<crate::model::CloudControlGroup>),
-        }
-    }
 
     /// The type of the framework.
     ///
@@ -406,247 +319,6 @@ pub mod framework {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FrameworkType>::new(
                 ".google.cloud.cloudsecuritycompliance.v1.Framework.FrameworkType",
-            ))
-        }
-    }
-}
-
-/// CloudControlGroup is an optional entity within a Framework that helps
-/// customers organize their CloudControls.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct CloudControlGroup {
-    /// Required. The name of the cloud control group in the format:
-    /// “organizations/{organization}/locations/{location}/
-    /// cloudControlGroups/{cloud-control-group}”
-    pub name: std::string::String,
-
-    /// Optional. The description of the cloud control group.The maximum length is
-    /// 2000 characters.
-    pub description: std::string::String,
-
-    /// Optional. Output only. The type of the cloud control group. Default is
-    /// TYPE_CUSTOM.
-    pub r#type: crate::model::cloud_control_group::CloudControlGroupType,
-
-    /// Optional. The control identifier used to fetch the findings. This is same
-    /// as the control report name.
-    pub control_id: std::string::String,
-
-    /// Required. The details of the cloud controls to be referred to in the
-    /// framework.
-    pub cloud_control_details: std::vec::Vec<crate::model::CloudControlDetails>,
-
-    /// Optional. Major revision of the cloud control group.
-    pub major_revision_id: i64,
-
-    /// Optional. The industry-defined Control assciated with the cloud controls in
-    /// this group.
-    /// organizations/{organization}/locations/{location}/controls/{control_id}
-    pub control: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl CloudControlGroup {
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [name][crate::model::CloudControlGroup::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
-        self
-    }
-
-    /// Sets the value of [description][crate::model::CloudControlGroup::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
-        self
-    }
-
-    /// Sets the value of [r#type][crate::model::CloudControlGroup::type].
-    pub fn set_type<
-        T: std::convert::Into<crate::model::cloud_control_group::CloudControlGroupType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = v.into();
-        self
-    }
-
-    /// Sets the value of [control_id][crate::model::CloudControlGroup::control_id].
-    pub fn set_control_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.control_id = v.into();
-        self
-    }
-
-    /// Sets the value of [cloud_control_details][crate::model::CloudControlGroup::cloud_control_details].
-    pub fn set_cloud_control_details<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlDetails>,
-    {
-        use std::iter::Iterator;
-        self.cloud_control_details = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [major_revision_id][crate::model::CloudControlGroup::major_revision_id].
-    pub fn set_major_revision_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.major_revision_id = v.into();
-        self
-    }
-
-    /// Sets the value of [control][crate::model::CloudControlGroup::control].
-    pub fn set_control<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.control = v.into();
-        self
-    }
-}
-
-impl wkt::message::Message for CloudControlGroup {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.CloudControlGroup"
-    }
-}
-
-/// Defines additional types related to [CloudControlGroup].
-pub mod cloud_control_group {
-    #[allow(unused_imports)]
-    use super::*;
-
-    /// CloudControlGroupType is the type of the CloudControlGroup.
-    ///
-    /// # Working with unknown values
-    ///
-    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
-    /// additional enum variants at any time. Adding new variants is not considered
-    /// a breaking change. Applications should write their code in anticipation of:
-    ///
-    /// - New values appearing in future releases of the client library, **and**
-    /// - New values received dynamically, without application changes.
-    ///
-    /// Please consult the [Working with enums] section in the user guide for some
-    /// guidelines.
-    ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-    #[derive(Clone, Debug, PartialEq)]
-    #[non_exhaustive]
-    pub enum CloudControlGroupType {
-        /// Default value. This value is unused.
-        Unspecified,
-        /// The CloudControlGroup is a built-in group provided by GCP.
-        BuiltIn,
-        /// The CloudControlGroup is a custom group created by the user.
-        Custom,
-        /// If set, the enum was initialized with an unknown value.
-        ///
-        /// Applications can examine the value using [CloudControlGroupType::value] or
-        /// [CloudControlGroupType::name].
-        UnknownValue(cloud_control_group_type::UnknownValue),
-    }
-
-    #[doc(hidden)]
-    pub mod cloud_control_group_type {
-        #[allow(unused_imports)]
-        use super::*;
-        #[derive(Clone, Debug, PartialEq)]
-        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
-    }
-
-    impl CloudControlGroupType {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Unspecified => std::option::Option::Some(0),
-                Self::BuiltIn => std::option::Option::Some(1),
-                Self::Custom => std::option::Option::Some(2),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
-        /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
-        pub fn name(&self) -> std::option::Option<&str> {
-            match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("CLOUD_CONTROL_GROUP_TYPE_UNSPECIFIED")
-                }
-                Self::BuiltIn => std::option::Option::Some("BUILT_IN"),
-                Self::Custom => std::option::Option::Some("CUSTOM"),
-                Self::UnknownValue(u) => u.0.name(),
-            }
-        }
-    }
-
-    impl std::default::Default for CloudControlGroupType {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
-    impl std::fmt::Display for CloudControlGroupType {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for CloudControlGroupType {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Unspecified,
-                1 => Self::BuiltIn,
-                2 => Self::Custom,
-                _ => Self::UnknownValue(cloud_control_group_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
-        }
-    }
-
-    impl std::convert::From<&str> for CloudControlGroupType {
-        fn from(value: &str) -> Self {
-            use std::string::ToString;
-            match value {
-                "CLOUD_CONTROL_GROUP_TYPE_UNSPECIFIED" => Self::Unspecified,
-                "BUILT_IN" => Self::BuiltIn,
-                "CUSTOM" => Self::Custom,
-                _ => Self::UnknownValue(cloud_control_group_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
-            }
-        }
-    }
-
-    impl serde::ser::Serialize for CloudControlGroupType {
-        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-        where
-            S: serde::Serializer,
-        {
-            match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::BuiltIn => serializer.serialize_i32(1),
-                Self::Custom => serializer.serialize_i32(2),
-                Self::UnknownValue(u) => u.0.serialize(serializer),
-            }
-        }
-    }
-
-    impl<'de> serde::de::Deserialize<'de> for CloudControlGroupType {
-        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-        where
-            D: serde::Deserializer<'de>,
-        {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloudControlGroupType>::new(
-                ".google.cloud.cloudsecuritycompliance.v1.CloudControlGroup.CloudControlGroupType",
             ))
         }
     }
@@ -807,8 +479,12 @@ impl wkt::message::Message for Parameter {
     }
 }
 
-/// A CloudControl is a GCP-provided parameterized concept which is used to
-/// satisfy a Security or Compliance intent.
+/// A CloudControl is the fundamental unit encapsulating the rules
+/// to meet a specific security or compliance intent. It can contain
+/// various rule types (like Organization Policies, CEL expressions, etc.)
+/// enabling different enforcement modes (Preventive, Detective, Audit).
+/// CloudControls are often parameterized for reusability and can be either
+/// BUILT_IN (provided by Google) or CUSTOM (defined by the user).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControl {
@@ -2254,483 +1930,13 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
-/// Represents a Regulatory control.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct Control {
-    /// Output only. The name of a Control. Format:
-    /// 'organizations/{organization}/locations/{location}/controls/{control}''
-    pub name: std::string::String,
-
-    /// Output only. display_name
-    pub display_name: std::string::String,
-
-    /// Output only. The description of the control.
-    pub description: std::string::String,
-
-    /// Output only. Group where the control belongs. E.g. Access Control.
-    pub family: crate::model::control::Family,
-
-    /// Output only. Regulatory Family of the control E.g. Access Control
-    pub control_family: std::option::Option<crate::model::ControlFamily>,
-
-    /// Output only. The control comes under whoose responsibility e.g. GOOGLE,
-    /// CUSTOMER or SHARED.
-    pub responsibility_type: crate::model::RegulatoryControlResponsibilityType,
-
-    /// Output only. Google responsibility description of regulatory control.
-    pub google_responsibility_description: std::string::String,
-
-    /// Output only. Google responsibility implementation of regulatory control.
-    pub google_responsibility_implementation: std::string::String,
-
-    /// Output only. Customer responsibility description of regulatory control.
-    pub customer_responsibility_description: std::string::String,
-
-    /// Output only. Customer responsibility implementation of regulatory control.
-    pub customer_responsibility_implementation: std::string::String,
-
-    /// Output only. Description of shared Responsibility between Google and
-    /// Customer in implementing this control
-    pub shared_responsibility_description: std::string::String,
-
-    /// Output only. Link to the public documentation related to this control
-    pub additional_content_uri: std::string::String,
-
-    /// Output only. The Frameworks that include this CloudControl
-    pub related_frameworks: std::vec::Vec<std::string::String>,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl Control {
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [name][crate::model::Control::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
-        self
-    }
-
-    /// Sets the value of [display_name][crate::model::Control::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
-    /// Sets the value of [description][crate::model::Control::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
-        self
-    }
-
-    /// Sets the value of [family][crate::model::Control::family].
-    pub fn set_family<T: std::convert::Into<crate::model::control::Family>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.family = v.into();
-        self
-    }
-
-    /// Sets the value of [control_family][crate::model::Control::control_family].
-    pub fn set_control_family<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ControlFamily>,
-    {
-        self.control_family = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [control_family][crate::model::Control::control_family].
-    pub fn set_or_clear_control_family<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ControlFamily>,
-    {
-        self.control_family = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [responsibility_type][crate::model::Control::responsibility_type].
-    pub fn set_responsibility_type<
-        T: std::convert::Into<crate::model::RegulatoryControlResponsibilityType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.responsibility_type = v.into();
-        self
-    }
-
-    /// Sets the value of [google_responsibility_description][crate::model::Control::google_responsibility_description].
-    pub fn set_google_responsibility_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.google_responsibility_description = v.into();
-        self
-    }
-
-    /// Sets the value of [google_responsibility_implementation][crate::model::Control::google_responsibility_implementation].
-    pub fn set_google_responsibility_implementation<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.google_responsibility_implementation = v.into();
-        self
-    }
-
-    /// Sets the value of [customer_responsibility_description][crate::model::Control::customer_responsibility_description].
-    pub fn set_customer_responsibility_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.customer_responsibility_description = v.into();
-        self
-    }
-
-    /// Sets the value of [customer_responsibility_implementation][crate::model::Control::customer_responsibility_implementation].
-    pub fn set_customer_responsibility_implementation<
-        T: std::convert::Into<std::string::String>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.customer_responsibility_implementation = v.into();
-        self
-    }
-
-    /// Sets the value of [shared_responsibility_description][crate::model::Control::shared_responsibility_description].
-    pub fn set_shared_responsibility_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.shared_responsibility_description = v.into();
-        self
-    }
-
-    /// Sets the value of [additional_content_uri][crate::model::Control::additional_content_uri].
-    pub fn set_additional_content_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.additional_content_uri = v.into();
-        self
-    }
-
-    /// Sets the value of [related_frameworks][crate::model::Control::related_frameworks].
-    pub fn set_related_frameworks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.related_frameworks = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-}
-
-impl wkt::message::Message for Control {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.Control"
-    }
-}
-
-/// Defines additional types related to [Control].
-pub mod control {
-    #[allow(unused_imports)]
-    use super::*;
-
-    /// Family of the control. E.g. Access Control
-    ///
-    /// # Working with unknown values
-    ///
-    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
-    /// additional enum variants at any time. Adding new variants is not considered
-    /// a breaking change. Applications should write their code in anticipation of:
-    ///
-    /// - New values appearing in future releases of the client library, **and**
-    /// - New values received dynamically, without application changes.
-    ///
-    /// Please consult the [Working with enums] section in the user guide for some
-    /// guidelines.
-    ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-    #[derive(Clone, Debug, PartialEq)]
-    #[non_exhaustive]
-    pub enum Family {
-        /// Unspecified. Invalid state.
-        Unspecified,
-        /// Access Control
-        Ac,
-        /// Awareness and Training
-        At,
-        /// Audit and Accountability
-        Au,
-        /// Certification, Accreditation and Security Assessments
-        Ca,
-        /// Configuration Management
-        Cm,
-        /// Contingency Planning
-        Cp,
-        /// Identification and Authentication
-        Ia,
-        /// Incident Response
-        Ir,
-        /// Maintenance
-        Ma,
-        /// Media Protection
-        Mp,
-        /// Physical and Environmental Protection
-        Pe,
-        /// Security Planning
-        Pl,
-        /// Personnel Security
-        Ps,
-        /// Risk Assessment
-        Ra,
-        /// System Services and Acquisition
-        Sa,
-        /// System and Communications Protection
-        Sc,
-        /// System and Information Integrity
-        Si,
-        /// Supply Chain Risk Management
-        Sr,
-        /// If set, the enum was initialized with an unknown value.
-        ///
-        /// Applications can examine the value using [Family::value] or
-        /// [Family::name].
-        UnknownValue(family::UnknownValue),
-    }
-
-    #[doc(hidden)]
-    pub mod family {
-        #[allow(unused_imports)]
-        use super::*;
-        #[derive(Clone, Debug, PartialEq)]
-        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
-    }
-
-    impl Family {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Unspecified => std::option::Option::Some(0),
-                Self::Ac => std::option::Option::Some(1),
-                Self::At => std::option::Option::Some(2),
-                Self::Au => std::option::Option::Some(3),
-                Self::Ca => std::option::Option::Some(4),
-                Self::Cm => std::option::Option::Some(5),
-                Self::Cp => std::option::Option::Some(6),
-                Self::Ia => std::option::Option::Some(7),
-                Self::Ir => std::option::Option::Some(8),
-                Self::Ma => std::option::Option::Some(9),
-                Self::Mp => std::option::Option::Some(10),
-                Self::Pe => std::option::Option::Some(11),
-                Self::Pl => std::option::Option::Some(12),
-                Self::Ps => std::option::Option::Some(13),
-                Self::Ra => std::option::Option::Some(14),
-                Self::Sa => std::option::Option::Some(15),
-                Self::Sc => std::option::Option::Some(16),
-                Self::Si => std::option::Option::Some(17),
-                Self::Sr => std::option::Option::Some(18),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
-        /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
-        pub fn name(&self) -> std::option::Option<&str> {
-            match self {
-                Self::Unspecified => std::option::Option::Some("FAMILY_UNSPECIFIED"),
-                Self::Ac => std::option::Option::Some("AC"),
-                Self::At => std::option::Option::Some("AT"),
-                Self::Au => std::option::Option::Some("AU"),
-                Self::Ca => std::option::Option::Some("CA"),
-                Self::Cm => std::option::Option::Some("CM"),
-                Self::Cp => std::option::Option::Some("CP"),
-                Self::Ia => std::option::Option::Some("IA"),
-                Self::Ir => std::option::Option::Some("IR"),
-                Self::Ma => std::option::Option::Some("MA"),
-                Self::Mp => std::option::Option::Some("MP"),
-                Self::Pe => std::option::Option::Some("PE"),
-                Self::Pl => std::option::Option::Some("PL"),
-                Self::Ps => std::option::Option::Some("PS"),
-                Self::Ra => std::option::Option::Some("RA"),
-                Self::Sa => std::option::Option::Some("SA"),
-                Self::Sc => std::option::Option::Some("SC"),
-                Self::Si => std::option::Option::Some("SI"),
-                Self::Sr => std::option::Option::Some("SR"),
-                Self::UnknownValue(u) => u.0.name(),
-            }
-        }
-    }
-
-    impl std::default::Default for Family {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
-    impl std::fmt::Display for Family {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for Family {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Unspecified,
-                1 => Self::Ac,
-                2 => Self::At,
-                3 => Self::Au,
-                4 => Self::Ca,
-                5 => Self::Cm,
-                6 => Self::Cp,
-                7 => Self::Ia,
-                8 => Self::Ir,
-                9 => Self::Ma,
-                10 => Self::Mp,
-                11 => Self::Pe,
-                12 => Self::Pl,
-                13 => Self::Ps,
-                14 => Self::Ra,
-                15 => Self::Sa,
-                16 => Self::Sc,
-                17 => Self::Si,
-                18 => Self::Sr,
-                _ => Self::UnknownValue(family::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
-        }
-    }
-
-    impl std::convert::From<&str> for Family {
-        fn from(value: &str) -> Self {
-            use std::string::ToString;
-            match value {
-                "FAMILY_UNSPECIFIED" => Self::Unspecified,
-                "AC" => Self::Ac,
-                "AT" => Self::At,
-                "AU" => Self::Au,
-                "CA" => Self::Ca,
-                "CM" => Self::Cm,
-                "CP" => Self::Cp,
-                "IA" => Self::Ia,
-                "IR" => Self::Ir,
-                "MA" => Self::Ma,
-                "MP" => Self::Mp,
-                "PE" => Self::Pe,
-                "PL" => Self::Pl,
-                "PS" => Self::Ps,
-                "RA" => Self::Ra,
-                "SA" => Self::Sa,
-                "SC" => Self::Sc,
-                "SI" => Self::Si,
-                "SR" => Self::Sr,
-                _ => Self::UnknownValue(family::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
-            }
-        }
-    }
-
-    impl serde::ser::Serialize for Family {
-        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-        where
-            S: serde::Serializer,
-        {
-            match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::Ac => serializer.serialize_i32(1),
-                Self::At => serializer.serialize_i32(2),
-                Self::Au => serializer.serialize_i32(3),
-                Self::Ca => serializer.serialize_i32(4),
-                Self::Cm => serializer.serialize_i32(5),
-                Self::Cp => serializer.serialize_i32(6),
-                Self::Ia => serializer.serialize_i32(7),
-                Self::Ir => serializer.serialize_i32(8),
-                Self::Ma => serializer.serialize_i32(9),
-                Self::Mp => serializer.serialize_i32(10),
-                Self::Pe => serializer.serialize_i32(11),
-                Self::Pl => serializer.serialize_i32(12),
-                Self::Ps => serializer.serialize_i32(13),
-                Self::Ra => serializer.serialize_i32(14),
-                Self::Sa => serializer.serialize_i32(15),
-                Self::Sc => serializer.serialize_i32(16),
-                Self::Si => serializer.serialize_i32(17),
-                Self::Sr => serializer.serialize_i32(18),
-                Self::UnknownValue(u) => u.0.serialize(serializer),
-            }
-        }
-    }
-
-    impl<'de> serde::de::Deserialize<'de> for Family {
-        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-        where
-            D: serde::Deserializer<'de>,
-        {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Family>::new(
-                ".google.cloud.cloudsecuritycompliance.v1.Control.Family",
-            ))
-        }
-    }
-}
-
-/// Regulatory Family of the control
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct ControlFamily {
-    /// ID of the regulatory control family.
-    pub family_id: std::string::String,
-
-    /// Display name of the regulatory control family.
-    pub display_name: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl ControlFamily {
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [family_id][crate::model::ControlFamily::family_id].
-    pub fn set_family_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.family_id = v.into();
-        self
-    }
-
-    /// Sets the value of [display_name][crate::model::ControlFamily::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-}
-
-impl wkt::message::Message for ControlFamily {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.ControlFamily"
-    }
-}
-
-/// Request message for [ListFrameworks][].
+/// Request message for listing Frameworks.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworksRequest {
     /// Required. The parent resource name, in the format
     /// `organizations/{organization}/locations/{location}`.
+    /// Only global location is supported.
     pub parent: std::string::String,
 
     /// Optional. The maximum number of frameworks to return. The default value is
@@ -2777,14 +1983,12 @@ impl wkt::message::Message for ListFrameworksRequest {
     }
 }
 
-/// Response message for [ListFrameworks][].
+/// Response message for listing Frameworks.
+/// Contains a paginated list of Framework resources.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworksResponse {
-    /// The list of [Framework][google.cloud.cloudsecuritycompliance.v1.Framework]
-    /// resources.
-    ///
-    /// [google.cloud.cloudsecuritycompliance.v1.Framework]: crate::model::Framework
+    /// The list of Framework resources.
     pub frameworks: std::vec::Vec<crate::model::Framework>,
 
     /// A pagination token. To retrieve the next page of results, call the method
@@ -2837,7 +2041,7 @@ impl gax::paginator::internal::PageableResponse for ListFrameworksResponse {
     }
 }
 
-/// Message for getting a Framework.
+/// Request message for getting a Framework.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFrameworkRequest {
@@ -2846,7 +2050,7 @@ pub struct GetFrameworkRequest {
     /// organizations/{organization}/locations/{location}/frameworks/{framework_id}
     pub name: std::string::String,
 
-    /// Optional. The Framework major revision to retrieve. If not specified, the
+    /// Optional. The Framework major version to retrieve. If not specified, the
     /// most recently updated revision_id is retrieved.
     pub major_revision_id: i64,
 
@@ -2877,7 +2081,7 @@ impl wkt::message::Message for GetFrameworkRequest {
     }
 }
 
-/// Message for creating a Framework
+/// Request message for creating a Framework
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFrameworkRequest {
@@ -2938,7 +2142,7 @@ impl wkt::message::Message for CreateFrameworkRequest {
     }
 }
 
-/// Message for updating a Framework
+/// Request message for updating a Framework.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFrameworkRequest {
@@ -2953,7 +2157,7 @@ pub struct UpdateFrameworkRequest {
     /// Required. The resource being updated
     pub framework: std::option::Option<crate::model::Framework>,
 
-    /// Optional. The major revision ID of the framework to update.
+    /// Optional. The major version ID of the framework to update.
     pub major_revision_id: i64,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3013,7 +2217,7 @@ impl wkt::message::Message for UpdateFrameworkRequest {
     }
 }
 
-/// Message for deleting a Framework
+/// Request message for deleting a Framework.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFrameworkRequest {
@@ -3042,7 +2246,7 @@ impl wkt::message::Message for DeleteFrameworkRequest {
     }
 }
 
-/// Request message for [ListCloudControls][].
+/// Request message for listing CloudControls.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlsRequest {
@@ -3155,7 +2359,7 @@ impl gax::paginator::internal::PageableResponse for ListCloudControlsResponse {
     }
 }
 
-/// Message for getting a CloudControl.
+/// Request message for getting a CloudControl.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCloudControlRequest {
@@ -3184,7 +2388,7 @@ impl wkt::message::Message for GetCloudControlRequest {
     }
 }
 
-/// Message for creating a CloudControl
+/// Request message for creating a CloudControl
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCloudControlRequest {
@@ -3248,7 +2452,7 @@ impl wkt::message::Message for CreateCloudControlRequest {
     }
 }
 
-/// Message for updating a CloudControl.
+/// Request message for UpdateCloudControl.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCloudControlRequest {
@@ -3320,7 +2524,7 @@ impl wkt::message::Message for UpdateCloudControlRequest {
     }
 }
 
-/// Message for deleting a CloudControl.
+/// Request message for deleting a CloudControl.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCloudControlRequest {
@@ -3349,44 +2553,39 @@ impl wkt::message::Message for DeleteCloudControlRequest {
     }
 }
 
-/// FrameworkDeployment is a resource that represents a deployment using a
-/// framework.
+/// FrameworkDeployment represents deployment of a Framework on a target
+/// resource. Supported target resources are organizations/{organization},
+/// folders/{folder}, and projects/{project}.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkDeployment {
-    /// Identifier. FrameworkDeployment name in either of the following formats:
+    /// Identifier. FrameworkDeployment name in the following format:
     /// organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}
     pub name: std::string::String,
 
-    /// Required. target_resource_config referencing either an already existing
-    /// target_resource or contains config for a target_resource to be created
+    /// Required. The details of the target resource on which the Framework is to
+    /// be deployed. It can either be an existing target resource or a new target
+    /// resource to be created.
     pub target_resource_config: std::option::Option<crate::model::TargetResourceConfig>,
 
     /// Output only. The resource on which the Framework is deployed based on the
-    /// provided TargetResourceConfig. In format organizations/{organization},
-    /// folders/{folder}, projects/{project} or
-    /// projects/{project}/locations/{location}/applications/{application}.
+    /// provided TargetResourceConfig in the following format:
+    /// organizations/{organization}, folders/{folder} or projects/{project}
     pub computed_target_resource: std::string::String,
 
-    /// Required. Framework resource reference
+    /// Required. Reference to the framework to be deployed.
     pub framework: std::option::Option<crate::model::FrameworkReference>,
 
-    /// Optional. User provided description of the deployment
+    /// Optional. User provided description of the Framework deployment
     pub description: std::string::String,
 
-    /// Required. Deployment mode and parameters for each of the cloud_controls
-    /// part of the framework.
+    /// Required. Deployment mode and parameters for each of the Cloud Controls in
+    /// the framework. Every Cloud Control in the framework must have a
+    /// CloudControlMetadata.
     pub cloud_control_metadata: std::vec::Vec<crate::model::CloudControlMetadata>,
 
-    /// Output only. State of the deployment
+    /// Output only. State of the Framework Deployment
     pub deployment_state: crate::model::DeploymentState,
-
-    /// Output only. This field is inlined just for cloudNext because the one
-    /// platform apis of CCDeployment does not exist. Beyond cloud
-    /// next it will be replaced with the field below which is the
-    /// references of cloud control deployment
-    #[deprecated]
-    pub cc_deployments: std::vec::Vec<crate::model::CloudControlDeployment>,
 
     /// Output only. The time at which the resource was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -3395,22 +2594,20 @@ pub struct FrameworkDeployment {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. To prevent concurrent updates from overwriting each other, always
-    /// provide the `etag` when you update a CustomComplianceFramework. You can
-    /// also provide the `etag` when you delete a CustomComplianceFramework, to
-    /// help ensure that you're deleting the intended version of the
-    /// CustomComplianceFramework.
+    /// provide the `etag` when you update a FrameworkDeployment. You can also
+    /// provide the `etag` when you delete a FrameworkDeployment, to help
+    /// ensure that you're deleting the intended version of the
+    /// FrameworkDeployment.
     pub etag: std::string::String,
-
-    /// Output only. Similarly we'll also have a field for CloudControlGroups
-    pub cc_group_deployments: std::vec::Vec<crate::model::CloudControlGroupDeployment>,
 
     /// Output only. The display name of the target resource.
     pub target_resource_display_name: std::string::String,
 
-    /// Output only. The references to the cloud control deployments.
-    /// Example: If a framework deployment deploys two cloud controls,
-    /// cc-deployment-1 and cc-deployment-2, then the
-    /// cloud_control_deployment_references will be:
+    /// Output only. The references to the cloud control deployments. It has all
+    /// the CloudControlDeployments which are either directly added in the
+    /// framework or through a CloudControlGroup. Example: If a framework
+    /// deployment deploys two cloud controls, cc-deployment-1 and cc-deployment-2,
+    /// then the cloud_control_deployment_references will be:
     /// {
     /// cloud_control_deployment_reference: {
     /// cloud_control_deployment:
@@ -3508,18 +2705,6 @@ impl FrameworkDeployment {
         self
     }
 
-    /// Sets the value of [cc_deployments][crate::model::FrameworkDeployment::cc_deployments].
-    #[deprecated]
-    pub fn set_cc_deployments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlDeployment>,
-    {
-        use std::iter::Iterator;
-        self.cc_deployments = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [create_time][crate::model::FrameworkDeployment::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
@@ -3562,17 +2747,6 @@ impl FrameworkDeployment {
         self
     }
 
-    /// Sets the value of [cc_group_deployments][crate::model::FrameworkDeployment::cc_group_deployments].
-    pub fn set_cc_group_deployments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlGroupDeployment>,
-    {
-        use std::iter::Iterator;
-        self.cc_group_deployments = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [target_resource_display_name][crate::model::FrameworkDeployment::target_resource_display_name].
     pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3600,32 +2774,33 @@ impl wkt::message::Message for FrameworkDeployment {
     }
 }
 
-/// CloudControlDeployment is a resource that represents a deployment using a
-/// cloud control.
+/// CloudControlDeployment represents deployment of a CloudControl on a target
+/// resource. Supported target resources are organizations/{organization},
+/// folders/{folder}, and projects/{project}.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlDeployment {
-    /// Identifier. CloudControlDeployment name in either of the following formats:
+    /// Identifier. CloudControlDeployment name in the following format:
     /// organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}
     pub name: std::string::String,
 
-    /// Required. target_resource_config referencing either an already existing
-    /// target_resource or contains config for a target_resource to be created
+    /// Required. The details of the target resource on which the CloudControl is
+    /// to be deployed. It can either be an existing target resource or a new
+    /// target resource to be created.
     pub target_resource_config: std::option::Option<crate::model::TargetResourceConfig>,
 
     /// Output only. The resource on which the CloudControl is deployed based on
-    /// the provided TargetResourceConfig. In format organizations/{organization},
-    /// folders/{folder} or projects/{project}.
+    /// the provided TargetResourceConfig in the following format:
+    /// organizations/{organization}, folders/{folder} or projects/{project}.
     pub target_resource: std::string::String,
 
-    /// Required. CloudControlReference, Deployment mode and parameters for the
-    /// cloud_control
+    /// Required. Deployment mode and parameters for the Cloud Control.
     pub cloud_control_metadata: std::option::Option<crate::model::CloudControlMetadata>,
 
-    /// Optional. User provided description of the deployment
+    /// Optional. User provided description of the CloudControl deployment
     pub description: std::string::String,
 
-    /// Output only. State of the deployment
+    /// Output only. State of the CloudControl deployment
     pub deployment_state: crate::model::DeploymentState,
 
     /// Output only. The time at which the resource was created.
@@ -3635,21 +2810,21 @@ pub struct CloudControlDeployment {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. To prevent concurrent updates from overwriting each other, always
-    /// provide the `etag` when you update a CustomComplianceCloudControl. You can
-    /// also provide the `etag` when you delete a CustomComplianceCloudControl, to
-    /// help ensure that you're deleting the intended version of the
-    /// CustomComplianceCloudControl.
+    /// provide the `etag` when you update a CloudControlDeployment. You can also
+    /// provide the `etag` when you delete a CloudControlDeployment, to help
+    /// ensure that you're deleting the intended version of the
+    /// CloudControlDeployment.
     pub etag: std::string::String,
 
-    /// Output only. The cloud control after parameter substitution.
+    /// Output only. The CloudControl after substitution of given parameters.
     pub parameter_substituted_cloud_control: std::option::Option<crate::model::CloudControl>,
 
-    /// Output only. The references to the framework deployments that this cloud
-    /// control deployment is part of.
+    /// Output only. The references to the Framework deployments that this Cloud
+    /// Control deployment is part of. A Cloud Control deployment can be part of
+    /// multiple Framework deployments.
     pub framework_deployment_references: std::vec::Vec<crate::model::FrameworkDeploymentReference>,
 
-    /// Output only. The name of the application, project, folder, or organization
-    /// that the cloud control is deployed on.
+    /// Output only. The display name of the target resource.
     pub target_resource_display_name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3924,17 +3099,16 @@ pub mod target_resource_config {
     #[non_exhaustive]
     pub enum ResourceConfig {
         /// Optional. CRM node in format organizations/{organization},
-        /// folders/{folder}, projects/{project} or
-        /// projects/{project}/locations/{location}/applications/{application}.
+        /// folders/{folder}, or projects/{project}
         ExistingTargetResource(std::string::String),
         /// Optional. Config to create a new resource and use that as the
-        /// target_resource for deployment
+        /// target_resource for deployment.
         TargetResourceCreationConfig(std::boxed::Box<crate::model::TargetResourceCreationConfig>),
     }
 }
 
-/// TargetResourceCreationConfig contains the config to create a new resource
-/// and use that as the target_resource for deployment.
+/// TargetResourceCreationConfig contains the config to create a new resource to
+/// be used as the target_resource of a deployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetResourceCreationConfig {
@@ -4048,18 +3222,22 @@ pub mod target_resource_creation_config {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ResourceCreationConfig {
-        /// Optional. Config to create a new folder
+        /// Optional. Config to create a new folder to be used as the target_resource
+        /// of a deployment.
         FolderCreationConfig(std::boxed::Box<crate::model::FolderCreationConfig>),
-        /// Optional. Config to create a new project
+        /// Optional. Config to create a new project to be used as the
+        /// target_resource of a deployment.
         ProjectCreationConfig(std::boxed::Box<crate::model::ProjectCreationConfig>),
     }
 }
 
-/// FolderCreationConfig contains the config to create a new folder.
+/// FolderCreationConfig contains the config to create a new folder to be used
+/// as the target_resource of a deployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FolderCreationConfig {
-    /// Required. organizations/{org} or folders/{folder}
+    /// Required. The parent of the folder to be created. It can be an
+    /// organizations/{org} or folders/{folder}
     pub parent: std::string::String,
 
     /// Required. Display name of the folder to be created
@@ -4095,17 +3273,18 @@ impl wkt::message::Message for FolderCreationConfig {
     }
 }
 
-/// ProjectCreationConfig contains the config to create a new project.
+/// ProjectCreationConfig contains the config to create a new project to be used
+/// as the target_resource of a deployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectCreationConfig {
     /// Required. organizations/{org} or folders/{folder}
     pub parent: std::string::String,
 
-    /// Required. Display name of the project to be created
+    /// Required. Display name of the project to be created.
     pub project_display_name: std::string::String,
 
-    /// Required. Billing account id to be used for the project
+    /// Required. Billing account id to be used for the project.
     pub billing_account_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4147,12 +3326,12 @@ impl wkt::message::Message for ProjectCreationConfig {
     }
 }
 
-/// CloudControlMetadata contains the metadata for each of the cloud controls
-/// part of the framework.
+/// CloudControlMetadata contains the enforcement mode and parameters of a Cloud
+/// Control Deployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlMetadata {
-    /// Required. Cloud control details
+    /// Required. Cloud control name and parameters.
     pub cloud_control_details: std::option::Option<crate::model::CloudControlDetails>,
 
     /// Required. Enforcement mode of the cloud control
@@ -4200,108 +3379,21 @@ impl wkt::message::Message for CloudControlMetadata {
     }
 }
 
-/// CloudControlGroupDeployment contains the cloud control group and the cloud
-/// control deployments in the group.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct CloudControlGroupDeployment {
-    /// Required. Cloud control group
-    pub cloud_control_group: std::option::Option<crate::model::CloudControlGroup>,
-
-    /// Required. Cloud control deployments in the group
-    #[deprecated]
-    pub cc_deployments: std::vec::Vec<crate::model::CloudControlDeployment>,
-
-    /// Output only. The references to the cloud control deployments in the cloud
-    /// control group. For example, if a cloud control group has two cloud
-    /// controls, `cloud-control-1` and `cloud-control-2`, and the cloud control
-    /// deployments for these cloud controls are `cloud-control-deployment-1` and
-    /// `cloud-control-deployment-2` respectively, then the
-    /// references are:
-    ///
-    /// ```norust
-    ///  cloud_control_deployment_reference: {
-    ///    cloud_control_deployment:
-    ///    "organizations/{organization}/locations/{location}/cloudControlDeployments/cloud-control-deployment-1"
-    ///  },
-    ///  cloud_control_deployment_reference: {
-    ///   cloud_control_deployment:
-    ///   "organizations/{organization}/locations/{location}/cloudControlDeployments/cloud-control-deployment-2"
-    ///  }
-    /// ```
-    pub cc_deployment_references: std::vec::Vec<crate::model::CloudControlDeploymentReference>,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl CloudControlGroupDeployment {
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [cloud_control_group][crate::model::CloudControlGroupDeployment::cloud_control_group].
-    pub fn set_cloud_control_group<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControlGroup>,
-    {
-        self.cloud_control_group = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [cloud_control_group][crate::model::CloudControlGroupDeployment::cloud_control_group].
-    pub fn set_or_clear_cloud_control_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudControlGroup>,
-    {
-        self.cloud_control_group = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [cc_deployments][crate::model::CloudControlGroupDeployment::cc_deployments].
-    #[deprecated]
-    pub fn set_cc_deployments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlDeployment>,
-    {
-        use std::iter::Iterator;
-        self.cc_deployments = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [cc_deployment_references][crate::model::CloudControlGroupDeployment::cc_deployment_references].
-    pub fn set_cc_deployment_references<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CloudControlDeploymentReference>,
-    {
-        use std::iter::Iterator;
-        self.cc_deployment_references = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-}
-
-impl wkt::message::Message for CloudControlGroupDeployment {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.CloudControlGroupDeployment"
-    }
-}
-
-/// Request message for CreateFrameworkDeployment.
+/// Request message for CreateFrameworkDeployment API.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFrameworkDeploymentRequest {
-    /// Required. Value for parent. Supported formats:
+    /// Required. The parent resource of the FrameworkDeployment in the format:
     /// organizations/{organization}/locations/{location}
     /// Only global location is supported.
     pub parent: std::string::String,
 
     /// Optional. User provided identifier. It should be unique in scope of a
-    /// parent Please note that this is optional and if not provided, a random UUID
-    /// will be generated.
+    /// parent. This is optional and if not provided, a random UUID will be
+    /// generated.
     pub framework_deployment_id: std::string::String,
 
-    /// Required. The resource being created.
+    /// Required. The FrameworkDeployment to be created.
     pub framework_deployment: std::option::Option<crate::model::FrameworkDeployment>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4356,8 +3448,8 @@ impl wkt::message::Message for CreateFrameworkDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFrameworkDeploymentRequest {
-    /// Required. Name of the framework deployment to be deleted
-    /// FrameworkDeployment name in either of the following formats:
+    /// Required. name of the FrameworkDeployment to be deleted in the following
+    /// format:
     /// organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}
     pub name: std::string::String,
 
@@ -4402,7 +3494,7 @@ impl wkt::message::Message for DeleteFrameworkDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFrameworkDeploymentRequest {
-    /// Required. FrameworkDeployment name in either of the following formats:
+    /// Required. FrameworkDeployment name in the following format:
     /// organizations/{organization}/locations/{location}/frameworkDeployments/{framework_deployment_id}
     pub name: std::string::String,
 
@@ -4431,7 +3523,9 @@ impl wkt::message::Message for GetFrameworkDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworkDeploymentsRequest {
-    /// Required. Parent value for ListFrameworkDeploymentsRequest.
+    /// Required. parent resource of the FrameworkDeployment in the format:
+    /// organizations/{organization}/locations/{location}
+    /// Only global location is supported.
     pub parent: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
@@ -4493,7 +3587,7 @@ impl wkt::message::Message for ListFrameworkDeploymentsRequest {
     }
 }
 
-/// Message for response to listing FrameworkDeployments.
+/// Response message for ListFrameworkDeployments.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFrameworkDeploymentsResponse {
@@ -4553,7 +3647,7 @@ impl gax::paginator::internal::PageableResponse for ListFrameworkDeploymentsResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCloudControlDeploymentRequest {
-    /// Required. CloudControlDeployment name in either of the following formats:
+    /// Required. CloudControlDeployment name in the following format:
     /// organizations/{organization}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}
     pub name: std::string::String,
 
@@ -4582,7 +3676,9 @@ impl wkt::message::Message for GetCloudControlDeploymentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlDeploymentsRequest {
-    /// Required. Parent value for ListCloudControlDeploymentsRequest.
+    /// Required. parent resource of the CloudControlDeployment in the format:
+    /// organizations/{organization}/locations/{location}
+    /// Only global location is supported.
     pub parent: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
@@ -4644,7 +3740,7 @@ impl wkt::message::Message for ListCloudControlDeploymentsRequest {
     }
 }
 
-/// Message for response to listing CloudControlDeployments.
+/// Response message for ListCloudControlDeployments.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudControlDeploymentsResponse {
@@ -4700,11 +3796,11 @@ impl gax::paginator::internal::PageableResponse for ListCloudControlDeploymentsR
     }
 }
 
-/// The reference to the cloud control deployment.
+/// The reference to a CloudControlDeployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudControlDeploymentReference {
-    /// Output only. The name of the cloud control deployment. The format is:
+    /// Output only. The name of the CloudControlDeployment. The format is:
     /// organizations/{org}/locations/{location}/cloudControlDeployments/{cloud_control_deployment_id}
     pub cloud_control_deployment: std::string::String,
 
@@ -4732,15 +3828,15 @@ impl wkt::message::Message for CloudControlDeploymentReference {
     }
 }
 
-/// The reference to the framework deployment.
+/// The reference to a FrameworkDeployment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrameworkDeploymentReference {
-    /// Output only. The name of the framework. The format is:
+    /// Output only. The name of the FrameworkDeployment. The format is:
     /// organizations/{org}/locations/{location}/frameworkDeployments/{framework_deployment_id}
     pub framework_deployment: std::string::String,
 
-    /// Optional. The reference to the framework that this deployment is for.
+    /// Optional. The reference to the Framework that this deployment is for.
     /// Example: {
     /// framework:
     /// "organizations/{org}/locations/{location}/frameworks/{framework}",
@@ -4748,7 +3844,8 @@ pub struct FrameworkDeploymentReference {
     /// }
     pub framework_reference: std::option::Option<crate::model::FrameworkReference>,
 
-    /// Optional. The display name of the framework.
+    /// Optional. The display name of the Framework that this FrameworkDeployment
+    /// is for.
     pub framework_display_name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4799,149 +3896,6 @@ impl FrameworkDeploymentReference {
 impl wkt::message::Message for FrameworkDeploymentReference {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.cloudsecuritycompliance.v1.FrameworkDeploymentReference"
-    }
-}
-
-/// Regulatory Control Responsibility Type
-///
-/// # Working with unknown values
-///
-/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
-/// additional enum variants at any time. Adding new variants is not considered
-/// a breaking change. Applications should write their code in anticipation of:
-///
-/// - New values appearing in future releases of the client library, **and**
-/// - New values received dynamically, without application changes.
-///
-/// Please consult the [Working with enums] section in the user guide for some
-/// guidelines.
-///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-#[derive(Clone, Debug, PartialEq)]
-#[non_exhaustive]
-pub enum RegulatoryControlResponsibilityType {
-    /// Unspecified. Invalid state.
-    Unspecified,
-    /// Google responsibility.
-    Google,
-    /// Customer responsibility.
-    Customer,
-    /// Shared responsibility.
-    Shared,
-    /// If set, the enum was initialized with an unknown value.
-    ///
-    /// Applications can examine the value using [RegulatoryControlResponsibilityType::value] or
-    /// [RegulatoryControlResponsibilityType::name].
-    UnknownValue(regulatory_control_responsibility_type::UnknownValue),
-}
-
-#[doc(hidden)]
-pub mod regulatory_control_responsibility_type {
-    #[allow(unused_imports)]
-    use super::*;
-    #[derive(Clone, Debug, PartialEq)]
-    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
-}
-
-impl RegulatoryControlResponsibilityType {
-    /// Gets the enum value.
-    ///
-    /// Returns `None` if the enum contains an unknown value deserialized from
-    /// the string representation of enums.
-    pub fn value(&self) -> std::option::Option<i32> {
-        match self {
-            Self::Unspecified => std::option::Option::Some(0),
-            Self::Google => std::option::Option::Some(1),
-            Self::Customer => std::option::Option::Some(2),
-            Self::Shared => std::option::Option::Some(3),
-            Self::UnknownValue(u) => u.0.value(),
-        }
-    }
-
-    /// Gets the enum value as a string.
-    ///
-    /// Returns `None` if the enum contains an unknown value deserialized from
-    /// the integer representation of enums.
-    pub fn name(&self) -> std::option::Option<&str> {
-        match self {
-            Self::Unspecified => {
-                std::option::Option::Some("REGULATORY_CONTROL_RESPONSIBILITY_TYPE_UNSPECIFIED")
-            }
-            Self::Google => std::option::Option::Some("GOOGLE"),
-            Self::Customer => std::option::Option::Some("CUSTOMER"),
-            Self::Shared => std::option::Option::Some("SHARED"),
-            Self::UnknownValue(u) => u.0.name(),
-        }
-    }
-}
-
-impl std::default::Default for RegulatoryControlResponsibilityType {
-    fn default() -> Self {
-        use std::convert::From;
-        Self::from(0)
-    }
-}
-
-impl std::fmt::Display for RegulatoryControlResponsibilityType {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        wkt::internal::display_enum(f, self.name(), self.value())
-    }
-}
-
-impl std::convert::From<i32> for RegulatoryControlResponsibilityType {
-    fn from(value: i32) -> Self {
-        match value {
-            0 => Self::Unspecified,
-            1 => Self::Google,
-            2 => Self::Customer,
-            3 => Self::Shared,
-            _ => Self::UnknownValue(regulatory_control_responsibility_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
-        }
-    }
-}
-
-impl std::convert::From<&str> for RegulatoryControlResponsibilityType {
-    fn from(value: &str) -> Self {
-        use std::string::ToString;
-        match value {
-            "REGULATORY_CONTROL_RESPONSIBILITY_TYPE_UNSPECIFIED" => Self::Unspecified,
-            "GOOGLE" => Self::Google,
-            "CUSTOMER" => Self::Customer,
-            "SHARED" => Self::Shared,
-            _ => Self::UnknownValue(regulatory_control_responsibility_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
-        }
-    }
-}
-
-impl serde::ser::Serialize for RegulatoryControlResponsibilityType {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        match self {
-            Self::Unspecified => serializer.serialize_i32(0),
-            Self::Google => serializer.serialize_i32(1),
-            Self::Customer => serializer.serialize_i32(2),
-            Self::Shared => serializer.serialize_i32(3),
-            Self::UnknownValue(u) => u.0.serialize(serializer),
-        }
-    }
-}
-
-impl<'de> serde::de::Deserialize<'de> for RegulatoryControlResponsibilityType {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        deserializer.deserialize_any(wkt::internal::EnumVisitor::<
-            RegulatoryControlResponsibilityType,
-        >::new(
-            ".google.cloud.cloudsecuritycompliance.v1.RegulatoryControlResponsibilityType",
-        ))
     }
 }
 
@@ -6107,6 +5061,7 @@ impl<'de> serde::de::Deserialize<'de> for TargetResourceType {
     }
 }
 
+/// DeploymentState represents the state of the Deployment resource.
 ///
 /// # Working with unknown values
 ///
@@ -6132,13 +5087,19 @@ pub enum DeploymentState {
     Creating,
     /// Deployment is in DELETING state.
     Deleting,
-    /// Deployment has failed.
+    /// Deployment has failed. All the changes made by the deployment have been
+    /// successfully rolled back. A deployment in the FAILED state can be retried
+    /// or deleted.
     Failed,
-    /// Deployment is ready.
+    /// Deployment is successful and ready to use.
     Ready,
-    /// Deployment is partially deployed.
+    /// Deployment is partially deployed. All the Cloud Controls were not deployed
+    /// successfully. Retrying the operation will resume from the first failed
+    /// step.
     PartiallyDeployed,
-    /// Deployment is partially deleted.
+    /// Deployment is partially deleted. All the Cloud Control Deployments were not
+    /// deleted successfully. Retrying the operation will resume from the first
+    /// failed step.
     PartiallyDeleted,
     /// If set, the enum was initialized with an unknown value.
     ///

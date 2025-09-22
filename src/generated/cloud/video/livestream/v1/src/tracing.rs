@@ -101,6 +101,24 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn start_distribution(
+        &self,
+        req: crate::model::StartDistributionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.start_distribution(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn stop_distribution(
+        &self,
+        req: crate::model::StopDistributionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.stop_distribution(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn create_input(
         &self,
         req: crate::model::CreateInputRequest,
@@ -143,6 +161,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_input(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn preview_input(
+        &self,
+        req: crate::model::PreviewInputRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::PreviewInputResponse>> {
+        self.inner.preview_input(req, options).await
     }
 
     #[tracing::instrument(ret)]

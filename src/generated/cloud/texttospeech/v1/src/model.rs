@@ -687,6 +687,82 @@ pub mod multi_speaker_markup {
     }
 }
 
+/// Configuration for a single speaker in a Gemini TTS multi-speaker setup.
+/// Enables dialogue between two speakers.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MultispeakerPrebuiltVoice {
+    /// Required. The speaker alias of the voice. This is the user-chosen speaker
+    /// name that is used in the multispeaker text input, such as "Speaker1".
+    pub speaker_alias: std::string::String,
+
+    /// Required. The speaker ID of the voice. See
+    /// <https://cloud.google.com/text-to-speech/docs/gemini-tts#voice_options>
+    /// for available values.
+    pub speaker_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MultispeakerPrebuiltVoice {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [speaker_alias][crate::model::MultispeakerPrebuiltVoice::speaker_alias].
+    pub fn set_speaker_alias<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.speaker_alias = v.into();
+        self
+    }
+
+    /// Sets the value of [speaker_id][crate::model::MultispeakerPrebuiltVoice::speaker_id].
+    pub fn set_speaker_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.speaker_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MultispeakerPrebuiltVoice {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.texttospeech.v1.MultispeakerPrebuiltVoice"
+    }
+}
+
+/// Configuration for a multi-speaker text-to-speech setup. Enables the use of up
+/// to two distinct voices in a single synthesis request.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MultiSpeakerVoiceConfig {
+    /// Required. A list of configurations for the voices of the speakers. Exactly
+    /// two speaker voice configurations must be provided.
+    pub speaker_voice_configs: std::vec::Vec<crate::model::MultispeakerPrebuiltVoice>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MultiSpeakerVoiceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [speaker_voice_configs][crate::model::MultiSpeakerVoiceConfig::speaker_voice_configs].
+    pub fn set_speaker_voice_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MultispeakerPrebuiltVoice>,
+    {
+        use std::iter::Iterator;
+        self.speaker_voice_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MultiSpeakerVoiceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.texttospeech.v1.MultiSpeakerVoiceConfig"
+    }
+}
+
 /// Contains text input to be synthesized. Either `text` or `ssml` must be
 /// supplied. Supplying both or neither returns
 /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT]. The
@@ -947,6 +1023,11 @@ pub struct VoiceSelectionParams {
     /// matching the specified configuration.
     pub model_name: std::string::String,
 
+    /// Optional. The configuration for a Gemini multi-speaker text-to-speech
+    /// setup. Enables the use of two distinct voices in a single synthesis
+    /// request.
+    pub multi_speaker_voice_config: std::option::Option<crate::model::MultiSpeakerVoiceConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1015,6 +1096,24 @@ impl VoiceSelectionParams {
     /// Sets the value of [model_name][crate::model::VoiceSelectionParams::model_name].
     pub fn set_model_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_name = v.into();
+        self
+    }
+
+    /// Sets the value of [multi_speaker_voice_config][crate::model::VoiceSelectionParams::multi_speaker_voice_config].
+    pub fn set_multi_speaker_voice_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiSpeakerVoiceConfig>,
+    {
+        self.multi_speaker_voice_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [multi_speaker_voice_config][crate::model::VoiceSelectionParams::multi_speaker_voice_config].
+    pub fn set_or_clear_multi_speaker_voice_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiSpeakerVoiceConfig>,
+    {
+        self.multi_speaker_voice_config = v.map(|x| x.into());
         self
     }
 }
@@ -1623,6 +1722,38 @@ impl StreamingSynthesisInput {
         );
         self
     }
+
+    /// The value of [input_source][crate::model::StreamingSynthesisInput::input_source]
+    /// if it holds a `MultiSpeakerMarkup`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn multi_speaker_markup(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MultiSpeakerMarkup>> {
+        #[allow(unreachable_patterns)]
+        self.input_source.as_ref().and_then(|v| match v {
+            crate::model::streaming_synthesis_input::InputSource::MultiSpeakerMarkup(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [input_source][crate::model::StreamingSynthesisInput::input_source]
+    /// to hold a `MultiSpeakerMarkup`.
+    ///
+    /// Note that all the setters affecting `input_source` are
+    /// mutually exclusive.
+    pub fn set_multi_speaker_markup<
+        T: std::convert::Into<std::boxed::Box<crate::model::MultiSpeakerMarkup>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input_source = std::option::Option::Some(
+            crate::model::streaming_synthesis_input::InputSource::MultiSpeakerMarkup(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for StreamingSynthesisInput {
@@ -1646,6 +1777,9 @@ pub mod streaming_synthesis_input {
         /// Markup for HD voices specifically. This field may not be used with any
         /// other voices.
         Markup(std::string::String),
+        /// Multi-speaker markup for Gemini TTS. This field may not
+        /// be used with any other voices.
+        MultiSpeakerMarkup(std::boxed::Box<crate::model::MultiSpeakerMarkup>),
     }
 }
 

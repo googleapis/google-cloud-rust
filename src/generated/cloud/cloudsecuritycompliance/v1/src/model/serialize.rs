@@ -51,12 +51,6 @@ impl serde::ser::Serialize for super::Framework {
         if !wkt::internal::is_default(&self.r#type) {
             state.serialize_entry("type", &self.r#type)?;
         }
-        if !self.cloud_control_group_details.is_empty() {
-            state.serialize_entry(
-                "cloudControlGroupDetails",
-                &self.cloud_control_group_details,
-            )?;
-        }
         if !self.cloud_control_details.is_empty() {
             state.serialize_entry("cloudControlDetails", &self.cloud_control_details)?;
         }
@@ -72,76 +66,11 @@ impl serde::ser::Serialize for super::Framework {
                 &self.supported_target_resource_types,
             )?;
         }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for super::framework::CloudControlGroupDetails {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if let Some(value) = self.cloud_control_group() {
-            state.serialize_entry("cloudControlGroup", value)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CloudControlGroup {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.description.is_empty() {
-            state.serialize_entry("description", &self.description)?;
-        }
-        if !wkt::internal::is_default(&self.r#type) {
-            state.serialize_entry("type", &self.r#type)?;
-        }
-        if !self.control_id.is_empty() {
-            state.serialize_entry("controlId", &self.control_id)?;
-        }
-        if !self.cloud_control_details.is_empty() {
-            state.serialize_entry("cloudControlDetails", &self.cloud_control_details)?;
-        }
-        if !wkt::internal::is_default(&self.major_revision_id) {
-            struct __With<'a>(&'a i64);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("majorRevisionId", &__With(&self.major_revision_id))?;
-        }
-        if !self.control.is_empty() {
-            state.serialize_entry("control", &self.control)?;
+        if !self.supported_enforcement_modes.is_empty() {
+            state.serialize_entry(
+                "supportedEnforcementModes",
+                &self.supported_enforcement_modes,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -718,104 +647,6 @@ impl serde::ser::Serialize for super::OperationMetadata {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::Control {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.display_name.is_empty() {
-            state.serialize_entry("displayName", &self.display_name)?;
-        }
-        if !self.description.is_empty() {
-            state.serialize_entry("description", &self.description)?;
-        }
-        if !wkt::internal::is_default(&self.family) {
-            state.serialize_entry("family", &self.family)?;
-        }
-        if self.control_family.is_some() {
-            state.serialize_entry("controlFamily", &self.control_family)?;
-        }
-        if !wkt::internal::is_default(&self.responsibility_type) {
-            state.serialize_entry("responsibilityType", &self.responsibility_type)?;
-        }
-        if !self.google_responsibility_description.is_empty() {
-            state.serialize_entry(
-                "googleResponsibilityDescription",
-                &self.google_responsibility_description,
-            )?;
-        }
-        if !self.google_responsibility_implementation.is_empty() {
-            state.serialize_entry(
-                "googleResponsibilityImplementation",
-                &self.google_responsibility_implementation,
-            )?;
-        }
-        if !self.customer_responsibility_description.is_empty() {
-            state.serialize_entry(
-                "customerResponsibilityDescription",
-                &self.customer_responsibility_description,
-            )?;
-        }
-        if !self.customer_responsibility_implementation.is_empty() {
-            state.serialize_entry(
-                "customerResponsibilityImplementation",
-                &self.customer_responsibility_implementation,
-            )?;
-        }
-        if !self.shared_responsibility_description.is_empty() {
-            state.serialize_entry(
-                "sharedResponsibilityDescription",
-                &self.shared_responsibility_description,
-            )?;
-        }
-        if !self.additional_content_uri.is_empty() {
-            state.serialize_entry("additionalContentUri", &self.additional_content_uri)?;
-        }
-        if !self.related_frameworks.is_empty() {
-            state.serialize_entry("relatedFrameworks", &self.related_frameworks)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for super::ControlFamily {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.family_id.is_empty() {
-            state.serialize_entry("familyId", &self.family_id)?;
-        }
-        if !self.display_name.is_empty() {
-            state.serialize_entry("displayName", &self.display_name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
 impl serde::ser::Serialize for super::ListFrameworksRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1188,9 +1019,6 @@ impl serde::ser::Serialize for super::FrameworkDeployment {
         if !wkt::internal::is_default(&self.deployment_state) {
             state.serialize_entry("deploymentState", &self.deployment_state)?;
         }
-        if !self.cc_deployments.is_empty() {
-            state.serialize_entry("ccDeployments", &self.cc_deployments)?;
-        }
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
         }
@@ -1199,9 +1027,6 @@ impl serde::ser::Serialize for super::FrameworkDeployment {
         }
         if !self.etag.is_empty() {
             state.serialize_entry("etag", &self.etag)?;
-        }
-        if !self.cc_group_deployments.is_empty() {
-            state.serialize_entry("ccGroupDeployments", &self.cc_group_deployments)?;
         }
         if !self.target_resource_display_name.is_empty() {
             state.serialize_entry(
@@ -1406,34 +1231,6 @@ impl serde::ser::Serialize for super::CloudControlMetadata {
         }
         if !wkt::internal::is_default(&self.enforcement_mode) {
             state.serialize_entry("enforcementMode", &self.enforcement_mode)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CloudControlGroupDeployment {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.cloud_control_group.is_some() {
-            state.serialize_entry("cloudControlGroup", &self.cloud_control_group)?;
-        }
-        if !self.cc_deployments.is_empty() {
-            state.serialize_entry("ccDeployments", &self.cc_deployments)?;
-        }
-        if !self.cc_deployment_references.is_empty() {
-            state.serialize_entry("ccDeploymentReferences", &self.cc_deployment_references)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

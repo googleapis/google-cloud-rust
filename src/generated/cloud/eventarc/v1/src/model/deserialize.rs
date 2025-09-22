@@ -37,6 +37,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Channel {
             __activation_token,
             __crypto_key_name,
             __satisfies_pzs,
+            __labels,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -73,6 +74,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Channel {
                             "crypto_key_name" => Ok(__FieldTag::__crypto_key_name),
                             "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
                             "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "labels" => Ok(__FieldTag::__labels),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -204,6 +206,21 @@ impl<'de> serde::de::Deserialize<'de> for super::Channel {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -233,6 +250,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ChannelConnection {
             __create_time,
             __update_time,
             __activation_token,
+            __labels,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -262,6 +280,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ChannelConnection {
                             "update_time" => Ok(__FieldTag::__update_time),
                             "activationToken" => Ok(__FieldTag::__activation_token),
                             "activation_token" => Ok(__FieldTag::__activation_token),
+                            "labels" => Ok(__FieldTag::__labels),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -343,6 +362,21 @@ impl<'de> serde::de::Deserialize<'de> for super::ChannelConnection {
                             }
                             result.activation_token = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -6488,6 +6522,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GoogleChannelConfig {
             __name,
             __update_time,
             __crypto_key_name,
+            __labels,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6513,6 +6548,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GoogleChannelConfig {
                             "update_time" => Ok(__FieldTag::__update_time),
                             "cryptoKeyName" => Ok(__FieldTag::__crypto_key_name),
                             "crypto_key_name" => Ok(__FieldTag::__crypto_key_name),
+                            "labels" => Ok(__FieldTag::__labels),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6565,6 +6601,21 @@ impl<'de> serde::de::Deserialize<'de> for super::GoogleChannelConfig {
                             }
                             result.crypto_key_name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -6964,6 +7015,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Pipeline {
             __logging_config,
             __retry_policy,
             __etag,
+            __satisfies_pzs,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7005,6 +7057,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Pipeline {
                             "retryPolicy" => Ok(__FieldTag::__retry_policy),
                             "retry_policy" => Ok(__FieldTag::__retry_policy),
                             "etag" => Ok(__FieldTag::__etag),
+                            "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7179,6 +7233,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Pipeline {
                             }
                             result.etag = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__satisfies_pzs => {
+                            if !fields.insert(__FieldTag::__satisfies_pzs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzs",
+                                ));
+                            }
+                            result.satisfies_pzs = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
