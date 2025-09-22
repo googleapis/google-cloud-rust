@@ -39,7 +39,7 @@ pub struct ReqwestClient {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
-    instrumentation: Option<crate::options::InstrumentationClientInfo>,
+    instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
 }
 
 impl ReqwestClient {
@@ -86,9 +86,9 @@ impl ReqwestClient {
 
     pub fn with_instrumentation(
         mut self,
-        instrumentation: Option<crate::options::InstrumentationClientInfo>,
+        instrumentation: &'static crate::options::InstrumentationClientInfo,
     ) -> Self {
-        self.instrumentation = instrumentation;
+        self.instrumentation = Some(instrumentation);
         self
     }
 
@@ -443,15 +443,12 @@ mod tests {
             .unwrap();
         assert!(client.instrumentation.is_none());
 
-        let client = client.with_instrumentation(Some(TEST_INSTRUMENTATION_INFO));
+        let client = client.with_instrumentation(&TEST_INSTRUMENTATION_INFO);
         assert!(client.instrumentation.is_some());
         let info = client.instrumentation.unwrap();
         assert_eq!(info.service_name, "test-service");
         assert_eq!(info.client_version, "1.2.3");
         assert_eq!(info.client_artifact, "test-artifact");
         assert_eq!(info.default_host, "test.googleapis.com");
-
-        let client = client.with_instrumentation(None);
-        assert!(client.instrumentation.is_none());
     }
 }
