@@ -211,7 +211,7 @@ impl HttpSpanInfo {
     pub(crate) fn from_request(
         request: &reqwest::Request,
         options: &RequestOptions,
-        instrumentation: Option<&InstrumentationClientInfo>,
+        instrumentation: Option<&'static InstrumentationClientInfo>,
         prior_attempt_count: u32,
     ) -> Self {
         let url = request.url();
