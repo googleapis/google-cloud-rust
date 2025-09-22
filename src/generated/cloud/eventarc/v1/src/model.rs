@@ -75,7 +75,7 @@ pub struct Channel {
     /// by the provider to register the channel for publishing.
     pub activation_token: std::string::String,
 
-    /// Resource name of a KMS crypto key (managed by the user) used to
+    /// Optional. Resource name of a KMS crypto key (managed by the user) used to
     /// encrypt/decrypt their event data.
     ///
     /// It must match the pattern
@@ -85,6 +85,9 @@ pub struct Channel {
     /// Output only. Whether or not this Channel satisfies the requirements of
     /// physical zone separation
     pub satisfies_pzs: bool,
+
+    /// Optional. Resource labels.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub transport: std::option::Option<crate::model::channel::Transport>,
 
@@ -174,6 +177,18 @@ impl Channel {
     /// Sets the value of [satisfies_pzs][crate::model::Channel::satisfies_pzs].
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Channel::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -418,6 +433,9 @@ pub struct ChannelConnection {
     /// provider project. This field will not be stored in the provider resource.
     pub activation_token: std::string::String,
 
+    /// Optional. Resource labels.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -486,6 +504,18 @@ impl ChannelConnection {
         v: T,
     ) -> Self {
         self.activation_token = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::ChannelConnection::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -717,8 +747,8 @@ pub struct Enrollment {
     /// applies to.
     pub cel_match: std::string::String,
 
-    /// Required. Resource name of the message bus identifying the source of the
-    /// messages. It matches the form
+    /// Required. Immutable. Resource name of the message bus identifying the
+    /// source of the messages. It matches the form
     /// projects/{project}/locations/{location}/messageBuses/{messageBus}.
     pub message_bus: std::string::String,
 
@@ -2104,7 +2134,7 @@ impl wkt::message::Message for GetMessageBusRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMessageBusesRequest {
-    /// Required. The parent collection to list triggers on.
+    /// Required. The parent collection to list message buses on.
     pub parent: std::string::String,
 
     /// Optional. The maximum number of results to return on each page.
@@ -2365,7 +2395,7 @@ pub struct CreateMessageBusRequest {
     pub message_bus: std::option::Option<crate::model::MessageBus>,
 
     /// Required. The user-provided ID to be assigned to the MessageBus. It should
-    /// match the format (^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$)
+    /// match the format `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
     pub message_bus_id: std::string::String,
 
     /// Optional. If set, validate the request and preview the review, but do not
@@ -2748,7 +2778,7 @@ pub struct CreateEnrollmentRequest {
     pub enrollment: std::option::Option<crate::model::Enrollment>,
 
     /// Required. The user-provided ID to be assigned to the Enrollment. It should
-    /// match the format (^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$).
+    /// match the format `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
     pub enrollment_id: std::string::String,
 
     /// Optional. If set, validate the request and preview the review, but do not
@@ -3130,7 +3160,8 @@ pub struct CreatePipelineRequest {
     /// Required. The pipeline to create.
     pub pipeline: std::option::Option<crate::model::Pipeline>,
 
-    /// Required. The user-provided ID to be assigned to the Pipeline.
+    /// Required. The user-provided ID to be assigned to the Pipeline. It should
+    /// match the format `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
     pub pipeline_id: std::string::String,
 
     /// Optional. If set, validate the request and preview the review, but do not
@@ -3513,7 +3544,7 @@ pub struct CreateGoogleApiSourceRequest {
     pub google_api_source: std::option::Option<crate::model::GoogleApiSource>,
 
     /// Required. The user-provided ID to be assigned to the GoogleApiSource. It
-    /// should match the format (^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$).
+    /// should match the format `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
     pub google_api_source_id: std::string::String,
 
     /// Optional. If set, validate the request and preview the review, but do not
@@ -4016,6 +4047,8 @@ impl wkt::message::Message for GoogleApiSource {
 pub struct GoogleChannelConfig {
     /// Required. The resource name of the config. Must be in the format of,
     /// `projects/{project}/locations/{location}/googleChannelConfig`.
+    /// In API responses, the config name always includes the projectID, regardless
+    /// of whether the projectID or projectNumber was provided.
     pub name: std::string::String,
 
     /// Output only. The last-modified time.
@@ -4027,6 +4060,9 @@ pub struct GoogleChannelConfig {
     /// It must match the pattern
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
     pub crypto_key_name: std::string::String,
+
+    /// Optional. Resource labels.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4063,6 +4099,18 @@ impl GoogleChannelConfig {
     /// Sets the value of [crypto_key_name][crate::model::GoogleChannelConfig::crypto_key_name].
     pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::GoogleChannelConfig::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4578,6 +4626,10 @@ pub struct Pipeline {
     /// client has an up-to-date value before proceeding.
     pub etag: std::string::String,
 
+    /// Output only. Whether or not this Pipeline satisfies the requirements of
+    /// physical zone separation
+    pub satisfies_pzs: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4749,6 +4801,12 @@ impl Pipeline {
     /// Sets the value of [etag][crate::model::Pipeline::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::Pipeline::satisfies_pzs].
+    pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzs = v.into();
         self
     }
 }
@@ -5027,9 +5085,9 @@ pub mod pipeline {
 
         /// Optional. An authentication config used to authenticate message requests,
         /// such that destinations can verify the source. For example, this can be
-        /// used with private GCP destinations that require GCP credentials to access
-        /// like Cloud Run. This field is optional and should be set only by users
-        /// interested in authenticated push
+        /// used with private Google Cloud destinations that require Google Cloud
+        /// credentials for access like Cloud Run. This field is optional and should
+        /// be set only by users interested in authenticated push.
         pub authentication_config:
             std::option::Option<crate::model::pipeline::destination::AuthenticationConfig>,
 
@@ -5280,7 +5338,7 @@ pub mod pipeline {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct HttpEndpoint {
-            /// Required. The URI of the HTTP enpdoint.
+            /// Required. The URI of the HTTP endpoint.
             ///
             /// The value must be a RFC2396 URI string.
             /// Examples: `<https://svc.us-central1.p.local>:8080/route`.
@@ -5292,10 +5350,11 @@ pub mod pipeline {
             ///
             /// If a binding expression is not specified here, the message
             /// is treated as a CloudEvent and is mapped to the HTTP request according
-            /// to the CloudEvent HTTP Protocol Binding Binary Content Mode. In this
-            /// representation, all fields except the `data` and `datacontenttype`
-            /// field on the message are mapped to HTTP request headers with a prefix
-            /// of `ce-`.
+            /// to the CloudEvent HTTP Protocol Binding Binary Content Mode
+            /// (<https://github.com/cloudevents/spec/blob/main/cloudevents/bindings/http-protocol-binding.md#31-binary-content-mode>).
+            /// In this representation, all fields except the `data` and
+            /// `datacontenttype` field on the message are mapped to HTTP request
+            /// headers with a prefix of `ce-`.
             ///
             /// To construct the HTTP request payload and the value of the content-type
             /// HTTP header, the payload format is defined as follows:
@@ -5327,7 +5386,7 @@ pub mod pipeline {
             /// - If a map named `headers` exists on the result of the expression,
             ///   then its key/value pairs are directly mapped to the HTTP request
             ///   headers. The headers values are constructed from the corresponding
-            ///   value type’s canonical representation. If the `headers` field doesn’t
+            ///   value type's canonical representation. If the `headers` field doesn't
             ///   exist then the resulting HTTP request will be the headers of the
             ///   CloudEvent HTTP Binding Binary Content Mode representation of the final
             ///   message. Note: If the specified binding expression, has updated the
@@ -5370,6 +5429,12 @@ pub mod pipeline {
             ///   "body": "new-body"
             /// }
             /// ```
+            ///
+            /// - The default binding for the message payload can be accessed using the
+            ///   `body` variable. It conatins a string representation of the message
+            ///   payload in the format specified by the `output_payload_format` field.
+            ///   If the `input_payload_format` field is not set, the `body`
+            ///   variable contains the same message payload bytes that were published.
             ///
             /// Additionally, the following CEL extension functions are provided for
             /// use in this CEL expression:
@@ -5428,33 +5493,28 @@ pub mod pipeline {
             /// - toMap:
             ///   [map1, map2, ...].toMap() -> map
             ///   - Converts a CEL list of CEL maps to a single CEL map
-            /// - toDestinationPayloadFormat():
-            ///   message.data.toDestinationPayloadFormat() -> string or bytes
-            ///   - Converts the message data to the destination payload format
-            ///     specified in Pipeline.Destination.output_payload_format
-            ///   - This function is meant to be applied to the message.data field.
-            ///   - If the destination payload format is not set, the function will
-            ///     return the message data unchanged.
             /// - toCloudEventJsonWithPayloadFormat:
             ///   message.toCloudEventJsonWithPayloadFormat() -> map
             ///   - Converts a message to the corresponding structure of JSON
-            ///     format for CloudEvents
-            ///   - This function applies toDestinationPayloadFormat() to the
-            ///     message data. It also sets the corresponding datacontenttype of
+            ///     format for CloudEvents.
+            ///   - It converts `data` to destination payload format
+            ///     specified in `output_payload_format`. If `output_payload_format` is
+            ///     not set, the data will remain unchanged.
+            ///   - It also sets the corresponding datacontenttype of
             ///     the CloudEvent, as indicated by
-            ///     Pipeline.Destination.output_payload_format. If no
-            ///     output_payload_format is set it will use the existing
-            ///     datacontenttype on the CloudEvent if present, else leave
-            ///     datacontenttype absent.
+            ///     `output_payload_format`. If no
+            ///     `output_payload_format` is set it will use the value of the
+            ///     "datacontenttype" attribute on the CloudEvent if present, else
+            ///     remove "datacontenttype" attribute.
             ///   - This function expects that the content of the message will
-            ///     adhere to the standard CloudEvent format. If it doesn’t then this
+            ///     adhere to the standard CloudEvent format. If it doesn't then this
             ///     function will fail.
             ///   - The result is a CEL map that corresponds to the JSON
             ///     representation of the CloudEvent. To convert that data to a JSON
             ///     string it can be chained with the toJsonString function.
             ///
             /// The Pipeline expects that the message it receives adheres to the
-            /// standard CloudEvent format. If it doesn’t then the outgoing message
+            /// standard CloudEvent format. If it doesn't then the outgoing message
             /// request may fail with a persistent error.
             pub message_binding_template: std::string::String,
 
@@ -5607,16 +5667,16 @@ pub mod pipeline {
             use super::*;
 
             /// Represents a config used to authenticate with a Google OIDC token using
-            /// a GCP service account. Use this authentication method to invoke your
-            /// Cloud Run and Cloud Functions destinations or HTTP endpoints that
-            /// support Google OIDC.
+            /// a Google Cloud service account. Use this authentication method to
+            /// invoke your Cloud Run and Cloud Functions destinations or HTTP
+            /// endpoints that support Google OIDC.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct OidcToken {
                 /// Required. Service account email used to generate the OIDC Token.
                 /// The principal who calls this API must have
                 /// iam.serviceAccounts.actAs permission in the service account. See
-                /// <https://cloud.google.com/iam/docs/understanding-service-accounts?hl=en#sa_common>
+                /// <https://cloud.google.com/iam/docs/understanding-service-accounts>
                 /// for more information. Eventarc service agents must have
                 /// roles/roles/iam.serviceAccountTokenCreator role to allow the
                 /// Pipeline to create OpenID tokens for authenticated requests.
@@ -5671,7 +5731,7 @@ pub mod pipeline {
                 /// token](https://developers.google.com/identity/protocols/OAuth2).
                 /// The principal who calls this API must have
                 /// iam.serviceAccounts.actAs permission in the service account. See
-                /// <https://cloud.google.com/iam/docs/understanding-service-accounts?hl=en#sa_common>
+                /// <https://cloud.google.com/iam/docs/understanding-service-accounts>
                 /// for more information. Eventarc service agents must have
                 /// roles/roles/iam.serviceAccountTokenCreator role to allow Pipeline
                 /// to create OAuth2 tokens for authenticated requests.
@@ -5720,7 +5780,7 @@ pub mod pipeline {
             #[non_exhaustive]
             pub enum AuthenticationMethodDescriptor {
                 /// Optional. This authenticate method will apply Google OIDC tokens
-                /// signed by a GCP service account to the requests.
+                /// signed by a Google Cloud service account to the requests.
                 GoogleOidc(
                     std::boxed::Box<
                         crate::model::pipeline::destination::authentication_config::OidcToken,
@@ -5921,7 +5981,7 @@ pub mod pipeline {
             ///     datacontenttype on the CloudEvent if present, else leave
             ///     datacontenttype absent.
             ///   - This function expects that the content of the message will
-            ///     adhere to the standard CloudEvent format. If it doesn’t then this
+            ///     adhere to the standard CloudEvent format. If it doesn't then this
             ///     function will fail.
             ///   - The result is a CEL map that corresponds to the JSON
             ///     representation of the CloudEvent. To convert that data to a JSON
@@ -6836,7 +6896,7 @@ impl wkt::message::Message for Pubsub {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpEndpoint {
-    /// Required. The URI of the HTTP enpdoint.
+    /// Required. The URI of the HTTP endpoint.
     ///
     /// The value must be a RFC2396 URI string.
     /// Examples: `http://10.10.10.8:80/route`,

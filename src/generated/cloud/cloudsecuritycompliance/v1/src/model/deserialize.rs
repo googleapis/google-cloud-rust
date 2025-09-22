@@ -32,11 +32,11 @@ impl<'de> serde::de::Deserialize<'de> for super::Framework {
             __display_name,
             __description,
             __type,
-            __cloud_control_group_details,
             __cloud_control_details,
             __category,
             __supported_cloud_providers,
             __supported_target_resource_types,
+            __supported_enforcement_modes,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -64,12 +64,6 @@ impl<'de> serde::de::Deserialize<'de> for super::Framework {
                             "display_name" => Ok(__FieldTag::__display_name),
                             "description" => Ok(__FieldTag::__description),
                             "type" => Ok(__FieldTag::__type),
-                            "cloudControlGroupDetails" => {
-                                Ok(__FieldTag::__cloud_control_group_details)
-                            }
-                            "cloud_control_group_details" => {
-                                Ok(__FieldTag::__cloud_control_group_details)
-                            }
                             "cloudControlDetails" => Ok(__FieldTag::__cloud_control_details),
                             "cloud_control_details" => Ok(__FieldTag::__cloud_control_details),
                             "category" => Ok(__FieldTag::__category),
@@ -84,6 +78,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Framework {
                             }
                             "supported_target_resource_types" => {
                                 Ok(__FieldTag::__supported_target_resource_types)
+                            }
+                            "supportedEnforcementModes" => {
+                                Ok(__FieldTag::__supported_enforcement_modes)
+                            }
+                            "supported_enforcement_modes" => {
+                                Ok(__FieldTag::__supported_enforcement_modes)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -168,20 +168,6 @@ impl<'de> serde::de::Deserialize<'de> for super::Framework {
                             }
                             result.r#type = map.next_value::<std::option::Option<crate::model::framework::FrameworkType>>()?.unwrap_or_default();
                         }
-                        __FieldTag::__cloud_control_group_details => {
-                            if !fields.insert(__FieldTag::__cloud_control_group_details) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for cloud_control_group_details",
-                                ));
-                            }
-                            result.cloud_control_group_details = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<
-                                        crate::model::framework::CloudControlGroupDetails,
-                                    >,
-                                >>()?
-                                .unwrap_or_default();
-                        }
                         __FieldTag::__cloud_control_details => {
                             if !fields.insert(__FieldTag::__cloud_control_details) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -226,261 +212,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Framework {
                                 >>()?
                                 .unwrap_or_default();
                         }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for super::framework::CloudControlGroupDetails {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __cloud_control_group,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CloudControlGroupDetails")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "cloudControlGroup" => Ok(__FieldTag::__cloud_control_group),
-                            "cloud_control_group" => Ok(__FieldTag::__cloud_control_group),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = super::framework::CloudControlGroupDetails;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CloudControlGroupDetails")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__cloud_control_group => {
-                            if !fields.insert(__FieldTag::__cloud_control_group) {
+                        __FieldTag::__supported_enforcement_modes => {
+                            if !fields.insert(__FieldTag::__supported_enforcement_modes) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for cloud_control_group",
+                                    "multiple values for supported_enforcement_modes",
                                 ));
                             }
-                            if result.kind.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `kind`, a oneof with full ID .google.cloud.cloudsecuritycompliance.v1.Framework.CloudControlGroupDetails.cloud_control_group, latest field was cloudControlGroup",
-                                ));
-                            }
-                            result.kind = std::option::Option::Some(
-                                crate::model::framework::cloud_control_group_details::Kind::CloudControlGroup(
-                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::CloudControlGroup>>>()?.unwrap_or_default()
-                                ),
-                            );
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for super::CloudControlGroup {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __description,
-            __type,
-            __control_id,
-            __cloud_control_details,
-            __major_revision_id,
-            __control,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CloudControlGroup")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "description" => Ok(__FieldTag::__description),
-                            "type" => Ok(__FieldTag::__type),
-                            "controlId" => Ok(__FieldTag::__control_id),
-                            "control_id" => Ok(__FieldTag::__control_id),
-                            "cloudControlDetails" => Ok(__FieldTag::__cloud_control_details),
-                            "cloud_control_details" => Ok(__FieldTag::__cloud_control_details),
-                            "majorRevisionId" => Ok(__FieldTag::__major_revision_id),
-                            "major_revision_id" => Ok(__FieldTag::__major_revision_id),
-                            "control" => Ok(__FieldTag::__control),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = super::CloudControlGroup;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CloudControlGroup")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__description => {
-                            if !fields.insert(__FieldTag::__description) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for description",
-                                ));
-                            }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__type => {
-                            if !fields.insert(__FieldTag::__type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for type",
-                                ));
-                            }
-                            result.r#type = map
-                                .next_value::<std::option::Option<
-                                    crate::model::cloud_control_group::CloudControlGroupType,
+                            result.supported_enforcement_modes =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::EnforcementMode>,
                                 >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__control_id => {
-                            if !fields.insert(__FieldTag::__control_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for control_id",
-                                ));
-                            }
-                            result.control_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__cloud_control_details => {
-                            if !fields.insert(__FieldTag::__cloud_control_details) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for cloud_control_details",
-                                ));
-                            }
-                            result.cloud_control_details = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::CloudControlDetails>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__major_revision_id => {
-                            if !fields.insert(__FieldTag::__major_revision_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for major_revision_id",
-                                ));
-                            }
-                            struct __With(std::option::Option<i64>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.major_revision_id =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::__control => {
-                            if !fields.insert(__FieldTag::__control) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for control",
-                                ));
-                            }
-                            result.control = map
-                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -2581,354 +2322,6 @@ impl<'de> serde::de::Deserialize<'de> for super::OperationMetadata {
 }
 
 #[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for super::Control {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __display_name,
-            __description,
-            __family,
-            __control_family,
-            __responsibility_type,
-            __google_responsibility_description,
-            __google_responsibility_implementation,
-            __customer_responsibility_description,
-            __customer_responsibility_implementation,
-            __shared_responsibility_description,
-            __additional_content_uri,
-            __related_frameworks,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for Control")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "displayName" => Ok(__FieldTag::__display_name),
-                            "display_name" => Ok(__FieldTag::__display_name),
-                            "description" => Ok(__FieldTag::__description),
-                            "family" => Ok(__FieldTag::__family),
-                            "controlFamily" => Ok(__FieldTag::__control_family),
-                            "control_family" => Ok(__FieldTag::__control_family),
-                            "responsibilityType" => Ok(__FieldTag::__responsibility_type),
-                            "responsibility_type" => Ok(__FieldTag::__responsibility_type),
-                            "googleResponsibilityDescription" => {
-                                Ok(__FieldTag::__google_responsibility_description)
-                            }
-                            "google_responsibility_description" => {
-                                Ok(__FieldTag::__google_responsibility_description)
-                            }
-                            "googleResponsibilityImplementation" => {
-                                Ok(__FieldTag::__google_responsibility_implementation)
-                            }
-                            "google_responsibility_implementation" => {
-                                Ok(__FieldTag::__google_responsibility_implementation)
-                            }
-                            "customerResponsibilityDescription" => {
-                                Ok(__FieldTag::__customer_responsibility_description)
-                            }
-                            "customer_responsibility_description" => {
-                                Ok(__FieldTag::__customer_responsibility_description)
-                            }
-                            "customerResponsibilityImplementation" => {
-                                Ok(__FieldTag::__customer_responsibility_implementation)
-                            }
-                            "customer_responsibility_implementation" => {
-                                Ok(__FieldTag::__customer_responsibility_implementation)
-                            }
-                            "sharedResponsibilityDescription" => {
-                                Ok(__FieldTag::__shared_responsibility_description)
-                            }
-                            "shared_responsibility_description" => {
-                                Ok(__FieldTag::__shared_responsibility_description)
-                            }
-                            "additionalContentUri" => Ok(__FieldTag::__additional_content_uri),
-                            "additional_content_uri" => Ok(__FieldTag::__additional_content_uri),
-                            "relatedFrameworks" => Ok(__FieldTag::__related_frameworks),
-                            "related_frameworks" => Ok(__FieldTag::__related_frameworks),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = super::Control;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct Control")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__display_name => {
-                            if !fields.insert(__FieldTag::__display_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for display_name",
-                                ));
-                            }
-                            result.display_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__description => {
-                            if !fields.insert(__FieldTag::__description) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for description",
-                                ));
-                            }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__family => {
-                            if !fields.insert(__FieldTag::__family) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for family",
-                                ));
-                            }
-                            result.family = map
-                                .next_value::<std::option::Option<crate::model::control::Family>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__control_family => {
-                            if !fields.insert(__FieldTag::__control_family) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for control_family",
-                                ));
-                            }
-                            result.control_family = map
-                                .next_value::<std::option::Option<crate::model::ControlFamily>>()?;
-                        }
-                        __FieldTag::__responsibility_type => {
-                            if !fields.insert(__FieldTag::__responsibility_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for responsibility_type",
-                                ));
-                            }
-                            result.responsibility_type = map
-                                .next_value::<std::option::Option<
-                                    crate::model::RegulatoryControlResponsibilityType,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__google_responsibility_description => {
-                            if !fields.insert(__FieldTag::__google_responsibility_description) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for google_responsibility_description",
-                                ));
-                            }
-                            result.google_responsibility_description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__google_responsibility_implementation => {
-                            if !fields.insert(__FieldTag::__google_responsibility_implementation) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for google_responsibility_implementation",
-                                ));
-                            }
-                            result.google_responsibility_implementation = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__customer_responsibility_description => {
-                            if !fields.insert(__FieldTag::__customer_responsibility_description) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for customer_responsibility_description",
-                                ));
-                            }
-                            result.customer_responsibility_description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__customer_responsibility_implementation => {
-                            if !fields.insert(__FieldTag::__customer_responsibility_implementation)
-                            {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for customer_responsibility_implementation",
-                                ));
-                            }
-                            result.customer_responsibility_implementation = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__shared_responsibility_description => {
-                            if !fields.insert(__FieldTag::__shared_responsibility_description) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for shared_responsibility_description",
-                                ));
-                            }
-                            result.shared_responsibility_description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__additional_content_uri => {
-                            if !fields.insert(__FieldTag::__additional_content_uri) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for additional_content_uri",
-                                ));
-                            }
-                            result.additional_content_uri = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__related_frameworks => {
-                            if !fields.insert(__FieldTag::__related_frameworks) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for related_frameworks",
-                                ));
-                            }
-                            result.related_frameworks = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for super::ControlFamily {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __family_id,
-            __display_name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ControlFamily")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "familyId" => Ok(__FieldTag::__family_id),
-                            "family_id" => Ok(__FieldTag::__family_id),
-                            "displayName" => Ok(__FieldTag::__display_name),
-                            "display_name" => Ok(__FieldTag::__display_name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = super::ControlFamily;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ControlFamily")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__family_id => {
-                            if !fields.insert(__FieldTag::__family_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for family_id",
-                                ));
-                            }
-                            result.family_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__display_name => {
-                            if !fields.insert(__FieldTag::__display_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for display_name",
-                                ));
-                            }
-                            result.display_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::ListFrameworksRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -4116,11 +3509,9 @@ impl<'de> serde::de::Deserialize<'de> for super::FrameworkDeployment {
             __description,
             __cloud_control_metadata,
             __deployment_state,
-            __cc_deployments,
             __create_time,
             __update_time,
             __etag,
-            __cc_group_deployments,
             __target_resource_display_name,
             __cloud_control_deployment_references,
             Unknown(std::string::String),
@@ -4156,15 +3547,11 @@ impl<'de> serde::de::Deserialize<'de> for super::FrameworkDeployment {
                             "cloud_control_metadata" => Ok(__FieldTag::__cloud_control_metadata),
                             "deploymentState" => Ok(__FieldTag::__deployment_state),
                             "deployment_state" => Ok(__FieldTag::__deployment_state),
-                            "ccDeployments" => Ok(__FieldTag::__cc_deployments),
-                            "cc_deployments" => Ok(__FieldTag::__cc_deployments),
                             "createTime" => Ok(__FieldTag::__create_time),
                             "create_time" => Ok(__FieldTag::__create_time),
                             "updateTime" => Ok(__FieldTag::__update_time),
                             "update_time" => Ok(__FieldTag::__update_time),
                             "etag" => Ok(__FieldTag::__etag),
-                            "ccGroupDeployments" => Ok(__FieldTag::__cc_group_deployments),
-                            "cc_group_deployments" => Ok(__FieldTag::__cc_group_deployments),
                             "targetResourceDisplayName" => {
                                 Ok(__FieldTag::__target_resource_display_name)
                             }
@@ -4272,18 +3659,6 @@ impl<'de> serde::de::Deserialize<'de> for super::FrameworkDeployment {
                                 .next_value::<std::option::Option<crate::model::DeploymentState>>()?
                                 .unwrap_or_default();
                         }
-                        __FieldTag::__cc_deployments => {
-                            if !fields.insert(__FieldTag::__cc_deployments) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for cc_deployments",
-                                ));
-                            }
-                            result.cc_deployments = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::CloudControlDeployment>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
                         __FieldTag::__create_time => {
                             if !fields.insert(__FieldTag::__create_time) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -4310,18 +3685,6 @@ impl<'de> serde::de::Deserialize<'de> for super::FrameworkDeployment {
                             }
                             result.etag = map
                                 .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__cc_group_deployments => {
-                            if !fields.insert(__FieldTag::__cc_group_deployments) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for cc_group_deployments",
-                                ));
-                            }
-                            result.cc_group_deployments = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::CloudControlGroupDeployment>,
-                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__target_resource_display_name => {
@@ -5088,119 +4451,6 @@ impl<'de> serde::de::Deserialize<'de> for super::CloudControlMetadata {
                             }
                             result.enforcement_mode = map
                                 .next_value::<std::option::Option<crate::model::EnforcementMode>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for super::CloudControlGroupDeployment {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __cloud_control_group,
-            __cc_deployments,
-            __cc_deployment_references,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CloudControlGroupDeployment")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "cloudControlGroup" => Ok(__FieldTag::__cloud_control_group),
-                            "cloud_control_group" => Ok(__FieldTag::__cloud_control_group),
-                            "ccDeployments" => Ok(__FieldTag::__cc_deployments),
-                            "cc_deployments" => Ok(__FieldTag::__cc_deployments),
-                            "ccDeploymentReferences" => Ok(__FieldTag::__cc_deployment_references),
-                            "cc_deployment_references" => {
-                                Ok(__FieldTag::__cc_deployment_references)
-                            }
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = super::CloudControlGroupDeployment;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CloudControlGroupDeployment")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__cloud_control_group => {
-                            if !fields.insert(__FieldTag::__cloud_control_group) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for cloud_control_group",
-                                ));
-                            }
-                            result.cloud_control_group = map
-                                .next_value::<std::option::Option<crate::model::CloudControlGroup>>(
-                                )?;
-                        }
-                        __FieldTag::__cc_deployments => {
-                            if !fields.insert(__FieldTag::__cc_deployments) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for cc_deployments",
-                                ));
-                            }
-                            result.cc_deployments = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::CloudControlDeployment>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__cc_deployment_references => {
-                            if !fields.insert(__FieldTag::__cc_deployment_references) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for cc_deployment_references",
-                                ));
-                            }
-                            result.cc_deployment_references = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::model::CloudControlDeploymentReference>,
-                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

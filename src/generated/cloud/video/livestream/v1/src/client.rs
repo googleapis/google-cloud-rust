@@ -213,6 +213,37 @@ impl LivestreamService {
         super::builder::livestream_service::StopChannel::new(self.inner.clone())
     }
 
+    /// Starts distribution which delivers outputs to the destination indicated by
+    /// the Distribution configuration.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn start_distribution(&self) -> super::builder::livestream_service::StartDistribution {
+        super::builder::livestream_service::StartDistribution::new(self.inner.clone())
+    }
+
+    /// Stops the specified distribution.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn stop_distribution(&self) -> super::builder::livestream_service::StopDistribution {
+        super::builder::livestream_service::StopDistribution::new(self.inner.clone())
+    }
+
     /// Creates an input with the provided unique ID in the specified region.
     ///
     /// # Long running operations
@@ -266,6 +297,11 @@ impl LivestreamService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_input(&self) -> super::builder::livestream_service::UpdateInput {
         super::builder::livestream_service::UpdateInput::new(self.inner.clone())
+    }
+
+    /// Preview the streaming content of the specified input.
+    pub fn preview_input(&self) -> super::builder::livestream_service::PreviewInput {
+        super::builder::livestream_service::PreviewInput::new(self.inner.clone())
     }
 
     /// Creates an event with the provided unique ID in the specified channel.

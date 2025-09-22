@@ -57,6 +57,9 @@ impl serde::ser::Serialize for super::Channel {
         if !wkt::internal::is_default(&self.satisfies_pzs) {
             state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
         }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -93,6 +96,9 @@ impl serde::ser::Serialize for super::ChannelConnection {
         }
         if !self.activation_token.is_empty() {
             state.serialize_entry("activationToken", &self.activation_token)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1802,6 +1808,9 @@ impl serde::ser::Serialize for super::GoogleChannelConfig {
         if !self.crypto_key_name.is_empty() {
             state.serialize_entry("cryptoKeyName", &self.crypto_key_name)?;
         }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1955,6 +1964,9 @@ impl serde::ser::Serialize for super::Pipeline {
         }
         if !self.etag.is_empty() {
             state.serialize_entry("etag", &self.etag)?;
+        }
+        if !wkt::internal::is_default(&self.satisfies_pzs) {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

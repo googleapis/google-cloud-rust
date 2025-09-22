@@ -258,6 +258,53 @@ impl serde::ser::Serialize for super::multi_speaker_markup::Turn {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::MultispeakerPrebuiltVoice {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.speaker_alias.is_empty() {
+            state.serialize_entry("speakerAlias", &self.speaker_alias)?;
+        }
+        if !self.speaker_id.is_empty() {
+            state.serialize_entry("speakerId", &self.speaker_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MultiSpeakerVoiceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.speaker_voice_configs.is_empty() {
+            state.serialize_entry("speakerVoiceConfigs", &self.speaker_voice_configs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::SynthesisInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -321,6 +368,9 @@ impl serde::ser::Serialize for super::VoiceSelectionParams {
         }
         if !self.model_name.is_empty() {
             state.serialize_entry("modelName", &self.model_name)?;
+        }
+        if self.multi_speaker_voice_config.is_some() {
+            state.serialize_entry("multiSpeakerVoiceConfig", &self.multi_speaker_voice_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -571,6 +621,9 @@ impl serde::ser::Serialize for super::StreamingSynthesisInput {
         }
         if let Some(value) = self.markup() {
             state.serialize_entry("markup", value)?;
+        }
+        if let Some(value) = self.multi_speaker_markup() {
+            state.serialize_entry("multiSpeakerMarkup", value)?;
         }
         if self.prompt.is_some() {
             state.serialize_entry("prompt", &self.prompt)?;

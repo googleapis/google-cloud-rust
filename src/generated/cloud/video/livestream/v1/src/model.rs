@@ -562,6 +562,534 @@ pub mod manifest {
     }
 }
 
+/// Multiplexing settings for output streams used in
+/// [Distribution][google.cloud.video.livestream.v1.Distribution].
+///
+/// [google.cloud.video.livestream.v1.Distribution]: crate::model::Distribution
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DistributionStream {
+    /// Required. A unique key for this distribution stream. The key must be 1-63
+    /// characters in length. The key must begin and end with a letter (regardless
+    /// of case) or a number, but can contain dashes or underscores in between.
+    pub key: std::string::String,
+
+    /// Required. The container format.
+    ///
+    /// Supported container formats:
+    ///
+    /// - `ts`, must contain exactly one audio stream and up to one video stream.
+    /// - `flv`, must contain at most one audio stream and at most one video
+    ///   stream.
+    pub container: std::string::String,
+
+    /// Required. List of `ElementaryStream`
+    /// [key][google.cloud.video.livestream.v1.ElementaryStream.key]s multiplexed
+    /// in this stream. Must contain at least one audio stream and up to one video
+    /// stream.
+    ///
+    /// [google.cloud.video.livestream.v1.ElementaryStream.key]: crate::model::ElementaryStream::key
+    pub elementary_streams: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DistributionStream {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [key][crate::model::DistributionStream::key].
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+
+    /// Sets the value of [container][crate::model::DistributionStream::container].
+    pub fn set_container<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.container = v.into();
+        self
+    }
+
+    /// Sets the value of [elementary_streams][crate::model::DistributionStream::elementary_streams].
+    pub fn set_elementary_streams<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.elementary_streams = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DistributionStream {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.DistributionStream"
+    }
+}
+
+/// Distribution configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Distribution {
+    /// Required. A unique key for this distribution. The key must be 1-63
+    /// characters in length. The key must begin and end with a letter (regardless
+    /// of case) or a number, but can contain dashes or underscores in between.
+    pub key: std::string::String,
+
+    /// Required. `DistributionStream`
+    /// [key][google.cloud.video.livestream.v1.DistributionStream.key]s that should
+    /// appear in this distribution output.
+    ///
+    /// - For SRT protocol, only `ts` distribution streams can be specified.
+    /// - For RTMP protocol, only `flv` distribution streams can be specified.
+    ///
+    /// [google.cloud.video.livestream.v1.DistributionStream.key]: crate::model::DistributionStream::key
+    pub distribution_stream: std::string::String,
+
+    /// Output only. State of the distribution.
+    pub state: crate::model::distribution::State,
+
+    /// Output only. Only present when the `state` is `ERROR`. The reason for the
+    /// error state of the distribution.
+    pub error: std::option::Option<rpc::model::Status>,
+
+    /// Configurations for the output endpoint by streaming protocols.
+    pub endpoint: std::option::Option<crate::model::distribution::Endpoint>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Distribution {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [key][crate::model::Distribution::key].
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+
+    /// Sets the value of [distribution_stream][crate::model::Distribution::distribution_stream].
+    pub fn set_distribution_stream<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.distribution_stream = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Distribution::state].
+    pub fn set_state<T: std::convert::Into<crate::model::distribution::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::Distribution::error].
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::Distribution::error].
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [endpoint][crate::model::Distribution::endpoint].
+    ///
+    /// Note that all the setters affecting `endpoint` are mutually
+    /// exclusive.
+    pub fn set_endpoint<
+        T: std::convert::Into<std::option::Option<crate::model::distribution::Endpoint>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.endpoint = v.into();
+        self
+    }
+
+    /// The value of [endpoint][crate::model::Distribution::endpoint]
+    /// if it holds a `SrtPush`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn srt_push(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SrtPushOutputEndpoint>> {
+        #[allow(unreachable_patterns)]
+        self.endpoint.as_ref().and_then(|v| match v {
+            crate::model::distribution::Endpoint::SrtPush(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [endpoint][crate::model::Distribution::endpoint]
+    /// to hold a `SrtPush`.
+    ///
+    /// Note that all the setters affecting `endpoint` are
+    /// mutually exclusive.
+    pub fn set_srt_push<
+        T: std::convert::Into<std::boxed::Box<crate::model::SrtPushOutputEndpoint>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.endpoint =
+            std::option::Option::Some(crate::model::distribution::Endpoint::SrtPush(v.into()));
+        self
+    }
+
+    /// The value of [endpoint][crate::model::Distribution::endpoint]
+    /// if it holds a `RtmpPush`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn rtmp_push(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RtmpPushOutputEndpoint>> {
+        #[allow(unreachable_patterns)]
+        self.endpoint.as_ref().and_then(|v| match v {
+            crate::model::distribution::Endpoint::RtmpPush(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [endpoint][crate::model::Distribution::endpoint]
+    /// to hold a `RtmpPush`.
+    ///
+    /// Note that all the setters affecting `endpoint` are
+    /// mutually exclusive.
+    pub fn set_rtmp_push<
+        T: std::convert::Into<std::boxed::Box<crate::model::RtmpPushOutputEndpoint>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.endpoint =
+            std::option::Option::Some(crate::model::distribution::Endpoint::RtmpPush(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for Distribution {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.Distribution"
+    }
+}
+
+/// Defines additional types related to [Distribution].
+pub mod distribution {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// State of this distribution.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State is not specified.
+        Unspecified,
+        /// Distribution has trouble to produce or deliver the output.
+        Error,
+        /// Distribution is not ready to be started.
+        NotReady,
+        /// Distribution is ready to be started.
+        Ready,
+        /// Distribution is already started and is waiting for input.
+        AwaitingInput,
+        /// Distribution is already started and is generating output.
+        Distributing,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Error => std::option::Option::Some(5),
+                Self::NotReady => std::option::Option::Some(6),
+                Self::Ready => std::option::Option::Some(7),
+                Self::AwaitingInput => std::option::Option::Some(8),
+                Self::Distributing => std::option::Option::Some(9),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::NotReady => std::option::Option::Some("NOT_READY"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::AwaitingInput => std::option::Option::Some("AWAITING_INPUT"),
+                Self::Distributing => std::option::Option::Some("DISTRIBUTING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                5 => Self::Error,
+                6 => Self::NotReady,
+                7 => Self::Ready,
+                8 => Self::AwaitingInput,
+                9 => Self::Distributing,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ERROR" => Self::Error,
+                "NOT_READY" => Self::NotReady,
+                "READY" => Self::Ready,
+                "AWAITING_INPUT" => Self::AwaitingInput,
+                "DISTRIBUTING" => Self::Distributing,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Error => serializer.serialize_i32(5),
+                Self::NotReady => serializer.serialize_i32(6),
+                Self::Ready => serializer.serialize_i32(7),
+                Self::AwaitingInput => serializer.serialize_i32(8),
+                Self::Distributing => serializer.serialize_i32(9),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.video.livestream.v1.Distribution.State",
+            ))
+        }
+    }
+
+    /// Configurations for the output endpoint by streaming protocols.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Endpoint {
+        /// Output endpoint using SRT_PUSH.
+        SrtPush(std::boxed::Box<crate::model::SrtPushOutputEndpoint>),
+        /// Output endpoint using RTMP_PUSH.
+        RtmpPush(std::boxed::Box<crate::model::RtmpPushOutputEndpoint>),
+    }
+}
+
+/// Configurations for an output endpoint using SRT_PUSH as the streaming
+/// protocol.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SrtPushOutputEndpoint {
+    /// Required. The full URI of the remote SRT server.
+    pub uri: std::string::String,
+
+    /// Defines where SRT encryption passphrase are stored.
+    pub passphrase_source:
+        std::option::Option<crate::model::srt_push_output_endpoint::PassphraseSource>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SrtPushOutputEndpoint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [uri][crate::model::SrtPushOutputEndpoint::uri].
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [passphrase_source][crate::model::SrtPushOutputEndpoint::passphrase_source].
+    ///
+    /// Note that all the setters affecting `passphrase_source` are mutually
+    /// exclusive.
+    pub fn set_passphrase_source<
+        T: std::convert::Into<
+                std::option::Option<crate::model::srt_push_output_endpoint::PassphraseSource>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.passphrase_source = v.into();
+        self
+    }
+
+    /// The value of [passphrase_source][crate::model::SrtPushOutputEndpoint::passphrase_source]
+    /// if it holds a `PassphraseSecretVersion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn passphrase_secret_version(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.passphrase_source.as_ref().and_then(|v| match v {
+            crate::model::srt_push_output_endpoint::PassphraseSource::PassphraseSecretVersion(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [passphrase_source][crate::model::SrtPushOutputEndpoint::passphrase_source]
+    /// to hold a `PassphraseSecretVersion`.
+    ///
+    /// Note that all the setters affecting `passphrase_source` are
+    /// mutually exclusive.
+    pub fn set_passphrase_secret_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.passphrase_source = std::option::Option::Some(
+            crate::model::srt_push_output_endpoint::PassphraseSource::PassphraseSecretVersion(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SrtPushOutputEndpoint {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.SrtPushOutputEndpoint"
+    }
+}
+
+/// Defines additional types related to [SrtPushOutputEndpoint].
+pub mod srt_push_output_endpoint {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Defines where SRT encryption passphrase are stored.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PassphraseSource {
+        /// The name of the Secret Version containing the SRT encryption passphrase,
+        /// which is stored in Google Secret Manager. It should be in the format of
+        /// `projects/{project}/secrets/{secret_id}/versions/{version_number}`.
+        PassphraseSecretVersion(std::string::String),
+    }
+}
+
+/// Configurations for an output endpoint using RTMP_PUSH as the streaming
+/// protocol.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RtmpPushOutputEndpoint {
+    /// Required. The full URI of the remote RTMP server. For example:
+    /// `rtmp://192.168.123.321/live/my-stream` or `rtmp://somedomain.com/someapp`.
+    pub uri: std::string::String,
+
+    /// Required. Stream key for RTMP protocol.
+    pub stream_key: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RtmpPushOutputEndpoint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [uri][crate::model::RtmpPushOutputEndpoint::uri].
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [stream_key][crate::model::RtmpPushOutputEndpoint::stream_key].
+    pub fn set_stream_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.stream_key = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RtmpPushOutputEndpoint {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.RtmpPushOutputEndpoint"
+    }
+}
+
 /// Sprite sheet configuration.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -975,6 +1503,35 @@ impl VideoStream {
             std::option::Option::Some(crate::model::video_stream::CodecSettings::H264(v.into()));
         self
     }
+
+    /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
+    /// if it holds a `H265`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn h265(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265CodecSettings>> {
+        #[allow(unreachable_patterns)]
+        self.codec_settings.as_ref().and_then(|v| match v {
+            crate::model::video_stream::CodecSettings::H265(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings]
+    /// to hold a `H265`.
+    ///
+    /// Note that all the setters affecting `codec_settings` are
+    /// mutually exclusive.
+    pub fn set_h265<
+        T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265CodecSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.codec_settings =
+            std::option::Option::Some(crate::model::video_stream::CodecSettings::H265(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for VideoStream {
@@ -993,11 +1550,11 @@ pub mod video_stream {
     #[non_exhaustive]
     pub struct H264CodecSettings {
         /// Required. The width of the video in pixels. Must be an even integer.
-        /// Valid range is [320, 1920].
+        /// Valid range is [320, 4096].
         pub width_pixels: i32,
 
         /// Required. The height of the video in pixels. Must be an even integer.
-        /// Valid range is [180, 1080].
+        /// Valid range is [180, 2160].
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -1013,6 +1570,7 @@ pub mod video_stream {
         ///
         /// - For SD resolution (< 720p), must be <= 3,000,000 (3 Mbps).
         /// - For HD resolution (<= 1080p), must be <= 15,000,000 (15 Mbps).
+        /// - For UHD resolution (<= 2160p), must be <= 25,000,000 (25 Mbps).
         pub bitrate_bps: i32,
 
         /// Specifies whether an open Group of Pictures (GOP) structure should be
@@ -1284,12 +1842,249 @@ pub mod video_stream {
         }
     }
 
+    /// H265 codec settings.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct H265CodecSettings {
+        /// Optional. The width of the video in pixels. Must be an even integer.
+        /// When not specified, the width is adjusted to match the specified height
+        /// and input aspect ratio. If both are omitted, the input width is used.
+        /// Valid range is [320, 4096].
+        pub width_pixels: i32,
+
+        /// Optional. The height of the video in pixels. Must be an even integer.
+        /// When not specified, the height is adjusted to match the specified width
+        /// and input aspect ratio. If both are omitted, the input height is used.
+        /// Valid range is [180, 2160].
+        pub height_pixels: i32,
+
+        /// Required. The target video frame rate in frames per second (FPS). Must be
+        /// less than or equal to 120. Will default to the input frame rate if larger
+        /// than the input frame rate. The API will generate an output FPS that is
+        /// divisible by the input FPS, and smaller or equal to the target FPS. See
+        /// [Calculating frame
+        /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
+        /// more information.
+        pub frame_rate: f64,
+
+        /// Required. The video bitrate in bits per second. Minimum value is 10,000.
+        ///
+        /// - For SD resolution (< 720p), must be <= 3,000,000 (3 Mbps).
+        /// - For HD resolution (<= 1080p), must be <= 15,000,000 (15 Mbps).
+        /// - For UHD resolution (<= 2160p), must be <= 25,000,000 (25 Mbps).
+        pub bitrate_bps: i32,
+
+        /// Optional. Size of the Video Buffering Verifier (VBV) buffer in bits. Must
+        /// be greater than zero. The default is equal to
+        /// [bitrate_bps][google.cloud.video.livestream.v1.VideoStream.H265CodecSettings.bitrate_bps].
+        ///
+        /// [google.cloud.video.livestream.v1.VideoStream.H265CodecSettings.bitrate_bps]: crate::model::video_stream::H265CodecSettings::bitrate_bps
+        pub vbv_size_bits: i32,
+
+        /// Optional. Initial fullness of the Video Buffering Verifier (VBV) buffer
+        /// in bits. Must be greater than zero. The default is equal to 90% of
+        /// [vbv_size_bits][google.cloud.video.livestream.v1.VideoStream.H265CodecSettings.vbv_size_bits].
+        ///
+        /// [google.cloud.video.livestream.v1.VideoStream.H265CodecSettings.vbv_size_bits]: crate::model::video_stream::H265CodecSettings::vbv_size_bits
+        pub vbv_fullness_bits: i32,
+
+        /// Optional. Allow B-pyramid for reference frame selection. This may not be
+        /// supported on all decoders. The default is `false`.
+        pub b_pyramid: bool,
+
+        /// Optional. The number of consecutive B-frames. Must be greater than or
+        /// equal to zero. Must be less than
+        /// [gop_frame_count][google.cloud.video.livestream.v1.VideoStream.H265CodecSettings.gop_frame_count]
+        /// if set. The default is 0.
+        ///
+        /// [google.cloud.video.livestream.v1.VideoStream.H265CodecSettings.gop_frame_count]: crate::model::video_stream::H265CodecSettings::gop_mode
+        pub b_frame_count: i32,
+
+        /// Optional. Specify the intensity of the adaptive quantizer (AQ). Must be
+        /// between 0 and 1, where 0 disables the quantizer and 1 maximizes the
+        /// quantizer. A higher value equals a lower bitrate but smoother image. The
+        /// default is 0.
+        pub aq_strength: f64,
+
+        /// GOP mode can be either by frame count or duration.
+        pub gop_mode:
+            std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl H265CodecSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [width_pixels][crate::model::video_stream::H265CodecSettings::width_pixels].
+        pub fn set_width_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.width_pixels = v.into();
+            self
+        }
+
+        /// Sets the value of [height_pixels][crate::model::video_stream::H265CodecSettings::height_pixels].
+        pub fn set_height_pixels<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.height_pixels = v.into();
+            self
+        }
+
+        /// Sets the value of [frame_rate][crate::model::video_stream::H265CodecSettings::frame_rate].
+        pub fn set_frame_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.frame_rate = v.into();
+            self
+        }
+
+        /// Sets the value of [bitrate_bps][crate::model::video_stream::H265CodecSettings::bitrate_bps].
+        pub fn set_bitrate_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.bitrate_bps = v.into();
+            self
+        }
+
+        /// Sets the value of [vbv_size_bits][crate::model::video_stream::H265CodecSettings::vbv_size_bits].
+        pub fn set_vbv_size_bits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.vbv_size_bits = v.into();
+            self
+        }
+
+        /// Sets the value of [vbv_fullness_bits][crate::model::video_stream::H265CodecSettings::vbv_fullness_bits].
+        pub fn set_vbv_fullness_bits<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.vbv_fullness_bits = v.into();
+            self
+        }
+
+        /// Sets the value of [b_pyramid][crate::model::video_stream::H265CodecSettings::b_pyramid].
+        pub fn set_b_pyramid<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.b_pyramid = v.into();
+            self
+        }
+
+        /// Sets the value of [b_frame_count][crate::model::video_stream::H265CodecSettings::b_frame_count].
+        pub fn set_b_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.b_frame_count = v.into();
+            self
+        }
+
+        /// Sets the value of [aq_strength][crate::model::video_stream::H265CodecSettings::aq_strength].
+        pub fn set_aq_strength<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.aq_strength = v.into();
+            self
+        }
+
+        /// Sets the value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode].
+        ///
+        /// Note that all the setters affecting `gop_mode` are mutually
+        /// exclusive.
+        pub fn set_gop_mode<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.gop_mode = v.into();
+            self
+        }
+
+        /// The value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
+        /// if it holds a `GopFrameCount`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn gop_frame_count(&self) -> std::option::Option<&i32> {
+            #[allow(unreachable_patterns)]
+            self.gop_mode.as_ref().and_then(|v| match v {
+                crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
+        /// to hold a `GopFrameCount`.
+        ///
+        /// Note that all the setters affecting `gop_mode` are
+        /// mutually exclusive.
+        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.gop_mode = std::option::Option::Some(
+                crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v.into()),
+            );
+            self
+        }
+
+        /// The value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
+        /// if it holds a `GopDuration`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn gop_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+            #[allow(unreachable_patterns)]
+            self.gop_mode.as_ref().and_then(|v| match v {
+                crate::model::video_stream::h_265_codec_settings::GopMode::GopDuration(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
+        /// to hold a `GopDuration`.
+        ///
+        /// Note that all the setters affecting `gop_mode` are
+        /// mutually exclusive.
+        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.gop_mode = std::option::Option::Some(
+                crate::model::video_stream::h_265_codec_settings::GopMode::GopDuration(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for H265CodecSettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.livestream.v1.VideoStream.H265CodecSettings"
+        }
+    }
+
+    /// Defines additional types related to [H265CodecSettings].
+    pub mod h_265_codec_settings {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// GOP mode can be either by frame count or duration.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum GopMode {
+            /// Optional. Select the GOP size based on the specified frame count.
+            /// If GOP frame count is set instead of GOP duration, GOP duration will be
+            /// calculated by `gopFrameCount`/`frameRate`. The calculated GOP duration
+            /// must satisfy the limitations on `gopDuration` as well.
+            /// Valid range is [60, 600].
+            GopFrameCount(i32),
+            /// Optional. Select the GOP size based on the specified duration. The
+            /// default is `2s`. Note that `gopDuration` must be less than or equal to
+            /// [segment_duration][google.cloud.video.livestream.v1.SegmentSettings.segment_duration],
+            /// and
+            /// [segment_duration][google.cloud.video.livestream.v1.SegmentSettings.segment_duration]
+            /// must be divisible by `gopDuration`. Valid range is [2s, 20s].
+            ///
+            /// All video streams in the same channel must have the same GOP size.
+            ///
+            /// [google.cloud.video.livestream.v1.SegmentSettings.segment_duration]: crate::model::SegmentSettings::segment_duration
+            GopDuration(std::boxed::Box<wkt::Duration>),
+        }
+    }
+
     /// Codec settings.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CodecSettings {
         /// H264 codec settings.
         H264(std::boxed::Box<crate::model::video_stream::H264CodecSettings>),
+        /// H265 codec settings.
+        H265(std::boxed::Box<crate::model::video_stream::H265CodecSettings>),
     }
 }
 
@@ -1500,7 +2295,31 @@ pub struct TextStream {
     ///
     /// - `cea608`
     /// - `cea708`
+    /// - `webvtt`
     pub codec: std::string::String,
+
+    /// Optional. The BCP-47 language code, such as `en-US` or `sr-Latn`. For more
+    /// information, see
+    /// <https://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
+    pub language_code: std::string::String,
+
+    /// Optional. The name for this particular text stream that will be added to
+    /// the HLS/DASH manifest.
+    pub display_name: std::string::String,
+
+    /// Optional. The channel of the closed caption in the output stream.
+    /// This field should only be set when textstream is used for partner
+    /// distribution.
+    /// Must be one of `CC1`, `CC2`, `CC3`, and `CC4`, if the
+    /// [codec][google.cloud.video.livestream.v1.TextStream.codec] is `cea608`;
+    /// Must be one between `SERVICE1` and `SERVICE63`, if the
+    /// [codec][google.cloud.video.livestream.v1.TextStream.codec] is `cea708`.
+    ///
+    /// [google.cloud.video.livestream.v1.TextStream.codec]: crate::model::TextStream::codec
+    pub output_cea_channel: std::string::String,
+
+    /// Optional. The mapping for the input streams and text tracks.
+    pub mapping: std::vec::Vec<crate::model::text_stream::TextMapping>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1515,11 +2334,124 @@ impl TextStream {
         self.codec = v.into();
         self
     }
+
+    /// Sets the value of [language_code][crate::model::TextStream::language_code].
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::TextStream::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [output_cea_channel][crate::model::TextStream::output_cea_channel].
+    pub fn set_output_cea_channel<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_cea_channel = v.into();
+        self
+    }
+
+    /// Sets the value of [mapping][crate::model::TextStream::mapping].
+    pub fn set_mapping<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::text_stream::TextMapping>,
+    {
+        use std::iter::Iterator;
+        self.mapping = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for TextStream {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.video.livestream.v1.TextStream"
+    }
+}
+
+/// Defines additional types related to [TextStream].
+pub mod text_stream {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The mapping for the input streams and text tracks.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TextMapping {
+        /// Optional. The `Channel`
+        /// [InputAttachment.key][google.cloud.video.livestream.v1.InputAttachment.key]
+        /// that identifies the input that this text mapping applies to.
+        ///
+        /// [google.cloud.video.livestream.v1.InputAttachment.key]: crate::model::InputAttachment::key
+        pub input_key: std::string::String,
+
+        /// Optional. The zero-based index of the track in the input stream.
+        pub input_track: i32,
+
+        /// Optional. The channel of the closed caption in the input stream.
+        /// If this field is set, the output
+        /// [codec][google.cloud.video.livestream.v1.TextStream.codec] must be
+        /// `webvtt`. Must be one of `CC1`, `CC2`, `CC3`, and `CC4`, if the codec of
+        /// the input closed caption is `cea608`; Must be one between `SERVICE1` and
+        /// `SERVICE64`, if the codec of the input closed caption is `cea708`.
+        ///
+        /// [google.cloud.video.livestream.v1.TextStream.codec]: crate::model::TextStream::codec
+        pub input_cea_channel: std::string::String,
+
+        /// Optional. The BCP-47 source language code, such as `en-US` or `sr-Latn`.
+        /// If differ from the textStream's language code, enable translation. For
+        /// more information on BCP-47 language codes, see
+        /// <https://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
+        pub from_language_code: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TextMapping {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [input_key][crate::model::text_stream::TextMapping::input_key].
+        pub fn set_input_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.input_key = v.into();
+            self
+        }
+
+        /// Sets the value of [input_track][crate::model::text_stream::TextMapping::input_track].
+        pub fn set_input_track<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.input_track = v.into();
+            self
+        }
+
+        /// Sets the value of [input_cea_channel][crate::model::text_stream::TextMapping::input_cea_channel].
+        pub fn set_input_cea_channel<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.input_cea_channel = v.into();
+            self
+        }
+
+        /// Sets the value of [from_language_code][crate::model::text_stream::TextMapping::from_language_code].
+        pub fn set_from_language_code<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.from_language_code = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for TextMapping {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.livestream.v1.TextStream.TextMapping"
+        }
     }
 }
 
@@ -2214,8 +3146,14 @@ pub mod input {
         Sd,
         /// Resolution <= 1920x1080. Bitrate <= 25 Mbps. FPS <= 60.
         Hd,
-        /// Resolution <= 4096x2160. Not supported yet.
+        /// Resolution <= 4096x2160. Bitrate <= 50 Mbps. FPS <= 60.
         Uhd,
+        /// Resolution <= 1280x720. Bitrate <= 6 Mbps. FPS <= 60. H265 codec.
+        SdH265,
+        /// Resolution <= 1920x1080. Bitrate <= 25 Mbps. FPS <= 60. H265 codec.
+        HdH265,
+        /// Resolution <= 4096x2160. Bitrate <= 50 Mbps. FPS <= 60. H265 codec.
+        UhdH265,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Tier::value] or
@@ -2242,6 +3180,9 @@ pub mod input {
                 Self::Sd => std::option::Option::Some(1),
                 Self::Hd => std::option::Option::Some(2),
                 Self::Uhd => std::option::Option::Some(3),
+                Self::SdH265 => std::option::Option::Some(4),
+                Self::HdH265 => std::option::Option::Some(5),
+                Self::UhdH265 => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2256,6 +3197,9 @@ pub mod input {
                 Self::Sd => std::option::Option::Some("SD"),
                 Self::Hd => std::option::Option::Some("HD"),
                 Self::Uhd => std::option::Option::Some("UHD"),
+                Self::SdH265 => std::option::Option::Some("SD_H265"),
+                Self::HdH265 => std::option::Option::Some("HD_H265"),
+                Self::UhdH265 => std::option::Option::Some("UHD_H265"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2281,6 +3225,9 @@ pub mod input {
                 1 => Self::Sd,
                 2 => Self::Hd,
                 3 => Self::Uhd,
+                4 => Self::SdH265,
+                5 => Self::HdH265,
+                6 => Self::UhdH265,
                 _ => Self::UnknownValue(tier::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2296,6 +3243,9 @@ pub mod input {
                 "SD" => Self::Sd,
                 "HD" => Self::Hd,
                 "UHD" => Self::Uhd,
+                "SD_H265" => Self::SdH265,
+                "HD_H265" => Self::HdH265,
+                "UHD_H265" => Self::UhdH265,
                 _ => Self::UnknownValue(tier::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2313,6 +3263,9 @@ pub mod input {
                 Self::Sd => serializer.serialize_i32(1),
                 Self::Hd => serializer.serialize_i32(2),
                 Self::Uhd => serializer.serialize_i32(3),
+                Self::SdH265 => serializer.serialize_i32(4),
+                Self::HdH265 => serializer.serialize_i32(5),
+                Self::UhdH265 => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2379,6 +3332,12 @@ pub struct Channel {
     /// List of output manifests.
     pub manifests: std::vec::Vec<crate::model::Manifest>,
 
+    /// Optional. List of multiplexing settings of streams for distributions.
+    pub distribution_streams: std::vec::Vec<crate::model::DistributionStream>,
+
+    /// Optional. List of distributions.
+    pub distributions: std::vec::Vec<crate::model::Distribution>,
+
     /// List of output sprite sheets.
     pub sprite_sheets: std::vec::Vec<crate::model::SpriteSheet>,
 
@@ -2401,9 +3360,9 @@ pub struct Channel {
     /// Configuration of timecode for this channel.
     pub timecode_config: std::option::Option<crate::model::TimecodeConfig>,
 
-    /// Encryption configurations for this channel. Each configuration has an ID
-    /// which is referred to by each MuxStream to indicate which configuration is
-    /// used for that output.
+    /// Optional. Encryption configurations for this channel. Each configuration
+    /// has an ID which is referred to by each MuxStream to indicate which
+    /// configuration is used for that output.
     pub encryptions: std::vec::Vec<crate::model::Encryption>,
 
     /// The configuration for input sources defined in
@@ -2418,6 +3377,9 @@ pub struct Channel {
     /// Optional. List of static overlay images. Those images display over the
     /// output content for the whole duration of the live stream.
     pub static_overlays: std::vec::Vec<crate::model::StaticOverlay>,
+
+    /// Optional. Advanced configurations for auto-generated text streams.
+    pub auto_transcription_config: std::option::Option<crate::model::AutoTranscriptionConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2546,6 +3508,28 @@ impl Channel {
     {
         use std::iter::Iterator;
         self.manifests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [distribution_streams][crate::model::Channel::distribution_streams].
+    pub fn set_distribution_streams<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DistributionStream>,
+    {
+        use std::iter::Iterator;
+        self.distribution_streams = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [distributions][crate::model::Channel::distributions].
+    pub fn set_distributions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Distribution>,
+    {
+        use std::iter::Iterator;
+        self.distributions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2678,6 +3662,24 @@ impl Channel {
     {
         use std::iter::Iterator;
         self.static_overlays = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [auto_transcription_config][crate::model::Channel::auto_transcription_config].
+    pub fn set_auto_transcription_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoTranscriptionConfig>,
+    {
+        self.auto_transcription_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_transcription_config][crate::model::Channel::auto_transcription_config].
+    pub fn set_or_clear_auto_transcription_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoTranscriptionConfig>,
+    {
+        self.auto_transcription_config = v.map(|x| x.into());
         self
     }
 }
@@ -3878,6 +4880,338 @@ pub mod input_attachment {
     }
 }
 
+/// Advanced configurations for auto-generated text streams.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AutoTranscriptionConfig {
+    /// Optional. Whether auto-generated text streams are displayed synchronously
+    /// or asynchronously with the original audio.
+    pub display_timing: crate::model::auto_transcription_config::DisplayTiming,
+
+    /// Optional. Tunes the latency and quality of auto-generated captions.
+    pub quality_preset: crate::model::auto_transcription_config::QualityPreset,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AutoTranscriptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [display_timing][crate::model::AutoTranscriptionConfig::display_timing].
+    pub fn set_display_timing<
+        T: std::convert::Into<crate::model::auto_transcription_config::DisplayTiming>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.display_timing = v.into();
+        self
+    }
+
+    /// Sets the value of [quality_preset][crate::model::AutoTranscriptionConfig::quality_preset].
+    pub fn set_quality_preset<
+        T: std::convert::Into<crate::model::auto_transcription_config::QualityPreset>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.quality_preset = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AutoTranscriptionConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.AutoTranscriptionConfig"
+    }
+}
+
+/// Defines additional types related to [AutoTranscriptionConfig].
+pub mod auto_transcription_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Whether auto-generated text streams are displayed synchronously or
+    /// asynchronously with the original audio.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DisplayTiming {
+        /// Display timing is not specified. Caption display will be asynchronous by
+        /// default.
+        Unspecified,
+        /// Caption will be displayed asynchronous with audio.
+        Async,
+        /// Caption will be displayed synchronous with audio. This option increases
+        /// overall media output latency, and reduces viewing latency between audio
+        /// and auto-generated captions.
+        Sync,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DisplayTiming::value] or
+        /// [DisplayTiming::name].
+        UnknownValue(display_timing::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod display_timing {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DisplayTiming {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Async => std::option::Option::Some(1),
+                Self::Sync => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DISPLAY_TIMING_UNSPECIFIED"),
+                Self::Async => std::option::Option::Some("ASYNC"),
+                Self::Sync => std::option::Option::Some("SYNC"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DisplayTiming {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DisplayTiming {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DisplayTiming {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Async,
+                2 => Self::Sync,
+                _ => Self::UnknownValue(display_timing::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DisplayTiming {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DISPLAY_TIMING_UNSPECIFIED" => Self::Unspecified,
+                "ASYNC" => Self::Async,
+                "SYNC" => Self::Sync,
+                _ => Self::UnknownValue(display_timing::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DisplayTiming {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Async => serializer.serialize_i32(1),
+                Self::Sync => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DisplayTiming {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DisplayTiming>::new(
+                ".google.cloud.video.livestream.v1.AutoTranscriptionConfig.DisplayTiming",
+            ))
+        }
+    }
+
+    /// Presets to tune the latency and quality of auto-generated captions.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum QualityPreset {
+        /// Quality Preset is not specified. By default, BALANCED_QUALITY will be
+        /// used.
+        Unspecified,
+        /// Reduce the latency of auto-generated captions. This may reduce the
+        /// quality of the captions.
+        LowLatency,
+        /// Default behavior when QualityPreset is not specified.
+        BalancedQuality,
+        /// Increases the quality of the auto-generated captions at the cost of
+        /// higher latency.
+        ImprovedQuality,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [QualityPreset::value] or
+        /// [QualityPreset::name].
+        UnknownValue(quality_preset::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod quality_preset {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl QualityPreset {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::LowLatency => std::option::Option::Some(1),
+                Self::BalancedQuality => std::option::Option::Some(2),
+                Self::ImprovedQuality => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("QUALITY_PRESET_UNSPECIFIED"),
+                Self::LowLatency => std::option::Option::Some("LOW_LATENCY"),
+                Self::BalancedQuality => std::option::Option::Some("BALANCED_QUALITY"),
+                Self::ImprovedQuality => std::option::Option::Some("IMPROVED_QUALITY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for QualityPreset {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for QualityPreset {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for QualityPreset {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::LowLatency,
+                2 => Self::BalancedQuality,
+                3 => Self::ImprovedQuality,
+                _ => Self::UnknownValue(quality_preset::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for QualityPreset {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "QUALITY_PRESET_UNSPECIFIED" => Self::Unspecified,
+                "LOW_LATENCY" => Self::LowLatency,
+                "BALANCED_QUALITY" => Self::BalancedQuality,
+                "IMPROVED_QUALITY" => Self::ImprovedQuality,
+                _ => Self::UnknownValue(quality_preset::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for QualityPreset {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::LowLatency => serializer.serialize_i32(1),
+                Self::BalancedQuality => serializer.serialize_i32(2),
+                Self::ImprovedQuality => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for QualityPreset {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<QualityPreset>::new(
+                ".google.cloud.video.livestream.v1.AutoTranscriptionConfig.QualityPreset",
+            ))
+        }
+    }
+}
+
 /// Event is a sub-resource of a channel, which can be scheduled by the user to
 /// execute operations on a channel resource without having to stop the channel.
 #[derive(Clone, Default, PartialEq)]
@@ -4203,6 +5537,35 @@ impl Event {
         self.task = std::option::Option::Some(crate::model::event::Task::Unmute(v.into()));
         self
     }
+
+    /// The value of [task][crate::model::Event::task]
+    /// if it holds a `UpdateEncryptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn update_encryptions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::event::UpdateEncryptionsTask>> {
+        #[allow(unreachable_patterns)]
+        self.task.as_ref().and_then(|v| match v {
+            crate::model::event::Task::UpdateEncryptions(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [task][crate::model::Event::task]
+    /// to hold a `UpdateEncryptions`.
+    ///
+    /// Note that all the setters affecting `task` are
+    /// mutually exclusive.
+    pub fn set_update_encryptions<
+        T: std::convert::Into<std::boxed::Box<crate::model::event::UpdateEncryptionsTask>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.task =
+            std::option::Option::Some(crate::model::event::Task::UpdateEncryptions(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Event {
@@ -4421,6 +5784,43 @@ pub mod event {
         }
     }
 
+    /// Update encryption settings.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct UpdateEncryptionsTask {
+        /// Required. A list of
+        /// [EncryptionUpdate][google.cloud.video.livestream.v1.EncryptionUpdate]s
+        /// that updates the existing encryption settings.
+        ///
+        /// [google.cloud.video.livestream.v1.EncryptionUpdate]: crate::model::EncryptionUpdate
+        pub encryptions: std::vec::Vec<crate::model::EncryptionUpdate>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl UpdateEncryptionsTask {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [encryptions][crate::model::event::UpdateEncryptionsTask::encryptions].
+        pub fn set_encryptions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::EncryptionUpdate>,
+        {
+            use std::iter::Iterator;
+            self.encryptions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for UpdateEncryptionsTask {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.livestream.v1.Event.UpdateEncryptionsTask"
+        }
+    }
+
     /// State of the event
     ///
     /// # Working with unknown values
@@ -4597,6 +5997,8 @@ pub mod event {
         Mute(std::boxed::Box<crate::model::event::MuteTask>),
         /// Unmutes the stream.
         Unmute(std::boxed::Box<crate::model::event::UnmuteTask>),
+        /// Updates encryption settings.
+        UpdateEncryptions(std::boxed::Box<crate::model::event::UpdateEncryptionsTask>),
     }
 }
 
@@ -6578,16 +7980,16 @@ pub mod encryption {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DrmSystems {
-        /// Widevine configuration.
+        /// Optional. Widevine configuration.
         pub widevine: std::option::Option<crate::model::encryption::Widevine>,
 
-        /// Fairplay configuration.
+        /// Optional. Fairplay configuration.
         pub fairplay: std::option::Option<crate::model::encryption::Fairplay>,
 
-        /// Playready configuration.
+        /// Optional. Playready configuration.
         pub playready: std::option::Option<crate::model::encryption::Playready>,
 
-        /// Clearkey configuration.
+        /// Optional. Clearkey configuration.
         pub clearkey: std::option::Option<crate::model::encryption::Clearkey>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6767,6 +8169,97 @@ pub mod encryption {
     }
 }
 
+/// Encryption setting when updating encryption.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EncryptionUpdate {
+    /// Required. Identifier for the encryption option to be updated.
+    pub id: std::string::String,
+
+    /// Defines where new content keys are stored.
+    pub secret_source: std::option::Option<crate::model::encryption_update::SecretSource>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EncryptionUpdate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::EncryptionUpdate::id].
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [secret_source][crate::model::EncryptionUpdate::secret_source].
+    ///
+    /// Note that all the setters affecting `secret_source` are mutually
+    /// exclusive.
+    pub fn set_secret_source<
+        T: std::convert::Into<std::option::Option<crate::model::encryption_update::SecretSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.secret_source = v.into();
+        self
+    }
+
+    /// The value of [secret_source][crate::model::EncryptionUpdate::secret_source]
+    /// if it holds a `SecretManagerKeySource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn secret_manager_key_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SecretManagerSource>> {
+        #[allow(unreachable_patterns)]
+        self.secret_source.as_ref().and_then(|v| match v {
+            crate::model::encryption_update::SecretSource::SecretManagerKeySource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [secret_source][crate::model::EncryptionUpdate::secret_source]
+    /// to hold a `SecretManagerKeySource`.
+    ///
+    /// Note that all the setters affecting `secret_source` are
+    /// mutually exclusive.
+    pub fn set_secret_manager_key_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::encryption::SecretManagerSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.secret_source = std::option::Option::Some(
+            crate::model::encryption_update::SecretSource::SecretManagerKeySource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for EncryptionUpdate {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.EncryptionUpdate"
+    }
+}
+
+/// Defines additional types related to [EncryptionUpdate].
+pub mod encryption_update {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Defines where new content keys are stored.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SecretSource {
+        /// For keys stored in Google Secret Manager.
+        SecretManagerKeySource(std::boxed::Box<crate::model::encryption::SecretManagerSource>),
+    }
+}
+
 /// Pool resource defines the configuration of Live Stream pools for a specific
 /// location. Currently we support only one pool resource per project per
 /// location. After the creation of the first input, a default pool is created
@@ -6932,8 +8425,11 @@ pub struct CreateAssetRequest {
     pub asset: std::option::Option<crate::model::Asset>,
 
     /// Required. The ID of the asset resource to be created.
-    /// This value must be 1-63 characters, begin and end with `[a-z0-9]`,
-    /// could contain dashes (-) in between.
+    ///
+    /// This value must be 1-63 characters, begin and end with a lower-case letter
+    /// or a number, and consist of only lower-case letters, numbers, and hyphens.
+    /// In other words, it must match the following regex:
+    /// `^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$`.
     pub asset_id: std::string::String,
 
     /// A request ID to identify requests. Specify a unique request ID
@@ -7229,8 +8725,11 @@ pub struct CreateChannelRequest {
     pub channel: std::option::Option<crate::model::Channel>,
 
     /// Required. The ID of the channel resource to be created.
-    /// This value must be 1-63 characters, begin and end with `[a-z0-9]`,
-    /// could contain dashes (-) in between.
+    ///
+    /// This value must be 1-63 characters, begin and end with a lower-case letter
+    /// or a number, and consist of only lower-case letters, numbers, and hyphens.
+    /// In other words, it must match the following regex:
+    /// `^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$`.
     pub channel_id: std::string::String,
 
     /// A request ID to identify requests. Specify a unique request ID
@@ -7734,6 +9233,138 @@ impl wkt::message::Message for StopChannelRequest {
     }
 }
 
+/// Request message for "LivestreamService.StartDistribution".
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StartDistributionRequest {
+    /// Required. The name of the channel resource, in the form of:
+    /// `projects/{project}/locations/{location}/channels/{channelId}`.
+    pub name: std::string::String,
+
+    /// Optional. A list of keys to identify the distribution configuration in the
+    /// channel resource. If left empty, all the distributions in the channel
+    /// specification will be started.
+    pub distribution_keys: std::vec::Vec<std::string::String>,
+
+    /// Optional. A request ID to identify requests. Specify a unique request ID
+    /// so that if you must retry your request, the server will know to ignore
+    /// the request if it has already been completed. The server will guarantee
+    /// that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request ID,
+    /// the server can check if original operation with the same request ID was
+    /// received, and if so, will ignore the second request. This prevents clients
+    /// from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported `(00000000-0000-0000-0000-000000000000)`.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StartDistributionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::StartDistributionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [distribution_keys][crate::model::StartDistributionRequest::distribution_keys].
+    pub fn set_distribution_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.distribution_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::StartDistributionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StartDistributionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.StartDistributionRequest"
+    }
+}
+
+/// Request message for "LivestreamService.StopDistribution".
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StopDistributionRequest {
+    /// Required. The name of the channel resource, in the form of:
+    /// `projects/{project}/locations/{location}/channels/{channelId}`.
+    pub name: std::string::String,
+
+    /// Optional. A list of key to identify the distribution configuration in the
+    /// channel resource. If left empty, all the distributions in the channel
+    /// specification will be stopped.
+    pub distribution_keys: std::vec::Vec<std::string::String>,
+
+    /// Optional. A request ID to identify requests. Specify a unique request ID
+    /// so that if you must retry your request, the server will know to ignore
+    /// the request if it has already been completed. The server will guarantee
+    /// that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request ID,
+    /// the server can check if original operation with the same request ID was
+    /// received, and if so, will ignore the second request. This prevents clients
+    /// from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported `(00000000-0000-0000-0000-000000000000)`.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StopDistributionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::StopDistributionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [distribution_keys][crate::model::StopDistributionRequest::distribution_keys].
+    pub fn set_distribution_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.distribution_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::StopDistributionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StopDistributionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.StopDistributionRequest"
+    }
+}
+
 /// Request message for "LivestreamService.CreateInput".
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -7746,8 +9377,11 @@ pub struct CreateInputRequest {
     pub input: std::option::Option<crate::model::Input>,
 
     /// Required. The ID of the input resource to be created.
-    /// This value must be 1-63 characters, begin and end with `[a-z0-9]`,
-    /// could contain dashes (-) in between.
+    ///
+    /// This value must be 1-63 characters, begin and end with a lower-case letter
+    /// or a number, and consist of only lower-case letters, numbers, and hyphens.
+    /// In other words, it must match the following regex:
+    /// `^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$`.
     pub input_id: std::string::String,
 
     /// A request ID to identify requests. Specify a unique request ID
@@ -8144,8 +9778,11 @@ pub struct CreateEventRequest {
     pub event: std::option::Option<crate::model::Event>,
 
     /// Required. The ID of the event resource to be created.
-    /// This value must be 1-63 characters, begin and end with `[a-z0-9]`,
-    /// could contain dashes (-) in between.
+    ///
+    /// This value must be 1-63 characters, begin and end with a lower-case letter
+    /// or a number, and consist of only lower-case letters, numbers, and hyphens.
+    /// In other words, it must match the following regex:
+    /// `^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$`.
     pub event_id: std::string::String,
 
     /// A request ID to identify requests. Specify a unique request ID
@@ -8627,10 +10264,12 @@ pub struct CreateClipRequest {
     /// `projects/{project}/locations/{location}/channels/{channel}`.
     pub parent: std::string::String,
 
-    /// Required. Id of the requesting object in the following form:
+    /// Required. The ID of the clip resource to be created.
     ///
-    /// 1. 1 character minimum, 63 characters maximum
-    /// 1. Only contains letters, digits, underscores, and hyphens
+    /// This value must be 1-63 characters, begin and end with a lower-case letter
+    /// or a number, and consist of only lower-case letters, numbers, and hyphens.
+    /// In other words, it must match the following regex:
+    /// `^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$`.
     pub clip_id: std::string::String,
 
     /// Required. The resource being created
@@ -8924,10 +10563,12 @@ pub struct CreateDvrSessionRequest {
     /// `projects/{project}/locations/{location}/channels/{channelId}`.
     pub parent: std::string::String,
 
-    /// Required. Id of the requesting object in the following form:
+    /// Required. The ID of the DVR session resource to be created.
     ///
-    /// 1. 1 character minimum, 63 characters maximum
-    /// 1. Only contains letters, digits, underscores, and hyphens
+    /// This value must be 1-63 characters, begin and end with a lower-case letter
+    /// or a number, and consist of only lower-case letters, numbers, and hyphens.
+    /// In other words, it must match the following regex:
+    /// `^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$`.
     pub dvr_session_id: std::string::String,
 
     /// Required. The resource being created
@@ -9357,5 +10998,73 @@ impl UpdatePoolRequest {
 impl wkt::message::Message for UpdatePoolRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.video.livestream.v1.UpdatePoolRequest"
+    }
+}
+
+/// Request message for "LivestreamService.PreviewInput"
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PreviewInputRequest {
+    /// Required. The name of the input resource, in the form of:
+    /// `projects/{project}/locations/{location}/inputs/{inputId}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PreviewInputRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::PreviewInputRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PreviewInputRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.PreviewInputRequest"
+    }
+}
+
+/// Response message for "LivestreamService.PreviewInput"
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PreviewInputResponse {
+    /// URI to display the preview content.
+    pub uri: std::string::String,
+
+    /// A bearer token used to authenticate connections that display the preview
+    /// content. The token expires after one hour. For HTTP connections, this token
+    /// should be included as a bearer token inside the Authorization header.
+    pub bearer_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PreviewInputResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [uri][crate::model::PreviewInputResponse::uri].
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [bearer_token][crate::model::PreviewInputResponse::bearer_token].
+    pub fn set_bearer_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.bearer_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PreviewInputResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.PreviewInputResponse"
     }
 }

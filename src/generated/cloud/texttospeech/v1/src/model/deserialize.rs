@@ -864,6 +864,183 @@ impl<'de> serde::de::Deserialize<'de> for super::multi_speaker_markup::Turn {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::MultispeakerPrebuiltVoice {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __speaker_alias,
+            __speaker_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MultispeakerPrebuiltVoice")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "speakerAlias" => Ok(__FieldTag::__speaker_alias),
+                            "speaker_alias" => Ok(__FieldTag::__speaker_alias),
+                            "speakerId" => Ok(__FieldTag::__speaker_id),
+                            "speaker_id" => Ok(__FieldTag::__speaker_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::MultispeakerPrebuiltVoice;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MultispeakerPrebuiltVoice")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__speaker_alias => {
+                            if !fields.insert(__FieldTag::__speaker_alias) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for speaker_alias",
+                                ));
+                            }
+                            result.speaker_alias = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__speaker_id => {
+                            if !fields.insert(__FieldTag::__speaker_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for speaker_id",
+                                ));
+                            }
+                            result.speaker_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::MultiSpeakerVoiceConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __speaker_voice_configs,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MultiSpeakerVoiceConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "speakerVoiceConfigs" => Ok(__FieldTag::__speaker_voice_configs),
+                            "speaker_voice_configs" => Ok(__FieldTag::__speaker_voice_configs),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::MultiSpeakerVoiceConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MultiSpeakerVoiceConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__speaker_voice_configs => {
+                            if !fields.insert(__FieldTag::__speaker_voice_configs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for speaker_voice_configs",
+                                ));
+                            }
+                            result.speaker_voice_configs = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::MultispeakerPrebuiltVoice>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::SynthesisInput {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1053,6 +1230,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VoiceSelectionParams {
             __custom_voice,
             __voice_clone,
             __model_name,
+            __multi_speaker_voice_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1084,6 +1262,12 @@ impl<'de> serde::de::Deserialize<'de> for super::VoiceSelectionParams {
                             "voice_clone" => Ok(__FieldTag::__voice_clone),
                             "modelName" => Ok(__FieldTag::__model_name),
                             "model_name" => Ok(__FieldTag::__model_name),
+                            "multiSpeakerVoiceConfig" => {
+                                Ok(__FieldTag::__multi_speaker_voice_config)
+                            }
+                            "multi_speaker_voice_config" => {
+                                Ok(__FieldTag::__multi_speaker_voice_config)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1168,6 +1352,15 @@ impl<'de> serde::de::Deserialize<'de> for super::VoiceSelectionParams {
                             result.model_name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__multi_speaker_voice_config => {
+                            if !fields.insert(__FieldTag::__multi_speaker_voice_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for multi_speaker_voice_config",
+                                ));
+                            }
+                            result.multi_speaker_voice_config = map.next_value::<std::option::Option<crate::model::MultiSpeakerVoiceConfig>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1873,6 +2066,7 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamingSynthesisInput {
         enum __FieldTag {
             __text,
             __markup,
+            __multi_speaker_markup,
             __prompt,
             Unknown(std::string::String),
         }
@@ -1896,6 +2090,8 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamingSynthesisInput {
                         match value {
                             "text" => Ok(__FieldTag::__text),
                             "markup" => Ok(__FieldTag::__markup),
+                            "multiSpeakerMarkup" => Ok(__FieldTag::__multi_speaker_markup),
+                            "multi_speaker_markup" => Ok(__FieldTag::__multi_speaker_markup),
                             "prompt" => Ok(__FieldTag::__prompt),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -1955,6 +2151,23 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamingSynthesisInput {
                                 crate::model::streaming_synthesis_input::InputSource::Markup(
                                     map.next_value::<std::option::Option<std::string::String>>()?
                                         .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__multi_speaker_markup => {
+                            if !fields.insert(__FieldTag::__multi_speaker_markup) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for multi_speaker_markup",
+                                ));
+                            }
+                            if result.input_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `input_source`, a oneof with full ID .google.cloud.texttospeech.v1.StreamingSynthesisInput.multi_speaker_markup, latest field was multiSpeakerMarkup",
+                                ));
+                            }
+                            result.input_source = std::option::Option::Some(
+                                crate::model::streaming_synthesis_input::InputSource::MultiSpeakerMarkup(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::MultiSpeakerMarkup>>>()?.unwrap_or_default()
                                 ),
                             );
                         }

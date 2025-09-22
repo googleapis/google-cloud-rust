@@ -128,6 +128,29 @@ impl std::fmt::Debug for super::multi_speaker_markup::Turn {
     }
 }
 
+impl std::fmt::Debug for super::MultispeakerPrebuiltVoice {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MultispeakerPrebuiltVoice");
+        debug_struct.field("speaker_alias", &self.speaker_alias);
+        debug_struct.field("speaker_id", &self.speaker_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::MultiSpeakerVoiceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MultiSpeakerVoiceConfig");
+        debug_struct.field("speaker_voice_configs", &self.speaker_voice_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SynthesisInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesisInput");
@@ -150,6 +173,10 @@ impl std::fmt::Debug for super::VoiceSelectionParams {
         debug_struct.field("custom_voice", &self.custom_voice);
         debug_struct.field("voice_clone", &self.voice_clone);
         debug_struct.field("model_name", &self.model_name);
+        debug_struct.field(
+            "multi_speaker_voice_config",
+            &self.multi_speaker_voice_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

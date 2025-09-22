@@ -61,6 +61,58 @@ impl std::fmt::Debug for super::Manifest {
     }
 }
 
+impl std::fmt::Debug for super::DistributionStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DistributionStream");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("container", &self.container);
+        debug_struct.field("elementary_streams", &self.elementary_streams);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Distribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Distribution");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("distribution_stream", &self.distribution_stream);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("endpoint", &self.endpoint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SrtPushOutputEndpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SrtPushOutputEndpoint");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("passphrase_source", &self.passphrase_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RtmpPushOutputEndpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RtmpPushOutputEndpoint");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("stream_key", &self.stream_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SpriteSheet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpriteSheet");
@@ -166,6 +218,26 @@ impl std::fmt::Debug for super::video_stream::H264CodecSettings {
     }
 }
 
+impl std::fmt::Debug for super::video_stream::H265CodecSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("H265CodecSettings");
+        debug_struct.field("width_pixels", &self.width_pixels);
+        debug_struct.field("height_pixels", &self.height_pixels);
+        debug_struct.field("frame_rate", &self.frame_rate);
+        debug_struct.field("bitrate_bps", &self.bitrate_bps);
+        debug_struct.field("vbv_size_bits", &self.vbv_size_bits);
+        debug_struct.field("vbv_fullness_bits", &self.vbv_fullness_bits);
+        debug_struct.field("b_pyramid", &self.b_pyramid);
+        debug_struct.field("b_frame_count", &self.b_frame_count);
+        debug_struct.field("aq_strength", &self.aq_strength);
+        debug_struct.field("gop_mode", &self.gop_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::AudioStream {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AudioStream");
@@ -202,6 +274,24 @@ impl std::fmt::Debug for super::TextStream {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextStream");
         debug_struct.field("codec", &self.codec);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("output_cea_channel", &self.output_cea_channel);
+        debug_struct.field("mapping", &self.mapping);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::text_stream::TextMapping {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextMapping");
+        debug_struct.field("input_key", &self.input_key);
+        debug_struct.field("input_track", &self.input_track);
+        debug_struct.field("input_cea_channel", &self.input_cea_channel);
+        debug_struct.field("from_language_code", &self.from_language_code);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -276,6 +366,8 @@ impl std::fmt::Debug for super::Channel {
         debug_struct.field("elementary_streams", &self.elementary_streams);
         debug_struct.field("mux_streams", &self.mux_streams);
         debug_struct.field("manifests", &self.manifests);
+        debug_struct.field("distribution_streams", &self.distribution_streams);
+        debug_struct.field("distributions", &self.distributions);
         debug_struct.field("sprite_sheets", &self.sprite_sheets);
         debug_struct.field("streaming_state", &self.streaming_state);
         debug_struct.field("streaming_error", &self.streaming_error);
@@ -285,6 +377,7 @@ impl std::fmt::Debug for super::Channel {
         debug_struct.field("input_config", &self.input_config);
         debug_struct.field("retention_config", &self.retention_config);
         debug_struct.field("static_overlays", &self.static_overlays);
+        debug_struct.field("auto_transcription_config", &self.auto_transcription_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -462,6 +555,18 @@ impl std::fmt::Debug for super::input_attachment::AutomaticFailover {
     }
 }
 
+impl std::fmt::Debug for super::AutoTranscriptionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoTranscriptionConfig");
+        debug_struct.field("display_timing", &self.display_timing);
+        debug_struct.field("quality_preset", &self.quality_preset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Event {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Event");
@@ -539,6 +644,17 @@ impl std::fmt::Debug for super::event::MuteTask {
 impl std::fmt::Debug for super::event::UnmuteTask {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UnmuteTask");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::event::UpdateEncryptionsTask {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEncryptionsTask");
+        debug_struct.field("encryptions", &self.encryptions);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -805,6 +921,18 @@ impl std::fmt::Debug for super::encryption::MpegCommonEncryption {
     }
 }
 
+impl std::fmt::Debug for super::EncryptionUpdate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionUpdate");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("secret_source", &self.secret_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Pool {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Pool");
@@ -991,6 +1119,32 @@ impl std::fmt::Debug for super::StopChannelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StopChannelRequest");
         debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StartDistributionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartDistributionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("distribution_keys", &self.distribution_keys);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StopDistributionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopDistributionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("distribution_keys", &self.distribution_keys);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1328,6 +1482,29 @@ impl std::fmt::Debug for super::UpdatePoolRequest {
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("pool", &self.pool);
         debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PreviewInputRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreviewInputRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PreviewInputResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreviewInputResponse");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("bearer_token", &self.bearer_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

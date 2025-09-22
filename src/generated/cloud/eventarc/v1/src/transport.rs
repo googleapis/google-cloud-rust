@@ -2881,6 +2881,26 @@ impl super::stub::Eventarc for Eventarc {
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
+                            Segment::Literal("/kafkaSources/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:setIamPolicy",
+                    try_match(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
                             Segment::Literal("/googleApiSources/"),
                             Segment::SingleWildcard
                         ]
@@ -2992,6 +3012,23 @@ impl super::stub::Eventarc for Eventarc {
                         ],
                         "resource",
                         "projects/*/locations/*/pipelines/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/kafkaSources/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/kafkaSources/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3238,6 +3275,38 @@ impl super::stub::Eventarc for Eventarc {
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
+                            Segment::Literal("/kafkaSources/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:getIamPolicy",
+                    try_match(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
                             Segment::Literal("/googleApiSources/"),
                             Segment::SingleWildcard
                         ]
@@ -3361,6 +3430,23 @@ impl super::stub::Eventarc for Eventarc {
                         ],
                         "resource",
                         "projects/*/locations/*/pipelines/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/kafkaSources/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/kafkaSources/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3535,6 +3621,26 @@ impl super::stub::Eventarc for Eventarc {
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
+                            Segment::Literal("/kafkaSources/"),
+                            Segment::SingleWildcard
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
+            })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}:testIamPermissions",
+                    try_match(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
                             Segment::Literal("/googleApiSources/"),
                             Segment::SingleWildcard
                         ]
@@ -3646,6 +3752,23 @@ impl super::stub::Eventarc for Eventarc {
                         ],
                         "resource",
                         "projects/*/locations/*/pipelines/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/kafkaSources/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/kafkaSources/*",
                     );
                     paths.push(builder.build());
                 }

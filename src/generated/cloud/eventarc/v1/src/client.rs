@@ -279,7 +279,9 @@ impl Eventarc {
         super::builder::eventarc::DeleteChannelConnection::new(self.inner.clone())
     }
 
-    /// Get a GoogleChannelConfig
+    /// Get a GoogleChannelConfig.
+    /// The name of the GoogleChannelConfig in the response is ALWAYS coded with
+    /// projectID.
     pub fn get_google_channel_config(&self) -> super::builder::eventarc::GetGoogleChannelConfig {
         super::builder::eventarc::GetGoogleChannelConfig::new(self.inner.clone())
     }

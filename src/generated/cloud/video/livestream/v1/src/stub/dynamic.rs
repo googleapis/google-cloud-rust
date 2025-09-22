@@ -59,6 +59,18 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
+    async fn start_distribution(
+        &self,
+        req: crate::model::StartDistributionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn stop_distribution(
+        &self,
+        req: crate::model::StopDistributionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn create_input(
         &self,
         req: crate::model::CreateInputRequest,
@@ -88,6 +100,12 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateInputRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn preview_input(
+        &self,
+        req: crate::model::PreviewInputRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PreviewInputResponse>>;
 
     async fn create_event(
         &self,
@@ -317,6 +335,24 @@ impl<T: super::LivestreamService> LivestreamService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn start_distribution(
+        &self,
+        req: crate::model::StartDistributionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::start_distribution(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stop_distribution(
+        &self,
+        req: crate::model::StopDistributionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::stop_distribution(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn create_input(
         &self,
         req: crate::model::CreateInputRequest,
@@ -359,6 +395,15 @@ impl<T: super::LivestreamService> LivestreamService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_input(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn preview_input(
+        &self,
+        req: crate::model::PreviewInputRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PreviewInputResponse>> {
+        T::preview_input(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -29,6 +29,7 @@ impl std::fmt::Debug for super::Channel {
         debug_struct.field("activation_token", &self.activation_token);
         debug_struct.field("crypto_key_name", &self.crypto_key_name);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("labels", &self.labels);
         debug_struct.field("transport", &self.transport);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -46,6 +47,7 @@ impl std::fmt::Debug for super::ChannelConnection {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("activation_token", &self.activation_token);
+        debug_struct.field("labels", &self.labels);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -790,6 +792,7 @@ impl std::fmt::Debug for super::GoogleChannelConfig {
         debug_struct.field("name", &self.name);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("crypto_key_name", &self.crypto_key_name);
+        debug_struct.field("labels", &self.labels);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -856,6 +859,7 @@ impl std::fmt::Debug for super::Pipeline {
         debug_struct.field("logging_config", &self.logging_config);
         debug_struct.field("retry_policy", &self.retry_policy);
         debug_struct.field("etag", &self.etag);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
