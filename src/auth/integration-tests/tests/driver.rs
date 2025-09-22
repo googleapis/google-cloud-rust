@@ -14,6 +14,7 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
+    #[cfg(all(test, feature = "run-byoid-integration-tests"))]
     use test_case::test_case;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]

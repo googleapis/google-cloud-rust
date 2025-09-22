@@ -516,7 +516,8 @@ async fn generate_id_token(
             "projects/-/serviceAccounts/{target_principal_email}"
         )])
         .send()
-        .await?;
+        .await
+        .expect("failed to generate id token");
 
     Ok(res.token)
 }
