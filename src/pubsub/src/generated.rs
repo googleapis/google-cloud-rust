@@ -13,4 +13,3 @@
 // limitations under the License.
 
 pub(crate) mod gapic;
-pub(crate) mod gapic_internal;
