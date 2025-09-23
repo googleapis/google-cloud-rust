@@ -998,21 +998,6 @@ pub struct AddSecretVersionRequest {
     /// Required. The secret payload of the SecretVersion.
     pub payload: std::option::Option<crate::model::SecretPayload>,
 
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
-    pub project: std::string::String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
-    pub secret: std::string::String,
-
-    /// The `{location}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:addVersion`.
-    pub location: std::string::String,
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1038,23 +1023,11 @@ impl AddSecretVersionRequest {
         self.payload = v.map(|x| x.into());
         self
     }
+}
 
-    /// Sets the value of [project][crate::model::AddSecretVersionRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::AddSecretVersionRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::AddSecretVersionRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
+impl wkt::message::Message for AddSecretVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.AddSecretVersionRequest"
     }
 }
 
@@ -1794,26 +1767,6 @@ pub struct DisableSecretVersionRequest {
     /// omitted, the request succeeds.
     pub etag: std::option::Option<std::string::String>,
 
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
-    pub project: std::string::String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
-    pub secret: std::string::String,
-
-    /// The `{version}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
-    pub version: std::string::String,
-
-    /// The `{location}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:disable`.
-    pub location: std::string::String,
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1839,29 +1792,11 @@ impl DisableSecretVersionRequest {
         self.etag = v.map(|x| x.into());
         self
     }
+}
 
-    /// Sets the value of [project][crate::model::DisableSecretVersionRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::DisableSecretVersionRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [version][crate::model::DisableSecretVersionRequest::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::DisableSecretVersionRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
+impl wkt::message::Message for DisableSecretVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.DisableSecretVersionRequest"
     }
 }
 
@@ -1873,26 +1808,6 @@ pub struct EnableSecretVersionRequest {
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
     pub etag: std::option::Option<std::string::String>,
-
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
-    pub project: std::string::String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
-    pub secret: std::string::String,
-
-    /// The `{version}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
-    pub version: std::string::String,
-
-    /// The `{location}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:enable`.
-    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1919,29 +1834,11 @@ impl EnableSecretVersionRequest {
         self.etag = v.map(|x| x.into());
         self
     }
+}
 
-    /// Sets the value of [project][crate::model::EnableSecretVersionRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::EnableSecretVersionRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [version][crate::model::EnableSecretVersionRequest::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::EnableSecretVersionRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
+impl wkt::message::Message for EnableSecretVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.EnableSecretVersionRequest"
     }
 }
 
@@ -1953,26 +1850,6 @@ pub struct DestroySecretVersionRequest {
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
     pub etag: std::option::Option<std::string::String>,
-
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
-    pub project: std::string::String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
-    pub secret: std::string::String,
-
-    /// The `{version}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
-    pub version: std::string::String,
-
-    /// The `{location}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:destroy`.
-    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1999,29 +1876,11 @@ impl DestroySecretVersionRequest {
         self.etag = v.map(|x| x.into());
         self
     }
+}
 
-    /// Sets the value of [project][crate::model::DestroySecretVersionRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::DestroySecretVersionRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [version][crate::model::DestroySecretVersionRequest::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::DestroySecretVersionRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
+impl wkt::message::Message for DestroySecretVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.DestroySecretVersionRequest"
     }
 }
 
@@ -2041,21 +1900,6 @@ pub struct SetIamPolicyRequest {
     ///
     /// `paths: "bindings, etag"`
     pub update_mask: std::option::Option<wkt::FieldMask>,
-
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
-    pub project: std::string::String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
-    pub secret: std::string::String,
-
-    /// The `{location}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:setIamPolicy`.
-    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2100,23 +1944,11 @@ impl SetIamPolicyRequest {
         self.update_mask = v.map(|x| x.into());
         self
     }
+}
 
-    /// Sets the value of [project][crate::model::SetIamPolicyRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::SetIamPolicyRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::SetIamPolicyRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
+impl wkt::message::Message for SetIamPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.SetIamPolicyRequest"
     }
 }
 
@@ -2830,21 +2662,6 @@ pub struct TestIamPermissionsRequest {
     /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
     pub permissions: std::vec::Vec<std::string::String>,
 
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
-    pub project: std::string::String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
-    pub secret: std::string::String,
-
-    /// The `{location}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:testIamPermissions`.
-    pub location: std::string::String,
-
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2863,23 +2680,11 @@ impl TestIamPermissionsRequest {
         self.permissions = v.into_iter().map(|i| i.into()).collect();
         self
     }
+}
 
-    /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::TestIamPermissionsRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::TestIamPermissionsRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
+impl wkt::message::Message for TestIamPermissionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.TestIamPermissionsRequest"
     }
 }
 
@@ -2917,1393 +2722,2269 @@ impl wkt::message::Message for TestIamPermissionsResponse {
     }
 }
 
-/// The request message for ListLocations.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct ListLocationsRequest {
-    /// The `{project}` component of the target path.
+/// Synthetic messages for the [SecretManagerService][google.cloud.secretmanager.v1.SecretManagerService] service.
+///
+/// [google.cloud.secretmanager.v1.SecretManagerService]: crate::model::SecretManagerService
+pub mod secret_manager_service {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Synthetic request message for the [ListLocations()][google.cloud.secretmanager.v1.SecretManagerService.ListLocations] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.ListLocations]: crate::client::SecretManagerService::list_locations
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ListLocationsRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations`.
+        pub project: std::string::String,
 
-    /// A filter to narrow down results to a preferred subset.
-    /// The filtering language accepts strings like `"displayName=tokyo"`, and
-    /// is documented in more detail in [AIP-160](https://google.aip.dev/160).
-    pub filter: std::option::Option<std::string::String>,
+        /// A filter to narrow down results to a preferred subset.
+        /// The filtering language accepts strings like `"displayName=tokyo"`, and
+        /// is documented in more detail in [AIP-160](https://google.aip.dev/160).
+        pub filter: std::option::Option<std::string::String>,
 
-    /// The maximum number of results to return.
-    /// If not set, the service selects a default.
-    pub page_size: std::option::Option<i32>,
+        /// The maximum number of results to return.
+        /// If not set, the service selects a default.
+        pub page_size: std::option::Option<i32>,
 
-    /// A page token received from the `next_page_token` field in the response.
-    /// Send that page token to receive the subsequent page.
-    pub page_token: std::option::Option<std::string::String>,
+        /// A page token received from the `next_page_token` field in the response.
+        /// Send that page token to receive the subsequent page.
+        pub page_token: std::option::Option<std::string::String>,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl ListLocationsRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::ListLocationsRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
+    impl ListLocationsRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::ListLocationsRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::secret_manager_service::ListLocationsRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::secret_manager_service::ListLocationsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::secret_manager_service::ListLocationsRequest::page_size].
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::secret_manager_service::ListLocationsRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.page_size = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::secret_manager_service::ListLocationsRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::secret_manager_service::ListLocationsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets the value of [filter][crate::model::ListLocationsRequest::filter].
-    pub fn set_filter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.filter = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [filter][crate::model::ListLocationsRequest::filter].
-    pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.filter = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [page_size][crate::model::ListLocationsRequest::page_size].
-    pub fn set_page_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.page_size = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [page_size][crate::model::ListLocationsRequest::page_size].
-    pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.page_size = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [page_token][crate::model::ListLocationsRequest::page_token].
-    pub fn set_page_token<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.page_token = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [page_token][crate::model::ListLocationsRequest::page_token].
-    pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.page_token = v.map(|x| x.into());
-        self
-    }
-}
-
-/// The request message for GetLocation.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetLocationRequest {
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [GetLocation()][google.cloud.secretmanager.v1.SecretManagerService.GetLocation] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.GetLocation]: crate::client::SecretManagerService::get_location
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetLocationRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
+        pub project: std::string::String,
 
-    /// The `{location}` component of the target path.
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
+        pub location: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GetLocationRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::GetLocationRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::GetLocationRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [ListSecrets()][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
-    pub location: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.ListSecrets]: crate::client::SecretManagerService::list_secrets
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ListSecretsRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets`.
+        pub project: std::string::String,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
+        /// Optional. The maximum number of results to be returned in a single page. If
+        /// set to 0, the server decides the number of results to return. If the
+        /// number is greater than 25000, it is capped at 25000.
+        pub page_size: std::option::Option<i32>,
 
-impl GetLocationRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        /// Optional. Pagination token, returned earlier via
+        /// ListSecretsResponse.next_page_token.
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Optional. Filter string, adhering to the rules in
+        /// [List-operation
+        /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
+        /// only secrets matching the filter. If filter is empty, all secrets are
+        /// listed.
+        pub filter: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::GetLocationRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
+    impl ListSecretsRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::ListSecretsRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::secret_manager_service::ListSecretsRequest::page_size].
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::secret_manager_service::ListSecretsRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.page_size = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::secret_manager_service::ListSecretsRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::secret_manager_service::ListSecretsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::secret_manager_service::ListSecretsRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::secret_manager_service::ListSecretsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets the value of [location][crate::model::GetLocationRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-}
-
-/// The request message for ListSecrets.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct ListSecretsRequest {
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [CreateSecret()][google.cloud.secretmanager.v1.SecretManagerService.CreateSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.CreateSecret]: crate::client::SecretManagerService::create_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CreateSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets`.
+        pub project: std::string::String,
 
-    /// Optional. The maximum number of results to be returned in a single page. If
-    /// set to 0, the server decides the number of results to return. If the
-    /// number is greater than 25000, it is capped at 25000.
-    pub page_size: std::option::Option<i32>,
+        /// Required. This must be unique within the project.
+        ///
+        /// A secret ID is a string with a maximum length of 255 characters and can
+        /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
+        /// underscore (`_`) characters.
+        pub secret_id: std::string::String,
 
-    /// Optional. Pagination token, returned earlier via
-    /// ListSecretsResponse.next_page_token.
-    pub page_token: std::option::Option<std::string::String>,
+        /// The request body.
+        pub body: std::option::Option<crate::model::Secret>,
 
-    /// Optional. Filter string, adhering to the rules in
-    /// [List-operation
-    /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
-    /// only secrets matching the filter. If filter is empty, all secrets are
-    /// listed.
-    pub filter: std::option::Option<std::string::String>,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl ListSecretsRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::ListSecretsRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
+    impl CreateSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::CreateSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret_id][crate::model::secret_manager_service::CreateSecretRequest::secret_id].
+        pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret_id = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::CreateSecretRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::CreateSecretRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets the value of [page_size][crate::model::ListSecretsRequest::page_size].
-    pub fn set_page_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.page_size = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [page_size][crate::model::ListSecretsRequest::page_size].
-    pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.page_size = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [page_token][crate::model::ListSecretsRequest::page_token].
-    pub fn set_page_token<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.page_token = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [page_token][crate::model::ListSecretsRequest::page_token].
-    pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.page_token = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [filter][crate::model::ListSecretsRequest::filter].
-    pub fn set_filter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.filter = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [filter][crate::model::ListSecretsRequest::filter].
-    pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.filter = v.map(|x| x.into());
-        self
-    }
-}
-
-/// The request message for CreateSecret.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct CreateSecretRequest {
-    /// The request body.
-    pub request_body: std::option::Option<crate::model::Secret>,
-
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [ListSecretsByProjectAndLocation()][google.cloud.secretmanager.v1.SecretManagerService.ListSecretsByProjectAndLocation] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.ListSecretsByProjectAndLocation]: crate::client::SecretManagerService::list_secrets_by_project_and_location
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ListSecretsByProjectAndLocationRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
+        pub project: std::string::String,
 
-    /// Required. This must be unique within the project.
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
+        pub location: std::string::String,
+
+        /// Optional. The maximum number of results to be returned in a single page. If
+        /// set to 0, the server decides the number of results to return. If the
+        /// number is greater than 25000, it is capped at 25000.
+        pub page_size: std::option::Option<i32>,
+
+        /// Optional. Pagination token, returned earlier via
+        /// ListSecretsResponse.next_page_token.
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Optional. Filter string, adhering to the rules in
+        /// [List-operation
+        /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
+        /// only secrets matching the filter. If filter is empty, all secrets are
+        /// listed.
+        pub filter: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ListSecretsByProjectAndLocationRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::page_size].
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.page_size = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [CreateSecretByProjectAndLocation()][google.cloud.secretmanager.v1.SecretManagerService.CreateSecretByProjectAndLocation] method.
     ///
-    /// A secret ID is a string with a maximum length of 255 characters and can
-    /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
-    /// underscore (`_`) characters.
-    pub secret_id: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.CreateSecretByProjectAndLocation]: crate::client::SecretManagerService::create_secret_by_project_and_location
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CreateSecretByProjectAndLocationRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
+        pub project: std::string::String,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
+        pub location: std::string::String,
 
-impl CreateSecretRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        /// Required. This must be unique within the project.
+        ///
+        /// A secret ID is a string with a maximum length of 255 characters and can
+        /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
+        /// underscore (`_`) characters.
+        pub secret_id: std::string::String,
+
+        /// The request body.
+        pub body: std::option::Option<crate::model::Secret>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [request_body][crate::model::CreateSecretRequest::request_body].
-    pub fn set_request_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
-    {
-        self.request_body = std::option::Option::Some(v.into());
-        self
+    impl CreateSecretByProjectAndLocationRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret_id][crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest::secret_id].
+        pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret_id = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets or clears the value of [request_body][crate::model::CreateSecretRequest::request_body].
-    pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
-    {
-        self.request_body = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [project][crate::model::CreateSecretRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [secret_id][crate::model::CreateSecretRequest::secret_id].
-    pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret_id = v.into();
-        self
-    }
-}
-
-/// The request message for ListSecretsByProjectAndLocation.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct ListSecretsByProjectAndLocationRequest {
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [AddSecretVersion()][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::client::SecretManagerService::add_secret_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AddSecretVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
+        pub project: std::string::String,
 
-    /// The `{location}` component of the target path.
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
+        pub secret: std::string::String,
+
+        /// The request body.
+        pub body: std::option::Option<crate::model::AddSecretVersionRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AddSecretVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::AddSecretVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::AddSecretVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::AddSecretVersionRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AddSecretVersionRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::AddSecretVersionRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AddSecretVersionRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [AddSecretVersionByProjectAndLocationAndSecret()][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersionByProjectAndLocationAndSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
-    pub location: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersionByProjectAndLocationAndSecret]: crate::client::SecretManagerService::add_secret_version_by_project_and_location_and_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AddSecretVersionByProjectAndLocationAndSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:addVersion`.
+        pub project: std::string::String,
 
-    /// Optional. The maximum number of results to be returned in a single page. If
-    /// set to 0, the server decides the number of results to return. If the
-    /// number is greater than 25000, it is capped at 25000.
-    pub page_size: std::option::Option<i32>,
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:addVersion`.
+        pub location: std::string::String,
 
-    /// Optional. Pagination token, returned earlier via
-    /// ListSecretsResponse.next_page_token.
-    pub page_token: std::option::Option<std::string::String>,
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:addVersion`.
+        pub secret: std::string::String,
 
-    /// Optional. Filter string, adhering to the rules in
-    /// [List-operation
-    /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
-    /// only secrets matching the filter. If filter is empty, all secrets are
-    /// listed.
-    pub filter: std::option::Option<std::string::String>,
+        /// The request body.
+        pub body: std::option::Option<crate::model::AddSecretVersionRequest>,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl ListSecretsByProjectAndLocationRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::ListSecretsByProjectAndLocationRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
+    impl AddSecretVersionByProjectAndLocationAndSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AddSecretVersionRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AddSecretVersionRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets the value of [location][crate::model::ListSecretsByProjectAndLocationRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [page_size][crate::model::ListSecretsByProjectAndLocationRequest::page_size].
-    pub fn set_page_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.page_size = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [page_size][crate::model::ListSecretsByProjectAndLocationRequest::page_size].
-    pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.page_size = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [page_token][crate::model::ListSecretsByProjectAndLocationRequest::page_token].
-    pub fn set_page_token<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.page_token = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [page_token][crate::model::ListSecretsByProjectAndLocationRequest::page_token].
-    pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.page_token = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [filter][crate::model::ListSecretsByProjectAndLocationRequest::filter].
-    pub fn set_filter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.filter = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [filter][crate::model::ListSecretsByProjectAndLocationRequest::filter].
-    pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.filter = v.map(|x| x.into());
-        self
-    }
-}
-
-/// The request message for CreateSecretByProjectAndLocation.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct CreateSecretByProjectAndLocationRequest {
-    /// The request body.
-    pub request_body: std::option::Option<crate::model::Secret>,
-
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [GetSecret()][google.cloud.secretmanager.v1.SecretManagerService.GetSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.GetSecret]: crate::client::SecretManagerService::get_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+        pub project: std::string::String,
 
-    /// The `{location}` component of the target path.
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+        pub secret: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GetSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::GetSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::GetSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [DeleteSecret()][google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
-    pub location: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret]: crate::client::SecretManagerService::delete_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DeleteSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+        pub project: std::string::String,
 
-    /// Required. This must be unique within the project.
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+        pub secret: std::string::String,
+
+        /// Optional. Etag of the Secret. The request succeeds if it matches
+        /// the etag of the currently stored secret object. If the etag is omitted,
+        /// the request succeeds.
+        pub etag: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DeleteSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::DeleteSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::DeleteSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::secret_manager_service::DeleteSecretRequest::etag].
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::secret_manager_service::DeleteSecretRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.etag = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [UpdateSecret()][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret] method.
     ///
-    /// A secret ID is a string with a maximum length of 255 characters and can
-    /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
-    /// underscore (`_`) characters.
-    pub secret_id: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret]: crate::client::SecretManagerService::update_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct UpdateSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+        pub project: std::string::String,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+        pub secret: std::string::String,
 
-impl CreateSecretByProjectAndLocationRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        /// Required. Specifies the fields to be updated.
+        pub update_mask: wkt::FieldMask,
+
+        /// The request body.
+        pub body: std::option::Option<crate::model::Secret>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [request_body][crate::model::CreateSecretByProjectAndLocationRequest::request_body].
-    pub fn set_request_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
-    {
-        self.request_body = std::option::Option::Some(v.into());
-        self
+    impl UpdateSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::UpdateSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::UpdateSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::secret_manager_service::UpdateSecretRequest::update_mask].
+        pub fn set_update_mask<T: std::convert::Into<wkt::FieldMask>>(mut self, v: T) -> Self {
+            self.update_mask = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::UpdateSecretRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::UpdateSecretRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets or clears the value of [request_body][crate::model::CreateSecretByProjectAndLocationRequest::request_body].
-    pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
-    {
-        self.request_body = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [project][crate::model::CreateSecretByProjectAndLocationRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::CreateSecretByProjectAndLocationRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [secret_id][crate::model::CreateSecretByProjectAndLocationRequest::secret_id].
-    pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret_id = v.into();
-        self
-    }
-}
-
-/// The request message for GetSecret.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetSecretRequest {
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [GetSecretByProjectAndLocationAndSecret()][google.cloud.secretmanager.v1.SecretManagerService.GetSecretByProjectAndLocationAndSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.GetSecretByProjectAndLocationAndSecret]: crate::client::SecretManagerService::get_secret_by_project_and_location_and_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetSecretByProjectAndLocationAndSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+        pub project: std::string::String,
 
-    /// The `{secret}` component of the target path.
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+        pub location: std::string::String,
+
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+        pub secret: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GetSecretByProjectAndLocationAndSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [DeleteSecretByProjectAndLocationAndSecret()][google.cloud.secretmanager.v1.SecretManagerService.DeleteSecretByProjectAndLocationAndSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
-    pub secret: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.DeleteSecretByProjectAndLocationAndSecret]: crate::client::SecretManagerService::delete_secret_by_project_and_location_and_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+        pub project: std::string::String,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+        pub location: std::string::String,
 
-impl GetSecretRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+        pub secret: std::string::String,
+
+        /// Optional. Etag of the Secret. The request succeeds if it matches
+        /// the etag of the currently stored secret object. If the etag is omitted,
+        /// the request succeeds.
+        pub etag: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::GetSecretRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
+    impl DeleteSecretByProjectAndLocationAndSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.etag = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets the value of [secret][crate::model::GetSecretRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-}
-
-/// The request message for DeleteSecret.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct DeleteSecretRequest {
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [UpdateSecretByProjectAndLocationAndSecret()][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecretByProjectAndLocationAndSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.UpdateSecretByProjectAndLocationAndSecret]: crate::client::SecretManagerService::update_secret_by_project_and_location_and_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+        pub project: std::string::String,
 
-    /// The `{secret}` component of the target path.
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+        pub location: std::string::String,
+
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+        pub secret: std::string::String,
+
+        /// Required. Specifies the fields to be updated.
+        pub update_mask: wkt::FieldMask,
+
+        /// The request body.
+        pub body: std::option::Option<crate::model::Secret>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl UpdateSecretByProjectAndLocationAndSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::update_mask].
+        pub fn set_update_mask<T: std::convert::Into<wkt::FieldMask>>(mut self, v: T) -> Self {
+            self.update_mask = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [ListSecretVersions()][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
-    pub secret: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions]: crate::client::SecretManagerService::list_secret_versions
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ListSecretVersionsRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
+        pub project: std::string::String,
 
-    /// Optional. Etag of the Secret. The request succeeds if it matches
-    /// the etag of the currently stored secret object. If the etag is omitted,
-    /// the request succeeds.
-    pub etag: std::option::Option<std::string::String>,
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
+        pub secret: std::string::String,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
+        /// Optional. The maximum number of results to be returned in a single page. If
+        /// set to 0, the server decides the number of results to return. If the
+        /// number is greater than 25000, it is capped at 25000.
+        pub page_size: std::option::Option<i32>,
 
-impl DeleteSecretRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        /// Optional. Pagination token, returned earlier via
+        /// ListSecretVersionsResponse.next_page_token][].
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Optional. Filter string, adhering to the rules in
+        /// [List-operation
+        /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
+        /// only secret versions matching the filter. If filter is empty, all secret
+        /// versions are listed.
+        pub filter: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::DeleteSecretRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
+    impl ListSecretVersionsRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::ListSecretVersionsRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::ListSecretVersionsRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::secret_manager_service::ListSecretVersionsRequest::page_size].
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::secret_manager_service::ListSecretVersionsRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.page_size = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::secret_manager_service::ListSecretVersionsRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::secret_manager_service::ListSecretVersionsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::secret_manager_service::ListSecretVersionsRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::secret_manager_service::ListSecretVersionsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets the value of [secret][crate::model::DeleteSecretRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [etag][crate::model::DeleteSecretRequest::etag].
-    pub fn set_etag<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.etag = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [etag][crate::model::DeleteSecretRequest::etag].
-    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.etag = v.map(|x| x.into());
-        self
-    }
-}
-
-/// The request message for UpdateSecret.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct UpdateSecretRequest {
-    /// The request body.
-    pub request_body: std::option::Option<crate::model::Secret>,
-
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [ListSecretVersionsByProjectAndLocationAndSecret()][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersionsByProjectAndLocationAndSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersionsByProjectAndLocationAndSecret]: crate::client::SecretManagerService::list_secret_versions_by_project_and_location_and_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
+        pub project: std::string::String,
 
-    /// The `{secret}` component of the target path.
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
+        pub location: std::string::String,
+
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
+        pub secret: std::string::String,
+
+        /// Optional. The maximum number of results to be returned in a single page. If
+        /// set to 0, the server decides the number of results to return. If the
+        /// number is greater than 25000, it is capped at 25000.
+        pub page_size: std::option::Option<i32>,
+
+        /// Optional. Pagination token, returned earlier via
+        /// ListSecretVersionsResponse.next_page_token][].
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Optional. Filter string, adhering to the rules in
+        /// [List-operation
+        /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
+        /// only secret versions matching the filter. If filter is empty, all secret
+        /// versions are listed.
+        pub filter: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ListSecretVersionsByProjectAndLocationAndSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.page_size = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [GetSecretVersion()][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
-    pub secret: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion]: crate::client::SecretManagerService::get_secret_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetSecretVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
+        pub project: std::string::String,
 
-    /// Required. Specifies the fields to be updated.
-    pub update_mask: wkt::FieldMask,
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
+        pub secret: std::string::String,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
+        /// The `{version}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
+        pub version: std::string::String,
 
-impl UpdateSecretRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [request_body][crate::model::UpdateSecretRequest::request_body].
-    pub fn set_request_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
-    {
-        self.request_body = std::option::Option::Some(v.into());
-        self
+    impl GetSecretVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::GetSecretVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::GetSecretVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::secret_manager_service::GetSecretVersionRequest::version].
+        pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.version = v.into();
+            self
+        }
     }
 
-    /// Sets or clears the value of [request_body][crate::model::UpdateSecretRequest::request_body].
-    pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
-    {
-        self.request_body = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [project][crate::model::UpdateSecretRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::UpdateSecretRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<wkt::FieldMask>>(mut self, v: T) -> Self {
-        self.update_mask = v.into();
-        self
-    }
-}
-
-/// The request message for GetSecretByProjectAndLocationAndSecret.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetSecretByProjectAndLocationAndSecretRequest {
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [GetSecretVersionByProjectAndLocationAndSecretAndVersion()][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersionByProjectAndLocationAndSecretAndVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersionByProjectAndLocationAndSecretAndVersion]: crate::client::SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
+        pub project: std::string::String,
 
-    /// The `{location}` component of the target path.
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
+        pub location: std::string::String,
+
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
+        pub secret: std::string::String,
+
+        /// The `{version}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
+        pub version: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.version = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [AccessSecretVersion()][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
-    pub location: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion]: crate::client::SecretManagerService::access_secret_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AccessSecretVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
+        pub project: std::string::String,
 
-    /// The `{secret}` component of the target path.
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
+        pub secret: std::string::String,
+
+        /// The `{version}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
+        pub version: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AccessSecretVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::AccessSecretVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::AccessSecretVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::secret_manager_service::AccessSecretVersionRequest::version].
+        pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.version = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [AccessSecretVersionByProjectAndLocationAndSecretAndVersion()][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersionByProjectAndLocationAndSecretAndVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
-    pub secret: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersionByProjectAndLocationAndSecretAndVersion]: crate::client::SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
+        pub project: std::string::String,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
+        pub location: std::string::String,
 
-impl GetSecretByProjectAndLocationAndSecretRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
+        pub secret: std::string::String,
+
+        /// The `{version}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
+        pub version: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::GetSecretByProjectAndLocationAndSecretRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
+    impl AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.version = v.into();
+            self
+        }
     }
 
-    /// Sets the value of [location][crate::model::GetSecretByProjectAndLocationAndSecretRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::GetSecretByProjectAndLocationAndSecretRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-}
-
-/// The request message for DeleteSecretByProjectAndLocationAndSecret.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [DisableSecretVersion()][google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion]: crate::client::SecretManagerService::disable_secret_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DisableSecretVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
+        pub project: std::string::String,
 
-    /// The `{location}` component of the target path.
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
+        pub secret: std::string::String,
+
+        /// The `{version}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
+        pub version: std::string::String,
+
+        /// The request body.
+        pub body: std::option::Option<crate::model::DisableSecretVersionRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DisableSecretVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::DisableSecretVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::DisableSecretVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::secret_manager_service::DisableSecretVersionRequest::version].
+        pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.version = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::DisableSecretVersionRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::DisableSecretVersionRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [DisableSecretVersionByProjectAndLocationAndSecretAndVersion()][google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersionByProjectAndLocationAndSecretAndVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
-    pub location: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersionByProjectAndLocationAndSecretAndVersion]: crate::client::SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:disable`.
+        pub project: std::string::String,
 
-    /// The `{secret}` component of the target path.
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:disable`.
+        pub location: std::string::String,
+
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:disable`.
+        pub secret: std::string::String,
+
+        /// The `{version}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:disable`.
+        pub version: std::string::String,
+
+        /// The request body.
+        pub body: std::option::Option<crate::model::DisableSecretVersionRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.version = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DisableSecretVersionRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [EnableSecretVersion()][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
-    pub secret: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion]: crate::client::SecretManagerService::enable_secret_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EnableSecretVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
+        pub project: std::string::String,
 
-    /// Optional. Etag of the Secret. The request succeeds if it matches
-    /// the etag of the currently stored secret object. If the etag is omitted,
-    /// the request succeeds.
-    pub etag: std::option::Option<std::string::String>,
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
+        pub secret: std::string::String,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
+        /// The `{version}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
+        pub version: std::string::String,
 
-impl DeleteSecretByProjectAndLocationAndSecretRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        /// The request body.
+        pub body: std::option::Option<crate::model::EnableSecretVersionRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
+    impl EnableSecretVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::EnableSecretVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::EnableSecretVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::secret_manager_service::EnableSecretVersionRequest::version].
+        pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.version = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::EnableSecretVersionRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::EnableSecretVersionRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets the value of [location][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [etag][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
-    pub fn set_etag<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.etag = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [etag][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
-    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.etag = v.map(|x| x.into());
-        self
-    }
-}
-
-/// The request message for UpdateSecretByProjectAndLocationAndSecret.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
-    /// The request body.
-    pub request_body: std::option::Option<crate::model::Secret>,
-
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [EnableSecretVersionByProjectAndLocationAndSecretAndVersion()][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersionByProjectAndLocationAndSecretAndVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersionByProjectAndLocationAndSecretAndVersion]: crate::client::SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:enable`.
+        pub project: std::string::String,
 
-    /// The `{location}` component of the target path.
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:enable`.
+        pub location: std::string::String,
+
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:enable`.
+        pub secret: std::string::String,
+
+        /// The `{version}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:enable`.
+        pub version: std::string::String,
+
+        /// The request body.
+        pub body: std::option::Option<crate::model::EnableSecretVersionRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.version = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EnableSecretVersionRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [DestroySecretVersion()][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
-    pub location: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion]: crate::client::SecretManagerService::destroy_secret_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DestroySecretVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
+        pub project: std::string::String,
 
-    /// The `{secret}` component of the target path.
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
+        pub secret: std::string::String,
+
+        /// The `{version}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
+        pub version: std::string::String,
+
+        /// The request body.
+        pub body: std::option::Option<crate::model::DestroySecretVersionRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DestroySecretVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::DestroySecretVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::DestroySecretVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::secret_manager_service::DestroySecretVersionRequest::version].
+        pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.version = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::DestroySecretVersionRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::DestroySecretVersionRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [DestroySecretVersionByProjectAndLocationAndSecretAndVersion()][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersionByProjectAndLocationAndSecretAndVersion] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
-    pub secret: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersionByProjectAndLocationAndSecretAndVersion]: crate::client::SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:destroy`.
+        pub project: std::string::String,
 
-    /// Required. Specifies the fields to be updated.
-    pub update_mask: wkt::FieldMask,
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:destroy`.
+        pub location: std::string::String,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:destroy`.
+        pub secret: std::string::String,
 
-impl UpdateSecretByProjectAndLocationAndSecretRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        /// The `{version}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:destroy`.
+        pub version: std::string::String,
+
+        /// The request body.
+        pub body: std::option::Option<crate::model::DestroySecretVersionRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [request_body][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::request_body].
-    pub fn set_request_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
-    {
-        self.request_body = std::option::Option::Some(v.into());
-        self
+    impl DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.version = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DestroySecretVersionRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets or clears the value of [request_body][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::request_body].
-    pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Secret>,
-    {
-        self.request_body = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [project][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [update_mask][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<wkt::FieldMask>>(mut self, v: T) -> Self {
-        self.update_mask = v.into();
-        self
-    }
-}
-
-/// The request message for ListSecretVersions.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct ListSecretVersionsRequest {
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [SetIamPolicy()][google.cloud.secretmanager.v1.SecretManagerService.SetIamPolicy] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.SetIamPolicy]: crate::client::SecretManagerService::set_iam_policy
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SetIamPolicyRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
+        pub project: std::string::String,
 
-    /// The `{secret}` component of the target path.
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
+        pub secret: std::string::String,
+
+        /// The request body.
+        pub body: std::option::Option<crate::model::SetIamPolicyRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SetIamPolicyRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::SetIamPolicyRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::SetIamPolicyRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::SetIamPolicyRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SetIamPolicyRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::SetIamPolicyRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SetIamPolicyRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [SetIamPolicyByProjectAndLocationAndSecret()][google.cloud.secretmanager.v1.SecretManagerService.SetIamPolicyByProjectAndLocationAndSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
-    pub secret: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.SetIamPolicyByProjectAndLocationAndSecret]: crate::client::SecretManagerService::set_iam_policy_by_project_and_location_and_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SetIamPolicyByProjectAndLocationAndSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:setIamPolicy`.
+        pub project: std::string::String,
 
-    /// Optional. The maximum number of results to be returned in a single page. If
-    /// set to 0, the server decides the number of results to return. If the
-    /// number is greater than 25000, it is capped at 25000.
-    pub page_size: std::option::Option<i32>,
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:setIamPolicy`.
+        pub location: std::string::String,
 
-    /// Optional. Pagination token, returned earlier via
-    /// ListSecretVersionsResponse.next_page_token][].
-    pub page_token: std::option::Option<std::string::String>,
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:setIamPolicy`.
+        pub secret: std::string::String,
 
-    /// Optional. Filter string, adhering to the rules in
-    /// [List-operation
-    /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
-    /// only secret versions matching the filter. If filter is empty, all secret
-    /// versions are listed.
-    pub filter: std::option::Option<std::string::String>,
+        /// The request body.
+        pub body: std::option::Option<crate::model::SetIamPolicyRequest>,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl ListSecretVersionsRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::ListSecretVersionsRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
+    impl SetIamPolicyByProjectAndLocationAndSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SetIamPolicyRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SetIamPolicyRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets the value of [secret][crate::model::ListSecretVersionsRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [page_size][crate::model::ListSecretVersionsRequest::page_size].
-    pub fn set_page_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.page_size = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [page_size][crate::model::ListSecretVersionsRequest::page_size].
-    pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.page_size = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [page_token][crate::model::ListSecretVersionsRequest::page_token].
-    pub fn set_page_token<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.page_token = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [page_token][crate::model::ListSecretVersionsRequest::page_token].
-    pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.page_token = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [filter][crate::model::ListSecretVersionsRequest::filter].
-    pub fn set_filter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.filter = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [filter][crate::model::ListSecretVersionsRequest::filter].
-    pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.filter = v.map(|x| x.into());
-        self
-    }
-}
-
-/// The request message for ListSecretVersionsByProjectAndLocationAndSecret.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [GetIamPolicy()][google.cloud.secretmanager.v1.SecretManagerService.GetIamPolicy] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.GetIamPolicy]: crate::client::SecretManagerService::get_iam_policy
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetIamPolicyRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
+        pub project: std::string::String,
 
-    /// The `{location}` component of the target path.
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
+        pub secret: std::string::String,
+
+        /// Optional. The maximum policy version that will be used to format the
+        /// policy.
+        ///
+        /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+        /// rejected.
+        ///
+        /// Requests for policies with any conditional role bindings must specify
+        /// version 3. Policies with no conditional role bindings may specify any valid
+        /// value or leave the field unset.
+        ///
+        /// The policy in the response might use the policy version that you specified,
+        /// or it might use a lower policy version. For example, if you specify version
+        /// 3, but the policy has no conditional role bindings, the response uses
+        /// version 1.
+        ///
+        /// To learn which resources support conditions in their IAM policies, see the
+        /// [IAM
+        /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+        pub options_requested_policy_version: std::option::Option<i32>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GetIamPolicyRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::GetIamPolicyRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::GetIamPolicyRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [options_requested_policy_version][crate::model::secret_manager_service::GetIamPolicyRequest::options_requested_policy_version].
+        pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.options_requested_policy_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options_requested_policy_version][crate::model::secret_manager_service::GetIamPolicyRequest::options_requested_policy_version].
+        pub fn set_or_clear_options_requested_policy_version<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.options_requested_policy_version = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [GetIamPolicyByProjectAndLocationAndSecret()][google.cloud.secretmanager.v1.SecretManagerService.GetIamPolicyByProjectAndLocationAndSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
-    pub location: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.GetIamPolicyByProjectAndLocationAndSecret]: crate::client::SecretManagerService::get_iam_policy_by_project_and_location_and_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
+        pub project: std::string::String,
 
-    /// The `{secret}` component of the target path.
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
+        pub location: std::string::String,
+
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
+        pub secret: std::string::String,
+
+        /// Optional. The maximum policy version that will be used to format the
+        /// policy.
+        ///
+        /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+        /// rejected.
+        ///
+        /// Requests for policies with any conditional role bindings must specify
+        /// version 3. Policies with no conditional role bindings may specify any valid
+        /// value or leave the field unset.
+        ///
+        /// The policy in the response might use the policy version that you specified,
+        /// or it might use a lower policy version. For example, if you specify version
+        /// 3, but the policy has no conditional role bindings, the response uses
+        /// version 1.
+        ///
+        /// To learn which resources support conditions in their IAM policies, see the
+        /// [IAM
+        /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+        pub options_requested_policy_version: std::option::Option<i32>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GetIamPolicyByProjectAndLocationAndSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [options_requested_policy_version][crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
+        pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.options_requested_policy_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options_requested_policy_version][crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
+        pub fn set_or_clear_options_requested_policy_version<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.options_requested_policy_version = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [TestIamPermissions()][google.cloud.secretmanager.v1.SecretManagerService.TestIamPermissions] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
-    pub secret: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.TestIamPermissions]: crate::client::SecretManagerService::test_iam_permissions
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TestIamPermissionsRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
+        pub project: std::string::String,
 
-    /// Optional. The maximum number of results to be returned in a single page. If
-    /// set to 0, the server decides the number of results to return. If the
-    /// number is greater than 25000, it is capped at 25000.
-    pub page_size: std::option::Option<i32>,
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
+        pub secret: std::string::String,
 
-    /// Optional. Pagination token, returned earlier via
-    /// ListSecretVersionsResponse.next_page_token][].
-    pub page_token: std::option::Option<std::string::String>,
+        /// The request body.
+        pub body: std::option::Option<crate::model::TestIamPermissionsRequest>,
 
-    /// Optional. Filter string, adhering to the rules in
-    /// [List-operation
-    /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
-    /// only secret versions matching the filter. If filter is empty, all secret
-    /// versions are listed.
-    pub filter: std::option::Option<std::string::String>,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl ListSecretVersionsByProjectAndLocationAndSecretRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
+    impl TestIamPermissionsRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::secret_manager_service::TestIamPermissionsRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [secret][crate::model::secret_manager_service::TestIamPermissionsRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::secret_manager_service::TestIamPermissionsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::TestIamPermissionsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
     }
 
-    /// Sets the value of [location][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [page_size][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
-    pub fn set_page_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.page_size = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [page_size][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
-    pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.page_size = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [page_token][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
-    pub fn set_page_token<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.page_token = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [page_token][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
-    pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.page_token = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [filter][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
-    pub fn set_filter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.filter = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [filter][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
-    pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
-    {
-        self.filter = v.map(|x| x.into());
-        self
-    }
-}
-
-/// The request message for GetSecretVersion.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetSecretVersionRequest {
-    /// The `{project}` component of the target path.
+    /// Synthetic request message for the [TestIamPermissionsByProjectAndLocationAndSecret()][google.cloud.secretmanager.v1.SecretManagerService.TestIamPermissionsByProjectAndLocationAndSecret] method.
     ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
-    pub project: std::string::String,
+    /// [google.cloud.secretmanager.v1.SecretManagerService.TestIamPermissionsByProjectAndLocationAndSecret]: crate::client::SecretManagerService::test_iam_permissions_by_project_and_location_and_secret
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TestIamPermissionsByProjectAndLocationAndSecretRequest {
+        /// The `{project}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:testIamPermissions`.
+        pub project: std::string::String,
 
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
-    pub secret: std::string::String,
+        /// The `{location}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:testIamPermissions`.
+        pub location: std::string::String,
 
-    /// The `{version}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
-    pub version: std::string::String,
+        /// The `{secret}` component of the target path.
+        ///
+        /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:testIamPermissions`.
+        pub secret: std::string::String,
 
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
+        /// The request body.
+        pub body: std::option::Option<crate::model::TestIamPermissionsRequest>,
 
-impl GetSecretVersionRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    /// Sets the value of [project][crate::model::GetSecretVersionRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
+    impl TestIamPermissionsByProjectAndLocationAndSecretRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
-    /// Sets the value of [secret][crate::model::GetSecretVersionRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
+        /// Sets the value of [project][crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
 
-    /// Sets the value of [version][crate::model::GetSecretVersionRequest::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-}
+        /// Sets the value of [location][crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest::location].
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
 
-/// The request message for GetSecretVersionByProjectAndLocationAndSecretAndVersion.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
-    pub project: std::string::String,
+        /// Sets the value of [secret][crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest::secret].
+        pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.secret = v.into();
+            self
+        }
 
-    /// The `{location}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
-    pub location: std::string::String,
+        /// Sets the value of [body][crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
 
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
-    pub secret: std::string::String,
-
-    /// The `{version}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
-    pub version: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [project][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [version][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-}
-
-/// The request message for AccessSecretVersion.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct AccessSecretVersionRequest {
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
-    pub project: std::string::String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
-    pub secret: std::string::String,
-
-    /// The `{version}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
-    pub version: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl AccessSecretVersionRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [project][crate::model::AccessSecretVersionRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::AccessSecretVersionRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [version][crate::model::AccessSecretVersionRequest::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-}
-
-/// The request message for AccessSecretVersionByProjectAndLocationAndSecretAndVersion.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
-    pub project: std::string::String,
-
-    /// The `{location}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
-    pub location: std::string::String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
-    pub secret: std::string::String,
-
-    /// The `{version}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
-    pub version: std::string::String,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [project][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [version][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-}
-
-/// The request message for GetIamPolicy.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetIamPolicyRequest {
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
-    pub project: std::string::String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
-    pub secret: std::string::String,
-
-    /// Optional. The maximum policy version that will be used to format the
-    /// policy.
-    ///
-    /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
-    /// rejected.
-    ///
-    /// Requests for policies with any conditional role bindings must specify
-    /// version 3. Policies with no conditional role bindings may specify any valid
-    /// value or leave the field unset.
-    ///
-    /// The policy in the response might use the policy version that you specified,
-    /// or it might use a lower policy version. For example, if you specify version
-    /// 3, but the policy has no conditional role bindings, the response uses
-    /// version 1.
-    ///
-    /// To learn which resources support conditions in their IAM policies, see the
-    /// [IAM
-    /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
-    pub options_requested_policy_version: std::option::Option<i32>,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl GetIamPolicyRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [project][crate::model::GetIamPolicyRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::GetIamPolicyRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [options_requested_policy_version][crate::model::GetIamPolicyRequest::options_requested_policy_version].
-    pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.options_requested_policy_version = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [options_requested_policy_version][crate::model::GetIamPolicyRequest::options_requested_policy_version].
-    pub fn set_or_clear_options_requested_policy_version<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.options_requested_policy_version = v.map(|x| x.into());
-        self
-    }
-}
-
-/// The request message for GetIamPolicyByProjectAndLocationAndSecret.
-#[derive(Clone, Default, PartialEq)]
-#[non_exhaustive]
-pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
-    pub project: std::string::String,
-
-    /// The `{location}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
-    pub location: std::string::String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
-    pub secret: std::string::String,
-
-    /// Optional. The maximum policy version that will be used to format the
-    /// policy.
-    ///
-    /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
-    /// rejected.
-    ///
-    /// Requests for policies with any conditional role bindings must specify
-    /// version 3. Policies with no conditional role bindings may specify any valid
-    /// value or leave the field unset.
-    ///
-    /// The policy in the response might use the policy version that you specified,
-    /// or it might use a lower policy version. For example, if you specify version
-    /// 3, but the policy has no conditional role bindings, the response uses
-    /// version 1.
-    ///
-    /// To learn which resources support conditions in their IAM policies, see the
-    /// [IAM
-    /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
-    pub options_requested_policy_version: std::option::Option<i32>,
-
-    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-}
-
-impl GetIamPolicyByProjectAndLocationAndSecretRequest {
-    pub fn new() -> Self {
-        std::default::Default::default()
-    }
-
-    /// Sets the value of [project][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::project].
-    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of [location][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
-    /// Sets the value of [secret][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::secret].
-    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of [options_requested_policy_version][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
-    pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.options_requested_policy_version = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [options_requested_policy_version][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
-    pub fn set_or_clear_options_requested_policy_version<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<i32>,
-    {
-        self.options_requested_policy_version = v.map(|x| x.into());
-        self
+        /// Sets or clears the value of [body][crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TestIamPermissionsRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
     }
 }

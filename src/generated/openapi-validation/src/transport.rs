@@ -42,7 +42,7 @@ impl SecretManagerService {
 impl super::stub::SecretManagerService for SecretManagerService {
     async fn list_locations(
         &self,
-        req: crate::model::ListLocationsRequest,
+        req: crate::model::secret_manager_service::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListLocationsResponse>> {
         use gax::error::binding::BindingError;
@@ -103,7 +103,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn get_location(
         &self,
-        req: crate::model::GetLocationRequest,
+        req: crate::model::secret_manager_service::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Location>> {
         use gax::error::binding::BindingError;
@@ -162,7 +162,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn list_secrets(
         &self,
-        req: crate::model::ListSecretsRequest,
+        req: crate::model::secret_manager_service::ListSecretsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         use gax::error::binding::BindingError;
@@ -223,7 +223,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn create_secret(
         &self,
-        req: crate::model::CreateSecretRequest,
+        req: crate::model::secret_manager_service::CreateSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         use gax::error::binding::BindingError;
@@ -267,13 +267,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(req.request_body, &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn list_secrets_by_project_and_location(
         &self,
-        req: crate::model::ListSecretsByProjectAndLocationRequest,
+        req: crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         use gax::error::binding::BindingError;
@@ -344,7 +344,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn create_secret_by_project_and_location(
         &self,
-        req: crate::model::CreateSecretByProjectAndLocationRequest,
+        req: crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         use gax::error::binding::BindingError;
@@ -398,13 +398,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(req.request_body, &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn add_secret_version(
         &self,
-        req: crate::model::AddSecretVersionRequest,
+        req: crate::model::secret_manager_service::AddSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         use gax::error::binding::BindingError;
@@ -457,13 +457,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn add_secret_version_by_project_and_location_and_secret(
         &self,
-        req: crate::model::AddSecretVersionRequest,
+        req: crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         use gax::error::binding::BindingError;
@@ -526,13 +526,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn get_secret(
         &self,
-        req: crate::model::GetSecretRequest,
+        req: crate::model::secret_manager_service::GetSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         use gax::error::binding::BindingError;
@@ -591,7 +591,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn delete_secret(
         &self,
-        req: crate::model::DeleteSecretRequest,
+        req: crate::model::secret_manager_service::DeleteSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         use gax::error::binding::BindingError;
@@ -654,7 +654,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn update_secret(
         &self,
-        req: crate::model::UpdateSecretRequest,
+        req: crate::model::secret_manager_service::UpdateSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         use gax::error::binding::BindingError;
@@ -715,13 +715,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(req.request_body, &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn get_secret_by_project_and_location_and_secret(
         &self,
-        req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
+        req: crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         use gax::error::binding::BindingError;
@@ -790,7 +790,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn delete_secret_by_project_and_location_and_secret(
         &self,
-        req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
+        req: crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         use gax::error::binding::BindingError;
@@ -863,7 +863,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn update_secret_by_project_and_location_and_secret(
         &self,
-        req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
+        req: crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         use gax::error::binding::BindingError;
@@ -934,13 +934,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(req.request_body, &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn list_secret_versions(
         &self,
-        req: crate::model::ListSecretVersionsRequest,
+        req: crate::model::secret_manager_service::ListSecretVersionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         use gax::error::binding::BindingError;
@@ -1011,7 +1011,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn list_secret_versions_by_project_and_location_and_secret(
         &self,
-        req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
+        req: crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         use gax::error::binding::BindingError;
@@ -1092,7 +1092,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn get_secret_version(
         &self,
-        req: crate::model::GetSecretVersionRequest,
+        req: crate::model::secret_manager_service::GetSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         use gax::error::binding::BindingError;
@@ -1161,7 +1161,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn get_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        req: crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         use gax::error::binding::BindingError;
@@ -1240,7 +1240,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn access_secret_version(
         &self,
-        req: crate::model::AccessSecretVersionRequest,
+        req: crate::model::secret_manager_service::AccessSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         use gax::error::binding::BindingError;
@@ -1309,7 +1309,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn access_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        req: crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         use gax::error::binding::BindingError;
@@ -1388,7 +1388,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn disable_secret_version(
         &self,
-        req: crate::model::DisableSecretVersionRequest,
+        req: crate::model::secret_manager_service::DisableSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         use gax::error::binding::BindingError;
@@ -1451,13 +1451,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn disable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        req: crate::model::DisableSecretVersionRequest,
+        req: crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         use gax::error::binding::BindingError;
@@ -1530,13 +1530,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn enable_secret_version(
         &self,
-        req: crate::model::EnableSecretVersionRequest,
+        req: crate::model::secret_manager_service::EnableSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         use gax::error::binding::BindingError;
@@ -1599,13 +1599,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn enable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        req: crate::model::EnableSecretVersionRequest,
+        req: crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         use gax::error::binding::BindingError;
@@ -1678,13 +1678,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn destroy_secret_version(
         &self,
-        req: crate::model::DestroySecretVersionRequest,
+        req: crate::model::secret_manager_service::DestroySecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         use gax::error::binding::BindingError;
@@ -1747,13 +1747,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn destroy_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        req: crate::model::DestroySecretVersionRequest,
+        req: crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         use gax::error::binding::BindingError;
@@ -1826,13 +1826,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn set_iam_policy(
         &self,
-        req: crate::model::SetIamPolicyRequest,
+        req: crate::model::secret_manager_service::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         use gax::error::binding::BindingError;
@@ -1885,13 +1885,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn set_iam_policy_by_project_and_location_and_secret(
         &self,
-        req: crate::model::SetIamPolicyRequest,
+        req: crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         use gax::error::binding::BindingError;
@@ -1954,13 +1954,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn get_iam_policy(
         &self,
-        req: crate::model::GetIamPolicyRequest,
+        req: crate::model::secret_manager_service::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         use gax::error::binding::BindingError;
@@ -2025,7 +2025,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn get_iam_policy_by_project_and_location_and_secret(
         &self,
-        req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
+        req: crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         use gax::error::binding::BindingError;
@@ -2100,7 +2100,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
 
     async fn test_iam_permissions(
         &self,
-        req: crate::model::TestIamPermissionsRequest,
+        req: crate::model::secret_manager_service::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         use gax::error::binding::BindingError;
@@ -2153,13 +2153,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 
     async fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
-        req: crate::model::TestIamPermissionsRequest,
+        req: crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         use gax::error::binding::BindingError;
@@ -2222,7 +2222,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
-        let body = gaxi::http::handle_empty(Some(req), &method);
+        let body = gaxi::http::handle_empty(req.body, &method);
         self.inner.execute(builder, body, options).await
     }
 }
