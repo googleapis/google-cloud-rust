@@ -2750,7 +2750,7 @@ impl wkt::message::Message for Vrf {
     }
 }
 
-/// Defines additional types related to [VRF].
+/// Defines additional types related to [Vrf].
 pub mod vrf {
     #[allow(unused_imports)]
     use super::*;

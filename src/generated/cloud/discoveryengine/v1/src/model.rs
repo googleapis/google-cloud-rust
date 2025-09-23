@@ -42986,6 +42986,8 @@ pub struct MediaInfo {
     /// then
     /// [MediaInfo.media_progress_duration.seconds][google.protobuf.Duration.seconds]
     /// should be set to 90.
+    ///
+    /// [google.protobuf.Duration.seconds]: wkt::Duration::seconds
     pub media_progress_duration: std::option::Option<wkt::Duration>,
 
     /// Media progress should be computed using only the
