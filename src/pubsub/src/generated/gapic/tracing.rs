@@ -56,6 +56,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn publish(
+        &self,
+        req: crate::model::PublishRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::PublishResponse>> {
+        self.inner.publish(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_topic(
         &self,
         req: crate::model::GetTopicRequest,

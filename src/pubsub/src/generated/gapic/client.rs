@@ -131,6 +131,12 @@ impl TopicAdmin {
         super::builder::topic_admin::UpdateTopic::new(self.inner.clone())
     }
 
+    /// Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic
+    /// does not exist.
+    pub fn publish(&self) -> super::builder::topic_admin::Publish {
+        super::builder::topic_admin::Publish::new(self.inner.clone())
+    }
+
     /// Gets the configuration of a topic.
     pub fn get_topic(&self) -> super::builder::topic_admin::GetTopic {
         super::builder::topic_admin::GetTopic::new(self.inner.clone())

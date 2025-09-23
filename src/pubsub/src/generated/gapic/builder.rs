@@ -351,6 +351,82 @@ pub mod topic_admin {
         }
     }
 
+    /// The request builder for [TopicAdmin::publish][crate::client::TopicAdmin::publish] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_pubsub::builder;
+    /// use builder::topic_admin::Publish;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Publish {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Publish(RequestBuilder<crate::model::PublishRequest>);
+
+    impl Publish {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TopicAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::PublishRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::PublishResponse> {
+            (*self.0.stub)
+                .publish(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [topic][crate::model::PublishRequest::topic].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_topic<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.topic = v.into();
+            self
+        }
+
+        /// Sets the value of [messages][crate::model::PublishRequest::messages].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_messages<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::PubsubMessage>,
+        {
+            use std::iter::Iterator;
+            self.0.request.messages = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Publish {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [TopicAdmin::get_topic][crate::client::TopicAdmin::get_topic] calls.
     ///
     /// # Example

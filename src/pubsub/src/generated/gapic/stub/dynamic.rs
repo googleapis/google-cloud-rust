@@ -29,6 +29,12 @@ pub trait TopicAdmin: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Topic>>;
 
+    async fn publish(
+        &self,
+        req: crate::model::PublishRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PublishResponse>>;
+
     async fn get_topic(
         &self,
         req: crate::model::GetTopicRequest,
@@ -85,6 +91,15 @@ impl<T: super::TopicAdmin> TopicAdmin for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Topic>> {
         T::update_topic(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn publish(
+        &self,
+        req: crate::model::PublishRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PublishResponse>> {
+        T::publish(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

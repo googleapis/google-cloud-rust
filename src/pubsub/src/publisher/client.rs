@@ -1,14 +1,14 @@
-use crate::{generated::gapic_internal::client, model::PubsubMessage};
+use crate::{generated::gapic::client, model::PubsubMessage};
 
 pub struct Publisher {
     topic: String,
-    inner: client::Publisher,
+    inner: client::TopicAdmin,
 }
 
 impl Publisher {
     // TODO: change to builder.
     pub async fn new(topic: String) -> crate::Result<Self> {
-        let inner = client::Publisher::builder()
+        let inner = client::TopicAdmin::builder()
             .build()
             .await
             .map_err(crate::Error::io)?; // wrong error don't care

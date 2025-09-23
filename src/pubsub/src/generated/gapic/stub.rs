@@ -60,6 +60,17 @@ pub trait TopicAdmin: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::TopicAdmin::publish].
+    fn publish(
+        &self,
+        _req: crate::model::PublishRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PublishResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::TopicAdmin::get_topic].
     fn get_topic(
         &self,
