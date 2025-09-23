@@ -35,7 +35,7 @@ import 'package:http/http.dart' as http;
 ///
 /// A **function** is a resource which describes a function that should be
 /// executed and how it is triggered.
-class FunctionService {
+final class FunctionService {
   static const String _host = 'cloudfunctions.googleapis.com';
 
   final ServiceClient _client;

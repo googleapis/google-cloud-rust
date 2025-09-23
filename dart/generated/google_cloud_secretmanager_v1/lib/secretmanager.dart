@@ -34,7 +34,7 @@ import 'package:http/http.dart' as http;
 ///
 /// * `Secret`
 /// * `SecretVersion`
-class SecretManagerService {
+final class SecretManagerService {
   static const String _host = 'secretmanager.googleapis.com';
 
   final ServiceClient _client;

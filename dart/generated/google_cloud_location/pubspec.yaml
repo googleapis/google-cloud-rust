@@ -24,9 +24,9 @@ environment:
 resolution: workspace
 
 dependencies:
-  google_cloud_gax: any
-  google_cloud_protobuf: any
-  http: any
+  google_cloud_gax: ^0.1.0
+  google_cloud_protobuf: ^0.1.0
+  http: ^1.3.0
 
 dev_dependencies:
   lints: any
