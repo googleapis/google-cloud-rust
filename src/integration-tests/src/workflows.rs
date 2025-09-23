@@ -22,7 +22,7 @@ use std::time::Duration;
 pub async fn until_done() -> Result<()> {
     let project_id = crate::project_id()?;
     let location_id = crate::region_id();
-    let workflows_runner = crate::workflows_runner()?;
+    let workflows_runner = crate::test_service_account()?;
 
     let client = wf::client::Workflows::builder()
         .with_tracing()
@@ -73,7 +73,7 @@ main:
 pub async fn explicit_loop() -> Result<()> {
     let project_id = crate::project_id()?;
     let location_id = crate::region_id();
-    let workflows_runner = crate::workflows_runner()?;
+    let workflows_runner = crate::test_service_account()?;
 
     let client = wf::client::Workflows::builder()
         .with_tracing()

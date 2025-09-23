@@ -19,7 +19,6 @@ options:
   env:
     - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
     - GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=set-iam-test-only@${PROJECT_ID}.iam.gserviceaccount.com
-    - GOOGLE_CLOUD_RUST_TEST_WORKFLOWS_RUNNER=test-workflow-runner@${PROJECT_ID}.iam.gserviceaccount.com
     - GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING=us-central1
     - SCCACHE_GCS_BUCKET=${PROJECT_ID}-build-cache
     - SCCACHE_GCS_RW_MODE=READ_WRITE
