@@ -2923,7 +2923,7 @@ impl wkt::message::Message for PublishRequest {
 /// Response for the `Publish` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
-pub struct PublishResponse {
+pub(crate) struct PublishResponse {
     /// Optional. The server-assigned ID of each published message, in the same
     /// order as the messages in the request. IDs are guaranteed to be unique
     /// within the topic.
