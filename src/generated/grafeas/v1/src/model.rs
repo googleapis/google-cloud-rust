@@ -2309,7 +2309,7 @@ impl wkt::message::Message for Cvss {
     }
 }
 
-/// Defines additional types related to [CVSS].
+/// Defines additional types related to [Cvss].
 pub mod cvss {
     #[allow(unused_imports)]
     use super::*;
