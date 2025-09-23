@@ -2689,7 +2689,7 @@ pub mod topic {
 /// limits.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
-pub struct PubsubMessage {
+pub(crate) struct PubsubMessage {
     /// Optional. The message data field. If this field is empty, the message must
     /// contain at least one attribute.
     pub data: ::bytes::Bytes,
