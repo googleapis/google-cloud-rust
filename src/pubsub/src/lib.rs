@@ -32,7 +32,7 @@ pub mod client {
 }
 
 pub(crate) mod generated;
-pub(crate) mod publisher;
+mod publisher;
 
 pub use gax::Result;
 pub use gax::error::Error;

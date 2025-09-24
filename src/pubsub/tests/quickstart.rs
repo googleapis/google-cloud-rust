@@ -14,17 +14,17 @@
 
 #[cfg(test)]
 mod tests {
-    use google_cloud_pubsub::{client::Publisher};
+    use google_cloud_pubsub::client::Publisher;
 
     #[tokio::test]
     async fn quickstart() -> anyhow::Result<()> {
-        // let now = std::time::SystemTime::now();
-        // let topic = "projects/TODO/topics/TODO";
-        // let client = Publisher::new(topic.to_string()).await?;
-        // let resp = client
-        //     .publish(PubsubMessage::new().set_data(format!("hello {:?}", now.elapsed())))
-        //     .await?;
-        // println!("resp={resp:?}");
+        let now = std::time::SystemTime::now();
+        let topic = "projects/TODO/topics/TODO";
+        let client = Publisher::new().await?;
+        let resp = client
+            .publish(topic, PubsubMessage::new().set_data(format!("hello {:?}", now.elapsed())))
+            .await?;
+        println!("resp={resp:?}");
         Ok(())
     }
 }
