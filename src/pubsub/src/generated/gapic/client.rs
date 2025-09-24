@@ -72,7 +72,7 @@ impl TopicAdmin {
     /// let client = TopicAdmin::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub fn builder() -> super::builder::topic_admin::ClientBuilder {
+    pub(crate) fn builder() -> super::builder::topic_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::topic_admin::client::Factory)
     }
 
@@ -236,7 +236,7 @@ impl SubscriptionAdmin {
     /// let client = SubscriptionAdmin::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub fn builder() -> super::builder::subscription_admin::ClientBuilder {
+    pub(crate) fn builder() -> super::builder::subscription_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(
             super::builder::subscription_admin::client::Factory,
         )
@@ -465,7 +465,7 @@ impl SchemaService {
     /// let client = SchemaService::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub fn builder() -> super::builder::schema_service::ClientBuilder {
+    pub(crate) fn builder() -> super::builder::schema_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::schema_service::client::Factory)
     }
 

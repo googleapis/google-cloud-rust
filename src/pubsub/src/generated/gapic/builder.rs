@@ -16,7 +16,7 @@
 
 pub mod topic_admin {
     use crate::Result;
-
+    
     /// A builder for [TopicAdmin][crate::client::TopicAdmin].
     ///
     /// ```
@@ -30,7 +30,7 @@ pub mod topic_admin {
     ///     .build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub type ClientBuilder =
+    pub(crate) type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
@@ -895,7 +895,7 @@ pub mod subscription_admin {
     ///     .build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub type ClientBuilder =
+    pub(crate) type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
@@ -2192,7 +2192,7 @@ pub mod schema_service {
     ///     .build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub type ClientBuilder =
+    pub(crate) type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
