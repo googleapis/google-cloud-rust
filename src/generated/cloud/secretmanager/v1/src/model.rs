@@ -183,12 +183,25 @@ impl Secret {
     }
 
     /// Sets the value of [name][crate::model::Secret::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = Secret::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [replication][crate::model::Secret::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// # use google_cloud_secretmanager_v1::model::Replication;
+    /// let x = Secret::new().set_replication(Replication::default()/* use setters */);
+    /// ```
     pub fn set_replication<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -198,6 +211,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [replication][crate::model::Secret::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// # use google_cloud_secretmanager_v1::model::Replication;
+    /// let x = Secret::new().set_or_clear_replication(Some(Replication::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_replication(None::<Replication>);
+    /// ```
     pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -207,6 +228,13 @@ impl Secret {
     }
 
     /// Sets the value of [create_time][crate::model::Secret::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// # use wkt::Timestamp;
+    /// let x = Secret::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -216,6 +244,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Secret::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// # use wkt::Timestamp;
+    /// let x = Secret::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -248,12 +284,25 @@ impl Secret {
     }
 
     /// Sets the value of [etag][crate::model::Secret::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = Secret::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [rotation][crate::model::Secret::rotation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// let x = Secret::new().set_rotation(Rotation::default()/* use setters */);
+    /// ```
     pub fn set_rotation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rotation>,
@@ -263,6 +312,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [rotation][crate::model::Secret::rotation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// let x = Secret::new().set_or_clear_rotation(Some(Rotation::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_rotation(None::<Rotation>);
+    /// ```
     pub fn set_or_clear_rotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rotation>,
@@ -296,6 +353,13 @@ impl Secret {
     }
 
     /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// # use wkt::Duration;
+    /// let x = Secret::new().set_version_destroy_ttl(Duration::default()/* use setters */);
+    /// ```
     pub fn set_version_destroy_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -305,6 +369,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// # use wkt::Duration;
+    /// let x = Secret::new().set_or_clear_version_destroy_ttl(Some(Duration::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_version_destroy_ttl(None::<Duration>);
+    /// ```
     pub fn set_or_clear_version_destroy_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -314,6 +386,13 @@ impl Secret {
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+    /// let x = Secret::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
+    /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -323,6 +402,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+    /// let x = Secret::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
+    /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -536,12 +623,25 @@ impl SecretVersion {
     }
 
     /// Sets the value of [name][crate::model::SecretVersion::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::SecretVersion::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -551,6 +651,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::SecretVersion::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -560,6 +668,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [destroy_time][crate::model::SecretVersion::destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_destroy_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_destroy_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -569,6 +684,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [destroy_time][crate::model::SecretVersion::destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_or_clear_destroy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_destroy_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -578,6 +701,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [state][crate::model::SecretVersion::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use google_cloud_secretmanager_v1::model::secret_version::State;
+    /// let x = SecretVersion::new().set_state(State::default());
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::secret_version::State>>(
         mut self,
         v: T,
@@ -587,6 +717,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [replication_status][crate::model::SecretVersion::replication_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
+    /// let x = SecretVersion::new().set_replication_status(ReplicationStatus::default()/* use setters */);
+    /// ```
     pub fn set_replication_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationStatus>,
@@ -596,6 +733,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [replication_status][crate::model::SecretVersion::replication_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
+    /// let x = SecretVersion::new().set_or_clear_replication_status(Some(ReplicationStatus::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_replication_status(None::<ReplicationStatus>);
+    /// ```
     pub fn set_or_clear_replication_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationStatus>,
@@ -605,12 +750,24 @@ impl SecretVersion {
     }
 
     /// Sets the value of [etag][crate::model::SecretVersion::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [client_specified_payload_checksum][crate::model::SecretVersion::client_specified_payload_checksum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_client_specified_payload_checksum(true);
+    /// ```
     pub fn set_client_specified_payload_checksum<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -620,6 +777,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_scheduled_destroy_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_scheduled_destroy_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -629,6 +793,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_or_clear_scheduled_destroy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_scheduled_destroy_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_scheduled_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -638,6 +810,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = SecretVersion::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
+    /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -647,6 +826,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = SecretVersion::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
+    /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -957,6 +1144,13 @@ pub mod replication {
         }
 
         /// Sets the value of [customer_managed_encryption][crate::model::replication::Automatic::customer_managed_encryption].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_secretmanager_v1::model::replication::Automatic;
+        /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+        /// let x = Automatic::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
+        /// ```
         pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -966,6 +1160,14 @@ pub mod replication {
         }
 
         /// Sets or clears the value of [customer_managed_encryption][crate::model::replication::Automatic::customer_managed_encryption].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_secretmanager_v1::model::replication::Automatic;
+        /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+        /// let x = Automatic::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
+        /// let x = Automatic::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
+        /// ```
         pub fn set_or_clear_customer_managed_encryption<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1069,6 +1271,12 @@ pub mod replication {
             }
 
             /// Sets the value of [location][crate::model::replication::user_managed::Replica::location].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
+            /// let x = Replica::new().set_location("example");
+            /// ```
             pub fn set_location<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1078,6 +1286,13 @@ pub mod replication {
             }
 
             /// Sets the value of [customer_managed_encryption][crate::model::replication::user_managed::Replica::customer_managed_encryption].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
+            /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+            /// let x = Replica::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
+            /// ```
             pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -1087,6 +1302,14 @@ pub mod replication {
             }
 
             /// Sets or clears the value of [customer_managed_encryption][crate::model::replication::user_managed::Replica::customer_managed_encryption].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
+            /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+            /// let x = Replica::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
+            /// let x = Replica::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
+            /// ```
             pub fn set_or_clear_customer_managed_encryption<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -1155,6 +1378,12 @@ impl CustomerManagedEncryption {
     }
 
     /// Sets the value of [kms_key_name][crate::model::CustomerManagedEncryption::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+    /// let x = CustomerManagedEncryption::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
@@ -1312,6 +1541,13 @@ pub mod replication_status {
         }
 
         /// Sets the value of [customer_managed_encryption][crate::model::replication_status::AutomaticStatus::customer_managed_encryption].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
+        /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+        /// let x = AutomaticStatus::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
+        /// ```
         pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -1321,6 +1557,14 @@ pub mod replication_status {
         }
 
         /// Sets or clears the value of [customer_managed_encryption][crate::model::replication_status::AutomaticStatus::customer_managed_encryption].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
+        /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+        /// let x = AutomaticStatus::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
+        /// let x = AutomaticStatus::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
+        /// ```
         pub fn set_or_clear_customer_managed_encryption<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1419,6 +1663,12 @@ pub mod replication_status {
             }
 
             /// Sets the value of [location][crate::model::replication_status::user_managed_status::ReplicaStatus::location].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
+            /// let x = ReplicaStatus::new().set_location("example");
+            /// ```
             pub fn set_location<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1428,6 +1678,13 @@ pub mod replication_status {
             }
 
             /// Sets the value of [customer_managed_encryption][crate::model::replication_status::user_managed_status::ReplicaStatus::customer_managed_encryption].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
+            /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+            /// let x = ReplicaStatus::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
+            /// ```
             pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -1437,6 +1694,14 @@ pub mod replication_status {
             }
 
             /// Sets or clears the value of [customer_managed_encryption][crate::model::replication_status::user_managed_status::ReplicaStatus::customer_managed_encryption].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
+            /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+            /// let x = ReplicaStatus::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
+            /// let x = ReplicaStatus::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
+            /// ```
             pub fn set_or_clear_customer_managed_encryption<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -1506,6 +1771,12 @@ impl CustomerManagedEncryptionStatus {
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::CustomerManagedEncryptionStatus::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = CustomerManagedEncryptionStatus::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1542,6 +1813,12 @@ impl Topic {
     }
 
     /// Sets the value of [name][crate::model::Topic::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Topic;
+    /// let x = Topic::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1605,6 +1882,13 @@ impl Rotation {
     }
 
     /// Sets the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// # use wkt::Timestamp;
+    /// let x = Rotation::new().set_next_rotation_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_next_rotation_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1614,6 +1898,14 @@ impl Rotation {
     }
 
     /// Sets or clears the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// # use wkt::Timestamp;
+    /// let x = Rotation::new().set_or_clear_next_rotation_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Rotation::new().set_or_clear_next_rotation_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_next_rotation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1623,6 +1915,13 @@ impl Rotation {
     }
 
     /// Sets the value of [rotation_period][crate::model::Rotation::rotation_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// # use wkt::Duration;
+    /// let x = Rotation::new().set_rotation_period(Duration::default()/* use setters */);
+    /// ```
     pub fn set_rotation_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1632,6 +1931,14 @@ impl Rotation {
     }
 
     /// Sets or clears the value of [rotation_period][crate::model::Rotation::rotation_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// # use wkt::Duration;
+    /// let x = Rotation::new().set_or_clear_rotation_period(Some(Duration::default()/* use setters */));
+    /// let x = Rotation::new().set_or_clear_rotation_period(None::<Duration>);
+    /// ```
     pub fn set_or_clear_rotation_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1690,12 +1997,24 @@ impl SecretPayload {
     }
 
     /// Sets the value of [data][crate::model::SecretPayload::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = SecretPayload::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of [data_crc32c][crate::model::SecretPayload::data_crc32c].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = SecretPayload::new().set_data_crc32c(42);
+    /// ```
     pub fn set_data_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1705,6 +2024,13 @@ impl SecretPayload {
     }
 
     /// Sets or clears the value of [data_crc32c][crate::model::SecretPayload::data_crc32c].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = SecretPayload::new().set_or_clear_data_crc32c(Some(42));
+    /// let x = SecretPayload::new().set_or_clear_data_crc32c(None::<i32>);
+    /// ```
     pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1761,24 +2087,48 @@ impl ListSecretsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSecretsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
+    /// let x = ListSecretsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSecretsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
+    /// let x = ListSecretsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSecretsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
+    /// let x = ListSecretsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSecretsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
+    /// let x = ListSecretsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -1840,12 +2190,24 @@ impl ListSecretsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSecretsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsResponse;
+    /// let x = ListSecretsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListSecretsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsResponse;
+    /// let x = ListSecretsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -1908,18 +2270,37 @@ impl CreateSecretRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSecretRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
+    /// let x = CreateSecretRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [secret_id][crate::model::CreateSecretRequest::secret_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
+    /// let x = CreateSecretRequest::new().set_secret_id("example");
+    /// ```
     pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_id = v.into();
         self
     }
 
     /// Sets the value of [secret][crate::model::CreateSecretRequest::secret].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = CreateSecretRequest::new().set_secret(Secret::default()/* use setters */);
+    /// ```
     pub fn set_secret<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -1929,6 +2310,14 @@ impl CreateSecretRequest {
     }
 
     /// Sets or clears the value of [secret][crate::model::CreateSecretRequest::secret].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = CreateSecretRequest::new().set_or_clear_secret(Some(Secret::default()/* use setters */));
+    /// let x = CreateSecretRequest::new().set_or_clear_secret(None::<Secret>);
+    /// ```
     pub fn set_or_clear_secret<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -1975,12 +2364,25 @@ impl AddSecretVersionRequest {
     }
 
     /// Sets the value of [parent][crate::model::AddSecretVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AddSecretVersionRequest;
+    /// let x = AddSecretVersionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AddSecretVersionRequest;
+    /// # use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = AddSecretVersionRequest::new().set_payload(SecretPayload::default()/* use setters */);
+    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -1990,6 +2392,14 @@ impl AddSecretVersionRequest {
     }
 
     /// Sets or clears the value of [payload][crate::model::AddSecretVersionRequest::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AddSecretVersionRequest;
+    /// # use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = AddSecretVersionRequest::new().set_or_clear_payload(Some(SecretPayload::default()/* use setters */));
+    /// let x = AddSecretVersionRequest::new().set_or_clear_payload(None::<SecretPayload>);
+    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -2028,6 +2438,12 @@ impl GetSecretRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSecretRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::GetSecretRequest;
+    /// let x = GetSecretRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2081,24 +2497,48 @@ impl ListSecretVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSecretVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
+    /// let x = ListSecretVersionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSecretVersionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
+    /// let x = ListSecretVersionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSecretVersionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
+    /// let x = ListSecretVersionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSecretVersionsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
+    /// let x = ListSecretVersionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2161,12 +2601,24 @@ impl ListSecretVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSecretVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsResponse;
+    /// let x = ListSecretVersionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListSecretVersionsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsResponse;
+    /// let x = ListSecretVersionsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -2222,6 +2674,12 @@ impl GetSecretVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSecretVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::GetSecretVersionRequest;
+    /// let x = GetSecretVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2259,6 +2717,13 @@ impl UpdateSecretRequest {
     }
 
     /// Sets the value of [secret][crate::model::UpdateSecretRequest::secret].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = UpdateSecretRequest::new().set_secret(Secret::default()/* use setters */);
+    /// ```
     pub fn set_secret<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -2268,6 +2733,14 @@ impl UpdateSecretRequest {
     }
 
     /// Sets or clears the value of [secret][crate::model::UpdateSecretRequest::secret].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = UpdateSecretRequest::new().set_or_clear_secret(Some(Secret::default()/* use setters */));
+    /// let x = UpdateSecretRequest::new().set_or_clear_secret(None::<Secret>);
+    /// ```
     pub fn set_or_clear_secret<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -2277,6 +2750,13 @@ impl UpdateSecretRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
+    /// # use wkt::FieldMask;
+    /// let x = UpdateSecretRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2286,6 +2766,14 @@ impl UpdateSecretRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
+    /// # use wkt::FieldMask;
+    /// let x = UpdateSecretRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSecretRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2330,6 +2818,12 @@ impl AccessSecretVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::AccessSecretVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionRequest;
+    /// let x = AccessSecretVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2369,12 +2863,25 @@ impl AccessSecretVersionResponse {
     }
 
     /// Sets the value of [name][crate::model::AccessSecretVersionResponse::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionResponse;
+    /// let x = AccessSecretVersionResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [payload][crate::model::AccessSecretVersionResponse::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionResponse;
+    /// # use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = AccessSecretVersionResponse::new().set_payload(SecretPayload::default()/* use setters */);
+    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -2384,6 +2891,14 @@ impl AccessSecretVersionResponse {
     }
 
     /// Sets or clears the value of [payload][crate::model::AccessSecretVersionResponse::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionResponse;
+    /// # use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = AccessSecretVersionResponse::new().set_or_clear_payload(Some(SecretPayload::default()/* use setters */));
+    /// let x = AccessSecretVersionResponse::new().set_or_clear_payload(None::<SecretPayload>);
+    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -2429,12 +2944,24 @@ impl DeleteSecretRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSecretRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DeleteSecretRequest;
+    /// let x = DeleteSecretRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteSecretRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DeleteSecretRequest;
+    /// let x = DeleteSecretRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2479,12 +3006,24 @@ impl DisableSecretVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DisableSecretVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DisableSecretVersionRequest;
+    /// let x = DisableSecretVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DisableSecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DisableSecretVersionRequest;
+    /// let x = DisableSecretVersionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2529,12 +3068,24 @@ impl EnableSecretVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::EnableSecretVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::EnableSecretVersionRequest;
+    /// let x = EnableSecretVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::EnableSecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::EnableSecretVersionRequest;
+    /// let x = EnableSecretVersionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2579,12 +3130,24 @@ impl DestroySecretVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DestroySecretVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DestroySecretVersionRequest;
+    /// let x = DestroySecretVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DestroySecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DestroySecretVersionRequest;
+    /// let x = DestroySecretVersionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
