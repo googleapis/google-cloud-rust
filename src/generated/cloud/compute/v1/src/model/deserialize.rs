@@ -18,6 +18,134 @@
 use super::*;
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::DeprecationStatus {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __deleted,
+            __deprecated,
+            __obsolete,
+            __replacement,
+            __state,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeprecationStatus")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "deleted" => Ok(__FieldTag::__deleted),
+                            "deprecated" => Ok(__FieldTag::__deprecated),
+                            "obsolete" => Ok(__FieldTag::__obsolete),
+                            "replacement" => Ok(__FieldTag::__replacement),
+                            "state" => Ok(__FieldTag::__state),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::DeprecationStatus;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeprecationStatus")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__deleted => {
+                            if !fields.insert(__FieldTag::__deleted) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deleted",
+                                ));
+                            }
+                            result.deleted = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deprecated => {
+                            if !fields.insert(__FieldTag::__deprecated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated",
+                                ));
+                            }
+                            result.deprecated = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__obsolete => {
+                            if !fields.insert(__FieldTag::__obsolete) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for obsolete",
+                                ));
+                            }
+                            result.obsolete = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__replacement => {
+                            if !fields.insert(__FieldTag::__replacement) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for replacement",
+                                ));
+                            }
+                            result.replacement = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::Zone {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -27,7 +155,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Zone {
         #[doc(hidden)]
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
+            __available_cpu_platforms,
             __creation_timestamp,
+            __deprecated,
             __description,
             __id,
             __kind,
@@ -56,7 +186,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Zone {
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
+                            "availableCpuPlatforms" => Ok(__FieldTag::__available_cpu_platforms),
                             "creationTimestamp" => Ok(__FieldTag::__creation_timestamp),
+                            "deprecated" => Ok(__FieldTag::__deprecated),
                             "description" => Ok(__FieldTag::__description),
                             "id" => Ok(__FieldTag::__id),
                             "kind" => Ok(__FieldTag::__kind),
@@ -90,6 +222,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Zone {
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::__available_cpu_platforms => {
+                            if !fields.insert(__FieldTag::__available_cpu_platforms) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for available_cpu_platforms",
+                                ));
+                            }
+                            result.available_cpu_platforms = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
                         __FieldTag::__creation_timestamp => {
                             if !fields.insert(__FieldTag::__creation_timestamp) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -99,6 +239,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Zone {
                             result.creation_timestamp = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__deprecated => {
+                            if !fields.insert(__FieldTag::__deprecated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated",
+                                ));
+                            }
+                            result.deprecated = map
+                                .next_value::<std::option::Option<crate::model::DeprecationStatus>>(
+                                )?;
                         }
                         __FieldTag::__description => {
                             if !fields.insert(__FieldTag::__description) {
@@ -213,6 +363,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ZoneList {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __id,
+            __items,
             __kind,
             __next_page_token,
             __self_link,
@@ -237,6 +388,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ZoneList {
                         use std::string::ToString;
                         match value {
                             "id" => Ok(__FieldTag::__id),
+                            "items" => Ok(__FieldTag::__items),
                             "kind" => Ok(__FieldTag::__kind),
                             "nextPageToken" => Ok(__FieldTag::__next_page_token),
                             "selfLink" => Ok(__FieldTag::__self_link),
@@ -274,6 +426,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ZoneList {
                             result.id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__items => {
+                            if !fields.insert(__FieldTag::__items) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for items",
+                                ));
+                            }
+                            result.items = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Zone>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__kind => {
                             if !fields.insert(__FieldTag::__kind) {
