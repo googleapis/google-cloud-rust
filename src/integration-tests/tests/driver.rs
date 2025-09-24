@@ -40,6 +40,13 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute() -> integration_tests::Result<()> {
+        integration_tests::compute::zones()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_firestore() -> integration_tests::Result<()> {
         integration_tests::firestore::basic()
             .await
