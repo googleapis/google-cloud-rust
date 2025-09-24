@@ -18,6 +18,40 @@
 use super::*;
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::DeprecationStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.deleted.is_empty() {
+            state.serialize_entry("deleted", &self.deleted)?;
+        }
+        if !self.deprecated.is_empty() {
+            state.serialize_entry("deprecated", &self.deprecated)?;
+        }
+        if !self.obsolete.is_empty() {
+            state.serialize_entry("obsolete", &self.obsolete)?;
+        }
+        if !self.replacement.is_empty() {
+            state.serialize_entry("replacement", &self.replacement)?;
+        }
+        if !self.state.is_empty() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::Zone {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -27,8 +61,14 @@ impl serde::ser::Serialize for super::Zone {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.available_cpu_platforms.is_empty() {
+            state.serialize_entry("availableCpuPlatforms", &self.available_cpu_platforms)?;
+        }
         if !self.creation_timestamp.is_empty() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if self.deprecated.is_some() {
+            state.serialize_entry("deprecated", &self.deprecated)?;
         }
         if !self.description.is_empty() {
             state.serialize_entry("description", &self.description)?;
@@ -84,6 +124,9 @@ impl serde::ser::Serialize for super::ZoneList {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.id.is_empty() {
             state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
         }
         if !self.kind.is_empty() {
             state.serialize_entry("kind", &self.kind)?;

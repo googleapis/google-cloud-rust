@@ -34,12 +34,82 @@ mod debug;
 mod deserialize;
 mod serialize;
 
+/// Deprecation status for a public resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeprecationStatus {
+    /// An optional RFC3339 timestamp on or after which the state of this resource is intended to change to DELETED. This is only informational and the status will not change unless the client explicitly changes it.
+    pub deleted: std::string::String,
+
+    /// An optional RFC3339 timestamp on or after which the state of this resource is intended to change to DEPRECATED. This is only informational and the status will not change unless the client explicitly changes it.
+    pub deprecated: std::string::String,
+
+    /// An optional RFC3339 timestamp on or after which the state of this resource is intended to change to OBSOLETE. This is only informational and the status will not change unless the client explicitly changes it.
+    pub obsolete: std::string::String,
+
+    /// The URL of the suggested replacement for a deprecated resource. The suggested replacement resource must be the same kind of resource as the deprecated resource.
+    pub replacement: std::string::String,
+
+    /// The deprecation state of this resource. This can be ACTIVE, DEPRECATED, OBSOLETE, or DELETED. Operations which communicate the end of life date for an image, can use ACTIVE. Operations which create a new resource using a DEPRECATED resource will return successfully, but with a warning indicating the deprecated resource and recommending its replacement. Operations which use OBSOLETE or DELETED resources will be rejected and result in an error.
+    pub state: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeprecationStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [deleted][crate::model::DeprecationStatus::deleted].
+    pub fn set_deleted<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.deleted = v.into();
+        self
+    }
+
+    /// Sets the value of [deprecated][crate::model::DeprecationStatus::deprecated].
+    pub fn set_deprecated<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.deprecated = v.into();
+        self
+    }
+
+    /// Sets the value of [obsolete][crate::model::DeprecationStatus::obsolete].
+    pub fn set_obsolete<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.obsolete = v.into();
+        self
+    }
+
+    /// Sets the value of [replacement][crate::model::DeprecationStatus::replacement].
+    pub fn set_replacement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.replacement = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::DeprecationStatus::state].
+    pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeprecationStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.DeprecationStatus"
+    }
+}
+
 /// Represents a Zone resource. A zone is a deployment area. These deployment areas are subsets of a region. For example the zone us-east1-b is located in the us-east1 region. For more information, read Regions and Zones.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Zone {
+    /// [Output Only] Available cpu/platform selections for the zone.
+    pub available_cpu_platforms: std::vec::Vec<std::string::String>,
+
     /// [Output Only] Creation timestamp in RFC3339 text format.
     pub creation_timestamp: std::string::String,
+
+    /// [Output Only] The deprecation status associated with this zone.
+    pub deprecated: std::option::Option<crate::model::DeprecationStatus>,
 
     /// [Output Only] Textual description of the resource.
     pub description: std::string::String,
@@ -73,12 +143,41 @@ impl Zone {
         std::default::Default::default()
     }
 
+    /// Sets the value of [available_cpu_platforms][crate::model::Zone::available_cpu_platforms].
+    pub fn set_available_cpu_platforms<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.available_cpu_platforms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [creation_timestamp][crate::model::Zone::creation_timestamp].
     pub fn set_creation_timestamp<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.creation_timestamp = v.into();
+        self
+    }
+
+    /// Sets the value of [deprecated][crate::model::Zone::deprecated].
+    pub fn set_deprecated<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DeprecationStatus>,
+    {
+        self.deprecated = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deprecated][crate::model::Zone::deprecated].
+    pub fn set_or_clear_deprecated<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DeprecationStatus>,
+    {
+        self.deprecated = v.map(|x| x.into());
         self
     }
 
@@ -144,6 +243,9 @@ pub struct ZoneList {
     /// [Output Only] Unique identifier for the resource; defined by the server.
     pub id: std::string::String,
 
+    /// A list of Zone resources.
+    pub items: std::vec::Vec<crate::model::Zone>,
+
     /// Type of resource.
     pub kind: std::string::String,
 
@@ -164,6 +266,17 @@ impl ZoneList {
     /// Sets the value of [id][crate::model::ZoneList::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [items][crate::model::ZoneList::items].
+    pub fn set_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Zone>,
+    {
+        use std::iter::Iterator;
+        self.items = v.into_iter().map(|i| i.into()).collect();
         self
     }
 

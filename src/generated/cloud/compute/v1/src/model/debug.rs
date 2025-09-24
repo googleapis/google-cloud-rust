@@ -17,10 +17,27 @@
 #[allow(unused_imports)]
 use super::*;
 
+impl std::fmt::Debug for super::DeprecationStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeprecationStatus");
+        debug_struct.field("deleted", &self.deleted);
+        debug_struct.field("deprecated", &self.deprecated);
+        debug_struct.field("obsolete", &self.obsolete);
+        debug_struct.field("replacement", &self.replacement);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Zone {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Zone");
+        debug_struct.field("available_cpu_platforms", &self.available_cpu_platforms);
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("deprecated", &self.deprecated);
         debug_struct.field("description", &self.description);
         debug_struct.field("id", &self.id);
         debug_struct.field("kind", &self.kind);
@@ -40,6 +57,7 @@ impl std::fmt::Debug for super::ZoneList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ZoneList");
         debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
         debug_struct.field("kind", &self.kind);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("self_link", &self.self_link);
