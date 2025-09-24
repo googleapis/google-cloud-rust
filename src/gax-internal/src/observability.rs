@@ -253,7 +253,6 @@ impl HttpSpanInfo {
             "http_request",
             { KEY_OTEL_NAME } = self.otel_name,
             { KEY_OTEL_KIND } = self.otel_kind,
-            // otel.status is set in record_response_attributes
             { otel_trace::RPC_SYSTEM } = self.rpc_system,
             { otel_trace::HTTP_REQUEST_METHOD } = self.http_request_method,
             { otel_trace::SERVER_ADDRESS } = self.server_address,
@@ -269,17 +268,6 @@ impl HttpSpanInfo {
             { otel_trace::HTTP_REQUEST_RESEND_COUNT } = self.http_request_resend_count,
         )
     }
-
-    /// Records additional attributes to the span based on the response outcome.
-    pub(crate) fn record_response_attributes(&self, span: &Span) {
-        span.record(KEY_OTEL_STATUS, self.otel_status.as_str());
-        if let Some(status_code) = self.http_response_status_code {
-            span.record(otel_trace::HTTP_RESPONSE_STATUS_CODE, status_code);
-        }
-        if let Some(error_type) = &self.error_type {
-            span.record(otel_trace::ERROR_TYPE, error_type.as_str());
-        }
-    }
 }
 
 #[cfg(test)]
@@ -291,8 +279,8 @@ mod tests {
     use reqwest;
     use std::collections::HashMap;
     use std::sync::{Arc, Mutex};
-    use tracing::{span, Subscriber};
-    use tracing_subscriber::{layer::Context, Layer};
+    use tracing::{Subscriber, span};
+    use tracing_subscriber::{Layer, layer::Context};
 
     #[tokio::test]
     async fn test_http_span_info_from_request_basic() {
@@ -426,6 +414,9 @@ mod tests {
         assert_eq!(OtelStatus::Error.as_str(), "Error");
     }
 
+    // TestLayer is a custom tracing_subscriber::Layer to capture span attributes for testing.
+    // It stores the attributes of each span in a HashMap, allowing tests to assert
+    // that the correct attributes are being set on the spans created by HttpSpanInfo.
     #[derive(Clone, Default)]
     struct TestLayer {
         spans: Arc<Mutex<HashMap<span::Id, HashMap<String, String>>>>,
@@ -435,38 +426,38 @@ mod tests {
     where
         S: Subscriber + for<'a> tracing_subscriber::registry::LookupSpan<'a>,
     {
+        // on_new_span is called when a span is created. We record its initial attributes.
         fn on_new_span(&self, attrs: &span::Attributes<'_>, id: &span::Id, _ctx: Context<'_, S>) {
             let mut span_map = HashMap::new();
             let mut visitor = TestVisitor(&mut span_map);
             attrs.record(&mut visitor);
             self.spans.lock().unwrap().insert(id.clone(), span_map);
         }
-
-        fn on_record(&self, id: &span::Id, values: &span::Record<'_>, _ctx: Context<'_, S>) {
-            if let Some(span_map) = self.spans.lock().unwrap().get_mut(id) {
-                let mut visitor = TestVisitor(span_map);
-                values.record(&mut visitor);
-            }
-        }
     }
 
+    // TestVisitor is a tracing::field::Visit implementation to extract attribute key-value pairs.
+    // We only expect &str and i64 types for span attributes.
     struct TestVisitor<'a>(&'a mut HashMap<String, String>);
 
     impl<'a> tracing::field::Visit for TestVisitor<'a> {
-        fn record_debug(&mut self, field: &tracing::field::Field, value: &dyn std::fmt::Debug) {
-            self.0.insert(field.name().to_string(), format!("{:?}", value));
-        }
         fn record_str(&mut self, field: &tracing::field::Field, value: &str) {
             self.0.insert(field.name().to_string(), value.to_string());
         }
+
         fn record_i64(&mut self, field: &tracing::field::Field, value: i64) {
             self.0.insert(field.name().to_string(), value.to_string());
         }
-        fn record_u64(&mut self, field: &tracing::field::Field, value: u64) {
-            self.0.insert(field.name().to_string(), value.to_string());
+
+        fn record_debug(&mut self, field: &tracing::field::Field, value: &dyn std::fmt::Debug) {
+            unimplemented!("Unexpected field type for {:?}: {:?}", field, value);
         }
+
+        fn record_u64(&mut self, field: &tracing::field::Field, value: u64) {
+            unimplemented!("Unexpected field type for {:?}: {:?}", field, value);
+        }
+
         fn record_bool(&mut self, field: &tracing::field::Field, value: bool) {
-            self.0.insert(field.name().to_string(), value.to_string());
+            unimplemented!("Unexpected field type for {:?}: {:?}", field, value);
         }
     }
 
@@ -477,18 +468,17 @@ mod tests {
         let subscriber = tracing_subscriber::registry().with(layer.clone());
 
         let id = tracing::subscriber::with_default(subscriber, || {
-            let request = reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-            let options = gax::options::internal::set_path_template(
-                RequestOptions::default(),
-                "/test",
-            );
+            let request =
+                reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
+            let options =
+                gax::options::internal::set_path_template(RequestOptions::default(), "/test");
             const INFO: InstrumentationClientInfo = InstrumentationClientInfo {
                 service_name: "test.service",
                 client_version: "1.2.3",
                 client_artifact: "google-cloud-test",
                 default_host: "example.com",
             };
-            let span_info = HttpSpanInfo::from_request(&request, &options, Some(&INFO), 0);
+            let span_info = HttpSpanInfo::from_request(&request, &options, Some(&INFO), 1);
             let span = span_info.create_span();
             span.id().unwrap()
         });
@@ -496,69 +486,81 @@ mod tests {
         let spans = layer.spans.lock().unwrap();
         let attributes = spans.get(&id).expect("span not found");
 
+        // Check all attributes set in create_span
+        assert_eq!(attributes.len(), 15, "Unexpected number of attributes");
         assert_eq!(attributes.get(KEY_OTEL_NAME).unwrap(), "GET /test");
-        assert_eq!(attributes.get(otel_trace::HTTP_REQUEST_METHOD).unwrap(), "GET");
-        assert_eq!(attributes.get(otel_trace::SERVER_ADDRESS).unwrap(), "example.com");
+        assert_eq!(attributes.get(KEY_OTEL_KIND).unwrap(), "Client");
+        assert_eq!(attributes.get(otel_trace::RPC_SYSTEM).unwrap(), "http");
+        assert_eq!(
+            attributes.get(otel_trace::HTTP_REQUEST_METHOD).unwrap(),
+            "GET"
+        );
+        assert_eq!(
+            attributes.get(otel_trace::SERVER_ADDRESS).unwrap(),
+            "example.com"
+        );
+        assert_eq!(attributes.get(otel_trace::SERVER_PORT).unwrap(), "443");
+        assert_eq!(
+            attributes.get(otel_trace::URL_FULL).unwrap(),
+            "https://example.com/test"
+        );
+        assert_eq!(attributes.get(otel_trace::URL_SCHEME).unwrap(), "https");
         assert_eq!(attributes.get(otel_attr::URL_TEMPLATE).unwrap(), "/test");
-        assert_eq!(attributes.get(KEY_GCP_CLIENT_SERVICE).unwrap(), "test.service");
-        assert_eq!(attributes.get(otel_attr::URL_DOMAIN).unwrap(), "example.com");
+        assert_eq!(
+            attributes.get(otel_attr::URL_DOMAIN).unwrap(),
+            "example.com"
+        );
+        assert_eq!(
+            attributes.get(KEY_GCP_CLIENT_SERVICE).unwrap(),
+            "test.service"
+        );
+        assert_eq!(attributes.get(KEY_GCP_CLIENT_VERSION).unwrap(), "1.2.3");
+        assert_eq!(
+            attributes.get(KEY_GCP_CLIENT_REPO).unwrap(),
+            "googleapis/google-cloud-rust"
+        );
+        assert_eq!(
+            attributes.get(KEY_GCP_CLIENT_ARTIFACT).unwrap(),
+            "google-cloud-test"
+        );
+        assert_eq!(
+            attributes
+                .get(otel_trace::HTTP_REQUEST_RESEND_COUNT)
+                .unwrap(),
+            "1"
+        );
     }
 
     #[tokio::test]
-    async fn test_record_response_attributes_ok() {
+    async fn test_create_span_attributes_optional() {
         let layer = TestLayer::default();
         use tracing_subscriber::prelude::*;
         let subscriber = tracing_subscriber::registry().with(layer.clone());
 
         let id = tracing::subscriber::with_default(subscriber, || {
-            let request = reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-            let mut span_info =
-                HttpSpanInfo::from_request(&request, &RequestOptions::default(), None, 0);
-
-            span_info.otel_status = OtelStatus::Ok;
-            span_info.http_response_status_code = Some(200);
-            span_info.error_type = None;
-
+            let request =
+                reqwest::Request::new(Method::POST, "http://localhost:8080/".parse().unwrap());
+            let options = RequestOptions::default(); // No path template
+            // No InstrumentationClientInfo
+            let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
             let span = span_info.create_span();
-            let id = span.id().unwrap();
-            let _enter = span.enter();
-            span_info.record_response_attributes(&span);
-            id
+            span.id().unwrap()
         });
 
         let spans = layer.spans.lock().unwrap();
         let attributes = spans.get(&id).expect("span not found");
-        assert_eq!(attributes.get(KEY_OTEL_STATUS).unwrap(), "Ok");
-        assert_eq!(attributes.get(otel_trace::HTTP_RESPONSE_STATUS_CODE).unwrap(), "200");
-        assert_eq!(attributes.get(otel_trace::ERROR_TYPE).unwrap_or(&"None".to_string()), "None");
-    }
 
-    #[tokio::test]
-    async fn test_record_response_attributes_err() {
-        let layer = TestLayer::default();
-        use tracing_subscriber::prelude::*;
-        let subscriber = tracing_subscriber::registry().with(layer.clone());
-
-        let id = tracing::subscriber::with_default(subscriber, || {
-            let request = reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-            let mut span_info =
-                HttpSpanInfo::from_request(&request, &RequestOptions::default(), None, 0);
-
-            span_info.otel_status = OtelStatus::Error;
-            span_info.http_response_status_code = None;
-            span_info.error_type = Some("TIMEOUT".to_string());
-
-            let span = span_info.create_span();
-            let id = span.id().unwrap();
-            let _enter = span.enter();
-            span_info.record_response_attributes(&span);
-            id
-        });
-
-        let spans = layer.spans.lock().unwrap();
-        let attributes = spans.get(&id).expect("span not found");
-        assert_eq!(attributes.get(KEY_OTEL_STATUS).unwrap(), "Error");
-        assert_eq!(attributes.get(otel_trace::HTTP_RESPONSE_STATUS_CODE).unwrap_or(&"None".to_string()), "None");
-        assert_eq!(attributes.get(otel_trace::ERROR_TYPE).unwrap(), "TIMEOUT");
+        // Check only attributes that should be None or not present
+        assert_eq!(attributes.len(), 9, "Unexpected number of attributes");
+        assert!(attributes.get(otel_attr::URL_TEMPLATE).is_none());
+        assert!(attributes.get(otel_attr::URL_DOMAIN).is_none());
+        assert!(attributes.get(KEY_GCP_CLIENT_SERVICE).is_none());
+        assert!(attributes.get(KEY_GCP_CLIENT_VERSION).is_none());
+        assert!(attributes.get(KEY_GCP_CLIENT_ARTIFACT).is_none());
+        assert!(
+            attributes
+                .get(otel_trace::HTTP_REQUEST_RESEND_COUNT)
+                .is_none()
+        );
     }
 }
