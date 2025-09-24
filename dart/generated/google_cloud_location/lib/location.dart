@@ -29,7 +29,7 @@ import 'package:http/http.dart' as http;
 /// An abstract interface that provides location-related information for
 /// a service. Service-specific metadata is provided through the
 /// `Location.metadata` field.
-final class Locations {
+class Locations {
   static const String _host = 'cloud.googleapis.com';
 
   final ServiceClient _client;

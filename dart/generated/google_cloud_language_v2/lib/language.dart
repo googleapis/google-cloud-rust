@@ -27,7 +27,7 @@ import 'package:http/http.dart' as http;
 
 /// Provides text analysis operations such as sentiment analysis and entity
 /// recognition.
-final class LanguageService {
+class LanguageService {
   static const String _host = 'language.googleapis.com';
 
   final ServiceClient _client;

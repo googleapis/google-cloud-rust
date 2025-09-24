@@ -24,11 +24,11 @@ environment:
 resolution: workspace
 
 dependencies:
-  google_cloud_gax: ^0.1.0
-  google_cloud_iam_v1: ^0.1.0
-  google_cloud_location: ^0.1.0
-  google_cloud_protobuf: ^0.1.0
-  http: ^1.3.0
+  google_cloud_gax: any
+  google_cloud_iam_v1: any
+  google_cloud_location: any
+  google_cloud_protobuf: any
+  http: any
 
 dev_dependencies:
   lints: any
