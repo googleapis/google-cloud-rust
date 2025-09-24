@@ -54,7 +54,7 @@ pub async fn run() -> Result<()> {
         .set_project(&project_id)
         .set_location(&location_id)
         .set_secret_id(&secret_id)
-        .set_request_body(smo::model::Secret::new().set_labels([("integration-test", "true")]))
+        .set_body(smo::model::Secret::new().set_labels([("integration-test", "true")]))
         .send()
         .await?;
     println!("CREATE = {create:?}");
@@ -80,7 +80,7 @@ pub async fn run() -> Result<()> {
         .set_location(&location_id)
         .set_secret(&secret_id)
         .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
-        .set_request_body(smo::model::Secret::new().set_labels(new_labels))
+        .set_body(smo::model::Secret::new().set_labels(new_labels))
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -135,7 +135,10 @@ async fn run_iam(
         .set_project(project_id)
         .set_location(location_id)
         .set_secret(secret_id)
-        .set_permissions(["secretmanager.versions.access"])
+        .set_body(
+            smo::model::TestIamPermissionsRequest::new()
+                .set_permissions(["secretmanager.versions.access"]),
+        )
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -166,8 +169,11 @@ async fn run_iam(
         .set_project(project_id)
         .set_location(location_id)
         .set_secret(secret_id)
-        .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
-        .set_policy(new_policy)
+        .set_body(
+            smo::model::SetIamPolicyRequest::new()
+                .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+                .set_policy(new_policy),
+        )
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -189,10 +195,12 @@ async fn run_secret_versions(
         .set_project(project_id)
         .set_location(location_id)
         .set_secret(secret_id)
-        .set_payload(
-            smo::model::SecretPayload::default()
-                .set_data(bytes::Bytes::from(data))
-                .set_data_crc_32_c(checksum as i64),
+        .set_body(
+            smo::model::AddSecretVersionRequest::new().set_payload(
+                smo::model::SecretPayload::default()
+                    .set_data(bytes::Bytes::from(data))
+                    .set_data_crc_32_c(checksum as i64),
+            ),
         )
         .send()
         .await?;

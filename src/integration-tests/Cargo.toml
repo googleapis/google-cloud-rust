@@ -106,11 +106,12 @@ package = "google-cloud-workflows-executions-v1"
 path    = "../../src/generated/cloud/workflows/executions/v1"
 
 [dev-dependencies]
-anyhow.workspace     = true
-httptest.workspace   = true
-mockall.workspace    = true
-reqwest.workspace    = true
-serde.workspace      = true
-serde_with.workspace = true
-test-case.workspace  = true
-tokio.workspace      = true
+anyhow.workspace            = true
+httptest.workspace          = true
+mockall.workspace           = true
+reqwest.workspace           = true
+serde.workspace             = true
+serde_with.workspace        = true
+static_assertions.workspace = true
+test-case.workspace         = true
+tokio.workspace             = true

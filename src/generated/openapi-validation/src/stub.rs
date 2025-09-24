@@ -41,7 +41,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::list_locations].
     fn list_locations(
         &self,
-        _req: crate::model::ListLocationsRequest,
+        _req: crate::model::secret_manager_service::ListLocationsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListLocationsResponse>>,
@@ -52,7 +52,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::get_location].
     fn get_location(
         &self,
-        _req: crate::model::GetLocationRequest,
+        _req: crate::model::secret_manager_service::GetLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Location>>,
@@ -63,7 +63,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::list_secrets].
     fn list_secrets(
         &self,
-        _req: crate::model::ListSecretsRequest,
+        _req: crate::model::secret_manager_service::ListSecretsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListSecretsResponse>>,
@@ -74,7 +74,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::create_secret].
     fn create_secret(
         &self,
-        _req: crate::model::CreateSecretRequest,
+        _req: crate::model::secret_manager_service::CreateSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Secret>>,
@@ -85,7 +85,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::list_secrets_by_project_and_location].
     fn list_secrets_by_project_and_location(
         &self,
-        _req: crate::model::ListSecretsByProjectAndLocationRequest,
+        _req: crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListSecretsResponse>>,
@@ -96,7 +96,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::create_secret_by_project_and_location].
     fn create_secret_by_project_and_location(
         &self,
-        _req: crate::model::CreateSecretByProjectAndLocationRequest,
+        _req: crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Secret>>,
@@ -107,7 +107,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::add_secret_version].
     fn add_secret_version(
         &self,
-        _req: crate::model::AddSecretVersionRequest,
+        _req: crate::model::secret_manager_service::AddSecretVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
@@ -118,7 +118,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::add_secret_version_by_project_and_location_and_secret].
     fn add_secret_version_by_project_and_location_and_secret(
         &self,
-        _req: crate::model::AddSecretVersionRequest,
+        _req: crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
@@ -129,7 +129,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::get_secret].
     fn get_secret(
         &self,
-        _req: crate::model::GetSecretRequest,
+        _req: crate::model::secret_manager_service::GetSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Secret>>,
@@ -140,7 +140,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::delete_secret].
     fn delete_secret(
         &self,
-        _req: crate::model::DeleteSecretRequest,
+        _req: crate::model::secret_manager_service::DeleteSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Empty>>,
@@ -151,7 +151,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::update_secret].
     fn update_secret(
         &self,
-        _req: crate::model::UpdateSecretRequest,
+        _req: crate::model::secret_manager_service::UpdateSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Secret>>,
@@ -162,7 +162,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::get_secret_by_project_and_location_and_secret].
     fn get_secret_by_project_and_location_and_secret(
         &self,
-        _req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
+        _req: crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Secret>>,
@@ -173,7 +173,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::delete_secret_by_project_and_location_and_secret].
     fn delete_secret_by_project_and_location_and_secret(
         &self,
-        _req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
+        _req: crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Empty>>,
@@ -184,7 +184,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::update_secret_by_project_and_location_and_secret].
     fn update_secret_by_project_and_location_and_secret(
         &self,
-        _req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
+        _req: crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Secret>>,
@@ -195,7 +195,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::list_secret_versions].
     fn list_secret_versions(
         &self,
-        _req: crate::model::ListSecretVersionsRequest,
+        _req: crate::model::secret_manager_service::ListSecretVersionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListSecretVersionsResponse>>,
@@ -206,7 +206,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::list_secret_versions_by_project_and_location_and_secret].
     fn list_secret_versions_by_project_and_location_and_secret(
         &self,
-        _req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
+        _req: crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListSecretVersionsResponse>>,
@@ -217,7 +217,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::get_secret_version].
     fn get_secret_version(
         &self,
-        _req: crate::model::GetSecretVersionRequest,
+        _req: crate::model::secret_manager_service::GetSecretVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
@@ -228,7 +228,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version].
     fn get_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        _req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        _req: crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
@@ -239,7 +239,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::access_secret_version].
     fn access_secret_version(
         &self,
-        _req: crate::model::AccessSecretVersionRequest,
+        _req: crate::model::secret_manager_service::AccessSecretVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AccessSecretVersionResponse>>,
@@ -250,7 +250,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version].
     fn access_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        _req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        _req: crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AccessSecretVersionResponse>>,
@@ -261,7 +261,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::disable_secret_version].
     fn disable_secret_version(
         &self,
-        _req: crate::model::DisableSecretVersionRequest,
+        _req: crate::model::secret_manager_service::DisableSecretVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
@@ -272,7 +272,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version].
     fn disable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        _req: crate::model::DisableSecretVersionRequest,
+        _req: crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
@@ -283,7 +283,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::enable_secret_version].
     fn enable_secret_version(
         &self,
-        _req: crate::model::EnableSecretVersionRequest,
+        _req: crate::model::secret_manager_service::EnableSecretVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
@@ -294,7 +294,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version].
     fn enable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        _req: crate::model::EnableSecretVersionRequest,
+        _req: crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
@@ -305,7 +305,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::destroy_secret_version].
     fn destroy_secret_version(
         &self,
-        _req: crate::model::DestroySecretVersionRequest,
+        _req: crate::model::secret_manager_service::DestroySecretVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
@@ -316,7 +316,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version].
     fn destroy_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        _req: crate::model::DestroySecretVersionRequest,
+        _req: crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
@@ -327,7 +327,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::set_iam_policy].
     fn set_iam_policy(
         &self,
-        _req: crate::model::SetIamPolicyRequest,
+        _req: crate::model::secret_manager_service::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Policy>>,
@@ -338,7 +338,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::set_iam_policy_by_project_and_location_and_secret].
     fn set_iam_policy_by_project_and_location_and_secret(
         &self,
-        _req: crate::model::SetIamPolicyRequest,
+        _req: crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Policy>>,
@@ -349,7 +349,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::get_iam_policy].
     fn get_iam_policy(
         &self,
-        _req: crate::model::GetIamPolicyRequest,
+        _req: crate::model::secret_manager_service::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Policy>>,
@@ -360,7 +360,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::get_iam_policy_by_project_and_location_and_secret].
     fn get_iam_policy_by_project_and_location_and_secret(
         &self,
-        _req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
+        _req: crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Policy>>,
@@ -371,7 +371,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
-        _req: crate::model::TestIamPermissionsRequest,
+        _req: crate::model::secret_manager_service::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>,
@@ -382,7 +382,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SecretManagerService::test_iam_permissions_by_project_and_location_and_secret].
     fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
-        _req: crate::model::TestIamPermissionsRequest,
+        _req: crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>,
