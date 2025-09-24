@@ -15,14 +15,18 @@
 #[cfg(test)]
 mod tests {
     use google_cloud_pubsub::client::Publisher;
+    use google_cloud_pubsub::model::PubsubMessage;
 
     #[tokio::test]
     async fn quickstart() -> anyhow::Result<()> {
         let now = std::time::SystemTime::now();
-        let topic = "projects/TODO/topics/TODO";
+        let topic = "projects/rust-sdk-testing/topics/rust-quickstart"; // TODO
         let client = Publisher::new().await?;
         let resp = client
-            .publish(topic, PubsubMessage::new().set_data(format!("hello {:?}", now.elapsed())))
+            .publish(
+                topic,
+                PubsubMessage::new().set_data(format!("hello {:?}", now.elapsed())),
+            )
             .await?;
         println!("resp={resp:?}");
         Ok(())

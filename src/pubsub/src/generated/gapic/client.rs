@@ -17,12 +17,65 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 /// Implements a client for the Cloud Pub/Sub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_pubsub::client::TopicAdmin;
+/// let client = TopicAdmin::builder().build().await?;
+/// // use `client` to make requests to the Cloud Pub/Sub API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// The service that an application uses to manipulate topics, and to send
+/// messages to a topic.
+///
+/// # Configuration
+///
+/// To configure `TopicAdmin` use the `with_*` methods in the type returned
+/// by [builder()][TopicAdmin::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://pubsub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::topic_admin::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::topic_admin::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `TopicAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `TopicAdmin` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TopicAdmin {
     inner: std::sync::Arc<dyn super::stub::dynamic::TopicAdmin>,
 }
 
 impl TopicAdmin {
+    /// Returns a builder for [TopicAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_pubsub::client::TopicAdmin;
+    /// let client = TopicAdmin::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::topic_admin::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::topic_admin::client::Factory)
+    }
+
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
@@ -127,12 +180,68 @@ impl TopicAdmin {
 }
 
 /// Implements a client for the Cloud Pub/Sub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_pubsub::client::SubscriptionAdmin;
+/// let client = SubscriptionAdmin::builder().build().await?;
+/// // use `client` to make requests to the Cloud Pub/Sub API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// The service that an application uses to manipulate subscriptions and to
+/// consume messages from a subscription via the `Pull` method or by
+/// establishing a bi-directional stream using the `StreamingPull` method.
+///
+/// # Configuration
+///
+/// To configure `SubscriptionAdmin` use the `with_*` methods in the type returned
+/// by [builder()][SubscriptionAdmin::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://pubsub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::subscription_admin::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::subscription_admin::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SubscriptionAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `SubscriptionAdmin` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SubscriptionAdmin {
     inner: std::sync::Arc<dyn super::stub::dynamic::SubscriptionAdmin>,
 }
 
 impl SubscriptionAdmin {
+    /// Returns a builder for [SubscriptionAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// let client = SubscriptionAdmin::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::subscription_admin::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::subscription_admin::client::Factory,
+        )
+    }
+
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
@@ -302,12 +411,64 @@ impl SubscriptionAdmin {
 }
 
 /// Implements a client for the Cloud Pub/Sub API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_pubsub::client::SchemaService;
+/// let client = SchemaService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Pub/Sub API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for doing schema-related operations.
+///
+/// # Configuration
+///
+/// To configure `SchemaService` use the `with_*` methods in the type returned
+/// by [builder()][SchemaService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://pubsub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::schema_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::schema_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SchemaService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `SchemaService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SchemaService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SchemaService>,
 }
 
 impl SchemaService {
+    /// Returns a builder for [SchemaService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// let client = SchemaService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::schema_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::schema_service::client::Factory)
+    }
+
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the

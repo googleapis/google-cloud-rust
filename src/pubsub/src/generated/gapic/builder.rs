@@ -17,6 +17,37 @@
 pub mod topic_admin {
     use crate::Result;
 
+    /// A builder for [TopicAdmin][crate::client::TopicAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_pubsub::*;
+    /// # use builder::topic_admin::ClientBuilder;
+    /// # use client::TopicAdmin;
+    /// let builder : ClientBuilder = TopicAdmin::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://pubsub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::TopicAdmin;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = TopicAdmin;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
     /// Common implementation for [crate::client::TopicAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
@@ -850,6 +881,37 @@ pub mod topic_admin {
 
 pub mod subscription_admin {
     use crate::Result;
+
+    /// A builder for [SubscriptionAdmin][crate::client::SubscriptionAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_pubsub::*;
+    /// # use builder::subscription_admin::ClientBuilder;
+    /// # use client::SubscriptionAdmin;
+    /// let builder : ClientBuilder = SubscriptionAdmin::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://pubsub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SubscriptionAdmin;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SubscriptionAdmin;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [crate::client::SubscriptionAdmin] request builders.
     #[derive(Clone, Debug)]
@@ -2116,6 +2178,37 @@ pub mod subscription_admin {
 
 pub mod schema_service {
     use crate::Result;
+
+    /// A builder for [SchemaService][crate::client::SchemaService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_pubsub::*;
+    /// # use builder::schema_service::ClientBuilder;
+    /// # use client::SchemaService;
+    /// let builder : ClientBuilder = SchemaService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://pubsub.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SchemaService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SchemaService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
 
     /// Common implementation for [crate::client::SchemaService] request builders.
     #[derive(Clone, Debug)]
