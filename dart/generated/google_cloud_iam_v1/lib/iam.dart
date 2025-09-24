@@ -50,7 +50,7 @@ import 'package:http/http.dart' as http;
 /// This is intentionally not a CRUD style API because access control policies
 /// are created and deleted implicitly with the resources to which they are
 /// attached.
-final class IAMPolicy {
+class IAMPolicy {
   static const String _host = 'iam-meta-api.googleapis.com';
 
   final ServiceClient _client;
