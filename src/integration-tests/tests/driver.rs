@@ -26,6 +26,13 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_aiplatform() -> integration_tests::Result<()> {
+        integration_tests::aiplatform::locational_endpoint()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_bigquery_dataset_service() -> integration_tests::Result<()> {
         integration_tests::bigquery::dataset_admin()
             .await

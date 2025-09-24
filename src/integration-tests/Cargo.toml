@@ -51,7 +51,7 @@ wkt.workspace         = true
 package          = "google-cloud-aiplatform-v1"
 path             = "../../src/generated/cloud/aiplatform/v1"
 default-features = false
-features         = ["prediction-service"]
+features         = ["model-service", "prediction-service"]
 
 [dependencies.bigquery]
 package = "google-cloud-bigquery-v2"
