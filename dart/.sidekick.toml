@@ -33,6 +33,14 @@ version = "0.1.0"
 'package:google_cloud_gax' = '^0.1.0'
 'package:http'             = '^1.3.0'
 
+# Generated packages
+'package:google_cloud_iam_v1'      = '^0.1.0'
+'package:google_cloud_protobuf'    = '^0.1.0'
+'package:google_cloud_location'    = '^0.1.0'
+'package:google_cloud_longrunning' = '^0.1.0'
+'package:google_cloud_rpc'         = '^0.1.0'
+'package:google_cloud_type'        = '^0.1.0'
+
 # A mapping from protobuf packages to Dart imports.
 'proto:google.api'            = 'package:google_cloud_api/api.dart'
 'proto:google.cloud.common'   = 'package:google_cloud_common/common.dart'
