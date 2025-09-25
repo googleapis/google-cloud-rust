@@ -57,20 +57,6 @@ pub async fn basic_publisher() -> Result<()> {
 }
 
 pub async fn basic_topic() -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
     let (client, topic) = create_test_topic().await?;
 
     tracing::info!("testing get_topic()");

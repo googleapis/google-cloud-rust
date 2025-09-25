@@ -22,20 +22,6 @@ use std::time::Duration;
 
 // Verify enum query parameters are serialized correctly.
 pub async fn list() -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
     // Create a workflow so we can list its executions. We rely on the other
     // workflows integration tests to delete it if something fails or crashes
     // in this test.

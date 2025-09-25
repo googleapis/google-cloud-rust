@@ -17,20 +17,6 @@ use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
 use storage::client::StorageControl;
 
 pub async fn error_details_http() -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
     let project_id = crate::project_id()?;
     let region_id = crate::region_id();
     let client = ta::client::TelcoAutomation::builder()
@@ -55,18 +41,6 @@ pub async fn error_details_http() -> Result<()> {
 }
 
 pub async fn error_details_grpc() -> Result<()> {
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
     let client = StorageControl::builder().with_tracing().build().await?;
     let err = client
         .get_bucket()
@@ -83,18 +57,6 @@ pub async fn error_details_grpc() -> Result<()> {
 }
 
 pub async fn check_code_for_http() -> Result<()> {
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
     let project_id = crate::project_id()?;
     let location_id = crate::region_id();
     let workflow_id = crate::random_workflow_id();
@@ -121,18 +83,6 @@ pub async fn check_code_for_http() -> Result<()> {
 }
 
 pub async fn check_code_for_grpc() -> Result<()> {
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
     let bucket_id = crate::random_bucket_id();
     let bucket_name = format!("projects/_/buckets/{bucket_id}");
     let client = StorageControl::builder().with_tracing().build().await?;
