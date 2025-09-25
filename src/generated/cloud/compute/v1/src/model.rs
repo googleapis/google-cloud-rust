@@ -191,6 +191,10 @@ pub mod deprecation_status {
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
+                0 => Self::Active,
+                1 => Self::Deleted,
+                2 => Self::Deprecated,
+                3 => Self::Obsolete,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -462,6 +466,8 @@ pub mod zone {
     impl std::convert::From<i32> for Status {
         fn from(value: i32) -> Self {
             match value {
+                0 => Self::Down,
+                1 => Self::Up,
                 _ => Self::UnknownValue(status::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
