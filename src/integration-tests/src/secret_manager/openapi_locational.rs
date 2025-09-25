@@ -16,20 +16,6 @@ use crate::Result;
 use rand::{Rng, distr::Alphanumeric};
 
 pub async fn run() -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
     let project_id = crate::project_id()?;
     let secret_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
