@@ -54,6 +54,10 @@ pub mod unimplemented;
 #[cfg(feature = "_internal-common")]
 pub mod routing_parameter;
 
+// TODO(#3375) - use host logic in gRPC too.
+#[cfg(feature = "_internal-http-client")]
+pub(crate) mod host;
+
 #[cfg(feature = "_internal-grpc-client")]
 pub(crate) mod google {
     pub mod rpc {
