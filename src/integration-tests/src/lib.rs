@@ -77,3 +77,17 @@ pub(crate) fn random_workflow_id() -> String {
         .collect();
     format!("{PREFIX}{workflow_id}")
 }
+
+pub fn enable_tracing() -> tracing::subscriber::DefaultGuard {
+    use tracing_subscriber::fmt::format::FmtSpan;
+    let builder = tracing_subscriber::fmt()
+        .with_level(true)
+        .with_thread_ids(true)
+        .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+        .with_max_level(tracing::Level::WARN);
+    #[cfg(feature = "log-integration-tests")]
+    let builder = builder.with_max_level(tracing::Level::INFO);
+    let subscriber = builder.finish();
+
+    tracing::subscriber::set_default(subscriber)
+}
