@@ -41,5 +41,21 @@ pub async fn zones() -> Result<()> {
     }
     tracing::info!("DONE with Zones::list()");
 
+    tracing::info!("Testing Zones::get()");
+    // us-central1-a is well-known, and if it goes away fixing this test is the
+    // least of our problems.
+    let response = client
+        .get()
+        .set_project(&project_id)
+        .set_zone("us-central1-a")
+        .send()
+        .await?;
+    assert_eq!(
+        response.status,
+        compute::model::zone::Status::Up,
+        "response={response:?}"
+    );
+    tracing::info!("Zones::get() = {response:?}");
+
     Ok(())
 }
