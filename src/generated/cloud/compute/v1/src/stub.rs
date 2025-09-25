@@ -26,6 +26,52 @@
 
 pub(crate) mod dynamic;
 
+/// Defines the trait used to implement [super::client::MachineTypes].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::MachineTypes`.  In other use-cases, application developers only
+/// use `client::MachineTypes` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait MachineTypes: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::MachineTypes::aggregated_list].
+    fn aggregated_list(
+        &self,
+        _req: crate::model::machine_types::AggregatedListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MachineTypeAggregatedList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::MachineTypes::get].
+    fn get(
+        &self,
+        _req: crate::model::machine_types::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MachineType>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::MachineTypes::list].
+    fn list(
+        &self,
+        _req: crate::model::machine_types::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MachineTypeList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::Zones].
 ///
 /// Application developers may need to implement this trait to mock

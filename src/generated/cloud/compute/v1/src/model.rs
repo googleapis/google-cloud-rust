@@ -244,6 +244,472 @@ pub mod deprecation_status {
     }
 }
 
+/// Represents a Machine Type resource. You can use specific machine types for your VM instances based on performance and pricing requirements. For more information, read Machine Types.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MachineType {
+    /// [Output Only] The architecture of the machine type.
+    pub architecture: crate::model::machine_type::Architecture,
+
+    /// [Output Only] Creation timestamp in RFC3339 text format.
+    pub creation_timestamp: std::string::String,
+
+    /// [Output Only] The deprecation status associated with this machine type. Only applicable if the machine type is unavailable.
+    pub deprecated: std::option::Option<crate::model::DeprecationStatus>,
+
+    /// [Output Only] An optional textual description of the resource.
+    pub description: std::string::String,
+
+    /// [Output Only] The number of virtual CPUs that are available to the instance.
+    pub guest_cpus: i32,
+
+    /// [Output Only] The unique identifier for the resource. This identifier is defined by the server.
+    pub id: u64,
+
+    /// [Deprecated] This property is deprecated and will never be populated with any relevant values.
+    pub image_space_gb: i32,
+
+    /// [Output Only] Whether this machine type has a shared CPU. See Shared-core machine types for more information.
+    pub is_shared_cpu: bool,
+
+    /// [Output Only] The type of the resource. Always compute#machineType for machine types.
+    pub kind: std::string::String,
+
+    /// [Output Only] Maximum persistent disks allowed.
+    pub maximum_persistent_disks: i32,
+
+    /// [Output Only] Maximum total persistent disks size (GB) allowed.
+    pub maximum_persistent_disks_size_gb: i64,
+
+    /// [Output Only] The amount of physical memory available to the instance, defined in MB.
+    pub memory_mb: i32,
+
+    /// [Output Only] Name of the resource.
+    pub name: std::string::String,
+
+    /// [Output Only] Server-defined URL for the resource.
+    pub self_link: std::string::String,
+
+    /// [Output Only] The name of the zone where the machine type resides, such as us-central1-a.
+    pub zone: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MachineType {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [architecture][crate::model::MachineType::architecture].
+    pub fn set_architecture<T: std::convert::Into<crate::model::machine_type::Architecture>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.architecture = v.into();
+        self
+    }
+
+    /// Sets the value of [creation_timestamp][crate::model::MachineType::creation_timestamp].
+    pub fn set_creation_timestamp<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.creation_timestamp = v.into();
+        self
+    }
+
+    /// Sets the value of [deprecated][crate::model::MachineType::deprecated].
+    pub fn set_deprecated<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DeprecationStatus>,
+    {
+        self.deprecated = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deprecated][crate::model::MachineType::deprecated].
+    pub fn set_or_clear_deprecated<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DeprecationStatus>,
+    {
+        self.deprecated = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::MachineType::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [guest_cpus][crate::model::MachineType::guest_cpus].
+    pub fn set_guest_cpus<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.guest_cpus = v.into();
+        self
+    }
+
+    /// Sets the value of [id][crate::model::MachineType::id].
+    pub fn set_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [image_space_gb][crate::model::MachineType::image_space_gb].
+    pub fn set_image_space_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.image_space_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [is_shared_cpu][crate::model::MachineType::is_shared_cpu].
+    pub fn set_is_shared_cpu<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_shared_cpu = v.into();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::MachineType::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [maximum_persistent_disks][crate::model::MachineType::maximum_persistent_disks].
+    pub fn set_maximum_persistent_disks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.maximum_persistent_disks = v.into();
+        self
+    }
+
+    /// Sets the value of [maximum_persistent_disks_size_gb][crate::model::MachineType::maximum_persistent_disks_size_gb].
+    pub fn set_maximum_persistent_disks_size_gb<T: std::convert::Into<i64>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.maximum_persistent_disks_size_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [memory_mb][crate::model::MachineType::memory_mb].
+    pub fn set_memory_mb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.memory_mb = v.into();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::MachineType::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::MachineType::self_link].
+    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.self_link = v.into();
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::MachineType::zone].
+    pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.zone = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MachineType {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.MachineType"
+    }
+}
+
+/// Defines additional types related to [MachineType].
+pub mod machine_type {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [architecture][google.cloud.compute.v1.MachineType.architecture] field.
+    ///
+    /// [google.cloud.compute.v1.MachineType.architecture]: crate::model::machine_type::Architecture
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Architecture {
+        /// Default value indicating Architecture is not set.
+        Unspecified,
+        /// Machines with architecture ARM64
+        Arm64,
+        /// Machines with architecture X86_64
+        X8664,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Architecture::value] or
+        /// [Architecture::name].
+        UnknownValue(architecture::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod architecture {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Architecture {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Arm64 => std::option::Option::Some(1),
+                Self::X8664 => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ARCHITECTURE_UNSPECIFIED"),
+                Self::Arm64 => std::option::Option::Some("ARM64"),
+                Self::X8664 => std::option::Option::Some("X86_64"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Architecture {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Architecture {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Architecture {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Arm64,
+                2 => Self::X8664,
+                _ => Self::UnknownValue(architecture::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Architecture {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ARCHITECTURE_UNSPECIFIED" => Self::Unspecified,
+                "ARM64" => Self::Arm64,
+                "X86_64" => Self::X8664,
+                _ => Self::UnknownValue(architecture::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Architecture {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Arm64 => serializer.serialize_i32(1),
+                Self::X8664 => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Architecture {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Architecture>::new(
+                ".google.cloud.compute.v1.MachineType.architecture",
+            ))
+        }
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MachineTypeAggregatedList {
+    /// [Output Only] Unique identifier for the resource; defined by the server.
+    pub id: std::string::String,
+
+    /// [Output Only] Type of resource. Always compute#machineTypeAggregatedList for aggregated lists of machine types.
+    pub kind: std::string::String,
+
+    /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
+    pub next_page_token: std::string::String,
+
+    /// [Output Only] Server-defined URL for this resource.
+    pub self_link: std::string::String,
+
+    /// [Output Only] Unreachable resources.
+    pub unreachables: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MachineTypeAggregatedList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::MachineTypeAggregatedList::id].
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::MachineTypeAggregatedList::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::MachineTypeAggregatedList::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::MachineTypeAggregatedList::self_link].
+    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.self_link = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachables][crate::model::MachineTypeAggregatedList::unreachables].
+    pub fn set_unreachables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MachineTypeAggregatedList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.MachineTypeAggregatedList"
+    }
+}
+
+/// Contains a list of machine types.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MachineTypeList {
+    /// [Output Only] Unique identifier for the resource; defined by the server.
+    pub id: std::string::String,
+
+    /// A list of MachineType resources.
+    pub items: std::vec::Vec<crate::model::MachineType>,
+
+    /// [Output Only] Type of resource. Always compute#machineTypeList for lists of machine types.
+    pub kind: std::string::String,
+
+    /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
+    pub next_page_token: std::string::String,
+
+    /// [Output Only] Server-defined URL for this resource.
+    pub self_link: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MachineTypeList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::MachineTypeList::id].
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [items][crate::model::MachineTypeList::items].
+    pub fn set_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MachineType>,
+    {
+        use std::iter::Iterator;
+        self.items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::MachineTypeList::kind].
+    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::MachineTypeList::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::MachineTypeList::self_link].
+    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.self_link = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MachineTypeList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.MachineTypeList"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for MachineTypeList {
+    type PageItem = crate::model::MachineType;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.items
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Represents a Zone resource. A zone is a deployment area. These deployment areas are subsets of a region. For example the zone us-east1-b is located in the us-east1 region. For more information, read Regions and Zones.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -593,6 +1059,368 @@ impl gax::paginator::internal::PageableResponse for ZoneList {
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
         self.next_page_token.clone()
+    }
+}
+
+/// Synthetic messages for the [machineTypes][google.cloud.compute.v1.machineTypes] service
+///
+/// [google.cloud.compute.v1.machineTypes]: crate::model::MachineTypes
+pub mod machine_types {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Synthetic request message for the [aggregatedList()][google.cloud.compute.v1.machineTypes.aggregatedList] method.
+    ///
+    /// [google.cloud.compute.v1.machineTypes.aggregatedList]: crate::client::MachineTypes::aggregated_list
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AggregatedListRequest {
+        /// A filter expression that filters resources listed in the response. Most Compute resources support two types of filter expressions: expressions that support regular expressions and expressions that follow API improvement proposal AIP-160. These two types of filter expressions cannot be mixed in one request. If you want to use AIP-160, your expression must specify the field name, an operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The operator must be either `=`, `!=`, `>`, `<`, `<=`, `>=` or `:`. For example, if you are filtering Compute Engine instances, you can exclude instances named `example-instance` by specifying `name != example-instance`. The `:*` comparison can be used to test whether a key has been defined. For example, to find all objects with `owner` label use: ``` labels.owner:* ``` You can also filter nested fields. For example, you could specify `scheduling.automaticRestart = false` to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels. To filter on multiple expressions, provide each separate expression within parentheses. For example: ``` (scheduling.automaticRestart = true) (cpuPlatform = "Intel Skylake") ``` By default, each expression is an `AND` expression. However, you can include `AND` and `OR` expressions explicitly. For example: ``` (cpuPlatform = "Intel Skylake") OR (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart = true) ``` If you want to use a regular expression, use the `eq` (equal) or `ne` (not equal) operator against a single un-parenthesized expression with or without quotes or against multiple parenthesized expressions. Examples: `fieldname eq unquoted literal` `fieldname eq 'single quoted literal'` `fieldname eq "double quoted literal"` `(fieldname1 eq literal) (fieldname2 ne "literal")` The literal value is interpreted as a regular expression using Google RE2 library syntax. The literal value must match the entire field. For example, to filter for instances that do not end with name "instance", you would use `name ne .*instance`. You cannot combine constraints on multiple fields using regular expressions.
+        pub filter: std::option::Option<std::string::String>,
+
+        /// Indicates whether every visible scope for each scope type (zone, region, global) should be included in the response. For new resource types added after this field, the flag has no effect as new resource types will always include every visible scope for each scope type in response. For resource types which predate this field, if this flag is omitted or false, only scopes of the scope types where the resource type is expected to be found will be included.
+        pub include_all_scopes: std::option::Option<bool>,
+
+        /// The maximum number of results per page that should be returned. If the number of available results is larger than `maxResults`, Compute Engine returns a `nextPageToken` that can be used to get the next page of results in subsequent list requests. Acceptable values are `0` to `500`, inclusive. (Default: `500`)
+        pub max_results: std::option::Option<u32>,
+
+        /// Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name. You can also sort results in descending order based on the creation timestamp using `orderBy="creationTimestamp desc"`. This sorts results based on the `creationTimestamp` field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first. Currently, only sorting by `name` or `creationTimestamp desc` is supported.
+        pub order_by: std::option::Option<std::string::String>,
+
+        /// Specifies a page token to use. Set `pageToken` to the `nextPageToken` returned by a previous list request to get the next page of results.
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Opt-in for partial success behavior which provides partial results in case of failure. The default value is false. For example, when partial success behavior is enabled, aggregatedList for a single zone scope either returns all resources in the zone or no resources, with an error code.
+        pub return_partial_success: std::option::Option<bool>,
+
+        /// The Shared VPC service project id or service project number for which aggregated list request is invoked for subnetworks list-usable api.
+        pub service_project_number: std::option::Option<i64>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AggregatedListRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filter][crate::model::machine_types::AggregatedListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::machine_types::AggregatedListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [include_all_scopes][crate::model::machine_types::AggregatedListRequest::include_all_scopes].
+        pub fn set_include_all_scopes<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.include_all_scopes = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [include_all_scopes][crate::model::machine_types::AggregatedListRequest::include_all_scopes].
+        pub fn set_or_clear_include_all_scopes<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.include_all_scopes = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::machine_types::AggregatedListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::machine_types::AggregatedListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::machine_types::AggregatedListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::machine_types::AggregatedListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::machine_types::AggregatedListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::machine_types::AggregatedListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::machine_types::AggregatedListRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::machine_types::AggregatedListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::machine_types::AggregatedListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [service_project_number][crate::model::machine_types::AggregatedListRequest::service_project_number].
+        pub fn set_service_project_number<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.service_project_number = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_project_number][crate::model::machine_types::AggregatedListRequest::service_project_number].
+        pub fn set_or_clear_service_project_number<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.service_project_number = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [get()][google.cloud.compute.v1.machineTypes.get] method.
+    ///
+    /// [google.cloud.compute.v1.machineTypes.get]: crate::client::MachineTypes::get
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetRequest {
+        /// Name of the machine type to return.
+        pub machine_type: std::string::String,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// The name of the zone for this request.
+        pub zone: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GetRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [machine_type][crate::model::machine_types::GetRequest::machine_type].
+        pub fn set_machine_type<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.machine_type = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::machine_types::GetRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::machine_types::GetRequest::zone].
+        pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.zone = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [list()][google.cloud.compute.v1.machineTypes.list] method.
+    ///
+    /// [google.cloud.compute.v1.machineTypes.list]: crate::client::MachineTypes::list
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ListRequest {
+        /// A filter expression that filters resources listed in the response. Most Compute resources support two types of filter expressions: expressions that support regular expressions and expressions that follow API improvement proposal AIP-160. These two types of filter expressions cannot be mixed in one request. If you want to use AIP-160, your expression must specify the field name, an operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The operator must be either `=`, `!=`, `>`, `<`, `<=`, `>=` or `:`. For example, if you are filtering Compute Engine instances, you can exclude instances named `example-instance` by specifying `name != example-instance`. The `:*` comparison can be used to test whether a key has been defined. For example, to find all objects with `owner` label use: ``` labels.owner:* ``` You can also filter nested fields. For example, you could specify `scheduling.automaticRestart = false` to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels. To filter on multiple expressions, provide each separate expression within parentheses. For example: ``` (scheduling.automaticRestart = true) (cpuPlatform = "Intel Skylake") ``` By default, each expression is an `AND` expression. However, you can include `AND` and `OR` expressions explicitly. For example: ``` (cpuPlatform = "Intel Skylake") OR (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart = true) ``` If you want to use a regular expression, use the `eq` (equal) or `ne` (not equal) operator against a single un-parenthesized expression with or without quotes or against multiple parenthesized expressions. Examples: `fieldname eq unquoted literal` `fieldname eq 'single quoted literal'` `fieldname eq "double quoted literal"` `(fieldname1 eq literal) (fieldname2 ne "literal")` The literal value is interpreted as a regular expression using Google RE2 library syntax. The literal value must match the entire field. For example, to filter for instances that do not end with name "instance", you would use `name ne .*instance`. You cannot combine constraints on multiple fields using regular expressions.
+        pub filter: std::option::Option<std::string::String>,
+
+        /// The maximum number of results per page that should be returned. If the number of available results is larger than `maxResults`, Compute Engine returns a `nextPageToken` that can be used to get the next page of results in subsequent list requests. Acceptable values are `0` to `500`, inclusive. (Default: `500`)
+        pub max_results: std::option::Option<u32>,
+
+        /// Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name. You can also sort results in descending order based on the creation timestamp using `orderBy="creationTimestamp desc"`. This sorts results based on the `creationTimestamp` field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first. Currently, only sorting by `name` or `creationTimestamp desc` is supported.
+        pub order_by: std::option::Option<std::string::String>,
+
+        /// Specifies a page token to use. Set `pageToken` to the `nextPageToken` returned by a previous list request to get the next page of results.
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Opt-in for partial success behavior which provides partial results in case of failure. The default value is false. For example, when partial success behavior is enabled, aggregatedList for a single zone scope either returns all resources in the zone or no resources, with an error code.
+        pub return_partial_success: std::option::Option<bool>,
+
+        /// The name of the zone for this request.
+        pub zone: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ListRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filter][crate::model::machine_types::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::machine_types::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::machine_types::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::machine_types::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::machine_types::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::machine_types::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::machine_types::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::machine_types::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::machine_types::ListRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::machine_types::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::machine_types::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::machine_types::ListRequest::zone].
+        pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.zone = v.into();
+            self
+        }
     }
 }
 

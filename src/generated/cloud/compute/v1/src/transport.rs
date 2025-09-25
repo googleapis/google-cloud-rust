@@ -18,6 +18,259 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
+/// Implements [MachineTypes](super::stub::MachineTypes) using a [gaxi::http::ReqwestClient].
+#[derive(Clone)]
+pub struct MachineTypes {
+    inner: gaxi::http::ReqwestClient,
+}
+
+impl std::fmt::Debug for MachineTypes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("MachineTypes")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl MachineTypes {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::MachineTypes for MachineTypes {
+    async fn aggregated_list(
+        &self,
+        req: crate::model::machine_types::AggregatedListRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::MachineTypeAggregatedList>> {
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        let (builder, method) = None
+            .or_else(|| {
+                let path = format!(
+                    "/compute/v1/projects/{}/aggregated/machineTypes",
+                    try_match(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = req
+                    .filter
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                let builder = req.include_all_scopes.iter().fold(builder, |builder, p| {
+                    builder.query(&[("includeAllScopes", p)])
+                });
+                let builder = req
+                    .max_results
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
+                let builder = req
+                    .order_by
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
+                let builder = req
+                    .page_token
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                let builder = req
+                    .return_partial_success
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("returnPartialSuccess", p)])
+                    });
+                let builder = req
+                    .service_project_number
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("serviceProjectNumber", p)])
+                    });
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get(
+        &self,
+        req: crate::model::machine_types::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::MachineType>> {
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        let (builder, method) = None
+            .or_else(|| {
+                let path = format!(
+                    "/compute/v1/projects/{}/zones/{}/machineTypes/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match(
+                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match(
+                        Some(&req).map(|m| &m.machine_type).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "zone",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.machine_type).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "machine_type",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list(
+        &self,
+        req: crate::model::machine_types::ListRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::MachineTypeList>> {
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        let (builder, method) = None
+            .or_else(|| {
+                let path = format!(
+                    "/compute/v1/projects/{}/zones/{}/machineTypes",
+                    try_match(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                    try_match(
+                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = req
+                    .filter
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                let builder = req
+                    .max_results
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
+                let builder = req
+                    .order_by
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
+                let builder = req
+                    .page_token
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                let builder = req
+                    .return_partial_success
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("returnPartialSuccess", p)])
+                    });
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "zone",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+}
+
 /// Implements [Zones](super::stub::Zones) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Zones {
