@@ -15,10 +15,12 @@ should not introduce breaking changes to the client libraries.
 
 The main types to work with this crate are the clients:
 
+- [MachineTypes]
 - [Zones]
 
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-compute-v1/latest/google-cloud-compute-v1)
 
+[MachineTypes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.MachineTypes.html
 [Zones]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Zones.html
