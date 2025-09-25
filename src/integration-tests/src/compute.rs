@@ -61,6 +61,30 @@ pub async fn machine_types() -> Result<()> {
     }
     tracing::info!("DONE with MachineTypes::list()");
 
+    tracing::info!("Testing MachineTypes::aggregated_list()");
+    let mut token = String::new();
+    loop {
+        let mut response = client
+            .aggregated_list()
+            .set_project(&project_id)
+            .set_page_token(&token)
+            .send()
+            .await?;
+        response
+            .items
+            .drain()
+            .filter(|(_k, v)| !v.machine_types.is_empty())
+            .for_each(|(k, v)| {
+                tracing::info!("item[{k}] has {} machine types", v.machine_types.len());
+            });
+        tracing::info!("MachineTypes::aggregated_list = {response:?}");
+        token = response.next_page_token;
+        if token.is_empty() {
+            break;
+        }
+    }
+    tracing::info!("DONE with MachineTypes::aggregated_list()");
+
     tracing::info!("Testing MachineTypes::get()");
     // us-central1-a is well-known, and if it goes away fixing this test is the
     // least of our problems.
