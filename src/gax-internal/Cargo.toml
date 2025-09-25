@@ -39,6 +39,7 @@ _internal-http-client = [
   "dep:gax",
   "dep:http",
   "dep:http-body-util",
+  "dep:opentelemetry-semantic-conventions",
   "dep:reqwest",
   "dep:rpc",
   "dep:serde",
@@ -63,19 +64,20 @@ _internal-grpc-client = [
 _internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
 
 [dependencies]
-bytes            = { workspace = true, optional = true, features = ["serde"] }
-http             = { workspace = true, optional = true, features = ["std"] }
-http-body-util   = { workspace = true, optional = true }
-percent-encoding = { workspace = true, optional = true }
-prost            = { workspace = true, optional = true }
-prost-types      = { workspace = true, optional = true }
-reqwest          = { workspace = true, optional = true }
-serde            = { workspace = true, optional = true }
-serde_json       = { workspace = true, optional = true }
-thiserror        = { workspace = true, optional = true }
-tokio            = { workspace = true, optional = true, features = ["macros", "rt-multi-thread"] }
-tonic            = { workspace = true, optional = true }
-tonic-prost      = { workspace = true, optional = true }
+bytes                              = { workspace = true, optional = true, features = ["serde"] }
+http                               = { workspace = true, optional = true, features = ["std"] }
+http-body-util                     = { workspace = true, optional = true }
+opentelemetry-semantic-conventions = { workspace = true, optional = true }
+percent-encoding                   = { workspace = true, optional = true }
+prost                              = { workspace = true, optional = true }
+prost-types                        = { workspace = true, optional = true }
+reqwest                            = { workspace = true, optional = true }
+serde                              = { workspace = true, optional = true }
+serde_json                         = { workspace = true, optional = true }
+thiserror                          = { workspace = true, optional = true }
+tokio                              = { workspace = true, optional = true, features = ["macros", "rt-multi-thread"] }
+tonic                              = { workspace = true, optional = true }
+tonic-prost                        = { workspace = true, optional = true }
 # Local crates
 auth = { workspace = true, optional = true }
 gax  = { workspace = true, optional = true }
