@@ -233,6 +233,21 @@ impl std::fmt::Debug for super::Topic {
     }
 }
 
+impl std::fmt::Debug for super::PubsubMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PubsubMessage");
+        debug_struct.field("data", &self.data);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("message_id", &self.message_id);
+        debug_struct.field("publish_time", &self.publish_time);
+        debug_struct.field("ordering_key", &self.ordering_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GetTopicRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetTopicRequest");
@@ -249,6 +264,29 @@ impl std::fmt::Debug for super::UpdateTopicRequest {
         let mut debug_struct = f.debug_struct("UpdateTopicRequest");
         debug_struct.field("topic", &self.topic);
         debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PublishRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PublishRequest");
+        debug_struct.field("topic", &self.topic);
+        debug_struct.field("messages", &self.messages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PublishResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PublishResponse");
+        debug_struct.field("message_ids", &self.message_ids);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
