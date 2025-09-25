@@ -329,6 +329,11 @@ clap               = { default-features = false, version = "4" }
 parse-size         = { default-features = false, version = "1" }
 humantime          = { default-features = false, version = "2" }
 
+# Experimental for attributes like `http.request.resend_count`.  This long name breaks formatting above.
+opentelemetry-semantic-conventions = { default-features = false, version = "0.30.0", features = [
+  "semconv_experimental",
+] }
+
 # Test packages
 anyhow            = { default-features = false, version = "1.0.99", features = ["std"] }
 axum              = { default-features = false, version = "0.8" }
