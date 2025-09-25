@@ -915,6 +915,7 @@ pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
                 .set_labels([("integration-test", "true")]),
         )
         .with_backoff_policy(test_backoff())
+        .with_idempotency(true)
         .send()
         .await?;
     tracing::info!("SUCCESS on create_bucket: {create:?}");
@@ -947,6 +948,7 @@ pub async fn buckets(builder: storage::builder::storage_control::ClientBuilder) 
                 )),
         )
         .with_backoff_policy(test_backoff())
+        .with_idempotency(true)
         .send()
         .await?;
     println!("SUCCESS on create_bucket: {create:?}");
@@ -976,7 +978,12 @@ pub async fn buckets(builder: storage::builder::storage_control::ClientBuilder) 
     folders(&client, &bucket_name).await?;
 
     println!("\nTesting delete_bucket()");
-    client.delete_bucket().set_name(bucket_name).send().await?;
+    client
+        .delete_bucket()
+        .set_name(bucket_name)
+        .with_idempotency(true)
+        .send()
+        .await?;
     println!("SUCCESS on delete_bucket");
 
     Ok(())
@@ -1014,6 +1021,7 @@ async fn buckets_iam(client: &StorageControl, bucket_name: &str) -> Result<()> {
         .set_resource(bucket_name)
         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
         .set_policy(new_policy)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("SUCCESS on set_iam_policy = {policy:?}");
