@@ -31,6 +31,7 @@
 //!
 //! # Available Clients
 //!
+//! * [MachineTypes](client/struct.MachineTypes.html)
 //! * [Zones](client/struct.Zones.html)
 
 /// The messages and enums that are part of this client library.

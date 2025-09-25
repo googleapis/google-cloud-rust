@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
-use compute::client::Zones;
+use compute::client::{MachineTypes, Zones};
 use gax::paginator::ItemPaginator as _;
 
 pub async fn zones() -> Result<()> {
@@ -42,6 +42,37 @@ pub async fn zones() -> Result<()> {
         "response={response:?}"
     );
     tracing::info!("Zones::get() = {response:?}");
+
+    Ok(())
+}
+
+pub async fn machine_types() -> Result<()> {
+    let client = MachineTypes::builder().with_tracing().build().await?;
+    let project_id = crate::project_id()?;
+
+    tracing::info!("Testing MachineTypes::list()");
+    let mut items = client
+        .list()
+        .set_project(&project_id)
+        .set_zone("us-central1-a")
+        .by_item();
+    while let Some(item) = items.next().await.transpose()? {
+        tracing::info!("item = {item:?}");
+    }
+    tracing::info!("DONE with MachineTypes::list()");
+
+    tracing::info!("Testing MachineTypes::get()");
+    // us-central1-a is well-known, and if it goes away fixing this test is the
+    // least of our problems.
+    let response = client
+        .get()
+        .set_project(&project_id)
+        .set_zone("us-central1-a")
+        .set_machine_type("f1-micro")
+        .send()
+        .await?;
+    assert!(response.is_shared_cpu, "response={response:?}");
+    tracing::info!("MachineTypes::get() = {response:?}");
 
     Ok(())
 }

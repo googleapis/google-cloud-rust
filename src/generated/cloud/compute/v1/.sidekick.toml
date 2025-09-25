@@ -20,6 +20,7 @@ service-config       = 'google/cloud/compute/v1/compute_v1.yaml'
 [source]
 roots = 'discovery,googleapis'
 included-ids = """\
+    .google.cloud.compute.v1.machineTypes,\
     .google.cloud.compute.v1.zones\
     """
 

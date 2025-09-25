@@ -21,6 +21,124 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::MachineTypes;
+/// let client = MachineTypes::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `machineTypes` resource.
+///
+/// # Configuration
+///
+/// To configure `MachineTypes` use the `with_*` methods in the type returned
+/// by [builder()][MachineTypes::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::machine_types::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::machine_types::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `MachineTypes` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `MachineTypes` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct MachineTypes {
+    inner: std::sync::Arc<dyn super::stub::dynamic::MachineTypes>,
+}
+
+impl MachineTypes {
+    /// Returns a builder for [MachineTypes].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::MachineTypes;
+    /// let client = MachineTypes::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::machine_types::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::machine_types::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::MachineTypes + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MachineTypes>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::MachineTypes> {
+        super::transport::MachineTypes::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::MachineTypes> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::MachineTypes::new)
+    }
+
+    /// Retrieves an aggregated list of machine types. To prevent failure, Google recommends that you set the `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::machine_types::AggregatedList {
+        super::builder::machine_types::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Returns the specified machine type.
+    pub fn get(&self) -> super::builder::machine_types::Get {
+        super::builder::machine_types::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of machine types available to the specified project.
+    pub fn list(&self) -> super::builder::machine_types::List {
+        super::builder::machine_types::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_compute_v1::client::Zones;
 /// let client = Zones::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
