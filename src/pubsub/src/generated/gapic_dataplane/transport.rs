@@ -18,10 +18,27 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Publisher](super::stub::Publisher) using a [gaxi::http::ReqwestClient].
+const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";
+
+mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
+            let ac = gaxi::api_header::XGoogApiClient{
+                name:          NAME,
+                version:       VERSION,
+                library_type:  gaxi::api_header::GAPIC,
+            };
+            ac.grpc_header_value()
+        };
+    }
+}
+
+/// Implements [Publisher](super::stub::Publisher) using a Tonic-generated client.
 #[derive(Clone)]
 pub struct Publisher {
-    inner: gaxi::http::ReqwestClient,
+    inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Publisher {
@@ -34,7 +51,7 @@ impl std::fmt::Debug for Publisher {
 
 impl Publisher {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -45,57 +62,36 @@ impl super::stub::Publisher for Publisher {
         req: crate::model::PublishRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PublishResponse>> {
-        use gax::error::binding::BindingError;
-        use gaxi::path_parameter::PathMismatchBuilder;
-        use gaxi::path_parameter::try_match;
-        use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1/{}:publish",
-                    try_match(
-                        Some(&req).map(|m| &m.topic).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/topics/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.pubsub.v1.Publisher",
+                "Publish",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.pubsub.v1.Publisher/Publish");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.topic)
+            .map(|s| s.as_str())
+            .map(|v| format!("topic={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
-                let builder = self.inner.builder(reqwest::Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.topic).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/topics/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "topic",
-                        "projects/*/topics/*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
-        let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        type TR = crate::google::pubsub::v1::PublishResponse;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::PublishResponse>)
     }
 }

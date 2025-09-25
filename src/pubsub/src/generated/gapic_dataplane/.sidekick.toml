@@ -23,7 +23,7 @@ included-ids = """\
 
 [codec]
 copyright-year        = '2025'
-template-override     = 'templates/http-client'
+template-override     = 'templates/grpc-client'
 package-name-override = 'google-cloud-pubsub'
 has-veneer            = 'true'
 internal-types        = '.google.pubsub.v1.PublishRequest,.google.pubsub.v1.PublishResponse,.google.pubsub.v1.PubsubMessage'
