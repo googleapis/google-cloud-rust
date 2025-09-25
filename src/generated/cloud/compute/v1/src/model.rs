@@ -305,6 +305,20 @@ impl wkt::message::Message for ZoneList {
     }
 }
 
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ZoneList {
+    type PageItem = crate::model::Zone;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.items
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Synthetic messages for the [zones][google.cloud.compute.v1.zones] service
 ///
 /// [google.cloud.compute.v1.zones]: crate::model::Zones

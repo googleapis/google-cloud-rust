@@ -14,6 +14,7 @@
 
 use crate::Result;
 use compute::client::Zones;
+use gax::paginator::ItemPaginator as _;
 
 pub async fn zones() -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -34,8 +35,11 @@ pub async fn zones() -> Result<()> {
     let project_id = crate::project_id()?;
 
     tracing::info!("Testing Zones::list()");
-    let response = client.list().set_project(&project_id).send().await?;
-    tracing::info!("response={response:?}");
+    let mut items = client.list().set_project(&project_id).by_item();
+    while let Some(item) = items.next().await.transpose()? {
+        tracing::info!("item = {item:?}");
+    }
+    tracing::info!("DONE with Zones::list()");
 
     Ok(())
 }
