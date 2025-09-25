@@ -39,7 +39,7 @@ impl serde::ser::Serialize for super::DeprecationStatus {
         if !self.replacement.is_empty() {
             state.serialize_entry("replacement", &self.replacement)?;
         }
-        if !self.state.is_empty() {
+        if !wkt::internal::is_default(&self.state) {
             state.serialize_entry("state", &self.state)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -97,7 +97,7 @@ impl serde::ser::Serialize for super::Zone {
         if !self.self_link.is_empty() {
             state.serialize_entry("selfLink", &self.self_link)?;
         }
-        if !self.status.is_empty() {
+        if !wkt::internal::is_default(&self.status) {
             state.serialize_entry("status", &self.status)?;
         }
         if !wkt::internal::is_default(&self.supports_pzs) {

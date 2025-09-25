@@ -51,7 +51,7 @@ pub struct DeprecationStatus {
     pub replacement: std::string::String,
 
     /// The deprecation state of this resource. This can be ACTIVE, DEPRECATED, OBSOLETE, or DELETED. Operations which communicate the end of life date for an image, can use ACTIVE. Operations which create a new resource using a DEPRECATED resource will return successfully, but with a warning indicating the deprecated resource and recommending its replacement. Operations which use OBSOLETE or DELETED resources will be rejected and result in an error.
-    pub state: std::string::String,
+    pub state: crate::model::deprecation_status::State,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -86,7 +86,10 @@ impl DeprecationStatus {
     }
 
     /// Sets the value of [state][crate::model::DeprecationStatus::state].
-    pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::deprecation_status::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
@@ -95,6 +98,149 @@ impl DeprecationStatus {
 impl wkt::message::Message for DeprecationStatus {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.DeprecationStatus"
+    }
+}
+
+/// Defines additional types related to [DeprecationStatus].
+pub mod deprecation_status {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [state][google.cloud.compute.v1.DeprecationStatus.state] field.
+    ///
+    /// [google.cloud.compute.v1.DeprecationStatus.state]: crate::model::deprecation_status::State
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        Active,
+        Deleted,
+        Deprecated,
+        Obsolete,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Active => std::option::Option::Some(0),
+                Self::Deleted => std::option::Option::Some(1),
+                Self::Deprecated => std::option::Option::Some(2),
+                Self::Obsolete => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::Deprecated => std::option::Option::Some("DEPRECATED"),
+                Self::Obsolete => std::option::Option::Some("OBSOLETE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Active,
+                1 => Self::Deleted,
+                2 => Self::Deprecated,
+                3 => Self::Obsolete,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ACTIVE" => Self::Active,
+                "DELETED" => Self::Deleted,
+                "DEPRECATED" => Self::Deprecated,
+                "OBSOLETE" => Self::Obsolete,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Active => serializer.serialize_i32(0),
+                Self::Deleted => serializer.serialize_i32(1),
+                Self::Deprecated => serializer.serialize_i32(2),
+                Self::Obsolete => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.compute.v1.DeprecationStatus.state",
+            ))
+        }
     }
 }
 
@@ -130,7 +276,7 @@ pub struct Zone {
     pub self_link: std::string::String,
 
     /// [Output Only] Status of the zone, either UP or DOWN.
-    pub status: std::string::String,
+    pub status: crate::model::zone::Status,
 
     /// [Output Only] Reserved for future use.
     pub supports_pzs: bool,
@@ -218,7 +364,7 @@ impl Zone {
     }
 
     /// Sets the value of [status][crate::model::Zone::status].
-    pub fn set_status<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+    pub fn set_status<T: std::convert::Into<crate::model::zone::Status>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
@@ -233,6 +379,137 @@ impl Zone {
 impl wkt::message::Message for Zone {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.Zone"
+    }
+}
+
+/// Defines additional types related to [Zone].
+pub mod zone {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [status][google.cloud.compute.v1.Zone.status] field.
+    ///
+    /// [google.cloud.compute.v1.Zone.status]: crate::model::zone::Status
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Status {
+        Down,
+        Up,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Status::value] or
+        /// [Status::name].
+        UnknownValue(status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Status {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Down => std::option::Option::Some(0),
+                Self::Up => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Down => std::option::Option::Some("DOWN"),
+                Self::Up => std::option::Option::Some("UP"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Down,
+                1 => Self::Up,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Status {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DOWN" => Self::Down,
+                "UP" => Self::Up,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Status {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Down => serializer.serialize_i32(0),
+                Self::Up => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Status {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
+                ".google.cloud.compute.v1.Zone.status",
+            ))
+        }
     }
 }
 
