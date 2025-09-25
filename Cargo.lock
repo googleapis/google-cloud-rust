@@ -3856,12 +3856,16 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
  "google-cloud-wkt",
+ "http",
  "lazy_static",
+ "prost",
+ "prost-types",
  "reqwest",
  "serde",
  "serde_json",
  "serde_with",
  "tokio-test",
+ "tonic",
  "tracing",
 ]
 

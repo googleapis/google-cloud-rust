@@ -29,10 +29,13 @@ pub(crate) mod generated;
 pub use gax::Result;
 pub use gax::error::Error;
 
-pub use generated::gapic::model;
 pub mod builder {
     pub use crate::generated::gapic::builder::*;
     pub use crate::generated::gapic_dataplane::builder::*;
+}
+pub mod model {
+    pub use crate::generated::gapic::model::*;
+    pub use crate::generated::gapic_dataplane::model::*;
 }
 pub mod client {
     pub use crate::generated::gapic::client::*;
@@ -57,5 +60,14 @@ mod info {
             };
             ac.grpc_header_value()
         };
+    }
+}
+
+pub(crate) mod google {
+    pub mod pubsub {
+        pub mod v1 {
+            include!("generated/protos/pubsub/google.pubsub.v1.rs");
+            include!("generated/convert/pubsub/convert.rs");
+        }
     }
 }

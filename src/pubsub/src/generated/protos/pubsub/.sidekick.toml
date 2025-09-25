@@ -13,8 +13,8 @@
 # limitations under the License.
 
 [general]
+language             = 'rust+prost'
 specification-source = 'google/pubsub/v1'
-service-config       = 'google/pubsub/v1/pubsub_v1.yaml'
 
 [source]
 included-ids = """\
@@ -22,7 +22,5 @@ included-ids = """\
     """
 
 [codec]
-copyright-year        = '2025'
-template-override     = 'templates/grpc-client'
-package-name-override = 'google-cloud-pubsub'
-has-veneer            = 'true'
+copyright-year    = '2025'
+template-override = 'templates/prost'

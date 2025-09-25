@@ -31,7 +31,7 @@ mod serialize;
 /// limits.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
-pub(crate) struct PubsubMessage {
+pub struct PubsubMessage {
     /// Optional. The message data field. If this field is empty, the message must
     /// contain at least one attribute.
     pub data: ::bytes::Bytes,
@@ -128,7 +128,7 @@ impl wkt::message::Message for PubsubMessage {
 /// Request for the Publish method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
-pub(crate) struct PublishRequest {
+pub struct PublishRequest {
     /// Required. The messages in the request will be published on this topic.
     /// Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
@@ -171,7 +171,7 @@ impl wkt::message::Message for PublishRequest {
 /// Response for the `Publish` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
-pub(crate) struct PublishResponse {
+pub struct PublishResponse {
     /// Optional. The server-assigned ID of each published message, in the same
     /// order as the messages in the request. IDs are guaranteed to be unique
     /// within the topic.
