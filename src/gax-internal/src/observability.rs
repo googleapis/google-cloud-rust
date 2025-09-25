@@ -487,48 +487,28 @@ mod tests {
         let attributes = spans.get(&id).expect("span not found");
 
         // Check all attributes set in create_span
-        assert_eq!(attributes.len(), 15, "Unexpected number of attributes");
-        assert_eq!(attributes.get(KEY_OTEL_NAME).unwrap(), "GET /test");
-        assert_eq!(attributes.get(KEY_OTEL_KIND).unwrap(), "Client");
-        assert_eq!(attributes.get(otel_trace::RPC_SYSTEM).unwrap(), "http");
-        assert_eq!(
-            attributes.get(otel_trace::HTTP_REQUEST_METHOD).unwrap(),
-            "GET"
-        );
-        assert_eq!(
-            attributes.get(otel_trace::SERVER_ADDRESS).unwrap(),
-            "example.com"
-        );
-        assert_eq!(attributes.get(otel_trace::SERVER_PORT).unwrap(), "443");
-        assert_eq!(
-            attributes.get(otel_trace::URL_FULL).unwrap(),
-            "https://example.com/test"
-        );
-        assert_eq!(attributes.get(otel_trace::URL_SCHEME).unwrap(), "https");
-        assert_eq!(attributes.get(otel_attr::URL_TEMPLATE).unwrap(), "/test");
-        assert_eq!(
-            attributes.get(otel_attr::URL_DOMAIN).unwrap(),
-            "example.com"
-        );
-        assert_eq!(
-            attributes.get(KEY_GCP_CLIENT_SERVICE).unwrap(),
-            "test.service"
-        );
-        assert_eq!(attributes.get(KEY_GCP_CLIENT_VERSION).unwrap(), "1.2.3");
-        assert_eq!(
-            attributes.get(KEY_GCP_CLIENT_REPO).unwrap(),
-            "googleapis/google-cloud-rust"
-        );
-        assert_eq!(
-            attributes.get(KEY_GCP_CLIENT_ARTIFACT).unwrap(),
-            "google-cloud-test"
-        );
-        assert_eq!(
-            attributes
-                .get(otel_trace::HTTP_REQUEST_RESEND_COUNT)
-                .unwrap(),
-            "1"
-        );
+        let expected: HashMap<String, String> = [
+            (KEY_OTEL_NAME, "GET /test"),
+            (KEY_OTEL_KIND, "Client"),
+            (otel_trace::RPC_SYSTEM, "http"),
+            (otel_trace::HTTP_REQUEST_METHOD, "GET"),
+            (otel_trace::SERVER_ADDRESS, "example.com"),
+            (otel_trace::SERVER_PORT, "443"),
+            (otel_trace::URL_FULL, "https://example.com/test"),
+            (otel_trace::URL_SCHEME, "https"),
+            (otel_attr::URL_TEMPLATE, "/test"),
+            (otel_attr::URL_DOMAIN, "example.com"),
+            (KEY_GCP_CLIENT_SERVICE, "test.service"),
+            (KEY_GCP_CLIENT_VERSION, "1.2.3"),
+            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+            (KEY_GCP_CLIENT_ARTIFACT, "google-cloud-test"),
+            (otel_trace::HTTP_REQUEST_RESEND_COUNT, "1"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+
+        assert_eq!(attributes, &expected);
     }
 
     #[tokio::test]
@@ -546,21 +526,25 @@ mod tests {
             let span = span_info.create_span();
             span.id().unwrap()
         });
-
         let spans = layer.spans.lock().unwrap();
         let attributes = spans.get(&id).expect("span not found");
 
-        // Check only attributes that should be None or not present
-        assert_eq!(attributes.len(), 9, "Unexpected number of attributes");
-        assert!(attributes.get(otel_attr::URL_TEMPLATE).is_none());
-        assert!(attributes.get(otel_attr::URL_DOMAIN).is_none());
-        assert!(attributes.get(KEY_GCP_CLIENT_SERVICE).is_none());
-        assert!(attributes.get(KEY_GCP_CLIENT_VERSION).is_none());
-        assert!(attributes.get(KEY_GCP_CLIENT_ARTIFACT).is_none());
-        assert!(
-            attributes
-                .get(otel_trace::HTTP_REQUEST_RESEND_COUNT)
-                .is_none()
-        );
+        // Check only attributes that should be present
+        let expected: HashMap<String, String> = [
+            (KEY_OTEL_NAME, "POST"),
+            (KEY_OTEL_KIND, "Client"),
+            (otel_trace::RPC_SYSTEM, "http"),
+            (otel_trace::HTTP_REQUEST_METHOD, "POST"),
+            (otel_trace::SERVER_ADDRESS, "localhost"),
+            (otel_trace::SERVER_PORT, "8080"),
+            (otel_trace::URL_FULL, "http://localhost:8080/"),
+            (otel_trace::URL_SCHEME, "http"),
+            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+
+        assert_eq!(attributes, &expected);
     }
 }
