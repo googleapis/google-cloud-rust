@@ -128,9 +128,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DeprecationStatus {
                                     "multiple values for state",
                                 ));
                             }
-                            result.state = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.state = map.next_value::<std::option::Option<crate::model::deprecation_status::State>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -326,7 +324,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Zone {
                                 ));
                             }
                             result.status = map
-                                .next_value::<std::option::Option<std::string::String>>()?
+                                .next_value::<std::option::Option<crate::model::zone::Status>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__supports_pzs => {
