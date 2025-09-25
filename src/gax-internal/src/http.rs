@@ -23,8 +23,7 @@ use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErro
 use gax::response::{Parts, Response};
 use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
-use http::{Extensions, Method, Uri};
-use std::str::FromStr;
+use http::{Extensions, Method};
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -49,7 +48,7 @@ impl ReqwestClient {
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
         let inner = reqwest::Client::new();
-        let host = host_from_endpoint(config.endpoint.as_deref(), default_endpoint)?;
+        let host = crate::host::host_from_endpoint(config.endpoint.as_deref(), default_endpoint)?;
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
@@ -278,44 +277,6 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
         Parts::new().set_headers(parts.headers),
         response,
     ))
-}
-
-fn host_from_endpoint(
-    endpoint: Option<&str>,
-    default_endpoint: &str,
-) -> gax::client_builder::Result<String> {
-    let default_host = Uri::from_str(default_endpoint)
-        .map_err(BuilderError::transport)?
-        .authority()
-        .expect("missing authority in default endpoint")
-        .host()
-        .to_string();
-
-    if let Some(endpoint) = endpoint {
-        let custom_host = Uri::from_str(endpoint)
-            .map_err(BuilderError::transport)?
-            .authority()
-            .ok_or_else(|| BuilderError::transport("missing authority in endpoint"))?
-            .host()
-            .to_string();
-        if let (Some(prefix), Some(service)) = (
-            custom_host.strip_suffix(".googleapis.com"),
-            default_host.strip_suffix(".googleapis.com"),
-        ) {
-            let parts: Vec<&str> = prefix.split(".").collect();
-            if parts.len() == 3 && parts[0] == service && parts[2] == "rep" {
-                // This is a regional endpoint. It should be used as the host.
-                // `{service}.{region}.rep.googleapis.com`
-                return Ok(custom_host);
-            }
-            if parts.len() == 1 && parts[0].ends_with(&format!("-{service}")) {
-                // This is a locational endpoint. It should be used as the host.
-                // `{region}-{service}.googleapis.com`
-                return Ok(custom_host);
-            }
-        }
-    }
-    Ok(default_host)
 }
 
 #[cfg(test)]
