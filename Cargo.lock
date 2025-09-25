@@ -2591,6 +2591,7 @@ dependencies = [
  "http-body-util",
  "httptest",
  "mockall",
+ "opentelemetry-semantic-conventions",
  "percent-encoding",
  "prost",
  "prost-types",
@@ -5713,6 +5714,12 @@ name = "openssl-probe"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
+
+[[package]]
+name = "opentelemetry-semantic-conventions"
+version = "0.30.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "83d059a296a47436748557a353c5e6c5705b9470ef6c95cfc52c21a8814ddac2"
 
 [[package]]
 name = "parking_lot"
