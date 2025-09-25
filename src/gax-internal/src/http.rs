@@ -49,12 +49,7 @@ impl ReqwestClient {
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
         let inner = reqwest::Client::new();
-        let uri = Uri::from_str(default_endpoint).map_err(BuilderError::transport)?;
-        let host = uri
-            .authority()
-            .ok_or_else(|| BuilderError::transport("missing authority in default endpoint"))?
-            .host()
-            .to_string();
+        let host = host_from_endpoint(config.endpoint.as_deref(), default_endpoint)?;
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
@@ -285,6 +280,44 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
     ))
 }
 
+fn host_from_endpoint(
+    endpoint: Option<&str>,
+    default_endpoint: &str,
+) -> gax::client_builder::Result<String> {
+    let default_host = Uri::from_str(default_endpoint)
+        .map_err(BuilderError::transport)?
+        .authority()
+        .expect("missing authority in default endpoint")
+        .host()
+        .to_string();
+
+    if let Some(endpoint) = endpoint {
+        let custom_host = Uri::from_str(endpoint)
+            .map_err(BuilderError::transport)?
+            .authority()
+            .ok_or_else(|| BuilderError::transport("missing authority in endpoint"))?
+            .host()
+            .to_string();
+        if let (Some(prefix), Some(service)) = (
+            custom_host.strip_suffix(".googleapis.com"),
+            default_host.strip_suffix(".googleapis.com"),
+        ) {
+            let parts: Vec<&str> = prefix.split(".").collect();
+            if parts.len() == 3 && parts[0] == service && parts[2] == "rep" {
+                // This is a regional endpoint. It should be used as the host.
+                // `{service}.{region}.rep.googleapis.com`
+                return Ok(custom_host);
+            }
+            if parts.len() == 1 && parts[0].ends_with(&format!("-{service}")) {
+                // This is a locational endpoint. It should be used as the host.
+                // `{region}-{service}.googleapis.com`
+                return Ok(custom_host);
+            }
+        }
+    }
+    Ok(default_host)
+}
+
 #[cfg(test)]
 mod tests {
     use http::{HeaderMap, HeaderValue, Method};
@@ -450,5 +483,46 @@ mod tests {
         assert_eq!(info.client_version, "1.2.3");
         assert_eq!(info.client_artifact, "test-artifact");
         assert_eq!(info.default_host, "test.googleapis.com");
+    }
+
+    #[test_case(None, "test.googleapis.com"; "default")]
+    #[test_case(Some("http://www.googleapis.com"), "test.googleapis.com"; "global")]
+    #[test_case(Some("http://private.googleapis.com"), "test.googleapis.com"; "VPC-SC private")]
+    #[test_case(Some("http://restricted.googleapis.com"), "test.googleapis.com"; "VPC-SC restricted")]
+    #[test_case(Some("http://test-my-private-ep.p.googleapis.com"), "test.googleapis.com"; "PSC custom endpoint")]
+    #[test_case(Some("https://us-central1-test.googleapis.com"), "us-central1-test.googleapis.com"; "locational endpoint")]
+    #[test_case(Some("https://test.us-central1.rep.googleapis.com"), "test.us-central1.rep.googleapis.com"; "regional endpoint")]
+    #[test_case(Some("https://test.my-universe-domain.com"), "test.googleapis.com"; "universe domain")]
+    #[test_case(Some("localhost:5678"), "test.googleapis.com"; "emulator")]
+    #[tokio::test]
+    async fn host_from_endpoint(
+        custom_endpoint: Option<&str>,
+        expected_host: &str,
+    ) -> anyhow::Result<()> {
+        let mut config = ClientConfig::default();
+        config.endpoint = custom_endpoint.map(String::from);
+        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        let client = ReqwestClient::new(config.clone(), "https://test.googleapis.com/").await?;
+        assert_eq!(client.host, expected_host);
+
+        // Rarely, (I think only in GCS), does the default endpoint end without
+        // a `/`. Make sure everything still works.
+        let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        assert_eq!(client.host, expected_host);
+
+        Ok(())
+    }
+
+    #[test_case(None; "default")]
+    #[test_case(Some("localhost:5678"); "custom")]
+    #[tokio::test]
+    async fn host_from_endpoint_showcase(custom_endpoint: Option<&str>) -> anyhow::Result<()> {
+        let mut config = ClientConfig::default();
+        config.endpoint = custom_endpoint.map(String::from);
+        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        let client = ReqwestClient::new(config.clone(), "https://localhost:7469/").await?;
+        assert_eq!(client.host, "localhost");
+
+        Ok(())
     }
 }

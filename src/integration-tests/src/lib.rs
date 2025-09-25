@@ -16,6 +16,7 @@ use anyhow::Error;
 use rand::{Rng, distr::Alphanumeric};
 
 pub type Result<T> = anyhow::Result<T>;
+pub mod aiplatform;
 pub mod bigquery;
 pub mod compute;
 pub mod error_details;
