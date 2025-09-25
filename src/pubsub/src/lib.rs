@@ -29,10 +29,19 @@ pub(crate) mod generated;
 pub use gax::Result;
 pub use gax::error::Error;
 
-pub use generated::gapic::builder;
-pub use generated::gapic::client;
 pub use generated::gapic::model;
-pub use generated::gapic::stub;
+pub mod builder {
+    pub use crate::generated::gapic::builder::*;
+    pub use crate::generated::gapic_dataplane::builder::*;
+}
+pub mod client {
+    pub use crate::generated::gapic::client::*;
+    pub use crate::generated::gapic_dataplane::client::*;
+}
+pub mod stub {
+    pub use crate::generated::gapic::stub::*;
+    pub use crate::generated::gapic_dataplane::stub::*;
+}
 
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";
 

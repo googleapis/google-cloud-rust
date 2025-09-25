@@ -18,18 +18,18 @@
 
 /// Implements a client for the Cloud Pub/Sub API.
 #[derive(Clone, Debug)]
-pub struct TopicAdmin {
-    inner: std::sync::Arc<dyn super::stub::dynamic::TopicAdmin>,
+pub struct Publisher {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Publisher>,
 }
 
-impl TopicAdmin {
+impl Publisher {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stub::TopicAdmin + 'static,
+        T: super::stub::Publisher + 'static,
     {
         Self {
             inner: std::sync::Arc::new(stub),
@@ -45,7 +45,7 @@ impl TopicAdmin {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TopicAdmin>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Publisher>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -54,21 +54,21 @@ impl TopicAdmin {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TopicAdmin> {
-        super::transport::TopicAdmin::new(conf).await
+    ) -> gax::client_builder::Result<impl super::stub::Publisher> {
+        super::transport::Publisher::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TopicAdmin> {
+    ) -> gax::client_builder::Result<impl super::stub::Publisher> {
         Self::build_transport(conf)
             .await
-            .map(super::tracing::TopicAdmin::new)
+            .map(super::tracing::Publisher::new)
     }
 
     /// Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic
     /// does not exist.
-    pub fn publish(&self) -> super::builder::topic_admin::Publish {
-        super::builder::topic_admin::Publish::new(self.inner.clone())
+    pub fn publish(&self) -> super::builder::publisher::Publish {
+        super::builder::publisher::Publish::new(self.inner.clone())
     }
 }

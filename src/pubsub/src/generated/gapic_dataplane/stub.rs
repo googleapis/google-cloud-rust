@@ -26,19 +26,19 @@
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [super::client::TopicAdmin].
+/// Defines the trait used to implement [super::client::Publisher].
 ///
 /// Application developers may need to implement this trait to mock
-/// `client::TopicAdmin`.  In other use-cases, application developers only
-/// use `client::TopicAdmin` and need not be concerned with this trait or
+/// `client::Publisher`.  In other use-cases, application developers only
+/// use `client::Publisher` and need not be concerned with this trait or
 /// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
-pub trait TopicAdmin: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::TopicAdmin::publish].
+pub trait Publisher: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Publisher::publish].
     fn publish(
         &self,
         _req: crate::model::PublishRequest,

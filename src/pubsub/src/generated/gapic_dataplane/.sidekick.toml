@@ -25,5 +25,5 @@ included-ids = """\
 copyright-year        = '2025'
 template-override     = 'templates/http-client'
 package-name-override = 'google-cloud-pubsub'
-name-overrides        = '.google.pubsub.v1.Publisher=TopicAdmin,.google.pubsub.v1.Subscriber=SubscriptionAdmin'
 has-veneer            = 'true'
+internal-types        = '.google.pubsub.v1.PublishRequest,.google.pubsub.v1.PublishResponse,.google.pubsub.v1.PubsubMessage'

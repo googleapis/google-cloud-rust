@@ -18,28 +18,28 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [TopicAdmin](super::stub::TopicAdmin) using a [gaxi::http::ReqwestClient].
+/// Implements [Publisher](super::stub::Publisher) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
-pub struct TopicAdmin {
+pub struct Publisher {
     inner: gaxi::http::ReqwestClient,
 }
 
-impl std::fmt::Debug for TopicAdmin {
+impl std::fmt::Debug for Publisher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("TopicAdmin")
+        f.debug_struct("Publisher")
             .field("inner", &self.inner)
             .finish()
     }
 }
 
-impl TopicAdmin {
+impl Publisher {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl super::stub::TopicAdmin for TopicAdmin {
+impl super::stub::Publisher for Publisher {
     async fn publish(
         &self,
         req: crate::model::PublishRequest,

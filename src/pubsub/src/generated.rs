@@ -13,4 +13,5 @@
 // limitations under the License.
 
 pub(crate) mod gapic;
+#[allow(dead_code)]
 pub(crate) mod gapic_dataplane;
