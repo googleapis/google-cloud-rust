@@ -63,8 +63,10 @@ mod info {
     }
 }
 
+#[allow(dead_code)]
 pub(crate) mod google {
     pub mod pubsub {
+        #[allow(clippy::enum_variant_names)]
         pub mod v1 {
             include!("generated/protos/pubsub/google.pubsub.v1.rs");
             include!("generated/convert/pubsub/convert.rs");
