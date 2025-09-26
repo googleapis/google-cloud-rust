@@ -17,6 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
+#[cfg(any(feature = "machine-types", feature = "zones",))]
 impl std::fmt::Debug for super::DeprecationStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeprecationStatus");
@@ -32,6 +33,7 @@ impl std::fmt::Debug for super::DeprecationStatus {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::MachineType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MachineType");
@@ -61,6 +63,7 @@ impl std::fmt::Debug for super::MachineType {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_type::Accelerators {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Accelerators");
@@ -73,6 +76,7 @@ impl std::fmt::Debug for super::machine_type::Accelerators {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::MachineTypeAggregatedList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MachineTypeAggregatedList");
@@ -90,6 +94,7 @@ impl std::fmt::Debug for super::MachineTypeAggregatedList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_type_aggregated_list::Warning {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Warning");
@@ -103,6 +108,7 @@ impl std::fmt::Debug for super::machine_type_aggregated_list::Warning {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_type_aggregated_list::warning::Data {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Data");
@@ -115,6 +121,7 @@ impl std::fmt::Debug for super::machine_type_aggregated_list::warning::Data {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::MachineTypeList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MachineTypeList");
@@ -131,6 +138,7 @@ impl std::fmt::Debug for super::MachineTypeList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_type_list::Warning {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Warning");
@@ -144,6 +152,7 @@ impl std::fmt::Debug for super::machine_type_list::Warning {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_type_list::warning::Data {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Data");
@@ -156,6 +165,7 @@ impl std::fmt::Debug for super::machine_type_list::warning::Data {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::MachineTypesScopedList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MachineTypesScopedList");
@@ -168,6 +178,7 @@ impl std::fmt::Debug for super::MachineTypesScopedList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_types_scoped_list::Warning {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Warning");
@@ -181,6 +192,7 @@ impl std::fmt::Debug for super::machine_types_scoped_list::Warning {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_types_scoped_list::warning::Data {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Data");
@@ -193,6 +205,7 @@ impl std::fmt::Debug for super::machine_types_scoped_list::warning::Data {
     }
 }
 
+#[cfg(feature = "zones")]
 impl std::fmt::Debug for super::Zone {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Zone");
@@ -214,6 +227,7 @@ impl std::fmt::Debug for super::Zone {
     }
 }
 
+#[cfg(feature = "zones")]
 impl std::fmt::Debug for super::ZoneList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ZoneList");
@@ -230,6 +244,7 @@ impl std::fmt::Debug for super::ZoneList {
     }
 }
 
+#[cfg(feature = "zones")]
 impl std::fmt::Debug for super::zone_list::Warning {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Warning");
@@ -243,6 +258,7 @@ impl std::fmt::Debug for super::zone_list::Warning {
     }
 }
 
+#[cfg(feature = "zones")]
 impl std::fmt::Debug for super::zone_list::warning::Data {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Data");
@@ -255,6 +271,7 @@ impl std::fmt::Debug for super::zone_list::warning::Data {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_types::AggregatedListRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AggregatedListRequest");
@@ -273,6 +290,7 @@ impl std::fmt::Debug for super::machine_types::AggregatedListRequest {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_types::GetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRequest");
@@ -286,6 +304,7 @@ impl std::fmt::Debug for super::machine_types::GetRequest {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_types::ListRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRequest");
@@ -303,6 +322,7 @@ impl std::fmt::Debug for super::machine_types::ListRequest {
     }
 }
 
+#[cfg(feature = "zones")]
 impl std::fmt::Debug for super::zones::GetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRequest");
@@ -315,6 +335,7 @@ impl std::fmt::Debug for super::zones::GetRequest {
     }
 }
 
+#[cfg(feature = "zones")]
 impl std::fmt::Debug for super::zones::ListRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRequest");

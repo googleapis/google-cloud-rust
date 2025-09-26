@@ -35,6 +35,7 @@ mod deserialize;
 mod serialize;
 
 /// Deprecation status for a public resource.
+#[cfg(any(feature = "machine-types", feature = "zones",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeprecationStatus {
@@ -56,6 +57,7 @@ pub struct DeprecationStatus {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "machine-types", feature = "zones",))]
 impl DeprecationStatus {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -95,6 +97,7 @@ impl DeprecationStatus {
     }
 }
 
+#[cfg(any(feature = "machine-types", feature = "zones",))]
 impl wkt::message::Message for DeprecationStatus {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.DeprecationStatus"
@@ -102,6 +105,7 @@ impl wkt::message::Message for DeprecationStatus {
 }
 
 /// Defines additional types related to [DeprecationStatus].
+#[cfg(any(feature = "machine-types", feature = "zones",))]
 pub mod deprecation_status {
     #[allow(unused_imports)]
     use super::*;
@@ -123,6 +127,7 @@ pub mod deprecation_status {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(feature = "machine-types", feature = "zones",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -138,6 +143,7 @@ pub mod deprecation_status {
     }
 
     #[doc(hidden)]
+    #[cfg(any(feature = "machine-types", feature = "zones",))]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -145,6 +151,7 @@ pub mod deprecation_status {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(feature = "machine-types", feature = "zones",))]
     impl State {
         /// Gets the enum value.
         ///
@@ -175,6 +182,7 @@ pub mod deprecation_status {
         }
     }
 
+    #[cfg(any(feature = "machine-types", feature = "zones",))]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -182,12 +190,14 @@ pub mod deprecation_status {
         }
     }
 
+    #[cfg(any(feature = "machine-types", feature = "zones",))]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(feature = "machine-types", feature = "zones",))]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -202,6 +212,7 @@ pub mod deprecation_status {
         }
     }
 
+    #[cfg(any(feature = "machine-types", feature = "zones",))]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -217,6 +228,7 @@ pub mod deprecation_status {
         }
     }
 
+    #[cfg(any(feature = "machine-types", feature = "zones",))]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -232,6 +244,7 @@ pub mod deprecation_status {
         }
     }
 
+    #[cfg(any(feature = "machine-types", feature = "zones",))]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -245,6 +258,7 @@ pub mod deprecation_status {
 }
 
 /// Represents a Machine Type resource. You can use specific machine types for your VM instances based on performance and pricing requirements. For more information, read Machine Types.
+#[cfg(feature = "machine-types")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MachineType {
@@ -299,6 +313,7 @@ pub struct MachineType {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "machine-types")]
 impl MachineType {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -427,6 +442,7 @@ impl MachineType {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl wkt::message::Message for MachineType {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.MachineType"
@@ -434,6 +450,7 @@ impl wkt::message::Message for MachineType {
 }
 
 /// Defines additional types related to [MachineType].
+#[cfg(feature = "machine-types")]
 pub mod machine_type {
     #[allow(unused_imports)]
     use super::*;
@@ -441,6 +458,7 @@ pub mod machine_type {
     /// The message type for the [accelerators][google.cloud.compute.v1.MachineType.accelerators] field.
     ///
     /// [google.cloud.compute.v1.MachineType.accelerators]: crate::model::machine_type::Accelerators
+    #[cfg(feature = "machine-types")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Accelerators {
@@ -453,6 +471,7 @@ pub mod machine_type {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "machine-types")]
     impl Accelerators {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -474,6 +493,7 @@ pub mod machine_type {
         }
     }
 
+    #[cfg(feature = "machine-types")]
     impl wkt::message::Message for Accelerators {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.compute.v1.MachineType.accelerators"
@@ -497,6 +517,7 @@ pub mod machine_type {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "machine-types")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Architecture {
@@ -514,6 +535,7 @@ pub mod machine_type {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "machine-types")]
     pub mod architecture {
         #[allow(unused_imports)]
         use super::*;
@@ -521,6 +543,7 @@ pub mod machine_type {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "machine-types")]
     impl Architecture {
         /// Gets the enum value.
         ///
@@ -549,6 +572,7 @@ pub mod machine_type {
         }
     }
 
+    #[cfg(feature = "machine-types")]
     impl std::default::Default for Architecture {
         fn default() -> Self {
             use std::convert::From;
@@ -556,12 +580,14 @@ pub mod machine_type {
         }
     }
 
+    #[cfg(feature = "machine-types")]
     impl std::fmt::Display for Architecture {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "machine-types")]
     impl std::convert::From<i32> for Architecture {
         fn from(value: i32) -> Self {
             match value {
@@ -575,6 +601,7 @@ pub mod machine_type {
         }
     }
 
+    #[cfg(feature = "machine-types")]
     impl std::convert::From<&str> for Architecture {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -589,6 +616,7 @@ pub mod machine_type {
         }
     }
 
+    #[cfg(feature = "machine-types")]
     impl serde::ser::Serialize for Architecture {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -603,6 +631,7 @@ pub mod machine_type {
         }
     }
 
+    #[cfg(feature = "machine-types")]
     impl<'de> serde::de::Deserialize<'de> for Architecture {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -615,6 +644,7 @@ pub mod machine_type {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MachineTypeAggregatedList {
@@ -642,6 +672,7 @@ pub struct MachineTypeAggregatedList {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "machine-types")]
 impl MachineTypeAggregatedList {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -717,6 +748,7 @@ impl MachineTypeAggregatedList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl wkt::message::Message for MachineTypeAggregatedList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.MachineTypeAggregatedList"
@@ -724,6 +756,7 @@ impl wkt::message::Message for MachineTypeAggregatedList {
 }
 
 /// Defines additional types related to [MachineTypeAggregatedList].
+#[cfg(feature = "machine-types")]
 pub mod machine_type_aggregated_list {
     #[allow(unused_imports)]
     use super::*;
@@ -731,6 +764,7 @@ pub mod machine_type_aggregated_list {
     /// The message type for the [warning][google.cloud.compute.v1.MachineTypeAggregatedList.warning] field.
     ///
     /// [google.cloud.compute.v1.MachineTypeAggregatedList.warning]: crate::model::machine_type_aggregated_list::Warning
+    #[cfg(feature = "machine-types")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Warning {
@@ -746,6 +780,7 @@ pub mod machine_type_aggregated_list {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "machine-types")]
     impl Warning {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -780,6 +815,7 @@ pub mod machine_type_aggregated_list {
         }
     }
 
+    #[cfg(feature = "machine-types")]
     impl wkt::message::Message for Warning {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.compute.v1.MachineTypeAggregatedList.warning"
@@ -787,6 +823,7 @@ pub mod machine_type_aggregated_list {
     }
 
     /// Defines additional types related to [Warning].
+    #[cfg(feature = "machine-types")]
     pub mod warning {
         #[allow(unused_imports)]
         use super::*;
@@ -794,6 +831,7 @@ pub mod machine_type_aggregated_list {
         /// The message type for the [data][google.cloud.compute.v1.MachineTypeAggregatedList.warning.data] field.
         ///
         /// [google.cloud.compute.v1.MachineTypeAggregatedList.warning.data]: crate::model::machine_type_aggregated_list::warning::Data
+        #[cfg(feature = "machine-types")]
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Data {
@@ -806,6 +844,7 @@ pub mod machine_type_aggregated_list {
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "machine-types")]
         impl Data {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -824,6 +863,7 @@ pub mod machine_type_aggregated_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl wkt::message::Message for Data {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.compute.v1.MachineTypeAggregatedList.warning.data"
@@ -847,6 +887,7 @@ pub mod machine_type_aggregated_list {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "machine-types")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Code {
@@ -916,6 +957,7 @@ pub mod machine_type_aggregated_list {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "machine-types")]
         pub mod code {
             #[allow(unused_imports)]
             use super::*;
@@ -923,6 +965,7 @@ pub mod machine_type_aggregated_list {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "machine-types")]
         impl Code {
             /// Gets the enum value.
             ///
@@ -1041,6 +1084,7 @@ pub mod machine_type_aggregated_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::default::Default for Code {
             fn default() -> Self {
                 use std::convert::From;
@@ -1048,6 +1092,7 @@ pub mod machine_type_aggregated_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::fmt::Display for Code {
             fn fmt(
                 &self,
@@ -1057,6 +1102,7 @@ pub mod machine_type_aggregated_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::convert::From<i32> for Code {
             fn from(value: i32) -> Self {
                 match value {
@@ -1096,6 +1142,7 @@ pub mod machine_type_aggregated_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::convert::From<&str> for Code {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -1142,6 +1189,7 @@ pub mod machine_type_aggregated_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl serde::ser::Serialize for Code {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -1182,6 +1230,7 @@ pub mod machine_type_aggregated_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl<'de> serde::de::Deserialize<'de> for Code {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -1196,6 +1245,7 @@ pub mod machine_type_aggregated_list {
 }
 
 /// Contains a list of machine types.
+#[cfg(feature = "machine-types")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MachineTypeList {
@@ -1220,6 +1270,7 @@ pub struct MachineTypeList {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "machine-types")]
 impl MachineTypeList {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -1279,12 +1330,14 @@ impl MachineTypeList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl wkt::message::Message for MachineTypeList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.MachineTypeList"
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for MachineTypeList {
     type PageItem = crate::model::MachineType;
@@ -1300,6 +1353,7 @@ impl gax::paginator::internal::PageableResponse for MachineTypeList {
 }
 
 /// Defines additional types related to [MachineTypeList].
+#[cfg(feature = "machine-types")]
 pub mod machine_type_list {
     #[allow(unused_imports)]
     use super::*;
@@ -1307,6 +1361,7 @@ pub mod machine_type_list {
     /// The message type for the [warning][google.cloud.compute.v1.MachineTypeList.warning] field.
     ///
     /// [google.cloud.compute.v1.MachineTypeList.warning]: crate::model::machine_type_list::Warning
+    #[cfg(feature = "machine-types")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Warning {
@@ -1322,6 +1377,7 @@ pub mod machine_type_list {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "machine-types")]
     impl Warning {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -1354,6 +1410,7 @@ pub mod machine_type_list {
         }
     }
 
+    #[cfg(feature = "machine-types")]
     impl wkt::message::Message for Warning {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.compute.v1.MachineTypeList.warning"
@@ -1361,6 +1418,7 @@ pub mod machine_type_list {
     }
 
     /// Defines additional types related to [Warning].
+    #[cfg(feature = "machine-types")]
     pub mod warning {
         #[allow(unused_imports)]
         use super::*;
@@ -1368,6 +1426,7 @@ pub mod machine_type_list {
         /// The message type for the [data][google.cloud.compute.v1.MachineTypeList.warning.data] field.
         ///
         /// [google.cloud.compute.v1.MachineTypeList.warning.data]: crate::model::machine_type_list::warning::Data
+        #[cfg(feature = "machine-types")]
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Data {
@@ -1380,6 +1439,7 @@ pub mod machine_type_list {
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "machine-types")]
         impl Data {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -1398,6 +1458,7 @@ pub mod machine_type_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl wkt::message::Message for Data {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.compute.v1.MachineTypeList.warning.data"
@@ -1421,6 +1482,7 @@ pub mod machine_type_list {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "machine-types")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Code {
@@ -1490,6 +1552,7 @@ pub mod machine_type_list {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "machine-types")]
         pub mod code {
             #[allow(unused_imports)]
             use super::*;
@@ -1497,6 +1560,7 @@ pub mod machine_type_list {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "machine-types")]
         impl Code {
             /// Gets the enum value.
             ///
@@ -1615,6 +1679,7 @@ pub mod machine_type_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::default::Default for Code {
             fn default() -> Self {
                 use std::convert::From;
@@ -1622,6 +1687,7 @@ pub mod machine_type_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::fmt::Display for Code {
             fn fmt(
                 &self,
@@ -1631,6 +1697,7 @@ pub mod machine_type_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::convert::From<i32> for Code {
             fn from(value: i32) -> Self {
                 match value {
@@ -1670,6 +1737,7 @@ pub mod machine_type_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::convert::From<&str> for Code {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -1716,6 +1784,7 @@ pub mod machine_type_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl serde::ser::Serialize for Code {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -1756,6 +1825,7 @@ pub mod machine_type_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl<'de> serde::de::Deserialize<'de> for Code {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -1769,6 +1839,7 @@ pub mod machine_type_list {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MachineTypesScopedList {
@@ -1781,6 +1852,7 @@ pub struct MachineTypesScopedList {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "machine-types")]
 impl MachineTypesScopedList {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -1816,6 +1888,7 @@ impl MachineTypesScopedList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 impl wkt::message::Message for MachineTypesScopedList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.MachineTypesScopedList"
@@ -1823,6 +1896,7 @@ impl wkt::message::Message for MachineTypesScopedList {
 }
 
 /// Defines additional types related to [MachineTypesScopedList].
+#[cfg(feature = "machine-types")]
 pub mod machine_types_scoped_list {
     #[allow(unused_imports)]
     use super::*;
@@ -1830,6 +1904,7 @@ pub mod machine_types_scoped_list {
     /// The message type for the [warning][google.cloud.compute.v1.MachineTypesScopedList.warning] field.
     ///
     /// [google.cloud.compute.v1.MachineTypesScopedList.warning]: crate::model::machine_types_scoped_list::Warning
+    #[cfg(feature = "machine-types")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Warning {
@@ -1845,6 +1920,7 @@ pub mod machine_types_scoped_list {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "machine-types")]
     impl Warning {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -1879,6 +1955,7 @@ pub mod machine_types_scoped_list {
         }
     }
 
+    #[cfg(feature = "machine-types")]
     impl wkt::message::Message for Warning {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.compute.v1.MachineTypesScopedList.warning"
@@ -1886,6 +1963,7 @@ pub mod machine_types_scoped_list {
     }
 
     /// Defines additional types related to [Warning].
+    #[cfg(feature = "machine-types")]
     pub mod warning {
         #[allow(unused_imports)]
         use super::*;
@@ -1893,6 +1971,7 @@ pub mod machine_types_scoped_list {
         /// The message type for the [data][google.cloud.compute.v1.MachineTypesScopedList.warning.data] field.
         ///
         /// [google.cloud.compute.v1.MachineTypesScopedList.warning.data]: crate::model::machine_types_scoped_list::warning::Data
+        #[cfg(feature = "machine-types")]
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Data {
@@ -1905,6 +1984,7 @@ pub mod machine_types_scoped_list {
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "machine-types")]
         impl Data {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -1923,6 +2003,7 @@ pub mod machine_types_scoped_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl wkt::message::Message for Data {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.compute.v1.MachineTypesScopedList.warning.data"
@@ -1946,6 +2027,7 @@ pub mod machine_types_scoped_list {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "machine-types")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Code {
@@ -2015,6 +2097,7 @@ pub mod machine_types_scoped_list {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "machine-types")]
         pub mod code {
             #[allow(unused_imports)]
             use super::*;
@@ -2022,6 +2105,7 @@ pub mod machine_types_scoped_list {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "machine-types")]
         impl Code {
             /// Gets the enum value.
             ///
@@ -2140,6 +2224,7 @@ pub mod machine_types_scoped_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::default::Default for Code {
             fn default() -> Self {
                 use std::convert::From;
@@ -2147,6 +2232,7 @@ pub mod machine_types_scoped_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::fmt::Display for Code {
             fn fmt(
                 &self,
@@ -2156,6 +2242,7 @@ pub mod machine_types_scoped_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::convert::From<i32> for Code {
             fn from(value: i32) -> Self {
                 match value {
@@ -2195,6 +2282,7 @@ pub mod machine_types_scoped_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl std::convert::From<&str> for Code {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -2241,6 +2329,7 @@ pub mod machine_types_scoped_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl serde::ser::Serialize for Code {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -2281,6 +2370,7 @@ pub mod machine_types_scoped_list {
             }
         }
 
+        #[cfg(feature = "machine-types")]
         impl<'de> serde::de::Deserialize<'de> for Code {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -2295,6 +2385,7 @@ pub mod machine_types_scoped_list {
 }
 
 /// Represents a Zone resource. A zone is a deployment area. These deployment areas are subsets of a region. For example the zone us-east1-b is located in the us-east1 region. For more information, read Regions and Zones.
+#[cfg(feature = "zones")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Zone {
@@ -2334,6 +2425,7 @@ pub struct Zone {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "zones")]
 impl Zone {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2426,6 +2518,7 @@ impl Zone {
     }
 }
 
+#[cfg(feature = "zones")]
 impl wkt::message::Message for Zone {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.Zone"
@@ -2433,6 +2526,7 @@ impl wkt::message::Message for Zone {
 }
 
 /// Defines additional types related to [Zone].
+#[cfg(feature = "zones")]
 pub mod zone {
     #[allow(unused_imports)]
     use super::*;
@@ -2454,6 +2548,7 @@ pub mod zone {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "zones")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Status {
@@ -2467,6 +2562,7 @@ pub mod zone {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "zones")]
     pub mod status {
         #[allow(unused_imports)]
         use super::*;
@@ -2474,6 +2570,7 @@ pub mod zone {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "zones")]
     impl Status {
         /// Gets the enum value.
         ///
@@ -2500,6 +2597,7 @@ pub mod zone {
         }
     }
 
+    #[cfg(feature = "zones")]
     impl std::default::Default for Status {
         fn default() -> Self {
             use std::convert::From;
@@ -2507,12 +2605,14 @@ pub mod zone {
         }
     }
 
+    #[cfg(feature = "zones")]
     impl std::fmt::Display for Status {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "zones")]
     impl std::convert::From<i32> for Status {
         fn from(value: i32) -> Self {
             match value {
@@ -2525,6 +2625,7 @@ pub mod zone {
         }
     }
 
+    #[cfg(feature = "zones")]
     impl std::convert::From<&str> for Status {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -2538,6 +2639,7 @@ pub mod zone {
         }
     }
 
+    #[cfg(feature = "zones")]
     impl serde::ser::Serialize for Status {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -2551,6 +2653,7 @@ pub mod zone {
         }
     }
 
+    #[cfg(feature = "zones")]
     impl<'de> serde::de::Deserialize<'de> for Status {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -2564,6 +2667,7 @@ pub mod zone {
 }
 
 /// Contains a list of zone resources.
+#[cfg(feature = "zones")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ZoneList {
@@ -2588,6 +2692,7 @@ pub struct ZoneList {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "zones")]
 impl ZoneList {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2647,12 +2752,14 @@ impl ZoneList {
     }
 }
 
+#[cfg(feature = "zones")]
 impl wkt::message::Message for ZoneList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.ZoneList"
     }
 }
 
+#[cfg(feature = "zones")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ZoneList {
     type PageItem = crate::model::Zone;
@@ -2668,6 +2775,7 @@ impl gax::paginator::internal::PageableResponse for ZoneList {
 }
 
 /// Defines additional types related to [ZoneList].
+#[cfg(feature = "zones")]
 pub mod zone_list {
     #[allow(unused_imports)]
     use super::*;
@@ -2675,6 +2783,7 @@ pub mod zone_list {
     /// The message type for the [warning][google.cloud.compute.v1.ZoneList.warning] field.
     ///
     /// [google.cloud.compute.v1.ZoneList.warning]: crate::model::zone_list::Warning
+    #[cfg(feature = "zones")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Warning {
@@ -2690,6 +2799,7 @@ pub mod zone_list {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "zones")]
     impl Warning {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -2722,6 +2832,7 @@ pub mod zone_list {
         }
     }
 
+    #[cfg(feature = "zones")]
     impl wkt::message::Message for Warning {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.compute.v1.ZoneList.warning"
@@ -2729,6 +2840,7 @@ pub mod zone_list {
     }
 
     /// Defines additional types related to [Warning].
+    #[cfg(feature = "zones")]
     pub mod warning {
         #[allow(unused_imports)]
         use super::*;
@@ -2736,6 +2848,7 @@ pub mod zone_list {
         /// The message type for the [data][google.cloud.compute.v1.ZoneList.warning.data] field.
         ///
         /// [google.cloud.compute.v1.ZoneList.warning.data]: crate::model::zone_list::warning::Data
+        #[cfg(feature = "zones")]
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Data {
@@ -2748,6 +2861,7 @@ pub mod zone_list {
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "zones")]
         impl Data {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -2766,6 +2880,7 @@ pub mod zone_list {
             }
         }
 
+        #[cfg(feature = "zones")]
         impl wkt::message::Message for Data {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.compute.v1.ZoneList.warning.data"
@@ -2789,6 +2904,7 @@ pub mod zone_list {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "zones")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Code {
@@ -2858,6 +2974,7 @@ pub mod zone_list {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "zones")]
         pub mod code {
             #[allow(unused_imports)]
             use super::*;
@@ -2865,6 +2982,7 @@ pub mod zone_list {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "zones")]
         impl Code {
             /// Gets the enum value.
             ///
@@ -2983,6 +3101,7 @@ pub mod zone_list {
             }
         }
 
+        #[cfg(feature = "zones")]
         impl std::default::Default for Code {
             fn default() -> Self {
                 use std::convert::From;
@@ -2990,6 +3109,7 @@ pub mod zone_list {
             }
         }
 
+        #[cfg(feature = "zones")]
         impl std::fmt::Display for Code {
             fn fmt(
                 &self,
@@ -2999,6 +3119,7 @@ pub mod zone_list {
             }
         }
 
+        #[cfg(feature = "zones")]
         impl std::convert::From<i32> for Code {
             fn from(value: i32) -> Self {
                 match value {
@@ -3038,6 +3159,7 @@ pub mod zone_list {
             }
         }
 
+        #[cfg(feature = "zones")]
         impl std::convert::From<&str> for Code {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -3084,6 +3206,7 @@ pub mod zone_list {
             }
         }
 
+        #[cfg(feature = "zones")]
         impl serde::ser::Serialize for Code {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -3124,6 +3247,7 @@ pub mod zone_list {
             }
         }
 
+        #[cfg(feature = "zones")]
         impl<'de> serde::de::Deserialize<'de> for Code {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -3140,6 +3264,7 @@ pub mod zone_list {
 /// Synthetic messages for the [machineTypes][google.cloud.compute.v1.machineTypes] service
 ///
 /// [google.cloud.compute.v1.machineTypes]: crate::model::MachineTypes
+#[cfg(feature = "machine-types")]
 pub mod machine_types {
     #[allow(unused_imports)]
     use super::*;
@@ -3147,6 +3272,7 @@ pub mod machine_types {
     /// Synthetic request message for the [aggregatedList()][google.cloud.compute.v1.machineTypes.aggregatedList] method.
     ///
     /// [google.cloud.compute.v1.machineTypes.aggregatedList]: crate::client::MachineTypes::aggregated_list
+    #[cfg(feature = "machine-types")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AggregatedListRequest {
@@ -3177,6 +3303,7 @@ pub mod machine_types {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "machine-types")]
     impl AggregatedListRequest {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -3318,6 +3445,7 @@ pub mod machine_types {
     /// Synthetic request message for the [get()][google.cloud.compute.v1.machineTypes.get] method.
     ///
     /// [google.cloud.compute.v1.machineTypes.get]: crate::client::MachineTypes::get
+    #[cfg(feature = "machine-types")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetRequest {
@@ -3333,6 +3461,7 @@ pub mod machine_types {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "machine-types")]
     impl GetRequest {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -3363,6 +3492,7 @@ pub mod machine_types {
     /// Synthetic request message for the [list()][google.cloud.compute.v1.machineTypes.list] method.
     ///
     /// [google.cloud.compute.v1.machineTypes.list]: crate::client::MachineTypes::list
+    #[cfg(feature = "machine-types")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListRequest {
@@ -3390,6 +3520,7 @@ pub mod machine_types {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "machine-types")]
     impl ListRequest {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -3502,6 +3633,7 @@ pub mod machine_types {
 /// Synthetic messages for the [zones][google.cloud.compute.v1.zones] service
 ///
 /// [google.cloud.compute.v1.zones]: crate::model::Zones
+#[cfg(feature = "zones")]
 pub mod zones {
     #[allow(unused_imports)]
     use super::*;
@@ -3509,6 +3641,7 @@ pub mod zones {
     /// Synthetic request message for the [get()][google.cloud.compute.v1.zones.get] method.
     ///
     /// [google.cloud.compute.v1.zones.get]: crate::client::Zones::get
+    #[cfg(feature = "zones")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetRequest {
@@ -3521,6 +3654,7 @@ pub mod zones {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "zones")]
     impl GetRequest {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -3542,6 +3676,7 @@ pub mod zones {
     /// Synthetic request message for the [list()][google.cloud.compute.v1.zones.list] method.
     ///
     /// [google.cloud.compute.v1.zones.list]: crate::client::Zones::list
+    #[cfg(feature = "zones")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListRequest {
@@ -3566,6 +3701,7 @@ pub mod zones {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "zones")]
     impl ListRequest {
         pub fn new() -> Self {
             std::default::Default::default()
