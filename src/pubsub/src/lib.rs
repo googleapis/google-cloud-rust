@@ -43,7 +43,6 @@ pub mod client {
 }
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
-    pub(crate) use crate::generated::gapic_dataplane::stub::*;
 }
 
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";
