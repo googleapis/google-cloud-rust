@@ -35,11 +35,11 @@ pub mod builder {
 }
 pub mod model {
     pub use crate::generated::gapic::model::*;
-    pub(crate) use crate::generated::gapic_dataplane::model::*;
+    pub use crate::generated::gapic_dataplane::model::*;
 }
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub(crate) use crate::generated::gapic_dataplane::client::*;
+    pub use crate::generated::gapic_dataplane::client::*;
 }
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
