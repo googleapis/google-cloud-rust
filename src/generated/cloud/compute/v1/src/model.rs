@@ -248,6 +248,9 @@ pub mod deprecation_status {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MachineType {
+    /// [Output Only] A list of accelerator configurations assigned to this machine type.
+    pub accelerators: std::vec::Vec<crate::model::machine_type::Accelerators>,
+
     /// [Output Only] The architecture of the machine type.
     pub architecture: crate::model::machine_type::Architecture,
 
@@ -299,6 +302,17 @@ pub struct MachineType {
 impl MachineType {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [accelerators][crate::model::MachineType::accelerators].
+    pub fn set_accelerators<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::machine_type::Accelerators>,
+    {
+        use std::iter::Iterator;
+        self.accelerators = v.into_iter().map(|i| i.into()).collect();
+        self
     }
 
     /// Sets the value of [architecture][crate::model::MachineType::architecture].
@@ -423,6 +437,48 @@ impl wkt::message::Message for MachineType {
 pub mod machine_type {
     #[allow(unused_imports)]
     use super::*;
+
+    /// The message type for the [accelerators][google.cloud.compute.v1.MachineType.accelerators] field.
+    ///
+    /// [google.cloud.compute.v1.MachineType.accelerators]: crate::model::machine_type::Accelerators
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Accelerators {
+        /// Number of accelerator cards exposed to the guest.
+        pub guest_accelerator_count: i32,
+
+        /// The accelerator type resource name, not a full URL, e.g. nvidia-tesla-t4.
+        pub guest_accelerator_type: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Accelerators {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [guest_accelerator_count][crate::model::machine_type::Accelerators::guest_accelerator_count].
+        pub fn set_guest_accelerator_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.guest_accelerator_count = v.into();
+            self
+        }
+
+        /// Sets the value of [guest_accelerator_type][crate::model::machine_type::Accelerators::guest_accelerator_type].
+        pub fn set_guest_accelerator_type<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.guest_accelerator_type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Accelerators {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.MachineType.accelerators"
+        }
+    }
 
     /// The enumerated type for the [architecture][google.cloud.compute.v1.MachineType.architecture] field.
     ///
@@ -580,6 +636,9 @@ pub struct MachineTypeAggregatedList {
     /// [Output Only] Unreachable resources.
     pub unreachables: std::vec::Vec<std::string::String>,
 
+    /// [Output Only] Informational warning message.
+    pub warning: std::option::Option<crate::model::machine_type_aggregated_list::Warning>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -638,11 +697,501 @@ impl MachineTypeAggregatedList {
         self.unreachables = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [warning][crate::model::MachineTypeAggregatedList::warning].
+    pub fn set_warning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::machine_type_aggregated_list::Warning>,
+    {
+        self.warning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [warning][crate::model::MachineTypeAggregatedList::warning].
+    pub fn set_or_clear_warning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::machine_type_aggregated_list::Warning>,
+    {
+        self.warning = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for MachineTypeAggregatedList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.MachineTypeAggregatedList"
+    }
+}
+
+/// Defines additional types related to [MachineTypeAggregatedList].
+pub mod machine_type_aggregated_list {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The message type for the [warning][google.cloud.compute.v1.MachineTypeAggregatedList.warning] field.
+    ///
+    /// [google.cloud.compute.v1.MachineTypeAggregatedList.warning]: crate::model::machine_type_aggregated_list::Warning
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Warning {
+        /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
+        pub code: crate::model::machine_type_aggregated_list::warning::Code,
+
+        /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+        pub data: std::vec::Vec<crate::model::machine_type_aggregated_list::warning::Data>,
+
+        /// [Output Only] A human-readable description of the warning code.
+        pub message: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Warning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::machine_type_aggregated_list::Warning::code].
+        pub fn set_code<
+            T: std::convert::Into<crate::model::machine_type_aggregated_list::warning::Code>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.code = v.into();
+            self
+        }
+
+        /// Sets the value of [data][crate::model::machine_type_aggregated_list::Warning::data].
+        pub fn set_data<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::machine_type_aggregated_list::warning::Data>,
+        {
+            use std::iter::Iterator;
+            self.data = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::machine_type_aggregated_list::Warning::message].
+        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.message = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Warning {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.MachineTypeAggregatedList.warning"
+        }
+    }
+
+    /// Defines additional types related to [Warning].
+    pub mod warning {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The message type for the [data][google.cloud.compute.v1.MachineTypeAggregatedList.warning.data] field.
+        ///
+        /// [google.cloud.compute.v1.MachineTypeAggregatedList.warning.data]: crate::model::machine_type_aggregated_list::warning::Data
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Data {
+            /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
+            pub key: std::string::String,
+
+            /// [Output Only] A warning data value corresponding to the key.
+            pub value: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Data {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::machine_type_aggregated_list::warning::Data::key].
+            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.key = v.into();
+                self
+            }
+
+            /// Sets the value of [value][crate::model::machine_type_aggregated_list::warning::Data::value].
+            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.value = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for Data {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.compute.v1.MachineTypeAggregatedList.warning.data"
+            }
+        }
+
+        /// The enumerated type for the [code][google.cloud.compute.v1.MachineTypeAggregatedList.warning.code] field.
+        ///
+        /// [google.cloud.compute.v1.MachineTypeAggregatedList.warning.code]: crate::model::machine_type_aggregated_list::warning::Code
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Code {
+            /// Warning about failed cleanup of transient changes made by a failed operation.
+            CleanupFailed,
+            /// A link to a deprecated resource was created.
+            DeprecatedResourceUsed,
+            /// When deploying and at least one of the resources has a type marked as deprecated
+            DeprecatedTypeUsed,
+            /// The user created a boot disk that is larger than image size.
+            DiskSizeLargerThanImageSize,
+            /// When deploying and at least one of the resources has a type marked as experimental
+            ExperimentalTypeUsed,
+            /// Warning that is present in an external api call
+            ExternalApiWarning,
+            /// Warning that value of a field has been overridden. Deprecated unused field.
+            FieldValueOverriden,
+            /// The operation involved use of an injected kernel, which is deprecated.
+            InjectedKernelsDeprecated,
+            /// A WEIGHTED_MAGLEV backend service is associated with a health check that is not of type HTTP/HTTPS/HTTP2.
+            InvalidHealthCheckForDynamicWieghtedLb,
+            /// When deploying a deployment with a exceedingly large number of resources
+            LargeDeploymentWarning,
+            /// Resource can't be retrieved due to list overhead quota exceed which captures the amount of resources filtered out by user-defined list filter.
+            ListOverheadQuotaExceed,
+            /// A resource depends on a missing type
+            MissingTypeDependency,
+            /// The route's nextHopIp address is not assigned to an instance on the network.
+            NextHopAddressNotAssigned,
+            /// The route's next hop instance cannot ip forward.
+            NextHopCannotIpForward,
+            /// The route's nextHopInstance URL refers to an instance that does not have an ipv6 interface on the same network as the route.
+            NextHopInstanceHasNoIpv6Interface,
+            /// The route's nextHopInstance URL refers to an instance that does not exist.
+            NextHopInstanceNotFound,
+            /// The route's nextHopInstance URL refers to an instance that is not on the same network as the route.
+            NextHopInstanceNotOnNetwork,
+            /// The route's next hop instance does not have a status of RUNNING.
+            NextHopNotRunning,
+            /// Error which is not critical. We decided to continue the process despite the mentioned error.
+            NotCriticalError,
+            /// No results are present on a particular list page.
+            NoResultsOnPage,
+            /// Success is reported, but some results may be missing due to errors
+            PartialSuccess,
+            /// Quota information is not available to client requests (e.g: regions.list).
+            QuotaInfoUnavailable,
+            /// The user attempted to use a resource that requires a TOS they have not accepted.
+            RequiredTosAgreement,
+            /// Warning that a resource is in use.
+            ResourceInUseByOtherResourceWarning,
+            /// One or more of the resources set to auto-delete could not be deleted because they were in use.
+            ResourceNotDeleted,
+            /// When a resource schema validation is ignored.
+            SchemaValidationIgnored,
+            /// Instance template used in instance group manager is valid as such, but its application does not make a lot of sense, because it allows only single instance in instance group.
+            SingleInstancePropertyTemplate,
+            /// When undeclared properties in the schema are present
+            UndeclaredProperties,
+            /// A given scope cannot be reached.
+            Unreachable,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Code::value] or
+            /// [Code::name].
+            UnknownValue(code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Code {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some(0),
+                    Self::DeprecatedResourceUsed => std::option::Option::Some(1),
+                    Self::DeprecatedTypeUsed => std::option::Option::Some(2),
+                    Self::DiskSizeLargerThanImageSize => std::option::Option::Some(3),
+                    Self::ExperimentalTypeUsed => std::option::Option::Some(4),
+                    Self::ExternalApiWarning => std::option::Option::Some(5),
+                    Self::FieldValueOverriden => std::option::Option::Some(6),
+                    Self::InjectedKernelsDeprecated => std::option::Option::Some(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => std::option::Option::Some(8),
+                    Self::LargeDeploymentWarning => std::option::Option::Some(9),
+                    Self::ListOverheadQuotaExceed => std::option::Option::Some(10),
+                    Self::MissingTypeDependency => std::option::Option::Some(11),
+                    Self::NextHopAddressNotAssigned => std::option::Option::Some(12),
+                    Self::NextHopCannotIpForward => std::option::Option::Some(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => std::option::Option::Some(14),
+                    Self::NextHopInstanceNotFound => std::option::Option::Some(15),
+                    Self::NextHopInstanceNotOnNetwork => std::option::Option::Some(16),
+                    Self::NextHopNotRunning => std::option::Option::Some(17),
+                    Self::NotCriticalError => std::option::Option::Some(18),
+                    Self::NoResultsOnPage => std::option::Option::Some(19),
+                    Self::PartialSuccess => std::option::Option::Some(20),
+                    Self::QuotaInfoUnavailable => std::option::Option::Some(21),
+                    Self::RequiredTosAgreement => std::option::Option::Some(22),
+                    Self::ResourceInUseByOtherResourceWarning => std::option::Option::Some(23),
+                    Self::ResourceNotDeleted => std::option::Option::Some(24),
+                    Self::SchemaValidationIgnored => std::option::Option::Some(25),
+                    Self::SingleInstancePropertyTemplate => std::option::Option::Some(26),
+                    Self::UndeclaredProperties => std::option::Option::Some(27),
+                    Self::Unreachable => std::option::Option::Some(28),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        std::option::Option::Some("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => std::option::Option::Some("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        std::option::Option::Some("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        std::option::Option::Some("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => std::option::Option::Some("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => std::option::Option::Some("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        std::option::Option::Some("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        std::option::Option::Some("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        std::option::Option::Some("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        std::option::Option::Some("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        std::option::Option::Some("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        std::option::Option::Some("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        std::option::Option::Some("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => std::option::Option::Some("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => std::option::Option::Some("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => std::option::Option::Some("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => std::option::Option::Some("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        std::option::Option::Some("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        std::option::Option::Some("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        std::option::Option::Some("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => std::option::Option::Some("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        std::option::Option::Some("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        std::option::Option::Some("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => {
+                        std::option::Option::Some("UNDECLARED_PROPERTIES")
+                    }
+                    Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Code {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::CleanupFailed,
+                    1 => Self::DeprecatedResourceUsed,
+                    2 => Self::DeprecatedTypeUsed,
+                    3 => Self::DiskSizeLargerThanImageSize,
+                    4 => Self::ExperimentalTypeUsed,
+                    5 => Self::ExternalApiWarning,
+                    6 => Self::FieldValueOverriden,
+                    7 => Self::InjectedKernelsDeprecated,
+                    8 => Self::InvalidHealthCheckForDynamicWieghtedLb,
+                    9 => Self::LargeDeploymentWarning,
+                    10 => Self::ListOverheadQuotaExceed,
+                    11 => Self::MissingTypeDependency,
+                    12 => Self::NextHopAddressNotAssigned,
+                    13 => Self::NextHopCannotIpForward,
+                    14 => Self::NextHopInstanceHasNoIpv6Interface,
+                    15 => Self::NextHopInstanceNotFound,
+                    16 => Self::NextHopInstanceNotOnNetwork,
+                    17 => Self::NextHopNotRunning,
+                    18 => Self::NotCriticalError,
+                    19 => Self::NoResultsOnPage,
+                    20 => Self::PartialSuccess,
+                    21 => Self::QuotaInfoUnavailable,
+                    22 => Self::RequiredTosAgreement,
+                    23 => Self::ResourceInUseByOtherResourceWarning,
+                    24 => Self::ResourceNotDeleted,
+                    25 => Self::SchemaValidationIgnored,
+                    26 => Self::SingleInstancePropertyTemplate,
+                    27 => Self::UndeclaredProperties,
+                    28 => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Code {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CLEANUP_FAILED" => Self::CleanupFailed,
+                    "DEPRECATED_RESOURCE_USED" => Self::DeprecatedResourceUsed,
+                    "DEPRECATED_TYPE_USED" => Self::DeprecatedTypeUsed,
+                    "DISK_SIZE_LARGER_THAN_IMAGE_SIZE" => Self::DiskSizeLargerThanImageSize,
+                    "EXPERIMENTAL_TYPE_USED" => Self::ExperimentalTypeUsed,
+                    "EXTERNAL_API_WARNING" => Self::ExternalApiWarning,
+                    "FIELD_VALUE_OVERRIDEN" => Self::FieldValueOverriden,
+                    "INJECTED_KERNELS_DEPRECATED" => Self::InjectedKernelsDeprecated,
+                    "INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB" => {
+                        Self::InvalidHealthCheckForDynamicWieghtedLb
+                    }
+                    "LARGE_DEPLOYMENT_WARNING" => Self::LargeDeploymentWarning,
+                    "LIST_OVERHEAD_QUOTA_EXCEED" => Self::ListOverheadQuotaExceed,
+                    "MISSING_TYPE_DEPENDENCY" => Self::MissingTypeDependency,
+                    "NEXT_HOP_ADDRESS_NOT_ASSIGNED" => Self::NextHopAddressNotAssigned,
+                    "NEXT_HOP_CANNOT_IP_FORWARD" => Self::NextHopCannotIpForward,
+                    "NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE" => {
+                        Self::NextHopInstanceHasNoIpv6Interface
+                    }
+                    "NEXT_HOP_INSTANCE_NOT_FOUND" => Self::NextHopInstanceNotFound,
+                    "NEXT_HOP_INSTANCE_NOT_ON_NETWORK" => Self::NextHopInstanceNotOnNetwork,
+                    "NEXT_HOP_NOT_RUNNING" => Self::NextHopNotRunning,
+                    "NOT_CRITICAL_ERROR" => Self::NotCriticalError,
+                    "NO_RESULTS_ON_PAGE" => Self::NoResultsOnPage,
+                    "PARTIAL_SUCCESS" => Self::PartialSuccess,
+                    "QUOTA_INFO_UNAVAILABLE" => Self::QuotaInfoUnavailable,
+                    "REQUIRED_TOS_AGREEMENT" => Self::RequiredTosAgreement,
+                    "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING" => {
+                        Self::ResourceInUseByOtherResourceWarning
+                    }
+                    "RESOURCE_NOT_DELETED" => Self::ResourceNotDeleted,
+                    "SCHEMA_VALIDATION_IGNORED" => Self::SchemaValidationIgnored,
+                    "SINGLE_INSTANCE_PROPERTY_TEMPLATE" => Self::SingleInstancePropertyTemplate,
+                    "UNDECLARED_PROPERTIES" => Self::UndeclaredProperties,
+                    "UNREACHABLE" => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::CleanupFailed => serializer.serialize_i32(0),
+                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
+                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
+                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
+                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
+                    Self::ExternalApiWarning => serializer.serialize_i32(5),
+                    Self::FieldValueOverriden => serializer.serialize_i32(6),
+                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
+                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
+                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
+                    Self::MissingTypeDependency => serializer.serialize_i32(11),
+                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
+                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
+                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
+                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
+                    Self::NextHopNotRunning => serializer.serialize_i32(17),
+                    Self::NotCriticalError => serializer.serialize_i32(18),
+                    Self::NoResultsOnPage => serializer.serialize_i32(19),
+                    Self::PartialSuccess => serializer.serialize_i32(20),
+                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
+                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
+                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
+                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
+                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
+                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
+                    Self::UndeclaredProperties => serializer.serialize_i32(27),
+                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                    ".google.cloud.compute.v1.MachineTypeAggregatedList.warning.code",
+                ))
+            }
+        }
     }
 }
 
@@ -664,6 +1213,9 @@ pub struct MachineTypeList {
 
     /// [Output Only] Server-defined URL for this resource.
     pub self_link: std::string::String,
+
+    /// [Output Only] Informational warning message.
+    pub warning: std::option::Option<crate::model::machine_type_list::Warning>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -707,6 +1259,24 @@ impl MachineTypeList {
         self.self_link = v.into();
         self
     }
+
+    /// Sets the value of [warning][crate::model::MachineTypeList::warning].
+    pub fn set_warning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::machine_type_list::Warning>,
+    {
+        self.warning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [warning][crate::model::MachineTypeList::warning].
+    pub fn set_or_clear_warning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::machine_type_list::Warning>,
+    {
+        self.warning = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for MachineTypeList {
@@ -729,11 +1299,484 @@ impl gax::paginator::internal::PageableResponse for MachineTypeList {
     }
 }
 
+/// Defines additional types related to [MachineTypeList].
+pub mod machine_type_list {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The message type for the [warning][google.cloud.compute.v1.MachineTypeList.warning] field.
+    ///
+    /// [google.cloud.compute.v1.MachineTypeList.warning]: crate::model::machine_type_list::Warning
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Warning {
+        /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
+        pub code: crate::model::machine_type_list::warning::Code,
+
+        /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+        pub data: std::vec::Vec<crate::model::machine_type_list::warning::Data>,
+
+        /// [Output Only] A human-readable description of the warning code.
+        pub message: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Warning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::machine_type_list::Warning::code].
+        pub fn set_code<T: std::convert::Into<crate::model::machine_type_list::warning::Code>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.code = v.into();
+            self
+        }
+
+        /// Sets the value of [data][crate::model::machine_type_list::Warning::data].
+        pub fn set_data<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::machine_type_list::warning::Data>,
+        {
+            use std::iter::Iterator;
+            self.data = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::machine_type_list::Warning::message].
+        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.message = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Warning {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.MachineTypeList.warning"
+        }
+    }
+
+    /// Defines additional types related to [Warning].
+    pub mod warning {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The message type for the [data][google.cloud.compute.v1.MachineTypeList.warning.data] field.
+        ///
+        /// [google.cloud.compute.v1.MachineTypeList.warning.data]: crate::model::machine_type_list::warning::Data
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Data {
+            /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
+            pub key: std::string::String,
+
+            /// [Output Only] A warning data value corresponding to the key.
+            pub value: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Data {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::machine_type_list::warning::Data::key].
+            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.key = v.into();
+                self
+            }
+
+            /// Sets the value of [value][crate::model::machine_type_list::warning::Data::value].
+            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.value = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for Data {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.compute.v1.MachineTypeList.warning.data"
+            }
+        }
+
+        /// The enumerated type for the [code][google.cloud.compute.v1.MachineTypeList.warning.code] field.
+        ///
+        /// [google.cloud.compute.v1.MachineTypeList.warning.code]: crate::model::machine_type_list::warning::Code
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Code {
+            /// Warning about failed cleanup of transient changes made by a failed operation.
+            CleanupFailed,
+            /// A link to a deprecated resource was created.
+            DeprecatedResourceUsed,
+            /// When deploying and at least one of the resources has a type marked as deprecated
+            DeprecatedTypeUsed,
+            /// The user created a boot disk that is larger than image size.
+            DiskSizeLargerThanImageSize,
+            /// When deploying and at least one of the resources has a type marked as experimental
+            ExperimentalTypeUsed,
+            /// Warning that is present in an external api call
+            ExternalApiWarning,
+            /// Warning that value of a field has been overridden. Deprecated unused field.
+            FieldValueOverriden,
+            /// The operation involved use of an injected kernel, which is deprecated.
+            InjectedKernelsDeprecated,
+            /// A WEIGHTED_MAGLEV backend service is associated with a health check that is not of type HTTP/HTTPS/HTTP2.
+            InvalidHealthCheckForDynamicWieghtedLb,
+            /// When deploying a deployment with a exceedingly large number of resources
+            LargeDeploymentWarning,
+            /// Resource can't be retrieved due to list overhead quota exceed which captures the amount of resources filtered out by user-defined list filter.
+            ListOverheadQuotaExceed,
+            /// A resource depends on a missing type
+            MissingTypeDependency,
+            /// The route's nextHopIp address is not assigned to an instance on the network.
+            NextHopAddressNotAssigned,
+            /// The route's next hop instance cannot ip forward.
+            NextHopCannotIpForward,
+            /// The route's nextHopInstance URL refers to an instance that does not have an ipv6 interface on the same network as the route.
+            NextHopInstanceHasNoIpv6Interface,
+            /// The route's nextHopInstance URL refers to an instance that does not exist.
+            NextHopInstanceNotFound,
+            /// The route's nextHopInstance URL refers to an instance that is not on the same network as the route.
+            NextHopInstanceNotOnNetwork,
+            /// The route's next hop instance does not have a status of RUNNING.
+            NextHopNotRunning,
+            /// Error which is not critical. We decided to continue the process despite the mentioned error.
+            NotCriticalError,
+            /// No results are present on a particular list page.
+            NoResultsOnPage,
+            /// Success is reported, but some results may be missing due to errors
+            PartialSuccess,
+            /// Quota information is not available to client requests (e.g: regions.list).
+            QuotaInfoUnavailable,
+            /// The user attempted to use a resource that requires a TOS they have not accepted.
+            RequiredTosAgreement,
+            /// Warning that a resource is in use.
+            ResourceInUseByOtherResourceWarning,
+            /// One or more of the resources set to auto-delete could not be deleted because they were in use.
+            ResourceNotDeleted,
+            /// When a resource schema validation is ignored.
+            SchemaValidationIgnored,
+            /// Instance template used in instance group manager is valid as such, but its application does not make a lot of sense, because it allows only single instance in instance group.
+            SingleInstancePropertyTemplate,
+            /// When undeclared properties in the schema are present
+            UndeclaredProperties,
+            /// A given scope cannot be reached.
+            Unreachable,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Code::value] or
+            /// [Code::name].
+            UnknownValue(code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Code {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some(0),
+                    Self::DeprecatedResourceUsed => std::option::Option::Some(1),
+                    Self::DeprecatedTypeUsed => std::option::Option::Some(2),
+                    Self::DiskSizeLargerThanImageSize => std::option::Option::Some(3),
+                    Self::ExperimentalTypeUsed => std::option::Option::Some(4),
+                    Self::ExternalApiWarning => std::option::Option::Some(5),
+                    Self::FieldValueOverriden => std::option::Option::Some(6),
+                    Self::InjectedKernelsDeprecated => std::option::Option::Some(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => std::option::Option::Some(8),
+                    Self::LargeDeploymentWarning => std::option::Option::Some(9),
+                    Self::ListOverheadQuotaExceed => std::option::Option::Some(10),
+                    Self::MissingTypeDependency => std::option::Option::Some(11),
+                    Self::NextHopAddressNotAssigned => std::option::Option::Some(12),
+                    Self::NextHopCannotIpForward => std::option::Option::Some(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => std::option::Option::Some(14),
+                    Self::NextHopInstanceNotFound => std::option::Option::Some(15),
+                    Self::NextHopInstanceNotOnNetwork => std::option::Option::Some(16),
+                    Self::NextHopNotRunning => std::option::Option::Some(17),
+                    Self::NotCriticalError => std::option::Option::Some(18),
+                    Self::NoResultsOnPage => std::option::Option::Some(19),
+                    Self::PartialSuccess => std::option::Option::Some(20),
+                    Self::QuotaInfoUnavailable => std::option::Option::Some(21),
+                    Self::RequiredTosAgreement => std::option::Option::Some(22),
+                    Self::ResourceInUseByOtherResourceWarning => std::option::Option::Some(23),
+                    Self::ResourceNotDeleted => std::option::Option::Some(24),
+                    Self::SchemaValidationIgnored => std::option::Option::Some(25),
+                    Self::SingleInstancePropertyTemplate => std::option::Option::Some(26),
+                    Self::UndeclaredProperties => std::option::Option::Some(27),
+                    Self::Unreachable => std::option::Option::Some(28),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        std::option::Option::Some("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => std::option::Option::Some("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        std::option::Option::Some("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        std::option::Option::Some("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => std::option::Option::Some("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => std::option::Option::Some("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        std::option::Option::Some("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        std::option::Option::Some("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        std::option::Option::Some("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        std::option::Option::Some("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        std::option::Option::Some("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        std::option::Option::Some("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        std::option::Option::Some("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => std::option::Option::Some("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => std::option::Option::Some("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => std::option::Option::Some("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => std::option::Option::Some("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        std::option::Option::Some("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        std::option::Option::Some("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        std::option::Option::Some("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => std::option::Option::Some("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        std::option::Option::Some("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        std::option::Option::Some("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => {
+                        std::option::Option::Some("UNDECLARED_PROPERTIES")
+                    }
+                    Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Code {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::CleanupFailed,
+                    1 => Self::DeprecatedResourceUsed,
+                    2 => Self::DeprecatedTypeUsed,
+                    3 => Self::DiskSizeLargerThanImageSize,
+                    4 => Self::ExperimentalTypeUsed,
+                    5 => Self::ExternalApiWarning,
+                    6 => Self::FieldValueOverriden,
+                    7 => Self::InjectedKernelsDeprecated,
+                    8 => Self::InvalidHealthCheckForDynamicWieghtedLb,
+                    9 => Self::LargeDeploymentWarning,
+                    10 => Self::ListOverheadQuotaExceed,
+                    11 => Self::MissingTypeDependency,
+                    12 => Self::NextHopAddressNotAssigned,
+                    13 => Self::NextHopCannotIpForward,
+                    14 => Self::NextHopInstanceHasNoIpv6Interface,
+                    15 => Self::NextHopInstanceNotFound,
+                    16 => Self::NextHopInstanceNotOnNetwork,
+                    17 => Self::NextHopNotRunning,
+                    18 => Self::NotCriticalError,
+                    19 => Self::NoResultsOnPage,
+                    20 => Self::PartialSuccess,
+                    21 => Self::QuotaInfoUnavailable,
+                    22 => Self::RequiredTosAgreement,
+                    23 => Self::ResourceInUseByOtherResourceWarning,
+                    24 => Self::ResourceNotDeleted,
+                    25 => Self::SchemaValidationIgnored,
+                    26 => Self::SingleInstancePropertyTemplate,
+                    27 => Self::UndeclaredProperties,
+                    28 => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Code {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CLEANUP_FAILED" => Self::CleanupFailed,
+                    "DEPRECATED_RESOURCE_USED" => Self::DeprecatedResourceUsed,
+                    "DEPRECATED_TYPE_USED" => Self::DeprecatedTypeUsed,
+                    "DISK_SIZE_LARGER_THAN_IMAGE_SIZE" => Self::DiskSizeLargerThanImageSize,
+                    "EXPERIMENTAL_TYPE_USED" => Self::ExperimentalTypeUsed,
+                    "EXTERNAL_API_WARNING" => Self::ExternalApiWarning,
+                    "FIELD_VALUE_OVERRIDEN" => Self::FieldValueOverriden,
+                    "INJECTED_KERNELS_DEPRECATED" => Self::InjectedKernelsDeprecated,
+                    "INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB" => {
+                        Self::InvalidHealthCheckForDynamicWieghtedLb
+                    }
+                    "LARGE_DEPLOYMENT_WARNING" => Self::LargeDeploymentWarning,
+                    "LIST_OVERHEAD_QUOTA_EXCEED" => Self::ListOverheadQuotaExceed,
+                    "MISSING_TYPE_DEPENDENCY" => Self::MissingTypeDependency,
+                    "NEXT_HOP_ADDRESS_NOT_ASSIGNED" => Self::NextHopAddressNotAssigned,
+                    "NEXT_HOP_CANNOT_IP_FORWARD" => Self::NextHopCannotIpForward,
+                    "NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE" => {
+                        Self::NextHopInstanceHasNoIpv6Interface
+                    }
+                    "NEXT_HOP_INSTANCE_NOT_FOUND" => Self::NextHopInstanceNotFound,
+                    "NEXT_HOP_INSTANCE_NOT_ON_NETWORK" => Self::NextHopInstanceNotOnNetwork,
+                    "NEXT_HOP_NOT_RUNNING" => Self::NextHopNotRunning,
+                    "NOT_CRITICAL_ERROR" => Self::NotCriticalError,
+                    "NO_RESULTS_ON_PAGE" => Self::NoResultsOnPage,
+                    "PARTIAL_SUCCESS" => Self::PartialSuccess,
+                    "QUOTA_INFO_UNAVAILABLE" => Self::QuotaInfoUnavailable,
+                    "REQUIRED_TOS_AGREEMENT" => Self::RequiredTosAgreement,
+                    "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING" => {
+                        Self::ResourceInUseByOtherResourceWarning
+                    }
+                    "RESOURCE_NOT_DELETED" => Self::ResourceNotDeleted,
+                    "SCHEMA_VALIDATION_IGNORED" => Self::SchemaValidationIgnored,
+                    "SINGLE_INSTANCE_PROPERTY_TEMPLATE" => Self::SingleInstancePropertyTemplate,
+                    "UNDECLARED_PROPERTIES" => Self::UndeclaredProperties,
+                    "UNREACHABLE" => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::CleanupFailed => serializer.serialize_i32(0),
+                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
+                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
+                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
+                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
+                    Self::ExternalApiWarning => serializer.serialize_i32(5),
+                    Self::FieldValueOverriden => serializer.serialize_i32(6),
+                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
+                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
+                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
+                    Self::MissingTypeDependency => serializer.serialize_i32(11),
+                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
+                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
+                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
+                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
+                    Self::NextHopNotRunning => serializer.serialize_i32(17),
+                    Self::NotCriticalError => serializer.serialize_i32(18),
+                    Self::NoResultsOnPage => serializer.serialize_i32(19),
+                    Self::PartialSuccess => serializer.serialize_i32(20),
+                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
+                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
+                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
+                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
+                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
+                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
+                    Self::UndeclaredProperties => serializer.serialize_i32(27),
+                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                    ".google.cloud.compute.v1.MachineTypeList.warning.code",
+                ))
+            }
+        }
+    }
+}
+
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MachineTypesScopedList {
     /// [Output Only] A list of machine types contained in this scope.
     pub machine_types: std::vec::Vec<crate::model::MachineType>,
+
+    /// [Output Only] An informational warning that appears when the machine types list is empty.
+    pub warning: std::option::Option<crate::model::machine_types_scoped_list::Warning>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -753,11 +1796,501 @@ impl MachineTypesScopedList {
         self.machine_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [warning][crate::model::MachineTypesScopedList::warning].
+    pub fn set_warning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::machine_types_scoped_list::Warning>,
+    {
+        self.warning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [warning][crate::model::MachineTypesScopedList::warning].
+    pub fn set_or_clear_warning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::machine_types_scoped_list::Warning>,
+    {
+        self.warning = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for MachineTypesScopedList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.MachineTypesScopedList"
+    }
+}
+
+/// Defines additional types related to [MachineTypesScopedList].
+pub mod machine_types_scoped_list {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The message type for the [warning][google.cloud.compute.v1.MachineTypesScopedList.warning] field.
+    ///
+    /// [google.cloud.compute.v1.MachineTypesScopedList.warning]: crate::model::machine_types_scoped_list::Warning
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Warning {
+        /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
+        pub code: crate::model::machine_types_scoped_list::warning::Code,
+
+        /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+        pub data: std::vec::Vec<crate::model::machine_types_scoped_list::warning::Data>,
+
+        /// [Output Only] A human-readable description of the warning code.
+        pub message: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Warning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::machine_types_scoped_list::Warning::code].
+        pub fn set_code<
+            T: std::convert::Into<crate::model::machine_types_scoped_list::warning::Code>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.code = v.into();
+            self
+        }
+
+        /// Sets the value of [data][crate::model::machine_types_scoped_list::Warning::data].
+        pub fn set_data<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::machine_types_scoped_list::warning::Data>,
+        {
+            use std::iter::Iterator;
+            self.data = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::machine_types_scoped_list::Warning::message].
+        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.message = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Warning {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.MachineTypesScopedList.warning"
+        }
+    }
+
+    /// Defines additional types related to [Warning].
+    pub mod warning {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The message type for the [data][google.cloud.compute.v1.MachineTypesScopedList.warning.data] field.
+        ///
+        /// [google.cloud.compute.v1.MachineTypesScopedList.warning.data]: crate::model::machine_types_scoped_list::warning::Data
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Data {
+            /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
+            pub key: std::string::String,
+
+            /// [Output Only] A warning data value corresponding to the key.
+            pub value: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Data {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::machine_types_scoped_list::warning::Data::key].
+            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.key = v.into();
+                self
+            }
+
+            /// Sets the value of [value][crate::model::machine_types_scoped_list::warning::Data::value].
+            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.value = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for Data {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.compute.v1.MachineTypesScopedList.warning.data"
+            }
+        }
+
+        /// The enumerated type for the [code][google.cloud.compute.v1.MachineTypesScopedList.warning.code] field.
+        ///
+        /// [google.cloud.compute.v1.MachineTypesScopedList.warning.code]: crate::model::machine_types_scoped_list::warning::Code
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Code {
+            /// Warning about failed cleanup of transient changes made by a failed operation.
+            CleanupFailed,
+            /// A link to a deprecated resource was created.
+            DeprecatedResourceUsed,
+            /// When deploying and at least one of the resources has a type marked as deprecated
+            DeprecatedTypeUsed,
+            /// The user created a boot disk that is larger than image size.
+            DiskSizeLargerThanImageSize,
+            /// When deploying and at least one of the resources has a type marked as experimental
+            ExperimentalTypeUsed,
+            /// Warning that is present in an external api call
+            ExternalApiWarning,
+            /// Warning that value of a field has been overridden. Deprecated unused field.
+            FieldValueOverriden,
+            /// The operation involved use of an injected kernel, which is deprecated.
+            InjectedKernelsDeprecated,
+            /// A WEIGHTED_MAGLEV backend service is associated with a health check that is not of type HTTP/HTTPS/HTTP2.
+            InvalidHealthCheckForDynamicWieghtedLb,
+            /// When deploying a deployment with a exceedingly large number of resources
+            LargeDeploymentWarning,
+            /// Resource can't be retrieved due to list overhead quota exceed which captures the amount of resources filtered out by user-defined list filter.
+            ListOverheadQuotaExceed,
+            /// A resource depends on a missing type
+            MissingTypeDependency,
+            /// The route's nextHopIp address is not assigned to an instance on the network.
+            NextHopAddressNotAssigned,
+            /// The route's next hop instance cannot ip forward.
+            NextHopCannotIpForward,
+            /// The route's nextHopInstance URL refers to an instance that does not have an ipv6 interface on the same network as the route.
+            NextHopInstanceHasNoIpv6Interface,
+            /// The route's nextHopInstance URL refers to an instance that does not exist.
+            NextHopInstanceNotFound,
+            /// The route's nextHopInstance URL refers to an instance that is not on the same network as the route.
+            NextHopInstanceNotOnNetwork,
+            /// The route's next hop instance does not have a status of RUNNING.
+            NextHopNotRunning,
+            /// Error which is not critical. We decided to continue the process despite the mentioned error.
+            NotCriticalError,
+            /// No results are present on a particular list page.
+            NoResultsOnPage,
+            /// Success is reported, but some results may be missing due to errors
+            PartialSuccess,
+            /// Quota information is not available to client requests (e.g: regions.list).
+            QuotaInfoUnavailable,
+            /// The user attempted to use a resource that requires a TOS they have not accepted.
+            RequiredTosAgreement,
+            /// Warning that a resource is in use.
+            ResourceInUseByOtherResourceWarning,
+            /// One or more of the resources set to auto-delete could not be deleted because they were in use.
+            ResourceNotDeleted,
+            /// When a resource schema validation is ignored.
+            SchemaValidationIgnored,
+            /// Instance template used in instance group manager is valid as such, but its application does not make a lot of sense, because it allows only single instance in instance group.
+            SingleInstancePropertyTemplate,
+            /// When undeclared properties in the schema are present
+            UndeclaredProperties,
+            /// A given scope cannot be reached.
+            Unreachable,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Code::value] or
+            /// [Code::name].
+            UnknownValue(code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Code {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some(0),
+                    Self::DeprecatedResourceUsed => std::option::Option::Some(1),
+                    Self::DeprecatedTypeUsed => std::option::Option::Some(2),
+                    Self::DiskSizeLargerThanImageSize => std::option::Option::Some(3),
+                    Self::ExperimentalTypeUsed => std::option::Option::Some(4),
+                    Self::ExternalApiWarning => std::option::Option::Some(5),
+                    Self::FieldValueOverriden => std::option::Option::Some(6),
+                    Self::InjectedKernelsDeprecated => std::option::Option::Some(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => std::option::Option::Some(8),
+                    Self::LargeDeploymentWarning => std::option::Option::Some(9),
+                    Self::ListOverheadQuotaExceed => std::option::Option::Some(10),
+                    Self::MissingTypeDependency => std::option::Option::Some(11),
+                    Self::NextHopAddressNotAssigned => std::option::Option::Some(12),
+                    Self::NextHopCannotIpForward => std::option::Option::Some(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => std::option::Option::Some(14),
+                    Self::NextHopInstanceNotFound => std::option::Option::Some(15),
+                    Self::NextHopInstanceNotOnNetwork => std::option::Option::Some(16),
+                    Self::NextHopNotRunning => std::option::Option::Some(17),
+                    Self::NotCriticalError => std::option::Option::Some(18),
+                    Self::NoResultsOnPage => std::option::Option::Some(19),
+                    Self::PartialSuccess => std::option::Option::Some(20),
+                    Self::QuotaInfoUnavailable => std::option::Option::Some(21),
+                    Self::RequiredTosAgreement => std::option::Option::Some(22),
+                    Self::ResourceInUseByOtherResourceWarning => std::option::Option::Some(23),
+                    Self::ResourceNotDeleted => std::option::Option::Some(24),
+                    Self::SchemaValidationIgnored => std::option::Option::Some(25),
+                    Self::SingleInstancePropertyTemplate => std::option::Option::Some(26),
+                    Self::UndeclaredProperties => std::option::Option::Some(27),
+                    Self::Unreachable => std::option::Option::Some(28),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        std::option::Option::Some("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => std::option::Option::Some("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        std::option::Option::Some("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        std::option::Option::Some("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => std::option::Option::Some("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => std::option::Option::Some("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        std::option::Option::Some("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        std::option::Option::Some("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        std::option::Option::Some("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        std::option::Option::Some("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        std::option::Option::Some("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        std::option::Option::Some("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        std::option::Option::Some("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => std::option::Option::Some("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => std::option::Option::Some("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => std::option::Option::Some("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => std::option::Option::Some("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        std::option::Option::Some("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        std::option::Option::Some("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        std::option::Option::Some("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => std::option::Option::Some("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        std::option::Option::Some("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        std::option::Option::Some("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => {
+                        std::option::Option::Some("UNDECLARED_PROPERTIES")
+                    }
+                    Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Code {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::CleanupFailed,
+                    1 => Self::DeprecatedResourceUsed,
+                    2 => Self::DeprecatedTypeUsed,
+                    3 => Self::DiskSizeLargerThanImageSize,
+                    4 => Self::ExperimentalTypeUsed,
+                    5 => Self::ExternalApiWarning,
+                    6 => Self::FieldValueOverriden,
+                    7 => Self::InjectedKernelsDeprecated,
+                    8 => Self::InvalidHealthCheckForDynamicWieghtedLb,
+                    9 => Self::LargeDeploymentWarning,
+                    10 => Self::ListOverheadQuotaExceed,
+                    11 => Self::MissingTypeDependency,
+                    12 => Self::NextHopAddressNotAssigned,
+                    13 => Self::NextHopCannotIpForward,
+                    14 => Self::NextHopInstanceHasNoIpv6Interface,
+                    15 => Self::NextHopInstanceNotFound,
+                    16 => Self::NextHopInstanceNotOnNetwork,
+                    17 => Self::NextHopNotRunning,
+                    18 => Self::NotCriticalError,
+                    19 => Self::NoResultsOnPage,
+                    20 => Self::PartialSuccess,
+                    21 => Self::QuotaInfoUnavailable,
+                    22 => Self::RequiredTosAgreement,
+                    23 => Self::ResourceInUseByOtherResourceWarning,
+                    24 => Self::ResourceNotDeleted,
+                    25 => Self::SchemaValidationIgnored,
+                    26 => Self::SingleInstancePropertyTemplate,
+                    27 => Self::UndeclaredProperties,
+                    28 => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Code {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CLEANUP_FAILED" => Self::CleanupFailed,
+                    "DEPRECATED_RESOURCE_USED" => Self::DeprecatedResourceUsed,
+                    "DEPRECATED_TYPE_USED" => Self::DeprecatedTypeUsed,
+                    "DISK_SIZE_LARGER_THAN_IMAGE_SIZE" => Self::DiskSizeLargerThanImageSize,
+                    "EXPERIMENTAL_TYPE_USED" => Self::ExperimentalTypeUsed,
+                    "EXTERNAL_API_WARNING" => Self::ExternalApiWarning,
+                    "FIELD_VALUE_OVERRIDEN" => Self::FieldValueOverriden,
+                    "INJECTED_KERNELS_DEPRECATED" => Self::InjectedKernelsDeprecated,
+                    "INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB" => {
+                        Self::InvalidHealthCheckForDynamicWieghtedLb
+                    }
+                    "LARGE_DEPLOYMENT_WARNING" => Self::LargeDeploymentWarning,
+                    "LIST_OVERHEAD_QUOTA_EXCEED" => Self::ListOverheadQuotaExceed,
+                    "MISSING_TYPE_DEPENDENCY" => Self::MissingTypeDependency,
+                    "NEXT_HOP_ADDRESS_NOT_ASSIGNED" => Self::NextHopAddressNotAssigned,
+                    "NEXT_HOP_CANNOT_IP_FORWARD" => Self::NextHopCannotIpForward,
+                    "NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE" => {
+                        Self::NextHopInstanceHasNoIpv6Interface
+                    }
+                    "NEXT_HOP_INSTANCE_NOT_FOUND" => Self::NextHopInstanceNotFound,
+                    "NEXT_HOP_INSTANCE_NOT_ON_NETWORK" => Self::NextHopInstanceNotOnNetwork,
+                    "NEXT_HOP_NOT_RUNNING" => Self::NextHopNotRunning,
+                    "NOT_CRITICAL_ERROR" => Self::NotCriticalError,
+                    "NO_RESULTS_ON_PAGE" => Self::NoResultsOnPage,
+                    "PARTIAL_SUCCESS" => Self::PartialSuccess,
+                    "QUOTA_INFO_UNAVAILABLE" => Self::QuotaInfoUnavailable,
+                    "REQUIRED_TOS_AGREEMENT" => Self::RequiredTosAgreement,
+                    "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING" => {
+                        Self::ResourceInUseByOtherResourceWarning
+                    }
+                    "RESOURCE_NOT_DELETED" => Self::ResourceNotDeleted,
+                    "SCHEMA_VALIDATION_IGNORED" => Self::SchemaValidationIgnored,
+                    "SINGLE_INSTANCE_PROPERTY_TEMPLATE" => Self::SingleInstancePropertyTemplate,
+                    "UNDECLARED_PROPERTIES" => Self::UndeclaredProperties,
+                    "UNREACHABLE" => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::CleanupFailed => serializer.serialize_i32(0),
+                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
+                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
+                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
+                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
+                    Self::ExternalApiWarning => serializer.serialize_i32(5),
+                    Self::FieldValueOverriden => serializer.serialize_i32(6),
+                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
+                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
+                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
+                    Self::MissingTypeDependency => serializer.serialize_i32(11),
+                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
+                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
+                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
+                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
+                    Self::NextHopNotRunning => serializer.serialize_i32(17),
+                    Self::NotCriticalError => serializer.serialize_i32(18),
+                    Self::NoResultsOnPage => serializer.serialize_i32(19),
+                    Self::PartialSuccess => serializer.serialize_i32(20),
+                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
+                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
+                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
+                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
+                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
+                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
+                    Self::UndeclaredProperties => serializer.serialize_i32(27),
+                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                    ".google.cloud.compute.v1.MachineTypesScopedList.warning.code",
+                ))
+            }
+        }
     }
 }
 
@@ -1049,6 +2582,9 @@ pub struct ZoneList {
     /// [Output Only] Server-defined URL for this resource.
     pub self_link: std::string::String,
 
+    /// [Output Only] Informational warning message.
+    pub warning: std::option::Option<crate::model::zone_list::Warning>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1091,6 +2627,24 @@ impl ZoneList {
         self.self_link = v.into();
         self
     }
+
+    /// Sets the value of [warning][crate::model::ZoneList::warning].
+    pub fn set_warning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::zone_list::Warning>,
+    {
+        self.warning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [warning][crate::model::ZoneList::warning].
+    pub fn set_or_clear_warning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::zone_list::Warning>,
+    {
+        self.warning = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ZoneList {
@@ -1110,6 +2664,476 @@ impl gax::paginator::internal::PageableResponse for ZoneList {
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
         self.next_page_token.clone()
+    }
+}
+
+/// Defines additional types related to [ZoneList].
+pub mod zone_list {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The message type for the [warning][google.cloud.compute.v1.ZoneList.warning] field.
+    ///
+    /// [google.cloud.compute.v1.ZoneList.warning]: crate::model::zone_list::Warning
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Warning {
+        /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
+        pub code: crate::model::zone_list::warning::Code,
+
+        /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+        pub data: std::vec::Vec<crate::model::zone_list::warning::Data>,
+
+        /// [Output Only] A human-readable description of the warning code.
+        pub message: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Warning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::zone_list::Warning::code].
+        pub fn set_code<T: std::convert::Into<crate::model::zone_list::warning::Code>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.code = v.into();
+            self
+        }
+
+        /// Sets the value of [data][crate::model::zone_list::Warning::data].
+        pub fn set_data<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::zone_list::warning::Data>,
+        {
+            use std::iter::Iterator;
+            self.data = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::zone_list::Warning::message].
+        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.message = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Warning {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.ZoneList.warning"
+        }
+    }
+
+    /// Defines additional types related to [Warning].
+    pub mod warning {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The message type for the [data][google.cloud.compute.v1.ZoneList.warning.data] field.
+        ///
+        /// [google.cloud.compute.v1.ZoneList.warning.data]: crate::model::zone_list::warning::Data
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Data {
+            /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
+            pub key: std::string::String,
+
+            /// [Output Only] A warning data value corresponding to the key.
+            pub value: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Data {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::zone_list::warning::Data::key].
+            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.key = v.into();
+                self
+            }
+
+            /// Sets the value of [value][crate::model::zone_list::warning::Data::value].
+            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.value = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for Data {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.compute.v1.ZoneList.warning.data"
+            }
+        }
+
+        /// The enumerated type for the [code][google.cloud.compute.v1.ZoneList.warning.code] field.
+        ///
+        /// [google.cloud.compute.v1.ZoneList.warning.code]: crate::model::zone_list::warning::Code
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Code {
+            /// Warning about failed cleanup of transient changes made by a failed operation.
+            CleanupFailed,
+            /// A link to a deprecated resource was created.
+            DeprecatedResourceUsed,
+            /// When deploying and at least one of the resources has a type marked as deprecated
+            DeprecatedTypeUsed,
+            /// The user created a boot disk that is larger than image size.
+            DiskSizeLargerThanImageSize,
+            /// When deploying and at least one of the resources has a type marked as experimental
+            ExperimentalTypeUsed,
+            /// Warning that is present in an external api call
+            ExternalApiWarning,
+            /// Warning that value of a field has been overridden. Deprecated unused field.
+            FieldValueOverriden,
+            /// The operation involved use of an injected kernel, which is deprecated.
+            InjectedKernelsDeprecated,
+            /// A WEIGHTED_MAGLEV backend service is associated with a health check that is not of type HTTP/HTTPS/HTTP2.
+            InvalidHealthCheckForDynamicWieghtedLb,
+            /// When deploying a deployment with a exceedingly large number of resources
+            LargeDeploymentWarning,
+            /// Resource can't be retrieved due to list overhead quota exceed which captures the amount of resources filtered out by user-defined list filter.
+            ListOverheadQuotaExceed,
+            /// A resource depends on a missing type
+            MissingTypeDependency,
+            /// The route's nextHopIp address is not assigned to an instance on the network.
+            NextHopAddressNotAssigned,
+            /// The route's next hop instance cannot ip forward.
+            NextHopCannotIpForward,
+            /// The route's nextHopInstance URL refers to an instance that does not have an ipv6 interface on the same network as the route.
+            NextHopInstanceHasNoIpv6Interface,
+            /// The route's nextHopInstance URL refers to an instance that does not exist.
+            NextHopInstanceNotFound,
+            /// The route's nextHopInstance URL refers to an instance that is not on the same network as the route.
+            NextHopInstanceNotOnNetwork,
+            /// The route's next hop instance does not have a status of RUNNING.
+            NextHopNotRunning,
+            /// Error which is not critical. We decided to continue the process despite the mentioned error.
+            NotCriticalError,
+            /// No results are present on a particular list page.
+            NoResultsOnPage,
+            /// Success is reported, but some results may be missing due to errors
+            PartialSuccess,
+            /// Quota information is not available to client requests (e.g: regions.list).
+            QuotaInfoUnavailable,
+            /// The user attempted to use a resource that requires a TOS they have not accepted.
+            RequiredTosAgreement,
+            /// Warning that a resource is in use.
+            ResourceInUseByOtherResourceWarning,
+            /// One or more of the resources set to auto-delete could not be deleted because they were in use.
+            ResourceNotDeleted,
+            /// When a resource schema validation is ignored.
+            SchemaValidationIgnored,
+            /// Instance template used in instance group manager is valid as such, but its application does not make a lot of sense, because it allows only single instance in instance group.
+            SingleInstancePropertyTemplate,
+            /// When undeclared properties in the schema are present
+            UndeclaredProperties,
+            /// A given scope cannot be reached.
+            Unreachable,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Code::value] or
+            /// [Code::name].
+            UnknownValue(code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Code {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some(0),
+                    Self::DeprecatedResourceUsed => std::option::Option::Some(1),
+                    Self::DeprecatedTypeUsed => std::option::Option::Some(2),
+                    Self::DiskSizeLargerThanImageSize => std::option::Option::Some(3),
+                    Self::ExperimentalTypeUsed => std::option::Option::Some(4),
+                    Self::ExternalApiWarning => std::option::Option::Some(5),
+                    Self::FieldValueOverriden => std::option::Option::Some(6),
+                    Self::InjectedKernelsDeprecated => std::option::Option::Some(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => std::option::Option::Some(8),
+                    Self::LargeDeploymentWarning => std::option::Option::Some(9),
+                    Self::ListOverheadQuotaExceed => std::option::Option::Some(10),
+                    Self::MissingTypeDependency => std::option::Option::Some(11),
+                    Self::NextHopAddressNotAssigned => std::option::Option::Some(12),
+                    Self::NextHopCannotIpForward => std::option::Option::Some(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => std::option::Option::Some(14),
+                    Self::NextHopInstanceNotFound => std::option::Option::Some(15),
+                    Self::NextHopInstanceNotOnNetwork => std::option::Option::Some(16),
+                    Self::NextHopNotRunning => std::option::Option::Some(17),
+                    Self::NotCriticalError => std::option::Option::Some(18),
+                    Self::NoResultsOnPage => std::option::Option::Some(19),
+                    Self::PartialSuccess => std::option::Option::Some(20),
+                    Self::QuotaInfoUnavailable => std::option::Option::Some(21),
+                    Self::RequiredTosAgreement => std::option::Option::Some(22),
+                    Self::ResourceInUseByOtherResourceWarning => std::option::Option::Some(23),
+                    Self::ResourceNotDeleted => std::option::Option::Some(24),
+                    Self::SchemaValidationIgnored => std::option::Option::Some(25),
+                    Self::SingleInstancePropertyTemplate => std::option::Option::Some(26),
+                    Self::UndeclaredProperties => std::option::Option::Some(27),
+                    Self::Unreachable => std::option::Option::Some(28),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        std::option::Option::Some("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => std::option::Option::Some("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        std::option::Option::Some("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        std::option::Option::Some("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => std::option::Option::Some("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => std::option::Option::Some("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        std::option::Option::Some("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        std::option::Option::Some("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        std::option::Option::Some("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        std::option::Option::Some("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        std::option::Option::Some("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        std::option::Option::Some("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        std::option::Option::Some("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => std::option::Option::Some("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => std::option::Option::Some("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => std::option::Option::Some("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => std::option::Option::Some("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        std::option::Option::Some("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        std::option::Option::Some("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        std::option::Option::Some("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => std::option::Option::Some("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        std::option::Option::Some("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        std::option::Option::Some("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => {
+                        std::option::Option::Some("UNDECLARED_PROPERTIES")
+                    }
+                    Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Code {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::CleanupFailed,
+                    1 => Self::DeprecatedResourceUsed,
+                    2 => Self::DeprecatedTypeUsed,
+                    3 => Self::DiskSizeLargerThanImageSize,
+                    4 => Self::ExperimentalTypeUsed,
+                    5 => Self::ExternalApiWarning,
+                    6 => Self::FieldValueOverriden,
+                    7 => Self::InjectedKernelsDeprecated,
+                    8 => Self::InvalidHealthCheckForDynamicWieghtedLb,
+                    9 => Self::LargeDeploymentWarning,
+                    10 => Self::ListOverheadQuotaExceed,
+                    11 => Self::MissingTypeDependency,
+                    12 => Self::NextHopAddressNotAssigned,
+                    13 => Self::NextHopCannotIpForward,
+                    14 => Self::NextHopInstanceHasNoIpv6Interface,
+                    15 => Self::NextHopInstanceNotFound,
+                    16 => Self::NextHopInstanceNotOnNetwork,
+                    17 => Self::NextHopNotRunning,
+                    18 => Self::NotCriticalError,
+                    19 => Self::NoResultsOnPage,
+                    20 => Self::PartialSuccess,
+                    21 => Self::QuotaInfoUnavailable,
+                    22 => Self::RequiredTosAgreement,
+                    23 => Self::ResourceInUseByOtherResourceWarning,
+                    24 => Self::ResourceNotDeleted,
+                    25 => Self::SchemaValidationIgnored,
+                    26 => Self::SingleInstancePropertyTemplate,
+                    27 => Self::UndeclaredProperties,
+                    28 => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Code {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CLEANUP_FAILED" => Self::CleanupFailed,
+                    "DEPRECATED_RESOURCE_USED" => Self::DeprecatedResourceUsed,
+                    "DEPRECATED_TYPE_USED" => Self::DeprecatedTypeUsed,
+                    "DISK_SIZE_LARGER_THAN_IMAGE_SIZE" => Self::DiskSizeLargerThanImageSize,
+                    "EXPERIMENTAL_TYPE_USED" => Self::ExperimentalTypeUsed,
+                    "EXTERNAL_API_WARNING" => Self::ExternalApiWarning,
+                    "FIELD_VALUE_OVERRIDEN" => Self::FieldValueOverriden,
+                    "INJECTED_KERNELS_DEPRECATED" => Self::InjectedKernelsDeprecated,
+                    "INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB" => {
+                        Self::InvalidHealthCheckForDynamicWieghtedLb
+                    }
+                    "LARGE_DEPLOYMENT_WARNING" => Self::LargeDeploymentWarning,
+                    "LIST_OVERHEAD_QUOTA_EXCEED" => Self::ListOverheadQuotaExceed,
+                    "MISSING_TYPE_DEPENDENCY" => Self::MissingTypeDependency,
+                    "NEXT_HOP_ADDRESS_NOT_ASSIGNED" => Self::NextHopAddressNotAssigned,
+                    "NEXT_HOP_CANNOT_IP_FORWARD" => Self::NextHopCannotIpForward,
+                    "NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE" => {
+                        Self::NextHopInstanceHasNoIpv6Interface
+                    }
+                    "NEXT_HOP_INSTANCE_NOT_FOUND" => Self::NextHopInstanceNotFound,
+                    "NEXT_HOP_INSTANCE_NOT_ON_NETWORK" => Self::NextHopInstanceNotOnNetwork,
+                    "NEXT_HOP_NOT_RUNNING" => Self::NextHopNotRunning,
+                    "NOT_CRITICAL_ERROR" => Self::NotCriticalError,
+                    "NO_RESULTS_ON_PAGE" => Self::NoResultsOnPage,
+                    "PARTIAL_SUCCESS" => Self::PartialSuccess,
+                    "QUOTA_INFO_UNAVAILABLE" => Self::QuotaInfoUnavailable,
+                    "REQUIRED_TOS_AGREEMENT" => Self::RequiredTosAgreement,
+                    "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING" => {
+                        Self::ResourceInUseByOtherResourceWarning
+                    }
+                    "RESOURCE_NOT_DELETED" => Self::ResourceNotDeleted,
+                    "SCHEMA_VALIDATION_IGNORED" => Self::SchemaValidationIgnored,
+                    "SINGLE_INSTANCE_PROPERTY_TEMPLATE" => Self::SingleInstancePropertyTemplate,
+                    "UNDECLARED_PROPERTIES" => Self::UndeclaredProperties,
+                    "UNREACHABLE" => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::CleanupFailed => serializer.serialize_i32(0),
+                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
+                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
+                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
+                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
+                    Self::ExternalApiWarning => serializer.serialize_i32(5),
+                    Self::FieldValueOverriden => serializer.serialize_i32(6),
+                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
+                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
+                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
+                    Self::MissingTypeDependency => serializer.serialize_i32(11),
+                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
+                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
+                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
+                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
+                    Self::NextHopNotRunning => serializer.serialize_i32(17),
+                    Self::NotCriticalError => serializer.serialize_i32(18),
+                    Self::NoResultsOnPage => serializer.serialize_i32(19),
+                    Self::PartialSuccess => serializer.serialize_i32(20),
+                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
+                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
+                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
+                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
+                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
+                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
+                    Self::UndeclaredProperties => serializer.serialize_i32(27),
+                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                    ".google.cloud.compute.v1.ZoneList.warning.code",
+                ))
+            }
+        }
     }
 }
 
