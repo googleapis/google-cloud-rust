@@ -131,7 +131,7 @@ async fn download(
     let mut stripes = (0..count)
         .map(|i| write_stripe(client.clone(), &file, i * limit, limit, &metadata))
         .collect::<Vec<_>>();
-    if !size.is_multiple_of(limit) {
+    if size % limit != 0 {
         stripes.push(write_stripe(
             client.clone(),
             &file,
