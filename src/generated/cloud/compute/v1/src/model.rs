@@ -20586,9 +20586,9 @@ pub mod scheduling {
             S: serde::Serializer,
         {
             match self {
-                Self::Delete => serializer.serialize_i32(0),
-                Self::Unspecified => serializer.serialize_i32(1),
-                Self::Stop => serializer.serialize_i32(2),
+                Self::Delete => serializer.serialize_str(self.name().unwrap()),
+                Self::Unspecified => serializer.serialize_str(self.name().unwrap()),
+                Self::Stop => serializer.serialize_str(self.name().unwrap()),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

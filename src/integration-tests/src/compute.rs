@@ -13,7 +13,12 @@
 // limitations under the License.
 
 use crate::Result;
-use compute::client::{Instances, MachineTypes, ZoneOperations, Zones};
+use compute::client::{Images, Instances, MachineTypes, ZoneOperations, Zones};
+use compute::model::{
+    AttachedDisk, AttachedDiskInitializeParams, Duration as ComputeDuration, Instance,
+    NetworkInterface, Scheduling, ServiceAccount, scheduling::InstanceTerminationAction,
+    scheduling::ProvisioningModel,
+};
 use gax::paginator::ItemPaginator as _;
 
 pub async fn zones() -> Result<()> {
@@ -109,16 +114,92 @@ pub async fn machine_types() -> Result<()> {
 
 pub async fn instances() -> Result<()> {
     let client = Instances::builder().with_tracing().build().await?;
+    let operations = ZoneOperations::builder().with_tracing().build().await?;
+    let images = Images::builder().with_tracing().build().await?;
     let project_id = crate::project_id()?;
+    let service_account = crate::test_service_account()?;
     let zone_id = crate::zone_id();
 
+    // Find a suitable image. Images are updated periodically, we need to query
+    // what is available. Even image families are removed after a few years,
+    // fortunately, fedora-coreos-stable is a rolling release.
+    let mut image = None;
+    let mut items = images
+        .list()
+        .set_project("fedora-coreos-cloud")
+        .set_filter("family=fedora-coreos-stable")
+        .by_item();
+    while let Some(i) = items.next().await.transpose()? {
+        if i.family != "fedora-coreos-stable" {
+            continue;
+        }
+        image = Some(i.name);
+    }
+
+    let image = image.expect("cannot find an image in the fedora-coreos-stable family");
+
+    let id = crate::random_vm_id();
+    let body = Instance::new()
+        .set_machine_type(format!("zones/{zone_id}/machineTypes/f1-micro"))
+        .set_name(&id)
+        .set_description("A test VM created by the Rust client library.")
+        .set_disks([AttachedDisk::new().set_boot(true).set_initialize_params(
+            AttachedDiskInitializeParams::new().set_source_image(format!(
+                "projects/fedora-coreos-cloud/global/images/{image}"
+            )),
+        )])
+        .set_network_interfaces([NetworkInterface::new().set_network("global/networks/default")])
+        .set_service_accounts([ServiceAccount::new()
+            .set_email(&service_account)
+            .set_scopes(["https://www.googleapis.com/auth/cloud-platform"])])
+        // .set_scheduling(
+        //     // Automatically shutdown and delete the instance after 15m
+        //     Scheduling::new()
+        //         .set_provisioning_model(ProvisioningModel::Spot)
+        //         .set_instance_termination_action(InstanceTerminationAction::Delete)
+        //         .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
+        // )
+        ;
+
+    tracing::info!("Starting new instance with image: {image:?}.");
+    let pending = client
+        .insert()
+        .set_project(&project_id)
+        .set_zone(&zone_id)
+        .set_body(body)
+        .send()
+        .await?;
+
+    tracing::info!("Waiting for new instance operation.");
+    let done = operations
+        .wait()
+        .set_project(&project_id)
+        .set_zone(&zone_id)
+        .set_operation(&pending.name)
+        .send()
+        .await?;
+    tracing::info!("Operation completed with = {done:?}");
+
+    tracing::info!("Getting instance details.");
+    let instance = client
+        .get()
+        .set_project(&project_id)
+        .set_zone(&zone_id)
+        .set_instance(&id)
+        .send()
+        .await?;
+    tracing::warn!("instance = {instance:?}");
+
     tracing::info!("Testing Instances::list()");
-    let mut items = client.list().set_project(&project_id).set_zone(&zone_id).by_item();
+    let mut items = client
+        .list()
+        .set_project(&project_id)
+        .set_zone(&zone_id)
+        .by_item();
     while let Some(instance) = items.next().await.transpose()? {
         tracing::info!("instance = {instance:?}");
     }
     tracing::info!("DONE Instances::list()");
 
-    
     Ok(())
 }
