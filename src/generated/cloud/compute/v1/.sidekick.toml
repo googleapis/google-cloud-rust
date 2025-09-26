@@ -28,3 +28,4 @@ included-ids = """\
 copyright-year        = '2025'
 not-for-publication   = 'true'
 package-name-override = 'google-cloud-compute-v1'
+per-service-features  = 'true'

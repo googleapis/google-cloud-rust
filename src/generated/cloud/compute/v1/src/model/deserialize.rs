@@ -17,6 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
+#[cfg(any(feature = "machine-types", feature = "zones",))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::DeprecationStatus {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -143,6 +144,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DeprecationStatus {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::MachineType {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -462,6 +464,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MachineType {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::machine_type::Accelerators {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -564,6 +567,7 @@ impl<'de> serde::de::Deserialize<'de> for super::machine_type::Accelerators {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::MachineTypeAggregatedList {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -719,6 +723,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MachineTypeAggregatedList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::machine_type_aggregated_list::Warning {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -829,6 +834,7 @@ impl<'de> serde::de::Deserialize<'de> for super::machine_type_aggregated_list::W
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::machine_type_aggregated_list::warning::Data {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -921,6 +927,7 @@ impl<'de> serde::de::Deserialize<'de> for super::machine_type_aggregated_list::w
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::MachineTypeList {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1058,6 +1065,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MachineTypeList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::machine_type_list::Warning {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1166,6 +1174,7 @@ impl<'de> serde::de::Deserialize<'de> for super::machine_type_list::Warning {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::machine_type_list::warning::Data {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1258,6 +1267,7 @@ impl<'de> serde::de::Deserialize<'de> for super::machine_type_list::warning::Dat
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::MachineTypesScopedList {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1348,6 +1358,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MachineTypesScopedList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::machine_types_scoped_list::Warning {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1458,6 +1469,7 @@ impl<'de> serde::de::Deserialize<'de> for super::machine_types_scoped_list::Warn
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::machine_types_scoped_list::warning::Data {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1550,6 +1562,7 @@ impl<'de> serde::de::Deserialize<'de> for super::machine_types_scoped_list::warn
     }
 }
 
+#[cfg(feature = "zones")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::Zone {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1757,6 +1770,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Zone {
     }
 }
 
+#[cfg(feature = "zones")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::ZoneList {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1894,6 +1908,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ZoneList {
     }
 }
 
+#[cfg(feature = "zones")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::zone_list::Warning {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1998,6 +2013,7 @@ impl<'de> serde::de::Deserialize<'de> for super::zone_list::Warning {
     }
 }
 
+#[cfg(feature = "zones")]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::zone_list::warning::Data {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>

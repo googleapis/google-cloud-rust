@@ -15,8 +15,8 @@ should not introduce breaking changes to the client libraries.
 
 The main types to work with this crate are the clients:
 
-- [MachineTypes]
-- [Zones]
+- [MachineTypes]: enabled by the `machine-types` feature.
+- [Zones]: enabled by the `zones` feature.
 
 ## More Information
 
