@@ -35,6 +35,7 @@
 //! * [Zones](client/struct.Zones.html)
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
+#![allow(deprecated)]
 
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
