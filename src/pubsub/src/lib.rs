@@ -35,15 +35,15 @@ pub mod builder {
 }
 pub mod model {
     pub use crate::generated::gapic::model::*;
-    pub use crate::generated::gapic_dataplane::model::*;
+    pub(crate) use crate::generated::gapic_dataplane::model::*;
 }
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::generated::gapic_dataplane::client::*;
+    pub(crate) use crate::generated::gapic_dataplane::client::*;
 }
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
-    pub use crate::generated::gapic_dataplane::stub::*;
+    pub(crate) use crate::generated::gapic_dataplane::stub::*;
 }
 
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";
