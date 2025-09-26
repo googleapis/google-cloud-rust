@@ -45,6 +45,7 @@ _internal-http-client = [
   "dep:serde",
   "dep:serde_json",
   "dep:tokio",
+  "dep:tracing",
 ]
 _internal-grpc-client = [
   "_internal-common",
@@ -78,6 +79,7 @@ thiserror                          = { workspace = true, optional = true }
 tokio                              = { workspace = true, optional = true, features = ["macros", "rt-multi-thread"] }
 tonic                              = { workspace = true, optional = true }
 tonic-prost                        = { workspace = true, optional = true }
+tracing                            = { workspace = true, optional = true }
 # Local crates
 auth = { workspace = true, optional = true }
 gax  = { workspace = true, optional = true }
@@ -94,6 +96,8 @@ serde_with.workspace  = true
 serial_test.workspace = true
 test-case.workspace   = true
 tokio                 = { workspace = true, features = ["test-util"] }
+tracing               = { workspace = true, features = ["std"] }
+tracing-subscriber    = { workspace = true, features = ["registry", "std"] }
 # Local crates
 echo-server = { path = "echo-server" }
 grpc-server = { path = "grpc-server" }

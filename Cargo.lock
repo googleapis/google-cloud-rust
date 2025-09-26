@@ -2607,6 +2607,8 @@ dependencies = [
  "tokio",
  "tonic",
  "tonic-prost",
+ "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
