@@ -31,6 +31,7 @@
 //!
 //! # Available Clients
 //!
+//! * [Images](client/struct.Images.html)
 //! * [Instances](client/struct.Instances.html)
 //! * [MachineTypes](client/struct.MachineTypes.html)
 //! * [ZoneOperations](client/struct.ZoneOperations.html)
@@ -64,6 +65,7 @@ pub(crate) mod transport;
 
 /// The default host used by the service.
 #[cfg(any(
+    feature = "images",
     feature = "instances",
     feature = "machine-types",
     feature = "zone-operations",
@@ -72,6 +74,7 @@ pub(crate) mod transport;
 const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
 
 #[cfg(any(
+    feature = "images",
     feature = "instances",
     feature = "machine-types",
     feature = "zone-operations",

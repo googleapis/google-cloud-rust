@@ -15,6 +15,7 @@ should not introduce breaking changes to the client libraries.
 
 The main types to work with this crate are the clients:
 
+- [Images]: enabled by the `images` feature.
 - [Instances]: enabled by the `instances` feature.
 - [MachineTypes]: enabled by the `machine-types` feature.
 - [ZoneOperations]: enabled by the `zone-operations` feature.
@@ -24,6 +25,7 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-compute-v1/latest/google-cloud-compute-v1)
 
+[Images]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Images.html
 [Instances]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Instances.html
 [MachineTypes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.MachineTypes.html
 [ZoneOperations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.ZoneOperations.html

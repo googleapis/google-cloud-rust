@@ -413,7 +413,7 @@ impl serde::ser::Serialize for super::AttachedDiskInitializeParams {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::AuditConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -439,7 +439,7 @@ impl serde::ser::Serialize for super::AuditConfig {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::AuditLogConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -465,7 +465,7 @@ impl serde::ser::Serialize for super::AuditLogConfig {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Binding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -579,7 +579,7 @@ impl serde::ser::Serialize for super::BulkInsertInstanceResourcePerInstancePrope
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::BulkInsertOperationStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -682,7 +682,7 @@ impl serde::ser::Serialize for super::ConfidentialInstanceConfig {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CustomerEncryptionKey {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -743,7 +743,7 @@ impl serde::ser::Serialize for super::CustomerEncryptionKeyProtectedDisk {
     }
 }
 
-#[cfg(any(feature = "machine-types", feature = "zones",))]
+#[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::DeprecationStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -845,7 +845,7 @@ impl serde::ser::Serialize for super::Duration {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ErrorInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -874,7 +874,7 @@ impl serde::ser::Serialize for super::ErrorInfo {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Expr {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -906,7 +906,7 @@ impl serde::ser::Serialize for super::Expr {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::FileContentBuffer {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1340,6 +1340,79 @@ impl serde::ser::Serialize for super::FirewallPolicyRuleSecureTag {
     }
 }
 
+#[cfg(feature = "images")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GlobalSetLabelsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.label_fingerprint.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
+        }
+        if !wkt::internal::is_default(&self.labels) {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "images")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GlobalSetPolicyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.bindings.is_empty() {
+            state.serialize_entry("bindings", &self.bindings)?;
+        }
+        if !self.etag.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("etag", &__With(&self.etag))?;
+        }
+        if self.policy.is_some() {
+            state.serialize_entry("policy", &self.policy)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "instances")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GuestAttributes {
@@ -1430,7 +1503,7 @@ impl serde::ser::Serialize for super::GuestAttributesValue {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GuestOsFeature {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1453,7 +1526,7 @@ impl serde::ser::Serialize for super::GuestOsFeature {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Help {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1476,7 +1549,7 @@ impl serde::ser::Serialize for super::Help {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::HelpLink {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1502,7 +1575,310 @@ impl serde::ser::Serialize for super::HelpLink {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(feature = "images")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Image {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.architecture) {
+            state.serialize_entry("architecture", &self.architecture)?;
+        }
+        if !wkt::internal::is_default(&self.archive_size_bytes) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("archiveSizeBytes", &__With(&self.archive_size_bytes))?;
+        }
+        if !self.creation_timestamp.is_empty() {
+            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if self.deprecated.is_some() {
+            state.serialize_entry("deprecated", &self.deprecated)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !wkt::internal::is_default(&self.disk_size_gb) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("diskSizeGb", &__With(&self.disk_size_gb))?;
+        }
+        if !wkt::internal::is_default(&self.enable_confidential_compute) {
+            state.serialize_entry(
+                "enableConfidentialCompute",
+                &self.enable_confidential_compute,
+            )?;
+        }
+        if !self.family.is_empty() {
+            state.serialize_entry("family", &self.family)?;
+        }
+        if !self.guest_os_features.is_empty() {
+            state.serialize_entry("guestOsFeatures", &self.guest_os_features)?;
+        }
+        if !wkt::internal::is_default(&self.id) {
+            struct __With<'a>(&'a u64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::U64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("id", &__With(&self.id))?;
+        }
+        if self.image_encryption_key.is_some() {
+            state.serialize_entry("imageEncryptionKey", &self.image_encryption_key)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.label_fingerprint.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
+        }
+        if !wkt::internal::is_default(&self.labels) {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.license_codes.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("licenseCodes", &__With(&self.license_codes))?;
+        }
+        if !self.licenses.is_empty() {
+            state.serialize_entry("licenses", &self.licenses)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.raw_disk.is_some() {
+            state.serialize_entry("rawDisk", &self.raw_disk)?;
+        }
+        if !wkt::internal::is_default(&self.satisfies_pzi) {
+            state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
+        }
+        if !wkt::internal::is_default(&self.satisfies_pzs) {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.shielded_instance_initial_state.is_some() {
+            state.serialize_entry(
+                "shieldedInstanceInitialState",
+                &self.shielded_instance_initial_state,
+            )?;
+        }
+        if !self.source_disk.is_empty() {
+            state.serialize_entry("sourceDisk", &self.source_disk)?;
+        }
+        if self.source_disk_encryption_key.is_some() {
+            state.serialize_entry("sourceDiskEncryptionKey", &self.source_disk_encryption_key)?;
+        }
+        if !self.source_disk_id.is_empty() {
+            state.serialize_entry("sourceDiskId", &self.source_disk_id)?;
+        }
+        if !self.source_image.is_empty() {
+            state.serialize_entry("sourceImage", &self.source_image)?;
+        }
+        if self.source_image_encryption_key.is_some() {
+            state.serialize_entry(
+                "sourceImageEncryptionKey",
+                &self.source_image_encryption_key,
+            )?;
+        }
+        if !self.source_image_id.is_empty() {
+            state.serialize_entry("sourceImageId", &self.source_image_id)?;
+        }
+        if !self.source_snapshot.is_empty() {
+            state.serialize_entry("sourceSnapshot", &self.source_snapshot)?;
+        }
+        if self.source_snapshot_encryption_key.is_some() {
+            state.serialize_entry(
+                "sourceSnapshotEncryptionKey",
+                &self.source_snapshot_encryption_key,
+            )?;
+        }
+        if !self.source_snapshot_id.is_empty() {
+            state.serialize_entry("sourceSnapshotId", &self.source_snapshot_id)?;
+        }
+        if !wkt::internal::is_default(&self.source_type) {
+            state.serialize_entry("sourceType", &self.source_type)?;
+        }
+        if !wkt::internal::is_default(&self.status) {
+            state.serialize_entry("status", &self.status)?;
+        }
+        if !self.storage_locations.is_empty() {
+            state.serialize_entry("storageLocations", &self.storage_locations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "images")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::image::RawDisk {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.container_type) {
+            state.serialize_entry("containerType", &self.container_type)?;
+        }
+        if !self.sha_1_checksum.is_empty() {
+            state.serialize_entry("sha1Checksum", &self.sha_1_checksum)?;
+        }
+        if !self.source.is_empty() {
+            state.serialize_entry("source", &self.source)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "images")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ImageList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.id.is_empty() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "images")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::image_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "images")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::image_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::InitialStateConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2145,7 +2521,7 @@ impl serde::ser::Serialize for super::InstancesAddResourcePoliciesRequest {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::InstancesBulkInsertOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2607,7 +2983,7 @@ impl serde::ser::Serialize for super::InstancesStartWithEncryptionKeyRequest {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::LocalizedMessage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -3370,7 +3746,7 @@ impl serde::ser::Serialize for super::NetworkPerformanceConfig {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Operation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -3513,7 +3889,7 @@ impl serde::ser::Serialize for super::Operation {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation::Error {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -3536,7 +3912,7 @@ impl serde::ser::Serialize for super::operation::Error {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation::error::Errors {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -3568,7 +3944,7 @@ impl serde::ser::Serialize for super::operation::error::Errors {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -3600,7 +3976,7 @@ impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation::Warnings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -3629,7 +4005,7 @@ impl serde::ser::Serialize for super::operation::Warnings {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation::warnings::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -3748,7 +4124,7 @@ impl serde::ser::Serialize for super::operation_list::warning::Data {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Policy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -3798,7 +4174,7 @@ impl serde::ser::Serialize for super::Policy {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::QuotaExceededInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -4340,7 +4716,7 @@ impl serde::ser::Serialize for super::ServiceAccount {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -4366,7 +4742,7 @@ impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize
     for super::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo
@@ -4504,7 +4880,7 @@ impl serde::ser::Serialize for super::ShieldedInstanceIntegrityPolicy {
     }
 }
 
-#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[cfg(any(feature = "images", feature = "instances", feature = "zone-operations",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Status {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -4577,7 +4953,7 @@ impl serde::ser::Serialize for super::Tags {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::TestPermissionsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -4600,7 +4976,7 @@ impl serde::ser::Serialize for super::TestPermissionsRequest {
     }
 }
 
-#[cfg(feature = "instances")]
+#[cfg(any(feature = "images", feature = "instances",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::TestPermissionsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
