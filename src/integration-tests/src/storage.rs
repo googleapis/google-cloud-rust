@@ -98,7 +98,7 @@ impl StreamingSource for TestDataSource {
 impl Seek for TestDataSource {
     type Error = std::io::Error;
     async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
-        if offset % Self::LINE_SIZE != 0 {
+        if !offset.is_multiple_of(Self::LINE_SIZE) {
             return Err(Self::Error::new(
                 std::io::ErrorKind::InvalidInput,
                 "bad offset",
