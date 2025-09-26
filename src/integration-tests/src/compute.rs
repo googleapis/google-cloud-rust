@@ -13,12 +13,13 @@
 // limitations under the License.
 
 use crate::Result;
-use compute::client::{MachineTypes, Zones};
+use compute::client::{Instances, MachineTypes, ZoneOperations, Zones};
 use gax::paginator::ItemPaginator as _;
 
 pub async fn zones() -> Result<()> {
     let client = Zones::builder().with_tracing().build().await?;
     let project_id = crate::project_id()?;
+    let zone_id = crate::zone_id();
 
     tracing::info!("Testing Zones::list()");
     let mut items = client.list().set_project(&project_id).by_item();
@@ -33,7 +34,7 @@ pub async fn zones() -> Result<()> {
     let response = client
         .get()
         .set_project(&project_id)
-        .set_zone("us-central1-a")
+        .set_zone(&zone_id)
         .send()
         .await?;
     assert_eq!(
@@ -49,12 +50,13 @@ pub async fn zones() -> Result<()> {
 pub async fn machine_types() -> Result<()> {
     let client = MachineTypes::builder().with_tracing().build().await?;
     let project_id = crate::project_id()?;
+    let zone_id = crate::zone_id();
 
     tracing::info!("Testing MachineTypes::list()");
     let mut items = client
         .list()
         .set_project(&project_id)
-        .set_zone("us-central1-a")
+        .set_zone(&zone_id)
         .by_item();
     while let Some(item) = items.next().await.transpose()? {
         tracing::info!("item = {item:?}");
@@ -67,6 +69,7 @@ pub async fn machine_types() -> Result<()> {
         let response = client
             .aggregated_list()
             .set_project(&project_id)
+            .set_filter(format!("zone:{zone_id}"))
             .set_page_token(&token)
             .send()
             .await?;
@@ -91,7 +94,7 @@ pub async fn machine_types() -> Result<()> {
     let response = client
         .get()
         .set_project(&project_id)
-        .set_zone("us-central1-a")
+        .set_zone(&zone_id)
         .set_machine_type("f1-micro")
         .send()
         .await?;
@@ -101,5 +104,21 @@ pub async fn machine_types() -> Result<()> {
     );
     tracing::info!("MachineTypes::get() = {response:?}");
 
+    Ok(())
+}
+
+pub async fn instances() -> Result<()> {
+    let client = Instances::builder().with_tracing().build().await?;
+    let project_id = crate::project_id()?;
+    let zone_id = crate::zone_id();
+
+    tracing::info!("Testing Instances::list()");
+    let mut items = client.list().set_project(&project_id).set_zone(&zone_id).by_item();
+    while let Some(instance) = items.next().await.transpose()? {
+        tracing::info!("instance = {instance:?}");
+    }
+    tracing::info!("DONE Instances::list()");
+
+    
     Ok(())
 }

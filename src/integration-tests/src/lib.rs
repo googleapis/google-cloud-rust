@@ -54,6 +54,13 @@ pub fn region_id() -> String {
         .unwrap_or("us-central1".to_string())
 }
 
+/// Returns the preferred zone id used for the integration tests.
+pub fn zone_id() -> String {
+    std::env::var("GOOGLE_CLOUD_RUST_TEST_REGION")
+        .ok()
+        .unwrap_or("us-central1-a".to_string())
+}
+
 pub fn report_error(e: anyhow::Error) -> anyhow::Error {
     eprintln!("\n\nERROR {e:?}\n");
     tracing::error!("ERROR {e:?}");
