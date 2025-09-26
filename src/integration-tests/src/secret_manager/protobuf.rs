@@ -174,7 +174,7 @@ async fn run_locations(client: &sm::client::SecretManagerService, project_id: &s
 }
 
 async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -> Result<()> {
-    let service_account = crate::service_account_for_iam_tests()?;
+    let service_account = crate::test_service_account()?;
 
     println!("\nTesting get_iam_policy()");
     let policy = client
