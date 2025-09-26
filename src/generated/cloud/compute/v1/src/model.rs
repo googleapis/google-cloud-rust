@@ -565,6 +565,9 @@ pub struct MachineTypeAggregatedList {
     /// [Output Only] Unique identifier for the resource; defined by the server.
     pub id: std::string::String,
 
+    /// A list of MachineTypesScopedList resources.
+    pub items: std::collections::HashMap<std::string::String, crate::model::MachineTypesScopedList>,
+
     /// [Output Only] Type of resource. Always compute#machineTypeAggregatedList for aggregated lists of machine types.
     pub kind: std::string::String,
 
@@ -588,6 +591,22 @@ impl MachineTypeAggregatedList {
     /// Sets the value of [id][crate::model::MachineTypeAggregatedList::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [items][crate::model::MachineTypeAggregatedList::items].
+    pub fn set_items<
+        T: std::convert::Into<
+                std::collections::HashMap<
+                    std::string::String,
+                    crate::model::MachineTypesScopedList,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.items = v.into();
         self
     }
 
@@ -707,6 +726,38 @@ impl gax::paginator::internal::PageableResponse for MachineTypeList {
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
         self.next_page_token.clone()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MachineTypesScopedList {
+    /// [Output Only] A list of machine types contained in this scope.
+    pub machine_types: std::vec::Vec<crate::model::MachineType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MachineTypesScopedList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [machine_types][crate::model::MachineTypesScopedList::machine_types].
+    pub fn set_machine_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MachineType>,
+    {
+        use std::iter::Iterator;
+        self.machine_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MachineTypesScopedList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.MachineTypesScopedList"
     }
 }
 

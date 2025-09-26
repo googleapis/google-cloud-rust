@@ -459,6 +459,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MachineTypeAggregatedList {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __id,
+            __items,
             __kind,
             __next_page_token,
             __self_link,
@@ -484,6 +485,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MachineTypeAggregatedList {
                         use std::string::ToString;
                         match value {
                             "id" => Ok(__FieldTag::__id),
+                            "items" => Ok(__FieldTag::__items),
                             "kind" => Ok(__FieldTag::__kind),
                             "nextPageToken" => Ok(__FieldTag::__next_page_token),
                             "selfLink" => Ok(__FieldTag::__self_link),
@@ -521,6 +523,21 @@ impl<'de> serde::de::Deserialize<'de> for super::MachineTypeAggregatedList {
                             }
                             result.id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__items => {
+                            if !fields.insert(__FieldTag::__items) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for items",
+                                ));
+                            }
+                            result.items = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::MachineTypesScopedList,
+                                    >,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__kind => {
@@ -686,6 +703,84 @@ impl<'de> serde::de::Deserialize<'de> for super::MachineTypeList {
                             result.self_link = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::MachineTypesScopedList {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __machine_types,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MachineTypesScopedList")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "machineTypes" => Ok(__FieldTag::__machine_types),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::MachineTypesScopedList;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MachineTypesScopedList")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__machine_types => {
+                            if !fields.insert(__FieldTag::__machine_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for machine_types",
+                                ));
+                            }
+                            result.machine_types = map.next_value::<std::option::Option<std::vec::Vec<crate::model::MachineType>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
