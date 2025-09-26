@@ -188,6 +188,9 @@ impl serde::ser::Serialize for super::MachineTypeAggregatedList {
         if !self.id.is_empty() {
             state.serialize_entry("id", &self.id)?;
         }
+        if !wkt::internal::is_default(&self.items) {
+            state.serialize_entry("items", &self.items)?;
+        }
         if !self.kind.is_empty() {
             state.serialize_entry("kind", &self.kind)?;
         }
@@ -233,6 +236,28 @@ impl serde::ser::Serialize for super::MachineTypeList {
         }
         if !self.self_link.is_empty() {
             state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MachineTypesScopedList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.machine_types.is_empty() {
+            state.serialize_entry("machineTypes", &self.machine_types)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

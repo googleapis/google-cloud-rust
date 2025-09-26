@@ -64,6 +64,7 @@ impl std::fmt::Debug for super::MachineTypeAggregatedList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MachineTypeAggregatedList");
         debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
         debug_struct.field("kind", &self.kind);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("self_link", &self.self_link);
@@ -83,6 +84,17 @@ impl std::fmt::Debug for super::MachineTypeList {
         debug_struct.field("kind", &self.kind);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("self_link", &self.self_link);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::MachineTypesScopedList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MachineTypesScopedList");
+        debug_struct.field("machine_types", &self.machine_types);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
