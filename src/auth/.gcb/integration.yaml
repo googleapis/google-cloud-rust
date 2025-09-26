@@ -34,13 +34,13 @@ steps:
         tar -C /workspace/.bin -zxf - --strip-components=1
       chmod 755 /workspace/.bin/sccache
   - id: 'Run auth integration tests'
-    name: 'rust:1.85-bookworm'
+    name: 'rust:1.90-bookworm'
     script: |
       #!/usr/bin/env bash
       set -e
       cargo test --features run-integration-tests -p auth-integration-tests
   - id: 'Run External Account integration tests'
-    name: 'rust:1.85-bookworm'
+    name: 'rust:1.90-bookworm'
     env:
       - 'EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=${_EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL}'
       - 'GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=${_WORKLOAD_IDENTITY_AUDIENCE}'

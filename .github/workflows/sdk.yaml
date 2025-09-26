@@ -22,7 +22,7 @@ on:
   release:
     types: [published]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.89", "rust:nightly": "nightly" }'
+  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.90", "rust:nightly": "nightly" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.25.0" }'
 jobs:
   build:
@@ -290,7 +290,7 @@ jobs:
           set -e
           rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
           rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          cargo install --locked cargo-semver-checks@0.42.0
+          cargo install --locked cargo-semver-checks@0.44.0
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version
