@@ -16,6 +16,8 @@
 
 use crate::options::InstrumentationClientInfo;
 use gax::options::RequestOptions;
+use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
+use tracing::Span;
 
 // OpenTelemetry Semantic Convention Keys
 // See https://opentelemetry.io/docs/specs/semconv/http/http-spans/
@@ -33,53 +35,6 @@ const KEY_OTEL_NAME: &str = "otel.name";
 /// Use "Error" for unrecoverable errors like network issues or 5xx status codes.
 /// Otherwise, leave "Unset" (including for 4xx codes on CLIENT spans).
 const KEY_OTEL_STATUS: &str = "otel.status";
-
-/// The RPC system used.
-///
-/// Always "http" for REST calls.
-const KEY_RPC_SYSTEM: &str = "rpc.system";
-/// The HTTP request method.
-///
-/// Examples: GET, POST, HEAD.
-const KEY_HTTP_REQUEST_METHOD: &str = "http.request.method";
-/// The destination host name or IP address.
-///
-/// Examples: myservice.googleapis.com, myservice-staging.sandbox.googleapis.com, 10.0.0.1
-const KEY_SERVER_ADDRESS: &str = "server.address";
-/// The destination port number.
-///
-/// Examples: 443, 8080
-const KEY_SERVER_PORT: &str = "server.port";
-/// The absolute URL of the request.
-///
-/// Example: https://www.foo.bar/search?q=OpenTelemetry
-const KEY_URL_FULL: &str = "url.full";
-/// The URI scheme component.
-///
-/// Examples: http, https
-const KEY_URL_SCHEME: &str = "url.scheme";
-/// The low-cardinality template of the absolute path.
-///
-/// Example: /v2/locations/{location}/projects/{project}/
-const KEY_URL_TEMPLATE: &str = "url.template";
-/// The nominal domain from the original URL.
-///
-/// Example: myservice.googleapis.com
-const KEY_URL_DOMAIN: &str = "url.domain";
-
-/// The numeric HTTP response status code.
-///
-/// Examples: 200, 404, 500
-const KEY_HTTP_RESPONSE_STATUS_CODE: &str = "http.response.status_code";
-/// A low-cardinality classification of the error.
-///
-/// For HTTP status codes >= 400, this is the status code as a string.
-/// For network errors, use a short identifier like TIMEOUT, CONNECTION_ERROR.
-const KEY_ERROR_TYPE: &str = "error.type";
-/// The ordinal number of times this request has been resent.
-///
-/// None for the first attempt.
-const KEY_HTTP_REQUEST_RESEND_COUNT: &str = "http.request.resend_count";
 
 // Custom GCP Attributes
 /// The Google Cloud service name.
@@ -291,6 +246,28 @@ impl HttpSpanInfo {
             }
         }
     }
+
+    /// Creates a new tracing span with attributes populated from the request.
+    pub(crate) fn create_span(&self) -> Span {
+        tracing::info_span!(
+            "http_request",
+            { KEY_OTEL_NAME } = self.otel_name,
+            { KEY_OTEL_KIND } = self.otel_kind,
+            { otel_trace::RPC_SYSTEM } = self.rpc_system,
+            { otel_trace::HTTP_REQUEST_METHOD } = self.http_request_method,
+            { otel_trace::SERVER_ADDRESS } = self.server_address,
+            { otel_trace::SERVER_PORT } = self.server_port,
+            { otel_trace::URL_FULL } = self.url_full,
+            { otel_trace::URL_SCHEME } = self.url_scheme,
+            { otel_attr::URL_TEMPLATE } = self.url_template,
+            { otel_attr::URL_DOMAIN } = self.url_domain,
+            { KEY_GCP_CLIENT_SERVICE } = self.gcp_client_service,
+            { KEY_GCP_CLIENT_VERSION } = self.gcp_client_version,
+            { KEY_GCP_CLIENT_REPO } = self.gcp_client_repo,
+            { KEY_GCP_CLIENT_ARTIFACT } = self.gcp_client_artifact,
+            { otel_trace::HTTP_REQUEST_RESEND_COUNT } = self.http_request_resend_count,
+        )
+    }
 }
 
 #[cfg(test)]
@@ -300,6 +277,10 @@ mod tests {
     use gax::options::RequestOptions;
     use http::Method;
     use reqwest;
+    use std::collections::HashMap;
+    use std::sync::{Arc, Mutex};
+    use tracing::{Subscriber, span};
+    use tracing_subscriber::{Layer, layer::Context};
 
     #[tokio::test]
     async fn test_http_span_info_from_request_basic() {
@@ -431,5 +412,139 @@ mod tests {
         assert_eq!(OtelStatus::Unset.as_str(), "Unset");
         assert_eq!(OtelStatus::Ok.as_str(), "Ok");
         assert_eq!(OtelStatus::Error.as_str(), "Error");
+    }
+
+    // TestLayer is a custom tracing_subscriber::Layer to capture span attributes for testing.
+    // It stores the attributes of each span in a HashMap, allowing tests to assert
+    // that the correct attributes are being set on the spans created by HttpSpanInfo.
+    #[derive(Clone, Default)]
+    struct TestLayer {
+        spans: Arc<Mutex<HashMap<span::Id, HashMap<String, String>>>>,
+    }
+
+    impl<S> Layer<S> for TestLayer
+    where
+        S: Subscriber + for<'a> tracing_subscriber::registry::LookupSpan<'a>,
+    {
+        // on_new_span is called when a span is created. We record its initial attributes.
+        fn on_new_span(&self, attrs: &span::Attributes<'_>, id: &span::Id, _ctx: Context<'_, S>) {
+            let mut span_map = HashMap::new();
+            let mut visitor = TestVisitor(&mut span_map);
+            attrs.record(&mut visitor);
+            self.spans.lock().unwrap().insert(id.clone(), span_map);
+        }
+    }
+
+    // TestVisitor is a tracing::field::Visit implementation to extract attribute key-value pairs.
+    // We only expect &str and i64 types for span attributes.
+    struct TestVisitor<'a>(&'a mut HashMap<String, String>);
+
+    impl<'a> tracing::field::Visit for TestVisitor<'a> {
+        fn record_str(&mut self, field: &tracing::field::Field, value: &str) {
+            self.0.insert(field.name().to_string(), value.to_string());
+        }
+
+        fn record_i64(&mut self, field: &tracing::field::Field, value: i64) {
+            self.0.insert(field.name().to_string(), value.to_string());
+        }
+
+        fn record_debug(&mut self, field: &tracing::field::Field, value: &dyn std::fmt::Debug) {
+            unimplemented!("Unexpected field type for {:?}: {:?}", field, value);
+        }
+
+        fn record_u64(&mut self, field: &tracing::field::Field, value: u64) {
+            unimplemented!("Unexpected field type for {:?}: {:?}", field, value);
+        }
+
+        fn record_bool(&mut self, field: &tracing::field::Field, value: bool) {
+            unimplemented!("Unexpected field type for {:?}: {:?}", field, value);
+        }
+    }
+
+    #[tokio::test]
+    async fn test_create_span_attributes() {
+        let layer = TestLayer::default();
+        use tracing_subscriber::prelude::*;
+        let subscriber = tracing_subscriber::registry().with(layer.clone());
+
+        let id = tracing::subscriber::with_default(subscriber, || {
+            let request =
+                reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
+            let options =
+                gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+            const INFO: InstrumentationClientInfo = InstrumentationClientInfo {
+                service_name: "test.service",
+                client_version: "1.2.3",
+                client_artifact: "google-cloud-test",
+                default_host: "example.com",
+            };
+            let span_info = HttpSpanInfo::from_request(&request, &options, Some(&INFO), 1);
+            let span = span_info.create_span();
+            span.id().unwrap()
+        });
+
+        let spans = layer.spans.lock().unwrap();
+        let attributes = spans.get(&id).expect("span not found");
+
+        // Check all attributes set in create_span
+        let expected: HashMap<String, String> = [
+            (KEY_OTEL_NAME, "GET /test"),
+            (KEY_OTEL_KIND, "Client"),
+            (otel_trace::RPC_SYSTEM, "http"),
+            (otel_trace::HTTP_REQUEST_METHOD, "GET"),
+            (otel_trace::SERVER_ADDRESS, "example.com"),
+            (otel_trace::SERVER_PORT, "443"),
+            (otel_trace::URL_FULL, "https://example.com/test"),
+            (otel_trace::URL_SCHEME, "https"),
+            (otel_attr::URL_TEMPLATE, "/test"),
+            (otel_attr::URL_DOMAIN, "example.com"),
+            (KEY_GCP_CLIENT_SERVICE, "test.service"),
+            (KEY_GCP_CLIENT_VERSION, "1.2.3"),
+            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+            (KEY_GCP_CLIENT_ARTIFACT, "google-cloud-test"),
+            (otel_trace::HTTP_REQUEST_RESEND_COUNT, "1"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+
+        assert_eq!(attributes, &expected);
+    }
+
+    #[tokio::test]
+    async fn test_create_span_attributes_optional() {
+        let layer = TestLayer::default();
+        use tracing_subscriber::prelude::*;
+        let subscriber = tracing_subscriber::registry().with(layer.clone());
+
+        let id = tracing::subscriber::with_default(subscriber, || {
+            let request =
+                reqwest::Request::new(Method::POST, "http://localhost:8080/".parse().unwrap());
+            let options = RequestOptions::default(); // No path template
+            // No InstrumentationClientInfo
+            let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
+            let span = span_info.create_span();
+            span.id().unwrap()
+        });
+        let spans = layer.spans.lock().unwrap();
+        let attributes = spans.get(&id).expect("span not found");
+
+        // Check only attributes that should be present
+        let expected: HashMap<String, String> = [
+            (KEY_OTEL_NAME, "POST"),
+            (KEY_OTEL_KIND, "Client"),
+            (otel_trace::RPC_SYSTEM, "http"),
+            (otel_trace::HTTP_REQUEST_METHOD, "POST"),
+            (otel_trace::SERVER_ADDRESS, "localhost"),
+            (otel_trace::SERVER_PORT, "8080"),
+            (otel_trace::URL_FULL, "http://localhost:8080/"),
+            (otel_trace::URL_SCHEME, "http"),
+            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+
+        assert_eq!(attributes, &expected);
     }
 }
