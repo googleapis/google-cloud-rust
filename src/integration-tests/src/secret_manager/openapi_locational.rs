@@ -103,7 +103,7 @@ async fn run_iam(
     location_id: &str,
     secret_id: &str,
 ) -> Result<()> {
-    let service_account = crate::service_account_for_iam_tests()?;
+    let service_account = crate::test_service_account()?;
 
     println!("\nTesting get_iam_policy_by_project_and_location_and_secret()");
     let policy = client

@@ -83,7 +83,7 @@ async fn delete_test_workflow(name: String) -> Result<()> {
 async fn create_test_workflow() -> Result<String> {
     let project_id = crate::project_id()?;
     let location_id = crate::region_id();
-    let workflows_runner = crate::workflows_runner()?;
+    let workflows_runner = crate::test_service_account()?;
     let client = workflow_client().await?;
 
     let source_contents = r###"# Test only workflow

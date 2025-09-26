@@ -990,7 +990,7 @@ pub async fn buckets(builder: storage::builder::storage_control::ClientBuilder) 
 }
 
 async fn buckets_iam(client: &StorageControl, bucket_name: &str) -> Result<()> {
-    let service_account = crate::service_account_for_iam_tests()?;
+    let service_account = crate::test_service_account()?;
 
     println!("\nTesting get_iam_policy()");
     let policy = client
