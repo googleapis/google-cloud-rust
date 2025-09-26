@@ -37,6 +37,8 @@ pub(crate) mod dynamic;
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "machine-types")]
+#[cfg_attr(docsrs, doc(cfg(feature = "machine-types")))]
 pub trait MachineTypes: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::MachineTypes::aggregated_list].
     fn aggregated_list(
@@ -83,6 +85,8 @@ pub trait MachineTypes: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "zones")]
+#[cfg_attr(docsrs, doc(cfg(feature = "zones")))]
 pub trait Zones: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Zones::get].
     fn get(

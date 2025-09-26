@@ -27,6 +27,16 @@ categories.workspace   = true
 rust-version.workspace = true
 publish                = false
 
+[features]
+default = [
+    "machine-types",
+    "zones",
+]
+# Enables `client::MachineTypes` and all the types it depends on.
+machine-types = []
+# Enables `client::Zones` and all the types it depends on.
+zones = []
+
 [dependencies]
 async-trait.workspace = true
 bytes.workspace      = true

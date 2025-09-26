@@ -17,6 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
+#[cfg(any(feature = "machine-types", feature = "zones",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::DeprecationStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -51,6 +52,7 @@ impl serde::ser::Serialize for super::DeprecationStatus {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MachineType {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -178,6 +180,7 @@ impl serde::ser::Serialize for super::MachineType {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::machine_type::Accelerators {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -215,6 +218,7 @@ impl serde::ser::Serialize for super::machine_type::Accelerators {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MachineTypeAggregatedList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -255,6 +259,7 @@ impl serde::ser::Serialize for super::MachineTypeAggregatedList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::machine_type_aggregated_list::Warning {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -283,6 +288,7 @@ impl serde::ser::Serialize for super::machine_type_aggregated_list::Warning {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::machine_type_aggregated_list::warning::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -308,6 +314,7 @@ impl serde::ser::Serialize for super::machine_type_aggregated_list::warning::Dat
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MachineTypeList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -345,6 +352,7 @@ impl serde::ser::Serialize for super::MachineTypeList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::machine_type_list::Warning {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -373,6 +381,7 @@ impl serde::ser::Serialize for super::machine_type_list::Warning {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::machine_type_list::warning::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -398,6 +407,7 @@ impl serde::ser::Serialize for super::machine_type_list::warning::Data {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MachineTypesScopedList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -423,6 +433,7 @@ impl serde::ser::Serialize for super::MachineTypesScopedList {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::machine_types_scoped_list::Warning {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -451,6 +462,7 @@ impl serde::ser::Serialize for super::machine_types_scoped_list::Warning {
     }
 }
 
+#[cfg(feature = "machine-types")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::machine_types_scoped_list::warning::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -476,6 +488,7 @@ impl serde::ser::Serialize for super::machine_types_scoped_list::warning::Data {
     }
 }
 
+#[cfg(feature = "zones")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Zone {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -537,6 +550,7 @@ impl serde::ser::Serialize for super::Zone {
     }
 }
 
+#[cfg(feature = "zones")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ZoneList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -574,6 +588,7 @@ impl serde::ser::Serialize for super::ZoneList {
     }
 }
 
+#[cfg(feature = "zones")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::zone_list::Warning {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -602,6 +617,7 @@ impl serde::ser::Serialize for super::zone_list::Warning {
     }
 }
 
+#[cfg(feature = "zones")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::zone_list::warning::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>

@@ -57,11 +57,14 @@
 /// create one and the reuse it.  You do not need to wrap `MachineTypes` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "machine-types")]
+#[cfg_attr(docsrs, doc(cfg(feature = "machine-types")))]
 #[derive(Clone, Debug)]
 pub struct MachineTypes {
     inner: std::sync::Arc<dyn super::stub::dynamic::MachineTypes>,
 }
 
+#[cfg(feature = "machine-types")]
 impl MachineTypes {
     /// Returns a builder for [MachineTypes].
     ///
@@ -175,11 +178,14 @@ impl MachineTypes {
 /// create one and the reuse it.  You do not need to wrap `Zones` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "zones")]
+#[cfg_attr(docsrs, doc(cfg(feature = "zones")))]
 #[derive(Clone, Debug)]
 pub struct Zones {
     inner: std::sync::Arc<dyn super::stub::dynamic::Zones>,
 }
 
+#[cfg(feature = "zones")]
 impl Zones {
     /// Returns a builder for [Zones].
     ///
