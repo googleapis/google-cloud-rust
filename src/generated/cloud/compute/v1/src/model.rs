@@ -904,6 +904,7 @@ pub mod machine_type_aggregated_list {
             /// Warning that is present in an external api call
             ExternalApiWarning,
             /// Warning that value of a field has been overridden. Deprecated unused field.
+            #[deprecated]
             FieldValueOverriden,
             /// The operation involved use of an injected kernel, which is deprecated.
             InjectedKernelsDeprecated,
@@ -1499,6 +1500,7 @@ pub mod machine_type_list {
             /// Warning that is present in an external api call
             ExternalApiWarning,
             /// Warning that value of a field has been overridden. Deprecated unused field.
+            #[deprecated]
             FieldValueOverriden,
             /// The operation involved use of an injected kernel, which is deprecated.
             InjectedKernelsDeprecated,
@@ -2044,6 +2046,7 @@ pub mod machine_types_scoped_list {
             /// Warning that is present in an external api call
             ExternalApiWarning,
             /// Warning that value of a field has been overridden. Deprecated unused field.
+            #[deprecated]
             FieldValueOverriden,
             /// The operation involved use of an injected kernel, which is deprecated.
             InjectedKernelsDeprecated,
@@ -2921,6 +2924,7 @@ pub mod zone_list {
             /// Warning that is present in an external api call
             ExternalApiWarning,
             /// Warning that value of a field has been overridden. Deprecated unused field.
+            #[deprecated]
             FieldValueOverriden,
             /// The operation involved use of an injected kernel, which is deprecated.
             InjectedKernelsDeprecated,
