@@ -20873,10 +20873,10 @@ pub mod scheduling {
             S: serde::Serializer,
         {
             match self {
-                Self::FlexStart => serializer.serialize_i32(0),
-                Self::ReservationBound => serializer.serialize_i32(1),
-                Self::Spot => serializer.serialize_i32(2),
-                Self::Standard => serializer.serialize_i32(3),
+                Self::FlexStart => serializer.serialize_str(self.name().unwrap()),
+                Self::ReservationBound => serializer.serialize_str(self.name().unwrap()),
+                Self::Spot => serializer.serialize_str(self.name().unwrap()),
+                Self::Standard => serializer.serialize_str(self.name().unwrap()),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

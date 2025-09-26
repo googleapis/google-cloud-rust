@@ -143,23 +143,25 @@ pub async fn instances() -> Result<()> {
         .set_machine_type(format!("zones/{zone_id}/machineTypes/f1-micro"))
         .set_name(&id)
         .set_description("A test VM created by the Rust client library.")
-        .set_disks([AttachedDisk::new().set_boot(true).set_initialize_params(
-            AttachedDiskInitializeParams::new().set_source_image(format!(
-                "projects/fedora-coreos-cloud/global/images/{image}"
-            )),
-        )])
+        .set_disks([AttachedDisk::new()
+            .set_initialize_params(
+                AttachedDiskInitializeParams::new().set_source_image(format!(
+                    "projects/fedora-coreos-cloud/global/images/{image}"
+                )),
+            )
+            .set_boot(true)
+            .set_auto_delete(true)])
         .set_network_interfaces([NetworkInterface::new().set_network("global/networks/default")])
         .set_service_accounts([ServiceAccount::new()
             .set_email(&service_account)
-            .set_scopes(["https://www.googleapis.com/auth/cloud-platform"])])
-        // .set_scheduling(
-        //     // Automatically shutdown and delete the instance after 15m
-        //     Scheduling::new()
-        //         .set_provisioning_model(ProvisioningModel::Spot)
-        //         .set_instance_termination_action(InstanceTerminationAction::Delete)
-        //         .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
-        // )
-        ;
+            .set_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])]);
+    // Automatically shutdown and delete the instance after 15m.
+    let body = body.set_scheduling(
+        Scheduling::new()
+            .set_provisioning_model(ProvisioningModel::Spot)
+            .set_instance_termination_action(InstanceTerminationAction::Delete)
+            .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
+    );
 
     tracing::info!("Starting new instance with image: {image:?}.");
     let pending = client
