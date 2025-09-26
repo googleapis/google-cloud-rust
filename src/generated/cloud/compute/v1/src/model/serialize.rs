@@ -17,6 +17,732 @@
 #[allow(unused_imports)]
 use super::*;
 
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AcceleratorConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.accelerator_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("acceleratorCount", &__With(&self.accelerator_count))?;
+        }
+        if !self.accelerator_type.is_empty() {
+            state.serialize_entry("acceleratorType", &self.accelerator_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AccessConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.external_ipv_6.is_empty() {
+            state.serialize_entry("externalIpv6", &self.external_ipv_6)?;
+        }
+        if !wkt::internal::is_default(&self.external_ipv_6_prefix_length) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "externalIpv6PrefixLength",
+                &__With(&self.external_ipv_6_prefix_length),
+            )?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.nat_ip.is_empty() {
+            state.serialize_entry("natIP", &self.nat_ip)?;
+        }
+        if !wkt::internal::is_default(&self.network_tier) {
+            state.serialize_entry("networkTier", &self.network_tier)?;
+        }
+        if !self.public_ptr_domain_name.is_empty() {
+            state.serialize_entry("publicPtrDomainName", &self.public_ptr_domain_name)?;
+        }
+        if !self.security_policy.is_empty() {
+            state.serialize_entry("securityPolicy", &self.security_policy)?;
+        }
+        if !wkt::internal::is_default(&self.set_public_ptr) {
+            state.serialize_entry("setPublicPtr", &self.set_public_ptr)?;
+        }
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AdvancedMachineFeatures {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enable_nested_virtualization) {
+            state.serialize_entry(
+                "enableNestedVirtualization",
+                &self.enable_nested_virtualization,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.enable_uefi_networking) {
+            state.serialize_entry("enableUefiNetworking", &self.enable_uefi_networking)?;
+        }
+        if !wkt::internal::is_default(&self.performance_monitoring_unit) {
+            state.serialize_entry(
+                "performanceMonitoringUnit",
+                &self.performance_monitoring_unit,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.threads_per_core) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("threadsPerCore", &__With(&self.threads_per_core))?;
+        }
+        if !self.turbo_mode.is_empty() {
+            state.serialize_entry("turboMode", &self.turbo_mode)?;
+        }
+        if !wkt::internal::is_default(&self.visible_core_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("visibleCoreCount", &__With(&self.visible_core_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AliasIpRange {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ip_cidr_range.is_empty() {
+            state.serialize_entry("ipCidrRange", &self.ip_cidr_range)?;
+        }
+        if !self.subnetwork_range_name.is_empty() {
+            state.serialize_entry("subnetworkRangeName", &self.subnetwork_range_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AttachedDisk {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.architecture) {
+            state.serialize_entry("architecture", &self.architecture)?;
+        }
+        if !wkt::internal::is_default(&self.auto_delete) {
+            state.serialize_entry("autoDelete", &self.auto_delete)?;
+        }
+        if !wkt::internal::is_default(&self.boot) {
+            state.serialize_entry("boot", &self.boot)?;
+        }
+        if !self.device_name.is_empty() {
+            state.serialize_entry("deviceName", &self.device_name)?;
+        }
+        if self.disk_encryption_key.is_some() {
+            state.serialize_entry("diskEncryptionKey", &self.disk_encryption_key)?;
+        }
+        if !wkt::internal::is_default(&self.disk_size_gb) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("diskSizeGb", &__With(&self.disk_size_gb))?;
+        }
+        if !wkt::internal::is_default(&self.force_attach) {
+            state.serialize_entry("forceAttach", &self.force_attach)?;
+        }
+        if !self.guest_os_features.is_empty() {
+            state.serialize_entry("guestOsFeatures", &self.guest_os_features)?;
+        }
+        if !wkt::internal::is_default(&self.index) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("index", &__With(&self.index))?;
+        }
+        if self.initialize_params.is_some() {
+            state.serialize_entry("initializeParams", &self.initialize_params)?;
+        }
+        if !wkt::internal::is_default(&self.interface) {
+            state.serialize_entry("interface", &self.interface)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.licenses.is_empty() {
+            state.serialize_entry("licenses", &self.licenses)?;
+        }
+        if !wkt::internal::is_default(&self.mode) {
+            state.serialize_entry("mode", &self.mode)?;
+        }
+        if !wkt::internal::is_default(&self.saved_state) {
+            state.serialize_entry("savedState", &self.saved_state)?;
+        }
+        if self.shielded_instance_initial_state.is_some() {
+            state.serialize_entry(
+                "shieldedInstanceInitialState",
+                &self.shielded_instance_initial_state,
+            )?;
+        }
+        if !self.source.is_empty() {
+            state.serialize_entry("source", &self.source)?;
+        }
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AttachedDiskInitializeParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.architecture) {
+            state.serialize_entry("architecture", &self.architecture)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.disk_name.is_empty() {
+            state.serialize_entry("diskName", &self.disk_name)?;
+        }
+        if !wkt::internal::is_default(&self.disk_size_gb) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("diskSizeGb", &__With(&self.disk_size_gb))?;
+        }
+        if !self.disk_type.is_empty() {
+            state.serialize_entry("diskType", &self.disk_type)?;
+        }
+        if !wkt::internal::is_default(&self.enable_confidential_compute) {
+            state.serialize_entry(
+                "enableConfidentialCompute",
+                &self.enable_confidential_compute,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.labels) {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.licenses.is_empty() {
+            state.serialize_entry("licenses", &self.licenses)?;
+        }
+        if !wkt::internal::is_default(&self.on_update_action) {
+            state.serialize_entry("onUpdateAction", &self.on_update_action)?;
+        }
+        if !wkt::internal::is_default(&self.provisioned_iops) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("provisionedIops", &__With(&self.provisioned_iops))?;
+        }
+        if !wkt::internal::is_default(&self.provisioned_throughput) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "provisionedThroughput",
+                &__With(&self.provisioned_throughput),
+            )?;
+        }
+        if !self.replica_zones.is_empty() {
+            state.serialize_entry("replicaZones", &self.replica_zones)?;
+        }
+        if !wkt::internal::is_default(&self.resource_manager_tags) {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
+        }
+        if !self.resource_policies.is_empty() {
+            state.serialize_entry("resourcePolicies", &self.resource_policies)?;
+        }
+        if !self.source_image.is_empty() {
+            state.serialize_entry("sourceImage", &self.source_image)?;
+        }
+        if self.source_image_encryption_key.is_some() {
+            state.serialize_entry(
+                "sourceImageEncryptionKey",
+                &self.source_image_encryption_key,
+            )?;
+        }
+        if !self.source_snapshot.is_empty() {
+            state.serialize_entry("sourceSnapshot", &self.source_snapshot)?;
+        }
+        if self.source_snapshot_encryption_key.is_some() {
+            state.serialize_entry(
+                "sourceSnapshotEncryptionKey",
+                &self.source_snapshot_encryption_key,
+            )?;
+        }
+        if !self.storage_pool.is_empty() {
+            state.serialize_entry("storagePool", &self.storage_pool)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AuditConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.audit_log_configs.is_empty() {
+            state.serialize_entry("auditLogConfigs", &self.audit_log_configs)?;
+        }
+        if !self.service.is_empty() {
+            state.serialize_entry("service", &self.service)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AuditLogConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.exempted_members.is_empty() {
+            state.serialize_entry("exemptedMembers", &self.exempted_members)?;
+        }
+        if !wkt::internal::is_default(&self.log_type) {
+            state.serialize_entry("logType", &self.log_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Binding {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.condition.is_some() {
+            state.serialize_entry("condition", &self.condition)?;
+        }
+        if !self.members.is_empty() {
+            state.serialize_entry("members", &self.members)?;
+        }
+        if !self.role.is_empty() {
+            state.serialize_entry("role", &self.role)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BulkInsertInstanceResource {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("count", &__With(&self.count))?;
+        }
+        if self.instance_properties.is_some() {
+            state.serialize_entry("instanceProperties", &self.instance_properties)?;
+        }
+        if self.location_policy.is_some() {
+            state.serialize_entry("locationPolicy", &self.location_policy)?;
+        }
+        if !wkt::internal::is_default(&self.min_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("minCount", &__With(&self.min_count))?;
+        }
+        if !self.name_pattern.is_empty() {
+            state.serialize_entry("namePattern", &self.name_pattern)?;
+        }
+        if !wkt::internal::is_default(&self.per_instance_properties) {
+            state.serialize_entry("perInstanceProperties", &self.per_instance_properties)?;
+        }
+        if !self.source_instance_template.is_empty() {
+            state.serialize_entry("sourceInstanceTemplate", &self.source_instance_template)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BulkInsertInstanceResourcePerInstanceProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.hostname.is_empty() {
+            state.serialize_entry("hostname", &self.hostname)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BulkInsertOperationStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.created_vm_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("createdVmCount", &__With(&self.created_vm_count))?;
+        }
+        if !wkt::internal::is_default(&self.deleted_vm_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("deletedVmCount", &__With(&self.deleted_vm_count))?;
+        }
+        if !wkt::internal::is_default(&self.failed_to_create_vm_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "failedToCreateVmCount",
+                &__With(&self.failed_to_create_vm_count),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.status) {
+            state.serialize_entry("status", &self.status)?;
+        }
+        if !wkt::internal::is_default(&self.target_vm_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("targetVmCount", &__With(&self.target_vm_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ConfidentialInstanceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.confidential_instance_type) {
+            state.serialize_entry("confidentialInstanceType", &self.confidential_instance_type)?;
+        }
+        if !wkt::internal::is_default(&self.enable_confidential_compute) {
+            state.serialize_entry(
+                "enableConfidentialCompute",
+                &self.enable_confidential_compute,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CustomerEncryptionKey {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.kms_key_name.is_empty() {
+            state.serialize_entry("kmsKeyName", &self.kms_key_name)?;
+        }
+        if !self.kms_key_service_account.is_empty() {
+            state.serialize_entry("kmsKeyServiceAccount", &self.kms_key_service_account)?;
+        }
+        if !self.raw_key.is_empty() {
+            state.serialize_entry("rawKey", &self.raw_key)?;
+        }
+        if !self.rsa_encrypted_key.is_empty() {
+            state.serialize_entry("rsaEncryptedKey", &self.rsa_encrypted_key)?;
+        }
+        if !self.sha256.is_empty() {
+            state.serialize_entry("sha256", &self.sha256)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CustomerEncryptionKeyProtectedDisk {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.disk_encryption_key.is_some() {
+            state.serialize_entry("diskEncryptionKey", &self.disk_encryption_key)?;
+        }
+        if !self.source.is_empty() {
+            state.serialize_entry("source", &self.source)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(feature = "machine-types", feature = "zones",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::DeprecationStatus {
@@ -42,6 +768,1945 @@ impl serde::ser::Serialize for super::DeprecationStatus {
         }
         if self.state.is_some() {
             state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DisplayDevice {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enable_display) {
+            state.serialize_entry("enableDisplay", &self.enable_display)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Duration {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.nanos) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("nanos", &__With(&self.nanos))?;
+        }
+        if !wkt::internal::is_default(&self.seconds) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("seconds", &__With(&self.seconds))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ErrorInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.domain.is_empty() {
+            state.serialize_entry("domain", &self.domain)?;
+        }
+        if !wkt::internal::is_default(&self.metadatas) {
+            state.serialize_entry("metadatas", &self.metadatas)?;
+        }
+        if !self.reason.is_empty() {
+            state.serialize_entry("reason", &self.reason)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Expr {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.expression.is_empty() {
+            state.serialize_entry("expression", &self.expression)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self.title.is_empty() {
+            state.serialize_entry("title", &self.title)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FileContentBuffer {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.content.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("content", &__With(&self.content))?;
+        }
+        if !wkt::internal::is_default(&self.file_type) {
+            state.serialize_entry("fileType", &self.file_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Firewall {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.allowed.is_empty() {
+            state.serialize_entry("allowed", &self.allowed)?;
+        }
+        if !self.creation_timestamp.is_empty() {
+            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if !self.denied.is_empty() {
+            state.serialize_entry("denied", &self.denied)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.destination_ranges.is_empty() {
+            state.serialize_entry("destinationRanges", &self.destination_ranges)?;
+        }
+        if !wkt::internal::is_default(&self.direction) {
+            state.serialize_entry("direction", &self.direction)?;
+        }
+        if !wkt::internal::is_default(&self.disabled) {
+            state.serialize_entry("disabled", &self.disabled)?;
+        }
+        if !wkt::internal::is_default(&self.id) {
+            struct __With<'a>(&'a u64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::U64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("id", &__With(&self.id))?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.log_config.is_some() {
+            state.serialize_entry("logConfig", &self.log_config)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.network.is_empty() {
+            state.serialize_entry("network", &self.network)?;
+        }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
+        if !wkt::internal::is_default(&self.priority) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("priority", &__With(&self.priority))?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self.source_ranges.is_empty() {
+            state.serialize_entry("sourceRanges", &self.source_ranges)?;
+        }
+        if !self.source_service_accounts.is_empty() {
+            state.serialize_entry("sourceServiceAccounts", &self.source_service_accounts)?;
+        }
+        if !self.source_tags.is_empty() {
+            state.serialize_entry("sourceTags", &self.source_tags)?;
+        }
+        if !self.target_service_accounts.is_empty() {
+            state.serialize_entry("targetServiceAccounts", &self.target_service_accounts)?;
+        }
+        if !self.target_tags.is_empty() {
+            state.serialize_entry("targetTags", &self.target_tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::firewall::Allowed {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ip_protocol.is_empty() {
+            state.serialize_entry("IPProtocol", &self.ip_protocol)?;
+        }
+        if !self.ports.is_empty() {
+            state.serialize_entry("ports", &self.ports)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::firewall::Denied {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ip_protocol.is_empty() {
+            state.serialize_entry("IPProtocol", &self.ip_protocol)?;
+        }
+        if !self.ports.is_empty() {
+            state.serialize_entry("ports", &self.ports)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FirewallLogConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enable) {
+            state.serialize_entry("enable", &self.enable)?;
+        }
+        if !wkt::internal::is_default(&self.metadata) {
+            state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FirewallParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.resource_manager_tags) {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FirewallPolicyRule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.action.is_empty() {
+            state.serialize_entry("action", &self.action)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !wkt::internal::is_default(&self.direction) {
+            state.serialize_entry("direction", &self.direction)?;
+        }
+        if !wkt::internal::is_default(&self.disabled) {
+            state.serialize_entry("disabled", &self.disabled)?;
+        }
+        if !wkt::internal::is_default(&self.enable_logging) {
+            state.serialize_entry("enableLogging", &self.enable_logging)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.r#match.is_some() {
+            state.serialize_entry("match", &self.r#match)?;
+        }
+        if !wkt::internal::is_default(&self.priority) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("priority", &__With(&self.priority))?;
+        }
+        if !self.rule_name.is_empty() {
+            state.serialize_entry("ruleName", &self.rule_name)?;
+        }
+        if !wkt::internal::is_default(&self.rule_tuple_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("ruleTupleCount", &__With(&self.rule_tuple_count))?;
+        }
+        if !self.security_profile_group.is_empty() {
+            state.serialize_entry("securityProfileGroup", &self.security_profile_group)?;
+        }
+        if !self.target_resources.is_empty() {
+            state.serialize_entry("targetResources", &self.target_resources)?;
+        }
+        if !self.target_secure_tags.is_empty() {
+            state.serialize_entry("targetSecureTags", &self.target_secure_tags)?;
+        }
+        if !self.target_service_accounts.is_empty() {
+            state.serialize_entry("targetServiceAccounts", &self.target_service_accounts)?;
+        }
+        if !wkt::internal::is_default(&self.tls_inspect) {
+            state.serialize_entry("tlsInspect", &self.tls_inspect)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FirewallPolicyRuleMatcher {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.dest_address_groups.is_empty() {
+            state.serialize_entry("destAddressGroups", &self.dest_address_groups)?;
+        }
+        if !self.dest_fqdns.is_empty() {
+            state.serialize_entry("destFqdns", &self.dest_fqdns)?;
+        }
+        if !self.dest_ip_ranges.is_empty() {
+            state.serialize_entry("destIpRanges", &self.dest_ip_ranges)?;
+        }
+        if !wkt::internal::is_default(&self.dest_network_type) {
+            state.serialize_entry("destNetworkType", &self.dest_network_type)?;
+        }
+        if !self.dest_region_codes.is_empty() {
+            state.serialize_entry("destRegionCodes", &self.dest_region_codes)?;
+        }
+        if !self.dest_threat_intelligences.is_empty() {
+            state.serialize_entry("destThreatIntelligences", &self.dest_threat_intelligences)?;
+        }
+        if !self.layer_4_configs.is_empty() {
+            state.serialize_entry("layer4Configs", &self.layer_4_configs)?;
+        }
+        if !self.src_address_groups.is_empty() {
+            state.serialize_entry("srcAddressGroups", &self.src_address_groups)?;
+        }
+        if !self.src_fqdns.is_empty() {
+            state.serialize_entry("srcFqdns", &self.src_fqdns)?;
+        }
+        if !self.src_ip_ranges.is_empty() {
+            state.serialize_entry("srcIpRanges", &self.src_ip_ranges)?;
+        }
+        if !wkt::internal::is_default(&self.src_network_type) {
+            state.serialize_entry("srcNetworkType", &self.src_network_type)?;
+        }
+        if !self.src_networks.is_empty() {
+            state.serialize_entry("srcNetworks", &self.src_networks)?;
+        }
+        if !self.src_region_codes.is_empty() {
+            state.serialize_entry("srcRegionCodes", &self.src_region_codes)?;
+        }
+        if !self.src_secure_tags.is_empty() {
+            state.serialize_entry("srcSecureTags", &self.src_secure_tags)?;
+        }
+        if !self.src_threat_intelligences.is_empty() {
+            state.serialize_entry("srcThreatIntelligences", &self.src_threat_intelligences)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FirewallPolicyRuleMatcherLayer4Config {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ip_protocol.is_empty() {
+            state.serialize_entry("ipProtocol", &self.ip_protocol)?;
+        }
+        if !self.ports.is_empty() {
+            state.serialize_entry("ports", &self.ports)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FirewallPolicyRuleSecureTag {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GuestAttributes {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.query_path.is_empty() {
+            state.serialize_entry("queryPath", &self.query_path)?;
+        }
+        if self.query_value.is_some() {
+            state.serialize_entry("queryValue", &self.query_value)?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self.variable_key.is_empty() {
+            state.serialize_entry("variableKey", &self.variable_key)?;
+        }
+        if !self.variable_value.is_empty() {
+            state.serialize_entry("variableValue", &self.variable_value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GuestAttributesEntry {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.namespace.is_empty() {
+            state.serialize_entry("namespace", &self.namespace)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GuestAttributesValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GuestOsFeature {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Help {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.links.is_empty() {
+            state.serialize_entry("links", &self.links)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::HelpLink {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.url.is_empty() {
+            state.serialize_entry("url", &self.url)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InitialStateConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.dbs.is_empty() {
+            state.serialize_entry("dbs", &self.dbs)?;
+        }
+        if !self.dbxs.is_empty() {
+            state.serialize_entry("dbxs", &self.dbxs)?;
+        }
+        if !self.keks.is_empty() {
+            state.serialize_entry("keks", &self.keks)?;
+        }
+        if self.pk.is_some() {
+            state.serialize_entry("pk", &self.pk)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Instance {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.advanced_machine_features.is_some() {
+            state.serialize_entry("advancedMachineFeatures", &self.advanced_machine_features)?;
+        }
+        if !wkt::internal::is_default(&self.can_ip_forward) {
+            state.serialize_entry("canIpForward", &self.can_ip_forward)?;
+        }
+        if self.confidential_instance_config.is_some() {
+            state.serialize_entry(
+                "confidentialInstanceConfig",
+                &self.confidential_instance_config,
+            )?;
+        }
+        if !self.cpu_platform.is_empty() {
+            state.serialize_entry("cpuPlatform", &self.cpu_platform)?;
+        }
+        if !self.creation_timestamp.is_empty() {
+            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if !wkt::internal::is_default(&self.deletion_protection) {
+            state.serialize_entry("deletionProtection", &self.deletion_protection)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.disks.is_empty() {
+            state.serialize_entry("disks", &self.disks)?;
+        }
+        if self.display_device.is_some() {
+            state.serialize_entry("displayDevice", &self.display_device)?;
+        }
+        if !self.fingerprint.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
+        }
+        if !self.guest_accelerators.is_empty() {
+            state.serialize_entry("guestAccelerators", &self.guest_accelerators)?;
+        }
+        if !self.hostname.is_empty() {
+            state.serialize_entry("hostname", &self.hostname)?;
+        }
+        if !wkt::internal::is_default(&self.id) {
+            struct __With<'a>(&'a u64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::U64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("id", &__With(&self.id))?;
+        }
+        if self.instance_encryption_key.is_some() {
+            state.serialize_entry("instanceEncryptionKey", &self.instance_encryption_key)?;
+        }
+        if !wkt::internal::is_default(&self.key_revocation_action_type) {
+            state.serialize_entry("keyRevocationActionType", &self.key_revocation_action_type)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.label_fingerprint.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
+        }
+        if !wkt::internal::is_default(&self.labels) {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.last_start_timestamp.is_empty() {
+            state.serialize_entry("lastStartTimestamp", &self.last_start_timestamp)?;
+        }
+        if !self.last_stop_timestamp.is_empty() {
+            state.serialize_entry("lastStopTimestamp", &self.last_stop_timestamp)?;
+        }
+        if !self.last_suspended_timestamp.is_empty() {
+            state.serialize_entry("lastSuspendedTimestamp", &self.last_suspended_timestamp)?;
+        }
+        if !self.machine_type.is_empty() {
+            state.serialize_entry("machineType", &self.machine_type)?;
+        }
+        if self.metadata.is_some() {
+            state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if !self.min_cpu_platform.is_empty() {
+            state.serialize_entry("minCpuPlatform", &self.min_cpu_platform)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.network_interfaces.is_empty() {
+            state.serialize_entry("networkInterfaces", &self.network_interfaces)?;
+        }
+        if self.network_performance_config.is_some() {
+            state.serialize_entry("networkPerformanceConfig", &self.network_performance_config)?;
+        }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
+        if !wkt::internal::is_default(&self.private_ipv_6_google_access) {
+            state.serialize_entry("privateIpv6GoogleAccess", &self.private_ipv_6_google_access)?;
+        }
+        if self.reservation_affinity.is_some() {
+            state.serialize_entry("reservationAffinity", &self.reservation_affinity)?;
+        }
+        if !self.resource_policies.is_empty() {
+            state.serialize_entry("resourcePolicies", &self.resource_policies)?;
+        }
+        if self.resource_status.is_some() {
+            state.serialize_entry("resourceStatus", &self.resource_status)?;
+        }
+        if !wkt::internal::is_default(&self.satisfies_pzi) {
+            state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
+        }
+        if !wkt::internal::is_default(&self.satisfies_pzs) {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if self.scheduling.is_some() {
+            state.serialize_entry("scheduling", &self.scheduling)?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self.service_accounts.is_empty() {
+            state.serialize_entry("serviceAccounts", &self.service_accounts)?;
+        }
+        if self.shielded_instance_config.is_some() {
+            state.serialize_entry("shieldedInstanceConfig", &self.shielded_instance_config)?;
+        }
+        if self.shielded_instance_integrity_policy.is_some() {
+            state.serialize_entry(
+                "shieldedInstanceIntegrityPolicy",
+                &self.shielded_instance_integrity_policy,
+            )?;
+        }
+        if !self.source_machine_image.is_empty() {
+            state.serialize_entry("sourceMachineImage", &self.source_machine_image)?;
+        }
+        if self.source_machine_image_encryption_key.is_some() {
+            state.serialize_entry(
+                "sourceMachineImageEncryptionKey",
+                &self.source_machine_image_encryption_key,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.start_restricted) {
+            state.serialize_entry("startRestricted", &self.start_restricted)?;
+        }
+        if !wkt::internal::is_default(&self.status) {
+            state.serialize_entry("status", &self.status)?;
+        }
+        if !self.status_message.is_empty() {
+            state.serialize_entry("statusMessage", &self.status_message)?;
+        }
+        if self.tags.is_some() {
+            state.serialize_entry("tags", &self.tags)?;
+        }
+        if !self.zone.is_empty() {
+            state.serialize_entry("zone", &self.zone)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstanceAggregatedList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.id.is_empty() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !wkt::internal::is_default(&self.items) {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self.unreachables.is_empty() {
+            state.serialize_entry("unreachables", &self.unreachables)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::instance_aggregated_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::instance_aggregated_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstanceList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.id.is_empty() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::instance_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::instance_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstanceListReferrers {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.id.is_empty() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::instance_list_referrers::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::instance_list_referrers::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstanceParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.request_valid_for_duration.is_some() {
+            state.serialize_entry("requestValidForDuration", &self.request_valid_for_duration)?;
+        }
+        if !wkt::internal::is_default(&self.resource_manager_tags) {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstanceProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.advanced_machine_features.is_some() {
+            state.serialize_entry("advancedMachineFeatures", &self.advanced_machine_features)?;
+        }
+        if !wkt::internal::is_default(&self.can_ip_forward) {
+            state.serialize_entry("canIpForward", &self.can_ip_forward)?;
+        }
+        if self.confidential_instance_config.is_some() {
+            state.serialize_entry(
+                "confidentialInstanceConfig",
+                &self.confidential_instance_config,
+            )?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.disks.is_empty() {
+            state.serialize_entry("disks", &self.disks)?;
+        }
+        if !self.guest_accelerators.is_empty() {
+            state.serialize_entry("guestAccelerators", &self.guest_accelerators)?;
+        }
+        if !wkt::internal::is_default(&self.key_revocation_action_type) {
+            state.serialize_entry("keyRevocationActionType", &self.key_revocation_action_type)?;
+        }
+        if !wkt::internal::is_default(&self.labels) {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.machine_type.is_empty() {
+            state.serialize_entry("machineType", &self.machine_type)?;
+        }
+        if self.metadata.is_some() {
+            state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if !self.min_cpu_platform.is_empty() {
+            state.serialize_entry("minCpuPlatform", &self.min_cpu_platform)?;
+        }
+        if !self.network_interfaces.is_empty() {
+            state.serialize_entry("networkInterfaces", &self.network_interfaces)?;
+        }
+        if self.network_performance_config.is_some() {
+            state.serialize_entry("networkPerformanceConfig", &self.network_performance_config)?;
+        }
+        if !wkt::internal::is_default(&self.private_ipv_6_google_access) {
+            state.serialize_entry("privateIpv6GoogleAccess", &self.private_ipv_6_google_access)?;
+        }
+        if self.reservation_affinity.is_some() {
+            state.serialize_entry("reservationAffinity", &self.reservation_affinity)?;
+        }
+        if !wkt::internal::is_default(&self.resource_manager_tags) {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
+        }
+        if !self.resource_policies.is_empty() {
+            state.serialize_entry("resourcePolicies", &self.resource_policies)?;
+        }
+        if self.scheduling.is_some() {
+            state.serialize_entry("scheduling", &self.scheduling)?;
+        }
+        if !self.service_accounts.is_empty() {
+            state.serialize_entry("serviceAccounts", &self.service_accounts)?;
+        }
+        if self.shielded_instance_config.is_some() {
+            state.serialize_entry("shieldedInstanceConfig", &self.shielded_instance_config)?;
+        }
+        if self.tags.is_some() {
+            state.serialize_entry("tags", &self.tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesAddResourcePoliciesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_policies.is_empty() {
+            state.serialize_entry("resourcePolicies", &self.resource_policies)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesBulkInsertOperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.per_location_status) {
+            state.serialize_entry("perLocationStatus", &self.per_location_status)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesGetEffectiveFirewallsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.firewall_policys.is_empty() {
+            state.serialize_entry("firewallPolicys", &self.firewall_policys)?;
+        }
+        if !self.firewalls.is_empty() {
+            state.serialize_entry("firewalls", &self.firewalls)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.packet_mirroring_rules.is_empty() {
+            state.serialize_entry("packetMirroringRules", &self.packet_mirroring_rules)?;
+        }
+        if !wkt::internal::is_default(&self.priority) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("priority", &__With(&self.priority))?;
+        }
+        if !self.rules.is_empty() {
+            state.serialize_entry("rules", &self.rules)?;
+        }
+        if !self.short_name.is_empty() {
+            state.serialize_entry("shortName", &self.short_name)?;
+        }
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesRemoveResourcePoliciesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_policies.is_empty() {
+            state.serialize_entry("resourcePolicies", &self.resource_policies)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesReportHostAsFaultyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.disruption_schedule) {
+            state.serialize_entry("disruptionSchedule", &self.disruption_schedule)?;
+        }
+        if !self.fault_reasons.is_empty() {
+            state.serialize_entry("faultReasons", &self.fault_reasons)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesReportHostAsFaultyRequestFaultReason {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.behavior) {
+            state.serialize_entry("behavior", &self.behavior)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesScopedList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instances.is_empty() {
+            state.serialize_entry("instances", &self.instances)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::instances_scoped_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::instances_scoped_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesSetLabelsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.label_fingerprint.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
+        }
+        if !wkt::internal::is_default(&self.labels) {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesSetMachineResourcesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.guest_accelerators.is_empty() {
+            state.serialize_entry("guestAccelerators", &self.guest_accelerators)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesSetMachineTypeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.machine_type.is_empty() {
+            state.serialize_entry("machineType", &self.machine_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesSetMinCpuPlatformRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.min_cpu_platform.is_empty() {
+            state.serialize_entry("minCpuPlatform", &self.min_cpu_platform)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesSetNameRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.current_name.is_empty() {
+            state.serialize_entry("currentName", &self.current_name)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesSetSecurityPolicyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.network_interfaces.is_empty() {
+            state.serialize_entry("networkInterfaces", &self.network_interfaces)?;
+        }
+        if !self.security_policy.is_empty() {
+            state.serialize_entry("securityPolicy", &self.security_policy)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesSetServiceAccountRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.email.is_empty() {
+            state.serialize_entry("email", &self.email)?;
+        }
+        if !self.scopes.is_empty() {
+            state.serialize_entry("scopes", &self.scopes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstancesStartWithEncryptionKeyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.disks.is_empty() {
+            state.serialize_entry("disks", &self.disks)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::LocalizedMessage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.locale.is_empty() {
+            state.serialize_entry("locale", &self.locale)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::LocationPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.locations) {
+            state.serialize_entry("locations", &self.locations)?;
+        }
+        if !wkt::internal::is_default(&self.target_shape) {
+            state.serialize_entry("targetShape", &self.target_shape)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::LocationPolicyLocation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.constraints.is_some() {
+            state.serialize_entry("constraints", &self.constraints)?;
+        }
+        if !wkt::internal::is_default(&self.preference) {
+            state.serialize_entry("preference", &self.preference)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::LocationPolicyLocationConstraints {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.max_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("maxCount", &__With(&self.max_count))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -502,6 +3167,1506 @@ impl serde::ser::Serialize for super::machine_types_scoped_list::warning::Data {
     }
 }
 
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Metadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.fingerprint.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::metadata::Items {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NetworkInterface {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.access_configs.is_empty() {
+            state.serialize_entry("accessConfigs", &self.access_configs)?;
+        }
+        if !self.alias_ip_ranges.is_empty() {
+            state.serialize_entry("aliasIpRanges", &self.alias_ip_ranges)?;
+        }
+        if !self.fingerprint.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
+        }
+        if !wkt::internal::is_default(&self.internal_ipv_6_prefix_length) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "internalIpv6PrefixLength",
+                &__With(&self.internal_ipv_6_prefix_length),
+            )?;
+        }
+        if !self.ipv_6_access_configs.is_empty() {
+            state.serialize_entry("ipv6AccessConfigs", &self.ipv_6_access_configs)?;
+        }
+        if !wkt::internal::is_default(&self.ipv_6_access_type) {
+            state.serialize_entry("ipv6AccessType", &self.ipv_6_access_type)?;
+        }
+        if !self.ipv_6_address.is_empty() {
+            state.serialize_entry("ipv6Address", &self.ipv_6_address)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.network.is_empty() {
+            state.serialize_entry("network", &self.network)?;
+        }
+        if !self.network_attachment.is_empty() {
+            state.serialize_entry("networkAttachment", &self.network_attachment)?;
+        }
+        if !self.network_ip.is_empty() {
+            state.serialize_entry("networkIP", &self.network_ip)?;
+        }
+        if !wkt::internal::is_default(&self.nic_type) {
+            state.serialize_entry("nicType", &self.nic_type)?;
+        }
+        if !self.parent_nic_name.is_empty() {
+            state.serialize_entry("parentNicName", &self.parent_nic_name)?;
+        }
+        if !wkt::internal::is_default(&self.queue_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("queueCount", &__With(&self.queue_count))?;
+        }
+        if !wkt::internal::is_default(&self.stack_type) {
+            state.serialize_entry("stackType", &self.stack_type)?;
+        }
+        if !self.subnetwork.is_empty() {
+            state.serialize_entry("subnetwork", &self.subnetwork)?;
+        }
+        if !wkt::internal::is_default(&self.vlan) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("vlan", &__With(&self.vlan))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NetworkPerformanceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.total_egress_bandwidth_tier) {
+            state.serialize_entry(
+                "totalEgressBandwidthTier",
+                &self.total_egress_bandwidth_tier,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Operation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.client_operation_id.is_empty() {
+            state.serialize_entry("clientOperationId", &self.client_operation_id)?;
+        }
+        if !self.creation_timestamp.is_empty() {
+            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.end_time.is_empty() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if self.error.is_some() {
+            state.serialize_entry("error", &self.error)?;
+        }
+        if !self.http_error_message.is_empty() {
+            state.serialize_entry("httpErrorMessage", &self.http_error_message)?;
+        }
+        if !wkt::internal::is_default(&self.http_error_status_code) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("httpErrorStatusCode", &__With(&self.http_error_status_code))?;
+        }
+        if !wkt::internal::is_default(&self.id) {
+            struct __With<'a>(&'a u64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::U64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("id", &__With(&self.id))?;
+        }
+        if !self.insert_time.is_empty() {
+            state.serialize_entry("insertTime", &self.insert_time)?;
+        }
+        if self.instances_bulk_insert_operation_metadata.is_some() {
+            state.serialize_entry(
+                "instancesBulkInsertOperationMetadata",
+                &self.instances_bulk_insert_operation_metadata,
+            )?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.operation_group_id.is_empty() {
+            state.serialize_entry("operationGroupId", &self.operation_group_id)?;
+        }
+        if !self.operation_type.is_empty() {
+            state.serialize_entry("operationType", &self.operation_type)?;
+        }
+        if !wkt::internal::is_default(&self.progress) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("progress", &__With(&self.progress))?;
+        }
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self
+            .set_common_instance_metadata_operation_metadata
+            .is_some()
+        {
+            state.serialize_entry(
+                "setCommonInstanceMetadataOperationMetadata",
+                &self.set_common_instance_metadata_operation_metadata,
+            )?;
+        }
+        if !self.start_time.is_empty() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if !wkt::internal::is_default(&self.status) {
+            state.serialize_entry("status", &self.status)?;
+        }
+        if !self.status_message.is_empty() {
+            state.serialize_entry("statusMessage", &self.status_message)?;
+        }
+        if !wkt::internal::is_default(&self.target_id) {
+            struct __With<'a>(&'a u64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::U64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("targetId", &__With(&self.target_id))?;
+        }
+        if !self.target_link.is_empty() {
+            state.serialize_entry("targetLink", &self.target_link)?;
+        }
+        if !self.user.is_empty() {
+            state.serialize_entry("user", &self.user)?;
+        }
+        if !self.warnings.is_empty() {
+            state.serialize_entry("warnings", &self.warnings)?;
+        }
+        if !self.zone.is_empty() {
+            state.serialize_entry("zone", &self.zone)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operation::Error {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.errors.is_empty() {
+            state.serialize_entry("errors", &self.errors)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operation::error::Errors {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.code.is_empty() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.error_details.is_empty() {
+            state.serialize_entry("errorDetails", &self.error_details)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.error_info.is_some() {
+            state.serialize_entry("errorInfo", &self.error_info)?;
+        }
+        if self.help.is_some() {
+            state.serialize_entry("help", &self.help)?;
+        }
+        if self.localized_message.is_some() {
+            state.serialize_entry("localizedMessage", &self.localized_message)?;
+        }
+        if self.quota_info.is_some() {
+            state.serialize_entry("quotaInfo", &self.quota_info)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operation::Warnings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operation::warnings::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "zone-operations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::OperationList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.id.is_empty() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "zone-operations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operation_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "zone-operations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operation_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Policy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.audit_configs.is_empty() {
+            state.serialize_entry("auditConfigs", &self.audit_configs)?;
+        }
+        if !self.bindings.is_empty() {
+            state.serialize_entry("bindings", &self.bindings)?;
+        }
+        if !self.etag.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("etag", &__With(&self.etag))?;
+        }
+        if !wkt::internal::is_default(&self.version) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("version", &__With(&self.version))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::QuotaExceededInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.dimensions) {
+            state.serialize_entry("dimensions", &self.dimensions)?;
+        }
+        if !wkt::internal::is_default(&self.future_limit) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("futureLimit", &__With(&self.future_limit))?;
+        }
+        if !wkt::internal::is_default(&self.limit) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("limit", &__With(&self.limit))?;
+        }
+        if !self.limit_name.is_empty() {
+            state.serialize_entry("limitName", &self.limit_name)?;
+        }
+        if !self.metric_name.is_empty() {
+            state.serialize_entry("metricName", &self.metric_name)?;
+        }
+        if !wkt::internal::is_default(&self.rollout_status) {
+            state.serialize_entry("rolloutStatus", &self.rollout_status)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Reference {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self.reference_type.is_empty() {
+            state.serialize_entry("referenceType", &self.reference_type)?;
+        }
+        if !self.referrer.is_empty() {
+            state.serialize_entry("referrer", &self.referrer)?;
+        }
+        if !self.target.is_empty() {
+            state.serialize_entry("target", &self.target)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ReservationAffinity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.consume_reservation_type) {
+            state.serialize_entry("consumeReservationType", &self.consume_reservation_type)?;
+        }
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.values.is_empty() {
+            state.serialize_entry("values", &self.values)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ResourceStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.effective_instance_metadata.is_some() {
+            state.serialize_entry(
+                "effectiveInstanceMetadata",
+                &self.effective_instance_metadata,
+            )?;
+        }
+        if !self.physical_host.is_empty() {
+            state.serialize_entry("physicalHost", &self.physical_host)?;
+        }
+        if self.physical_host_topology.is_some() {
+            state.serialize_entry("physicalHostTopology", &self.physical_host_topology)?;
+        }
+        if self.scheduling.is_some() {
+            state.serialize_entry("scheduling", &self.scheduling)?;
+        }
+        if self.upcoming_maintenance.is_some() {
+            state.serialize_entry("upcomingMaintenance", &self.upcoming_maintenance)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ResourceStatusEffectiveInstanceMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.block_project_ssh_keys_metadata_value) {
+            state.serialize_entry(
+                "blockProjectSshKeysMetadataValue",
+                &self.block_project_ssh_keys_metadata_value,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.enable_guest_attributes_metadata_value) {
+            state.serialize_entry(
+                "enableGuestAttributesMetadataValue",
+                &self.enable_guest_attributes_metadata_value,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.enable_os_inventory_metadata_value) {
+            state.serialize_entry(
+                "enableOsInventoryMetadataValue",
+                &self.enable_os_inventory_metadata_value,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.enable_osconfig_metadata_value) {
+            state.serialize_entry(
+                "enableOsconfigMetadataValue",
+                &self.enable_osconfig_metadata_value,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.enable_oslogin_metadata_value) {
+            state.serialize_entry(
+                "enableOsloginMetadataValue",
+                &self.enable_oslogin_metadata_value,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.serial_port_enable_metadata_value) {
+            state.serialize_entry(
+                "serialPortEnableMetadataValue",
+                &self.serial_port_enable_metadata_value,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.serial_port_logging_enable_metadata_value) {
+            state.serialize_entry(
+                "serialPortLoggingEnableMetadataValue",
+                &self.serial_port_logging_enable_metadata_value,
+            )?;
+        }
+        if !self.vm_dns_setting_metadata_value.is_empty() {
+            state.serialize_entry(
+                "vmDnsSettingMetadataValue",
+                &self.vm_dns_setting_metadata_value,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ResourceStatusPhysicalHostTopology {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.block.is_empty() {
+            state.serialize_entry("block", &self.block)?;
+        }
+        if !self.cluster.is_empty() {
+            state.serialize_entry("cluster", &self.cluster)?;
+        }
+        if !self.host.is_empty() {
+            state.serialize_entry("host", &self.host)?;
+        }
+        if !self.subblock.is_empty() {
+            state.serialize_entry("subblock", &self.subblock)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ResourceStatusScheduling {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.availability_domain) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("availabilityDomain", &__With(&self.availability_domain))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Scheduling {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.automatic_restart) {
+            state.serialize_entry("automaticRestart", &self.automatic_restart)?;
+        }
+        if !wkt::internal::is_default(&self.availability_domain) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("availabilityDomain", &__With(&self.availability_domain))?;
+        }
+        if !wkt::internal::is_default(&self.host_error_timeout_seconds) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "hostErrorTimeoutSeconds",
+                &__With(&self.host_error_timeout_seconds),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.instance_termination_action) {
+            state.serialize_entry(
+                "instanceTerminationAction",
+                &self.instance_termination_action,
+            )?;
+        }
+        if self.local_ssd_recovery_timeout.is_some() {
+            state.serialize_entry("localSsdRecoveryTimeout", &self.local_ssd_recovery_timeout)?;
+        }
+        if !self.location_hint.is_empty() {
+            state.serialize_entry("locationHint", &self.location_hint)?;
+        }
+        if self.max_run_duration.is_some() {
+            state.serialize_entry("maxRunDuration", &self.max_run_duration)?;
+        }
+        if !wkt::internal::is_default(&self.min_node_cpus) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("minNodeCpus", &__With(&self.min_node_cpus))?;
+        }
+        if !self.node_affinities.is_empty() {
+            state.serialize_entry("nodeAffinities", &self.node_affinities)?;
+        }
+        if !wkt::internal::is_default(&self.on_host_maintenance) {
+            state.serialize_entry("onHostMaintenance", &self.on_host_maintenance)?;
+        }
+        if self.on_instance_stop_action.is_some() {
+            state.serialize_entry("onInstanceStopAction", &self.on_instance_stop_action)?;
+        }
+        if !wkt::internal::is_default(&self.preemptible) {
+            state.serialize_entry("preemptible", &self.preemptible)?;
+        }
+        if !wkt::internal::is_default(&self.provisioning_model) {
+            state.serialize_entry("provisioningModel", &self.provisioning_model)?;
+        }
+        if !wkt::internal::is_default(&self.skip_guest_os_shutdown) {
+            state.serialize_entry("skipGuestOsShutdown", &self.skip_guest_os_shutdown)?;
+        }
+        if !self.termination_time.is_empty() {
+            state.serialize_entry("terminationTime", &self.termination_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SchedulingNodeAffinity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !wkt::internal::is_default(&self.operator) {
+            state.serialize_entry("operator", &self.operator)?;
+        }
+        if !self.values.is_empty() {
+            state.serialize_entry("values", &self.values)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SchedulingOnInstanceStopAction {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.discard_local_ssd) {
+            state.serialize_entry("discardLocalSsd", &self.discard_local_ssd)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Screenshot {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.contents.is_empty() {
+            state.serialize_entry("contents", &self.contents)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SerialPortOutput {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.contents.is_empty() {
+            state.serialize_entry("contents", &self.contents)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !wkt::internal::is_default(&self.next) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("next", &__With(&self.next))?;
+        }
+        if !self.self_link.is_empty() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !wkt::internal::is_default(&self.start) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("start", &__With(&self.start))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ServiceAccount {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.email.is_empty() {
+            state.serialize_entry("email", &self.email)?;
+        }
+        if !self.scopes.is_empty() {
+            state.serialize_entry("scopes", &self.scopes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.client_operation_id.is_empty() {
+            state.serialize_entry("clientOperationId", &self.client_operation_id)?;
+        }
+        if !wkt::internal::is_default(&self.per_location_operations) {
+            state.serialize_entry("perLocationOperations", &self.per_location_operations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.error.is_some() {
+            state.serialize_entry("error", &self.error)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ShieldedInstanceConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enable_integrity_monitoring) {
+            state.serialize_entry(
+                "enableIntegrityMonitoring",
+                &self.enable_integrity_monitoring,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.enable_secure_boot) {
+            state.serialize_entry("enableSecureBoot", &self.enable_secure_boot)?;
+        }
+        if !wkt::internal::is_default(&self.enable_vtpm) {
+            state.serialize_entry("enableVtpm", &self.enable_vtpm)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ShieldedInstanceIdentity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.encryption_key.is_some() {
+            state.serialize_entry("encryptionKey", &self.encryption_key)?;
+        }
+        if !self.kind.is_empty() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.signing_key.is_some() {
+            state.serialize_entry("signingKey", &self.signing_key)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ShieldedInstanceIdentityEntry {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ek_cert.is_empty() {
+            state.serialize_entry("ekCert", &self.ek_cert)?;
+        }
+        if !self.ek_pub.is_empty() {
+            state.serialize_entry("ekPub", &self.ek_pub)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ShieldedInstanceIntegrityPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.update_auto_learn_policy) {
+            state.serialize_entry("updateAutoLearnPolicy", &self.update_auto_learn_policy)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "zone-operations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Status {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("code", &__With(&self.code))?;
+        }
+        if !self.details.is_empty() {
+            state.serialize_entry("details", &self.details)?;
+        }
+        if !self.message.is_empty() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Tags {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.fingerprint.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TestPermissionsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.permissions.is_empty() {
+            state.serialize_entry("permissions", &self.permissions)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TestPermissionsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.permissions.is_empty() {
+            state.serialize_entry("permissions", &self.permissions)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpcomingMaintenance {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.can_reschedule) {
+            state.serialize_entry("canReschedule", &self.can_reschedule)?;
+        }
+        if !self.latest_window_start_time.is_empty() {
+            state.serialize_entry("latestWindowStartTime", &self.latest_window_start_time)?;
+        }
+        if !wkt::internal::is_default(&self.maintenance_on_shutdown) {
+            state.serialize_entry("maintenanceOnShutdown", &self.maintenance_on_shutdown)?;
+        }
+        if !self.maintenance_reasons.is_empty() {
+            state.serialize_entry("maintenanceReasons", &self.maintenance_reasons)?;
+        }
+        if !wkt::internal::is_default(&self.maintenance_status) {
+            state.serialize_entry("maintenanceStatus", &self.maintenance_status)?;
+        }
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self.window_end_time.is_empty() {
+            state.serialize_entry("windowEndTime", &self.window_end_time)?;
+        }
+        if !self.window_start_time.is_empty() {
+            state.serialize_entry("windowStartTime", &self.window_start_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "zones")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Zone {
@@ -649,6 +4814,44 @@ impl serde::ser::Serialize for super::zone_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ZoneSetPolicyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.bindings.is_empty() {
+            state.serialize_entry("bindings", &self.bindings)?;
+        }
+        if !self.etag.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("etag", &__With(&self.etag))?;
+        }
+        if self.policy.is_some() {
+            state.serialize_entry("policy", &self.policy)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
