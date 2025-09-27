@@ -40,10 +40,10 @@ mod serialize;
 #[non_exhaustive]
 pub struct AcceleratorConfig {
     /// The number of the guest accelerator cards exposed to this instance.
-    pub accelerator_count: i32,
+    pub accelerator_count: std::option::Option<i32>,
 
     /// Full or partial URL of the accelerator type resource to attach to this instance. For example: projects/my-project/zones/us-central1-c/acceleratorTypes/nvidia-tesla-p100 If you are creating an instance template, specify only the accelerator name. See GPUs on Compute Engine for a full list of accelerator types.
-    pub accelerator_type: std::string::String,
+    pub accelerator_type: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -55,17 +55,38 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [accelerator_count][crate::model::AcceleratorConfig::accelerator_count].
-    pub fn set_accelerator_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.accelerator_count = v.into();
+    pub fn set_accelerator_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.accelerator_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [accelerator_count][crate::model::AcceleratorConfig::accelerator_count].
+    pub fn set_or_clear_accelerator_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.accelerator_count = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [accelerator_type][crate::model::AcceleratorConfig::accelerator_type].
-    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.accelerator_type = v.into();
+    pub fn set_accelerator_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.accelerator_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [accelerator_type][crate::model::AcceleratorConfig::accelerator_type].
+    pub fn set_or_clear_accelerator_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.accelerator_type = v.map(|x| x.into());
         self
     }
 }
@@ -83,34 +104,34 @@ impl wkt::message::Message for AcceleratorConfig {
 #[non_exhaustive]
 pub struct AccessConfig {
     /// Applies to ipv6AccessConfigs only. The first IPv6 address of the external IPv6 range associated with this instance, prefix length is stored in externalIpv6PrefixLength in ipv6AccessConfig. To use a static external IP address, it must be unused and in the same region as the instance's zone. If not specified, Google Cloud will automatically assign an external IPv6 address from the instance's subnetwork.
-    pub external_ipv_6: std::string::String,
+    pub external_ipv_6: std::option::Option<std::string::String>,
 
     /// Applies to ipv6AccessConfigs only. The prefix length of the external IPv6 range.
-    pub external_ipv_6_prefix_length: i32,
+    pub external_ipv_6_prefix_length: std::option::Option<i32>,
 
     /// [Output Only] Type of the resource. Always compute#accessConfig for access configs.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// The name of this access configuration. In accessConfigs (IPv4), the default and recommended name is External NAT, but you can use any arbitrary string, such as My external IP or Network Access. In ipv6AccessConfigs, the recommend name is External IPv6.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     /// Applies to accessConfigs (IPv4) only. An external IP address associated with this instance. Specify an unused static external IP address available to the project or leave this field undefined to use an IP from a shared ephemeral IP address pool. If you specify a static external IP address, it must live in the same region as the zone of the instance.
-    pub nat_ip: std::string::String,
+    pub nat_ip: std::option::Option<std::string::String>,
 
     /// This signifies the networking tier used for configuring this access configuration and can only take the following values: PREMIUM, STANDARD. If an AccessConfig is specified without a valid external IP address, an ephemeral IP will be created with this networkTier. If an AccessConfig with a valid external IP address is specified, it must match that of the networkTier associated with the Address resource owning that IP.
-    pub network_tier: crate::model::access_config::NetworkTier,
+    pub network_tier: std::option::Option<crate::model::access_config::NetworkTier>,
 
     /// The DNS domain name for the public PTR record. You can set this field only if the `setPublicPtr` field is enabled in accessConfig. If this field is unspecified in ipv6AccessConfig, a default PTR record will be created for first IP in associated external IPv6 range.
-    pub public_ptr_domain_name: std::string::String,
+    pub public_ptr_domain_name: std::option::Option<std::string::String>,
 
     /// The resource URL for the security policy associated with this access config.
-    pub security_policy: std::string::String,
+    pub security_policy: std::option::Option<std::string::String>,
 
     /// Specifies whether a public DNS 'PTR' record should be created to map the external IP address of the instance to a DNS domain name. This field is not used in ipv6AccessConfig. A default PTR record will be created if the VM has external IPv6 range associated.
-    pub set_public_ptr: bool,
+    pub set_public_ptr: std::option::Option<bool>,
 
     /// The type of configuration. In accessConfigs (IPv4), the default and only option is ONE_TO_ONE_NAT. In ipv6AccessConfigs, the default and only option is DIRECT_IPV6.
-    pub r#type: crate::model::access_config::Type,
+    pub r#type: std::option::Option<crate::model::access_config::Type>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -122,71 +143,182 @@ impl AccessConfig {
     }
 
     /// Sets the value of [external_ipv_6][crate::model::AccessConfig::external_ipv_6].
-    pub fn set_external_ipv_6<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.external_ipv_6 = v.into();
+    pub fn set_external_ipv_6<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.external_ipv_6 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [external_ipv_6][crate::model::AccessConfig::external_ipv_6].
+    pub fn set_or_clear_external_ipv_6<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.external_ipv_6 = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [external_ipv_6_prefix_length][crate::model::AccessConfig::external_ipv_6_prefix_length].
-    pub fn set_external_ipv_6_prefix_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.external_ipv_6_prefix_length = v.into();
+    pub fn set_external_ipv_6_prefix_length<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.external_ipv_6_prefix_length = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [external_ipv_6_prefix_length][crate::model::AccessConfig::external_ipv_6_prefix_length].
+    pub fn set_or_clear_external_ipv_6_prefix_length<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.external_ipv_6_prefix_length = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kind][crate::model::AccessConfig::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::AccessConfig::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [name][crate::model::AccessConfig::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::AccessConfig::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [nat_ip][crate::model::AccessConfig::nat_ip].
-    pub fn set_nat_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.nat_ip = v.into();
+    pub fn set_nat_ip<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.nat_ip = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [nat_ip][crate::model::AccessConfig::nat_ip].
+    pub fn set_or_clear_nat_ip<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.nat_ip = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [network_tier][crate::model::AccessConfig::network_tier].
-    pub fn set_network_tier<T: std::convert::Into<crate::model::access_config::NetworkTier>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_tier = v.into();
+    pub fn set_network_tier<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::access_config::NetworkTier>,
+    {
+        self.network_tier = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_tier][crate::model::AccessConfig::network_tier].
+    pub fn set_or_clear_network_tier<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::access_config::NetworkTier>,
+    {
+        self.network_tier = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [public_ptr_domain_name][crate::model::AccessConfig::public_ptr_domain_name].
-    pub fn set_public_ptr_domain_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.public_ptr_domain_name = v.into();
+    pub fn set_public_ptr_domain_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.public_ptr_domain_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [public_ptr_domain_name][crate::model::AccessConfig::public_ptr_domain_name].
+    pub fn set_or_clear_public_ptr_domain_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.public_ptr_domain_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [security_policy][crate::model::AccessConfig::security_policy].
-    pub fn set_security_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.security_policy = v.into();
+    pub fn set_security_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.security_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [security_policy][crate::model::AccessConfig::security_policy].
+    pub fn set_or_clear_security_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.security_policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [set_public_ptr][crate::model::AccessConfig::set_public_ptr].
-    pub fn set_set_public_ptr<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.set_public_ptr = v.into();
+    pub fn set_set_public_ptr<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.set_public_ptr = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [set_public_ptr][crate::model::AccessConfig::set_public_ptr].
+    pub fn set_or_clear_set_public_ptr<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.set_public_ptr = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [r#type][crate::model::AccessConfig::type].
-    pub fn set_type<T: std::convert::Into<crate::model::access_config::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = v.into();
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::access_config::Type>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::AccessConfig::type].
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::access_config::Type>,
+    {
+        self.r#type = v.map(|x| x.into());
         self
     }
 }
@@ -499,23 +631,23 @@ pub mod access_config {
 #[non_exhaustive]
 pub struct AdvancedMachineFeatures {
     /// Whether to enable nested virtualization or not (default is false).
-    pub enable_nested_virtualization: bool,
+    pub enable_nested_virtualization: std::option::Option<bool>,
 
     /// Whether to enable UEFI networking for instance creation.
-    pub enable_uefi_networking: bool,
+    pub enable_uefi_networking: std::option::Option<bool>,
 
     /// Type of Performance Monitoring Unit requested on instance.
     pub performance_monitoring_unit:
-        crate::model::advanced_machine_features::PerformanceMonitoringUnit,
+        std::option::Option<crate::model::advanced_machine_features::PerformanceMonitoringUnit>,
 
     /// The number of threads per physical core. To disable simultaneous multithreading (SMT) set this to 1. If unset, the maximum number of threads supported per core by the underlying processor is assumed.
-    pub threads_per_core: i32,
+    pub threads_per_core: std::option::Option<i32>,
 
     /// Turbo frequency mode to use for the instance. Supported modes include: * ALL_CORE_MAX Using empty string or not setting this field will use the platform-specific default turbo mode.
-    pub turbo_mode: std::string::String,
+    pub turbo_mode: std::option::Option<std::string::String>,
 
     /// The number of physical cores to expose to an instance. Multiply by the number of threads per core to compute the total number of virtual CPUs to expose to the instance. If unset, the number of cores is inferred from the instance's nominal CPU count and the underlying platform's SMT width.
-    pub visible_core_count: i32,
+    pub visible_core_count: std::option::Option<i32>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -527,43 +659,110 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets the value of [enable_nested_virtualization][crate::model::AdvancedMachineFeatures::enable_nested_virtualization].
-    pub fn set_enable_nested_virtualization<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_nested_virtualization = v.into();
+    pub fn set_enable_nested_virtualization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_nested_virtualization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_nested_virtualization][crate::model::AdvancedMachineFeatures::enable_nested_virtualization].
+    pub fn set_or_clear_enable_nested_virtualization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_nested_virtualization = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_uefi_networking][crate::model::AdvancedMachineFeatures::enable_uefi_networking].
-    pub fn set_enable_uefi_networking<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_uefi_networking = v.into();
+    pub fn set_enable_uefi_networking<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_uefi_networking = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_uefi_networking][crate::model::AdvancedMachineFeatures::enable_uefi_networking].
+    pub fn set_or_clear_enable_uefi_networking<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_uefi_networking = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [performance_monitoring_unit][crate::model::AdvancedMachineFeatures::performance_monitoring_unit].
-    pub fn set_performance_monitoring_unit<
+    pub fn set_performance_monitoring_unit<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::advanced_machine_features::PerformanceMonitoringUnit>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.performance_monitoring_unit = v.into();
+    {
+        self.performance_monitoring_unit = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [performance_monitoring_unit][crate::model::AdvancedMachineFeatures::performance_monitoring_unit].
+    pub fn set_or_clear_performance_monitoring_unit<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::advanced_machine_features::PerformanceMonitoringUnit>,
+    {
+        self.performance_monitoring_unit = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
-    pub fn set_threads_per_core<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.threads_per_core = v.into();
+    pub fn set_threads_per_core<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.threads_per_core = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
+    pub fn set_or_clear_threads_per_core<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.threads_per_core = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [turbo_mode][crate::model::AdvancedMachineFeatures::turbo_mode].
-    pub fn set_turbo_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.turbo_mode = v.into();
+    pub fn set_turbo_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.turbo_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [turbo_mode][crate::model::AdvancedMachineFeatures::turbo_mode].
+    pub fn set_or_clear_turbo_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.turbo_mode = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [visible_core_count][crate::model::AdvancedMachineFeatures::visible_core_count].
-    pub fn set_visible_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.visible_core_count = v.into();
+    pub fn set_visible_core_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.visible_core_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [visible_core_count][crate::model::AdvancedMachineFeatures::visible_core_count].
+    pub fn set_or_clear_visible_core_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.visible_core_count = v.map(|x| x.into());
         self
     }
 }
@@ -743,10 +942,10 @@ pub mod advanced_machine_features {
 #[non_exhaustive]
 pub struct AliasIpRange {
     /// The IP alias ranges to allocate for this interface. This IP CIDR range must belong to the specified subnetwork and cannot contain IP addresses reserved by system or used by other network interfaces. This range may be a single IP address (such as 10.2.3.4), a netmask (such as /24) or a CIDR-formatted string (such as 10.1.2.0/24).
-    pub ip_cidr_range: std::string::String,
+    pub ip_cidr_range: std::option::Option<std::string::String>,
 
     /// The name of a subnetwork secondary IP range from which to allocate an IP alias range. If not specified, the primary range of the subnetwork is used.
-    pub subnetwork_range_name: std::string::String,
+    pub subnetwork_range_name: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -758,17 +957,38 @@ impl AliasIpRange {
     }
 
     /// Sets the value of [ip_cidr_range][crate::model::AliasIpRange::ip_cidr_range].
-    pub fn set_ip_cidr_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.ip_cidr_range = v.into();
+    pub fn set_ip_cidr_range<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ip_cidr_range = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ip_cidr_range][crate::model::AliasIpRange::ip_cidr_range].
+    pub fn set_or_clear_ip_cidr_range<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ip_cidr_range = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [subnetwork_range_name][crate::model::AliasIpRange::subnetwork_range_name].
-    pub fn set_subnetwork_range_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subnetwork_range_name = v.into();
+    pub fn set_subnetwork_range_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.subnetwork_range_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [subnetwork_range_name][crate::model::AliasIpRange::subnetwork_range_name].
+    pub fn set_or_clear_subnetwork_range_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.subnetwork_range_name = v.map(|x| x.into());
         self
     }
 }
@@ -786,58 +1006,58 @@ impl wkt::message::Message for AliasIpRange {
 #[non_exhaustive]
 pub struct AttachedDisk {
     /// [Output Only] The architecture of the attached disk. Valid values are ARM64 or X86_64.
-    pub architecture: crate::model::attached_disk::Architecture,
+    pub architecture: std::option::Option<crate::model::attached_disk::Architecture>,
 
     /// Specifies whether the disk will be auto-deleted when the instance is deleted (but not when the disk is detached from the instance).
-    pub auto_delete: bool,
+    pub auto_delete: std::option::Option<bool>,
 
     /// Indicates that this is a boot disk. The virtual machine will use the first partition of the disk for its root filesystem.
-    pub boot: bool,
+    pub boot: std::option::Option<bool>,
 
     /// Specifies a unique device name of your choice that is reflected into the /dev/disk/by-id/google-* tree of a Linux operating system running within the instance. This name can be used to reference the device for mounting, resizing, and so on, from within the instance. If not specified, the server chooses a default device name to apply to this disk, in the form persistent-disk-x, where x is a number assigned by Google Compute Engine. This field is only applicable for persistent disks.
-    pub device_name: std::string::String,
+    pub device_name: std::option::Option<std::string::String>,
 
     /// Encrypts or decrypts a disk using a customer-supplied encryption key. If you are creating a new disk, this field encrypts the new disk using an encryption key that you provide. If you are attaching an existing disk that is already encrypted, this field decrypts the disk using the customer-supplied encryption key. If you encrypt a disk using a customer-supplied key, you must provide the same key again when you attempt to use this resource at a later time. For example, you must provide the key when you create a snapshot or an image from the disk or when you attach the disk to a virtual machine instance. If you do not provide an encryption key, then the disk will be encrypted using an automatically generated key and you do not need to provide a key to use the disk later. Note: Instance templates do not store customer-supplied encryption keys, so you cannot use your own keys to encrypt disks in a managed instance group. You cannot create VMs that have disks with customer-supplied keys using the bulk insert method.
     pub disk_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
 
     /// The size of the disk in GB.
-    pub disk_size_gb: i64,
+    pub disk_size_gb: std::option::Option<i64>,
 
     /// [Input Only] Whether to force attach the regional disk even if it's currently attached to another instance. If you try to force attach a zonal disk to an instance, you will receive an error.
-    pub force_attach: bool,
+    pub force_attach: std::option::Option<bool>,
 
     /// A list of features to enable on the guest operating system. Applicable only for bootable images. Read Enabling guest operating system features to see a list of available options.
     pub guest_os_features: std::vec::Vec<crate::model::GuestOsFeature>,
 
     /// [Output Only] A zero-based index to this disk, where 0 is reserved for the boot disk. If you have many disks attached to an instance, each disk would have a unique index number.
-    pub index: i32,
+    pub index: std::option::Option<i32>,
 
     /// [Input Only] Specifies the parameters for a new disk that will be created alongside the new instance. Use initialization parameters to create boot disks or local SSDs attached to the new instance. This property is mutually exclusive with the source property; you can only define one or the other, but not both.
     pub initialize_params: std::option::Option<crate::model::AttachedDiskInitializeParams>,
 
     /// Specifies the disk interface to use for attaching this disk, which is either SCSI or NVME. For most machine types, the default is SCSI. Local SSDs can use either NVME or SCSI. In certain configurations, persistent disks can use NVMe. For more information, see About persistent disks.
-    pub interface: crate::model::attached_disk::Interface,
+    pub interface: std::option::Option<crate::model::attached_disk::Interface>,
 
     /// [Output Only] Type of the resource. Always compute#attachedDisk for attached disks.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] Any valid publicly visible licenses.
     pub licenses: std::vec::Vec<std::string::String>,
 
     /// The mode in which to attach this disk, either READ_WRITE or READ_ONLY. If not specified, the default is to attach the disk in READ_WRITE mode.
-    pub mode: crate::model::attached_disk::Mode,
+    pub mode: std::option::Option<crate::model::attached_disk::Mode>,
 
     /// For LocalSSD disks on VM Instances in STOPPED or SUSPENDED state, this field is set to PRESERVED if the LocalSSD data has been saved to a persistent location by customer request. (see the discard_local_ssd option on Stop/Suspend). Read-only in the api.
-    pub saved_state: crate::model::attached_disk::SavedState,
+    pub saved_state: std::option::Option<crate::model::attached_disk::SavedState>,
 
     /// [Output Only] shielded vm initial state stored on disk
     pub shielded_instance_initial_state: std::option::Option<crate::model::InitialStateConfig>,
 
     /// Specifies a valid partial or full URL to an existing Persistent Disk resource. When creating a new instance boot disk, one of initializeParams.sourceImage or initializeParams.sourceSnapshot or disks.source is required. If desired, you can also attach existing non-root persistent disks using this property. This field is only applicable for persistent disks. Note that for InstanceTemplate, specify the disk name for zonal disk, and the URL for regional disk.
-    pub source: std::string::String,
+    pub source: std::option::Option<std::string::String>,
 
     /// Specifies the type of the disk, either SCRATCH or PERSISTENT. If not specified, the default is PERSISTENT.
-    pub r#type: crate::model::attached_disk::Type,
+    pub r#type: std::option::Option<crate::model::attached_disk::Type>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -849,29 +1069,74 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [architecture][crate::model::AttachedDisk::architecture].
-    pub fn set_architecture<T: std::convert::Into<crate::model::attached_disk::Architecture>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.architecture = v.into();
+    pub fn set_architecture<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk::Architecture>,
+    {
+        self.architecture = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [architecture][crate::model::AttachedDisk::architecture].
+    pub fn set_or_clear_architecture<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk::Architecture>,
+    {
+        self.architecture = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [auto_delete][crate::model::AttachedDisk::auto_delete].
-    pub fn set_auto_delete<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.auto_delete = v.into();
+    pub fn set_auto_delete<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.auto_delete = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_delete][crate::model::AttachedDisk::auto_delete].
+    pub fn set_or_clear_auto_delete<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.auto_delete = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [boot][crate::model::AttachedDisk::boot].
-    pub fn set_boot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.boot = v.into();
+    pub fn set_boot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.boot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [boot][crate::model::AttachedDisk::boot].
+    pub fn set_or_clear_boot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.boot = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [device_name][crate::model::AttachedDisk::device_name].
-    pub fn set_device_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.device_name = v.into();
+    pub fn set_device_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.device_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [device_name][crate::model::AttachedDisk::device_name].
+    pub fn set_or_clear_device_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.device_name = v.map(|x| x.into());
         self
     }
 
@@ -894,14 +1159,38 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [disk_size_gb][crate::model::AttachedDisk::disk_size_gb].
-    pub fn set_disk_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.disk_size_gb = v.into();
+    pub fn set_disk_size_gb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.disk_size_gb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disk_size_gb][crate::model::AttachedDisk::disk_size_gb].
+    pub fn set_or_clear_disk_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.disk_size_gb = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [force_attach][crate::model::AttachedDisk::force_attach].
-    pub fn set_force_attach<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.force_attach = v.into();
+    pub fn set_force_attach<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.force_attach = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [force_attach][crate::model::AttachedDisk::force_attach].
+    pub fn set_or_clear_force_attach<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.force_attach = v.map(|x| x.into());
         self
     }
 
@@ -917,8 +1206,20 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [index][crate::model::AttachedDisk::index].
-    pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.index = v.into();
+    pub fn set_index<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.index = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [index][crate::model::AttachedDisk::index].
+    pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.index = v.map(|x| x.into());
         self
     }
 
@@ -941,17 +1242,38 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [interface][crate::model::AttachedDisk::interface].
-    pub fn set_interface<T: std::convert::Into<crate::model::attached_disk::Interface>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.interface = v.into();
+    pub fn set_interface<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk::Interface>,
+    {
+        self.interface = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [interface][crate::model::AttachedDisk::interface].
+    pub fn set_or_clear_interface<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk::Interface>,
+    {
+        self.interface = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kind][crate::model::AttachedDisk::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::AttachedDisk::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
@@ -967,20 +1289,38 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [mode][crate::model::AttachedDisk::mode].
-    pub fn set_mode<T: std::convert::Into<crate::model::attached_disk::Mode>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode = v.into();
+    pub fn set_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk::Mode>,
+    {
+        self.mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mode][crate::model::AttachedDisk::mode].
+    pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk::Mode>,
+    {
+        self.mode = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [saved_state][crate::model::AttachedDisk::saved_state].
-    pub fn set_saved_state<T: std::convert::Into<crate::model::attached_disk::SavedState>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.saved_state = v.into();
+    pub fn set_saved_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk::SavedState>,
+    {
+        self.saved_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [saved_state][crate::model::AttachedDisk::saved_state].
+    pub fn set_or_clear_saved_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk::SavedState>,
+    {
+        self.saved_state = v.map(|x| x.into());
         self
     }
 
@@ -1006,17 +1346,38 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [source][crate::model::AttachedDisk::source].
-    pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = v.into();
+    pub fn set_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source][crate::model::AttachedDisk::source].
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [r#type][crate::model::AttachedDisk::type].
-    pub fn set_type<T: std::convert::Into<crate::model::attached_disk::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = v.into();
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk::Type>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::AttachedDisk::type].
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk::Type>,
+    {
+        self.r#type = v.map(|x| x.into());
         self
     }
 }
@@ -1728,22 +2089,23 @@ pub mod attached_disk {
 #[non_exhaustive]
 pub struct AttachedDiskInitializeParams {
     /// The architecture of the attached disk. Valid values are arm64 or x86_64.
-    pub architecture: crate::model::attached_disk_initialize_params::Architecture,
+    pub architecture:
+        std::option::Option<crate::model::attached_disk_initialize_params::Architecture>,
 
     /// An optional description. Provide this property when creating the disk.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// Specifies the disk name. If not specified, the default is to use the name of the instance. If a disk with the same name already exists in the given region, the existing disk is attached to the new instance and the new disk is not created.
-    pub disk_name: std::string::String,
+    pub disk_name: std::option::Option<std::string::String>,
 
     /// Specifies the size of the disk in base-2 GB. The size must be at least 10 GB. If you specify a sourceImage, which is required for boot disks, the default size is the size of the sourceImage. If you do not specify a sourceImage, the default disk size is 500 GB.
-    pub disk_size_gb: i64,
+    pub disk_size_gb: std::option::Option<i64>,
 
     /// Specifies the disk type to use to create the instance. If not specified, the default is pd-standard, specified using the full URL. For example: <https://www.googleapis.com/compute/v1/projects/project/zones/zone> /diskTypes/pd-standard For a full list of acceptable values, see Persistent disk types. If you specify this field when creating a VM, you can provide either the full or partial URL. For example, the following values are valid: - <https://www.googleapis.com/compute/v1/projects/project/zones/zone> /diskTypes/diskType - projects/project/zones/zone/diskTypes/diskType - zones/zone/diskTypes/diskType If you specify this field when creating or updating an instance template or all-instances configuration, specify the type of the disk, not the URL. For example: pd-standard.
-    pub disk_type: std::string::String,
+    pub disk_type: std::option::Option<std::string::String>,
 
     /// Whether this disk is using confidential compute mode.
-    pub enable_confidential_compute: bool,
+    pub enable_confidential_compute: std::option::Option<bool>,
 
     /// Labels to apply to this disk. These can be later modified by the disks.setLabels method. This field is only applicable for persistent disks.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
@@ -1752,13 +2114,14 @@ pub struct AttachedDiskInitializeParams {
     pub licenses: std::vec::Vec<std::string::String>,
 
     /// Specifies which action to take on instance update with this disk. Default is to use the existing disk.
-    pub on_update_action: crate::model::attached_disk_initialize_params::OnUpdateAction,
+    pub on_update_action:
+        std::option::Option<crate::model::attached_disk_initialize_params::OnUpdateAction>,
 
     /// Indicates how many IOPS to provision for the disk. This sets the number of I/O operations per second that the disk can handle. Values must be between 10,000 and 120,000. For more details, see the Extreme persistent disk documentation.
-    pub provisioned_iops: i64,
+    pub provisioned_iops: std::option::Option<i64>,
 
     /// Indicates how much throughput to provision for the disk. This sets the number of throughput mb per second that the disk can handle. Values must greater than or equal to 1.
-    pub provisioned_throughput: i64,
+    pub provisioned_throughput: std::option::Option<i64>,
 
     /// Required for each regional disk associated with the instance. Specify the URLs of the zones where the disk should be replicated to. You must provide exactly two replica zones, and one zone must be the same as the instance zone.
     pub replica_zones: std::vec::Vec<std::string::String>,
@@ -1770,19 +2133,19 @@ pub struct AttachedDiskInitializeParams {
     pub resource_policies: std::vec::Vec<std::string::String>,
 
     /// The source image to create this disk. When creating a new instance boot disk, one of initializeParams.sourceImage or initializeParams.sourceSnapshot or disks.source is required. To create a disk with one of the public operating system images, specify the image by its family name. For example, specify family/debian-9 to use the latest Debian 9 image: projects/debian-cloud/global/images/family/debian-9 Alternatively, use a specific version of a public operating system image: projects/debian-cloud/global/images/debian-9-stretch-vYYYYMMDD To create a disk with a custom image that you created, specify the image name in the following format: global/images/my-custom-image You can also specify a custom image by its image family, which returns the latest version of the image in that family. Replace the image name with family/family-name: global/images/family/my-image-family If the source image is deleted later, this field will not be set.
-    pub source_image: std::string::String,
+    pub source_image: std::option::Option<std::string::String>,
 
     /// The customer-supplied encryption key of the source image. Required if the source image is protected by a customer-supplied encryption key. InstanceTemplate and InstancePropertiesPatch do not store customer-supplied encryption keys, so you cannot create disks for instances in a managed instance group if the source images are encrypted with your own keys.
     pub source_image_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
 
     /// The source snapshot to create this disk. When creating a new instance boot disk, one of initializeParams.sourceSnapshot or initializeParams.sourceImage or disks.source is required. To create a disk with a snapshot that you created, specify the snapshot name in the following format: global/snapshots/my-backup If the source snapshot is deleted later, this field will not be set. Note: You cannot create VMs in bulk using a snapshot as the source. Use an image instead when you create VMs using the bulk insert method.
-    pub source_snapshot: std::string::String,
+    pub source_snapshot: std::option::Option<std::string::String>,
 
     /// The customer-supplied encryption key of the source snapshot.
     pub source_snapshot_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
 
     /// The storage pool in which the new disk is created. You can provide this as a partial or full URL to the resource. For example, the following are valid values: - <https://www.googleapis.com/compute/v1/projects/project/zones/zone> /storagePools/storagePool - projects/project/zones/zone/storagePools/storagePool - zones/zone/storagePools/storagePool
-    pub storage_pool: std::string::String,
+    pub storage_pool: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1794,43 +2157,110 @@ impl AttachedDiskInitializeParams {
     }
 
     /// Sets the value of [architecture][crate::model::AttachedDiskInitializeParams::architecture].
-    pub fn set_architecture<
+    pub fn set_architecture<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::attached_disk_initialize_params::Architecture>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.architecture = v.into();
+    {
+        self.architecture = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [architecture][crate::model::AttachedDiskInitializeParams::architecture].
+    pub fn set_or_clear_architecture<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk_initialize_params::Architecture>,
+    {
+        self.architecture = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [description][crate::model::AttachedDiskInitializeParams::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::AttachedDiskInitializeParams::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [disk_name][crate::model::AttachedDiskInitializeParams::disk_name].
-    pub fn set_disk_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.disk_name = v.into();
+    pub fn set_disk_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.disk_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disk_name][crate::model::AttachedDiskInitializeParams::disk_name].
+    pub fn set_or_clear_disk_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.disk_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [disk_size_gb][crate::model::AttachedDiskInitializeParams::disk_size_gb].
-    pub fn set_disk_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.disk_size_gb = v.into();
+    pub fn set_disk_size_gb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.disk_size_gb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disk_size_gb][crate::model::AttachedDiskInitializeParams::disk_size_gb].
+    pub fn set_or_clear_disk_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.disk_size_gb = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [disk_type][crate::model::AttachedDiskInitializeParams::disk_type].
-    pub fn set_disk_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.disk_type = v.into();
+    pub fn set_disk_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.disk_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disk_type][crate::model::AttachedDiskInitializeParams::disk_type].
+    pub fn set_or_clear_disk_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.disk_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_confidential_compute][crate::model::AttachedDiskInitializeParams::enable_confidential_compute].
-    pub fn set_enable_confidential_compute<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_confidential_compute = v.into();
+    pub fn set_enable_confidential_compute<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_confidential_compute = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_confidential_compute][crate::model::AttachedDiskInitializeParams::enable_confidential_compute].
+    pub fn set_or_clear_enable_confidential_compute<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_confidential_compute = v.map(|x| x.into());
         self
     }
 
@@ -1857,25 +2287,56 @@ impl AttachedDiskInitializeParams {
     }
 
     /// Sets the value of [on_update_action][crate::model::AttachedDiskInitializeParams::on_update_action].
-    pub fn set_on_update_action<
+    pub fn set_on_update_action<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::attached_disk_initialize_params::OnUpdateAction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.on_update_action = v.into();
+    {
+        self.on_update_action = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [on_update_action][crate::model::AttachedDiskInitializeParams::on_update_action].
+    pub fn set_or_clear_on_update_action<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::attached_disk_initialize_params::OnUpdateAction>,
+    {
+        self.on_update_action = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [provisioned_iops][crate::model::AttachedDiskInitializeParams::provisioned_iops].
-    pub fn set_provisioned_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.provisioned_iops = v.into();
+    pub fn set_provisioned_iops<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_iops = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provisioned_iops][crate::model::AttachedDiskInitializeParams::provisioned_iops].
+    pub fn set_or_clear_provisioned_iops<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_iops = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [provisioned_throughput][crate::model::AttachedDiskInitializeParams::provisioned_throughput].
-    pub fn set_provisioned_throughput<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.provisioned_throughput = v.into();
+    pub fn set_provisioned_throughput<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_throughput = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provisioned_throughput][crate::model::AttachedDiskInitializeParams::provisioned_throughput].
+    pub fn set_or_clear_provisioned_throughput<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.provisioned_throughput = v.map(|x| x.into());
         self
     }
 
@@ -1913,8 +2374,20 @@ impl AttachedDiskInitializeParams {
     }
 
     /// Sets the value of [source_image][crate::model::AttachedDiskInitializeParams::source_image].
-    pub fn set_source_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source_image = v.into();
+    pub fn set_source_image<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_image = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_image][crate::model::AttachedDiskInitializeParams::source_image].
+    pub fn set_or_clear_source_image<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_image = v.map(|x| x.into());
         self
     }
 
@@ -1937,8 +2410,20 @@ impl AttachedDiskInitializeParams {
     }
 
     /// Sets the value of [source_snapshot][crate::model::AttachedDiskInitializeParams::source_snapshot].
-    pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source_snapshot = v.into();
+    pub fn set_source_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_snapshot][crate::model::AttachedDiskInitializeParams::source_snapshot].
+    pub fn set_or_clear_source_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_snapshot = v.map(|x| x.into());
         self
     }
 
@@ -1964,8 +2449,20 @@ impl AttachedDiskInitializeParams {
     }
 
     /// Sets the value of [storage_pool][crate::model::AttachedDiskInitializeParams::storage_pool].
-    pub fn set_storage_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.storage_pool = v.into();
+    pub fn set_storage_pool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.storage_pool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [storage_pool][crate::model::AttachedDiskInitializeParams::storage_pool].
+    pub fn set_or_clear_storage_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.storage_pool = v.map(|x| x.into());
         self
     }
 }
@@ -2283,7 +2780,7 @@ pub struct AuditConfig {
     pub audit_log_configs: std::vec::Vec<crate::model::AuditLogConfig>,
 
     /// Specifies a service that will be enabled for audit logging. For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. `allServices` is a special value that covers all services.
-    pub service: std::string::String,
+    pub service: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2306,8 +2803,20 @@ impl AuditConfig {
     }
 
     /// Sets the value of [service][crate::model::AuditConfig::service].
-    pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.service = v.into();
+    pub fn set_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service][crate::model::AuditConfig::service].
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.service = v.map(|x| x.into());
         self
     }
 }
@@ -2328,7 +2837,7 @@ pub struct AuditLogConfig {
     pub exempted_members: std::vec::Vec<std::string::String>,
 
     /// The log type that this config enables.
-    pub log_type: crate::model::audit_log_config::LogType,
+    pub log_type: std::option::Option<crate::model::audit_log_config::LogType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2351,11 +2860,20 @@ impl AuditLogConfig {
     }
 
     /// Sets the value of [log_type][crate::model::AuditLogConfig::log_type].
-    pub fn set_log_type<T: std::convert::Into<crate::model::audit_log_config::LogType>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.log_type = v.into();
+    pub fn set_log_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::audit_log_config::LogType>,
+    {
+        self.log_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [log_type][crate::model::AuditLogConfig::log_type].
+    pub fn set_or_clear_log_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::audit_log_config::LogType>,
+    {
+        self.log_type = v.map(|x| x.into());
         self
     }
 }
@@ -2536,7 +3054,7 @@ pub struct Binding {
     pub members: std::vec::Vec<std::string::String>,
 
     /// Role that is assigned to the list of `members`, or principals. For example, `roles/viewer`, `roles/editor`, or `roles/owner`. For an overview of the IAM roles and permissions, see the [IAM documentation](https://cloud.google.com/iam/docs/roles-overview). For a list of the available pre-defined roles, see [here](https://cloud.google.com/iam/docs/understanding-roles).
-    pub role: std::string::String,
+    pub role: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2577,8 +3095,20 @@ impl Binding {
     }
 
     /// Sets the value of [role][crate::model::Binding::role].
-    pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.role = v.into();
+    pub fn set_role<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.role = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [role][crate::model::Binding::role].
+    pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.role = v.map(|x| x.into());
         self
     }
 }
@@ -2596,7 +3126,7 @@ impl wkt::message::Message for Binding {
 #[non_exhaustive]
 pub struct BulkInsertInstanceResource {
     /// The maximum number of instances to create.
-    pub count: i64,
+    pub count: std::option::Option<i64>,
 
     /// The instance properties defining the VM instances to be created. Required if sourceInstanceTemplate is not provided.
     pub instance_properties: std::option::Option<crate::model::InstanceProperties>,
@@ -2605,10 +3135,10 @@ pub struct BulkInsertInstanceResource {
     pub location_policy: std::option::Option<crate::model::LocationPolicy>,
 
     /// The minimum number of instances to create. If no min_count is specified then count is used as the default value. If min_count instances cannot be created, then no instances will be created and instances already created will be deleted.
-    pub min_count: i64,
+    pub min_count: std::option::Option<i64>,
 
     /// The string pattern used for the names of the VMs. Either name_pattern or per_instance_properties must be set. The pattern must contain one continuous sequence of placeholder hash characters (#) with each character corresponding to one digit of the generated instance name. Example: a name_pattern of inst-#### generates instance names such as inst-0001 and inst-0002. If existing instances in the same project and zone have names that match the name pattern then the generated instance numbers start after the biggest existing number. For example, if there exists an instance with name inst-0050, then instance names generated using the pattern inst-#### begin with inst-0051. The name pattern placeholder #...# can contain up to 18 characters.
-    pub name_pattern: std::string::String,
+    pub name_pattern: std::option::Option<std::string::String>,
 
     /// Per-instance properties to be set on individual instances. Keys of this map specify requested instance names. Can be empty if name_pattern is used.
     pub per_instance_properties: std::collections::HashMap<
@@ -2617,7 +3147,7 @@ pub struct BulkInsertInstanceResource {
     >,
 
     /// Specifies the instance template from which to create instances. You may combine sourceInstanceTemplate with instanceProperties to override specific values from an existing instance template. Bulk API follows the semantics of JSON Merge Patch described by RFC 7396. It can be a full or partial URL. For example, the following are all valid URLs to an instance template: - <https://www.googleapis.com/compute/v1/projects/project> /global/instanceTemplates/instanceTemplate - projects/project/global/instanceTemplates/instanceTemplate - global/instanceTemplates/instanceTemplate This field is optional.
-    pub source_instance_template: std::string::String,
+    pub source_instance_template: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2629,8 +3159,20 @@ impl BulkInsertInstanceResource {
     }
 
     /// Sets the value of [count][crate::model::BulkInsertInstanceResource::count].
-    pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.count = v.into();
+    pub fn set_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [count][crate::model::BulkInsertInstanceResource::count].
+    pub fn set_or_clear_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.count = v.map(|x| x.into());
         self
     }
 
@@ -2671,14 +3213,38 @@ impl BulkInsertInstanceResource {
     }
 
     /// Sets the value of [min_count][crate::model::BulkInsertInstanceResource::min_count].
-    pub fn set_min_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.min_count = v.into();
+    pub fn set_min_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.min_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [min_count][crate::model::BulkInsertInstanceResource::min_count].
+    pub fn set_or_clear_min_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.min_count = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [name_pattern][crate::model::BulkInsertInstanceResource::name_pattern].
-    pub fn set_name_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name_pattern = v.into();
+    pub fn set_name_pattern<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name_pattern = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name_pattern][crate::model::BulkInsertInstanceResource::name_pattern].
+    pub fn set_or_clear_name_pattern<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name_pattern = v.map(|x| x.into());
         self
     }
 
@@ -2699,11 +3265,20 @@ impl BulkInsertInstanceResource {
     }
 
     /// Sets the value of [source_instance_template][crate::model::BulkInsertInstanceResource::source_instance_template].
-    pub fn set_source_instance_template<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_instance_template = v.into();
+    pub fn set_source_instance_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_instance_template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_instance_template][crate::model::BulkInsertInstanceResource::source_instance_template].
+    pub fn set_or_clear_source_instance_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_instance_template = v.map(|x| x.into());
         self
     }
 }
@@ -2721,10 +3296,10 @@ impl wkt::message::Message for BulkInsertInstanceResource {
 #[non_exhaustive]
 pub struct BulkInsertInstanceResourcePerInstanceProperties {
     /// Specifies the hostname of the instance. More details in: <https://cloud.google.com/compute/docs/instances/custom-hostname-vm#naming_convention>
-    pub hostname: std::string::String,
+    pub hostname: std::option::Option<std::string::String>,
 
     /// This field is only temporary. It will be removed. Do not use it.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2736,14 +3311,38 @@ impl BulkInsertInstanceResourcePerInstanceProperties {
     }
 
     /// Sets the value of [hostname][crate::model::BulkInsertInstanceResourcePerInstanceProperties::hostname].
-    pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.hostname = v.into();
+    pub fn set_hostname<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.hostname = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [hostname][crate::model::BulkInsertInstanceResourcePerInstanceProperties::hostname].
+    pub fn set_or_clear_hostname<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.hostname = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [name][crate::model::BulkInsertInstanceResourcePerInstanceProperties::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::BulkInsertInstanceResourcePerInstanceProperties::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 }
@@ -2760,19 +3359,19 @@ impl wkt::message::Message for BulkInsertInstanceResourcePerInstanceProperties {
 #[non_exhaustive]
 pub struct BulkInsertOperationStatus {
     /// [Output Only] Count of VMs successfully created so far.
-    pub created_vm_count: i32,
+    pub created_vm_count: std::option::Option<i32>,
 
     /// [Output Only] Count of VMs that got deleted during rollback.
-    pub deleted_vm_count: i32,
+    pub deleted_vm_count: std::option::Option<i32>,
 
     /// [Output Only] Count of VMs that started creating but encountered an error.
-    pub failed_to_create_vm_count: i32,
+    pub failed_to_create_vm_count: std::option::Option<i32>,
 
     /// [Output Only] Creation status of BulkInsert operation - information if the flow is rolling forward or rolling back.
-    pub status: crate::model::bulk_insert_operation_status::Status,
+    pub status: std::option::Option<crate::model::bulk_insert_operation_status::Status>,
 
     /// [Output Only] Count of VMs originally planned to be created.
-    pub target_vm_count: i32,
+    pub target_vm_count: std::option::Option<i32>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2784,35 +3383,92 @@ impl BulkInsertOperationStatus {
     }
 
     /// Sets the value of [created_vm_count][crate::model::BulkInsertOperationStatus::created_vm_count].
-    pub fn set_created_vm_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.created_vm_count = v.into();
+    pub fn set_created_vm_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.created_vm_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [created_vm_count][crate::model::BulkInsertOperationStatus::created_vm_count].
+    pub fn set_or_clear_created_vm_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.created_vm_count = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [deleted_vm_count][crate::model::BulkInsertOperationStatus::deleted_vm_count].
-    pub fn set_deleted_vm_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.deleted_vm_count = v.into();
+    pub fn set_deleted_vm_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.deleted_vm_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deleted_vm_count][crate::model::BulkInsertOperationStatus::deleted_vm_count].
+    pub fn set_or_clear_deleted_vm_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.deleted_vm_count = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [failed_to_create_vm_count][crate::model::BulkInsertOperationStatus::failed_to_create_vm_count].
-    pub fn set_failed_to_create_vm_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.failed_to_create_vm_count = v.into();
+    pub fn set_failed_to_create_vm_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.failed_to_create_vm_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [failed_to_create_vm_count][crate::model::BulkInsertOperationStatus::failed_to_create_vm_count].
+    pub fn set_or_clear_failed_to_create_vm_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.failed_to_create_vm_count = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [status][crate::model::BulkInsertOperationStatus::status].
-    pub fn set_status<T: std::convert::Into<crate::model::bulk_insert_operation_status::Status>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.status = v.into();
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::bulk_insert_operation_status::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::BulkInsertOperationStatus::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::bulk_insert_operation_status::Status>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [target_vm_count][crate::model::BulkInsertOperationStatus::target_vm_count].
-    pub fn set_target_vm_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.target_vm_count = v.into();
+    pub fn set_target_vm_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.target_vm_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_vm_count][crate::model::BulkInsertOperationStatus::target_vm_count].
+    pub fn set_or_clear_target_vm_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.target_vm_count = v.map(|x| x.into());
         self
     }
 }
@@ -2987,10 +3643,10 @@ pub mod bulk_insert_operation_status {
 pub struct ConfidentialInstanceConfig {
     /// Defines the type of technology used by the confidential instance.
     pub confidential_instance_type:
-        crate::model::confidential_instance_config::ConfidentialInstanceType,
+        std::option::Option<crate::model::confidential_instance_config::ConfidentialInstanceType>,
 
     /// Defines whether the instance should have confidential compute enabled.
-    pub enable_confidential_compute: bool,
+    pub enable_confidential_compute: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3002,19 +3658,38 @@ impl ConfidentialInstanceConfig {
     }
 
     /// Sets the value of [confidential_instance_type][crate::model::ConfidentialInstanceConfig::confidential_instance_type].
-    pub fn set_confidential_instance_type<
+    pub fn set_confidential_instance_type<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::confidential_instance_config::ConfidentialInstanceType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.confidential_instance_type = v.into();
+    {
+        self.confidential_instance_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [confidential_instance_type][crate::model::ConfidentialInstanceConfig::confidential_instance_type].
+    pub fn set_or_clear_confidential_instance_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::confidential_instance_config::ConfidentialInstanceType>,
+    {
+        self.confidential_instance_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_confidential_compute][crate::model::ConfidentialInstanceConfig::enable_confidential_compute].
-    pub fn set_enable_confidential_compute<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_confidential_compute = v.into();
+    pub fn set_enable_confidential_compute<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_confidential_compute = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_confidential_compute][crate::model::ConfidentialInstanceConfig::enable_confidential_compute].
+    pub fn set_or_clear_enable_confidential_compute<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_confidential_compute = v.map(|x| x.into());
         self
     }
 }
@@ -3194,19 +3869,19 @@ pub mod confidential_instance_config {
 #[non_exhaustive]
 pub struct CustomerEncryptionKey {
     /// The name of the encryption key that is stored in Google Cloud KMS. For example: "kmsKeyName": "projects/kms_project_id/locations/region/keyRings/ key_region/cryptoKeys/key The fully-qualifed key name may be returned for resource GET requests. For example: "kmsKeyName": "projects/kms_project_id/locations/region/keyRings/ key_region/cryptoKeys/key /cryptoKeyVersions/1
-    pub kms_key_name: std::string::String,
+    pub kms_key_name: std::option::Option<std::string::String>,
 
     /// The service account being used for the encryption request for the given KMS key. If absent, the Compute Engine default service account is used. For example: "kmsKeyServiceAccount": "name@project_id.iam.gserviceaccount.com/
-    pub kms_key_service_account: std::string::String,
+    pub kms_key_service_account: std::option::Option<std::string::String>,
 
     /// Specifies a 256-bit customer-supplied encryption key, encoded in RFC 4648 base64 to either encrypt or decrypt this resource. You can provide either the rawKey or the rsaEncryptedKey. For example: "rawKey": "SGVsbG8gZnJvbSBHb29nbGUgQ2xvdWQgUGxhdGZvcm0="
-    pub raw_key: std::string::String,
+    pub raw_key: std::option::Option<std::string::String>,
 
     /// Specifies an RFC 4648 base64 encoded, RSA-wrapped 2048-bit customer-supplied encryption key to either encrypt or decrypt this resource. You can provide either the rawKey or the rsaEncryptedKey. For example: "rsaEncryptedKey": "ieCx/NcW06PcT7Ep1X6LUTc/hLvUDYyzSZPPVCVPTVEohpeHASqC8uw5TzyO9U+Fka9JFH z0mBibXUInrC/jEk014kCK/NPjYgEMOyssZ4ZINPKxlUh2zn1bV+MCaTICrdmuSBTWlUUiFoD D6PYznLwh8ZNdaheCeZ8ewEXgFQ8V+sDroLaN3Xs3MDTXQEMMoNUXMCZEIpg9Vtp9x2oe==" The key must meet the following requirements before you can provide it to Compute Engine: 1. The key is wrapped using a RSA public key certificate provided by Google. 2. After being wrapped, the key must be encoded in RFC 4648 base64 encoding. Gets the RSA public key certificate provided by Google at: <https://cloud-certs.storage.googleapis.com/google-cloud-csek-ingress.pem>
-    pub rsa_encrypted_key: std::string::String,
+    pub rsa_encrypted_key: std::option::Option<std::string::String>,
 
     /// [Output only] The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied encryption key that protects this resource.
-    pub sha256: std::string::String,
+    pub sha256: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3218,38 +3893,92 @@ impl CustomerEncryptionKey {
     }
 
     /// Sets the value of [kms_key_name][crate::model::CustomerEncryptionKey::kms_key_name].
-    pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kms_key_name = v.into();
+    pub fn set_kms_key_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kms_key_name][crate::model::CustomerEncryptionKey::kms_key_name].
+    pub fn set_or_clear_kms_key_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kms_key_service_account][crate::model::CustomerEncryptionKey::kms_key_service_account].
-    pub fn set_kms_key_service_account<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kms_key_service_account = v.into();
+    pub fn set_kms_key_service_account<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key_service_account = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kms_key_service_account][crate::model::CustomerEncryptionKey::kms_key_service_account].
+    pub fn set_or_clear_kms_key_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key_service_account = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [raw_key][crate::model::CustomerEncryptionKey::raw_key].
-    pub fn set_raw_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.raw_key = v.into();
+    pub fn set_raw_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.raw_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [raw_key][crate::model::CustomerEncryptionKey::raw_key].
+    pub fn set_or_clear_raw_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.raw_key = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [rsa_encrypted_key][crate::model::CustomerEncryptionKey::rsa_encrypted_key].
-    pub fn set_rsa_encrypted_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rsa_encrypted_key = v.into();
+    pub fn set_rsa_encrypted_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rsa_encrypted_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rsa_encrypted_key][crate::model::CustomerEncryptionKey::rsa_encrypted_key].
+    pub fn set_or_clear_rsa_encrypted_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rsa_encrypted_key = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [sha256][crate::model::CustomerEncryptionKey::sha256].
-    pub fn set_sha256<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.sha256 = v.into();
+    pub fn set_sha256<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.sha256 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sha256][crate::model::CustomerEncryptionKey::sha256].
+    pub fn set_or_clear_sha256<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.sha256 = v.map(|x| x.into());
         self
     }
 }
@@ -3269,7 +3998,7 @@ pub struct CustomerEncryptionKeyProtectedDisk {
     pub disk_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
 
     /// Specifies a valid partial or full URL to an existing Persistent Disk resource. This field is only applicable for persistent disks. For example: "source": "/compute/v1/projects/project_id/zones/zone/disks/ disk_name
-    pub source: std::string::String,
+    pub source: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3299,8 +4028,20 @@ impl CustomerEncryptionKeyProtectedDisk {
     }
 
     /// Sets the value of [source][crate::model::CustomerEncryptionKeyProtectedDisk::source].
-    pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = v.into();
+    pub fn set_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source][crate::model::CustomerEncryptionKeyProtectedDisk::source].
+    pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source = v.map(|x| x.into());
         self
     }
 }
@@ -3598,7 +4339,7 @@ pub mod deprecation_status {
 #[non_exhaustive]
 pub struct DisplayDevice {
     /// Defines whether the instance has Display enabled.
-    pub enable_display: bool,
+    pub enable_display: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3610,8 +4351,20 @@ impl DisplayDevice {
     }
 
     /// Sets the value of [enable_display][crate::model::DisplayDevice::enable_display].
-    pub fn set_enable_display<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_display = v.into();
+    pub fn set_enable_display<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_display = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_display][crate::model::DisplayDevice::enable_display].
+    pub fn set_or_clear_enable_display<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_display = v.map(|x| x.into());
         self
     }
 }
@@ -3629,10 +4382,10 @@ impl wkt::message::Message for DisplayDevice {
 #[non_exhaustive]
 pub struct Duration {
     /// Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are represented with a 0 `seconds` field and a positive `nanos` field. Must be from 0 to 999,999,999 inclusive.
-    pub nanos: i32,
+    pub nanos: std::option::Option<i32>,
 
     /// Span of time at a resolution of a second. Must be from 0 to 315,576,000,000 inclusive. Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years
-    pub seconds: i64,
+    pub seconds: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3644,14 +4397,38 @@ impl Duration {
     }
 
     /// Sets the value of [nanos][crate::model::Duration::nanos].
-    pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.nanos = v.into();
+    pub fn set_nanos<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.nanos = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [nanos][crate::model::Duration::nanos].
+    pub fn set_or_clear_nanos<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.nanos = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [seconds][crate::model::Duration::seconds].
-    pub fn set_seconds<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.seconds = v.into();
+    pub fn set_seconds<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.seconds = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [seconds][crate::model::Duration::seconds].
+    pub fn set_or_clear_seconds<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.seconds = v.map(|x| x.into());
         self
     }
 }
@@ -3669,13 +4446,13 @@ impl wkt::message::Message for Duration {
 #[non_exhaustive]
 pub struct ErrorInfo {
     /// The logical grouping to which the "reason" belongs. The error domain is typically the registered service name of the tool or product that generates the error. Example: "pubsub.googleapis.com". If the error is generated by some common infrastructure, the error domain must be a globally unique value that identifies the infrastructure. For Google API infrastructure, the error domain is "googleapis.com".
-    pub domain: std::string::String,
+    pub domain: std::option::Option<std::string::String>,
 
     /// Additional structured details about this error. Keys must match a regular expression of `a-z+` but should ideally be lowerCamelCase. Also, they must be limited to 64 characters in length. When identifying the current value of an exceeded limit, the units should be contained in the key, not the value. For example, rather than `{"instanceLimit": "100/request"}`, should be returned as, `{"instanceLimitPerRequest": "100"}`, if the client exceeds the number of instances that can be created in a single (batch) request.
     pub metadatas: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The reason of the error. This is a constant value that identifies the proximate cause of the error. Error reasons are unique within a particular domain of errors. This should be at most 63 characters and match a regular expression of `A-Z+[A-Z0-9]`, which represents UPPER_SNAKE_CASE.
-    pub reason: std::string::String,
+    pub reason: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3687,8 +4464,20 @@ impl ErrorInfo {
     }
 
     /// Sets the value of [domain][crate::model::ErrorInfo::domain].
-    pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.domain = v.into();
+    pub fn set_domain<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.domain = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [domain][crate::model::ErrorInfo::domain].
+    pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.domain = v.map(|x| x.into());
         self
     }
 
@@ -3704,8 +4493,20 @@ impl ErrorInfo {
     }
 
     /// Sets the value of [reason][crate::model::ErrorInfo::reason].
-    pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.reason = v.into();
+    pub fn set_reason<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.reason = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reason][crate::model::ErrorInfo::reason].
+    pub fn set_or_clear_reason<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.reason = v.map(|x| x.into());
         self
     }
 }
@@ -3723,16 +4524,16 @@ impl wkt::message::Message for ErrorInfo {
 #[non_exhaustive]
 pub struct Expr {
     /// Optional. Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// Textual representation of an expression in Common Expression Language syntax.
-    pub expression: std::string::String,
+    pub expression: std::option::Option<std::string::String>,
 
     /// Optional. String indicating the location of the expression for error reporting, e.g. a file name and a position in the file.
-    pub location: std::string::String,
+    pub location: std::option::Option<std::string::String>,
 
     /// Optional. Title for the expression, i.e. a short string describing its purpose. This can be used e.g. in UIs which allow to enter the expression.
-    pub title: std::string::String,
+    pub title: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3744,26 +4545,74 @@ impl Expr {
     }
 
     /// Sets the value of [description][crate::model::Expr::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::Expr::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [expression][crate::model::Expr::expression].
-    pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.expression = v.into();
+    pub fn set_expression<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.expression = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expression][crate::model::Expr::expression].
+    pub fn set_or_clear_expression<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.expression = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [location][crate::model::Expr::location].
-    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location = v.into();
+    pub fn set_location<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.location = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [location][crate::model::Expr::location].
+    pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.location = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [title][crate::model::Expr::title].
-    pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.title = v.into();
+    pub fn set_title<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.title = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [title][crate::model::Expr::title].
+    pub fn set_or_clear_title<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.title = v.map(|x| x.into());
         self
     }
 }
@@ -3780,10 +4629,10 @@ impl wkt::message::Message for Expr {
 #[non_exhaustive]
 pub struct FileContentBuffer {
     /// The raw content in the secure keys file.
-    pub content: ::bytes::Bytes,
+    pub content: std::option::Option<::bytes::Bytes>,
 
     /// The file type of source file.
-    pub file_type: crate::model::file_content_buffer::FileType,
+    pub file_type: std::option::Option<crate::model::file_content_buffer::FileType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3795,17 +4644,38 @@ impl FileContentBuffer {
     }
 
     /// Sets the value of [content][crate::model::FileContentBuffer::content].
-    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.content = v.into();
+    pub fn set_content<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.content = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [content][crate::model::FileContentBuffer::content].
+    pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.content = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [file_type][crate::model::FileContentBuffer::file_type].
-    pub fn set_file_type<T: std::convert::Into<crate::model::file_content_buffer::FileType>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.file_type = v.into();
+    pub fn set_file_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::file_content_buffer::FileType>,
+    {
+        self.file_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [file_type][crate::model::FileContentBuffer::file_type].
+    pub fn set_or_clear_file_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::file_content_buffer::FileType>,
+    {
+        self.file_type = v.map(|x| x.into());
         self
     }
 }
@@ -3973,46 +4843,46 @@ pub struct Firewall {
     pub allowed: std::vec::Vec<crate::model::firewall::Allowed>,
 
     /// [Output Only] Creation timestamp in RFC3339 text format.
-    pub creation_timestamp: std::string::String,
+    pub creation_timestamp: std::option::Option<std::string::String>,
 
     /// The list of DENY rules specified by this firewall. Each rule specifies a protocol and port-range tuple that describes a denied connection.
     pub denied: std::vec::Vec<crate::model::firewall::Denied>,
 
     /// An optional description of this resource. Provide this field when you create the resource.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// If destination ranges are specified, the firewall rule applies only to traffic that has destination IP address in these ranges. These ranges must be expressed in CIDR format. Both IPv4 and IPv6 are supported.
     pub destination_ranges: std::vec::Vec<std::string::String>,
 
     /// Direction of traffic to which this firewall applies, either `INGRESS` or `EGRESS`. The default is `INGRESS`. For `EGRESS` traffic, you cannot specify the sourceTags fields.
-    pub direction: crate::model::firewall::Direction,
+    pub direction: std::option::Option<crate::model::firewall::Direction>,
 
     /// Denotes whether the firewall rule is disabled. When set to true, the firewall rule is not enforced and the network behaves as if it did not exist. If this is unspecified, the firewall rule will be enabled.
-    pub disabled: bool,
+    pub disabled: std::option::Option<bool>,
 
     /// [Output Only] The unique identifier for the resource. This identifier is defined by the server.
-    pub id: u64,
+    pub id: std::option::Option<u64>,
 
     /// [Output Only] Type of the resource. Always compute#firewall for firewall rules.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// This field denotes the logging options for a particular firewall rule. If logging is enabled, logs will be exported to Cloud Logging.
     pub log_config: std::option::Option<crate::model::FirewallLogConfig>,
 
     /// Name of the resource; provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?`. The first character must be a lowercase letter, and all following characters (except for the last character) must be a dash, lowercase letter, or digit. The last character must be a lowercase letter or digit.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     /// URL of the network resource for this firewall rule. If not specified when creating a firewall rule, the default network is used: global/networks/default If you choose to specify this field, you can specify the network as a full or partial URL. For example, the following are all valid URLs: - <https://www.googleapis.com/compute/v1/projects/myproject/global/networks/my-network> - projects/myproject/global/networks/my-network - global/networks/default
-    pub network: std::string::String,
+    pub network: std::option::Option<std::string::String>,
 
     /// Input only. [Input Only] Additional params passed with the request, but not persisted as part of resource payload.
     pub params: std::option::Option<crate::model::FirewallParams>,
 
     /// Priority for this rule. This is an integer between `0` and `65535`, both inclusive. The default value is `1000`. Relative priorities determine which rule takes effect if multiple rules apply. Lower values indicate higher priority. For example, a rule with priority `0` has higher precedence than a rule with priority `1`. DENY rules take precedence over ALLOW rules if they have equal priority. Note that VPC networks have implied rules with a priority of `65535`. To avoid conflicts with the implied rules, use a priority number less than `65535`.
-    pub priority: i32,
+    pub priority: std::option::Option<i32>,
 
     /// [Output Only] Server-defined URL for the resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// If source ranges are specified, the firewall rule applies only to traffic that has a source IP address in these ranges. These ranges must be expressed in CIDR format. One or both of sourceRanges and sourceTags may be set. If both fields are set, the rule applies to traffic that has a source IP address within sourceRanges OR a source IP from a resource with a matching tag listed in the sourceTags field. The connection does not need to match both fields for the rule to apply. Both IPv4 and IPv6 are supported.
     pub source_ranges: std::vec::Vec<std::string::String>,
@@ -4050,11 +4920,20 @@ impl Firewall {
     }
 
     /// Sets the value of [creation_timestamp][crate::model::Firewall::creation_timestamp].
-    pub fn set_creation_timestamp<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creation_timestamp = v.into();
+    pub fn set_creation_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_timestamp][crate::model::Firewall::creation_timestamp].
+    pub fn set_or_clear_creation_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = v.map(|x| x.into());
         self
     }
 
@@ -4070,8 +4949,20 @@ impl Firewall {
     }
 
     /// Sets the value of [description][crate::model::Firewall::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::Firewall::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
@@ -4087,29 +4978,74 @@ impl Firewall {
     }
 
     /// Sets the value of [direction][crate::model::Firewall::direction].
-    pub fn set_direction<T: std::convert::Into<crate::model::firewall::Direction>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.direction = v.into();
+    pub fn set_direction<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall::Direction>,
+    {
+        self.direction = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [direction][crate::model::Firewall::direction].
+    pub fn set_or_clear_direction<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall::Direction>,
+    {
+        self.direction = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [disabled][crate::model::Firewall::disabled].
-    pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.disabled = v.into();
+    pub fn set_disabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disabled][crate::model::Firewall::disabled].
+    pub fn set_or_clear_disabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disabled = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [id][crate::model::Firewall::id].
-    pub fn set_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::Firewall::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kind][crate::model::Firewall::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Firewall::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
@@ -4132,14 +5068,38 @@ impl Firewall {
     }
 
     /// Sets the value of [name][crate::model::Firewall::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::Firewall::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [network][crate::model::Firewall::network].
-    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.network = v.into();
+    pub fn set_network<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.network = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network][crate::model::Firewall::network].
+    pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.network = v.map(|x| x.into());
         self
     }
 
@@ -4162,14 +5122,38 @@ impl Firewall {
     }
 
     /// Sets the value of [priority][crate::model::Firewall::priority].
-    pub fn set_priority<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.priority = v.into();
+    pub fn set_priority<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.priority = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [priority][crate::model::Firewall::priority].
+    pub fn set_or_clear_priority<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.priority = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::Firewall::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::Firewall::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -4250,7 +5234,7 @@ pub mod firewall {
     #[non_exhaustive]
     pub struct Allowed {
         /// The IP protocol to which this rule applies. The protocol type is required when creating a firewall rule. This value can either be one of the following well known protocol strings (tcp, udp, icmp, esp, ah, ipip, sctp) or the IP protocol number.
-        pub ip_protocol: std::string::String,
+        pub ip_protocol: std::option::Option<std::string::String>,
 
         /// An optional list of ports to which this rule applies. This field is only applicable for the UDP or TCP protocol. Each entry must be either an integer or a range. If not specified, this rule applies to connections through any port. Example inputs include: ["22"], ["80","443"], and ["12345-12349"].
         pub ports: std::vec::Vec<std::string::String>,
@@ -4265,8 +5249,20 @@ pub mod firewall {
         }
 
         /// Sets the value of [ip_protocol][crate::model::firewall::Allowed::ip_protocol].
-        pub fn set_ip_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.ip_protocol = v.into();
+        pub fn set_ip_protocol<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.ip_protocol = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ip_protocol][crate::model::firewall::Allowed::ip_protocol].
+        pub fn set_or_clear_ip_protocol<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.ip_protocol = v.map(|x| x.into());
             self
         }
 
@@ -4297,7 +5293,7 @@ pub mod firewall {
     #[non_exhaustive]
     pub struct Denied {
         /// The IP protocol to which this rule applies. The protocol type is required when creating a firewall rule. This value can either be one of the following well known protocol strings (tcp, udp, icmp, esp, ah, ipip, sctp) or the IP protocol number.
-        pub ip_protocol: std::string::String,
+        pub ip_protocol: std::option::Option<std::string::String>,
 
         /// An optional list of ports to which this rule applies. This field is only applicable for the UDP or TCP protocol. Each entry must be either an integer or a range. If not specified, this rule applies to connections through any port. Example inputs include: ["22"], ["80","443"], and ["12345-12349"].
         pub ports: std::vec::Vec<std::string::String>,
@@ -4312,8 +5308,20 @@ pub mod firewall {
         }
 
         /// Sets the value of [ip_protocol][crate::model::firewall::Denied::ip_protocol].
-        pub fn set_ip_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.ip_protocol = v.into();
+        pub fn set_ip_protocol<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.ip_protocol = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ip_protocol][crate::model::firewall::Denied::ip_protocol].
+        pub fn set_or_clear_ip_protocol<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.ip_protocol = v.map(|x| x.into());
             self
         }
 
@@ -4479,10 +5487,10 @@ pub mod firewall {
 #[non_exhaustive]
 pub struct FirewallLogConfig {
     /// This field denotes whether to enable logging for a particular firewall rule.
-    pub enable: bool,
+    pub enable: std::option::Option<bool>,
 
     /// This field can only be specified for a particular firewall rule if logging is enabled for that rule. This field denotes whether to include or exclude metadata for firewall logs.
-    pub metadata: crate::model::firewall_log_config::Metadata,
+    pub metadata: std::option::Option<crate::model::firewall_log_config::Metadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4494,17 +5502,38 @@ impl FirewallLogConfig {
     }
 
     /// Sets the value of [enable][crate::model::FirewallLogConfig::enable].
-    pub fn set_enable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable = v.into();
+    pub fn set_enable<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable][crate::model::FirewallLogConfig::enable].
+    pub fn set_or_clear_enable<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [metadata][crate::model::FirewallLogConfig::metadata].
-    pub fn set_metadata<T: std::convert::Into<crate::model::firewall_log_config::Metadata>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_log_config::Metadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::FirewallLogConfig::metadata].
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_log_config::Metadata>,
+    {
+        self.metadata = v.map(|x| x.into());
         self
     }
 }
@@ -4699,37 +5728,37 @@ impl wkt::message::Message for FirewallParams {
 #[non_exhaustive]
 pub struct FirewallPolicyRule {
     /// The Action to perform when the client connection triggers the rule. Valid actions for firewall rules are: "allow", "deny", "apply_security_profile_group" and "goto_next". Valid actions for packet mirroring rules are: "mirror", "do_not_mirror" and "goto_next".
-    pub action: std::string::String,
+    pub action: std::option::Option<std::string::String>,
 
     /// An optional description for this resource.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// The direction in which this rule applies.
-    pub direction: crate::model::firewall_policy_rule::Direction,
+    pub direction: std::option::Option<crate::model::firewall_policy_rule::Direction>,
 
     /// Denotes whether the firewall policy rule is disabled. When set to true, the firewall policy rule is not enforced and traffic behaves as if it did not exist. If this is unspecified, the firewall policy rule will be enabled.
-    pub disabled: bool,
+    pub disabled: std::option::Option<bool>,
 
     /// Denotes whether to enable logging for a particular rule. If logging is enabled, logs will be exported to the configured export destination in Stackdriver. Logs may be exported to BigQuery or Pub/Sub. Note: you cannot enable logging on "goto_next" rules.
-    pub enable_logging: bool,
+    pub enable_logging: std::option::Option<bool>,
 
     /// [Output only] Type of the resource. Returns compute#firewallPolicyRule for firewall rules and compute#packetMirroringRule for packet mirroring rules.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// A match condition that incoming traffic is evaluated against. If it evaluates to true, the corresponding 'action' is enforced.
     pub r#match: std::option::Option<crate::model::FirewallPolicyRuleMatcher>,
 
     /// An integer indicating the priority of a rule in the list. The priority must be a positive value between 0 and 2147483647. Rules are evaluated from highest to lowest priority where 0 is the highest priority and 2147483647 is the lowest priority.
-    pub priority: i32,
+    pub priority: std::option::Option<i32>,
 
     /// An optional name for the rule. This field is not a unique identifier and can be updated.
-    pub rule_name: std::string::String,
+    pub rule_name: std::option::Option<std::string::String>,
 
     /// [Output Only] Calculation of the complexity of a single firewall policy rule.
-    pub rule_tuple_count: i32,
+    pub rule_tuple_count: std::option::Option<i32>,
 
     /// A fully-qualified URL of a SecurityProfile resource instance. Example: <https://networksecurity.googleapis.com/v1/projects/{project}/locations/{location}/securityProfileGroups/my-security-profile-group> Must be specified if action is one of 'apply_security_profile_group' or 'mirror'. Cannot be specified for other actions.
-    pub security_profile_group: std::string::String,
+    pub security_profile_group: std::option::Option<std::string::String>,
 
     /// A list of network resource URLs to which this rule applies. This field allows you to control which network's VMs get this rule. If this field is left blank, all VMs within the organization will receive the rule.
     pub target_resources: std::vec::Vec<std::string::String>,
@@ -4741,7 +5770,7 @@ pub struct FirewallPolicyRule {
     pub target_service_accounts: std::vec::Vec<std::string::String>,
 
     /// Boolean flag indicating if the traffic should be TLS decrypted. Can be set only if action = 'apply_security_profile_group' and cannot be set for other actions.
-    pub tls_inspect: bool,
+    pub tls_inspect: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4753,41 +5782,110 @@ impl FirewallPolicyRule {
     }
 
     /// Sets the value of [action][crate::model::FirewallPolicyRule::action].
-    pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.action = v.into();
+    pub fn set_action<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.action = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [action][crate::model::FirewallPolicyRule::action].
+    pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.action = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [description][crate::model::FirewallPolicyRule::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::FirewallPolicyRule::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [direction][crate::model::FirewallPolicyRule::direction].
-    pub fn set_direction<T: std::convert::Into<crate::model::firewall_policy_rule::Direction>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.direction = v.into();
+    pub fn set_direction<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_policy_rule::Direction>,
+    {
+        self.direction = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [direction][crate::model::FirewallPolicyRule::direction].
+    pub fn set_or_clear_direction<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_policy_rule::Direction>,
+    {
+        self.direction = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [disabled][crate::model::FirewallPolicyRule::disabled].
-    pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.disabled = v.into();
+    pub fn set_disabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disabled][crate::model::FirewallPolicyRule::disabled].
+    pub fn set_or_clear_disabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disabled = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_logging][crate::model::FirewallPolicyRule::enable_logging].
-    pub fn set_enable_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_logging = v.into();
+    pub fn set_enable_logging<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_logging = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_logging][crate::model::FirewallPolicyRule::enable_logging].
+    pub fn set_or_clear_enable_logging<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_logging = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kind][crate::model::FirewallPolicyRule::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::FirewallPolicyRule::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
@@ -4810,29 +5908,74 @@ impl FirewallPolicyRule {
     }
 
     /// Sets the value of [priority][crate::model::FirewallPolicyRule::priority].
-    pub fn set_priority<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.priority = v.into();
+    pub fn set_priority<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.priority = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [priority][crate::model::FirewallPolicyRule::priority].
+    pub fn set_or_clear_priority<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.priority = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [rule_name][crate::model::FirewallPolicyRule::rule_name].
-    pub fn set_rule_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.rule_name = v.into();
+    pub fn set_rule_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rule_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rule_name][crate::model::FirewallPolicyRule::rule_name].
+    pub fn set_or_clear_rule_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rule_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [rule_tuple_count][crate::model::FirewallPolicyRule::rule_tuple_count].
-    pub fn set_rule_tuple_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.rule_tuple_count = v.into();
+    pub fn set_rule_tuple_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.rule_tuple_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rule_tuple_count][crate::model::FirewallPolicyRule::rule_tuple_count].
+    pub fn set_or_clear_rule_tuple_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.rule_tuple_count = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [security_profile_group][crate::model::FirewallPolicyRule::security_profile_group].
-    pub fn set_security_profile_group<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.security_profile_group = v.into();
+    pub fn set_security_profile_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.security_profile_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [security_profile_group][crate::model::FirewallPolicyRule::security_profile_group].
+    pub fn set_or_clear_security_profile_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.security_profile_group = v.map(|x| x.into());
         self
     }
 
@@ -4870,8 +6013,20 @@ impl FirewallPolicyRule {
     }
 
     /// Sets the value of [tls_inspect][crate::model::FirewallPolicyRule::tls_inspect].
-    pub fn set_tls_inspect<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.tls_inspect = v.into();
+    pub fn set_tls_inspect<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.tls_inspect = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tls_inspect][crate::model::FirewallPolicyRule::tls_inspect].
+    pub fn set_or_clear_tls_inspect<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.tls_inspect = v.map(|x| x.into());
         self
     }
 }
@@ -5039,7 +6194,8 @@ pub struct FirewallPolicyRuleMatcher {
     pub dest_ip_ranges: std::vec::Vec<std::string::String>,
 
     /// Network type of the traffic destination. Allowed values are: - UNSPECIFIED - INTERNET - NON_INTERNET
-    pub dest_network_type: crate::model::firewall_policy_rule_matcher::DestNetworkType,
+    pub dest_network_type:
+        std::option::Option<crate::model::firewall_policy_rule_matcher::DestNetworkType>,
 
     /// Region codes whose IP addresses will be used to match for destination of traffic. Should be specified as 2 letter country code defined as per ISO 3166 alpha-2 country codes. ex."US" Maximum number of dest region codes allowed is 5000.
     pub dest_region_codes: std::vec::Vec<std::string::String>,
@@ -5060,7 +6216,8 @@ pub struct FirewallPolicyRuleMatcher {
     pub src_ip_ranges: std::vec::Vec<std::string::String>,
 
     /// Network type of the traffic source. Allowed values are: - UNSPECIFIED - INTERNET - INTRA_VPC - NON_INTERNET - VPC_NETWORKS
-    pub src_network_type: crate::model::firewall_policy_rule_matcher::SrcNetworkType,
+    pub src_network_type:
+        std::option::Option<crate::model::firewall_policy_rule_matcher::SrcNetworkType>,
 
     /// Networks of the traffic source. It can be either a full or partial url.
     pub src_networks: std::vec::Vec<std::string::String>,
@@ -5117,13 +6274,20 @@ impl FirewallPolicyRuleMatcher {
     }
 
     /// Sets the value of [dest_network_type][crate::model::FirewallPolicyRuleMatcher::dest_network_type].
-    pub fn set_dest_network_type<
+    pub fn set_dest_network_type<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::firewall_policy_rule_matcher::DestNetworkType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dest_network_type = v.into();
+    {
+        self.dest_network_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dest_network_type][crate::model::FirewallPolicyRuleMatcher::dest_network_type].
+    pub fn set_or_clear_dest_network_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_policy_rule_matcher::DestNetworkType>,
+    {
+        self.dest_network_type = v.map(|x| x.into());
         self
     }
 
@@ -5194,13 +6358,20 @@ impl FirewallPolicyRuleMatcher {
     }
 
     /// Sets the value of [src_network_type][crate::model::FirewallPolicyRuleMatcher::src_network_type].
-    pub fn set_src_network_type<
+    pub fn set_src_network_type<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::firewall_policy_rule_matcher::SrcNetworkType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.src_network_type = v.into();
+    {
+        self.src_network_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [src_network_type][crate::model::FirewallPolicyRuleMatcher::src_network_type].
+    pub fn set_or_clear_src_network_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_policy_rule_matcher::SrcNetworkType>,
+    {
+        self.src_network_type = v.map(|x| x.into());
         self
     }
 
@@ -5572,7 +6743,7 @@ pub mod firewall_policy_rule_matcher {
 #[non_exhaustive]
 pub struct FirewallPolicyRuleMatcherLayer4Config {
     /// The IP protocol to which this rule applies. The protocol type is required when creating a firewall rule. This value can either be one of the following well known protocol strings (tcp, udp, icmp, esp, ah, ipip, sctp), or the IP protocol number.
-    pub ip_protocol: std::string::String,
+    pub ip_protocol: std::option::Option<std::string::String>,
 
     /// An optional list of ports to which this rule applies. This field is only applicable for UDP or TCP protocol. Each entry must be either an integer or a range. If not specified, this rule applies to connections through any port. Example inputs include: ["22"], ["80","443"], and ["12345-12349"].
     pub ports: std::vec::Vec<std::string::String>,
@@ -5587,8 +6758,20 @@ impl FirewallPolicyRuleMatcherLayer4Config {
     }
 
     /// Sets the value of [ip_protocol][crate::model::FirewallPolicyRuleMatcherLayer4Config::ip_protocol].
-    pub fn set_ip_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.ip_protocol = v.into();
+    pub fn set_ip_protocol<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ip_protocol = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ip_protocol][crate::model::FirewallPolicyRuleMatcherLayer4Config::ip_protocol].
+    pub fn set_or_clear_ip_protocol<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ip_protocol = v.map(|x| x.into());
         self
     }
 
@@ -5616,10 +6799,10 @@ impl wkt::message::Message for FirewallPolicyRuleMatcherLayer4Config {
 #[non_exhaustive]
 pub struct FirewallPolicyRuleSecureTag {
     /// Name of the secure tag, created with TagManager's TagValue API.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     /// [Output Only] State of the secure tag, either `EFFECTIVE` or `INEFFECTIVE`. A secure tag is `INEFFECTIVE` when it is deleted or its network is deleted.
-    pub state: crate::model::firewall_policy_rule_secure_tag::State,
+    pub state: std::option::Option<crate::model::firewall_policy_rule_secure_tag::State>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5631,19 +6814,38 @@ impl FirewallPolicyRuleSecureTag {
     }
 
     /// Sets the value of [name][crate::model::FirewallPolicyRuleSecureTag::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::FirewallPolicyRuleSecureTag::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::FirewallPolicyRuleSecureTag::state].
-    pub fn set_state<
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::firewall_policy_rule_secure_tag::State>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::FirewallPolicyRuleSecureTag::state].
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_policy_rule_secure_tag::State>,
+    {
+        self.state = v.map(|x| x.into());
         self
     }
 }
@@ -5801,7 +7003,7 @@ pub mod firewall_policy_rule_secure_tag {
 #[non_exhaustive]
 pub struct GlobalSetLabelsRequest {
     /// The fingerprint of the previous set of labels for this resource, used to detect conflicts. The fingerprint is initially generated by Compute Engine and changes after every request to modify or update labels. You must always provide an up-to-date fingerprint hash when updating or changing labels, otherwise the request will fail with error 412 conditionNotMet. Make a get() request to the resource to get the latest fingerprint.
-    pub label_fingerprint: ::bytes::Bytes,
+    pub label_fingerprint: std::option::Option<::bytes::Bytes>,
 
     /// A list of labels to apply for this resource. Each label must comply with the requirements for labels. For example, "webserver-frontend": "images". A label value can also be empty (e.g. "my-label": "").
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
@@ -5816,8 +7018,20 @@ impl GlobalSetLabelsRequest {
     }
 
     /// Sets the value of [label_fingerprint][crate::model::GlobalSetLabelsRequest::label_fingerprint].
-    pub fn set_label_fingerprint<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.label_fingerprint = v.into();
+    pub fn set_label_fingerprint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [label_fingerprint][crate::model::GlobalSetLabelsRequest::label_fingerprint].
+    pub fn set_or_clear_label_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = v.map(|x| x.into());
         self
     }
 
@@ -5848,7 +7062,7 @@ pub struct GlobalSetPolicyRequest {
     pub bindings: std::vec::Vec<crate::model::Binding>,
 
     /// Flatten Policy to create a backward compatible wire-format. Deprecated. Use 'policy' to specify the etag.
-    pub etag: ::bytes::Bytes,
+    pub etag: std::option::Option<::bytes::Bytes>,
 
     /// REQUIRED: The complete policy to be applied to the 'resource'. The size of the policy is limited to a few 10s of KB. An empty policy is in general a valid policy but certain services (like Projects) might reject them.
     pub policy: std::option::Option<crate::model::Policy>,
@@ -5874,8 +7088,20 @@ impl GlobalSetPolicyRequest {
     }
 
     /// Sets the value of [etag][crate::model::GlobalSetPolicyRequest::etag].
-    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.etag = v.into();
+    pub fn set_etag<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.etag = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [etag][crate::model::GlobalSetPolicyRequest::etag].
+    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.etag = v.map(|x| x.into());
         self
     }
 
@@ -5911,22 +7137,22 @@ impl wkt::message::Message for GlobalSetPolicyRequest {
 #[non_exhaustive]
 pub struct GuestAttributes {
     /// [Output Only] Type of the resource. Always compute#guestAttributes for guest attributes entry.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// The path to be queried. This can be the default namespace ('') or a nested namespace ('\/') or a specified key ('\/\').
-    pub query_path: std::string::String,
+    pub query_path: std::option::Option<std::string::String>,
 
     /// [Output Only] The value of the requested queried path.
     pub query_value: std::option::Option<crate::model::GuestAttributesValue>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// The key to search for.
-    pub variable_key: std::string::String,
+    pub variable_key: std::option::Option<std::string::String>,
 
     /// [Output Only] The value found for the requested key.
-    pub variable_value: std::string::String,
+    pub variable_value: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5938,14 +7164,38 @@ impl GuestAttributes {
     }
 
     /// Sets the value of [kind][crate::model::GuestAttributes::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::GuestAttributes::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [query_path][crate::model::GuestAttributes::query_path].
-    pub fn set_query_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.query_path = v.into();
+    pub fn set_query_path<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.query_path = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query_path][crate::model::GuestAttributes::query_path].
+    pub fn set_or_clear_query_path<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.query_path = v.map(|x| x.into());
         self
     }
 
@@ -5968,20 +7218,56 @@ impl GuestAttributes {
     }
 
     /// Sets the value of [self_link][crate::model::GuestAttributes::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::GuestAttributes::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [variable_key][crate::model::GuestAttributes::variable_key].
-    pub fn set_variable_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.variable_key = v.into();
+    pub fn set_variable_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.variable_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [variable_key][crate::model::GuestAttributes::variable_key].
+    pub fn set_or_clear_variable_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.variable_key = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [variable_value][crate::model::GuestAttributes::variable_value].
-    pub fn set_variable_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.variable_value = v.into();
+    pub fn set_variable_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.variable_value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [variable_value][crate::model::GuestAttributes::variable_value].
+    pub fn set_or_clear_variable_value<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.variable_value = v.map(|x| x.into());
         self
     }
 }
@@ -5999,13 +7285,13 @@ impl wkt::message::Message for GuestAttributes {
 #[non_exhaustive]
 pub struct GuestAttributesEntry {
     /// Key for the guest attribute entry.
-    pub key: std::string::String,
+    pub key: std::option::Option<std::string::String>,
 
     /// Namespace for the guest attribute entry.
-    pub namespace: std::string::String,
+    pub namespace: std::option::Option<std::string::String>,
 
     /// Value for the guest attribute entry.
-    pub value: std::string::String,
+    pub value: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6017,20 +7303,56 @@ impl GuestAttributesEntry {
     }
 
     /// Sets the value of [key][crate::model::GuestAttributesEntry::key].
-    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.key = v.into();
+    pub fn set_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [key][crate::model::GuestAttributesEntry::key].
+    pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.key = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [namespace][crate::model::GuestAttributesEntry::namespace].
-    pub fn set_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.namespace = v.into();
+    pub fn set_namespace<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.namespace = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [namespace][crate::model::GuestAttributesEntry::namespace].
+    pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.namespace = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [value][crate::model::GuestAttributesEntry::value].
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value = v.into();
+    pub fn set_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [value][crate::model::GuestAttributesEntry::value].
+    pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.value = v.map(|x| x.into());
         self
     }
 }
@@ -6083,7 +7405,7 @@ impl wkt::message::Message for GuestAttributesValue {
 #[non_exhaustive]
 pub struct GuestOsFeature {
     /// The ID of a supported feature. To add multiple values, use commas to separate values. Set to one or more of the following values: - VIRTIO_SCSI_MULTIQUEUE - WINDOWS - MULTI_IP_SUBNET - UEFI_COMPATIBLE - GVNIC - SEV_CAPABLE - SUSPEND_RESUME_COMPATIBLE - SEV_LIVE_MIGRATABLE_V2 - SEV_SNP_CAPABLE - TDX_CAPABLE - IDPF - SNP_SVSM_CAPABLE For more information, see Enabling guest operating system features.
-    pub r#type: crate::model::guest_os_feature::Type,
+    pub r#type: std::option::Option<crate::model::guest_os_feature::Type>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6095,11 +7417,20 @@ impl GuestOsFeature {
     }
 
     /// Sets the value of [r#type][crate::model::GuestOsFeature::type].
-    pub fn set_type<T: std::convert::Into<crate::model::guest_os_feature::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = v.into();
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::guest_os_feature::Type>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::GuestOsFeature::type].
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::guest_os_feature::Type>,
+    {
+        self.r#type = v.map(|x| x.into());
         self
     }
 }
@@ -6380,10 +7711,10 @@ impl wkt::message::Message for Help {
 #[non_exhaustive]
 pub struct HelpLink {
     /// Describes what the link offers.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// The URL of the link.
-    pub url: std::string::String,
+    pub url: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6395,14 +7726,38 @@ impl HelpLink {
     }
 
     /// Sets the value of [description][crate::model::HelpLink::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::HelpLink::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [url][crate::model::HelpLink::url].
-    pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.url = v.into();
+    pub fn set_url<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.url = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [url][crate::model::HelpLink::url].
+    pub fn set_or_clear_url<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.url = v.map(|x| x.into());
         self
     }
 }
@@ -6420,43 +7775,43 @@ impl wkt::message::Message for HelpLink {
 #[non_exhaustive]
 pub struct Image {
     /// The architecture of the image. Valid values are ARM64 or X86_64.
-    pub architecture: crate::model::image::Architecture,
+    pub architecture: std::option::Option<crate::model::image::Architecture>,
 
     /// Size of the image tar.gz archive stored in Google Cloud Storage (in bytes).
-    pub archive_size_bytes: i64,
+    pub archive_size_bytes: std::option::Option<i64>,
 
     /// [Output Only] Creation timestamp in RFC3339 text format.
-    pub creation_timestamp: std::string::String,
+    pub creation_timestamp: std::option::Option<std::string::String>,
 
     /// The deprecation status associated with this image.
     pub deprecated: std::option::Option<crate::model::DeprecationStatus>,
 
     /// An optional description of this resource. Provide this property when you create the resource.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// Size of the image when restored onto a persistent disk (in GB).
-    pub disk_size_gb: i64,
+    pub disk_size_gb: std::option::Option<i64>,
 
     /// Whether this image is created from a confidential compute mode disk. [Output Only]: This field is not set by user, but from source disk.
-    pub enable_confidential_compute: bool,
+    pub enable_confidential_compute: std::option::Option<bool>,
 
     /// The name of the image family to which this image belongs. The image family name can be from a publicly managed image family provided by Compute Engine, or from a custom image family you create. For example, centos-stream-9 is a publicly available image family. For more information, see Image family best practices. When creating disks, you can specify an image family instead of a specific image name. The image family always returns its latest image that is not deprecated. The name of the image family must comply with RFC1035.
-    pub family: std::string::String,
+    pub family: std::option::Option<std::string::String>,
 
     /// A list of features to enable on the guest operating system. Applicable only for bootable images. To see a list of available options, see the guestOSfeatures[].type parameter.
     pub guest_os_features: std::vec::Vec<crate::model::GuestOsFeature>,
 
     /// [Output Only] The unique identifier for the resource. This identifier is defined by the server.
-    pub id: u64,
+    pub id: std::option::Option<u64>,
 
     /// Encrypts the image using a customer-supplied encryption key. After you encrypt an image with a customer-supplied key, you must provide the same key if you use the image later (e.g. to create a disk from the image). Customer-supplied encryption keys do not protect access to metadata of the disk. If you do not provide an encryption key when creating the image, then the disk will be encrypted using an automatically generated key and you do not need to provide a key to use the image later.
     pub image_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
 
     /// [Output Only] Type of the resource. Always compute#image for images.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// A fingerprint for the labels being applied to this image, which is essentially a hash of the labels used for optimistic locking. The fingerprint is initially generated by Compute Engine and changes after every request to modify or update labels. You must always provide an up-to-date fingerprint hash in order to update or change labels, otherwise the request will fail with error 412 conditionNotMet. To see the latest fingerprint, make a get() request to retrieve an image.
-    pub label_fingerprint: ::bytes::Bytes,
+    pub label_fingerprint: std::option::Option<::bytes::Bytes>,
 
     /// Labels to apply to this image. These can be later modified by the setLabels method.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
@@ -6468,55 +7823,55 @@ pub struct Image {
     pub licenses: std::vec::Vec<std::string::String>,
 
     /// Name of the resource; provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     /// The parameters of the raw disk image.
     pub raw_disk: std::option::Option<crate::model::image::RawDisk>,
 
     /// Output only. Reserved for future use.
-    pub satisfies_pzi: bool,
+    pub satisfies_pzi: std::option::Option<bool>,
 
     /// [Output Only] Reserved for future use.
-    pub satisfies_pzs: bool,
+    pub satisfies_pzs: std::option::Option<bool>,
 
     /// [Output Only] Server-defined URL for the resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// Set the secure boot keys of shielded instance.
     pub shielded_instance_initial_state: std::option::Option<crate::model::InitialStateConfig>,
 
     /// URL of the source disk used to create this image. For example, the following are valid values: - <https://www.googleapis.com/compute/v1/projects/project/zones/zone> /disks/disk - projects/project/zones/zone/disks/disk - zones/zone/disks/disk In order to create an image, you must provide the full or partial URL of one of the following: - The rawDisk.source URL - The sourceDisk URL - The sourceImage URL - The sourceSnapshot URL
-    pub source_disk: std::string::String,
+    pub source_disk: std::option::Option<std::string::String>,
 
     /// The customer-supplied encryption key of the source disk. Required if the source disk is protected by a customer-supplied encryption key.
     pub source_disk_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
 
     /// [Output Only] The ID value of the disk used to create this image. This value may be used to determine whether the image was taken from the current or a previous instance of a given disk name.
-    pub source_disk_id: std::string::String,
+    pub source_disk_id: std::option::Option<std::string::String>,
 
     /// URL of the source image used to create this image. The following are valid formats for the URL: - <https://www.googleapis.com/compute/v1/projects/project_id/global/> images/image_name - projects/project_id/global/images/image_name In order to create an image, you must provide the full or partial URL of one of the following: - The rawDisk.source URL - The sourceDisk URL - The sourceImage URL - The sourceSnapshot URL
-    pub source_image: std::string::String,
+    pub source_image: std::option::Option<std::string::String>,
 
     /// The customer-supplied encryption key of the source image. Required if the source image is protected by a customer-supplied encryption key.
     pub source_image_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
 
     /// [Output Only] The ID value of the image used to create this image. This value may be used to determine whether the image was taken from the current or a previous instance of a given image name.
-    pub source_image_id: std::string::String,
+    pub source_image_id: std::option::Option<std::string::String>,
 
     /// URL of the source snapshot used to create this image. The following are valid formats for the URL: - <https://www.googleapis.com/compute/v1/projects/project_id/global/> snapshots/snapshot_name - projects/project_id/global/snapshots/snapshot_name In order to create an image, you must provide the full or partial URL of one of the following: - The rawDisk.source URL - The sourceDisk URL - The sourceImage URL - The sourceSnapshot URL
-    pub source_snapshot: std::string::String,
+    pub source_snapshot: std::option::Option<std::string::String>,
 
     /// The customer-supplied encryption key of the source snapshot. Required if the source snapshot is protected by a customer-supplied encryption key.
     pub source_snapshot_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
 
     /// [Output Only] The ID value of the snapshot used to create this image. This value may be used to determine whether the snapshot was taken from the current or a previous instance of a given snapshot name.
-    pub source_snapshot_id: std::string::String,
+    pub source_snapshot_id: std::option::Option<std::string::String>,
 
     /// The type of the image used to create this disk. The default and only valid value is RAW.
-    pub source_type: crate::model::image::SourceType,
+    pub source_type: std::option::Option<crate::model::image::SourceType>,
 
     /// [Output Only] The status of the image. An image can be used to create other resources, such as instances, only after the image has been successfully created and the status is set to READY. Possible values are FAILED, PENDING, or READY.
-    pub status: crate::model::image::Status,
+    pub status: std::option::Option<crate::model::image::Status>,
 
     /// Cloud Storage bucket storage location of the image (regional or multi-regional).
     pub storage_locations: std::vec::Vec<std::string::String>,
@@ -6531,26 +7886,56 @@ impl Image {
     }
 
     /// Sets the value of [architecture][crate::model::Image::architecture].
-    pub fn set_architecture<T: std::convert::Into<crate::model::image::Architecture>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.architecture = v.into();
+    pub fn set_architecture<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::image::Architecture>,
+    {
+        self.architecture = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [architecture][crate::model::Image::architecture].
+    pub fn set_or_clear_architecture<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::image::Architecture>,
+    {
+        self.architecture = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [archive_size_bytes][crate::model::Image::archive_size_bytes].
-    pub fn set_archive_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.archive_size_bytes = v.into();
+    pub fn set_archive_size_bytes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.archive_size_bytes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [archive_size_bytes][crate::model::Image::archive_size_bytes].
+    pub fn set_or_clear_archive_size_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.archive_size_bytes = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [creation_timestamp][crate::model::Image::creation_timestamp].
-    pub fn set_creation_timestamp<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creation_timestamp = v.into();
+    pub fn set_creation_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_timestamp][crate::model::Image::creation_timestamp].
+    pub fn set_or_clear_creation_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = v.map(|x| x.into());
         self
     }
 
@@ -6573,26 +7958,74 @@ impl Image {
     }
 
     /// Sets the value of [description][crate::model::Image::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::Image::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [disk_size_gb][crate::model::Image::disk_size_gb].
-    pub fn set_disk_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.disk_size_gb = v.into();
+    pub fn set_disk_size_gb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.disk_size_gb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disk_size_gb][crate::model::Image::disk_size_gb].
+    pub fn set_or_clear_disk_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.disk_size_gb = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_confidential_compute][crate::model::Image::enable_confidential_compute].
-    pub fn set_enable_confidential_compute<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_confidential_compute = v.into();
+    pub fn set_enable_confidential_compute<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_confidential_compute = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_confidential_compute][crate::model::Image::enable_confidential_compute].
+    pub fn set_or_clear_enable_confidential_compute<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_confidential_compute = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [family][crate::model::Image::family].
-    pub fn set_family<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.family = v.into();
+    pub fn set_family<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.family = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [family][crate::model::Image::family].
+    pub fn set_or_clear_family<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.family = v.map(|x| x.into());
         self
     }
 
@@ -6608,8 +8041,20 @@ impl Image {
     }
 
     /// Sets the value of [id][crate::model::Image::id].
-    pub fn set_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::Image::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
@@ -6632,14 +8077,38 @@ impl Image {
     }
 
     /// Sets the value of [kind][crate::model::Image::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Image::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [label_fingerprint][crate::model::Image::label_fingerprint].
-    pub fn set_label_fingerprint<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.label_fingerprint = v.into();
+    pub fn set_label_fingerprint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [label_fingerprint][crate::model::Image::label_fingerprint].
+    pub fn set_or_clear_label_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = v.map(|x| x.into());
         self
     }
 
@@ -6677,8 +8146,20 @@ impl Image {
     }
 
     /// Sets the value of [name][crate::model::Image::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::Image::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 
@@ -6701,20 +8182,56 @@ impl Image {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Image::satisfies_pzi].
-    pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.satisfies_pzi = v.into();
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::Image::satisfies_pzi].
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Image::satisfies_pzs].
-    pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.satisfies_pzs = v.into();
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::Image::satisfies_pzs].
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::Image::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::Image::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -6740,8 +8257,20 @@ impl Image {
     }
 
     /// Sets the value of [source_disk][crate::model::Image::source_disk].
-    pub fn set_source_disk<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source_disk = v.into();
+    pub fn set_source_disk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_disk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_disk][crate::model::Image::source_disk].
+    pub fn set_or_clear_source_disk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_disk = v.map(|x| x.into());
         self
     }
 
@@ -6764,14 +8293,38 @@ impl Image {
     }
 
     /// Sets the value of [source_disk_id][crate::model::Image::source_disk_id].
-    pub fn set_source_disk_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source_disk_id = v.into();
+    pub fn set_source_disk_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_disk_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_disk_id][crate::model::Image::source_disk_id].
+    pub fn set_or_clear_source_disk_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_disk_id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [source_image][crate::model::Image::source_image].
-    pub fn set_source_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source_image = v.into();
+    pub fn set_source_image<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_image = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_image][crate::model::Image::source_image].
+    pub fn set_or_clear_source_image<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_image = v.map(|x| x.into());
         self
     }
 
@@ -6794,14 +8347,38 @@ impl Image {
     }
 
     /// Sets the value of [source_image_id][crate::model::Image::source_image_id].
-    pub fn set_source_image_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source_image_id = v.into();
+    pub fn set_source_image_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_image_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_image_id][crate::model::Image::source_image_id].
+    pub fn set_or_clear_source_image_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_image_id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [source_snapshot][crate::model::Image::source_snapshot].
-    pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source_snapshot = v.into();
+    pub fn set_source_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_snapshot][crate::model::Image::source_snapshot].
+    pub fn set_or_clear_source_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_snapshot = v.map(|x| x.into());
         self
     }
 
@@ -6827,26 +8404,56 @@ impl Image {
     }
 
     /// Sets the value of [source_snapshot_id][crate::model::Image::source_snapshot_id].
-    pub fn set_source_snapshot_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_snapshot_id = v.into();
+    pub fn set_source_snapshot_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_snapshot_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_snapshot_id][crate::model::Image::source_snapshot_id].
+    pub fn set_or_clear_source_snapshot_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_snapshot_id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [source_type][crate::model::Image::source_type].
-    pub fn set_source_type<T: std::convert::Into<crate::model::image::SourceType>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_type = v.into();
+    pub fn set_source_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::image::SourceType>,
+    {
+        self.source_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_type][crate::model::Image::source_type].
+    pub fn set_or_clear_source_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::image::SourceType>,
+    {
+        self.source_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [status][crate::model::Image::status].
-    pub fn set_status<T: std::convert::Into<crate::model::image::Status>>(mut self, v: T) -> Self {
-        self.status = v.into();
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::image::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::Image::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::image::Status>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 
@@ -6883,14 +8490,14 @@ pub mod image {
     #[non_exhaustive]
     pub struct RawDisk {
         /// The format used to encode and transmit the block device, which should be TAR. This is just a container and transmission format and not a runtime format. Provided by the client when the disk image is created.
-        pub container_type: crate::model::image::raw_disk::ContainerType,
+        pub container_type: std::option::Option<crate::model::image::raw_disk::ContainerType>,
 
         /// [Deprecated] This field is deprecated. An optional SHA1 checksum of the disk image before unpackaging provided by the client when the disk image is created.
         #[deprecated]
-        pub sha_1_checksum: std::string::String,
+        pub sha_1_checksum: std::option::Option<std::string::String>,
 
         /// The full Google Cloud Storage URL where the raw disk image archive is stored. The following are valid formats for the URL: - <https://storage.googleapis.com/bucket_name/image_archive_name> - <https://storage.googleapis.com/bucket_name/folder_name/> image_archive_name In order to create an image, you must provide the full or partial URL of one of the following: - The rawDisk.source URL - The sourceDisk URL - The sourceImage URL - The sourceSnapshot URL
-        pub source: std::string::String,
+        pub source: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6902,29 +8509,58 @@ pub mod image {
         }
 
         /// Sets the value of [container_type][crate::model::image::RawDisk::container_type].
-        pub fn set_container_type<
+        pub fn set_container_type<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<crate::model::image::raw_disk::ContainerType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.container_type = v.into();
+        {
+            self.container_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [container_type][crate::model::image::RawDisk::container_type].
+        pub fn set_or_clear_container_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::image::raw_disk::ContainerType>,
+        {
+            self.container_type = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [sha_1_checksum][crate::model::image::RawDisk::sha_1_checksum].
         #[deprecated]
-        pub fn set_sha_1_checksum<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.sha_1_checksum = v.into();
+        pub fn set_sha_1_checksum<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.sha_1_checksum = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sha_1_checksum][crate::model::image::RawDisk::sha_1_checksum].
+        #[deprecated]
+        pub fn set_or_clear_sha_1_checksum<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.sha_1_checksum = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [source][crate::model::image::RawDisk::source].
-        pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::image::RawDisk::source].
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.source = v.map(|x| x.into());
             self
         }
     }
@@ -7502,19 +9138,19 @@ pub mod image {
 #[non_exhaustive]
 pub struct ImageList {
     /// [Output Only] Unique identifier for the resource; defined by the server.
-    pub id: std::string::String,
+    pub id: std::option::Option<std::string::String>,
 
     /// A list of Image resources.
     pub items: std::vec::Vec<crate::model::Image>,
 
     /// Type of resource.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
-    pub next_page_token: std::string::String,
+    pub next_page_token: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] Informational warning message.
     pub warning: std::option::Option<crate::model::image_list::Warning>,
@@ -7529,8 +9165,20 @@ impl ImageList {
     }
 
     /// Sets the value of [id][crate::model::ImageList::id].
-    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::ImageList::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
@@ -7546,20 +9194,56 @@ impl ImageList {
     }
 
     /// Sets the value of [kind][crate::model::ImageList::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::ImageList::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::ImageList::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::ImageList::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::ImageList::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::ImageList::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -7600,7 +9284,7 @@ impl gax::paginator::internal::PageableResponse for ImageList {
 
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
-        self.next_page_token.clone()
+        self.next_page_token.clone().unwrap_or_default()
     }
 }
 
@@ -7618,13 +9302,13 @@ pub mod image_list {
     #[non_exhaustive]
     pub struct Warning {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::image_list::warning::Code,
+        pub code: std::option::Option<crate::model::image_list::warning::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::image_list::warning::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -7636,11 +9320,20 @@ pub mod image_list {
         }
 
         /// Sets the value of [code][crate::model::image_list::Warning::code].
-        pub fn set_code<T: std::convert::Into<crate::model::image_list::warning::Code>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::image_list::warning::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::image_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::image_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -7656,8 +9349,20 @@ pub mod image_list {
         }
 
         /// Sets the value of [message][crate::model::image_list::Warning::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::image_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -7683,10 +9388,10 @@ pub mod image_list {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -7698,14 +9403,38 @@ pub mod image_list {
             }
 
             /// Sets the value of [key][crate::model::image_list::warning::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::image_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::image_list::warning::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::image_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
@@ -8222,21 +9951,21 @@ pub struct Instance {
     pub advanced_machine_features: std::option::Option<crate::model::AdvancedMachineFeatures>,
 
     /// Allows this instance to send and receive packets with non-matching destination or source IPs. This is required if you plan to use this instance to forward routes. For more information, see Enabling IP Forwarding .
-    pub can_ip_forward: bool,
+    pub can_ip_forward: std::option::Option<bool>,
 
     pub confidential_instance_config: std::option::Option<crate::model::ConfidentialInstanceConfig>,
 
     /// [Output Only] The CPU platform used by this instance.
-    pub cpu_platform: std::string::String,
+    pub cpu_platform: std::option::Option<std::string::String>,
 
     /// [Output Only] Creation timestamp in RFC3339 text format.
-    pub creation_timestamp: std::string::String,
+    pub creation_timestamp: std::option::Option<std::string::String>,
 
     /// Whether the resource should be protected against deletion.
-    pub deletion_protection: bool,
+    pub deletion_protection: std::option::Option<bool>,
 
     /// An optional description of this resource. Provide this property when you create the resource.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// Array of disks associated with this instance. Persistent disks must be created before you can assign them.
     pub disks: std::vec::Vec<crate::model::AttachedDisk>,
@@ -8245,52 +9974,53 @@ pub struct Instance {
     pub display_device: std::option::Option<crate::model::DisplayDevice>,
 
     /// Specifies a fingerprint for this resource, which is essentially a hash of the instance's contents and used for optimistic locking. The fingerprint is initially generated by Compute Engine and changes after every request to modify or update the instance. You must always provide an up-to-date fingerprint hash in order to update the instance. To see the latest fingerprint, make get() request to the instance.
-    pub fingerprint: ::bytes::Bytes,
+    pub fingerprint: std::option::Option<::bytes::Bytes>,
 
     /// A list of the type and count of accelerator cards attached to the instance.
     pub guest_accelerators: std::vec::Vec<crate::model::AcceleratorConfig>,
 
     /// Specifies the hostname of the instance. The specified hostname must be RFC1035 compliant. If hostname is not specified, the default hostname is [INSTANCE_NAME].c.[PROJECT_ID].internal when using the global DNS, and [INSTANCE_NAME].[ZONE].c.[PROJECT_ID].internal when using zonal DNS.
-    pub hostname: std::string::String,
+    pub hostname: std::option::Option<std::string::String>,
 
     /// [Output Only] The unique identifier for the resource. This identifier is defined by the server.
-    pub id: u64,
+    pub id: std::option::Option<u64>,
 
     /// Encrypts suspended data for an instance with a customer-managed encryption key. If you are creating a new instance, this field will encrypt the local SSD and in-memory contents of the instance during the suspend operation. If you do not provide an encryption key when creating the instance, then the local SSD and in-memory contents will be encrypted using an automatically generated key during the suspend operation.
     pub instance_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
 
     /// KeyRevocationActionType of the instance. Supported options are "STOP" and "NONE". The default value is "NONE" if it is not specified.
-    pub key_revocation_action_type: crate::model::instance::KeyRevocationActionType,
+    pub key_revocation_action_type:
+        std::option::Option<crate::model::instance::KeyRevocationActionType>,
 
     /// [Output Only] Type of the resource. Always compute#instance for instances.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// A fingerprint for this request, which is essentially a hash of the label's contents and used for optimistic locking. The fingerprint is initially generated by Compute Engine and changes after every request to modify or update labels. You must always provide an up-to-date fingerprint hash in order to update or change labels. To see the latest fingerprint, make get() request to the instance.
-    pub label_fingerprint: ::bytes::Bytes,
+    pub label_fingerprint: std::option::Option<::bytes::Bytes>,
 
     /// Labels to apply to this instance. These can be later modified by the setLabels method.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// [Output Only] Last start timestamp in RFC3339 text format.
-    pub last_start_timestamp: std::string::String,
+    pub last_start_timestamp: std::option::Option<std::string::String>,
 
     /// [Output Only] Last stop timestamp in RFC3339 text format.
-    pub last_stop_timestamp: std::string::String,
+    pub last_stop_timestamp: std::option::Option<std::string::String>,
 
     /// [Output Only] Last suspended timestamp in RFC3339 text format.
-    pub last_suspended_timestamp: std::string::String,
+    pub last_suspended_timestamp: std::option::Option<std::string::String>,
 
     /// Full or partial URL of the machine type resource to use for this instance, in the format: zones/zone/machineTypes/machine-type. This is provided by the client when the instance is created. For example, the following is a valid partial url to a predefined machine type: zones/us-central1-f/machineTypes/n1-standard-1 To create a custom machine type, provide a URL to a machine type in the following format, where CPUS is 1 or an even number up to 32 (2, 4, 6, ... 24, etc), and MEMORY is the total memory for this instance. Memory must be a multiple of 256 MB and must be supplied in MB (e.g. 5 GB of memory is 5120 MB): zones/zone/machineTypes/custom-CPUS-MEMORY For example: zones/us-central1-f/machineTypes/custom-4-5120 For a full list of restrictions, read the Specifications for custom machine types.
-    pub machine_type: std::string::String,
+    pub machine_type: std::option::Option<std::string::String>,
 
     /// The metadata key/value pairs assigned to this instance. This includes metadata keys that were explicitly defined for the instance.
     pub metadata: std::option::Option<crate::model::Metadata>,
 
     /// Specifies a minimum CPU platform for the VM instance. Applicable values are the friendly names of CPU platforms, such as minCpuPlatform: "Intel Haswell" or minCpuPlatform: "Intel Sandy Bridge".
-    pub min_cpu_platform: std::string::String,
+    pub min_cpu_platform: std::option::Option<std::string::String>,
 
     /// The name of the resource, provided by the client when initially creating the resource. The resource name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     /// An array of network configurations for this instance. These specify how interfaces are configured to interact with other network services, such as connecting to the internet. Multiple interfaces are supported per instance.
     pub network_interfaces: std::vec::Vec<crate::model::NetworkInterface>,
@@ -8301,7 +10031,8 @@ pub struct Instance {
     pub params: std::option::Option<crate::model::InstanceParams>,
 
     /// The private IPv6 google access type for the VM. If not specified, use INHERIT_FROM_SUBNETWORK as default.
-    pub private_ipv_6_google_access: crate::model::instance::PrivateIpv6GoogleAccess,
+    pub private_ipv_6_google_access:
+        std::option::Option<crate::model::instance::PrivateIpv6GoogleAccess>,
 
     /// Specifies the reservations that this instance can consume from.
     pub reservation_affinity: std::option::Option<crate::model::ReservationAffinity>,
@@ -8313,16 +10044,16 @@ pub struct Instance {
     pub resource_status: std::option::Option<crate::model::ResourceStatus>,
 
     /// [Output Only] Reserved for future use.
-    pub satisfies_pzi: bool,
+    pub satisfies_pzi: std::option::Option<bool>,
 
     /// [Output Only] Reserved for future use.
-    pub satisfies_pzs: bool,
+    pub satisfies_pzs: std::option::Option<bool>,
 
     /// Sets the scheduling options for this instance.
     pub scheduling: std::option::Option<crate::model::Scheduling>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// A list of service accounts, with their specified scopes, authorized for this instance. Only one service account per VM instance is supported. Service accounts generate access tokens that can be accessed through the metadata server and used to authenticate applications on the instance. See Service Accounts for more information.
     pub service_accounts: std::vec::Vec<crate::model::ServiceAccount>,
@@ -8333,26 +10064,26 @@ pub struct Instance {
         std::option::Option<crate::model::ShieldedInstanceIntegrityPolicy>,
 
     /// Source machine image
-    pub source_machine_image: std::string::String,
+    pub source_machine_image: std::option::Option<std::string::String>,
 
     /// Source machine image encryption key when creating an instance from a machine image.
     pub source_machine_image_encryption_key:
         std::option::Option<crate::model::CustomerEncryptionKey>,
 
     /// [Output Only] Whether a VM has been restricted for start because Compute Engine has detected suspicious activity.
-    pub start_restricted: bool,
+    pub start_restricted: std::option::Option<bool>,
 
     /// [Output Only] The status of the instance. One of the following values: PROVISIONING, STAGING, RUNNING, STOPPING, SUSPENDING, SUSPENDED, REPAIRING, and TERMINATED. For more information about the status of the instance, see Instance life cycle.
-    pub status: crate::model::instance::Status,
+    pub status: std::option::Option<crate::model::instance::Status>,
 
     /// [Output Only] An optional, human-readable explanation of the status.
-    pub status_message: std::string::String,
+    pub status_message: std::option::Option<std::string::String>,
 
     /// Tags to apply to this instance. Tags are used to identify valid sources or targets for network firewalls and are specified by the client during instance creation. The tags can be later modified by the setTags method. Each tag within the list must comply with RFC1035. Multiple tags can be specified via the 'tags.items' field.
     pub tags: std::option::Option<crate::model::Tags>,
 
     /// [Output Only] URL of the zone where the instance resides. You must specify this field as part of the HTTP request URL. It is not settable as a field in the request body.
-    pub zone: std::string::String,
+    pub zone: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8382,8 +10113,20 @@ impl Instance {
     }
 
     /// Sets the value of [can_ip_forward][crate::model::Instance::can_ip_forward].
-    pub fn set_can_ip_forward<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.can_ip_forward = v.into();
+    pub fn set_can_ip_forward<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.can_ip_forward = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [can_ip_forward][crate::model::Instance::can_ip_forward].
+    pub fn set_or_clear_can_ip_forward<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.can_ip_forward = v.map(|x| x.into());
         self
     }
 
@@ -8406,29 +10149,74 @@ impl Instance {
     }
 
     /// Sets the value of [cpu_platform][crate::model::Instance::cpu_platform].
-    pub fn set_cpu_platform<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.cpu_platform = v.into();
+    pub fn set_cpu_platform<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.cpu_platform = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cpu_platform][crate::model::Instance::cpu_platform].
+    pub fn set_or_clear_cpu_platform<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.cpu_platform = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [creation_timestamp][crate::model::Instance::creation_timestamp].
-    pub fn set_creation_timestamp<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creation_timestamp = v.into();
+    pub fn set_creation_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_timestamp][crate::model::Instance::creation_timestamp].
+    pub fn set_or_clear_creation_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [deletion_protection][crate::model::Instance::deletion_protection].
-    pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.deletion_protection = v.into();
+    pub fn set_deletion_protection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.deletion_protection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deletion_protection][crate::model::Instance::deletion_protection].
+    pub fn set_or_clear_deletion_protection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.deletion_protection = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [description][crate::model::Instance::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::Instance::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
@@ -8462,8 +10250,20 @@ impl Instance {
     }
 
     /// Sets the value of [fingerprint][crate::model::Instance::fingerprint].
-    pub fn set_fingerprint<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.fingerprint = v.into();
+    pub fn set_fingerprint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.fingerprint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fingerprint][crate::model::Instance::fingerprint].
+    pub fn set_or_clear_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.fingerprint = v.map(|x| x.into());
         self
     }
 
@@ -8479,14 +10279,38 @@ impl Instance {
     }
 
     /// Sets the value of [hostname][crate::model::Instance::hostname].
-    pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.hostname = v.into();
+    pub fn set_hostname<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.hostname = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [hostname][crate::model::Instance::hostname].
+    pub fn set_or_clear_hostname<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.hostname = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [id][crate::model::Instance::id].
-    pub fn set_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::Instance::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
@@ -8509,25 +10333,56 @@ impl Instance {
     }
 
     /// Sets the value of [key_revocation_action_type][crate::model::Instance::key_revocation_action_type].
-    pub fn set_key_revocation_action_type<
+    pub fn set_key_revocation_action_type<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::instance::KeyRevocationActionType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.key_revocation_action_type = v.into();
+    {
+        self.key_revocation_action_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [key_revocation_action_type][crate::model::Instance::key_revocation_action_type].
+    pub fn set_or_clear_key_revocation_action_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::KeyRevocationActionType>,
+    {
+        self.key_revocation_action_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kind][crate::model::Instance::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Instance::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [label_fingerprint][crate::model::Instance::label_fingerprint].
-    pub fn set_label_fingerprint<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.label_fingerprint = v.into();
+    pub fn set_label_fingerprint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [label_fingerprint][crate::model::Instance::label_fingerprint].
+    pub fn set_or_clear_label_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = v.map(|x| x.into());
         self
     }
 
@@ -8543,35 +10398,74 @@ impl Instance {
     }
 
     /// Sets the value of [last_start_timestamp][crate::model::Instance::last_start_timestamp].
-    pub fn set_last_start_timestamp<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_start_timestamp = v.into();
+    pub fn set_last_start_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.last_start_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_start_timestamp][crate::model::Instance::last_start_timestamp].
+    pub fn set_or_clear_last_start_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.last_start_timestamp = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [last_stop_timestamp][crate::model::Instance::last_stop_timestamp].
-    pub fn set_last_stop_timestamp<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_stop_timestamp = v.into();
+    pub fn set_last_stop_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.last_stop_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_stop_timestamp][crate::model::Instance::last_stop_timestamp].
+    pub fn set_or_clear_last_stop_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.last_stop_timestamp = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [last_suspended_timestamp][crate::model::Instance::last_suspended_timestamp].
-    pub fn set_last_suspended_timestamp<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_suspended_timestamp = v.into();
+    pub fn set_last_suspended_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.last_suspended_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_suspended_timestamp][crate::model::Instance::last_suspended_timestamp].
+    pub fn set_or_clear_last_suspended_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.last_suspended_timestamp = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [machine_type][crate::model::Instance::machine_type].
-    pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.machine_type = v.into();
+    pub fn set_machine_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.machine_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [machine_type][crate::model::Instance::machine_type].
+    pub fn set_or_clear_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.machine_type = v.map(|x| x.into());
         self
     }
 
@@ -8594,17 +10488,38 @@ impl Instance {
     }
 
     /// Sets the value of [min_cpu_platform][crate::model::Instance::min_cpu_platform].
-    pub fn set_min_cpu_platform<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.min_cpu_platform = v.into();
+    pub fn set_min_cpu_platform<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.min_cpu_platform = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [min_cpu_platform][crate::model::Instance::min_cpu_platform].
+    pub fn set_or_clear_min_cpu_platform<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.min_cpu_platform = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::Instance::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 
@@ -8656,13 +10571,20 @@ impl Instance {
     }
 
     /// Sets the value of [private_ipv_6_google_access][crate::model::Instance::private_ipv_6_google_access].
-    pub fn set_private_ipv_6_google_access<
+    pub fn set_private_ipv_6_google_access<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::instance::PrivateIpv6GoogleAccess>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.private_ipv_6_google_access = v.into();
+    {
+        self.private_ipv_6_google_access = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [private_ipv_6_google_access][crate::model::Instance::private_ipv_6_google_access].
+    pub fn set_or_clear_private_ipv_6_google_access<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::PrivateIpv6GoogleAccess>,
+    {
+        self.private_ipv_6_google_access = v.map(|x| x.into());
         self
     }
 
@@ -8714,14 +10636,38 @@ impl Instance {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
-    pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.satisfies_pzi = v.into();
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-    pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.satisfies_pzs = v.into();
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
         self
     }
 
@@ -8744,8 +10690,20 @@ impl Instance {
     }
 
     /// Sets the value of [self_link][crate::model::Instance::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::Instance::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -8800,11 +10758,20 @@ impl Instance {
     }
 
     /// Sets the value of [source_machine_image][crate::model::Instance::source_machine_image].
-    pub fn set_source_machine_image<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_machine_image = v.into();
+    pub fn set_source_machine_image<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_machine_image = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_machine_image][crate::model::Instance::source_machine_image].
+    pub fn set_or_clear_source_machine_image<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_machine_image = v.map(|x| x.into());
         self
     }
 
@@ -8830,23 +10797,56 @@ impl Instance {
     }
 
     /// Sets the value of [start_restricted][crate::model::Instance::start_restricted].
-    pub fn set_start_restricted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.start_restricted = v.into();
+    pub fn set_start_restricted<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.start_restricted = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_restricted][crate::model::Instance::start_restricted].
+    pub fn set_or_clear_start_restricted<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.start_restricted = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [status][crate::model::Instance::status].
-    pub fn set_status<T: std::convert::Into<crate::model::instance::Status>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.status = v.into();
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::Instance::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::Status>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [status_message][crate::model::Instance::status_message].
-    pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.status_message = v.into();
+    pub fn set_status_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.status_message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status_message][crate::model::Instance::status_message].
+    pub fn set_or_clear_status_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.status_message = v.map(|x| x.into());
         self
     }
 
@@ -8869,8 +10869,20 @@ impl Instance {
     }
 
     /// Sets the value of [zone][crate::model::Instance::zone].
-    pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.zone = v.into();
+    pub fn set_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [zone][crate::model::Instance::zone].
+    pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = v.map(|x| x.into());
         self
     }
 }
@@ -9395,19 +11407,19 @@ pub mod instance {
 #[non_exhaustive]
 pub struct InstanceAggregatedList {
     /// [Output Only] Unique identifier for the resource; defined by the server.
-    pub id: std::string::String,
+    pub id: std::option::Option<std::string::String>,
 
     /// An object that contains a list of instances scoped by zone.
     pub items: std::collections::HashMap<std::string::String, crate::model::InstancesScopedList>,
 
     /// [Output Only] Type of resource. Always compute#instanceAggregatedList for aggregated lists of Instance resources.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
-    pub next_page_token: std::string::String,
+    pub next_page_token: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] Unreachable resources.
     pub unreachables: std::vec::Vec<std::string::String>,
@@ -9425,8 +11437,20 @@ impl InstanceAggregatedList {
     }
 
     /// Sets the value of [id][crate::model::InstanceAggregatedList::id].
-    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::InstanceAggregatedList::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
@@ -9444,20 +11468,56 @@ impl InstanceAggregatedList {
     }
 
     /// Sets the value of [kind][crate::model::InstanceAggregatedList::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::InstanceAggregatedList::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::InstanceAggregatedList::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::InstanceAggregatedList::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::InstanceAggregatedList::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::InstanceAggregatedList::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -9512,13 +11572,13 @@ pub mod instance_aggregated_list {
     #[non_exhaustive]
     pub struct Warning {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::instance_aggregated_list::warning::Code,
+        pub code: std::option::Option<crate::model::instance_aggregated_list::warning::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::instance_aggregated_list::warning::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -9530,13 +11590,20 @@ pub mod instance_aggregated_list {
         }
 
         /// Sets the value of [code][crate::model::instance_aggregated_list::Warning::code].
-        pub fn set_code<
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<crate::model::instance_aggregated_list::warning::Code>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::instance_aggregated_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::instance_aggregated_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -9552,8 +11619,20 @@ pub mod instance_aggregated_list {
         }
 
         /// Sets the value of [message][crate::model::instance_aggregated_list::Warning::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::instance_aggregated_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -9579,10 +11658,10 @@ pub mod instance_aggregated_list {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -9594,14 +11673,38 @@ pub mod instance_aggregated_list {
             }
 
             /// Sets the value of [key][crate::model::instance_aggregated_list::warning::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::instance_aggregated_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::instance_aggregated_list::warning::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::instance_aggregated_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
@@ -10030,19 +12133,19 @@ pub mod instance_aggregated_list {
 #[non_exhaustive]
 pub struct InstanceList {
     /// [Output Only] Unique identifier for the resource; defined by the server.
-    pub id: std::string::String,
+    pub id: std::option::Option<std::string::String>,
 
     /// A list of Instance resources.
     pub items: std::vec::Vec<crate::model::Instance>,
 
     /// [Output Only] Type of resource. Always compute#instanceList for lists of Instance resources.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
-    pub next_page_token: std::string::String,
+    pub next_page_token: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] Informational warning message.
     pub warning: std::option::Option<crate::model::instance_list::Warning>,
@@ -10057,8 +12160,20 @@ impl InstanceList {
     }
 
     /// Sets the value of [id][crate::model::InstanceList::id].
-    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::InstanceList::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
@@ -10074,20 +12189,56 @@ impl InstanceList {
     }
 
     /// Sets the value of [kind][crate::model::InstanceList::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::InstanceList::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::InstanceList::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::InstanceList::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::InstanceList::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::InstanceList::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -10128,7 +12279,7 @@ impl gax::paginator::internal::PageableResponse for InstanceList {
 
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
-        self.next_page_token.clone()
+        self.next_page_token.clone().unwrap_or_default()
     }
 }
 
@@ -10146,13 +12297,13 @@ pub mod instance_list {
     #[non_exhaustive]
     pub struct Warning {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::instance_list::warning::Code,
+        pub code: std::option::Option<crate::model::instance_list::warning::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::instance_list::warning::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -10164,11 +12315,20 @@ pub mod instance_list {
         }
 
         /// Sets the value of [code][crate::model::instance_list::Warning::code].
-        pub fn set_code<T: std::convert::Into<crate::model::instance_list::warning::Code>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::instance_list::warning::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::instance_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::instance_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -10184,8 +12344,20 @@ pub mod instance_list {
         }
 
         /// Sets the value of [message][crate::model::instance_list::Warning::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::instance_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -10211,10 +12383,10 @@ pub mod instance_list {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -10226,14 +12398,38 @@ pub mod instance_list {
             }
 
             /// Sets the value of [key][crate::model::instance_list::warning::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::instance_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::instance_list::warning::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::instance_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
@@ -10662,19 +12858,19 @@ pub mod instance_list {
 #[non_exhaustive]
 pub struct InstanceListReferrers {
     /// [Output Only] Unique identifier for the resource; defined by the server.
-    pub id: std::string::String,
+    pub id: std::option::Option<std::string::String>,
 
     /// A list of Reference resources.
     pub items: std::vec::Vec<crate::model::Reference>,
 
     /// [Output Only] Type of resource. Always compute#instanceListReferrers for lists of Instance referrers.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
-    pub next_page_token: std::string::String,
+    pub next_page_token: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] Informational warning message.
     pub warning: std::option::Option<crate::model::instance_list_referrers::Warning>,
@@ -10689,8 +12885,20 @@ impl InstanceListReferrers {
     }
 
     /// Sets the value of [id][crate::model::InstanceListReferrers::id].
-    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::InstanceListReferrers::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
@@ -10706,20 +12914,56 @@ impl InstanceListReferrers {
     }
 
     /// Sets the value of [kind][crate::model::InstanceListReferrers::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::InstanceListReferrers::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::InstanceListReferrers::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::InstanceListReferrers::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::InstanceListReferrers::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::InstanceListReferrers::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -10760,7 +13004,7 @@ impl gax::paginator::internal::PageableResponse for InstanceListReferrers {
 
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
-        self.next_page_token.clone()
+        self.next_page_token.clone().unwrap_or_default()
     }
 }
 
@@ -10778,13 +13022,13 @@ pub mod instance_list_referrers {
     #[non_exhaustive]
     pub struct Warning {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::instance_list_referrers::warning::Code,
+        pub code: std::option::Option<crate::model::instance_list_referrers::warning::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::instance_list_referrers::warning::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -10796,13 +13040,20 @@ pub mod instance_list_referrers {
         }
 
         /// Sets the value of [code][crate::model::instance_list_referrers::Warning::code].
-        pub fn set_code<
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<crate::model::instance_list_referrers::warning::Code>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::instance_list_referrers::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::instance_list_referrers::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -10818,8 +13069,20 @@ pub mod instance_list_referrers {
         }
 
         /// Sets the value of [message][crate::model::instance_list_referrers::Warning::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::instance_list_referrers::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -10845,10 +13108,10 @@ pub mod instance_list_referrers {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -10860,14 +13123,38 @@ pub mod instance_list_referrers {
             }
 
             /// Sets the value of [key][crate::model::instance_list_referrers::warning::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::instance_list_referrers::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::instance_list_referrers::warning::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::instance_list_referrers::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
@@ -11355,13 +13642,13 @@ pub struct InstanceProperties {
     pub advanced_machine_features: std::option::Option<crate::model::AdvancedMachineFeatures>,
 
     /// Enables instances created based on these properties to send packets with source IP addresses other than their own and receive packets with destination IP addresses other than their own. If these instances will be used as an IP gateway or it will be set as the next-hop in a Route resource, specify true. If unsure, leave this set to false. See the Enable IP forwarding documentation for more information.
-    pub can_ip_forward: bool,
+    pub can_ip_forward: std::option::Option<bool>,
 
     /// Specifies the Confidential Instance options. Note that for MachineImage, this is not supported yet.
     pub confidential_instance_config: std::option::Option<crate::model::ConfidentialInstanceConfig>,
 
     /// An optional text description for the instances that are created from these properties.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// An array of disks that are associated with the instances that are created from these properties.
     pub disks: std::vec::Vec<crate::model::AttachedDisk>,
@@ -11370,19 +13657,20 @@ pub struct InstanceProperties {
     pub guest_accelerators: std::vec::Vec<crate::model::AcceleratorConfig>,
 
     /// KeyRevocationActionType of the instance. Supported options are "STOP" and "NONE". The default value is "NONE" if it is not specified.
-    pub key_revocation_action_type: crate::model::instance_properties::KeyRevocationActionType,
+    pub key_revocation_action_type:
+        std::option::Option<crate::model::instance_properties::KeyRevocationActionType>,
 
     /// Labels to apply to instances that are created from these properties.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The machine type to use for instances that are created from these properties. This field only accepts a machine type name, for example `n2-standard-4`. If you use the machine type full or partial URL, for example `projects/my-l7ilb-project/zones/us-central1-a/machineTypes/n2-standard-4`, the request will result in an `INTERNAL_ERROR`.
-    pub machine_type: std::string::String,
+    pub machine_type: std::option::Option<std::string::String>,
 
     /// The metadata key/value pairs to assign to instances that are created from these properties. These pairs can consist of custom metadata or predefined keys. See Project and instance metadata for more information.
     pub metadata: std::option::Option<crate::model::Metadata>,
 
     /// Minimum cpu/platform to be used by instances. The instance may be scheduled on the specified or newer cpu/platform. Applicable values are the friendly names of CPU platforms, such as minCpuPlatform: "Intel Haswell" or minCpuPlatform: "Intel Sandy Bridge". For more information, read Specifying a Minimum CPU Platform.
-    pub min_cpu_platform: std::string::String,
+    pub min_cpu_platform: std::option::Option<std::string::String>,
 
     /// An array of network access configurations for this interface.
     pub network_interfaces: std::vec::Vec<crate::model::NetworkInterface>,
@@ -11391,7 +13679,8 @@ pub struct InstanceProperties {
     pub network_performance_config: std::option::Option<crate::model::NetworkPerformanceConfig>,
 
     /// The private IPv6 google access type for VMs. If not specified, use INHERIT_FROM_SUBNETWORK as default. Note that for MachineImage, this is not supported yet.
-    pub private_ipv_6_google_access: crate::model::instance_properties::PrivateIpv6GoogleAccess,
+    pub private_ipv_6_google_access:
+        std::option::Option<crate::model::instance_properties::PrivateIpv6GoogleAccess>,
 
     /// Specifies the reservations that instances can consume from. Note that for MachineImage, this is not supported yet.
     pub reservation_affinity: std::option::Option<crate::model::ReservationAffinity>,
@@ -11442,8 +13731,20 @@ impl InstanceProperties {
     }
 
     /// Sets the value of [can_ip_forward][crate::model::InstanceProperties::can_ip_forward].
-    pub fn set_can_ip_forward<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.can_ip_forward = v.into();
+    pub fn set_can_ip_forward<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.can_ip_forward = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [can_ip_forward][crate::model::InstanceProperties::can_ip_forward].
+    pub fn set_or_clear_can_ip_forward<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.can_ip_forward = v.map(|x| x.into());
         self
     }
 
@@ -11466,8 +13767,20 @@ impl InstanceProperties {
     }
 
     /// Sets the value of [description][crate::model::InstanceProperties::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::InstanceProperties::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
@@ -11494,13 +13807,20 @@ impl InstanceProperties {
     }
 
     /// Sets the value of [key_revocation_action_type][crate::model::InstanceProperties::key_revocation_action_type].
-    pub fn set_key_revocation_action_type<
+    pub fn set_key_revocation_action_type<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::instance_properties::KeyRevocationActionType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.key_revocation_action_type = v.into();
+    {
+        self.key_revocation_action_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [key_revocation_action_type][crate::model::InstanceProperties::key_revocation_action_type].
+    pub fn set_or_clear_key_revocation_action_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance_properties::KeyRevocationActionType>,
+    {
+        self.key_revocation_action_type = v.map(|x| x.into());
         self
     }
 
@@ -11516,8 +13836,20 @@ impl InstanceProperties {
     }
 
     /// Sets the value of [machine_type][crate::model::InstanceProperties::machine_type].
-    pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.machine_type = v.into();
+    pub fn set_machine_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.machine_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [machine_type][crate::model::InstanceProperties::machine_type].
+    pub fn set_or_clear_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.machine_type = v.map(|x| x.into());
         self
     }
 
@@ -11540,11 +13872,20 @@ impl InstanceProperties {
     }
 
     /// Sets the value of [min_cpu_platform][crate::model::InstanceProperties::min_cpu_platform].
-    pub fn set_min_cpu_platform<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.min_cpu_platform = v.into();
+    pub fn set_min_cpu_platform<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.min_cpu_platform = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [min_cpu_platform][crate::model::InstanceProperties::min_cpu_platform].
+    pub fn set_or_clear_min_cpu_platform<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.min_cpu_platform = v.map(|x| x.into());
         self
     }
 
@@ -11578,13 +13919,20 @@ impl InstanceProperties {
     }
 
     /// Sets the value of [private_ipv_6_google_access][crate::model::InstanceProperties::private_ipv_6_google_access].
-    pub fn set_private_ipv_6_google_access<
+    pub fn set_private_ipv_6_google_access<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::instance_properties::PrivateIpv6GoogleAccess>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.private_ipv_6_google_access = v.into();
+    {
+        self.private_ipv_6_google_access = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [private_ipv_6_google_access][crate::model::InstanceProperties::private_ipv_6_google_access].
+    pub fn set_or_clear_private_ipv_6_google_access<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance_properties::PrivateIpv6GoogleAccess>,
+    {
+        self.private_ipv_6_google_access = v.map(|x| x.into());
         self
     }
 
@@ -12144,26 +14492,27 @@ impl wkt::message::Message for InstancesGetEffectiveFirewallsResponse {
 pub struct InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy {
     /// [Output Only] Deprecated, please use short name instead. The display name of the firewall policy.
     #[deprecated]
-    pub display_name: std::string::String,
+    pub display_name: std::option::Option<std::string::String>,
 
     /// [Output Only] The name of the firewall policy.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     /// [Output Only] The packet mirroring rules that apply to the instance.
     pub packet_mirroring_rules: std::vec::Vec<crate::model::FirewallPolicyRule>,
 
     /// [Output only] Priority of firewall policy association. Not applicable for type=HIERARCHY.
-    pub priority: i32,
+    pub priority: std::option::Option<i32>,
 
     /// [Output Only] The rules that apply to the instance. Only rules that target the specific VM instance are returned if target service accounts or target secure tags are specified in the rules.
     pub rules: std::vec::Vec<crate::model::FirewallPolicyRule>,
 
     /// [Output Only] The short name of the firewall policy.
-    pub short_name: std::string::String,
+    pub short_name: std::option::Option<std::string::String>,
 
     /// [Output Only] The type of the firewall policy. Can be one of HIERARCHY, NETWORK, NETWORK_REGIONAL, SYSTEM_GLOBAL, SYSTEM_REGIONAL.
-    pub r#type:
+    pub r#type: std::option::Option<
         crate::model::instances_get_effective_firewalls_response_effective_firewall_policy::Type,
+    >,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12176,14 +14525,39 @@ impl InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy {
 
     /// Sets the value of [display_name][crate::model::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy::display_name].
     #[deprecated]
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
+    pub fn set_display_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.display_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [display_name][crate::model::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy::display_name].
+    #[deprecated]
+    pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.display_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [name][crate::model::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 
@@ -12199,8 +14573,20 @@ impl InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy {
     }
 
     /// Sets the value of [priority][crate::model::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy::priority].
-    pub fn set_priority<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.priority = v.into();
+    pub fn set_priority<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.priority = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [priority][crate::model::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy::priority].
+    pub fn set_or_clear_priority<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.priority = v.map(|x| x.into());
         self
     }
 
@@ -12216,14 +14602,36 @@ impl InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy {
     }
 
     /// Sets the value of [short_name][crate::model::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy::short_name].
-    pub fn set_short_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.short_name = v.into();
+    pub fn set_short_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.short_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [short_name][crate::model::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy::short_name].
+    pub fn set_or_clear_short_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.short_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [r#type][crate::model::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy::type].
-    pub fn set_type<T: std::convert::Into<crate::model::instances_get_effective_firewalls_response_effective_firewall_policy::Type>>(mut self, v: T) -> Self{
-        self.r#type = v.into();
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<crate::model::instances_get_effective_firewalls_response_effective_firewall_policy::Type>
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy::type].
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::instances_get_effective_firewalls_response_effective_firewall_policy::Type>
+    {
+        self.r#type = v.map(|x| x.into());
         self
     }
 }
@@ -12439,8 +14847,9 @@ impl wkt::message::Message for InstancesRemoveResourcePoliciesRequest {
 #[non_exhaustive]
 pub struct InstancesReportHostAsFaultyRequest {
     /// The disruption schedule for the VM. Required field, only allows IMMEDIATE.
-    pub disruption_schedule:
+    pub disruption_schedule: std::option::Option<
         crate::model::instances_report_host_as_faulty_request::DisruptionSchedule,
+    >,
 
     pub fault_reasons: std::vec::Vec<crate::model::InstancesReportHostAsFaultyRequestFaultReason>,
 
@@ -12454,15 +14863,24 @@ impl InstancesReportHostAsFaultyRequest {
     }
 
     /// Sets the value of [disruption_schedule][crate::model::InstancesReportHostAsFaultyRequest::disruption_schedule].
-    pub fn set_disruption_schedule<
+    pub fn set_disruption_schedule<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<
                 crate::model::instances_report_host_as_faulty_request::DisruptionSchedule,
             >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.disruption_schedule = v.into();
+    {
+        self.disruption_schedule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disruption_schedule][crate::model::InstancesReportHostAsFaultyRequest::disruption_schedule].
+    pub fn set_or_clear_disruption_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::instances_report_host_as_faulty_request::DisruptionSchedule,
+            >,
+    {
+        self.disruption_schedule = v.map(|x| x.into());
         self
     }
 
@@ -12639,9 +15057,11 @@ pub mod instances_report_host_as_faulty_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesReportHostAsFaultyRequestFaultReason {
-    pub behavior: crate::model::instances_report_host_as_faulty_request_fault_reason::Behavior,
+    pub behavior: std::option::Option<
+        crate::model::instances_report_host_as_faulty_request_fault_reason::Behavior,
+    >,
 
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12653,21 +15073,42 @@ impl InstancesReportHostAsFaultyRequestFaultReason {
     }
 
     /// Sets the value of [behavior][crate::model::InstancesReportHostAsFaultyRequestFaultReason::behavior].
-    pub fn set_behavior<
+    pub fn set_behavior<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<
                 crate::model::instances_report_host_as_faulty_request_fault_reason::Behavior,
             >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.behavior = v.into();
+    {
+        self.behavior = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [behavior][crate::model::InstancesReportHostAsFaultyRequestFaultReason::behavior].
+    pub fn set_or_clear_behavior<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::instances_report_host_as_faulty_request_fault_reason::Behavior,
+            >,
+    {
+        self.behavior = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [description][crate::model::InstancesReportHostAsFaultyRequestFaultReason::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::InstancesReportHostAsFaultyRequestFaultReason::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 }
@@ -12903,13 +15344,13 @@ pub mod instances_scoped_list {
     #[non_exhaustive]
     pub struct Warning {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::instances_scoped_list::warning::Code,
+        pub code: std::option::Option<crate::model::instances_scoped_list::warning::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::instances_scoped_list::warning::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -12921,13 +15362,20 @@ pub mod instances_scoped_list {
         }
 
         /// Sets the value of [code][crate::model::instances_scoped_list::Warning::code].
-        pub fn set_code<
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<crate::model::instances_scoped_list::warning::Code>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::instances_scoped_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::instances_scoped_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -12943,8 +15391,20 @@ pub mod instances_scoped_list {
         }
 
         /// Sets the value of [message][crate::model::instances_scoped_list::Warning::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::instances_scoped_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -12970,10 +15430,10 @@ pub mod instances_scoped_list {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -12985,14 +15445,38 @@ pub mod instances_scoped_list {
             }
 
             /// Sets the value of [key][crate::model::instances_scoped_list::warning::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::instances_scoped_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::instances_scoped_list::warning::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::instances_scoped_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
@@ -13420,7 +15904,7 @@ pub mod instances_scoped_list {
 #[non_exhaustive]
 pub struct InstancesSetLabelsRequest {
     /// Fingerprint of the previous set of labels for this resource, used to prevent conflicts. Provide the latest fingerprint value when making a request to add or change labels.
-    pub label_fingerprint: ::bytes::Bytes,
+    pub label_fingerprint: std::option::Option<::bytes::Bytes>,
 
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -13434,8 +15918,20 @@ impl InstancesSetLabelsRequest {
     }
 
     /// Sets the value of [label_fingerprint][crate::model::InstancesSetLabelsRequest::label_fingerprint].
-    pub fn set_label_fingerprint<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.label_fingerprint = v.into();
+    pub fn set_label_fingerprint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [label_fingerprint][crate::model::InstancesSetLabelsRequest::label_fingerprint].
+    pub fn set_or_clear_label_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = v.map(|x| x.into());
         self
     }
 
@@ -13498,7 +15994,7 @@ impl wkt::message::Message for InstancesSetMachineResourcesRequest {
 #[non_exhaustive]
 pub struct InstancesSetMachineTypeRequest {
     /// Full or partial URL of the machine type resource. See Machine Types for a full list of machine types. For example: zones/us-central1-f/machineTypes/n1-standard-1
-    pub machine_type: std::string::String,
+    pub machine_type: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -13510,8 +16006,20 @@ impl InstancesSetMachineTypeRequest {
     }
 
     /// Sets the value of [machine_type][crate::model::InstancesSetMachineTypeRequest::machine_type].
-    pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.machine_type = v.into();
+    pub fn set_machine_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.machine_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [machine_type][crate::model::InstancesSetMachineTypeRequest::machine_type].
+    pub fn set_or_clear_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.machine_type = v.map(|x| x.into());
         self
     }
 }
@@ -13528,7 +16036,7 @@ impl wkt::message::Message for InstancesSetMachineTypeRequest {
 #[non_exhaustive]
 pub struct InstancesSetMinCpuPlatformRequest {
     /// Minimum cpu/platform this instance should be started at.
-    pub min_cpu_platform: std::string::String,
+    pub min_cpu_platform: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -13540,11 +16048,20 @@ impl InstancesSetMinCpuPlatformRequest {
     }
 
     /// Sets the value of [min_cpu_platform][crate::model::InstancesSetMinCpuPlatformRequest::min_cpu_platform].
-    pub fn set_min_cpu_platform<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.min_cpu_platform = v.into();
+    pub fn set_min_cpu_platform<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.min_cpu_platform = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [min_cpu_platform][crate::model::InstancesSetMinCpuPlatformRequest::min_cpu_platform].
+    pub fn set_or_clear_min_cpu_platform<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.min_cpu_platform = v.map(|x| x.into());
         self
     }
 }
@@ -13561,10 +16078,10 @@ impl wkt::message::Message for InstancesSetMinCpuPlatformRequest {
 #[non_exhaustive]
 pub struct InstancesSetNameRequest {
     /// The current name of this resource, used to prevent conflicts. Provide the latest name when making a request to change name.
-    pub current_name: std::string::String,
+    pub current_name: std::option::Option<std::string::String>,
 
     /// The name to be applied to the instance. Needs to be RFC 1035 compliant.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -13576,14 +16093,38 @@ impl InstancesSetNameRequest {
     }
 
     /// Sets the value of [current_name][crate::model::InstancesSetNameRequest::current_name].
-    pub fn set_current_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.current_name = v.into();
+    pub fn set_current_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.current_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [current_name][crate::model::InstancesSetNameRequest::current_name].
+    pub fn set_or_clear_current_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.current_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [name][crate::model::InstancesSetNameRequest::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::InstancesSetNameRequest::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 }
@@ -13603,7 +16144,7 @@ pub struct InstancesSetSecurityPolicyRequest {
     pub network_interfaces: std::vec::Vec<std::string::String>,
 
     /// A full or partial URL to a security policy to add to this instance. If this field is set to an empty string it will remove the associated security policy.
-    pub security_policy: std::string::String,
+    pub security_policy: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -13626,8 +16167,20 @@ impl InstancesSetSecurityPolicyRequest {
     }
 
     /// Sets the value of [security_policy][crate::model::InstancesSetSecurityPolicyRequest::security_policy].
-    pub fn set_security_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.security_policy = v.into();
+    pub fn set_security_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.security_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [security_policy][crate::model::InstancesSetSecurityPolicyRequest::security_policy].
+    pub fn set_or_clear_security_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.security_policy = v.map(|x| x.into());
         self
     }
 }
@@ -13644,7 +16197,7 @@ impl wkt::message::Message for InstancesSetSecurityPolicyRequest {
 #[non_exhaustive]
 pub struct InstancesSetServiceAccountRequest {
     /// Email address of the service account.
-    pub email: std::string::String,
+    pub email: std::option::Option<std::string::String>,
 
     /// The list of scopes to be made available for this service account.
     pub scopes: std::vec::Vec<std::string::String>,
@@ -13659,8 +16212,20 @@ impl InstancesSetServiceAccountRequest {
     }
 
     /// Sets the value of [email][crate::model::InstancesSetServiceAccountRequest::email].
-    pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.email = v.into();
+    pub fn set_email<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.email = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [email][crate::model::InstancesSetServiceAccountRequest::email].
+    pub fn set_or_clear_email<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.email = v.map(|x| x.into());
         self
     }
 
@@ -13724,10 +16289,10 @@ impl wkt::message::Message for InstancesStartWithEncryptionKeyRequest {
 #[non_exhaustive]
 pub struct LocalizedMessage {
     /// The locale used following the specification defined at <https://www.rfc-editor.org/rfc/bcp/bcp47.txt>. Examples are: "en-US", "fr-CH", "es-MX"
-    pub locale: std::string::String,
+    pub locale: std::option::Option<std::string::String>,
 
     /// The localized error message in the above locale.
-    pub message: std::string::String,
+    pub message: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -13739,14 +16304,38 @@ impl LocalizedMessage {
     }
 
     /// Sets the value of [locale][crate::model::LocalizedMessage::locale].
-    pub fn set_locale<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.locale = v.into();
+    pub fn set_locale<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.locale = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [locale][crate::model::LocalizedMessage::locale].
+    pub fn set_or_clear_locale<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.locale = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [message][crate::model::LocalizedMessage::message].
-    pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.message = v.into();
+    pub fn set_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [message][crate::model::LocalizedMessage::message].
+    pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = v.map(|x| x.into());
         self
     }
 }
@@ -13768,7 +16357,7 @@ pub struct LocationPolicy {
         std::collections::HashMap<std::string::String, crate::model::LocationPolicyLocation>,
 
     /// Strategy for distributing VMs across zones in a region.
-    pub target_shape: crate::model::location_policy::TargetShape,
+    pub target_shape: std::option::Option<crate::model::location_policy::TargetShape>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -13796,11 +16385,20 @@ impl LocationPolicy {
     }
 
     /// Sets the value of [target_shape][crate::model::LocationPolicy::target_shape].
-    pub fn set_target_shape<T: std::convert::Into<crate::model::location_policy::TargetShape>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_shape = v.into();
+    pub fn set_target_shape<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::location_policy::TargetShape>,
+    {
+        self.target_shape = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_shape][crate::model::LocationPolicy::target_shape].
+    pub fn set_or_clear_target_shape<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::location_policy::TargetShape>,
+    {
+        self.target_shape = v.map(|x| x.into());
         self
     }
 }
@@ -13970,7 +16568,7 @@ pub struct LocationPolicyLocation {
     pub constraints: std::option::Option<crate::model::LocationPolicyLocationConstraints>,
 
     /// Preference for a given location. Set to either ALLOW or DENY.
-    pub preference: crate::model::location_policy_location::Preference,
+    pub preference: std::option::Option<crate::model::location_policy_location::Preference>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14000,13 +16598,20 @@ impl LocationPolicyLocation {
     }
 
     /// Sets the value of [preference][crate::model::LocationPolicyLocation::preference].
-    pub fn set_preference<
+    pub fn set_preference<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::location_policy_location::Preference>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.preference = v.into();
+    {
+        self.preference = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [preference][crate::model::LocationPolicyLocation::preference].
+    pub fn set_or_clear_preference<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::location_policy_location::Preference>,
+    {
+        self.preference = v.map(|x| x.into());
         self
     }
 }
@@ -14174,7 +16779,7 @@ pub mod location_policy_location {
 #[non_exhaustive]
 pub struct LocationPolicyLocationConstraints {
     /// Maximum number of items that are allowed to be placed in this zone. The value must be non-negative.
-    pub max_count: i32,
+    pub max_count: std::option::Option<i32>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14186,8 +16791,20 @@ impl LocationPolicyLocationConstraints {
     }
 
     /// Sets the value of [max_count][crate::model::LocationPolicyLocationConstraints::max_count].
-    pub fn set_max_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.max_count = v.into();
+    pub fn set_max_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.max_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_count][crate::model::LocationPolicyLocationConstraints::max_count].
+    pub fn set_or_clear_max_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.max_count = v.map(|x| x.into());
         self
     }
 }
@@ -16853,13 +19470,13 @@ pub mod machine_types_scoped_list {
 #[non_exhaustive]
 pub struct Metadata {
     /// Specifies a fingerprint for this request, which is essentially a hash of the metadata's contents and used for optimistic locking. The fingerprint is initially generated by Compute Engine and changes after every request to modify or update metadata. You must always provide an up-to-date fingerprint hash in order to update or change metadata, otherwise the request will fail with error 412 conditionNotMet. To see the latest fingerprint, make a get() request to retrieve the resource.
-    pub fingerprint: ::bytes::Bytes,
+    pub fingerprint: std::option::Option<::bytes::Bytes>,
 
     /// Array of key/value pairs. The total size of all keys and values must be less than 512 KB.
     pub items: std::vec::Vec<crate::model::metadata::Items>,
 
     /// [Output Only] Type of the resource. Always compute#metadata for metadata.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -16871,8 +19488,20 @@ impl Metadata {
     }
 
     /// Sets the value of [fingerprint][crate::model::Metadata::fingerprint].
-    pub fn set_fingerprint<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.fingerprint = v.into();
+    pub fn set_fingerprint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.fingerprint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fingerprint][crate::model::Metadata::fingerprint].
+    pub fn set_or_clear_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.fingerprint = v.map(|x| x.into());
         self
     }
 
@@ -16888,8 +19517,20 @@ impl Metadata {
     }
 
     /// Sets the value of [kind][crate::model::Metadata::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Metadata::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 }
@@ -16915,10 +19556,10 @@ pub mod metadata {
     #[non_exhaustive]
     pub struct Items {
         /// Key for the metadata entry. Keys must conform to the following regexp: [a-zA-Z0-9-_]+, and be less than 128 bytes in length. This is reflected as part of a URL in the metadata server. Additionally, to avoid ambiguity, keys must not conflict with any other metadata keys for the project.
-        pub key: std::string::String,
+        pub key: std::option::Option<std::string::String>,
 
         /// Value for the metadata entry. These are free-form strings, and only have meaning as interpreted by the image running in the instance. The only restriction placed on values is that their size must be less than or equal to 262144 bytes (256 KiB).
-        pub value: std::string::String,
+        pub value: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -16930,14 +19571,38 @@ pub mod metadata {
         }
 
         /// Sets the value of [key][crate::model::metadata::Items::key].
-        pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.key = v.into();
+        pub fn set_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [key][crate::model::metadata::Items::key].
+        pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [value][crate::model::metadata::Items::value].
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.value = v.into();
+        pub fn set_value<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.value = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [value][crate::model::metadata::Items::value].
+        pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.value = v.map(|x| x.into());
             self
         }
     }
@@ -16962,52 +19627,52 @@ pub struct NetworkInterface {
     pub alias_ip_ranges: std::vec::Vec<crate::model::AliasIpRange>,
 
     /// Fingerprint hash of contents stored in this network interface. This field will be ignored when inserting an Instance or adding a NetworkInterface. An up-to-date fingerprint must be provided in order to update the NetworkInterface. The request will fail with error 400 Bad Request if the fingerprint is not provided, or 412 Precondition Failed if the fingerprint is out of date.
-    pub fingerprint: ::bytes::Bytes,
+    pub fingerprint: std::option::Option<::bytes::Bytes>,
 
     /// The prefix length of the primary internal IPv6 range.
-    pub internal_ipv_6_prefix_length: i32,
+    pub internal_ipv_6_prefix_length: std::option::Option<i32>,
 
     /// An array of IPv6 access configurations for this interface. Currently, only one IPv6 access config, DIRECT_IPV6, is supported. If there is no ipv6AccessConfig specified, then this instance will have no external IPv6 Internet access.
     pub ipv_6_access_configs: std::vec::Vec<crate::model::AccessConfig>,
 
     /// [Output Only] One of EXTERNAL, INTERNAL to indicate whether the IP can be accessed from the Internet. This field is always inherited from its subnetwork. Valid only if stackType is IPV4_IPV6.
-    pub ipv_6_access_type: crate::model::network_interface::Ipv6AccessType,
+    pub ipv_6_access_type: std::option::Option<crate::model::network_interface::Ipv6AccessType>,
 
     /// An IPv6 internal network address for this network interface. To use a static internal IP address, it must be unused and in the same region as the instance's zone. If not specified, Google Cloud will automatically assign an internal IPv6 address from the instance's subnetwork.
-    pub ipv_6_address: std::string::String,
+    pub ipv_6_address: std::option::Option<std::string::String>,
 
     /// [Output Only] Type of the resource. Always compute#networkInterface for network interfaces.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] The name of the network interface, which is generated by the server. For a VM, the network interface uses the nicN naming format. Where N is a value between 0 and 7. The default interface value is nic0.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     /// URL of the VPC network resource for this instance. When creating an instance, if neither the network nor the subnetwork is specified, the default network global/networks/default is used. If the selected project doesn't have the default network, you must specify a network or subnet. If the network is not specified but the subnetwork is specified, the network is inferred. If you specify this property, you can specify the network as a full or partial URL. For example, the following are all valid URLs: - <https://www.googleapis.com/compute/v1/projects/project/global/networks/> network - projects/project/global/networks/network - global/networks/default
-    pub network: std::string::String,
+    pub network: std::option::Option<std::string::String>,
 
     /// The URL of the network attachment that this interface should connect to in the following format: projects/{project_number}/regions/{region_name}/networkAttachments/{network_attachment_name}.
-    pub network_attachment: std::string::String,
+    pub network_attachment: std::option::Option<std::string::String>,
 
     /// An IPv4 internal IP address to assign to the instance for this network interface. If not specified by the user, an unused internal IP is assigned by the system.
-    pub network_ip: std::string::String,
+    pub network_ip: std::option::Option<std::string::String>,
 
     /// The type of vNIC to be used on this interface. This may be gVNIC or VirtioNet.
-    pub nic_type: crate::model::network_interface::NicType,
+    pub nic_type: std::option::Option<crate::model::network_interface::NicType>,
 
     /// Name of the parent network interface of a dynamic network interface.
-    pub parent_nic_name: std::string::String,
+    pub parent_nic_name: std::option::Option<std::string::String>,
 
     /// The networking queue count that's specified by users for the network interface. Both Rx and Tx queues will be set to this number. It'll be empty if not specified by the users.
-    pub queue_count: i32,
+    pub queue_count: std::option::Option<i32>,
 
     /// The stack type for this network interface. To assign only IPv4 addresses, use IPV4_ONLY. To assign both IPv4 and IPv6 addresses, use IPV4_IPV6. If not specified, IPV4_ONLY is used. This field can be both set at instance creation and update network interface operations.
-    pub stack_type: crate::model::network_interface::StackType,
+    pub stack_type: std::option::Option<crate::model::network_interface::StackType>,
 
     /// The URL of the Subnetwork resource for this instance. If the network resource is in legacy mode, do not specify this field. If the network is in auto subnet mode, specifying the subnetwork is optional. If the network is in custom subnet mode, specifying the subnetwork is required. If you specify this field, you can specify the subnetwork as a full or partial URL. For example, the following are all valid URLs: - <https://www.googleapis.com/compute/v1/projects/project/regions/region> /subnetworks/subnetwork - regions/region/subnetworks/subnetwork
-    pub subnetwork: std::string::String,
+    pub subnetwork: std::option::Option<std::string::String>,
 
     /// VLAN tag of a dynamic network interface, must be an integer in the range from 2 to 255 inclusively.
-    pub vlan: i32,
+    pub vlan: std::option::Option<i32>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -17041,14 +19706,38 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [fingerprint][crate::model::NetworkInterface::fingerprint].
-    pub fn set_fingerprint<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.fingerprint = v.into();
+    pub fn set_fingerprint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.fingerprint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fingerprint][crate::model::NetworkInterface::fingerprint].
+    pub fn set_or_clear_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.fingerprint = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [internal_ipv_6_prefix_length][crate::model::NetworkInterface::internal_ipv_6_prefix_length].
-    pub fn set_internal_ipv_6_prefix_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.internal_ipv_6_prefix_length = v.into();
+    pub fn set_internal_ipv_6_prefix_length<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.internal_ipv_6_prefix_length = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [internal_ipv_6_prefix_length][crate::model::NetworkInterface::internal_ipv_6_prefix_length].
+    pub fn set_or_clear_internal_ipv_6_prefix_length<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.internal_ipv_6_prefix_length = v.map(|x| x.into());
         self
     }
 
@@ -17064,94 +19753,236 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [ipv_6_access_type][crate::model::NetworkInterface::ipv_6_access_type].
-    pub fn set_ipv_6_access_type<
+    pub fn set_ipv_6_access_type<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::network_interface::Ipv6AccessType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ipv_6_access_type = v.into();
+    {
+        self.ipv_6_access_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ipv_6_access_type][crate::model::NetworkInterface::ipv_6_access_type].
+    pub fn set_or_clear_ipv_6_access_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::network_interface::Ipv6AccessType>,
+    {
+        self.ipv_6_access_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [ipv_6_address][crate::model::NetworkInterface::ipv_6_address].
-    pub fn set_ipv_6_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.ipv_6_address = v.into();
+    pub fn set_ipv_6_address<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ipv_6_address = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ipv_6_address][crate::model::NetworkInterface::ipv_6_address].
+    pub fn set_or_clear_ipv_6_address<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ipv_6_address = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kind][crate::model::NetworkInterface::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::NetworkInterface::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [name][crate::model::NetworkInterface::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::NetworkInterface::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [network][crate::model::NetworkInterface::network].
-    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.network = v.into();
+    pub fn set_network<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.network = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network][crate::model::NetworkInterface::network].
+    pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.network = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [network_attachment][crate::model::NetworkInterface::network_attachment].
-    pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_attachment = v.into();
+    pub fn set_network_attachment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.network_attachment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_attachment][crate::model::NetworkInterface::network_attachment].
+    pub fn set_or_clear_network_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.network_attachment = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [network_ip][crate::model::NetworkInterface::network_ip].
-    pub fn set_network_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.network_ip = v.into();
+    pub fn set_network_ip<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.network_ip = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_ip][crate::model::NetworkInterface::network_ip].
+    pub fn set_or_clear_network_ip<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.network_ip = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [nic_type][crate::model::NetworkInterface::nic_type].
-    pub fn set_nic_type<T: std::convert::Into<crate::model::network_interface::NicType>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.nic_type = v.into();
+    pub fn set_nic_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::network_interface::NicType>,
+    {
+        self.nic_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [nic_type][crate::model::NetworkInterface::nic_type].
+    pub fn set_or_clear_nic_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::network_interface::NicType>,
+    {
+        self.nic_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [parent_nic_name][crate::model::NetworkInterface::parent_nic_name].
-    pub fn set_parent_nic_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.parent_nic_name = v.into();
+    pub fn set_parent_nic_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.parent_nic_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [parent_nic_name][crate::model::NetworkInterface::parent_nic_name].
+    pub fn set_or_clear_parent_nic_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.parent_nic_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [queue_count][crate::model::NetworkInterface::queue_count].
-    pub fn set_queue_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.queue_count = v.into();
+    pub fn set_queue_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.queue_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [queue_count][crate::model::NetworkInterface::queue_count].
+    pub fn set_or_clear_queue_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.queue_count = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [stack_type][crate::model::NetworkInterface::stack_type].
-    pub fn set_stack_type<T: std::convert::Into<crate::model::network_interface::StackType>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.stack_type = v.into();
+    pub fn set_stack_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::network_interface::StackType>,
+    {
+        self.stack_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [stack_type][crate::model::NetworkInterface::stack_type].
+    pub fn set_or_clear_stack_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::network_interface::StackType>,
+    {
+        self.stack_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [subnetwork][crate::model::NetworkInterface::subnetwork].
-    pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.subnetwork = v.into();
+    pub fn set_subnetwork<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.subnetwork = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [subnetwork][crate::model::NetworkInterface::subnetwork].
+    pub fn set_or_clear_subnetwork<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.subnetwork = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [vlan][crate::model::NetworkInterface::vlan].
-    pub fn set_vlan<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.vlan = v.into();
+    pub fn set_vlan<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.vlan = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vlan][crate::model::NetworkInterface::vlan].
+    pub fn set_or_clear_vlan<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.vlan = v.map(|x| x.into());
         self
     }
 }
@@ -17618,7 +20449,7 @@ pub mod network_interface {
 #[non_exhaustive]
 pub struct NetworkPerformanceConfig {
     pub total_egress_bandwidth_tier:
-        crate::model::network_performance_config::TotalEgressBandwidthTier,
+        std::option::Option<crate::model::network_performance_config::TotalEgressBandwidthTier>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -17630,13 +20461,20 @@ impl NetworkPerformanceConfig {
     }
 
     /// Sets the value of [total_egress_bandwidth_tier][crate::model::NetworkPerformanceConfig::total_egress_bandwidth_tier].
-    pub fn set_total_egress_bandwidth_tier<
+    pub fn set_total_egress_bandwidth_tier<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::network_performance_config::TotalEgressBandwidthTier>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.total_egress_bandwidth_tier = v.into();
+    {
+        self.total_egress_bandwidth_tier = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [total_egress_bandwidth_tier][crate::model::NetworkPerformanceConfig::total_egress_bandwidth_tier].
+    pub fn set_or_clear_total_egress_bandwidth_tier<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::network_performance_config::TotalEgressBandwidthTier>,
+    {
+        self.total_egress_bandwidth_tier = v.map(|x| x.into());
         self
     }
 }
@@ -17797,83 +20635,83 @@ pub mod network_performance_config {
 #[non_exhaustive]
 pub struct Operation {
     /// [Output Only] The value of `requestId` if you provided it in the request. Not present otherwise.
-    pub client_operation_id: std::string::String,
+    pub client_operation_id: std::option::Option<std::string::String>,
 
     /// [Deprecated] This field is deprecated.
-    pub creation_timestamp: std::string::String,
+    pub creation_timestamp: std::option::Option<std::string::String>,
 
     /// [Output Only] A textual description of the operation, which is set when the operation is created.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// [Output Only] The time that this operation was completed. This value is in RFC3339 text format.
-    pub end_time: std::string::String,
+    pub end_time: std::option::Option<std::string::String>,
 
     /// [Output Only] If errors are generated during processing of the operation, this field will be populated.
     pub error: std::option::Option<crate::model::operation::Error>,
 
     /// [Output Only] If the operation fails, this field contains the HTTP error message that was returned, such as `NOT FOUND`.
-    pub http_error_message: std::string::String,
+    pub http_error_message: std::option::Option<std::string::String>,
 
     /// [Output Only] If the operation fails, this field contains the HTTP error status code that was returned. For example, a `404` means the resource was not found.
-    pub http_error_status_code: i32,
+    pub http_error_status_code: std::option::Option<i32>,
 
     /// [Output Only] The unique identifier for the operation. This identifier is defined by the server.
-    pub id: u64,
+    pub id: std::option::Option<u64>,
 
     /// [Output Only] The time that this operation was requested. This value is in RFC3339 text format.
-    pub insert_time: std::string::String,
+    pub insert_time: std::option::Option<std::string::String>,
 
     pub instances_bulk_insert_operation_metadata:
         std::option::Option<crate::model::InstancesBulkInsertOperationMetadata>,
 
     /// [Output Only] Type of the resource. Always `compute#operation` for Operation resources.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] Name of the operation.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     /// [Output Only] An ID that represents a group of operations, such as when a group of operations results from a `bulkInsert` API request.
-    pub operation_group_id: std::string::String,
+    pub operation_group_id: std::option::Option<std::string::String>,
 
     /// [Output Only] The type of operation, such as `insert`, `update`, or `delete`, and so on.
-    pub operation_type: std::string::String,
+    pub operation_type: std::option::Option<std::string::String>,
 
     /// [Output Only] An optional progress indicator that ranges from 0 to 100. There is no requirement that this be linear or support any granularity of operations. This should not be used to guess when the operation will be complete. This number should monotonically increase as the operation progresses.
-    pub progress: i32,
+    pub progress: std::option::Option<i32>,
 
     /// [Output Only] The URL of the region where the operation resides. Only applicable when performing regional operations.
-    pub region: std::string::String,
+    pub region: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for the resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] If the operation is for projects.setCommonInstanceMetadata, this field will contain information on all underlying zonal actions and their state.
     pub set_common_instance_metadata_operation_metadata:
         std::option::Option<crate::model::SetCommonInstanceMetadataOperationMetadata>,
 
     /// [Output Only] The time that this operation was started by the server. This value is in RFC3339 text format.
-    pub start_time: std::string::String,
+    pub start_time: std::option::Option<std::string::String>,
 
     /// [Output Only] The status of the operation, which can be one of the following: `PENDING`, `RUNNING`, or `DONE`.
-    pub status: crate::model::operation::Status,
+    pub status: std::option::Option<crate::model::operation::Status>,
 
     /// [Output Only] An optional textual description of the current status of the operation.
-    pub status_message: std::string::String,
+    pub status_message: std::option::Option<std::string::String>,
 
     /// [Output Only] The unique target ID, which identifies a specific incarnation of the target resource.
-    pub target_id: u64,
+    pub target_id: std::option::Option<u64>,
 
     /// [Output Only] The URL of the resource that the operation modifies. For operations related to creating a snapshot, this points to the disk that the snapshot was created from.
-    pub target_link: std::string::String,
+    pub target_link: std::option::Option<std::string::String>,
 
     /// [Output Only] User who requested the operation, for example: `user@example.com` or `alice_smith_identifier (global/workforcePools/example-com-us-employees)`.
-    pub user: std::string::String,
+    pub user: std::option::Option<std::string::String>,
 
     /// [Output Only] If warning messages are generated during processing of the operation, this field will be populated.
     pub warnings: std::vec::Vec<crate::model::operation::Warnings>,
 
     /// [Output Only] The URL of the zone where the operation resides. Only applicable when performing per-zone operations.
-    pub zone: std::string::String,
+    pub zone: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -17885,32 +20723,74 @@ impl Operation {
     }
 
     /// Sets the value of [client_operation_id][crate::model::Operation::client_operation_id].
-    pub fn set_client_operation_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_operation_id = v.into();
+    pub fn set_client_operation_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.client_operation_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_operation_id][crate::model::Operation::client_operation_id].
+    pub fn set_or_clear_client_operation_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.client_operation_id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [creation_timestamp][crate::model::Operation::creation_timestamp].
-    pub fn set_creation_timestamp<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creation_timestamp = v.into();
+    pub fn set_creation_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_timestamp][crate::model::Operation::creation_timestamp].
+    pub fn set_or_clear_creation_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [description][crate::model::Operation::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::Operation::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [end_time][crate::model::Operation::end_time].
-    pub fn set_end_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.end_time = v.into();
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::Operation::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_time = v.map(|x| x.into());
         self
     }
 
@@ -17933,29 +20813,74 @@ impl Operation {
     }
 
     /// Sets the value of [http_error_message][crate::model::Operation::http_error_message].
-    pub fn set_http_error_message<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.http_error_message = v.into();
+    pub fn set_http_error_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.http_error_message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_error_message][crate::model::Operation::http_error_message].
+    pub fn set_or_clear_http_error_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.http_error_message = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [http_error_status_code][crate::model::Operation::http_error_status_code].
-    pub fn set_http_error_status_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.http_error_status_code = v.into();
+    pub fn set_http_error_status_code<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.http_error_status_code = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_error_status_code][crate::model::Operation::http_error_status_code].
+    pub fn set_or_clear_http_error_status_code<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.http_error_status_code = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [id][crate::model::Operation::id].
-    pub fn set_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::Operation::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [insert_time][crate::model::Operation::insert_time].
-    pub fn set_insert_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.insert_time = v.into();
+    pub fn set_insert_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.insert_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [insert_time][crate::model::Operation::insert_time].
+    pub fn set_or_clear_insert_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.insert_time = v.map(|x| x.into());
         self
     }
 
@@ -17981,47 +20906,128 @@ impl Operation {
     }
 
     /// Sets the value of [kind][crate::model::Operation::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Operation::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [name][crate::model::Operation::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::Operation::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [operation_group_id][crate::model::Operation::operation_group_id].
-    pub fn set_operation_group_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operation_group_id = v.into();
+    pub fn set_operation_group_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.operation_group_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [operation_group_id][crate::model::Operation::operation_group_id].
+    pub fn set_or_clear_operation_group_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.operation_group_id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [operation_type][crate::model::Operation::operation_type].
-    pub fn set_operation_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.operation_type = v.into();
+    pub fn set_operation_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.operation_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [operation_type][crate::model::Operation::operation_type].
+    pub fn set_or_clear_operation_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.operation_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [progress][crate::model::Operation::progress].
-    pub fn set_progress<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.progress = v.into();
+    pub fn set_progress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.progress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [progress][crate::model::Operation::progress].
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.progress = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [region][crate::model::Operation::region].
-    pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.region = v.into();
+    pub fn set_region<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.region = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [region][crate::model::Operation::region].
+    pub fn set_or_clear_region<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.region = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::Operation::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::Operation::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -18047,41 +21053,110 @@ impl Operation {
     }
 
     /// Sets the value of [start_time][crate::model::Operation::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::Operation::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [status][crate::model::Operation::status].
-    pub fn set_status<T: std::convert::Into<crate::model::operation::Status>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.status = v.into();
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::operation::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::Operation::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::operation::Status>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [status_message][crate::model::Operation::status_message].
-    pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.status_message = v.into();
+    pub fn set_status_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.status_message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status_message][crate::model::Operation::status_message].
+    pub fn set_or_clear_status_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.status_message = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [target_id][crate::model::Operation::target_id].
-    pub fn set_target_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
-        self.target_id = v.into();
+    pub fn set_target_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.target_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_id][crate::model::Operation::target_id].
+    pub fn set_or_clear_target_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.target_id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [target_link][crate::model::Operation::target_link].
-    pub fn set_target_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.target_link = v.into();
+    pub fn set_target_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_link][crate::model::Operation::target_link].
+    pub fn set_or_clear_target_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target_link = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [user][crate::model::Operation::user].
-    pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.user = v.into();
+    pub fn set_user<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.user = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [user][crate::model::Operation::user].
+    pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.user = v.map(|x| x.into());
         self
     }
 
@@ -18097,8 +21172,20 @@ impl Operation {
     }
 
     /// Sets the value of [zone][crate::model::Operation::zone].
-    pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.zone = v.into();
+    pub fn set_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [zone][crate::model::Operation::zone].
+    pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = v.map(|x| x.into());
         self
     }
 }
@@ -18168,16 +21255,16 @@ pub mod operation {
         #[non_exhaustive]
         pub struct Errors {
             /// [Output Only] The error type identifier for this error.
-            pub code: std::string::String,
+            pub code: std::option::Option<std::string::String>,
 
             /// [Output Only] An optional list of messages that contain the error details. There is a set of defined message types to use for providing details.The syntax depends on the error code. For example, QuotaExceededInfo will have details when the error code is QUOTA_EXCEEDED.
             pub error_details: std::vec::Vec<crate::model::operation::error::errors::ErrorDetails>,
 
             /// [Output Only] Indicates the field in the request that caused the error. This property is optional.
-            pub location: std::string::String,
+            pub location: std::option::Option<std::string::String>,
 
             /// [Output Only] An optional, human-readable error message.
-            pub message: std::string::String,
+            pub message: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -18189,8 +21276,20 @@ pub mod operation {
             }
 
             /// Sets the value of [code][crate::model::operation::error::Errors::code].
-            pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.code = v.into();
+            pub fn set_code<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.code = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [code][crate::model::operation::error::Errors::code].
+            pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.code = v.map(|x| x.into());
                 self
             }
 
@@ -18206,17 +21305,38 @@ pub mod operation {
             }
 
             /// Sets the value of [location][crate::model::operation::error::Errors::location].
-            pub fn set_location<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.location = v.into();
+            pub fn set_location<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.location = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [location][crate::model::operation::error::Errors::location].
+            pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.location = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [message][crate::model::operation::error::Errors::message].
-            pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.message = v.into();
+            pub fn set_message<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.message = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [message][crate::model::operation::error::Errors::message].
+            pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.message = v.map(|x| x.into());
                 self
             }
         }
@@ -18351,13 +21471,13 @@ pub mod operation {
     #[non_exhaustive]
     pub struct Warnings {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::operation::warnings::Code,
+        pub code: std::option::Option<crate::model::operation::warnings::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::operation::warnings::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -18369,11 +21489,20 @@ pub mod operation {
         }
 
         /// Sets the value of [code][crate::model::operation::Warnings::code].
-        pub fn set_code<T: std::convert::Into<crate::model::operation::warnings::Code>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::operation::warnings::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::operation::Warnings::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::operation::warnings::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -18389,8 +21518,20 @@ pub mod operation {
         }
 
         /// Sets the value of [message][crate::model::operation::Warnings::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::operation::Warnings::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -18416,10 +21557,10 @@ pub mod operation {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -18431,14 +21572,38 @@ pub mod operation {
             }
 
             /// Sets the value of [key][crate::model::operation::warnings::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::operation::warnings::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::operation::warnings::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::operation::warnings::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
@@ -19007,19 +22172,19 @@ pub mod operation {
 #[non_exhaustive]
 pub struct OperationList {
     /// [Output Only] The unique identifier for the resource. This identifier is defined by the server.
-    pub id: std::string::String,
+    pub id: std::option::Option<std::string::String>,
 
     /// [Output Only] A list of Operation resources.
     pub items: std::vec::Vec<crate::model::Operation>,
 
     /// [Output Only] Type of resource. Always `compute#operations` for Operations resource.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than `maxResults`, use the `nextPageToken` as a value for the query parameter `pageToken` in the next list request. Subsequent list requests will have their own `nextPageToken` to continue paging through the results.
-    pub next_page_token: std::string::String,
+    pub next_page_token: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] Informational warning message.
     pub warning: std::option::Option<crate::model::operation_list::Warning>,
@@ -19034,8 +22199,20 @@ impl OperationList {
     }
 
     /// Sets the value of [id][crate::model::OperationList::id].
-    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::OperationList::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
@@ -19051,20 +22228,56 @@ impl OperationList {
     }
 
     /// Sets the value of [kind][crate::model::OperationList::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::OperationList::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::OperationList::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::OperationList::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::OperationList::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::OperationList::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -19105,7 +22318,7 @@ impl gax::paginator::internal::PageableResponse for OperationList {
 
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
-        self.next_page_token.clone()
+        self.next_page_token.clone().unwrap_or_default()
     }
 }
 
@@ -19123,13 +22336,13 @@ pub mod operation_list {
     #[non_exhaustive]
     pub struct Warning {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::operation_list::warning::Code,
+        pub code: std::option::Option<crate::model::operation_list::warning::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::operation_list::warning::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -19141,11 +22354,20 @@ pub mod operation_list {
         }
 
         /// Sets the value of [code][crate::model::operation_list::Warning::code].
-        pub fn set_code<T: std::convert::Into<crate::model::operation_list::warning::Code>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::operation_list::warning::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::operation_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::operation_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -19161,8 +22383,20 @@ pub mod operation_list {
         }
 
         /// Sets the value of [message][crate::model::operation_list::Warning::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::operation_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -19188,10 +22422,10 @@ pub mod operation_list {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -19203,14 +22437,38 @@ pub mod operation_list {
             }
 
             /// Sets the value of [key][crate::model::operation_list::warning::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::operation_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::operation_list::warning::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::operation_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
@@ -19645,10 +22903,10 @@ pub struct Policy {
     pub bindings: std::vec::Vec<crate::model::Binding>,
 
     /// `etag` is used for optimistic concurrency control as a way to help prevent simultaneous updates of a policy from overwriting each other. It is strongly suggested that systems make use of the `etag` in the read-modify-write cycle to perform policy updates in order to avoid race conditions: An `etag` is returned in the response to `getIamPolicy`, and systems are expected to put that etag in the request to `setIamPolicy` to ensure that their change will be applied to the same version of the policy. **Important:** If you use IAM Conditions, you must include the `etag` field whenever you call `setIamPolicy`. If you omit this field, then IAM allows you to overwrite a version `3` policy with a version `1` policy, and all of the conditions in the version `3` policy are lost.
-    pub etag: ::bytes::Bytes,
+    pub etag: std::option::Option<::bytes::Bytes>,
 
     /// Specifies the format of the policy. Valid values are `0`, `1`, and `3`. Requests that specify an invalid value are rejected. Any operation that affects conditional role bindings must specify version `3`. This requirement applies to the following operations: * Getting a policy that includes a conditional role binding * Adding a conditional role binding to a policy * Changing a conditional role binding in a policy * Removing any role binding, with or without a condition, from a policy that includes conditions **Important:** If you use IAM Conditions, you must include the `etag` field whenever you call `setIamPolicy`. If you omit this field, then IAM allows you to overwrite a version `3` policy with a version `1` policy, and all of the conditions in the version `3` policy are lost. If a policy does not include any conditions, operations on that policy may specify any valid version or leave the field unset. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
-    pub version: i32,
+    pub version: std::option::Option<i32>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -19682,14 +22940,38 @@ impl Policy {
     }
 
     /// Sets the value of [etag][crate::model::Policy::etag].
-    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.etag = v.into();
+    pub fn set_etag<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.etag = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [etag][crate::model::Policy::etag].
+    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.etag = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [version][crate::model::Policy::version].
-    pub fn set_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.version = v.into();
+    pub fn set_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [version][crate::model::Policy::version].
+    pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.version = v.map(|x| x.into());
         self
     }
 }
@@ -19710,19 +22992,19 @@ pub struct QuotaExceededInfo {
     pub dimensions: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Future quota limit being rolled out. The limit's unit depends on the quota type or metric.
-    pub future_limit: f64,
+    pub future_limit: std::option::Option<f64>,
 
     /// Current effective quota limit. The limit's unit depends on the quota type or metric.
-    pub limit: f64,
+    pub limit: std::option::Option<f64>,
 
     /// The name of the quota limit.
-    pub limit_name: std::string::String,
+    pub limit_name: std::option::Option<std::string::String>,
 
     /// The Compute Engine quota metric name.
-    pub metric_name: std::string::String,
+    pub metric_name: std::option::Option<std::string::String>,
 
     /// Rollout status of the future quota limit.
-    pub rollout_status: crate::model::quota_exceeded_info::RolloutStatus,
+    pub rollout_status: std::option::Option<crate::model::quota_exceeded_info::RolloutStatus>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -19745,37 +23027,92 @@ impl QuotaExceededInfo {
     }
 
     /// Sets the value of [future_limit][crate::model::QuotaExceededInfo::future_limit].
-    pub fn set_future_limit<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.future_limit = v.into();
+    pub fn set_future_limit<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.future_limit = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [future_limit][crate::model::QuotaExceededInfo::future_limit].
+    pub fn set_or_clear_future_limit<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.future_limit = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [limit][crate::model::QuotaExceededInfo::limit].
-    pub fn set_limit<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.limit = v.into();
+    pub fn set_limit<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.limit = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [limit][crate::model::QuotaExceededInfo::limit].
+    pub fn set_or_clear_limit<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.limit = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [limit_name][crate::model::QuotaExceededInfo::limit_name].
-    pub fn set_limit_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.limit_name = v.into();
+    pub fn set_limit_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.limit_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [limit_name][crate::model::QuotaExceededInfo::limit_name].
+    pub fn set_or_clear_limit_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.limit_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [metric_name][crate::model::QuotaExceededInfo::metric_name].
-    pub fn set_metric_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.metric_name = v.into();
+    pub fn set_metric_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.metric_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metric_name][crate::model::QuotaExceededInfo::metric_name].
+    pub fn set_or_clear_metric_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.metric_name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [rollout_status][crate::model::QuotaExceededInfo::rollout_status].
-    pub fn set_rollout_status<
+    pub fn set_rollout_status<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::quota_exceeded_info::RolloutStatus>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rollout_status = v.into();
+    {
+        self.rollout_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rollout_status][crate::model::QuotaExceededInfo::rollout_status].
+    pub fn set_or_clear_rollout_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::quota_exceeded_info::RolloutStatus>,
+    {
+        self.rollout_status = v.map(|x| x.into());
         self
     }
 }
@@ -19936,16 +23273,16 @@ pub mod quota_exceeded_info {
 #[non_exhaustive]
 pub struct Reference {
     /// [Output Only] Type of the resource. Always compute#reference for references.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// A description of the reference type with no implied semantics. Possible values include: 1. MEMBER_OF
-    pub reference_type: std::string::String,
+    pub reference_type: std::option::Option<std::string::String>,
 
     /// URL of the resource which refers to the target.
-    pub referrer: std::string::String,
+    pub referrer: std::option::Option<std::string::String>,
 
     /// URL of the resource to which this reference points.
-    pub target: std::string::String,
+    pub target: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -19957,26 +23294,74 @@ impl Reference {
     }
 
     /// Sets the value of [kind][crate::model::Reference::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Reference::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [reference_type][crate::model::Reference::reference_type].
-    pub fn set_reference_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.reference_type = v.into();
+    pub fn set_reference_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.reference_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reference_type][crate::model::Reference::reference_type].
+    pub fn set_or_clear_reference_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.reference_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [referrer][crate::model::Reference::referrer].
-    pub fn set_referrer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.referrer = v.into();
+    pub fn set_referrer<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.referrer = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [referrer][crate::model::Reference::referrer].
+    pub fn set_or_clear_referrer<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.referrer = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [target][crate::model::Reference::target].
-    pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.target = v.into();
+    pub fn set_target<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target][crate::model::Reference::target].
+    pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target = v.map(|x| x.into());
         self
     }
 }
@@ -19994,10 +23379,11 @@ impl wkt::message::Message for Reference {
 #[non_exhaustive]
 pub struct ReservationAffinity {
     /// Specifies the type of reservation from which this instance can consume resources: ANY_RESERVATION (default), SPECIFIC_RESERVATION, or NO_RESERVATION. See Consuming reserved instances for examples.
-    pub consume_reservation_type: crate::model::reservation_affinity::ConsumeReservationType,
+    pub consume_reservation_type:
+        std::option::Option<crate::model::reservation_affinity::ConsumeReservationType>,
 
     /// Corresponds to the label key of a reservation resource. To target a SPECIFIC_RESERVATION by name, specify googleapis.com/reservation-name as the key and specify the name of your reservation as its value.
-    pub key: std::string::String,
+    pub key: std::option::Option<std::string::String>,
 
     /// Corresponds to the label values of a reservation resource. This can be either a name to a reservation in the same project or "projects/different-project/reservations/some-reservation-name" to target a shared reservation in the same zone but in a different project.
     pub values: std::vec::Vec<std::string::String>,
@@ -20012,19 +23398,38 @@ impl ReservationAffinity {
     }
 
     /// Sets the value of [consume_reservation_type][crate::model::ReservationAffinity::consume_reservation_type].
-    pub fn set_consume_reservation_type<
+    pub fn set_consume_reservation_type<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::reservation_affinity::ConsumeReservationType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consume_reservation_type = v.into();
+    {
+        self.consume_reservation_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [consume_reservation_type][crate::model::ReservationAffinity::consume_reservation_type].
+    pub fn set_or_clear_consume_reservation_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::reservation_affinity::ConsumeReservationType>,
+    {
+        self.consume_reservation_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [key][crate::model::ReservationAffinity::key].
-    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.key = v.into();
+    pub fn set_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [key][crate::model::ReservationAffinity::key].
+    pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.key = v.map(|x| x.into());
         self
     }
 
@@ -20213,7 +23618,7 @@ pub struct ResourceStatus {
         std::option::Option<crate::model::ResourceStatusEffectiveInstanceMetadata>,
 
     /// [Output Only] The precise location of your instance within the zone's data center, including the block, sub-block, and host. The field is formatted as follows: blockId/subBlockId/hostId.
-    pub physical_host: std::string::String,
+    pub physical_host: std::option::Option<std::string::String>,
 
     /// [Output Only] A series of fields containing the global name of the Compute Engine cluster, as well as the ID of the block, sub-block, and host on which the running instance is located.
     pub physical_host_topology:
@@ -20251,8 +23656,20 @@ impl ResourceStatus {
     }
 
     /// Sets the value of [physical_host][crate::model::ResourceStatus::physical_host].
-    pub fn set_physical_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.physical_host = v.into();
+    pub fn set_physical_host<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.physical_host = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [physical_host][crate::model::ResourceStatus::physical_host].
+    pub fn set_or_clear_physical_host<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.physical_host = v.map(|x| x.into());
         self
     }
 
@@ -20324,28 +23741,28 @@ impl wkt::message::Message for ResourceStatus {
 #[non_exhaustive]
 pub struct ResourceStatusEffectiveInstanceMetadata {
     /// Effective block-project-ssh-keys value at Instance level.
-    pub block_project_ssh_keys_metadata_value: bool,
+    pub block_project_ssh_keys_metadata_value: std::option::Option<bool>,
 
     /// Effective enable-guest-attributes value at Instance level.
-    pub enable_guest_attributes_metadata_value: bool,
+    pub enable_guest_attributes_metadata_value: std::option::Option<bool>,
 
     /// Effective enable-os-inventory value at Instance level.
-    pub enable_os_inventory_metadata_value: bool,
+    pub enable_os_inventory_metadata_value: std::option::Option<bool>,
 
     /// Effective enable-osconfig value at Instance level.
-    pub enable_osconfig_metadata_value: bool,
+    pub enable_osconfig_metadata_value: std::option::Option<bool>,
 
     /// Effective enable-oslogin value at Instance level.
-    pub enable_oslogin_metadata_value: bool,
+    pub enable_oslogin_metadata_value: std::option::Option<bool>,
 
     /// Effective serial-port-enable value at Instance level.
-    pub serial_port_enable_metadata_value: bool,
+    pub serial_port_enable_metadata_value: std::option::Option<bool>,
 
     /// Effective serial-port-logging-enable value at Instance level.
-    pub serial_port_logging_enable_metadata_value: bool,
+    pub serial_port_logging_enable_metadata_value: std::option::Option<bool>,
 
     /// Effective VM DNS setting at Instance level.
-    pub vm_dns_setting_metadata_value: std::string::String,
+    pub vm_dns_setting_metadata_value: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -20357,68 +23774,170 @@ impl ResourceStatusEffectiveInstanceMetadata {
     }
 
     /// Sets the value of [block_project_ssh_keys_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::block_project_ssh_keys_metadata_value].
-    pub fn set_block_project_ssh_keys_metadata_value<T: std::convert::Into<bool>>(
+    pub fn set_block_project_ssh_keys_metadata_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.block_project_ssh_keys_metadata_value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [block_project_ssh_keys_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::block_project_ssh_keys_metadata_value].
+    pub fn set_or_clear_block_project_ssh_keys_metadata_value<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.block_project_ssh_keys_metadata_value = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.block_project_ssh_keys_metadata_value = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_guest_attributes_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::enable_guest_attributes_metadata_value].
-    pub fn set_enable_guest_attributes_metadata_value<T: std::convert::Into<bool>>(
+    pub fn set_enable_guest_attributes_metadata_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_guest_attributes_metadata_value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_guest_attributes_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::enable_guest_attributes_metadata_value].
+    pub fn set_or_clear_enable_guest_attributes_metadata_value<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.enable_guest_attributes_metadata_value = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_guest_attributes_metadata_value = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_os_inventory_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::enable_os_inventory_metadata_value].
-    pub fn set_enable_os_inventory_metadata_value<T: std::convert::Into<bool>>(
+    pub fn set_enable_os_inventory_metadata_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_os_inventory_metadata_value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_os_inventory_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::enable_os_inventory_metadata_value].
+    pub fn set_or_clear_enable_os_inventory_metadata_value<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.enable_os_inventory_metadata_value = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_os_inventory_metadata_value = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_osconfig_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::enable_osconfig_metadata_value].
-    pub fn set_enable_osconfig_metadata_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_osconfig_metadata_value = v.into();
+    pub fn set_enable_osconfig_metadata_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_osconfig_metadata_value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_osconfig_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::enable_osconfig_metadata_value].
+    pub fn set_or_clear_enable_osconfig_metadata_value<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_osconfig_metadata_value = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_oslogin_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::enable_oslogin_metadata_value].
-    pub fn set_enable_oslogin_metadata_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_oslogin_metadata_value = v.into();
+    pub fn set_enable_oslogin_metadata_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_oslogin_metadata_value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_oslogin_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::enable_oslogin_metadata_value].
+    pub fn set_or_clear_enable_oslogin_metadata_value<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_oslogin_metadata_value = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [serial_port_enable_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::serial_port_enable_metadata_value].
-    pub fn set_serial_port_enable_metadata_value<T: std::convert::Into<bool>>(
+    pub fn set_serial_port_enable_metadata_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.serial_port_enable_metadata_value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [serial_port_enable_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::serial_port_enable_metadata_value].
+    pub fn set_or_clear_serial_port_enable_metadata_value<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.serial_port_enable_metadata_value = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.serial_port_enable_metadata_value = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [serial_port_logging_enable_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::serial_port_logging_enable_metadata_value].
-    pub fn set_serial_port_logging_enable_metadata_value<T: std::convert::Into<bool>>(
+    pub fn set_serial_port_logging_enable_metadata_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.serial_port_logging_enable_metadata_value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [serial_port_logging_enable_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::serial_port_logging_enable_metadata_value].
+    pub fn set_or_clear_serial_port_logging_enable_metadata_value<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.serial_port_logging_enable_metadata_value = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.serial_port_logging_enable_metadata_value = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [vm_dns_setting_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::vm_dns_setting_metadata_value].
-    pub fn set_vm_dns_setting_metadata_value<T: std::convert::Into<std::string::String>>(
+    pub fn set_vm_dns_setting_metadata_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.vm_dns_setting_metadata_value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vm_dns_setting_metadata_value][crate::model::ResourceStatusEffectiveInstanceMetadata::vm_dns_setting_metadata_value].
+    pub fn set_or_clear_vm_dns_setting_metadata_value<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.vm_dns_setting_metadata_value = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.vm_dns_setting_metadata_value = v.map(|x| x.into());
         self
     }
 }
@@ -20436,16 +23955,16 @@ impl wkt::message::Message for ResourceStatusEffectiveInstanceMetadata {
 #[non_exhaustive]
 pub struct ResourceStatusPhysicalHostTopology {
     /// [Output Only] The ID of the block in which the running instance is located. Instances within the same block experience low network latency.
-    pub block: std::string::String,
+    pub block: std::option::Option<std::string::String>,
 
     /// [Output Only] The global name of the Compute Engine cluster where the running instance is located.
-    pub cluster: std::string::String,
+    pub cluster: std::option::Option<std::string::String>,
 
     /// [Output Only] The ID of the host on which the running instance is located. Instances on the same host experience the lowest possible network latency.
-    pub host: std::string::String,
+    pub host: std::option::Option<std::string::String>,
 
     /// [Output Only] The ID of the sub-block in which the running instance is located. Instances in the same sub-block experience lower network latency than instances in the same block.
-    pub subblock: std::string::String,
+    pub subblock: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -20457,26 +23976,74 @@ impl ResourceStatusPhysicalHostTopology {
     }
 
     /// Sets the value of [block][crate::model::ResourceStatusPhysicalHostTopology::block].
-    pub fn set_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.block = v.into();
+    pub fn set_block<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.block = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [block][crate::model::ResourceStatusPhysicalHostTopology::block].
+    pub fn set_or_clear_block<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.block = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cluster][crate::model::ResourceStatusPhysicalHostTopology::cluster].
-    pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.cluster = v.into();
+    pub fn set_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cluster][crate::model::ResourceStatusPhysicalHostTopology::cluster].
+    pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.cluster = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [host][crate::model::ResourceStatusPhysicalHostTopology::host].
-    pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.host = v.into();
+    pub fn set_host<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.host = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [host][crate::model::ResourceStatusPhysicalHostTopology::host].
+    pub fn set_or_clear_host<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.host = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [subblock][crate::model::ResourceStatusPhysicalHostTopology::subblock].
-    pub fn set_subblock<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.subblock = v.into();
+    pub fn set_subblock<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.subblock = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [subblock][crate::model::ResourceStatusPhysicalHostTopology::subblock].
+    pub fn set_or_clear_subblock<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.subblock = v.map(|x| x.into());
         self
     }
 }
@@ -20493,7 +24060,7 @@ impl wkt::message::Message for ResourceStatusPhysicalHostTopology {
 #[non_exhaustive]
 pub struct ResourceStatusScheduling {
     /// Specifies the availability domain to place the instance in. The value must be a number between 1 and the number of availability domains specified in the spread placement policy attached to the instance.
-    pub availability_domain: i32,
+    pub availability_domain: std::option::Option<i32>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -20505,8 +24072,20 @@ impl ResourceStatusScheduling {
     }
 
     /// Sets the value of [availability_domain][crate::model::ResourceStatusScheduling::availability_domain].
-    pub fn set_availability_domain<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.availability_domain = v.into();
+    pub fn set_availability_domain<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.availability_domain = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [availability_domain][crate::model::ResourceStatusScheduling::availability_domain].
+    pub fn set_or_clear_availability_domain<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.availability_domain = v.map(|x| x.into());
         self
     }
 }
@@ -20524,48 +24103,49 @@ impl wkt::message::Message for ResourceStatusScheduling {
 #[non_exhaustive]
 pub struct Scheduling {
     /// Specifies whether the instance should be automatically restarted if it is terminated by Compute Engine (not terminated by a user). You can only set the automatic restart option for standard instances. Preemptible instances cannot be automatically restarted. By default, this is set to true so an instance is automatically restarted if it is terminated by Compute Engine.
-    pub automatic_restart: bool,
+    pub automatic_restart: std::option::Option<bool>,
 
     /// Specifies the availability domain to place the instance in. The value must be a number between 1 and the number of availability domains specified in the spread placement policy attached to the instance.
-    pub availability_domain: i32,
+    pub availability_domain: std::option::Option<i32>,
 
     /// Specify the time in seconds for host error detection, the value must be within the range of [90, 330] with the increment of 30, if unset, the default behavior of host error recovery will be used.
-    pub host_error_timeout_seconds: i32,
+    pub host_error_timeout_seconds: std::option::Option<i32>,
 
     /// Specifies the termination action for the instance.
-    pub instance_termination_action: crate::model::scheduling::InstanceTerminationAction,
+    pub instance_termination_action:
+        std::option::Option<crate::model::scheduling::InstanceTerminationAction>,
 
     /// Specifies the maximum amount of time a Local Ssd Vm should wait while recovery of the Local Ssd state is attempted. Its value should be in between 0 and 168 hours with hour granularity and the default value being 1 hour.
     pub local_ssd_recovery_timeout: std::option::Option<crate::model::Duration>,
 
     /// An opaque location hint used to place the instance close to other resources. This field is for use by internal tools that use the public API.
-    pub location_hint: std::string::String,
+    pub location_hint: std::option::Option<std::string::String>,
 
     /// Specifies the max run duration for the given instance. If specified, the instance termination action will be performed at the end of the run duration.
     pub max_run_duration: std::option::Option<crate::model::Duration>,
 
     /// The minimum number of virtual CPUs this instance will consume when running on a sole-tenant node.
-    pub min_node_cpus: i32,
+    pub min_node_cpus: std::option::Option<i32>,
 
     /// A set of node affinity and anti-affinity configurations. Refer to Configuring node affinity for more information. Overrides reservationAffinity.
     pub node_affinities: std::vec::Vec<crate::model::SchedulingNodeAffinity>,
 
     /// Defines the maintenance behavior for this instance. For standard instances, the default behavior is MIGRATE. For preemptible instances, the default and only possible behavior is TERMINATE. For more information, see Set VM host maintenance policy.
-    pub on_host_maintenance: crate::model::scheduling::OnHostMaintenance,
+    pub on_host_maintenance: std::option::Option<crate::model::scheduling::OnHostMaintenance>,
 
     pub on_instance_stop_action: std::option::Option<crate::model::SchedulingOnInstanceStopAction>,
 
     /// Defines whether the instance is preemptible. This can only be set during instance creation or while the instance is stopped and therefore, in a `TERMINATED` state. See Instance Life Cycle for more information on the possible instance states.
-    pub preemptible: bool,
+    pub preemptible: std::option::Option<bool>,
 
     /// Specifies the provisioning model of the instance.
-    pub provisioning_model: crate::model::scheduling::ProvisioningModel,
+    pub provisioning_model: std::option::Option<crate::model::scheduling::ProvisioningModel>,
 
     /// Default is false and there will be 120 seconds between GCE ACPI G2 Soft Off and ACPI G3 Mechanical Off for Standard VMs and 30 seconds for Spot VMs.
-    pub skip_guest_os_shutdown: bool,
+    pub skip_guest_os_shutdown: std::option::Option<bool>,
 
     /// Specifies the timestamp, when the instance will be terminated, in RFC3339 text format. If specified, the instance termination action will be performed at the termination time.
-    pub termination_time: std::string::String,
+    pub termination_time: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -20577,31 +24157,74 @@ impl Scheduling {
     }
 
     /// Sets the value of [automatic_restart][crate::model::Scheduling::automatic_restart].
-    pub fn set_automatic_restart<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.automatic_restart = v.into();
+    pub fn set_automatic_restart<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.automatic_restart = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [automatic_restart][crate::model::Scheduling::automatic_restart].
+    pub fn set_or_clear_automatic_restart<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.automatic_restart = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [availability_domain][crate::model::Scheduling::availability_domain].
-    pub fn set_availability_domain<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.availability_domain = v.into();
+    pub fn set_availability_domain<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.availability_domain = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [availability_domain][crate::model::Scheduling::availability_domain].
+    pub fn set_or_clear_availability_domain<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.availability_domain = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [host_error_timeout_seconds][crate::model::Scheduling::host_error_timeout_seconds].
-    pub fn set_host_error_timeout_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.host_error_timeout_seconds = v.into();
+    pub fn set_host_error_timeout_seconds<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.host_error_timeout_seconds = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [host_error_timeout_seconds][crate::model::Scheduling::host_error_timeout_seconds].
+    pub fn set_or_clear_host_error_timeout_seconds<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.host_error_timeout_seconds = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [instance_termination_action][crate::model::Scheduling::instance_termination_action].
-    pub fn set_instance_termination_action<
+    pub fn set_instance_termination_action<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::scheduling::InstanceTerminationAction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.instance_termination_action = v.into();
+    {
+        self.instance_termination_action = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance_termination_action][crate::model::Scheduling::instance_termination_action].
+    pub fn set_or_clear_instance_termination_action<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::scheduling::InstanceTerminationAction>,
+    {
+        self.instance_termination_action = v.map(|x| x.into());
         self
     }
 
@@ -20624,8 +24247,20 @@ impl Scheduling {
     }
 
     /// Sets the value of [location_hint][crate::model::Scheduling::location_hint].
-    pub fn set_location_hint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location_hint = v.into();
+    pub fn set_location_hint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.location_hint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [location_hint][crate::model::Scheduling::location_hint].
+    pub fn set_or_clear_location_hint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.location_hint = v.map(|x| x.into());
         self
     }
 
@@ -20648,8 +24283,20 @@ impl Scheduling {
     }
 
     /// Sets the value of [min_node_cpus][crate::model::Scheduling::min_node_cpus].
-    pub fn set_min_node_cpus<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.min_node_cpus = v.into();
+    pub fn set_min_node_cpus<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.min_node_cpus = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [min_node_cpus][crate::model::Scheduling::min_node_cpus].
+    pub fn set_or_clear_min_node_cpus<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.min_node_cpus = v.map(|x| x.into());
         self
     }
 
@@ -20665,13 +24312,20 @@ impl Scheduling {
     }
 
     /// Sets the value of [on_host_maintenance][crate::model::Scheduling::on_host_maintenance].
-    pub fn set_on_host_maintenance<
+    pub fn set_on_host_maintenance<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::scheduling::OnHostMaintenance>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.on_host_maintenance = v.into();
+    {
+        self.on_host_maintenance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [on_host_maintenance][crate::model::Scheduling::on_host_maintenance].
+    pub fn set_or_clear_on_host_maintenance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::scheduling::OnHostMaintenance>,
+    {
+        self.on_host_maintenance = v.map(|x| x.into());
         self
     }
 
@@ -20694,34 +24348,74 @@ impl Scheduling {
     }
 
     /// Sets the value of [preemptible][crate::model::Scheduling::preemptible].
-    pub fn set_preemptible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.preemptible = v.into();
+    pub fn set_preemptible<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.preemptible = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [preemptible][crate::model::Scheduling::preemptible].
+    pub fn set_or_clear_preemptible<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.preemptible = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [provisioning_model][crate::model::Scheduling::provisioning_model].
-    pub fn set_provisioning_model<
+    pub fn set_provisioning_model<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::scheduling::ProvisioningModel>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.provisioning_model = v.into();
+    {
+        self.provisioning_model = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provisioning_model][crate::model::Scheduling::provisioning_model].
+    pub fn set_or_clear_provisioning_model<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::scheduling::ProvisioningModel>,
+    {
+        self.provisioning_model = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [skip_guest_os_shutdown][crate::model::Scheduling::skip_guest_os_shutdown].
-    pub fn set_skip_guest_os_shutdown<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.skip_guest_os_shutdown = v.into();
+    pub fn set_skip_guest_os_shutdown<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.skip_guest_os_shutdown = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [skip_guest_os_shutdown][crate::model::Scheduling::skip_guest_os_shutdown].
+    pub fn set_or_clear_skip_guest_os_shutdown<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.skip_guest_os_shutdown = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [termination_time][crate::model::Scheduling::termination_time].
-    pub fn set_termination_time<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.termination_time = v.into();
+    pub fn set_termination_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.termination_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [termination_time][crate::model::Scheduling::termination_time].
+    pub fn set_or_clear_termination_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.termination_time = v.map(|x| x.into());
         self
     }
 }
@@ -21181,10 +24875,10 @@ pub mod scheduling {
 #[non_exhaustive]
 pub struct SchedulingNodeAffinity {
     /// Corresponds to the label key of Node resource.
-    pub key: std::string::String,
+    pub key: std::option::Option<std::string::String>,
 
     /// Defines the operation of node selection. Valid operators are IN for affinity and NOT_IN for anti-affinity.
-    pub operator: crate::model::scheduling_node_affinity::Operator,
+    pub operator: std::option::Option<crate::model::scheduling_node_affinity::Operator>,
 
     /// Corresponds to the label values of Node resource.
     pub values: std::vec::Vec<std::string::String>,
@@ -21199,17 +24893,38 @@ impl SchedulingNodeAffinity {
     }
 
     /// Sets the value of [key][crate::model::SchedulingNodeAffinity::key].
-    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.key = v.into();
+    pub fn set_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [key][crate::model::SchedulingNodeAffinity::key].
+    pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.key = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [operator][crate::model::SchedulingNodeAffinity::operator].
-    pub fn set_operator<T: std::convert::Into<crate::model::scheduling_node_affinity::Operator>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operator = v.into();
+    pub fn set_operator<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::scheduling_node_affinity::Operator>,
+    {
+        self.operator = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [operator][crate::model::SchedulingNodeAffinity::operator].
+    pub fn set_or_clear_operator<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::scheduling_node_affinity::Operator>,
+    {
+        self.operator = v.map(|x| x.into());
         self
     }
 
@@ -21387,7 +25102,7 @@ pub mod scheduling_node_affinity {
 #[non_exhaustive]
 pub struct SchedulingOnInstanceStopAction {
     /// If true, the contents of any attached Local SSD disks will be discarded else, the Local SSD data will be preserved when the instance is stopped at the end of the run duration/termination time.
-    pub discard_local_ssd: bool,
+    pub discard_local_ssd: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -21399,8 +25114,20 @@ impl SchedulingOnInstanceStopAction {
     }
 
     /// Sets the value of [discard_local_ssd][crate::model::SchedulingOnInstanceStopAction::discard_local_ssd].
-    pub fn set_discard_local_ssd<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.discard_local_ssd = v.into();
+    pub fn set_discard_local_ssd<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.discard_local_ssd = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [discard_local_ssd][crate::model::SchedulingOnInstanceStopAction::discard_local_ssd].
+    pub fn set_or_clear_discard_local_ssd<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.discard_local_ssd = v.map(|x| x.into());
         self
     }
 }
@@ -21418,10 +25145,10 @@ impl wkt::message::Message for SchedulingOnInstanceStopAction {
 #[non_exhaustive]
 pub struct Screenshot {
     /// [Output Only] The Base64-encoded screenshot data.
-    pub contents: std::string::String,
+    pub contents: std::option::Option<std::string::String>,
 
     /// [Output Only] Type of the resource. Always compute#screenshot for the screenshots.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -21433,14 +25160,38 @@ impl Screenshot {
     }
 
     /// Sets the value of [contents][crate::model::Screenshot::contents].
-    pub fn set_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.contents = v.into();
+    pub fn set_contents<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.contents = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [contents][crate::model::Screenshot::contents].
+    pub fn set_or_clear_contents<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.contents = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kind][crate::model::Screenshot::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Screenshot::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 }
@@ -21458,19 +25209,19 @@ impl wkt::message::Message for Screenshot {
 #[non_exhaustive]
 pub struct SerialPortOutput {
     /// [Output Only] The contents of the console output.
-    pub contents: std::string::String,
+    pub contents: std::option::Option<std::string::String>,
 
     /// [Output Only] Type of the resource. Always compute#serialPortOutput for serial port output.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] The position of the next byte of content, regardless of whether the content exists, following the output returned in the `contents` property. Use this value in the next request as the start parameter.
-    pub next: i64,
+    pub next: std::option::Option<i64>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// The starting byte position of the output that was returned. This should match the start parameter sent with the request. If the serial console output exceeds the size of the buffer (1 MB), older output is overwritten by newer content. The output start value will indicate the byte position of the output that was returned, which might be different than the `start` value that was specified in the request.
-    pub start: i64,
+    pub start: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -21482,32 +25233,92 @@ impl SerialPortOutput {
     }
 
     /// Sets the value of [contents][crate::model::SerialPortOutput::contents].
-    pub fn set_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.contents = v.into();
+    pub fn set_contents<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.contents = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [contents][crate::model::SerialPortOutput::contents].
+    pub fn set_or_clear_contents<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.contents = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kind][crate::model::SerialPortOutput::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::SerialPortOutput::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next][crate::model::SerialPortOutput::next].
-    pub fn set_next<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.next = v.into();
+    pub fn set_next<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.next = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next][crate::model::SerialPortOutput::next].
+    pub fn set_or_clear_next<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.next = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::SerialPortOutput::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::SerialPortOutput::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [start][crate::model::SerialPortOutput::start].
-    pub fn set_start<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.start = v.into();
+    pub fn set_start<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.start = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start][crate::model::SerialPortOutput::start].
+    pub fn set_or_clear_start<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.start = v.map(|x| x.into());
         self
     }
 }
@@ -21525,7 +25336,7 @@ impl wkt::message::Message for SerialPortOutput {
 #[non_exhaustive]
 pub struct ServiceAccount {
     /// Email address of the service account.
-    pub email: std::string::String,
+    pub email: std::option::Option<std::string::String>,
 
     /// The list of scopes to be made available for this service account.
     pub scopes: std::vec::Vec<std::string::String>,
@@ -21540,8 +25351,20 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [email][crate::model::ServiceAccount::email].
-    pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.email = v.into();
+    pub fn set_email<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.email = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [email][crate::model::ServiceAccount::email].
+    pub fn set_or_clear_email<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.email = v.map(|x| x.into());
         self
     }
 
@@ -21569,7 +25392,7 @@ impl wkt::message::Message for ServiceAccount {
 #[non_exhaustive]
 pub struct SetCommonInstanceMetadataOperationMetadata {
     /// [Output Only] The client operation id.
-    pub client_operation_id: std::string::String,
+    pub client_operation_id: std::option::Option<std::string::String>,
 
     /// [Output Only] Status information per location (location name is key). Example key: zones/us-central1-a
     pub per_location_operations: std::collections::HashMap<
@@ -21587,11 +25410,20 @@ impl SetCommonInstanceMetadataOperationMetadata {
     }
 
     /// Sets the value of [client_operation_id][crate::model::SetCommonInstanceMetadataOperationMetadata::client_operation_id].
-    pub fn set_client_operation_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_operation_id = v.into();
+    pub fn set_client_operation_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.client_operation_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_operation_id][crate::model::SetCommonInstanceMetadataOperationMetadata::client_operation_id].
+    pub fn set_or_clear_client_operation_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.client_operation_id = v.map(|x| x.into());
         self
     }
 
@@ -21618,7 +25450,7 @@ pub struct SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
     pub error: std::option::Option<crate::model::Status>,
 
     /// [Output Only] Status of the action, which can be one of the following: `PROPAGATING`, `PROPAGATED`, `ABANDONED`, `FAILED`, or `DONE`.
-    pub state: crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State,
+    pub state: std::option::Option<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -21648,8 +25480,18 @@ impl SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
     }
 
     /// Sets the value of [state][crate::model::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo::state].
-    pub fn set_state<T: std::convert::Into<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>>(mut self, v: T) -> Self{
-        self.state = v.into();
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo::state].
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>
+    {
+        self.state = v.map(|x| x.into());
         self
     }
 }
@@ -21836,13 +25678,13 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
 #[non_exhaustive]
 pub struct ShieldedInstanceConfig {
     /// Defines whether the instance has integrity monitoring enabled. Enabled by default.
-    pub enable_integrity_monitoring: bool,
+    pub enable_integrity_monitoring: std::option::Option<bool>,
 
     /// Defines whether the instance has Secure Boot enabled. Disabled by default.
-    pub enable_secure_boot: bool,
+    pub enable_secure_boot: std::option::Option<bool>,
 
     /// Defines whether the instance has the vTPM enabled. Enabled by default.
-    pub enable_vtpm: bool,
+    pub enable_vtpm: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -21854,20 +25696,56 @@ impl ShieldedInstanceConfig {
     }
 
     /// Sets the value of [enable_integrity_monitoring][crate::model::ShieldedInstanceConfig::enable_integrity_monitoring].
-    pub fn set_enable_integrity_monitoring<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_integrity_monitoring = v.into();
+    pub fn set_enable_integrity_monitoring<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_integrity_monitoring = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_integrity_monitoring][crate::model::ShieldedInstanceConfig::enable_integrity_monitoring].
+    pub fn set_or_clear_enable_integrity_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_integrity_monitoring = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_secure_boot][crate::model::ShieldedInstanceConfig::enable_secure_boot].
-    pub fn set_enable_secure_boot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_secure_boot = v.into();
+    pub fn set_enable_secure_boot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_secure_boot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_secure_boot][crate::model::ShieldedInstanceConfig::enable_secure_boot].
+    pub fn set_or_clear_enable_secure_boot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_secure_boot = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enable_vtpm][crate::model::ShieldedInstanceConfig::enable_vtpm].
-    pub fn set_enable_vtpm<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_vtpm = v.into();
+    pub fn set_enable_vtpm<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_vtpm = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_vtpm][crate::model::ShieldedInstanceConfig::enable_vtpm].
+    pub fn set_or_clear_enable_vtpm<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_vtpm = v.map(|x| x.into());
         self
     }
 }
@@ -21888,7 +25766,7 @@ pub struct ShieldedInstanceIdentity {
     pub encryption_key: std::option::Option<crate::model::ShieldedInstanceIdentityEntry>,
 
     /// [Output Only] Type of the resource. Always compute#shieldedInstanceIdentity for shielded Instance identity entry.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// An Attestation Key (AK) made by the RSA 2048 algorithm issued to the Shielded Instance's vTPM.
     pub signing_key: std::option::Option<crate::model::ShieldedInstanceIdentityEntry>,
@@ -21921,8 +25799,20 @@ impl ShieldedInstanceIdentity {
     }
 
     /// Sets the value of [kind][crate::model::ShieldedInstanceIdentity::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::ShieldedInstanceIdentity::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
@@ -21958,10 +25848,10 @@ impl wkt::message::Message for ShieldedInstanceIdentity {
 #[non_exhaustive]
 pub struct ShieldedInstanceIdentityEntry {
     /// A PEM-encoded X.509 certificate. This field can be empty.
-    pub ek_cert: std::string::String,
+    pub ek_cert: std::option::Option<std::string::String>,
 
     /// A PEM-encoded public key.
-    pub ek_pub: std::string::String,
+    pub ek_pub: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -21973,14 +25863,38 @@ impl ShieldedInstanceIdentityEntry {
     }
 
     /// Sets the value of [ek_cert][crate::model::ShieldedInstanceIdentityEntry::ek_cert].
-    pub fn set_ek_cert<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.ek_cert = v.into();
+    pub fn set_ek_cert<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ek_cert = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ek_cert][crate::model::ShieldedInstanceIdentityEntry::ek_cert].
+    pub fn set_or_clear_ek_cert<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ek_cert = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [ek_pub][crate::model::ShieldedInstanceIdentityEntry::ek_pub].
-    pub fn set_ek_pub<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.ek_pub = v.into();
+    pub fn set_ek_pub<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ek_pub = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ek_pub][crate::model::ShieldedInstanceIdentityEntry::ek_pub].
+    pub fn set_or_clear_ek_pub<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ek_pub = v.map(|x| x.into());
         self
     }
 }
@@ -21998,7 +25912,7 @@ impl wkt::message::Message for ShieldedInstanceIdentityEntry {
 #[non_exhaustive]
 pub struct ShieldedInstanceIntegrityPolicy {
     /// Updates the integrity policy baseline using the measurements from the VM instance's most recent boot.
-    pub update_auto_learn_policy: bool,
+    pub update_auto_learn_policy: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -22010,8 +25924,20 @@ impl ShieldedInstanceIntegrityPolicy {
     }
 
     /// Sets the value of [update_auto_learn_policy][crate::model::ShieldedInstanceIntegrityPolicy::update_auto_learn_policy].
-    pub fn set_update_auto_learn_policy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.update_auto_learn_policy = v.into();
+    pub fn set_update_auto_learn_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.update_auto_learn_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_auto_learn_policy][crate::model::ShieldedInstanceIntegrityPolicy::update_auto_learn_policy].
+    pub fn set_or_clear_update_auto_learn_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.update_auto_learn_policy = v.map(|x| x.into());
         self
     }
 }
@@ -22029,13 +25955,13 @@ impl wkt::message::Message for ShieldedInstanceIntegrityPolicy {
 #[non_exhaustive]
 pub struct Status {
     /// The status code, which should be an enum value of google.rpc.Code.
-    pub code: i32,
+    pub code: std::option::Option<i32>,
 
     /// A list of messages that carry the error details. There is a common set of message types for APIs to use.
     pub details: std::vec::Vec<wkt::Any>,
 
     /// A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
-    pub message: std::string::String,
+    pub message: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -22047,8 +25973,20 @@ impl Status {
     }
 
     /// Sets the value of [code][crate::model::Status::code].
-    pub fn set_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.code = v.into();
+    pub fn set_code<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.code = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [code][crate::model::Status::code].
+    pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.code = v.map(|x| x.into());
         self
     }
 
@@ -22064,8 +26002,20 @@ impl Status {
     }
 
     /// Sets the value of [message][crate::model::Status::message].
-    pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.message = v.into();
+    pub fn set_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [message][crate::model::Status::message].
+    pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = v.map(|x| x.into());
         self
     }
 }
@@ -22083,7 +26033,7 @@ impl wkt::message::Message for Status {
 #[non_exhaustive]
 pub struct Tags {
     /// Specifies a fingerprint for this request, which is essentially a hash of the tags' contents and used for optimistic locking. The fingerprint is initially generated by Compute Engine and changes after every request to modify or update tags. You must always provide an up-to-date fingerprint hash in order to update or change tags. To see the latest fingerprint, make get() request to the instance.
-    pub fingerprint: ::bytes::Bytes,
+    pub fingerprint: std::option::Option<::bytes::Bytes>,
 
     /// An array of tags. Each tag must be 1-63 characters long, and comply with RFC1035.
     pub items: std::vec::Vec<std::string::String>,
@@ -22098,8 +26048,20 @@ impl Tags {
     }
 
     /// Sets the value of [fingerprint][crate::model::Tags::fingerprint].
-    pub fn set_fingerprint<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.fingerprint = v.into();
+    pub fn set_fingerprint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.fingerprint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [fingerprint][crate::model::Tags::fingerprint].
+    pub fn set_or_clear_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.fingerprint = v.map(|x| x.into());
         self
     }
 
@@ -22198,27 +26160,28 @@ impl wkt::message::Message for TestPermissionsResponse {
 #[non_exhaustive]
 pub struct UpcomingMaintenance {
     /// Indicates if the maintenance can be customer triggered.
-    pub can_reschedule: bool,
+    pub can_reschedule: std::option::Option<bool>,
 
     /// The latest time for the planned maintenance window to start. This timestamp value is in RFC3339 text format.
-    pub latest_window_start_time: std::string::String,
+    pub latest_window_start_time: std::option::Option<std::string::String>,
 
     /// Indicates whether the UpcomingMaintenance will be triggered on VM shutdown.
-    pub maintenance_on_shutdown: bool,
+    pub maintenance_on_shutdown: std::option::Option<bool>,
 
     /// The reasons for the maintenance. Only valid for vms.
     pub maintenance_reasons: std::vec::Vec<crate::model::upcoming_maintenance::MaintenanceReasons>,
 
-    pub maintenance_status: crate::model::upcoming_maintenance::MaintenanceStatus,
+    pub maintenance_status:
+        std::option::Option<crate::model::upcoming_maintenance::MaintenanceStatus>,
 
     /// Defines the type of maintenance.
-    pub r#type: crate::model::upcoming_maintenance::Type,
+    pub r#type: std::option::Option<crate::model::upcoming_maintenance::Type>,
 
     /// The time by which the maintenance disruption will be completed. This timestamp value is in RFC3339 text format.
-    pub window_end_time: std::string::String,
+    pub window_end_time: std::option::Option<std::string::String>,
 
     /// The current start time of the maintenance window. This timestamp value is in RFC3339 text format.
-    pub window_start_time: std::string::String,
+    pub window_start_time: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -22230,23 +26193,56 @@ impl UpcomingMaintenance {
     }
 
     /// Sets the value of [can_reschedule][crate::model::UpcomingMaintenance::can_reschedule].
-    pub fn set_can_reschedule<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.can_reschedule = v.into();
+    pub fn set_can_reschedule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.can_reschedule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [can_reschedule][crate::model::UpcomingMaintenance::can_reschedule].
+    pub fn set_or_clear_can_reschedule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.can_reschedule = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [latest_window_start_time][crate::model::UpcomingMaintenance::latest_window_start_time].
-    pub fn set_latest_window_start_time<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.latest_window_start_time = v.into();
+    pub fn set_latest_window_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.latest_window_start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [latest_window_start_time][crate::model::UpcomingMaintenance::latest_window_start_time].
+    pub fn set_or_clear_latest_window_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.latest_window_start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [maintenance_on_shutdown][crate::model::UpcomingMaintenance::maintenance_on_shutdown].
-    pub fn set_maintenance_on_shutdown<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.maintenance_on_shutdown = v.into();
+    pub fn set_maintenance_on_shutdown<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.maintenance_on_shutdown = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [maintenance_on_shutdown][crate::model::UpcomingMaintenance::maintenance_on_shutdown].
+    pub fn set_or_clear_maintenance_on_shutdown<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.maintenance_on_shutdown = v.map(|x| x.into());
         self
     }
 
@@ -22262,37 +26258,74 @@ impl UpcomingMaintenance {
     }
 
     /// Sets the value of [maintenance_status][crate::model::UpcomingMaintenance::maintenance_status].
-    pub fn set_maintenance_status<
+    pub fn set_maintenance_status<T>(mut self, v: T) -> Self
+    where
         T: std::convert::Into<crate::model::upcoming_maintenance::MaintenanceStatus>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maintenance_status = v.into();
+    {
+        self.maintenance_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [maintenance_status][crate::model::UpcomingMaintenance::maintenance_status].
+    pub fn set_or_clear_maintenance_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::upcoming_maintenance::MaintenanceStatus>,
+    {
+        self.maintenance_status = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [r#type][crate::model::UpcomingMaintenance::type].
-    pub fn set_type<T: std::convert::Into<crate::model::upcoming_maintenance::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = v.into();
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::upcoming_maintenance::Type>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::UpcomingMaintenance::type].
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::upcoming_maintenance::Type>,
+    {
+        self.r#type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [window_end_time][crate::model::UpcomingMaintenance::window_end_time].
-    pub fn set_window_end_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.window_end_time = v.into();
+    pub fn set_window_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.window_end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [window_end_time][crate::model::UpcomingMaintenance::window_end_time].
+    pub fn set_or_clear_window_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.window_end_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [window_start_time][crate::model::UpcomingMaintenance::window_start_time].
-    pub fn set_window_start_time<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window_start_time = v.into();
+    pub fn set_window_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.window_start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [window_start_time][crate::model::UpcomingMaintenance::window_start_time].
+    pub fn set_or_clear_window_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.window_start_time = v.map(|x| x.into());
         self
     }
 }
@@ -23982,7 +28015,7 @@ pub struct ZoneSetPolicyRequest {
     pub bindings: std::vec::Vec<crate::model::Binding>,
 
     /// Flatten Policy to create a backward compatible wire-format. Deprecated. Use 'policy' to specify the etag.
-    pub etag: ::bytes::Bytes,
+    pub etag: std::option::Option<::bytes::Bytes>,
 
     /// REQUIRED: The complete policy to be applied to the 'resource'. The size of the policy is limited to a few 10s of KB. An empty policy is in general a valid policy but certain services (like Projects) might reject them.
     pub policy: std::option::Option<crate::model::Policy>,
@@ -24008,8 +28041,20 @@ impl ZoneSetPolicyRequest {
     }
 
     /// Sets the value of [etag][crate::model::ZoneSetPolicyRequest::etag].
-    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.etag = v.into();
+    pub fn set_etag<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.etag = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [etag][crate::model::ZoneSetPolicyRequest::etag].
+    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.etag = v.map(|x| x.into());
         self
     }
 

@@ -94,8 +94,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AcceleratorConfig {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.accelerator_count =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.accelerator_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__accelerator_type => {
                             if !fields.insert(__FieldTag::__accelerator_type) {
@@ -103,9 +102,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AcceleratorConfig {
                                     "multiple values for accelerator_type",
                                 ));
                             }
-                            result.accelerator_type = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.accelerator_type =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -204,9 +202,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AccessConfig {
                                     "multiple values for external_ipv_6",
                                 ));
                             }
-                            result.external_ipv_6 = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.external_ipv_6 =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__external_ipv_6_prefix_length => {
                             if !fields.insert(__FieldTag::__external_ipv_6_prefix_length) {
@@ -225,8 +222,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AccessConfig {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.external_ipv_6_prefix_length =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.external_ipv_6_prefix_length = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__kind => {
                             if !fields.insert(__FieldTag::__kind) {
@@ -234,9 +230,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AccessConfig {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
@@ -244,9 +239,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AccessConfig {
                                     "multiple values for name",
                                 ));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__nat_ip => {
                             if !fields.insert(__FieldTag::__nat_ip) {
@@ -254,9 +248,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AccessConfig {
                                     "multiple values for nat_ip",
                                 ));
                             }
-                            result.nat_ip = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.nat_ip =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__network_tier => {
                             if !fields.insert(__FieldTag::__network_tier) {
@@ -264,7 +257,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AccessConfig {
                                     "multiple values for network_tier",
                                 ));
                             }
-                            result.network_tier = map.next_value::<std::option::Option<crate::model::access_config::NetworkTier>>()?.unwrap_or_default();
+                            result.network_tier = map.next_value::<std::option::Option<crate::model::access_config::NetworkTier>>()?
+                                ;
                         }
                         __FieldTag::__public_ptr_domain_name => {
                             if !fields.insert(__FieldTag::__public_ptr_domain_name) {
@@ -272,9 +266,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AccessConfig {
                                     "multiple values for public_ptr_domain_name",
                                 ));
                             }
-                            result.public_ptr_domain_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.public_ptr_domain_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__security_policy => {
                             if !fields.insert(__FieldTag::__security_policy) {
@@ -282,9 +275,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AccessConfig {
                                     "multiple values for security_policy",
                                 ));
                             }
-                            result.security_policy = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.security_policy =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__set_public_ptr => {
                             if !fields.insert(__FieldTag::__set_public_ptr) {
@@ -292,9 +284,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AccessConfig {
                                     "multiple values for set_public_ptr",
                                 ));
                             }
-                            result.set_public_ptr = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.set_public_ptr =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__type => {
                             if !fields.insert(__FieldTag::__type) {
@@ -302,7 +293,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AccessConfig {
                                     "multiple values for type",
                                 ));
                             }
-                            result.r#type = map.next_value::<std::option::Option<crate::model::access_config::Type>>()?.unwrap_or_default();
+                            result.r#type = map.next_value::<std::option::Option<crate::model::access_config::Type>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -395,9 +387,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedMachineFeatures {
                                     "multiple values for enable_nested_virtualization",
                                 ));
                             }
-                            result.enable_nested_virtualization = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_nested_virtualization =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__enable_uefi_networking => {
                             if !fields.insert(__FieldTag::__enable_uefi_networking) {
@@ -405,9 +396,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedMachineFeatures {
                                     "multiple values for enable_uefi_networking",
                                 ));
                             }
-                            result.enable_uefi_networking = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_uefi_networking =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__performance_monitoring_unit => {
                             if !fields.insert(__FieldTag::__performance_monitoring_unit) {
@@ -415,7 +405,11 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedMachineFeatures {
                                     "multiple values for performance_monitoring_unit",
                                 ));
                             }
-                            result.performance_monitoring_unit = map.next_value::<std::option::Option<crate::model::advanced_machine_features::PerformanceMonitoringUnit>>()?.unwrap_or_default();
+                            result.performance_monitoring_unit = map
+                                .next_value::<std::option::Option<
+                                crate::model::advanced_machine_features::PerformanceMonitoringUnit,
+                            >>(
+                            )?;
                         }
                         __FieldTag::__threads_per_core => {
                             if !fields.insert(__FieldTag::__threads_per_core) {
@@ -434,8 +428,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedMachineFeatures {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.threads_per_core =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.threads_per_core = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__turbo_mode => {
                             if !fields.insert(__FieldTag::__turbo_mode) {
@@ -443,9 +436,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedMachineFeatures {
                                     "multiple values for turbo_mode",
                                 ));
                             }
-                            result.turbo_mode = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.turbo_mode =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__visible_core_count => {
                             if !fields.insert(__FieldTag::__visible_core_count) {
@@ -464,8 +456,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedMachineFeatures {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.visible_core_count =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.visible_core_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -546,9 +537,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AliasIpRange {
                                     "multiple values for ip_cidr_range",
                                 ));
                             }
-                            result.ip_cidr_range = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.ip_cidr_range =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__subnetwork_range_name => {
                             if !fields.insert(__FieldTag::__subnetwork_range_name) {
@@ -556,9 +546,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AliasIpRange {
                                     "multiple values for subnetwork_range_name",
                                 ));
                             }
-                            result.subnetwork_range_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.subnetwork_range_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -673,7 +662,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for architecture",
                                 ));
                             }
-                            result.architecture = map.next_value::<std::option::Option<crate::model::attached_disk::Architecture>>()?.unwrap_or_default();
+                            result.architecture = map.next_value::<std::option::Option<crate::model::attached_disk::Architecture>>()?
+                                ;
                         }
                         __FieldTag::__auto_delete => {
                             if !fields.insert(__FieldTag::__auto_delete) {
@@ -681,9 +671,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for auto_delete",
                                 ));
                             }
-                            result.auto_delete = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.auto_delete = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__boot => {
                             if !fields.insert(__FieldTag::__boot) {
@@ -691,9 +679,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for boot",
                                 ));
                             }
-                            result.boot = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.boot = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__device_name => {
                             if !fields.insert(__FieldTag::__device_name) {
@@ -701,9 +687,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for device_name",
                                 ));
                             }
-                            result.device_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.device_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__disk_encryption_key => {
                             if !fields.insert(__FieldTag::__disk_encryption_key) {
@@ -731,7 +716,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.disk_size_gb = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.disk_size_gb = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__force_attach => {
                             if !fields.insert(__FieldTag::__force_attach) {
@@ -739,9 +724,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for force_attach",
                                 ));
                             }
-                            result.force_attach = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.force_attach = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__guest_os_features => {
                             if !fields.insert(__FieldTag::__guest_os_features) {
@@ -772,7 +755,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.index = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.index = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__initialize_params => {
                             if !fields.insert(__FieldTag::__initialize_params) {
@@ -789,7 +772,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for interface",
                                 ));
                             }
-                            result.interface = map.next_value::<std::option::Option<crate::model::attached_disk::Interface>>()?.unwrap_or_default();
+                            result.interface = map.next_value::<std::option::Option<crate::model::attached_disk::Interface>>()?
+                                ;
                         }
                         __FieldTag::__kind => {
                             if !fields.insert(__FieldTag::__kind) {
@@ -797,9 +781,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__licenses => {
                             if !fields.insert(__FieldTag::__licenses) {
@@ -815,7 +798,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for mode",
                                 ));
                             }
-                            result.mode = map.next_value::<std::option::Option<crate::model::attached_disk::Mode>>()?.unwrap_or_default();
+                            result.mode = map.next_value::<std::option::Option<crate::model::attached_disk::Mode>>()?
+                                ;
                         }
                         __FieldTag::__saved_state => {
                             if !fields.insert(__FieldTag::__saved_state) {
@@ -823,7 +807,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for saved_state",
                                 ));
                             }
-                            result.saved_state = map.next_value::<std::option::Option<crate::model::attached_disk::SavedState>>()?.unwrap_or_default();
+                            result.saved_state = map.next_value::<std::option::Option<crate::model::attached_disk::SavedState>>()?
+                                ;
                         }
                         __FieldTag::__shielded_instance_initial_state => {
                             if !fields.insert(__FieldTag::__shielded_instance_initial_state) {
@@ -840,9 +825,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for source",
                                 ));
                             }
-                            result.source = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__type => {
                             if !fields.insert(__FieldTag::__type) {
@@ -850,7 +834,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDisk {
                                     "multiple values for type",
                                 ));
                             }
-                            result.r#type = map.next_value::<std::option::Option<crate::model::attached_disk::Type>>()?.unwrap_or_default();
+                            result.r#type = map.next_value::<std::option::Option<crate::model::attached_disk::Type>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -971,11 +956,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     "multiple values for architecture",
                                 ));
                             }
-                            result.architecture = map
-                                .next_value::<std::option::Option<
-                                    crate::model::attached_disk_initialize_params::Architecture,
-                                >>()?
-                                .unwrap_or_default();
+                            result.architecture = map.next_value::<std::option::Option<
+                                crate::model::attached_disk_initialize_params::Architecture,
+                            >>()?;
                         }
                         __FieldTag::__description => {
                             if !fields.insert(__FieldTag::__description) {
@@ -983,9 +966,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     "multiple values for description",
                                 ));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__disk_name => {
                             if !fields.insert(__FieldTag::__disk_name) {
@@ -993,9 +975,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     "multiple values for disk_name",
                                 ));
                             }
-                            result.disk_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.disk_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__disk_size_gb => {
                             if !fields.insert(__FieldTag::__disk_size_gb) {
@@ -1014,7 +995,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.disk_size_gb = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.disk_size_gb = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__disk_type => {
                             if !fields.insert(__FieldTag::__disk_type) {
@@ -1022,9 +1003,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     "multiple values for disk_type",
                                 ));
                             }
-                            result.disk_type = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.disk_type =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__enable_confidential_compute => {
                             if !fields.insert(__FieldTag::__enable_confidential_compute) {
@@ -1032,9 +1012,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     "multiple values for enable_confidential_compute",
                                 ));
                             }
-                            result.enable_confidential_compute = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_confidential_compute =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -1065,11 +1044,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     "multiple values for on_update_action",
                                 ));
                             }
-                            result.on_update_action = map
-                                .next_value::<std::option::Option<
-                                    crate::model::attached_disk_initialize_params::OnUpdateAction,
-                                >>()?
-                                .unwrap_or_default();
+                            result.on_update_action = map.next_value::<std::option::Option<
+                                crate::model::attached_disk_initialize_params::OnUpdateAction,
+                            >>()?;
                         }
                         __FieldTag::__provisioned_iops => {
                             if !fields.insert(__FieldTag::__provisioned_iops) {
@@ -1088,8 +1065,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.provisioned_iops =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.provisioned_iops = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__provisioned_throughput => {
                             if !fields.insert(__FieldTag::__provisioned_throughput) {
@@ -1108,8 +1084,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.provisioned_throughput =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.provisioned_throughput = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__replica_zones => {
                             if !fields.insert(__FieldTag::__replica_zones) {
@@ -1148,9 +1123,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     "multiple values for source_image",
                                 ));
                             }
-                            result.source_image = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source_image =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source_image_encryption_key => {
                             if !fields.insert(__FieldTag::__source_image_encryption_key) {
@@ -1167,9 +1141,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     "multiple values for source_snapshot",
                                 ));
                             }
-                            result.source_snapshot = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source_snapshot =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source_snapshot_encryption_key => {
                             if !fields.insert(__FieldTag::__source_snapshot_encryption_key) {
@@ -1186,9 +1159,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedDiskInitializeParams {
                                     "multiple values for storage_pool",
                                 ));
                             }
-                            result.storage_pool = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.storage_pool =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1281,9 +1253,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AuditConfig {
                                     "multiple values for service",
                                 ));
                             }
-                            result.service = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.service =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1372,7 +1343,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AuditLogConfig {
                                     "multiple values for log_type",
                                 ));
                             }
-                            result.log_type = map.next_value::<std::option::Option<crate::model::audit_log_config::LogType>>()?.unwrap_or_default();
+                            result.log_type = map.next_value::<std::option::Option<crate::model::audit_log_config::LogType>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1472,9 +1444,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Binding {
                                     "multiple values for role",
                                 ));
                             }
-                            result.role = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.role =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1576,7 +1547,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertInstanceResource {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.count = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__instance_properties => {
                             if !fields.insert(__FieldTag::__instance_properties) {
@@ -1614,7 +1585,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertInstanceResource {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.min_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.min_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__name_pattern => {
                             if !fields.insert(__FieldTag::__name_pattern) {
@@ -1622,9 +1593,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertInstanceResource {
                                     "multiple values for name_pattern",
                                 ));
                             }
-                            result.name_pattern = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name_pattern =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__per_instance_properties => {
                             if !fields.insert(__FieldTag::__per_instance_properties) {
@@ -1640,9 +1610,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertInstanceResource {
                                     "multiple values for source_instance_template",
                                 ));
                             }
-                            result.source_instance_template = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source_instance_template =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1725,9 +1694,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertInstanceResourcePerIn
                                     "multiple values for hostname",
                                 ));
                             }
-                            result.hostname = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.hostname =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
@@ -1735,9 +1703,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertInstanceResourcePerIn
                                     "multiple values for name",
                                 ));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1835,8 +1802,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertOperationStatus {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.created_vm_count =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.created_vm_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__deleted_vm_count => {
                             if !fields.insert(__FieldTag::__deleted_vm_count) {
@@ -1855,8 +1821,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertOperationStatus {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.deleted_vm_count =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.deleted_vm_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__failed_to_create_vm_count => {
                             if !fields.insert(__FieldTag::__failed_to_create_vm_count) {
@@ -1875,8 +1840,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertOperationStatus {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.failed_to_create_vm_count =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.failed_to_create_vm_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__status => {
                             if !fields.insert(__FieldTag::__status) {
@@ -1884,11 +1848,9 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertOperationStatus {
                                     "multiple values for status",
                                 ));
                             }
-                            result.status = map
-                                .next_value::<std::option::Option<
-                                    crate::model::bulk_insert_operation_status::Status,
-                                >>()?
-                                .unwrap_or_default();
+                            result.status = map.next_value::<std::option::Option<
+                                crate::model::bulk_insert_operation_status::Status,
+                            >>()?;
                         }
                         __FieldTag::__target_vm_count => {
                             if !fields.insert(__FieldTag::__target_vm_count) {
@@ -1907,8 +1869,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BulkInsertOperationStatus {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.target_vm_count =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.target_vm_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1993,7 +1954,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ConfidentialInstanceConfig {
                                     "multiple values for confidential_instance_type",
                                 ));
                             }
-                            result.confidential_instance_type = map.next_value::<std::option::Option<crate::model::confidential_instance_config::ConfidentialInstanceType>>()?.unwrap_or_default();
+                            result.confidential_instance_type = map.next_value::<std::option::Option<crate::model::confidential_instance_config::ConfidentialInstanceType>>()?
+                                ;
                         }
                         __FieldTag::__enable_confidential_compute => {
                             if !fields.insert(__FieldTag::__enable_confidential_compute) {
@@ -2001,9 +1963,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ConfidentialInstanceConfig {
                                     "multiple values for enable_confidential_compute",
                                 ));
                             }
-                            result.enable_confidential_compute = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_confidential_compute =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2090,9 +2051,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CustomerEncryptionKey {
                                     "multiple values for kms_key_name",
                                 ));
                             }
-                            result.kms_key_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kms_key_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__kms_key_service_account => {
                             if !fields.insert(__FieldTag::__kms_key_service_account) {
@@ -2100,9 +2060,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CustomerEncryptionKey {
                                     "multiple values for kms_key_service_account",
                                 ));
                             }
-                            result.kms_key_service_account = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kms_key_service_account =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__raw_key => {
                             if !fields.insert(__FieldTag::__raw_key) {
@@ -2110,9 +2069,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CustomerEncryptionKey {
                                     "multiple values for raw_key",
                                 ));
                             }
-                            result.raw_key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.raw_key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__rsa_encrypted_key => {
                             if !fields.insert(__FieldTag::__rsa_encrypted_key) {
@@ -2120,9 +2078,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CustomerEncryptionKey {
                                     "multiple values for rsa_encrypted_key",
                                 ));
                             }
-                            result.rsa_encrypted_key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.rsa_encrypted_key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__sha256 => {
                             if !fields.insert(__FieldTag::__sha256) {
@@ -2130,9 +2087,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CustomerEncryptionKey {
                                     "multiple values for sha256",
                                 ));
                             }
-                            result.sha256 = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.sha256 =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2222,9 +2178,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CustomerEncryptionKeyProtectedD
                                     "multiple values for source",
                                 ));
                             }
-                            result.source = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2427,9 +2382,8 @@ impl<'de> serde::de::Deserialize<'de> for super::DisplayDevice {
                                     "multiple values for enable_display",
                                 ));
                             }
-                            result.enable_display = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_display =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2521,7 +2475,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Duration {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.nanos = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.nanos = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__seconds => {
                             if !fields.insert(__FieldTag::__seconds) {
@@ -2540,7 +2494,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Duration {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.seconds = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.seconds = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2623,9 +2577,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ErrorInfo {
                                     "multiple values for domain",
                                 ));
                             }
-                            result.domain = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.domain =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__metadatas => {
                             if !fields.insert(__FieldTag::__metadatas) {
@@ -2648,9 +2601,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ErrorInfo {
                                     "multiple values for reason",
                                 ));
                             }
-                            result.reason = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.reason =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2735,9 +2687,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Expr {
                                     "multiple values for description",
                                 ));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__expression => {
                             if !fields.insert(__FieldTag::__expression) {
@@ -2745,9 +2696,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Expr {
                                     "multiple values for expression",
                                 ));
                             }
-                            result.expression = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.expression =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__location => {
                             if !fields.insert(__FieldTag::__location) {
@@ -2755,9 +2705,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Expr {
                                     "multiple values for location",
                                 ));
                             }
-                            result.location = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.location =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__title => {
                             if !fields.insert(__FieldTag::__title) {
@@ -2765,9 +2714,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Expr {
                                     "multiple values for title",
                                 ));
                             }
-                            result.title = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.title =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2856,10 +2804,15 @@ impl<'de> serde::de::Deserialize<'de> for super::FileContentBuffer {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.content = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.content = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__file_type => {
                             if !fields.insert(__FieldTag::__file_type) {
@@ -2870,8 +2823,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FileContentBuffer {
                             result.file_type =
                                 map.next_value::<std::option::Option<
                                     crate::model::file_content_buffer::FileType,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3000,9 +2952,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Firewall {
                                     "multiple values for creation_timestamp",
                                 ));
                             }
-                            result.creation_timestamp = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.creation_timestamp =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__denied => {
                             if !fields.insert(__FieldTag::__denied) {
@@ -3022,9 +2973,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Firewall {
                                     "multiple values for description",
                                 ));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__destination_ranges => {
                             if !fields.insert(__FieldTag::__destination_ranges) {
@@ -3040,7 +2990,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Firewall {
                                     "multiple values for direction",
                                 ));
                             }
-                            result.direction = map.next_value::<std::option::Option<crate::model::firewall::Direction>>()?.unwrap_or_default();
+                            result.direction = map.next_value::<std::option::Option<crate::model::firewall::Direction>>()?
+                                ;
                         }
                         __FieldTag::__disabled => {
                             if !fields.insert(__FieldTag::__disabled) {
@@ -3048,9 +2999,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Firewall {
                                     "multiple values for disabled",
                                 ));
                             }
-                            result.disabled = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.disabled = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__id => {
                             if !fields.insert(__FieldTag::__id) {
@@ -3069,7 +3018,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Firewall {
                                     serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.id = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.id = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__kind => {
                             if !fields.insert(__FieldTag::__kind) {
@@ -3077,9 +3026,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Firewall {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__log_config => {
                             if !fields.insert(__FieldTag::__log_config) {
@@ -3097,9 +3045,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Firewall {
                                     "multiple values for name",
                                 ));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__network => {
                             if !fields.insert(__FieldTag::__network) {
@@ -3107,9 +3054,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Firewall {
                                     "multiple values for network",
                                 ));
                             }
-                            result.network = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.network =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__params => {
                             if !fields.insert(__FieldTag::__params) {
@@ -3138,7 +3084,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Firewall {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.priority = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.priority = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__self_link => {
                             if !fields.insert(__FieldTag::__self_link) {
@@ -3146,9 +3092,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Firewall {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source_ranges => {
                             if !fields.insert(__FieldTag::__source_ranges) {
@@ -3269,9 +3214,8 @@ impl<'de> serde::de::Deserialize<'de> for super::firewall::Allowed {
                                     "multiple values for ip_protocol",
                                 ));
                             }
-                            result.ip_protocol = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.ip_protocol =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__ports => {
                             if !fields.insert(__FieldTag::__ports) {
@@ -3360,9 +3304,8 @@ impl<'de> serde::de::Deserialize<'de> for super::firewall::Denied {
                                     "multiple values for ip_protocol",
                                 ));
                             }
-                            result.ip_protocol = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.ip_protocol =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__ports => {
                             if !fields.insert(__FieldTag::__ports) {
@@ -3451,9 +3394,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallLogConfig {
                                     "multiple values for enable",
                                 ));
                             }
-                            result.enable = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__metadata => {
                             if !fields.insert(__FieldTag::__metadata) {
@@ -3464,8 +3405,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallLogConfig {
                             result.metadata =
                                 map.next_value::<std::option::Option<
                                     crate::model::firewall_log_config::Metadata,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3658,9 +3598,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     "multiple values for action",
                                 ));
                             }
-                            result.action = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.action =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__description => {
                             if !fields.insert(__FieldTag::__description) {
@@ -3668,9 +3607,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     "multiple values for description",
                                 ));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__direction => {
                             if !fields.insert(__FieldTag::__direction) {
@@ -3678,11 +3616,9 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     "multiple values for direction",
                                 ));
                             }
-                            result.direction =
-                                map.next_value::<std::option::Option<
-                                    crate::model::firewall_policy_rule::Direction,
-                                >>()?
-                                .unwrap_or_default();
+                            result.direction = map.next_value::<std::option::Option<
+                                crate::model::firewall_policy_rule::Direction,
+                            >>()?;
                         }
                         __FieldTag::__disabled => {
                             if !fields.insert(__FieldTag::__disabled) {
@@ -3690,9 +3626,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     "multiple values for disabled",
                                 ));
                             }
-                            result.disabled = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.disabled = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__enable_logging => {
                             if !fields.insert(__FieldTag::__enable_logging) {
@@ -3700,9 +3634,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     "multiple values for enable_logging",
                                 ));
                             }
-                            result.enable_logging = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_logging =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__kind => {
                             if !fields.insert(__FieldTag::__kind) {
@@ -3710,9 +3643,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__match => {
                             if !fields.insert(__FieldTag::__match) {
@@ -3740,7 +3672,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.priority = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.priority = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__rule_name => {
                             if !fields.insert(__FieldTag::__rule_name) {
@@ -3748,9 +3680,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     "multiple values for rule_name",
                                 ));
                             }
-                            result.rule_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.rule_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__rule_tuple_count => {
                             if !fields.insert(__FieldTag::__rule_tuple_count) {
@@ -3769,8 +3700,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.rule_tuple_count =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.rule_tuple_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__security_profile_group => {
                             if !fields.insert(__FieldTag::__security_profile_group) {
@@ -3778,9 +3708,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     "multiple values for security_profile_group",
                                 ));
                             }
-                            result.security_profile_group = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.security_profile_group =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__target_resources => {
                             if !fields.insert(__FieldTag::__target_resources) {
@@ -3816,9 +3745,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRule {
                                     "multiple values for tls_inspect",
                                 ));
                             }
-                            result.tls_inspect = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.tls_inspect = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3951,11 +3878,9 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRuleMatcher {
                                     "multiple values for dest_network_type",
                                 ));
                             }
-                            result.dest_network_type = map
-                                .next_value::<std::option::Option<
-                                    crate::model::firewall_policy_rule_matcher::DestNetworkType,
-                                >>()?
-                                .unwrap_or_default();
+                            result.dest_network_type = map.next_value::<std::option::Option<
+                                crate::model::firewall_policy_rule_matcher::DestNetworkType,
+                            >>()?;
                         }
                         __FieldTag::__dest_region_codes => {
                             if !fields.insert(__FieldTag::__dest_region_codes) {
@@ -4017,11 +3942,9 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRuleMatcher {
                                     "multiple values for src_network_type",
                                 ));
                             }
-                            result.src_network_type = map
-                                .next_value::<std::option::Option<
-                                    crate::model::firewall_policy_rule_matcher::SrcNetworkType,
-                                >>()?
-                                .unwrap_or_default();
+                            result.src_network_type = map.next_value::<std::option::Option<
+                                crate::model::firewall_policy_rule_matcher::SrcNetworkType,
+                            >>()?;
                         }
                         __FieldTag::__src_networks => {
                             if !fields.insert(__FieldTag::__src_networks) {
@@ -4139,9 +4062,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRuleMatcherLayer4
                                     "multiple values for ip_protocol",
                                 ));
                             }
-                            result.ip_protocol = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.ip_protocol =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__ports => {
                             if !fields.insert(__FieldTag::__ports) {
@@ -4230,9 +4152,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRuleSecureTag {
                                     "multiple values for name",
                                 ));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__state => {
                             if !fields.insert(__FieldTag::__state) {
@@ -4240,11 +4161,9 @@ impl<'de> serde::de::Deserialize<'de> for super::FirewallPolicyRuleSecureTag {
                                     "multiple values for state",
                                 ));
                             }
-                            result.state = map
-                                .next_value::<std::option::Option<
-                                    crate::model::firewall_policy_rule_secure_tag::State,
-                                >>()?
-                                .unwrap_or_default();
+                            result.state = map.next_value::<std::option::Option<
+                                crate::model::firewall_policy_rule_secure_tag::State,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4333,11 +4252,15 @@ impl<'de> serde::de::Deserialize<'de> for super::GlobalSetLabelsRequest {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.label_fingerprint =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.label_fingerprint = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -4451,10 +4374,15 @@ impl<'de> serde::de::Deserialize<'de> for super::GlobalSetPolicyRequest {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.etag = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.etag = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__policy => {
                             if !fields.insert(__FieldTag::__policy) {
@@ -4552,9 +4480,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GuestAttributes {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__query_path => {
                             if !fields.insert(__FieldTag::__query_path) {
@@ -4562,9 +4489,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GuestAttributes {
                                     "multiple values for query_path",
                                 ));
                             }
-                            result.query_path = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.query_path =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__query_value => {
                             if !fields.insert(__FieldTag::__query_value) {
@@ -4581,9 +4507,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GuestAttributes {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__variable_key => {
                             if !fields.insert(__FieldTag::__variable_key) {
@@ -4591,9 +4516,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GuestAttributes {
                                     "multiple values for variable_key",
                                 ));
                             }
-                            result.variable_key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.variable_key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__variable_value => {
                             if !fields.insert(__FieldTag::__variable_value) {
@@ -4601,9 +4525,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GuestAttributes {
                                     "multiple values for variable_value",
                                 ));
                             }
-                            result.variable_value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.variable_value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4686,9 +4609,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GuestAttributesEntry {
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__namespace => {
                             if !fields.insert(__FieldTag::__namespace) {
@@ -4696,9 +4618,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GuestAttributesEntry {
                                     "multiple values for namespace",
                                 ));
                             }
-                            result.namespace = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.namespace =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__value => {
                             if !fields.insert(__FieldTag::__value) {
@@ -4706,9 +4627,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GuestAttributesEntry {
                                     "multiple values for value",
                                 ));
                             }
-                            result.value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4870,7 +4790,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GuestOsFeature {
                                     "multiple values for type",
                                 ));
                             }
-                            result.r#type = map.next_value::<std::option::Option<crate::model::guest_os_feature::Type>>()?.unwrap_or_default();
+                            result.r#type = map.next_value::<std::option::Option<crate::model::guest_os_feature::Type>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5030,9 +4951,8 @@ impl<'de> serde::de::Deserialize<'de> for super::HelpLink {
                                     "multiple values for description",
                                 ));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__url => {
                             if !fields.insert(__FieldTag::__url) {
@@ -5040,9 +4960,8 @@ impl<'de> serde::de::Deserialize<'de> for super::HelpLink {
                                     "multiple values for url",
                                 ));
                             }
-                            result.url = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.url =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5197,7 +5116,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for architecture",
                                 ));
                             }
-                            result.architecture = map.next_value::<std::option::Option<crate::model::image::Architecture>>()?.unwrap_or_default();
+                            result.architecture = map.next_value::<std::option::Option<crate::model::image::Architecture>>()?
+                                ;
                         }
                         __FieldTag::__archive_size_bytes => {
                             if !fields.insert(__FieldTag::__archive_size_bytes) {
@@ -5216,8 +5136,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.archive_size_bytes =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.archive_size_bytes = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__creation_timestamp => {
                             if !fields.insert(__FieldTag::__creation_timestamp) {
@@ -5225,9 +5144,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for creation_timestamp",
                                 ));
                             }
-                            result.creation_timestamp = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.creation_timestamp =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__deprecated => {
                             if !fields.insert(__FieldTag::__deprecated) {
@@ -5245,9 +5163,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for description",
                                 ));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__disk_size_gb => {
                             if !fields.insert(__FieldTag::__disk_size_gb) {
@@ -5266,7 +5183,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.disk_size_gb = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.disk_size_gb = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__enable_confidential_compute => {
                             if !fields.insert(__FieldTag::__enable_confidential_compute) {
@@ -5274,9 +5191,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for enable_confidential_compute",
                                 ));
                             }
-                            result.enable_confidential_compute = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_confidential_compute =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__family => {
                             if !fields.insert(__FieldTag::__family) {
@@ -5284,9 +5200,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for family",
                                 ));
                             }
-                            result.family = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.family =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__guest_os_features => {
                             if !fields.insert(__FieldTag::__guest_os_features) {
@@ -5317,7 +5232,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.id = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.id = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__image_encryption_key => {
                             if !fields.insert(__FieldTag::__image_encryption_key) {
@@ -5334,9 +5249,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__label_fingerprint => {
                             if !fields.insert(__FieldTag::__label_fingerprint) {
@@ -5352,11 +5266,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.label_fingerprint =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.label_fingerprint = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -5410,9 +5328,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for name",
                                 ));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__raw_disk => {
                             if !fields.insert(__FieldTag::__raw_disk) {
@@ -5430,9 +5347,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for satisfies_pzi",
                                 ));
                             }
-                            result.satisfies_pzi = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.satisfies_pzi = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__satisfies_pzs => {
                             if !fields.insert(__FieldTag::__satisfies_pzs) {
@@ -5440,9 +5355,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for satisfies_pzs",
                                 ));
                             }
-                            result.satisfies_pzs = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.satisfies_pzs = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__self_link => {
                             if !fields.insert(__FieldTag::__self_link) {
@@ -5450,9 +5363,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__shielded_instance_initial_state => {
                             if !fields.insert(__FieldTag::__shielded_instance_initial_state) {
@@ -5469,9 +5381,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for source_disk",
                                 ));
                             }
-                            result.source_disk = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source_disk =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source_disk_encryption_key => {
                             if !fields.insert(__FieldTag::__source_disk_encryption_key) {
@@ -5488,9 +5399,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for source_disk_id",
                                 ));
                             }
-                            result.source_disk_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source_disk_id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source_image => {
                             if !fields.insert(__FieldTag::__source_image) {
@@ -5498,9 +5408,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for source_image",
                                 ));
                             }
-                            result.source_image = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source_image =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source_image_encryption_key => {
                             if !fields.insert(__FieldTag::__source_image_encryption_key) {
@@ -5517,9 +5426,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for source_image_id",
                                 ));
                             }
-                            result.source_image_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source_image_id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source_snapshot => {
                             if !fields.insert(__FieldTag::__source_snapshot) {
@@ -5527,9 +5435,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for source_snapshot",
                                 ));
                             }
-                            result.source_snapshot = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source_snapshot =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source_snapshot_encryption_key => {
                             if !fields.insert(__FieldTag::__source_snapshot_encryption_key) {
@@ -5546,9 +5453,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                     "multiple values for source_snapshot_id",
                                 ));
                             }
-                            result.source_snapshot_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source_snapshot_id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source_type => {
                             if !fields.insert(__FieldTag::__source_type) {
@@ -5558,8 +5464,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                             }
                             result.source_type = map
                                 .next_value::<std::option::Option<crate::model::image::SourceType>>(
-                                )?
-                                .unwrap_or_default();
+                                )?;
                         }
                         __FieldTag::__status => {
                             if !fields.insert(__FieldTag::__status) {
@@ -5568,8 +5473,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Image {
                                 ));
                             }
                             result.status = map
-                                .next_value::<std::option::Option<crate::model::image::Status>>()?
-                                .unwrap_or_default();
+                                .next_value::<std::option::Option<crate::model::image::Status>>()?;
                         }
                         __FieldTag::__storage_locations => {
                             if !fields.insert(__FieldTag::__storage_locations) {
@@ -5663,8 +5567,7 @@ impl<'de> serde::de::Deserialize<'de> for super::image::RawDisk {
                             result.container_type =
                                 map.next_value::<std::option::Option<
                                     crate::model::image::raw_disk::ContainerType,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::__sha_1_checksum => {
                             if !fields.insert(__FieldTag::__sha_1_checksum) {
@@ -5672,9 +5575,8 @@ impl<'de> serde::de::Deserialize<'de> for super::image::RawDisk {
                                     "multiple values for sha_1_checksum",
                                 ));
                             }
-                            result.sha_1_checksum = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.sha_1_checksum =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source => {
                             if !fields.insert(__FieldTag::__source) {
@@ -5682,9 +5584,8 @@ impl<'de> serde::de::Deserialize<'de> for super::image::RawDisk {
                                     "multiple values for source",
                                 ));
                             }
-                            result.source = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5773,9 +5674,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageList {
                                     "multiple values for id",
                                 ));
                             }
-                            result.id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__items => {
                             if !fields.insert(__FieldTag::__items) {
@@ -5791,9 +5691,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageList {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {
@@ -5801,9 +5700,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageList {
                                     "multiple values for next_page_token",
                                 ));
                             }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.next_page_token =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__self_link => {
                             if !fields.insert(__FieldTag::__self_link) {
@@ -5811,9 +5709,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ImageList {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__warning => {
                             if !fields.insert(__FieldTag::__warning) {
@@ -5905,7 +5802,8 @@ impl<'de> serde::de::Deserialize<'de> for super::image_list::Warning {
                                     "multiple values for code",
                                 ));
                             }
-                            result.code = map.next_value::<std::option::Option<crate::model::image_list::warning::Code>>()?.unwrap_or_default();
+                            result.code = map.next_value::<std::option::Option<crate::model::image_list::warning::Code>>()?
+                                ;
                         }
                         __FieldTag::__data => {
                             if !fields.insert(__FieldTag::__data) {
@@ -5925,9 +5823,8 @@ impl<'de> serde::de::Deserialize<'de> for super::image_list::Warning {
                                     "multiple values for message",
                                 ));
                             }
-                            result.message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6008,9 +5905,8 @@ impl<'de> serde::de::Deserialize<'de> for super::image_list::warning::Data {
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__value => {
                             if !fields.insert(__FieldTag::__value) {
@@ -6018,9 +5914,8 @@ impl<'de> serde::de::Deserialize<'de> for super::image_list::warning::Data {
                                     "multiple values for value",
                                 ));
                             }
-                            result.value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6335,9 +6230,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for can_ip_forward",
                                 ));
                             }
-                            result.can_ip_forward = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.can_ip_forward =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__confidential_instance_config => {
                             if !fields.insert(__FieldTag::__confidential_instance_config) {
@@ -6354,9 +6248,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for cpu_platform",
                                 ));
                             }
-                            result.cpu_platform = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.cpu_platform =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__creation_timestamp => {
                             if !fields.insert(__FieldTag::__creation_timestamp) {
@@ -6364,9 +6257,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for creation_timestamp",
                                 ));
                             }
-                            result.creation_timestamp = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.creation_timestamp =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__deletion_protection => {
                             if !fields.insert(__FieldTag::__deletion_protection) {
@@ -6374,9 +6266,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for deletion_protection",
                                 ));
                             }
-                            result.deletion_protection = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.deletion_protection =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__description => {
                             if !fields.insert(__FieldTag::__description) {
@@ -6384,9 +6275,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for description",
                                 ));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__disks => {
                             if !fields.insert(__FieldTag::__disks) {
@@ -6419,10 +6309,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.fingerprint = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.fingerprint = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__guest_accelerators => {
                             if !fields.insert(__FieldTag::__guest_accelerators) {
@@ -6442,9 +6337,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for hostname",
                                 ));
                             }
-                            result.hostname = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.hostname =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__id => {
                             if !fields.insert(__FieldTag::__id) {
@@ -6463,7 +6357,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.id = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.id = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__instance_encryption_key => {
                             if !fields.insert(__FieldTag::__instance_encryption_key) {
@@ -6483,8 +6377,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             result.key_revocation_action_type = map
                                 .next_value::<std::option::Option<
                                     crate::model::instance::KeyRevocationActionType,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::__kind => {
                             if !fields.insert(__FieldTag::__kind) {
@@ -6492,9 +6385,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__label_fingerprint => {
                             if !fields.insert(__FieldTag::__label_fingerprint) {
@@ -6510,11 +6402,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.label_fingerprint =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.label_fingerprint = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -6537,9 +6433,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for last_start_timestamp",
                                 ));
                             }
-                            result.last_start_timestamp = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.last_start_timestamp =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__last_stop_timestamp => {
                             if !fields.insert(__FieldTag::__last_stop_timestamp) {
@@ -6547,9 +6442,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for last_stop_timestamp",
                                 ));
                             }
-                            result.last_stop_timestamp = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.last_stop_timestamp =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__last_suspended_timestamp => {
                             if !fields.insert(__FieldTag::__last_suspended_timestamp) {
@@ -6557,9 +6451,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for last_suspended_timestamp",
                                 ));
                             }
-                            result.last_suspended_timestamp = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.last_suspended_timestamp =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__machine_type => {
                             if !fields.insert(__FieldTag::__machine_type) {
@@ -6567,9 +6460,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for machine_type",
                                 ));
                             }
-                            result.machine_type = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.machine_type =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__metadata => {
                             if !fields.insert(__FieldTag::__metadata) {
@@ -6586,9 +6478,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for min_cpu_platform",
                                 ));
                             }
-                            result.min_cpu_platform = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.min_cpu_platform =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
@@ -6596,9 +6487,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for name",
                                 ));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__network_interfaces => {
                             if !fields.insert(__FieldTag::__network_interfaces) {
@@ -6640,8 +6530,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             result.private_ipv_6_google_access = map
                                 .next_value::<std::option::Option<
                                     crate::model::instance::PrivateIpv6GoogleAccess,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::__reservation_affinity => {
                             if !fields.insert(__FieldTag::__reservation_affinity) {
@@ -6676,9 +6565,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for satisfies_pzi",
                                 ));
                             }
-                            result.satisfies_pzi = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.satisfies_pzi = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__satisfies_pzs => {
                             if !fields.insert(__FieldTag::__satisfies_pzs) {
@@ -6686,9 +6573,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for satisfies_pzs",
                                 ));
                             }
-                            result.satisfies_pzs = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.satisfies_pzs = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__scheduling => {
                             if !fields.insert(__FieldTag::__scheduling) {
@@ -6705,9 +6590,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__service_accounts => {
                             if !fields.insert(__FieldTag::__service_accounts) {
@@ -6747,9 +6631,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for source_machine_image",
                                 ));
                             }
-                            result.source_machine_image = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.source_machine_image =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__source_machine_image_encryption_key => {
                             if !fields.insert(__FieldTag::__source_machine_image_encryption_key) {
@@ -6766,9 +6649,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for start_restricted",
                                 ));
                             }
-                            result.start_restricted = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.start_restricted =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__status => {
                             if !fields.insert(__FieldTag::__status) {
@@ -6778,8 +6660,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             }
                             result.status = map
                                 .next_value::<std::option::Option<crate::model::instance::Status>>(
-                                )?
-                                .unwrap_or_default();
+                                )?;
                         }
                         __FieldTag::__status_message => {
                             if !fields.insert(__FieldTag::__status_message) {
@@ -6787,9 +6668,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for status_message",
                                 ));
                             }
-                            result.status_message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.status_message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__tags => {
                             if !fields.insert(__FieldTag::__tags) {
@@ -6806,9 +6686,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                                     "multiple values for zone",
                                 ));
                             }
-                            result.zone = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.zone =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6899,9 +6778,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceAggregatedList {
                                     "multiple values for id",
                                 ));
                             }
-                            result.id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__items => {
                             if !fields.insert(__FieldTag::__items) {
@@ -6924,9 +6802,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceAggregatedList {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {
@@ -6934,9 +6811,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceAggregatedList {
                                     "multiple values for next_page_token",
                                 ));
                             }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.next_page_token =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__self_link => {
                             if !fields.insert(__FieldTag::__self_link) {
@@ -6944,9 +6820,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceAggregatedList {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__unreachables => {
                             if !fields.insert(__FieldTag::__unreachables) {
@@ -7047,11 +6922,9 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_aggregated_list::Warni
                                     "multiple values for code",
                                 ));
                             }
-                            result.code = map
-                                .next_value::<std::option::Option<
-                                    crate::model::instance_aggregated_list::warning::Code,
-                                >>()?
-                                .unwrap_or_default();
+                            result.code = map.next_value::<std::option::Option<
+                                crate::model::instance_aggregated_list::warning::Code,
+                            >>()?;
                         }
                         __FieldTag::__data => {
                             if !fields.insert(__FieldTag::__data) {
@@ -7073,9 +6946,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_aggregated_list::Warni
                                     "multiple values for message",
                                 ));
                             }
-                            result.message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7156,9 +7028,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_aggregated_list::warni
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__value => {
                             if !fields.insert(__FieldTag::__value) {
@@ -7166,9 +7037,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_aggregated_list::warni
                                     "multiple values for value",
                                 ));
                             }
-                            result.value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7257,9 +7127,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceList {
                                     "multiple values for id",
                                 ));
                             }
-                            result.id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__items => {
                             if !fields.insert(__FieldTag::__items) {
@@ -7275,9 +7144,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceList {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {
@@ -7285,9 +7153,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceList {
                                     "multiple values for next_page_token",
                                 ));
                             }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.next_page_token =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__self_link => {
                             if !fields.insert(__FieldTag::__self_link) {
@@ -7295,9 +7162,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceList {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__warning => {
                             if !fields.insert(__FieldTag::__warning) {
@@ -7389,7 +7255,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_list::Warning {
                                     "multiple values for code",
                                 ));
                             }
-                            result.code = map.next_value::<std::option::Option<crate::model::instance_list::warning::Code>>()?.unwrap_or_default();
+                            result.code = map.next_value::<std::option::Option<crate::model::instance_list::warning::Code>>()?
+                                ;
                         }
                         __FieldTag::__data => {
                             if !fields.insert(__FieldTag::__data) {
@@ -7409,9 +7276,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_list::Warning {
                                     "multiple values for message",
                                 ));
                             }
-                            result.message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7492,9 +7358,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_list::warning::Data {
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__value => {
                             if !fields.insert(__FieldTag::__value) {
@@ -7502,9 +7367,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_list::warning::Data {
                                     "multiple values for value",
                                 ));
                             }
-                            result.value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7593,9 +7457,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceListReferrers {
                                     "multiple values for id",
                                 ));
                             }
-                            result.id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__items => {
                             if !fields.insert(__FieldTag::__items) {
@@ -7611,9 +7474,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceListReferrers {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {
@@ -7621,9 +7483,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceListReferrers {
                                     "multiple values for next_page_token",
                                 ));
                             }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.next_page_token =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__self_link => {
                             if !fields.insert(__FieldTag::__self_link) {
@@ -7631,9 +7492,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceListReferrers {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__warning => {
                             if !fields.insert(__FieldTag::__warning) {
@@ -7726,11 +7586,9 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_list_referrers::Warnin
                                     "multiple values for code",
                                 ));
                             }
-                            result.code = map
-                                .next_value::<std::option::Option<
-                                    crate::model::instance_list_referrers::warning::Code,
-                                >>()?
-                                .unwrap_or_default();
+                            result.code = map.next_value::<std::option::Option<
+                                crate::model::instance_list_referrers::warning::Code,
+                            >>()?;
                         }
                         __FieldTag::__data => {
                             if !fields.insert(__FieldTag::__data) {
@@ -7752,9 +7610,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_list_referrers::Warnin
                                     "multiple values for message",
                                 ));
                             }
-                            result.message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7835,9 +7692,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_list_referrers::warnin
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__value => {
                             if !fields.insert(__FieldTag::__value) {
@@ -7845,9 +7701,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance_list_referrers::warnin
                                     "multiple values for value",
                                 ));
                             }
-                            result.value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -8084,9 +7939,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceProperties {
                                     "multiple values for can_ip_forward",
                                 ));
                             }
-                            result.can_ip_forward = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.can_ip_forward =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__confidential_instance_config => {
                             if !fields.insert(__FieldTag::__confidential_instance_config) {
@@ -8103,9 +7957,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceProperties {
                                     "multiple values for description",
                                 ));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__disks => {
                             if !fields.insert(__FieldTag::__disks) {
@@ -8136,8 +7989,7 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceProperties {
                             result.key_revocation_action_type = map
                                 .next_value::<std::option::Option<
                                     crate::model::instance_properties::KeyRevocationActionType,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -8160,9 +8012,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceProperties {
                                     "multiple values for machine_type",
                                 ));
                             }
-                            result.machine_type = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.machine_type =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__metadata => {
                             if !fields.insert(__FieldTag::__metadata) {
@@ -8179,9 +8030,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceProperties {
                                     "multiple values for min_cpu_platform",
                                 ));
                             }
-                            result.min_cpu_platform = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.min_cpu_platform =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__network_interfaces => {
                             if !fields.insert(__FieldTag::__network_interfaces) {
@@ -8213,8 +8063,7 @@ impl<'de> serde::de::Deserialize<'de> for super::InstanceProperties {
                             result.private_ipv_6_google_access = map
                                 .next_value::<std::option::Option<
                                     crate::model::instance_properties::PrivateIpv6GoogleAccess,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::__reservation_affinity => {
                             if !fields.insert(__FieldTag::__reservation_affinity) {
@@ -8635,9 +8484,8 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for display_name",
                                 ));
                             }
-                            result.display_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.display_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
@@ -8645,9 +8493,8 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for name",
                                 ));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__packet_mirroring_rules => {
                             if !fields.insert(__FieldTag::__packet_mirroring_rules) {
@@ -8678,7 +8525,7 @@ impl<'de> serde::de::Deserialize<'de>
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.priority = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.priority = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__rules => {
                             if !fields.insert(__FieldTag::__rules) {
@@ -8698,9 +8545,8 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for short_name",
                                 ));
                             }
-                            result.short_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.short_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__type => {
                             if !fields.insert(__FieldTag::__type) {
@@ -8708,7 +8554,8 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for type",
                                 ));
                             }
-                            result.r#type = map.next_value::<std::option::Option<crate::model::instances_get_effective_firewalls_response_effective_firewall_policy::Type>>()?.unwrap_or_default();
+                            result.r#type = map.next_value::<std::option::Option<crate::model::instances_get_effective_firewalls_response_effective_firewall_policy::Type>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -8869,7 +8716,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancesReportHostAsFaultyRequ
                                     "multiple values for disruption_schedule",
                                 ));
                             }
-                            result.disruption_schedule = map.next_value::<std::option::Option<crate::model::instances_report_host_as_faulty_request::DisruptionSchedule>>()?.unwrap_or_default();
+                            result.disruption_schedule = map.next_value::<std::option::Option<crate::model::instances_report_host_as_faulty_request::DisruptionSchedule>>()?
+                                ;
                         }
                         __FieldTag::__fault_reasons => {
                             if !fields.insert(__FieldTag::__fault_reasons) {
@@ -8966,7 +8814,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancesReportHostAsFaultyRequ
                                     "multiple values for behavior",
                                 ));
                             }
-                            result.behavior = map.next_value::<std::option::Option<crate::model::instances_report_host_as_faulty_request_fault_reason::Behavior>>()?.unwrap_or_default();
+                            result.behavior = map.next_value::<std::option::Option<crate::model::instances_report_host_as_faulty_request_fault_reason::Behavior>>()?
+                                ;
                         }
                         __FieldTag::__description => {
                             if !fields.insert(__FieldTag::__description) {
@@ -8974,9 +8823,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancesReportHostAsFaultyRequ
                                     "multiple values for description",
                                 ));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9151,11 +8999,9 @@ impl<'de> serde::de::Deserialize<'de> for super::instances_scoped_list::Warning 
                                     "multiple values for code",
                                 ));
                             }
-                            result.code = map
-                                .next_value::<std::option::Option<
-                                    crate::model::instances_scoped_list::warning::Code,
-                                >>()?
-                                .unwrap_or_default();
+                            result.code = map.next_value::<std::option::Option<
+                                crate::model::instances_scoped_list::warning::Code,
+                            >>()?;
                         }
                         __FieldTag::__data => {
                             if !fields.insert(__FieldTag::__data) {
@@ -9177,9 +9023,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instances_scoped_list::Warning 
                                     "multiple values for message",
                                 ));
                             }
-                            result.message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9260,9 +9105,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instances_scoped_list::warning:
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__value => {
                             if !fields.insert(__FieldTag::__value) {
@@ -9270,9 +9114,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instances_scoped_list::warning:
                                     "multiple values for value",
                                 ));
                             }
-                            result.value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9361,11 +9204,15 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancesSetLabelsRequest {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.label_fingerprint =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.label_fingerprint = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__labels => {
                             if !fields.insert(__FieldTag::__labels) {
@@ -9542,9 +9389,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancesSetMachineTypeRequest 
                                     "multiple values for machine_type",
                                 ));
                             }
-                            result.machine_type = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.machine_type =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9623,9 +9469,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancesSetMinCpuPlatformReque
                                     "multiple values for min_cpu_platform",
                                 ));
                             }
-                            result.min_cpu_platform = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.min_cpu_platform =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9706,9 +9551,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancesSetNameRequest {
                                     "multiple values for current_name",
                                 ));
                             }
-                            result.current_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.current_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
@@ -9716,9 +9560,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancesSetNameRequest {
                                     "multiple values for name",
                                 ));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9807,9 +9650,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancesSetSecurityPolicyReque
                                     "multiple values for security_policy",
                                 ));
                             }
-                            result.security_policy = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.security_policy =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9890,9 +9732,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancesSetServiceAccountReque
                                     "multiple values for email",
                                 ));
                             }
-                            result.email = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.email =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__scopes => {
                             if !fields.insert(__FieldTag::__scopes) {
@@ -10065,9 +9906,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LocalizedMessage {
                                     "multiple values for locale",
                                 ));
                             }
-                            result.locale = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.locale =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__message => {
                             if !fields.insert(__FieldTag::__message) {
@@ -10075,9 +9915,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LocalizedMessage {
                                     "multiple values for message",
                                 ));
                             }
-                            result.message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -10173,7 +10012,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LocationPolicy {
                                     "multiple values for target_shape",
                                 ));
                             }
-                            result.target_shape = map.next_value::<std::option::Option<crate::model::location_policy::TargetShape>>()?.unwrap_or_default();
+                            result.target_shape = map.next_value::<std::option::Option<crate::model::location_policy::TargetShape>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -10264,11 +10104,9 @@ impl<'de> serde::de::Deserialize<'de> for super::LocationPolicyLocation {
                                     "multiple values for preference",
                                 ));
                             }
-                            result.preference = map
-                                .next_value::<std::option::Option<
-                                    crate::model::location_policy_location::Preference,
-                                >>()?
-                                .unwrap_or_default();
+                            result.preference = map.next_value::<std::option::Option<
+                                crate::model::location_policy_location::Preference,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -10358,7 +10196,7 @@ impl<'de> serde::de::Deserialize<'de> for super::LocationPolicyLocationConstrain
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.max_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.max_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -11832,10 +11670,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Metadata {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.fingerprint = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.fingerprint = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__items => {
                             if !fields.insert(__FieldTag::__items) {
@@ -11855,9 +11698,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Metadata {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -11938,9 +11780,8 @@ impl<'de> serde::de::Deserialize<'de> for super::metadata::Items {
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__value => {
                             if !fields.insert(__FieldTag::__value) {
@@ -11948,9 +11789,8 @@ impl<'de> serde::de::Deserialize<'de> for super::metadata::Items {
                                     "multiple values for value",
                                 ));
                             }
-                            result.value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -12089,10 +11929,15 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.fingerprint = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.fingerprint = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__internal_ipv_6_prefix_length => {
                             if !fields.insert(__FieldTag::__internal_ipv_6_prefix_length) {
@@ -12111,8 +11956,7 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.internal_ipv_6_prefix_length =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.internal_ipv_6_prefix_length = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__ipv_6_access_configs => {
                             if !fields.insert(__FieldTag::__ipv_6_access_configs) {
@@ -12128,11 +11972,9 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for ipv_6_access_type",
                                 ));
                             }
-                            result.ipv_6_access_type = map
-                                .next_value::<std::option::Option<
-                                    crate::model::network_interface::Ipv6AccessType,
-                                >>()?
-                                .unwrap_or_default();
+                            result.ipv_6_access_type = map.next_value::<std::option::Option<
+                                crate::model::network_interface::Ipv6AccessType,
+                            >>()?;
                         }
                         __FieldTag::__ipv_6_address => {
                             if !fields.insert(__FieldTag::__ipv_6_address) {
@@ -12140,9 +11982,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for ipv_6_address",
                                 ));
                             }
-                            result.ipv_6_address = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.ipv_6_address =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__kind => {
                             if !fields.insert(__FieldTag::__kind) {
@@ -12150,9 +11991,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
@@ -12160,9 +12000,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for name",
                                 ));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__network => {
                             if !fields.insert(__FieldTag::__network) {
@@ -12170,9 +12009,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for network",
                                 ));
                             }
-                            result.network = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.network =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__network_attachment => {
                             if !fields.insert(__FieldTag::__network_attachment) {
@@ -12180,9 +12018,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for network_attachment",
                                 ));
                             }
-                            result.network_attachment = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.network_attachment =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__network_ip => {
                             if !fields.insert(__FieldTag::__network_ip) {
@@ -12190,9 +12027,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for network_ip",
                                 ));
                             }
-                            result.network_ip = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.network_ip =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__nic_type => {
                             if !fields.insert(__FieldTag::__nic_type) {
@@ -12200,7 +12036,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for nic_type",
                                 ));
                             }
-                            result.nic_type = map.next_value::<std::option::Option<crate::model::network_interface::NicType>>()?.unwrap_or_default();
+                            result.nic_type = map.next_value::<std::option::Option<crate::model::network_interface::NicType>>()?
+                                ;
                         }
                         __FieldTag::__parent_nic_name => {
                             if !fields.insert(__FieldTag::__parent_nic_name) {
@@ -12208,9 +12045,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for parent_nic_name",
                                 ));
                             }
-                            result.parent_nic_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.parent_nic_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__queue_count => {
                             if !fields.insert(__FieldTag::__queue_count) {
@@ -12229,7 +12065,7 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.queue_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.queue_count = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__stack_type => {
                             if !fields.insert(__FieldTag::__stack_type) {
@@ -12237,7 +12073,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for stack_type",
                                 ));
                             }
-                            result.stack_type = map.next_value::<std::option::Option<crate::model::network_interface::StackType>>()?.unwrap_or_default();
+                            result.stack_type = map.next_value::<std::option::Option<crate::model::network_interface::StackType>>()?
+                                ;
                         }
                         __FieldTag::__subnetwork => {
                             if !fields.insert(__FieldTag::__subnetwork) {
@@ -12245,9 +12082,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     "multiple values for subnetwork",
                                 ));
                             }
-                            result.subnetwork = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.subnetwork =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__vlan => {
                             if !fields.insert(__FieldTag::__vlan) {
@@ -12266,7 +12102,7 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkInterface {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.vlan = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.vlan = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -12347,7 +12183,11 @@ impl<'de> serde::de::Deserialize<'de> for super::NetworkPerformanceConfig {
                                     "multiple values for total_egress_bandwidth_tier",
                                 ));
                             }
-                            result.total_egress_bandwidth_tier = map.next_value::<std::option::Option<crate::model::network_performance_config::TotalEgressBandwidthTier>>()?.unwrap_or_default();
+                            result.total_egress_bandwidth_tier = map
+                                .next_value::<std::option::Option<
+                                crate::model::network_performance_config::TotalEgressBandwidthTier,
+                            >>(
+                            )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -12480,9 +12320,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for client_operation_id",
                                 ));
                             }
-                            result.client_operation_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.client_operation_id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__creation_timestamp => {
                             if !fields.insert(__FieldTag::__creation_timestamp) {
@@ -12490,9 +12329,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for creation_timestamp",
                                 ));
                             }
-                            result.creation_timestamp = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.creation_timestamp =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__description => {
                             if !fields.insert(__FieldTag::__description) {
@@ -12500,9 +12338,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for description",
                                 ));
                             }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.description =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__end_time => {
                             if !fields.insert(__FieldTag::__end_time) {
@@ -12510,9 +12347,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for end_time",
                                 ));
                             }
-                            result.end_time = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.end_time =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__error => {
                             if !fields.insert(__FieldTag::__error) {
@@ -12530,9 +12366,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for http_error_message",
                                 ));
                             }
-                            result.http_error_message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.http_error_message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__http_error_status_code => {
                             if !fields.insert(__FieldTag::__http_error_status_code) {
@@ -12551,8 +12386,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.http_error_status_code =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.http_error_status_code = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__id => {
                             if !fields.insert(__FieldTag::__id) {
@@ -12571,7 +12405,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.id = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.id = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__insert_time => {
                             if !fields.insert(__FieldTag::__insert_time) {
@@ -12579,9 +12413,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for insert_time",
                                 ));
                             }
-                            result.insert_time = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.insert_time =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__instances_bulk_insert_operation_metadata => {
                             if !fields
@@ -12602,9 +12435,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
@@ -12612,9 +12444,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for name",
                                 ));
                             }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__operation_group_id => {
                             if !fields.insert(__FieldTag::__operation_group_id) {
@@ -12622,9 +12453,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for operation_group_id",
                                 ));
                             }
-                            result.operation_group_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.operation_group_id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__operation_type => {
                             if !fields.insert(__FieldTag::__operation_type) {
@@ -12632,9 +12462,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for operation_type",
                                 ));
                             }
-                            result.operation_type = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.operation_type =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__progress => {
                             if !fields.insert(__FieldTag::__progress) {
@@ -12653,7 +12482,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.progress = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.progress = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__region => {
                             if !fields.insert(__FieldTag::__region) {
@@ -12661,9 +12490,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for region",
                                 ));
                             }
-                            result.region = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.region =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__self_link => {
                             if !fields.insert(__FieldTag::__self_link) {
@@ -12671,9 +12499,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__set_common_instance_metadata_operation_metadata => {
                             if !fields.insert(
@@ -12694,9 +12521,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for start_time",
                                 ));
                             }
-                            result.start_time = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.start_time =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__status => {
                             if !fields.insert(__FieldTag::__status) {
@@ -12706,8 +12532,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                             }
                             result.status = map
                                 .next_value::<std::option::Option<crate::model::operation::Status>>(
-                                )?
-                                .unwrap_or_default();
+                                )?;
                         }
                         __FieldTag::__status_message => {
                             if !fields.insert(__FieldTag::__status_message) {
@@ -12715,9 +12540,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for status_message",
                                 ));
                             }
-                            result.status_message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.status_message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__target_id => {
                             if !fields.insert(__FieldTag::__target_id) {
@@ -12736,7 +12560,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.target_id = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.target_id = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__target_link => {
                             if !fields.insert(__FieldTag::__target_link) {
@@ -12744,9 +12568,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for target_link",
                                 ));
                             }
-                            result.target_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.target_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__user => {
                             if !fields.insert(__FieldTag::__user) {
@@ -12754,9 +12577,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for user",
                                 ));
                             }
-                            result.user = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.user =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__warnings => {
                             if !fields.insert(__FieldTag::__warnings) {
@@ -12776,9 +12598,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                                     "multiple values for zone",
                                 ));
                             }
-                            result.zone = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.zone =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -12946,9 +12767,8 @@ impl<'de> serde::de::Deserialize<'de> for super::operation::error::Errors {
                                     "multiple values for code",
                                 ));
                             }
-                            result.code = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.code =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__error_details => {
                             if !fields.insert(__FieldTag::__error_details) {
@@ -12970,9 +12790,8 @@ impl<'de> serde::de::Deserialize<'de> for super::operation::error::Errors {
                                     "multiple values for location",
                                 ));
                             }
-                            result.location = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.location =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__message => {
                             if !fields.insert(__FieldTag::__message) {
@@ -12980,9 +12799,8 @@ impl<'de> serde::de::Deserialize<'de> for super::operation::error::Errors {
                                     "multiple values for message",
                                 ));
                             }
-                            result.message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13180,7 +12998,8 @@ impl<'de> serde::de::Deserialize<'de> for super::operation::Warnings {
                                     "multiple values for code",
                                 ));
                             }
-                            result.code = map.next_value::<std::option::Option<crate::model::operation::warnings::Code>>()?.unwrap_or_default();
+                            result.code = map.next_value::<std::option::Option<crate::model::operation::warnings::Code>>()?
+                                ;
                         }
                         __FieldTag::__data => {
                             if !fields.insert(__FieldTag::__data) {
@@ -13200,9 +13019,8 @@ impl<'de> serde::de::Deserialize<'de> for super::operation::Warnings {
                                     "multiple values for message",
                                 ));
                             }
-                            result.message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13283,9 +13101,8 @@ impl<'de> serde::de::Deserialize<'de> for super::operation::warnings::Data {
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__value => {
                             if !fields.insert(__FieldTag::__value) {
@@ -13293,9 +13110,8 @@ impl<'de> serde::de::Deserialize<'de> for super::operation::warnings::Data {
                                     "multiple values for value",
                                 ));
                             }
-                            result.value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13384,9 +13200,8 @@ impl<'de> serde::de::Deserialize<'de> for super::OperationList {
                                     "multiple values for id",
                                 ));
                             }
-                            result.id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__items => {
                             if !fields.insert(__FieldTag::__items) {
@@ -13402,9 +13217,8 @@ impl<'de> serde::de::Deserialize<'de> for super::OperationList {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__next_page_token => {
                             if !fields.insert(__FieldTag::__next_page_token) {
@@ -13412,9 +13226,8 @@ impl<'de> serde::de::Deserialize<'de> for super::OperationList {
                                     "multiple values for next_page_token",
                                 ));
                             }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.next_page_token =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__self_link => {
                             if !fields.insert(__FieldTag::__self_link) {
@@ -13422,9 +13235,8 @@ impl<'de> serde::de::Deserialize<'de> for super::OperationList {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__warning => {
                             if !fields.insert(__FieldTag::__warning) {
@@ -13519,8 +13331,7 @@ impl<'de> serde::de::Deserialize<'de> for super::operation_list::Warning {
                             result.code =
                                 map.next_value::<std::option::Option<
                                     crate::model::operation_list::warning::Code,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::__data => {
                             if !fields.insert(__FieldTag::__data) {
@@ -13540,9 +13351,8 @@ impl<'de> serde::de::Deserialize<'de> for super::operation_list::Warning {
                                     "multiple values for message",
                                 ));
                             }
-                            result.message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13623,9 +13433,8 @@ impl<'de> serde::de::Deserialize<'de> for super::operation_list::warning::Data {
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__value => {
                             if !fields.insert(__FieldTag::__value) {
@@ -13633,9 +13442,8 @@ impl<'de> serde::de::Deserialize<'de> for super::operation_list::warning::Data {
                                     "multiple values for value",
                                 ));
                             }
-                            result.value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13744,10 +13552,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Policy {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.etag = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.etag = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__version => {
                             if !fields.insert(__FieldTag::__version) {
@@ -13766,7 +13579,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Policy {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.version = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.version = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13881,7 +13694,7 @@ impl<'de> serde::de::Deserialize<'de> for super::QuotaExceededInfo {
                                     serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.future_limit = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.future_limit = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__limit => {
                             if !fields.insert(__FieldTag::__limit) {
@@ -13900,7 +13713,7 @@ impl<'de> serde::de::Deserialize<'de> for super::QuotaExceededInfo {
                                     serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.limit = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.limit = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__limit_name => {
                             if !fields.insert(__FieldTag::__limit_name) {
@@ -13908,9 +13721,8 @@ impl<'de> serde::de::Deserialize<'de> for super::QuotaExceededInfo {
                                     "multiple values for limit_name",
                                 ));
                             }
-                            result.limit_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.limit_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__metric_name => {
                             if !fields.insert(__FieldTag::__metric_name) {
@@ -13918,9 +13730,8 @@ impl<'de> serde::de::Deserialize<'de> for super::QuotaExceededInfo {
                                     "multiple values for metric_name",
                                 ));
                             }
-                            result.metric_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.metric_name =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__rollout_status => {
                             if !fields.insert(__FieldTag::__rollout_status) {
@@ -13928,11 +13739,9 @@ impl<'de> serde::de::Deserialize<'de> for super::QuotaExceededInfo {
                                     "multiple values for rollout_status",
                                 ));
                             }
-                            result.rollout_status = map
-                                .next_value::<std::option::Option<
-                                    crate::model::quota_exceeded_info::RolloutStatus,
-                                >>()?
-                                .unwrap_or_default();
+                            result.rollout_status = map.next_value::<std::option::Option<
+                                crate::model::quota_exceeded_info::RolloutStatus,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14017,9 +13826,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Reference {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__reference_type => {
                             if !fields.insert(__FieldTag::__reference_type) {
@@ -14027,9 +13835,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Reference {
                                     "multiple values for reference_type",
                                 ));
                             }
-                            result.reference_type = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.reference_type =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__referrer => {
                             if !fields.insert(__FieldTag::__referrer) {
@@ -14037,9 +13844,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Reference {
                                     "multiple values for referrer",
                                 ));
                             }
-                            result.referrer = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.referrer =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__target => {
                             if !fields.insert(__FieldTag::__target) {
@@ -14047,9 +13853,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Reference {
                                     "multiple values for target",
                                 ));
                             }
-                            result.target = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.target =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14135,8 +13940,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ReservationAffinity {
                             result.consume_reservation_type = map
                                 .next_value::<std::option::Option<
                                     crate::model::reservation_affinity::ConsumeReservationType,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::__key => {
                             if !fields.insert(__FieldTag::__key) {
@@ -14144,9 +13948,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ReservationAffinity {
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__values => {
                             if !fields.insert(__FieldTag::__values) {
@@ -14254,9 +14057,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatus {
                                     "multiple values for physical_host",
                                 ));
                             }
-                            result.physical_host = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.physical_host =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__physical_host_topology => {
                             if !fields.insert(__FieldTag::__physical_host_topology) {
@@ -14394,9 +14196,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusEffectiveInstance
                                     "multiple values for block_project_ssh_keys_metadata_value",
                                 ));
                             }
-                            result.block_project_ssh_keys_metadata_value = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.block_project_ssh_keys_metadata_value =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__enable_guest_attributes_metadata_value => {
                             if !fields.insert(__FieldTag::__enable_guest_attributes_metadata_value)
@@ -14405,9 +14206,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusEffectiveInstance
                                     "multiple values for enable_guest_attributes_metadata_value",
                                 ));
                             }
-                            result.enable_guest_attributes_metadata_value = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_guest_attributes_metadata_value =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__enable_os_inventory_metadata_value => {
                             if !fields.insert(__FieldTag::__enable_os_inventory_metadata_value) {
@@ -14415,9 +14215,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusEffectiveInstance
                                     "multiple values for enable_os_inventory_metadata_value",
                                 ));
                             }
-                            result.enable_os_inventory_metadata_value = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_os_inventory_metadata_value =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__enable_osconfig_metadata_value => {
                             if !fields.insert(__FieldTag::__enable_osconfig_metadata_value) {
@@ -14425,9 +14224,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusEffectiveInstance
                                     "multiple values for enable_osconfig_metadata_value",
                                 ));
                             }
-                            result.enable_osconfig_metadata_value = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_osconfig_metadata_value =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__enable_oslogin_metadata_value => {
                             if !fields.insert(__FieldTag::__enable_oslogin_metadata_value) {
@@ -14435,9 +14233,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusEffectiveInstance
                                     "multiple values for enable_oslogin_metadata_value",
                                 ));
                             }
-                            result.enable_oslogin_metadata_value = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_oslogin_metadata_value =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__serial_port_enable_metadata_value => {
                             if !fields.insert(__FieldTag::__serial_port_enable_metadata_value) {
@@ -14445,9 +14242,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusEffectiveInstance
                                     "multiple values for serial_port_enable_metadata_value",
                                 ));
                             }
-                            result.serial_port_enable_metadata_value = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.serial_port_enable_metadata_value =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__serial_port_logging_enable_metadata_value => {
                             if !fields
@@ -14457,9 +14253,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusEffectiveInstance
                                     "multiple values for serial_port_logging_enable_metadata_value",
                                 ));
                             }
-                            result.serial_port_logging_enable_metadata_value = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.serial_port_logging_enable_metadata_value =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__vm_dns_setting_metadata_value => {
                             if !fields.insert(__FieldTag::__vm_dns_setting_metadata_value) {
@@ -14467,9 +14262,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusEffectiveInstance
                                     "multiple values for vm_dns_setting_metadata_value",
                                 ));
                             }
-                            result.vm_dns_setting_metadata_value = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.vm_dns_setting_metadata_value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14554,9 +14348,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusPhysicalHostTopol
                                     "multiple values for block",
                                 ));
                             }
-                            result.block = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.block =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__cluster => {
                             if !fields.insert(__FieldTag::__cluster) {
@@ -14564,9 +14357,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusPhysicalHostTopol
                                     "multiple values for cluster",
                                 ));
                             }
-                            result.cluster = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.cluster =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__host => {
                             if !fields.insert(__FieldTag::__host) {
@@ -14574,9 +14366,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusPhysicalHostTopol
                                     "multiple values for host",
                                 ));
                             }
-                            result.host = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.host =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__subblock => {
                             if !fields.insert(__FieldTag::__subblock) {
@@ -14584,9 +14375,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusPhysicalHostTopol
                                     "multiple values for subblock",
                                 ));
                             }
-                            result.subblock = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.subblock =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14676,8 +14466,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ResourceStatusScheduling {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.availability_domain =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.availability_domain = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14790,9 +14579,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                                     "multiple values for automatic_restart",
                                 ));
                             }
-                            result.automatic_restart = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.automatic_restart =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__availability_domain => {
                             if !fields.insert(__FieldTag::__availability_domain) {
@@ -14811,8 +14599,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.availability_domain =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.availability_domain = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__host_error_timeout_seconds => {
                             if !fields.insert(__FieldTag::__host_error_timeout_seconds) {
@@ -14831,8 +14618,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.host_error_timeout_seconds =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.host_error_timeout_seconds = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__instance_termination_action => {
                             if !fields.insert(__FieldTag::__instance_termination_action) {
@@ -14843,8 +14629,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                             result.instance_termination_action = map
                                 .next_value::<std::option::Option<
                                     crate::model::scheduling::InstanceTerminationAction,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::__local_ssd_recovery_timeout => {
                             if !fields.insert(__FieldTag::__local_ssd_recovery_timeout) {
@@ -14861,9 +14646,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                                     "multiple values for location_hint",
                                 ));
                             }
-                            result.location_hint = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.location_hint =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__max_run_duration => {
                             if !fields.insert(__FieldTag::__max_run_duration) {
@@ -14891,8 +14675,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.min_node_cpus =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.min_node_cpus = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__node_affinities => {
                             if !fields.insert(__FieldTag::__node_affinities) {
@@ -14915,8 +14698,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                             result.on_host_maintenance =
                                 map.next_value::<std::option::Option<
                                     crate::model::scheduling::OnHostMaintenance,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::__on_instance_stop_action => {
                             if !fields.insert(__FieldTag::__on_instance_stop_action) {
@@ -14935,9 +14717,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                                     "multiple values for preemptible",
                                 ));
                             }
-                            result.preemptible = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.preemptible = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__provisioning_model => {
                             if !fields.insert(__FieldTag::__provisioning_model) {
@@ -14948,8 +14728,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                             result.provisioning_model =
                                 map.next_value::<std::option::Option<
                                     crate::model::scheduling::ProvisioningModel,
-                                >>()?
-                                .unwrap_or_default();
+                                >>()?;
                         }
                         __FieldTag::__skip_guest_os_shutdown => {
                             if !fields.insert(__FieldTag::__skip_guest_os_shutdown) {
@@ -14957,9 +14736,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                                     "multiple values for skip_guest_os_shutdown",
                                 ));
                             }
-                            result.skip_guest_os_shutdown = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.skip_guest_os_shutdown =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__termination_time => {
                             if !fields.insert(__FieldTag::__termination_time) {
@@ -14967,9 +14745,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Scheduling {
                                     "multiple values for termination_time",
                                 ));
                             }
-                            result.termination_time = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.termination_time =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -15052,9 +14829,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SchedulingNodeAffinity {
                                     "multiple values for key",
                                 ));
                             }
-                            result.key = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.key =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__operator => {
                             if !fields.insert(__FieldTag::__operator) {
@@ -15062,11 +14838,9 @@ impl<'de> serde::de::Deserialize<'de> for super::SchedulingNodeAffinity {
                                     "multiple values for operator",
                                 ));
                             }
-                            result.operator = map
-                                .next_value::<std::option::Option<
-                                    crate::model::scheduling_node_affinity::Operator,
-                                >>()?
-                                .unwrap_or_default();
+                            result.operator = map.next_value::<std::option::Option<
+                                crate::model::scheduling_node_affinity::Operator,
+                            >>()?;
                         }
                         __FieldTag::__values => {
                             if !fields.insert(__FieldTag::__values) {
@@ -15153,9 +14927,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SchedulingOnInstanceStopAction 
                                     "multiple values for discard_local_ssd",
                                 ));
                             }
-                            result.discard_local_ssd = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.discard_local_ssd =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -15236,9 +15009,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Screenshot {
                                     "multiple values for contents",
                                 ));
                             }
-                            result.contents = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.contents =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__kind => {
                             if !fields.insert(__FieldTag::__kind) {
@@ -15246,9 +15018,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Screenshot {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -15335,9 +15106,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SerialPortOutput {
                                     "multiple values for contents",
                                 ));
                             }
-                            result.contents = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.contents =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__kind => {
                             if !fields.insert(__FieldTag::__kind) {
@@ -15345,9 +15115,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SerialPortOutput {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__next => {
                             if !fields.insert(__FieldTag::__next) {
@@ -15366,7 +15135,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SerialPortOutput {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.next = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.next = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__self_link => {
                             if !fields.insert(__FieldTag::__self_link) {
@@ -15374,9 +15143,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SerialPortOutput {
                                     "multiple values for self_link",
                                 ));
                             }
-                            result.self_link = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__start => {
                             if !fields.insert(__FieldTag::__start) {
@@ -15395,7 +15163,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SerialPortOutput {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.start = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.start = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -15476,9 +15244,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ServiceAccount {
                                     "multiple values for email",
                                 ));
                             }
-                            result.email = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.email =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__scopes => {
                             if !fields.insert(__FieldTag::__scopes) {
@@ -15569,9 +15336,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SetCommonInstanceMetadataOperat
                                     "multiple values for client_operation_id",
                                 ));
                             }
-                            result.client_operation_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.client_operation_id =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__per_location_operations => {
                             if !fields.insert(__FieldTag::__per_location_operations) {
@@ -15673,7 +15439,8 @@ impl<'de> serde::de::Deserialize<'de>
                                     "multiple values for state",
                                 ));
                             }
-                            result.state = map.next_value::<std::option::Option<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>>()?.unwrap_or_default();
+                            result.state = map.next_value::<std::option::Option<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -15758,9 +15525,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ShieldedInstanceConfig {
                                     "multiple values for enable_integrity_monitoring",
                                 ));
                             }
-                            result.enable_integrity_monitoring = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_integrity_monitoring =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__enable_secure_boot => {
                             if !fields.insert(__FieldTag::__enable_secure_boot) {
@@ -15768,9 +15534,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ShieldedInstanceConfig {
                                     "multiple values for enable_secure_boot",
                                 ));
                             }
-                            result.enable_secure_boot = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_secure_boot =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__enable_vtpm => {
                             if !fields.insert(__FieldTag::__enable_vtpm) {
@@ -15778,9 +15543,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ShieldedInstanceConfig {
                                     "multiple values for enable_vtpm",
                                 ));
                             }
-                            result.enable_vtpm = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.enable_vtpm = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -15874,9 +15637,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ShieldedInstanceIdentity {
                                     "multiple values for kind",
                                 ));
                             }
-                            result.kind = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.kind =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__signing_key => {
                             if !fields.insert(__FieldTag::__signing_key) {
@@ -15968,9 +15730,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ShieldedInstanceIdentityEntry {
                                     "multiple values for ek_cert",
                                 ));
                             }
-                            result.ek_cert = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.ek_cert =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__ek_pub => {
                             if !fields.insert(__FieldTag::__ek_pub) {
@@ -15978,9 +15739,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ShieldedInstanceIdentityEntry {
                                     "multiple values for ek_pub",
                                 ));
                             }
-                            result.ek_pub = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.ek_pub =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -16059,9 +15819,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ShieldedInstanceIntegrityPolicy
                                     "multiple values for update_auto_learn_policy",
                                 ));
                             }
-                            result.update_auto_learn_policy = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.update_auto_learn_policy =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -16155,7 +15914,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Status {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            result.code = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.code = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__details => {
                             if !fields.insert(__FieldTag::__details) {
@@ -16173,9 +15932,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Status {
                                     "multiple values for message",
                                 ));
                             }
-                            result.message = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.message =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -16264,10 +16022,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Tags {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.fingerprint = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.fingerprint = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__items => {
                             if !fields.insert(__FieldTag::__items) {
@@ -16526,9 +16289,8 @@ impl<'de> serde::de::Deserialize<'de> for super::UpcomingMaintenance {
                                     "multiple values for can_reschedule",
                                 ));
                             }
-                            result.can_reschedule = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.can_reschedule =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__latest_window_start_time => {
                             if !fields.insert(__FieldTag::__latest_window_start_time) {
@@ -16536,9 +16298,8 @@ impl<'de> serde::de::Deserialize<'de> for super::UpcomingMaintenance {
                                     "multiple values for latest_window_start_time",
                                 ));
                             }
-                            result.latest_window_start_time = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.latest_window_start_time =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__maintenance_on_shutdown => {
                             if !fields.insert(__FieldTag::__maintenance_on_shutdown) {
@@ -16546,9 +16307,8 @@ impl<'de> serde::de::Deserialize<'de> for super::UpcomingMaintenance {
                                     "multiple values for maintenance_on_shutdown",
                                 ));
                             }
-                            result.maintenance_on_shutdown = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
+                            result.maintenance_on_shutdown =
+                                map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__maintenance_reasons => {
                             if !fields.insert(__FieldTag::__maintenance_reasons) {
@@ -16570,11 +16330,9 @@ impl<'de> serde::de::Deserialize<'de> for super::UpcomingMaintenance {
                                     "multiple values for maintenance_status",
                                 ));
                             }
-                            result.maintenance_status = map
-                                .next_value::<std::option::Option<
-                                    crate::model::upcoming_maintenance::MaintenanceStatus,
-                                >>()?
-                                .unwrap_or_default();
+                            result.maintenance_status = map.next_value::<std::option::Option<
+                                crate::model::upcoming_maintenance::MaintenanceStatus,
+                            >>()?;
                         }
                         __FieldTag::__type => {
                             if !fields.insert(__FieldTag::__type) {
@@ -16582,7 +16340,8 @@ impl<'de> serde::de::Deserialize<'de> for super::UpcomingMaintenance {
                                     "multiple values for type",
                                 ));
                             }
-                            result.r#type = map.next_value::<std::option::Option<crate::model::upcoming_maintenance::Type>>()?.unwrap_or_default();
+                            result.r#type = map.next_value::<std::option::Option<crate::model::upcoming_maintenance::Type>>()?
+                                ;
                         }
                         __FieldTag::__window_end_time => {
                             if !fields.insert(__FieldTag::__window_end_time) {
@@ -16590,9 +16349,8 @@ impl<'de> serde::de::Deserialize<'de> for super::UpcomingMaintenance {
                                     "multiple values for window_end_time",
                                 ));
                             }
-                            result.window_end_time = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.window_end_time =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__window_start_time => {
                             if !fields.insert(__FieldTag::__window_start_time) {
@@ -16600,9 +16358,8 @@ impl<'de> serde::de::Deserialize<'de> for super::UpcomingMaintenance {
                                     "multiple values for window_start_time",
                                 ));
                             }
-                            result.window_start_time = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
+                            result.window_start_time =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -17230,10 +16987,15 @@ impl<'de> serde::de::Deserialize<'de> for super::ZoneSetPolicyRequest {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
                                 }
                             }
-                            result.etag = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.etag = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__policy => {
                             if !fields.insert(__FieldTag::__policy) {
