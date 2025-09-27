@@ -130,10 +130,10 @@ pub async fn instances() -> Result<()> {
         .set_filter("family=fedora-coreos-stable")
         .by_item();
     while let Some(i) = items.next().await.transpose()? {
-        if i.family != "fedora-coreos-stable" {
+        if !i.family.is_some_and(|v| v == "fedora-coreos-stable") {
             continue;
         }
-        image = Some(i.name);
+        image = i.name;
     }
 
     let image = image.expect("cannot find an image in the fedora-coreos-stable family");
@@ -177,7 +177,7 @@ pub async fn instances() -> Result<()> {
         .wait()
         .set_project(&project_id)
         .set_zone(&zone_id)
-        .set_operation(&pending.name)
+        .set_operation(pending.name.clone().unwrap_or_default())
         .send()
         .await?;
     tracing::info!("Operation completed with = {done:?}");
