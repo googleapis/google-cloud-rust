@@ -28,19 +28,19 @@ impl serde::ser::Serialize for super::DeprecationStatus {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.deleted.is_empty() {
+        if self.deleted.is_some() {
             state.serialize_entry("deleted", &self.deleted)?;
         }
-        if !self.deprecated.is_empty() {
+        if self.deprecated.is_some() {
             state.serialize_entry("deprecated", &self.deprecated)?;
         }
-        if !self.obsolete.is_empty() {
+        if self.obsolete.is_some() {
             state.serialize_entry("obsolete", &self.obsolete)?;
         }
-        if !self.replacement.is_empty() {
+        if self.replacement.is_some() {
             state.serialize_entry("replacement", &self.replacement)?;
         }
-        if !wkt::internal::is_default(&self.state) {
+        if self.state.is_some() {
             state.serialize_entry("state", &self.state)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -66,68 +66,76 @@ impl serde::ser::Serialize for super::MachineType {
         if !self.accelerators.is_empty() {
             state.serialize_entry("accelerators", &self.accelerators)?;
         }
-        if !wkt::internal::is_default(&self.architecture) {
+        if self.architecture.is_some() {
             state.serialize_entry("architecture", &self.architecture)?;
         }
-        if !self.creation_timestamp.is_empty() {
+        if self.creation_timestamp.is_some() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
         }
         if self.deprecated.is_some() {
             state.serialize_entry("deprecated", &self.deprecated)?;
         }
-        if !self.description.is_empty() {
+        if self.description.is_some() {
             state.serialize_entry("description", &self.description)?;
         }
-        if !wkt::internal::is_default(&self.guest_cpus) {
-            struct __With<'a>(&'a i32);
+        if self.guest_cpus.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("guestCpus", &__With(&self.guest_cpus))?;
         }
-        if !wkt::internal::is_default(&self.id) {
-            struct __With<'a>(&'a u64);
+        if self.id.is_some() {
+            struct __With<'a>(&'a std::option::Option<u64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<wkt::internal::U64>::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("id", &__With(&self.id))?;
         }
-        if !wkt::internal::is_default(&self.image_space_gb) {
-            struct __With<'a>(&'a i32);
+        if self.image_space_gb.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("imageSpaceGb", &__With(&self.image_space_gb))?;
         }
-        if !wkt::internal::is_default(&self.is_shared_cpu) {
+        if self.is_shared_cpu.is_some() {
             state.serialize_entry("isSharedCpu", &self.is_shared_cpu)?;
         }
-        if !self.kind.is_empty() {
+        if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
         }
-        if !wkt::internal::is_default(&self.maximum_persistent_disks) {
-            struct __With<'a>(&'a i32);
+        if self.maximum_persistent_disks.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry(
@@ -135,14 +143,16 @@ impl serde::ser::Serialize for super::MachineType {
                 &__With(&self.maximum_persistent_disks),
             )?;
         }
-        if !wkt::internal::is_default(&self.maximum_persistent_disks_size_gb) {
-            struct __With<'a>(&'a i64);
+        if self.maximum_persistent_disks_size_gb.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry(
@@ -150,25 +160,27 @@ impl serde::ser::Serialize for super::MachineType {
                 &__With(&self.maximum_persistent_disks_size_gb),
             )?;
         }
-        if !wkt::internal::is_default(&self.memory_mb) {
-            struct __With<'a>(&'a i32);
+        if self.memory_mb.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("memoryMb", &__With(&self.memory_mb))?;
         }
-        if !self.name.is_empty() {
+        if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
-        if !self.self_link.is_empty() {
+        if self.self_link.is_some() {
             state.serialize_entry("selfLink", &self.self_link)?;
         }
-        if !self.zone.is_empty() {
+        if self.zone.is_some() {
             state.serialize_entry("zone", &self.zone)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -191,14 +203,16 @@ impl serde::ser::Serialize for super::machine_type::Accelerators {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.guest_accelerator_count) {
-            struct __With<'a>(&'a i32);
+        if self.guest_accelerator_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry(
@@ -206,7 +220,7 @@ impl serde::ser::Serialize for super::machine_type::Accelerators {
                 &__With(&self.guest_accelerator_count),
             )?;
         }
-        if !self.guest_accelerator_type.is_empty() {
+        if self.guest_accelerator_type.is_some() {
             state.serialize_entry("guestAcceleratorType", &self.guest_accelerator_type)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -229,19 +243,19 @@ impl serde::ser::Serialize for super::MachineTypeAggregatedList {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.id.is_empty() {
+        if self.id.is_some() {
             state.serialize_entry("id", &self.id)?;
         }
         if !wkt::internal::is_default(&self.items) {
             state.serialize_entry("items", &self.items)?;
         }
-        if !self.kind.is_empty() {
+        if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
         }
-        if !self.next_page_token.is_empty() {
+        if self.next_page_token.is_some() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
         }
-        if !self.self_link.is_empty() {
+        if self.self_link.is_some() {
             state.serialize_entry("selfLink", &self.self_link)?;
         }
         if !self.unreachables.is_empty() {
@@ -270,13 +284,13 @@ impl serde::ser::Serialize for super::machine_type_aggregated_list::Warning {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.code) {
+        if self.code.is_some() {
             state.serialize_entry("code", &self.code)?;
         }
         if !self.data.is_empty() {
             state.serialize_entry("data", &self.data)?;
         }
-        if !self.message.is_empty() {
+        if self.message.is_some() {
             state.serialize_entry("message", &self.message)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -299,10 +313,10 @@ impl serde::ser::Serialize for super::machine_type_aggregated_list::warning::Dat
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.key.is_empty() {
+        if self.key.is_some() {
             state.serialize_entry("key", &self.key)?;
         }
-        if !self.value.is_empty() {
+        if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -325,19 +339,19 @@ impl serde::ser::Serialize for super::MachineTypeList {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.id.is_empty() {
+        if self.id.is_some() {
             state.serialize_entry("id", &self.id)?;
         }
         if !self.items.is_empty() {
             state.serialize_entry("items", &self.items)?;
         }
-        if !self.kind.is_empty() {
+        if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
         }
-        if !self.next_page_token.is_empty() {
+        if self.next_page_token.is_some() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
         }
-        if !self.self_link.is_empty() {
+        if self.self_link.is_some() {
             state.serialize_entry("selfLink", &self.self_link)?;
         }
         if self.warning.is_some() {
@@ -363,13 +377,13 @@ impl serde::ser::Serialize for super::machine_type_list::Warning {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.code) {
+        if self.code.is_some() {
             state.serialize_entry("code", &self.code)?;
         }
         if !self.data.is_empty() {
             state.serialize_entry("data", &self.data)?;
         }
-        if !self.message.is_empty() {
+        if self.message.is_some() {
             state.serialize_entry("message", &self.message)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -392,10 +406,10 @@ impl serde::ser::Serialize for super::machine_type_list::warning::Data {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.key.is_empty() {
+        if self.key.is_some() {
             state.serialize_entry("key", &self.key)?;
         }
-        if !self.value.is_empty() {
+        if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -444,13 +458,13 @@ impl serde::ser::Serialize for super::machine_types_scoped_list::Warning {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.code) {
+        if self.code.is_some() {
             state.serialize_entry("code", &self.code)?;
         }
         if !self.data.is_empty() {
             state.serialize_entry("data", &self.data)?;
         }
-        if !self.message.is_empty() {
+        if self.message.is_some() {
             state.serialize_entry("message", &self.message)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -473,10 +487,10 @@ impl serde::ser::Serialize for super::machine_types_scoped_list::warning::Data {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.key.is_empty() {
+        if self.key.is_some() {
             state.serialize_entry("key", &self.key)?;
         }
-        if !self.value.is_empty() {
+        if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -502,43 +516,45 @@ impl serde::ser::Serialize for super::Zone {
         if !self.available_cpu_platforms.is_empty() {
             state.serialize_entry("availableCpuPlatforms", &self.available_cpu_platforms)?;
         }
-        if !self.creation_timestamp.is_empty() {
+        if self.creation_timestamp.is_some() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
         }
         if self.deprecated.is_some() {
             state.serialize_entry("deprecated", &self.deprecated)?;
         }
-        if !self.description.is_empty() {
+        if self.description.is_some() {
             state.serialize_entry("description", &self.description)?;
         }
-        if !wkt::internal::is_default(&self.id) {
-            struct __With<'a>(&'a u64);
+        if self.id.is_some() {
+            struct __With<'a>(&'a std::option::Option<u64>);
             impl<'a> serde::ser::Serialize for __With<'a> {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<wkt::internal::U64>::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("id", &__With(&self.id))?;
         }
-        if !self.kind.is_empty() {
+        if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
         }
-        if !self.name.is_empty() {
+        if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
-        if !self.region.is_empty() {
+        if self.region.is_some() {
             state.serialize_entry("region", &self.region)?;
         }
-        if !self.self_link.is_empty() {
+        if self.self_link.is_some() {
             state.serialize_entry("selfLink", &self.self_link)?;
         }
-        if !wkt::internal::is_default(&self.status) {
+        if self.status.is_some() {
             state.serialize_entry("status", &self.status)?;
         }
-        if !wkt::internal::is_default(&self.supports_pzs) {
+        if self.supports_pzs.is_some() {
             state.serialize_entry("supportsPzs", &self.supports_pzs)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -561,19 +577,19 @@ impl serde::ser::Serialize for super::ZoneList {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.id.is_empty() {
+        if self.id.is_some() {
             state.serialize_entry("id", &self.id)?;
         }
         if !self.items.is_empty() {
             state.serialize_entry("items", &self.items)?;
         }
-        if !self.kind.is_empty() {
+        if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
         }
-        if !self.next_page_token.is_empty() {
+        if self.next_page_token.is_some() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
         }
-        if !self.self_link.is_empty() {
+        if self.self_link.is_some() {
             state.serialize_entry("selfLink", &self.self_link)?;
         }
         if self.warning.is_some() {
@@ -599,13 +615,13 @@ impl serde::ser::Serialize for super::zone_list::Warning {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.code) {
+        if self.code.is_some() {
             state.serialize_entry("code", &self.code)?;
         }
         if !self.data.is_empty() {
             state.serialize_entry("data", &self.data)?;
         }
-        if !self.message.is_empty() {
+        if self.message.is_some() {
             state.serialize_entry("message", &self.message)?;
         }
         if !self._unknown_fields.is_empty() {
@@ -628,10 +644,10 @@ impl serde::ser::Serialize for super::zone_list::warning::Data {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.key.is_empty() {
+        if self.key.is_some() {
             state.serialize_entry("key", &self.key)?;
         }
-        if !self.value.is_empty() {
+        if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
         }
         if !self._unknown_fields.is_empty() {
