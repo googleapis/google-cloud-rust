@@ -335,10 +335,12 @@ pub mod access_config {
             S: serde::Serializer,
         {
             match self {
-                Self::FixedStandard => serializer.serialize_i32(0),
-                Self::Premium => serializer.serialize_i32(1),
-                Self::Standard => serializer.serialize_i32(2),
-                Self::StandardOverridesFixedStandard => serializer.serialize_i32(3),
+                Self::FixedStandard => serializer.serialize_str("FIXED_STANDARD"),
+                Self::Premium => serializer.serialize_str("PREMIUM"),
+                Self::Standard => serializer.serialize_str("STANDARD"),
+                Self::StandardOverridesFixedStandard => {
+                    serializer.serialize_str("STANDARD_OVERRIDES_FIXED_STANDARD")
+                }
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -471,8 +473,8 @@ pub mod access_config {
             S: serde::Serializer,
         {
             match self {
-                Self::DirectIpv6 => serializer.serialize_i32(0),
-                Self::OneToOneNat => serializer.serialize_i32(1),
+                Self::DirectIpv6 => serializer.serialize_str("DIRECT_IPV6"),
+                Self::OneToOneNat => serializer.serialize_str("ONE_TO_ONE_NAT"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -709,10 +711,12 @@ pub mod advanced_machine_features {
             S: serde::Serializer,
         {
             match self {
-                Self::Architectural => serializer.serialize_i32(0),
-                Self::Enhanced => serializer.serialize_i32(1),
-                Self::Unspecified => serializer.serialize_i32(2),
-                Self::Standard => serializer.serialize_i32(3),
+                Self::Architectural => serializer.serialize_str("ARCHITECTURAL"),
+                Self::Enhanced => serializer.serialize_str("ENHANCED"),
+                Self::Unspecified => {
+                    serializer.serialize_str("PERFORMANCE_MONITORING_UNIT_UNSPECIFIED")
+                }
+                Self::Standard => serializer.serialize_str("STANDARD"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1153,9 +1157,9 @@ pub mod attached_disk {
             S: serde::Serializer,
         {
             match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::Arm64 => serializer.serialize_i32(1),
-                Self::X8664 => serializer.serialize_i32(2),
+                Self::Unspecified => serializer.serialize_str("ARCHITECTURE_UNSPECIFIED"),
+                Self::Arm64 => serializer.serialize_str("ARM64"),
+                Self::X8664 => serializer.serialize_str("X86_64"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1288,8 +1292,8 @@ pub mod attached_disk {
             S: serde::Serializer,
         {
             match self {
-                Self::Nvme => serializer.serialize_i32(0),
-                Self::Scsi => serializer.serialize_i32(1),
+                Self::Nvme => serializer.serialize_str("NVME"),
+                Self::Scsi => serializer.serialize_str("SCSI"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1424,8 +1428,8 @@ pub mod attached_disk {
             S: serde::Serializer,
         {
             match self {
-                Self::ReadOnly => serializer.serialize_i32(0),
-                Self::ReadWrite => serializer.serialize_i32(1),
+                Self::ReadOnly => serializer.serialize_str("READ_ONLY"),
+                Self::ReadWrite => serializer.serialize_str("READ_WRITE"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1562,8 +1566,10 @@ pub mod attached_disk {
             S: serde::Serializer,
         {
             match self {
-                Self::DiskSavedStateUnspecified => serializer.serialize_i32(0),
-                Self::Preserved => serializer.serialize_i32(1),
+                Self::DiskSavedStateUnspecified => {
+                    serializer.serialize_str("DISK_SAVED_STATE_UNSPECIFIED")
+                }
+                Self::Preserved => serializer.serialize_str("PRESERVED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1696,8 +1702,8 @@ pub mod attached_disk {
             S: serde::Serializer,
         {
             match self {
-                Self::Persistent => serializer.serialize_i32(0),
-                Self::Scratch => serializer.serialize_i32(1),
+                Self::Persistent => serializer.serialize_str("PERSISTENT"),
+                Self::Scratch => serializer.serialize_str("SCRATCH"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2100,9 +2106,9 @@ pub mod attached_disk_initialize_params {
             S: serde::Serializer,
         {
             match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::Arm64 => serializer.serialize_i32(1),
-                Self::X8664 => serializer.serialize_i32(2),
+                Self::Unspecified => serializer.serialize_str("ARCHITECTURE_UNSPECIFIED"),
+                Self::Arm64 => serializer.serialize_str("ARM64"),
+                Self::X8664 => serializer.serialize_str("X86_64"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2245,9 +2251,11 @@ pub mod attached_disk_initialize_params {
             S: serde::Serializer,
         {
             match self {
-                Self::RecreateDisk => serializer.serialize_i32(0),
-                Self::RecreateDiskIfSourceChanged => serializer.serialize_i32(1),
-                Self::UseExistingDisk => serializer.serialize_i32(2),
+                Self::RecreateDisk => serializer.serialize_str("RECREATE_DISK"),
+                Self::RecreateDiskIfSourceChanged => {
+                    serializer.serialize_str("RECREATE_DISK_IF_SOURCE_CHANGED")
+                }
+                Self::UseExistingDisk => serializer.serialize_str("USE_EXISTING_DISK"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2494,10 +2502,10 @@ pub mod audit_log_config {
             S: serde::Serializer,
         {
             match self {
-                Self::AdminRead => serializer.serialize_i32(0),
-                Self::DataRead => serializer.serialize_i32(1),
-                Self::DataWrite => serializer.serialize_i32(2),
-                Self::Unspecified => serializer.serialize_i32(3),
+                Self::AdminRead => serializer.serialize_str("ADMIN_READ"),
+                Self::DataRead => serializer.serialize_str("DATA_READ"),
+                Self::DataWrite => serializer.serialize_str("DATA_WRITE"),
+                Self::Unspecified => serializer.serialize_str("LOG_TYPE_UNSPECIFIED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2950,10 +2958,10 @@ pub mod bulk_insert_operation_status {
             S: serde::Serializer,
         {
             match self {
-                Self::Creating => serializer.serialize_i32(0),
-                Self::Done => serializer.serialize_i32(1),
-                Self::RollingBack => serializer.serialize_i32(2),
-                Self::Unspecified => serializer.serialize_i32(3),
+                Self::Creating => serializer.serialize_str("CREATING"),
+                Self::Done => serializer.serialize_str("DONE"),
+                Self::RollingBack => serializer.serialize_str("ROLLING_BACK"),
+                Self::Unspecified => serializer.serialize_str("STATUS_UNSPECIFIED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -3155,10 +3163,12 @@ pub mod confidential_instance_config {
             S: serde::Serializer,
         {
             match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::Sev => serializer.serialize_i32(1),
-                Self::SevSnp => serializer.serialize_i32(2),
-                Self::Tdx => serializer.serialize_i32(3),
+                Self::Unspecified => {
+                    serializer.serialize_str("CONFIDENTIAL_INSTANCE_TYPE_UNSPECIFIED")
+                }
+                Self::Sev => serializer.serialize_str("SEV"),
+                Self::SevSnp => serializer.serialize_str("SEV_SNP"),
+                Self::Tdx => serializer.serialize_str("TDX"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -3933,9 +3943,9 @@ pub mod file_content_buffer {
             S: serde::Serializer,
         {
             match self {
-                Self::Bin => serializer.serialize_i32(0),
-                Self::Undefined => serializer.serialize_i32(1),
-                Self::X509 => serializer.serialize_i32(2),
+                Self::Bin => serializer.serialize_str("BIN"),
+                Self::Undefined => serializer.serialize_str("UNDEFINED"),
+                Self::X509 => serializer.serialize_str("X509"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -4443,8 +4453,8 @@ pub mod firewall {
             S: serde::Serializer,
         {
             match self {
-                Self::Egress => serializer.serialize_i32(0),
-                Self::Ingress => serializer.serialize_i32(1),
+                Self::Egress => serializer.serialize_str("EGRESS"),
+                Self::Ingress => serializer.serialize_str("INGRESS"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -4627,8 +4637,8 @@ pub mod firewall_log_config {
             S: serde::Serializer,
         {
             match self {
-                Self::ExcludeAllMetadata => serializer.serialize_i32(0),
-                Self::IncludeAllMetadata => serializer.serialize_i32(1),
+                Self::ExcludeAllMetadata => serializer.serialize_str("EXCLUDE_ALL_METADATA"),
+                Self::IncludeAllMetadata => serializer.serialize_str("INCLUDE_ALL_METADATA"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -4994,8 +5004,8 @@ pub mod firewall_policy_rule {
             S: serde::Serializer,
         {
             match self {
-                Self::Egress => serializer.serialize_i32(0),
-                Self::Ingress => serializer.serialize_i32(1),
+                Self::Egress => serializer.serialize_str("EGRESS"),
+                Self::Ingress => serializer.serialize_str("INGRESS"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -5382,11 +5392,11 @@ pub mod firewall_policy_rule_matcher {
             S: serde::Serializer,
         {
             match self {
-                Self::Internet => serializer.serialize_i32(0),
-                Self::IntraVpc => serializer.serialize_i32(1),
-                Self::NonInternet => serializer.serialize_i32(2),
-                Self::Unspecified => serializer.serialize_i32(3),
-                Self::VpcNetworks => serializer.serialize_i32(4),
+                Self::Internet => serializer.serialize_str("INTERNET"),
+                Self::IntraVpc => serializer.serialize_str("INTRA_VPC"),
+                Self::NonInternet => serializer.serialize_str("NON_INTERNET"),
+                Self::Unspecified => serializer.serialize_str("UNSPECIFIED"),
+                Self::VpcNetworks => serializer.serialize_str("VPC_NETWORKS"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -5534,11 +5544,11 @@ pub mod firewall_policy_rule_matcher {
             S: serde::Serializer,
         {
             match self {
-                Self::Internet => serializer.serialize_i32(0),
-                Self::IntraVpc => serializer.serialize_i32(1),
-                Self::NonInternet => serializer.serialize_i32(2),
-                Self::Unspecified => serializer.serialize_i32(3),
-                Self::VpcNetworks => serializer.serialize_i32(4),
+                Self::Internet => serializer.serialize_str("INTERNET"),
+                Self::IntraVpc => serializer.serialize_str("INTRA_VPC"),
+                Self::NonInternet => serializer.serialize_str("NON_INTERNET"),
+                Self::Unspecified => serializer.serialize_str("UNSPECIFIED"),
+                Self::VpcNetworks => serializer.serialize_str("VPC_NETWORKS"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -5766,8 +5776,8 @@ pub mod firewall_policy_rule_secure_tag {
             S: serde::Serializer,
         {
             match self {
-                Self::Effective => serializer.serialize_i32(0),
-                Self::Ineffective => serializer.serialize_i32(1),
+                Self::Effective => serializer.serialize_str("EFFECTIVE"),
+                Self::Ineffective => serializer.serialize_str("INEFFECTIVE"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -6291,21 +6301,25 @@ pub mod guest_os_feature {
             S: serde::Serializer,
         {
             match self {
-                Self::BareMetalLinuxCompatible => serializer.serialize_i32(0),
-                Self::FeatureTypeUnspecified => serializer.serialize_i32(1),
-                Self::Gvnic => serializer.serialize_i32(2),
-                Self::Idpf => serializer.serialize_i32(3),
-                Self::MultiIpSubnet => serializer.serialize_i32(4),
-                Self::SecureBoot => serializer.serialize_i32(5),
-                Self::SevCapable => serializer.serialize_i32(6),
-                Self::SevLiveMigratable => serializer.serialize_i32(7),
-                Self::SevLiveMigratableV2 => serializer.serialize_i32(8),
-                Self::SevSnpCapable => serializer.serialize_i32(9),
-                Self::SnpSvsmCapable => serializer.serialize_i32(10),
-                Self::TdxCapable => serializer.serialize_i32(11),
-                Self::UefiCompatible => serializer.serialize_i32(12),
-                Self::VirtioScsiMultiqueue => serializer.serialize_i32(13),
-                Self::Windows => serializer.serialize_i32(14),
+                Self::BareMetalLinuxCompatible => {
+                    serializer.serialize_str("BARE_METAL_LINUX_COMPATIBLE")
+                }
+                Self::FeatureTypeUnspecified => {
+                    serializer.serialize_str("FEATURE_TYPE_UNSPECIFIED")
+                }
+                Self::Gvnic => serializer.serialize_str("GVNIC"),
+                Self::Idpf => serializer.serialize_str("IDPF"),
+                Self::MultiIpSubnet => serializer.serialize_str("MULTI_IP_SUBNET"),
+                Self::SecureBoot => serializer.serialize_str("SECURE_BOOT"),
+                Self::SevCapable => serializer.serialize_str("SEV_CAPABLE"),
+                Self::SevLiveMigratable => serializer.serialize_str("SEV_LIVE_MIGRATABLE"),
+                Self::SevLiveMigratableV2 => serializer.serialize_str("SEV_LIVE_MIGRATABLE_V2"),
+                Self::SevSnpCapable => serializer.serialize_str("SEV_SNP_CAPABLE"),
+                Self::SnpSvsmCapable => serializer.serialize_str("SNP_SVSM_CAPABLE"),
+                Self::TdxCapable => serializer.serialize_str("TDX_CAPABLE"),
+                Self::UefiCompatible => serializer.serialize_str("UEFI_COMPATIBLE"),
+                Self::VirtioScsiMultiqueue => serializer.serialize_str("VIRTIO_SCSI_MULTIQUEUE"),
+                Self::Windows => serializer.serialize_str("WINDOWS"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -7041,7 +7055,7 @@ pub mod image {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::Tar => serializer.serialize_i32(0),
+                    Self::Tar => serializer.serialize_str("TAR"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -7183,9 +7197,9 @@ pub mod image {
             S: serde::Serializer,
         {
             match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::Arm64 => serializer.serialize_i32(1),
-                Self::X8664 => serializer.serialize_i32(2),
+                Self::Unspecified => serializer.serialize_str("ARCHITECTURE_UNSPECIFIED"),
+                Self::Arm64 => serializer.serialize_str("ARM64"),
+                Self::X8664 => serializer.serialize_str("X86_64"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -7313,7 +7327,7 @@ pub mod image {
             S: serde::Serializer,
         {
             match self {
-                Self::Raw => serializer.serialize_i32(0),
+                Self::Raw => serializer.serialize_str("RAW"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -7460,10 +7474,10 @@ pub mod image {
             S: serde::Serializer,
         {
             match self {
-                Self::Deleting => serializer.serialize_i32(0),
-                Self::Failed => serializer.serialize_i32(1),
-                Self::Pending => serializer.serialize_i32(2),
-                Self::Ready => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_str("DELETING"),
+                Self::Failed => serializer.serialize_str("FAILED"),
+                Self::Pending => serializer.serialize_str("PENDING"),
+                Self::Ready => serializer.serialize_str("READY"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -8030,35 +8044,71 @@ pub mod image_list {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -8963,9 +9013,11 @@ pub mod instance {
             S: serde::Serializer,
         {
             match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::None => serializer.serialize_i32(1),
-                Self::Stop => serializer.serialize_i32(2),
+                Self::Unspecified => {
+                    serializer.serialize_str("KEY_REVOCATION_ACTION_TYPE_UNSPECIFIED")
+                }
+                Self::None => serializer.serialize_str("NONE"),
+                Self::Stop => serializer.serialize_str("STOP"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -9112,9 +9164,13 @@ pub mod instance {
             S: serde::Serializer,
         {
             match self {
-                Self::EnableBidirectionalAccessToGoogle => serializer.serialize_i32(0),
-                Self::EnableOutboundVmAccessToGoogle => serializer.serialize_i32(1),
-                Self::InheritFromSubnetwork => serializer.serialize_i32(2),
+                Self::EnableBidirectionalAccessToGoogle => {
+                    serializer.serialize_str("ENABLE_BIDIRECTIONAL_ACCESS_TO_GOOGLE")
+                }
+                Self::EnableOutboundVmAccessToGoogle => {
+                    serializer.serialize_str("ENABLE_OUTBOUND_VM_ACCESS_TO_GOOGLE")
+                }
+                Self::InheritFromSubnetwork => serializer.serialize_str("INHERIT_FROM_SUBNETWORK"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -9305,17 +9361,17 @@ pub mod instance {
             S: serde::Serializer,
         {
             match self {
-                Self::Deprovisioning => serializer.serialize_i32(0),
-                Self::Pending => serializer.serialize_i32(1),
-                Self::Provisioning => serializer.serialize_i32(2),
-                Self::Repairing => serializer.serialize_i32(3),
-                Self::Running => serializer.serialize_i32(4),
-                Self::Staging => serializer.serialize_i32(5),
-                Self::Stopped => serializer.serialize_i32(6),
-                Self::Stopping => serializer.serialize_i32(7),
-                Self::Suspended => serializer.serialize_i32(8),
-                Self::Suspending => serializer.serialize_i32(9),
-                Self::Terminated => serializer.serialize_i32(10),
+                Self::Deprovisioning => serializer.serialize_str("DEPROVISIONING"),
+                Self::Pending => serializer.serialize_str("PENDING"),
+                Self::Provisioning => serializer.serialize_str("PROVISIONING"),
+                Self::Repairing => serializer.serialize_str("REPAIRING"),
+                Self::Running => serializer.serialize_str("RUNNING"),
+                Self::Staging => serializer.serialize_str("STAGING"),
+                Self::Stopped => serializer.serialize_str("STOPPED"),
+                Self::Stopping => serializer.serialize_str("STOPPING"),
+                Self::Suspended => serializer.serialize_str("SUSPENDED"),
+                Self::Suspending => serializer.serialize_str("SUSPENDING"),
+                Self::Terminated => serializer.serialize_str("TERMINATED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -9884,35 +9940,71 @@ pub mod instance_aggregated_list {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -10480,35 +10572,71 @@ pub mod instance_list {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -11078,35 +11206,71 @@ pub mod instance_list_referrers {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -11668,9 +11832,11 @@ pub mod instance_properties {
             S: serde::Serializer,
         {
             match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::None => serializer.serialize_i32(1),
-                Self::Stop => serializer.serialize_i32(2),
+                Self::Unspecified => {
+                    serializer.serialize_str("KEY_REVOCATION_ACTION_TYPE_UNSPECIFIED")
+                }
+                Self::None => serializer.serialize_str("NONE"),
+                Self::Stop => serializer.serialize_str("STOP"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -11817,9 +11983,13 @@ pub mod instance_properties {
             S: serde::Serializer,
         {
             match self {
-                Self::EnableBidirectionalAccessToGoogle => serializer.serialize_i32(0),
-                Self::EnableOutboundVmAccessToGoogle => serializer.serialize_i32(1),
-                Self::InheritFromSubnetwork => serializer.serialize_i32(2),
+                Self::EnableBidirectionalAccessToGoogle => {
+                    serializer.serialize_str("ENABLE_BIDIRECTIONAL_ACCESS_TO_GOOGLE")
+                }
+                Self::EnableOutboundVmAccessToGoogle => {
+                    serializer.serialize_str("ENABLE_OUTBOUND_VM_ACCESS_TO_GOOGLE")
+                }
+                Self::InheritFromSubnetwork => serializer.serialize_str("INHERIT_FROM_SUBNETWORK"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -12206,12 +12376,12 @@ pub mod instances_get_effective_firewalls_response_effective_firewall_policy {
             S: serde::Serializer,
         {
             match self {
-                Self::Hierarchy => serializer.serialize_i32(0),
-                Self::Network => serializer.serialize_i32(1),
-                Self::NetworkRegional => serializer.serialize_i32(2),
-                Self::SystemGlobal => serializer.serialize_i32(3),
-                Self::SystemRegional => serializer.serialize_i32(4),
-                Self::Unspecified => serializer.serialize_i32(5),
+                Self::Hierarchy => serializer.serialize_str("HIERARCHY"),
+                Self::Network => serializer.serialize_str("NETWORK"),
+                Self::NetworkRegional => serializer.serialize_str("NETWORK_REGIONAL"),
+                Self::SystemGlobal => serializer.serialize_str("SYSTEM_GLOBAL"),
+                Self::SystemRegional => serializer.serialize_str("SYSTEM_REGIONAL"),
+                Self::Unspecified => serializer.serialize_str("UNSPECIFIED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -12444,9 +12614,9 @@ pub mod instances_report_host_as_faulty_request {
             S: serde::Serializer,
         {
             match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::Future => serializer.serialize_i32(1),
-                Self::Immediate => serializer.serialize_i32(2),
+                Self::Unspecified => serializer.serialize_str("DISRUPTION_SCHEDULE_UNSPECIFIED"),
+                Self::Future => serializer.serialize_str("FUTURE"),
+                Self::Immediate => serializer.serialize_str("IMMEDIATE"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -12641,10 +12811,10 @@ pub mod instances_report_host_as_faulty_request_fault_reason {
             S: serde::Serializer,
         {
             match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::Performance => serializer.serialize_i32(1),
-                Self::SilentDataCorruption => serializer.serialize_i32(2),
-                Self::UnrecoverableGpuError => serializer.serialize_i32(3),
+                Self::Unspecified => serializer.serialize_str("BEHAVIOR_UNSPECIFIED"),
+                Self::Performance => serializer.serialize_str("PERFORMANCE"),
+                Self::SilentDataCorruption => serializer.serialize_str("SILENT_DATA_CORRUPTION"),
+                Self::UnrecoverableGpuError => serializer.serialize_str("UNRECOVERABLE_GPU_ERROR"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -13161,35 +13331,71 @@ pub mod instances_scoped_list {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -13735,9 +13941,9 @@ pub mod location_policy {
             S: serde::Serializer,
         {
             match self {
-                Self::Any => serializer.serialize_i32(0),
-                Self::AnySingleZone => serializer.serialize_i32(1),
-                Self::Balanced => serializer.serialize_i32(2),
+                Self::Any => serializer.serialize_str("ANY"),
+                Self::AnySingleZone => serializer.serialize_str("ANY_SINGLE_ZONE"),
+                Self::Balanced => serializer.serialize_str("BALANCED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -13941,9 +14147,9 @@ pub mod location_policy_location {
             S: serde::Serializer,
         {
             match self {
-                Self::Allow => serializer.serialize_i32(0),
-                Self::Deny => serializer.serialize_i32(1),
-                Self::Unspecified => serializer.serialize_i32(2),
+                Self::Allow => serializer.serialize_str("ALLOW"),
+                Self::Deny => serializer.serialize_str("DENY"),
+                Self::Unspecified => serializer.serialize_str("PREFERENCE_UNSPECIFIED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -17080,8 +17286,8 @@ pub mod network_interface {
             S: serde::Serializer,
         {
             match self {
-                Self::External => serializer.serialize_i32(0),
-                Self::Internal => serializer.serialize_i32(1),
+                Self::External => serializer.serialize_str("EXTERNAL"),
+                Self::Internal => serializer.serialize_str("INTERNAL"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -17240,12 +17446,12 @@ pub mod network_interface {
             S: serde::Serializer,
         {
             match self {
-                Self::Gvnic => serializer.serialize_i32(0),
-                Self::Idpf => serializer.serialize_i32(1),
-                Self::Irdma => serializer.serialize_i32(2),
-                Self::Mrdma => serializer.serialize_i32(3),
-                Self::UnspecifiedNicType => serializer.serialize_i32(4),
-                Self::VirtioNet => serializer.serialize_i32(5),
+                Self::Gvnic => serializer.serialize_str("GVNIC"),
+                Self::Idpf => serializer.serialize_str("IDPF"),
+                Self::Irdma => serializer.serialize_str("IRDMA"),
+                Self::Mrdma => serializer.serialize_str("MRDMA"),
+                Self::UnspecifiedNicType => serializer.serialize_str("UNSPECIFIED_NIC_TYPE"),
+                Self::VirtioNet => serializer.serialize_str("VIRTIO_NET"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -17386,9 +17592,9 @@ pub mod network_interface {
             S: serde::Serializer,
         {
             match self {
-                Self::Ipv4Ipv6 => serializer.serialize_i32(0),
-                Self::Ipv4Only => serializer.serialize_i32(1),
-                Self::Ipv6Only => serializer.serialize_i32(2),
+                Self::Ipv4Ipv6 => serializer.serialize_str("IPV4_IPV6"),
+                Self::Ipv4Only => serializer.serialize_str("IPV4_ONLY"),
+                Self::Ipv6Only => serializer.serialize_str("IPV6_ONLY"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -17563,8 +17769,8 @@ pub mod network_performance_config {
             S: serde::Serializer,
         {
             match self {
-                Self::Default => serializer.serialize_i32(0),
-                Self::Tier1 => serializer.serialize_i32(1),
+                Self::Default => serializer.serialize_str("DEFAULT"),
+                Self::Tier1 => serializer.serialize_str("TIER_1"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -18571,35 +18777,71 @@ pub mod operation {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -18738,9 +18980,9 @@ pub mod operation {
             S: serde::Serializer,
         {
             match self {
-                Self::Done => serializer.serialize_i32(0),
-                Self::Pending => serializer.serialize_i32(1),
-                Self::Running => serializer.serialize_i32(2),
+                Self::Done => serializer.serialize_str("DONE"),
+                Self::Pending => serializer.serialize_str("PENDING"),
+                Self::Running => serializer.serialize_str("RUNNING"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -19307,35 +19549,71 @@ pub mod operation_list {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -19632,8 +19910,8 @@ pub mod quota_exceeded_info {
             S: serde::Serializer,
         {
             match self {
-                Self::InProgress => serializer.serialize_i32(0),
-                Self::Unspecified => serializer.serialize_i32(1),
+                Self::InProgress => serializer.serialize_str("IN_PROGRESS"),
+                Self::Unspecified => serializer.serialize_str("ROLLOUT_STATUS_UNSPECIFIED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -19903,10 +20181,10 @@ pub mod reservation_affinity {
             S: serde::Serializer,
         {
             match self {
-                Self::AnyReservation => serializer.serialize_i32(0),
-                Self::NoReservation => serializer.serialize_i32(1),
-                Self::SpecificReservation => serializer.serialize_i32(2),
-                Self::Unspecified => serializer.serialize_i32(3),
+                Self::AnyReservation => serializer.serialize_str("ANY_RESERVATION"),
+                Self::NoReservation => serializer.serialize_str("NO_RESERVATION"),
+                Self::SpecificReservation => serializer.serialize_str("SPECIFIC_RESERVATION"),
+                Self::Unspecified => serializer.serialize_str("UNSPECIFIED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -20586,9 +20864,11 @@ pub mod scheduling {
             S: serde::Serializer,
         {
             match self {
-                Self::Delete => serializer.serialize_str(self.name().unwrap()),
-                Self::Unspecified => serializer.serialize_str(self.name().unwrap()),
-                Self::Stop => serializer.serialize_str(self.name().unwrap()),
+                Self::Delete => serializer.serialize_str("DELETE"),
+                Self::Unspecified => {
+                    serializer.serialize_str("INSTANCE_TERMINATION_ACTION_UNSPECIFIED")
+                }
+                Self::Stop => serializer.serialize_str("STOP"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -20725,8 +21005,8 @@ pub mod scheduling {
             S: serde::Serializer,
         {
             match self {
-                Self::Migrate => serializer.serialize_i32(0),
-                Self::Terminate => serializer.serialize_i32(1),
+                Self::Migrate => serializer.serialize_str("MIGRATE"),
+                Self::Terminate => serializer.serialize_str("TERMINATE"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -20873,10 +21153,10 @@ pub mod scheduling {
             S: serde::Serializer,
         {
             match self {
-                Self::FlexStart => serializer.serialize_str(self.name().unwrap()),
-                Self::ReservationBound => serializer.serialize_str(self.name().unwrap()),
-                Self::Spot => serializer.serialize_str(self.name().unwrap()),
-                Self::Standard => serializer.serialize_str(self.name().unwrap()),
+                Self::FlexStart => serializer.serialize_str("FLEX_START"),
+                Self::ReservationBound => serializer.serialize_str("RESERVATION_BOUND"),
+                Self::Spot => serializer.serialize_str("SPOT"),
+                Self::Standard => serializer.serialize_str("STANDARD"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -21080,9 +21360,9 @@ pub mod scheduling_node_affinity {
             S: serde::Serializer,
         {
             match self {
-                Self::In => serializer.serialize_i32(0),
-                Self::NotIn => serializer.serialize_i32(1),
-                Self::Unspecified => serializer.serialize_i32(2),
+                Self::In => serializer.serialize_str("IN"),
+                Self::NotIn => serializer.serialize_str("NOT_IN"),
+                Self::Unspecified => serializer.serialize_str("OPERATOR_UNSPECIFIED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -21527,12 +21807,12 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
             S: serde::Serializer,
         {
             match self {
-                Self::Abandoned => serializer.serialize_i32(0),
-                Self::Done => serializer.serialize_i32(1),
-                Self::Failed => serializer.serialize_i32(2),
-                Self::Propagated => serializer.serialize_i32(3),
-                Self::Propagating => serializer.serialize_i32(4),
-                Self::Unspecified => serializer.serialize_i32(5),
+                Self::Abandoned => serializer.serialize_str("ABANDONED"),
+                Self::Done => serializer.serialize_str("DONE"),
+                Self::Failed => serializer.serialize_str("FAILED"),
+                Self::Propagated => serializer.serialize_str("PROPAGATED"),
+                Self::Propagating => serializer.serialize_str("PROPAGATING"),
+                Self::Unspecified => serializer.serialize_str("UNSPECIFIED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -22245,22 +22525,32 @@ pub mod upcoming_maintenance {
             S: serde::Serializer,
         {
             match self {
-                Self::FailureDisk => serializer.serialize_i32(0),
-                Self::FailureGpu => serializer.serialize_i32(1),
-                Self::FailureGpuMultipleFaultyHostsCustomerReported => serializer.serialize_i32(2),
-                Self::FailureGpuNvlinkSwitchCustomerReported => serializer.serialize_i32(3),
-                Self::FailureGpuTemperature => serializer.serialize_i32(4),
-                Self::FailureGpuXid => serializer.serialize_i32(5),
-                Self::FailureInfra => serializer.serialize_i32(6),
-                Self::FailureInterface => serializer.serialize_i32(7),
-                Self::FailureMemory => serializer.serialize_i32(8),
-                Self::FailureNetwork => serializer.serialize_i32(9),
-                Self::FailureNvlink => serializer.serialize_i32(10),
-                Self::FailureRedundantHardwareFault => serializer.serialize_i32(11),
-                Self::InfrastructureRelocation => serializer.serialize_i32(12),
-                Self::MaintenanceReasonUnknown => serializer.serialize_i32(13),
-                Self::PlannedNetworkUpdate => serializer.serialize_i32(14),
-                Self::PlannedUpdate => serializer.serialize_i32(15),
+                Self::FailureDisk => serializer.serialize_str("FAILURE_DISK"),
+                Self::FailureGpu => serializer.serialize_str("FAILURE_GPU"),
+                Self::FailureGpuMultipleFaultyHostsCustomerReported => {
+                    serializer.serialize_str("FAILURE_GPU_MULTIPLE_FAULTY_HOSTS_CUSTOMER_REPORTED")
+                }
+                Self::FailureGpuNvlinkSwitchCustomerReported => {
+                    serializer.serialize_str("FAILURE_GPU_NVLINK_SWITCH_CUSTOMER_REPORTED")
+                }
+                Self::FailureGpuTemperature => serializer.serialize_str("FAILURE_GPU_TEMPERATURE"),
+                Self::FailureGpuXid => serializer.serialize_str("FAILURE_GPU_XID"),
+                Self::FailureInfra => serializer.serialize_str("FAILURE_INFRA"),
+                Self::FailureInterface => serializer.serialize_str("FAILURE_INTERFACE"),
+                Self::FailureMemory => serializer.serialize_str("FAILURE_MEMORY"),
+                Self::FailureNetwork => serializer.serialize_str("FAILURE_NETWORK"),
+                Self::FailureNvlink => serializer.serialize_str("FAILURE_NVLINK"),
+                Self::FailureRedundantHardwareFault => {
+                    serializer.serialize_str("FAILURE_REDUNDANT_HARDWARE_FAULT")
+                }
+                Self::InfrastructureRelocation => {
+                    serializer.serialize_str("INFRASTRUCTURE_RELOCATION")
+                }
+                Self::MaintenanceReasonUnknown => {
+                    serializer.serialize_str("MAINTENANCE_REASON_UNKNOWN")
+                }
+                Self::PlannedNetworkUpdate => serializer.serialize_str("PLANNED_NETWORK_UPDATE"),
+                Self::PlannedUpdate => serializer.serialize_str("PLANNED_UPDATE"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -22401,9 +22691,9 @@ pub mod upcoming_maintenance {
             S: serde::Serializer,
         {
             match self {
-                Self::Ongoing => serializer.serialize_i32(0),
-                Self::Pending => serializer.serialize_i32(1),
-                Self::Unknown => serializer.serialize_i32(2),
+                Self::Ongoing => serializer.serialize_str("ONGOING"),
+                Self::Pending => serializer.serialize_str("PENDING"),
+                Self::Unknown => serializer.serialize_str("UNKNOWN"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -22550,10 +22840,10 @@ pub mod upcoming_maintenance {
             S: serde::Serializer,
         {
             match self {
-                Self::Multiple => serializer.serialize_i32(0),
-                Self::Scheduled => serializer.serialize_i32(1),
-                Self::UnknownType => serializer.serialize_i32(2),
-                Self::Unscheduled => serializer.serialize_i32(3),
+                Self::Multiple => serializer.serialize_str("MULTIPLE"),
+                Self::Scheduled => serializer.serialize_str("SCHEDULED"),
+                Self::UnknownType => serializer.serialize_str("UNKNOWN_TYPE"),
+                Self::Unscheduled => serializer.serialize_str("UNSCHEDULED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -28662,10 +28952,10 @@ pub mod instances {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::Invalid => serializer.serialize_i32(0),
-                    Self::NoEffect => serializer.serialize_i32(1),
-                    Self::Refresh => serializer.serialize_i32(2),
-                    Self::Restart => serializer.serialize_i32(3),
+                    Self::Invalid => serializer.serialize_str("INVALID"),
+                    Self::NoEffect => serializer.serialize_str("NO_EFFECT"),
+                    Self::Refresh => serializer.serialize_str("REFRESH"),
+                    Self::Restart => serializer.serialize_str("RESTART"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -28814,10 +29104,10 @@ pub mod instances {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::Invalid => serializer.serialize_i32(0),
-                    Self::NoEffect => serializer.serialize_i32(1),
-                    Self::Refresh => serializer.serialize_i32(2),
-                    Self::Restart => serializer.serialize_i32(3),
+                    Self::Invalid => serializer.serialize_str("INVALID"),
+                    Self::NoEffect => serializer.serialize_str("NO_EFFECT"),
+                    Self::Refresh => serializer.serialize_str("REFRESH"),
+                    Self::Restart => serializer.serialize_str("RESTART"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
