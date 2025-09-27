@@ -95,10 +95,7 @@ pub async fn machine_types() -> Result<()> {
         .set_machine_type("f1-micro")
         .send()
         .await?;
-    assert!(
-        response.is_shared_cpu.is_some_and(|v| v),
-        "response={response:?}"
-    );
+    assert_eq!(response.is_shared_cpu, Some(true), "response={response:?}");
     tracing::info!("MachineTypes::get() = {response:?}");
 
     Ok(())
