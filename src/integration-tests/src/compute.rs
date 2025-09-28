@@ -38,7 +38,7 @@ pub async fn zones() -> Result<()> {
         .await?;
     assert_eq!(
         response.status,
-        compute::model::zone::Status::Up,
+        Some(compute::model::zone::Status::Up),
         "response={response:?}"
     );
     tracing::info!("Zones::get() = {response:?}");
@@ -64,7 +64,7 @@ pub async fn machine_types() -> Result<()> {
     tracing::info!("Testing MachineTypes::aggregated_list()");
     let mut token = String::new();
     loop {
-        let mut response = client
+        let response = client
             .aggregated_list()
             .set_project(&project_id)
             .set_page_token(&token)
@@ -72,13 +72,13 @@ pub async fn machine_types() -> Result<()> {
             .await?;
         response
             .items
-            .drain()
+            .iter()
             .filter(|(_k, v)| !v.machine_types.is_empty())
             .for_each(|(k, v)| {
                 tracing::info!("item[{k}] has {} machine types", v.machine_types.len());
             });
         tracing::info!("MachineTypes::aggregated_list = {response:?}");
-        token = response.next_page_token;
+        token = response.next_page_token.unwrap_or_default();
         if token.is_empty() {
             break;
         }
@@ -95,7 +95,7 @@ pub async fn machine_types() -> Result<()> {
         .set_machine_type("f1-micro")
         .send()
         .await?;
-    assert!(response.is_shared_cpu, "response={response:?}");
+    assert_eq!(response.is_shared_cpu, Some(true), "response={response:?}");
     tracing::info!("MachineTypes::get() = {response:?}");
 
     Ok(())
