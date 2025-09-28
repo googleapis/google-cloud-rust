@@ -40,19 +40,19 @@ mod serialize;
 #[non_exhaustive]
 pub struct DeprecationStatus {
     /// An optional RFC3339 timestamp on or after which the state of this resource is intended to change to DELETED. This is only informational and the status will not change unless the client explicitly changes it.
-    pub deleted: std::string::String,
+    pub deleted: std::option::Option<std::string::String>,
 
     /// An optional RFC3339 timestamp on or after which the state of this resource is intended to change to DEPRECATED. This is only informational and the status will not change unless the client explicitly changes it.
-    pub deprecated: std::string::String,
+    pub deprecated: std::option::Option<std::string::String>,
 
     /// An optional RFC3339 timestamp on or after which the state of this resource is intended to change to OBSOLETE. This is only informational and the status will not change unless the client explicitly changes it.
-    pub obsolete: std::string::String,
+    pub obsolete: std::option::Option<std::string::String>,
 
     /// The URL of the suggested replacement for a deprecated resource. The suggested replacement resource must be the same kind of resource as the deprecated resource.
-    pub replacement: std::string::String,
+    pub replacement: std::option::Option<std::string::String>,
 
     /// The deprecation state of this resource. This can be ACTIVE, DEPRECATED, OBSOLETE, or DELETED. Operations which communicate the end of life date for an image, can use ACTIVE. Operations which create a new resource using a DEPRECATED resource will return successfully, but with a warning indicating the deprecated resource and recommending its replacement. Operations which use OBSOLETE or DELETED resources will be rejected and result in an error.
-    pub state: crate::model::deprecation_status::State,
+    pub state: std::option::Option<crate::model::deprecation_status::State>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -64,35 +64,92 @@ impl DeprecationStatus {
     }
 
     /// Sets the value of [deleted][crate::model::DeprecationStatus::deleted].
-    pub fn set_deleted<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.deleted = v.into();
+    pub fn set_deleted<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.deleted = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deleted][crate::model::DeprecationStatus::deleted].
+    pub fn set_or_clear_deleted<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.deleted = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [deprecated][crate::model::DeprecationStatus::deprecated].
-    pub fn set_deprecated<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.deprecated = v.into();
+    pub fn set_deprecated<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.deprecated = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deprecated][crate::model::DeprecationStatus::deprecated].
+    pub fn set_or_clear_deprecated<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.deprecated = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [obsolete][crate::model::DeprecationStatus::obsolete].
-    pub fn set_obsolete<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.obsolete = v.into();
+    pub fn set_obsolete<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.obsolete = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [obsolete][crate::model::DeprecationStatus::obsolete].
+    pub fn set_or_clear_obsolete<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.obsolete = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [replacement][crate::model::DeprecationStatus::replacement].
-    pub fn set_replacement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.replacement = v.into();
+    pub fn set_replacement<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.replacement = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [replacement][crate::model::DeprecationStatus::replacement].
+    pub fn set_or_clear_replacement<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.replacement = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::DeprecationStatus::state].
-    pub fn set_state<T: std::convert::Into<crate::model::deprecation_status::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::deprecation_status::State>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::DeprecationStatus::state].
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::deprecation_status::State>,
+    {
+        self.state = v.map(|x| x.into());
         self
     }
 }
@@ -266,49 +323,49 @@ pub struct MachineType {
     pub accelerators: std::vec::Vec<crate::model::machine_type::Accelerators>,
 
     /// [Output Only] The architecture of the machine type.
-    pub architecture: crate::model::machine_type::Architecture,
+    pub architecture: std::option::Option<crate::model::machine_type::Architecture>,
 
     /// [Output Only] Creation timestamp in RFC3339 text format.
-    pub creation_timestamp: std::string::String,
+    pub creation_timestamp: std::option::Option<std::string::String>,
 
     /// [Output Only] The deprecation status associated with this machine type. Only applicable if the machine type is unavailable.
     pub deprecated: std::option::Option<crate::model::DeprecationStatus>,
 
     /// [Output Only] An optional textual description of the resource.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// [Output Only] The number of virtual CPUs that are available to the instance.
-    pub guest_cpus: i32,
+    pub guest_cpus: std::option::Option<i32>,
 
     /// [Output Only] The unique identifier for the resource. This identifier is defined by the server.
-    pub id: u64,
+    pub id: std::option::Option<u64>,
 
     /// [Deprecated] This property is deprecated and will never be populated with any relevant values.
-    pub image_space_gb: i32,
+    pub image_space_gb: std::option::Option<i32>,
 
     /// [Output Only] Whether this machine type has a shared CPU. See Shared-core machine types for more information.
-    pub is_shared_cpu: bool,
+    pub is_shared_cpu: std::option::Option<bool>,
 
     /// [Output Only] The type of the resource. Always compute#machineType for machine types.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] Maximum persistent disks allowed.
-    pub maximum_persistent_disks: i32,
+    pub maximum_persistent_disks: std::option::Option<i32>,
 
     /// [Output Only] Maximum total persistent disks size (GB) allowed.
-    pub maximum_persistent_disks_size_gb: i64,
+    pub maximum_persistent_disks_size_gb: std::option::Option<i64>,
 
     /// [Output Only] The amount of physical memory available to the instance, defined in MB.
-    pub memory_mb: i32,
+    pub memory_mb: std::option::Option<i32>,
 
     /// [Output Only] Name of the resource.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for the resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] The name of the zone where the machine type resides, such as us-central1-a.
-    pub zone: std::string::String,
+    pub zone: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -331,20 +388,38 @@ impl MachineType {
     }
 
     /// Sets the value of [architecture][crate::model::MachineType::architecture].
-    pub fn set_architecture<T: std::convert::Into<crate::model::machine_type::Architecture>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.architecture = v.into();
+    pub fn set_architecture<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::machine_type::Architecture>,
+    {
+        self.architecture = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [architecture][crate::model::MachineType::architecture].
+    pub fn set_or_clear_architecture<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::machine_type::Architecture>,
+    {
+        self.architecture = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [creation_timestamp][crate::model::MachineType::creation_timestamp].
-    pub fn set_creation_timestamp<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creation_timestamp = v.into();
+    pub fn set_creation_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_timestamp][crate::model::MachineType::creation_timestamp].
+    pub fn set_or_clear_creation_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = v.map(|x| x.into());
         self
     }
 
@@ -367,77 +442,221 @@ impl MachineType {
     }
 
     /// Sets the value of [description][crate::model::MachineType::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::MachineType::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [guest_cpus][crate::model::MachineType::guest_cpus].
-    pub fn set_guest_cpus<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.guest_cpus = v.into();
+    pub fn set_guest_cpus<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.guest_cpus = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [guest_cpus][crate::model::MachineType::guest_cpus].
+    pub fn set_or_clear_guest_cpus<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.guest_cpus = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [id][crate::model::MachineType::id].
-    pub fn set_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::MachineType::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [image_space_gb][crate::model::MachineType::image_space_gb].
-    pub fn set_image_space_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.image_space_gb = v.into();
+    pub fn set_image_space_gb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.image_space_gb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image_space_gb][crate::model::MachineType::image_space_gb].
+    pub fn set_or_clear_image_space_gb<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.image_space_gb = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [is_shared_cpu][crate::model::MachineType::is_shared_cpu].
-    pub fn set_is_shared_cpu<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.is_shared_cpu = v.into();
+    pub fn set_is_shared_cpu<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.is_shared_cpu = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [is_shared_cpu][crate::model::MachineType::is_shared_cpu].
+    pub fn set_or_clear_is_shared_cpu<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.is_shared_cpu = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kind][crate::model::MachineType::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::MachineType::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [maximum_persistent_disks][crate::model::MachineType::maximum_persistent_disks].
-    pub fn set_maximum_persistent_disks<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.maximum_persistent_disks = v.into();
+    pub fn set_maximum_persistent_disks<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.maximum_persistent_disks = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [maximum_persistent_disks][crate::model::MachineType::maximum_persistent_disks].
+    pub fn set_or_clear_maximum_persistent_disks<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.maximum_persistent_disks = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [maximum_persistent_disks_size_gb][crate::model::MachineType::maximum_persistent_disks_size_gb].
-    pub fn set_maximum_persistent_disks_size_gb<T: std::convert::Into<i64>>(
+    pub fn set_maximum_persistent_disks_size_gb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.maximum_persistent_disks_size_gb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [maximum_persistent_disks_size_gb][crate::model::MachineType::maximum_persistent_disks_size_gb].
+    pub fn set_or_clear_maximum_persistent_disks_size_gb<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.maximum_persistent_disks_size_gb = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.maximum_persistent_disks_size_gb = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [memory_mb][crate::model::MachineType::memory_mb].
-    pub fn set_memory_mb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.memory_mb = v.into();
+    pub fn set_memory_mb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.memory_mb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [memory_mb][crate::model::MachineType::memory_mb].
+    pub fn set_or_clear_memory_mb<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.memory_mb = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [name][crate::model::MachineType::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::MachineType::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::MachineType::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::MachineType::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [zone][crate::model::MachineType::zone].
-    pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.zone = v.into();
+    pub fn set_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [zone][crate::model::MachineType::zone].
+    pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = v.map(|x| x.into());
         self
     }
 }
@@ -463,10 +682,10 @@ pub mod machine_type {
     #[non_exhaustive]
     pub struct Accelerators {
         /// Number of accelerator cards exposed to the guest.
-        pub guest_accelerator_count: i32,
+        pub guest_accelerator_count: std::option::Option<i32>,
 
         /// The accelerator type resource name, not a full URL, e.g. nvidia-tesla-t4.
-        pub guest_accelerator_type: std::string::String,
+        pub guest_accelerator_type: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -478,17 +697,38 @@ pub mod machine_type {
         }
 
         /// Sets the value of [guest_accelerator_count][crate::model::machine_type::Accelerators::guest_accelerator_count].
-        pub fn set_guest_accelerator_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.guest_accelerator_count = v.into();
+        pub fn set_guest_accelerator_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.guest_accelerator_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [guest_accelerator_count][crate::model::machine_type::Accelerators::guest_accelerator_count].
+        pub fn set_or_clear_guest_accelerator_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.guest_accelerator_count = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [guest_accelerator_type][crate::model::machine_type::Accelerators::guest_accelerator_type].
-        pub fn set_guest_accelerator_type<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.guest_accelerator_type = v.into();
+        pub fn set_guest_accelerator_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.guest_accelerator_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [guest_accelerator_type][crate::model::machine_type::Accelerators::guest_accelerator_type].
+        pub fn set_or_clear_guest_accelerator_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.guest_accelerator_type = v.map(|x| x.into());
             self
         }
     }
@@ -649,19 +889,19 @@ pub mod machine_type {
 #[non_exhaustive]
 pub struct MachineTypeAggregatedList {
     /// [Output Only] Unique identifier for the resource; defined by the server.
-    pub id: std::string::String,
+    pub id: std::option::Option<std::string::String>,
 
     /// A list of MachineTypesScopedList resources.
     pub items: std::collections::HashMap<std::string::String, crate::model::MachineTypesScopedList>,
 
     /// [Output Only] Type of resource. Always compute#machineTypeAggregatedList for aggregated lists of machine types.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
-    pub next_page_token: std::string::String,
+    pub next_page_token: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] Unreachable resources.
     pub unreachables: std::vec::Vec<std::string::String>,
@@ -679,8 +919,20 @@ impl MachineTypeAggregatedList {
     }
 
     /// Sets the value of [id][crate::model::MachineTypeAggregatedList::id].
-    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::MachineTypeAggregatedList::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
@@ -701,20 +953,56 @@ impl MachineTypeAggregatedList {
     }
 
     /// Sets the value of [kind][crate::model::MachineTypeAggregatedList::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::MachineTypeAggregatedList::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::MachineTypeAggregatedList::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::MachineTypeAggregatedList::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::MachineTypeAggregatedList::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::MachineTypeAggregatedList::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -769,13 +1057,13 @@ pub mod machine_type_aggregated_list {
     #[non_exhaustive]
     pub struct Warning {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::machine_type_aggregated_list::warning::Code,
+        pub code: std::option::Option<crate::model::machine_type_aggregated_list::warning::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::machine_type_aggregated_list::warning::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -787,13 +1075,20 @@ pub mod machine_type_aggregated_list {
         }
 
         /// Sets the value of [code][crate::model::machine_type_aggregated_list::Warning::code].
-        pub fn set_code<
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<crate::model::machine_type_aggregated_list::warning::Code>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::machine_type_aggregated_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::machine_type_aggregated_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -809,8 +1104,20 @@ pub mod machine_type_aggregated_list {
         }
 
         /// Sets the value of [message][crate::model::machine_type_aggregated_list::Warning::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::machine_type_aggregated_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -836,10 +1143,10 @@ pub mod machine_type_aggregated_list {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -851,14 +1158,38 @@ pub mod machine_type_aggregated_list {
             }
 
             /// Sets the value of [key][crate::model::machine_type_aggregated_list::warning::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::machine_type_aggregated_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::machine_type_aggregated_list::warning::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::machine_type_aggregated_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
@@ -1251,19 +1582,19 @@ pub mod machine_type_aggregated_list {
 #[non_exhaustive]
 pub struct MachineTypeList {
     /// [Output Only] Unique identifier for the resource; defined by the server.
-    pub id: std::string::String,
+    pub id: std::option::Option<std::string::String>,
 
     /// A list of MachineType resources.
     pub items: std::vec::Vec<crate::model::MachineType>,
 
     /// [Output Only] Type of resource. Always compute#machineTypeList for lists of machine types.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
-    pub next_page_token: std::string::String,
+    pub next_page_token: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] Informational warning message.
     pub warning: std::option::Option<crate::model::machine_type_list::Warning>,
@@ -1278,8 +1609,20 @@ impl MachineTypeList {
     }
 
     /// Sets the value of [id][crate::model::MachineTypeList::id].
-    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::MachineTypeList::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
@@ -1295,20 +1638,56 @@ impl MachineTypeList {
     }
 
     /// Sets the value of [kind][crate::model::MachineTypeList::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::MachineTypeList::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::MachineTypeList::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::MachineTypeList::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::MachineTypeList::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::MachineTypeList::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -1349,7 +1728,7 @@ impl gax::paginator::internal::PageableResponse for MachineTypeList {
 
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
-        self.next_page_token.clone()
+        self.next_page_token.clone().unwrap_or_default()
     }
 }
 
@@ -1367,13 +1746,13 @@ pub mod machine_type_list {
     #[non_exhaustive]
     pub struct Warning {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::machine_type_list::warning::Code,
+        pub code: std::option::Option<crate::model::machine_type_list::warning::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::machine_type_list::warning::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1385,11 +1764,20 @@ pub mod machine_type_list {
         }
 
         /// Sets the value of [code][crate::model::machine_type_list::Warning::code].
-        pub fn set_code<T: std::convert::Into<crate::model::machine_type_list::warning::Code>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::machine_type_list::warning::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::machine_type_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::machine_type_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -1405,8 +1793,20 @@ pub mod machine_type_list {
         }
 
         /// Sets the value of [message][crate::model::machine_type_list::Warning::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::machine_type_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -1432,10 +1832,10 @@ pub mod machine_type_list {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -1447,14 +1847,38 @@ pub mod machine_type_list {
             }
 
             /// Sets the value of [key][crate::model::machine_type_list::warning::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::machine_type_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::machine_type_list::warning::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::machine_type_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
@@ -1911,13 +2335,13 @@ pub mod machine_types_scoped_list {
     #[non_exhaustive]
     pub struct Warning {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::machine_types_scoped_list::warning::Code,
+        pub code: std::option::Option<crate::model::machine_types_scoped_list::warning::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::machine_types_scoped_list::warning::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1929,13 +2353,20 @@ pub mod machine_types_scoped_list {
         }
 
         /// Sets the value of [code][crate::model::machine_types_scoped_list::Warning::code].
-        pub fn set_code<
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
             T: std::convert::Into<crate::model::machine_types_scoped_list::warning::Code>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::machine_types_scoped_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::machine_types_scoped_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -1951,8 +2382,20 @@ pub mod machine_types_scoped_list {
         }
 
         /// Sets the value of [message][crate::model::machine_types_scoped_list::Warning::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::machine_types_scoped_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -1978,10 +2421,10 @@ pub mod machine_types_scoped_list {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -1993,14 +2436,38 @@ pub mod machine_types_scoped_list {
             }
 
             /// Sets the value of [key][crate::model::machine_types_scoped_list::warning::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::machine_types_scoped_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::machine_types_scoped_list::warning::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::machine_types_scoped_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
@@ -2396,34 +2863,34 @@ pub struct Zone {
     pub available_cpu_platforms: std::vec::Vec<std::string::String>,
 
     /// [Output Only] Creation timestamp in RFC3339 text format.
-    pub creation_timestamp: std::string::String,
+    pub creation_timestamp: std::option::Option<std::string::String>,
 
     /// [Output Only] The deprecation status associated with this zone.
     pub deprecated: std::option::Option<crate::model::DeprecationStatus>,
 
     /// [Output Only] Textual description of the resource.
-    pub description: std::string::String,
+    pub description: std::option::Option<std::string::String>,
 
     /// [Output Only] The unique identifier for the resource. This identifier is defined by the server.
-    pub id: u64,
+    pub id: std::option::Option<u64>,
 
     /// [Output Only] Type of the resource. Always compute#zone for zones.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] Name of the resource.
-    pub name: std::string::String,
+    pub name: std::option::Option<std::string::String>,
 
     /// [Output Only] Full URL reference to the region which hosts the zone.
-    pub region: std::string::String,
+    pub region: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for the resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] Status of the zone, either UP or DOWN.
-    pub status: crate::model::zone::Status,
+    pub status: std::option::Option<crate::model::zone::Status>,
 
     /// [Output Only] Reserved for future use.
-    pub supports_pzs: bool,
+    pub supports_pzs: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2446,11 +2913,20 @@ impl Zone {
     }
 
     /// Sets the value of [creation_timestamp][crate::model::Zone::creation_timestamp].
-    pub fn set_creation_timestamp<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.creation_timestamp = v.into();
+    pub fn set_creation_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_timestamp][crate::model::Zone::creation_timestamp].
+    pub fn set_or_clear_creation_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = v.map(|x| x.into());
         self
     }
 
@@ -2473,50 +2949,146 @@ impl Zone {
     }
 
     /// Sets the value of [description][crate::model::Zone::description].
-    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.description = v.into();
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::Zone::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [id][crate::model::Zone::id].
-    pub fn set_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::Zone::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [kind][crate::model::Zone::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Zone::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [name][crate::model::Zone::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::Zone::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [region][crate::model::Zone::region].
-    pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.region = v.into();
+    pub fn set_region<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.region = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [region][crate::model::Zone::region].
+    pub fn set_or_clear_region<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.region = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::Zone::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::Zone::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [status][crate::model::Zone::status].
-    pub fn set_status<T: std::convert::Into<crate::model::zone::Status>>(mut self, v: T) -> Self {
-        self.status = v.into();
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::zone::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::Zone::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::zone::Status>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [supports_pzs][crate::model::Zone::supports_pzs].
-    pub fn set_supports_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.supports_pzs = v.into();
+    pub fn set_supports_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.supports_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [supports_pzs][crate::model::Zone::supports_pzs].
+    pub fn set_or_clear_supports_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.supports_pzs = v.map(|x| x.into());
         self
     }
 }
@@ -2675,19 +3247,19 @@ pub mod zone {
 #[non_exhaustive]
 pub struct ZoneList {
     /// [Output Only] Unique identifier for the resource; defined by the server.
-    pub id: std::string::String,
+    pub id: std::option::Option<std::string::String>,
 
     /// A list of Zone resources.
     pub items: std::vec::Vec<crate::model::Zone>,
 
     /// Type of resource.
-    pub kind: std::string::String,
+    pub kind: std::option::Option<std::string::String>,
 
     /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
-    pub next_page_token: std::string::String,
+    pub next_page_token: std::option::Option<std::string::String>,
 
     /// [Output Only] Server-defined URL for this resource.
-    pub self_link: std::string::String,
+    pub self_link: std::option::Option<std::string::String>,
 
     /// [Output Only] Informational warning message.
     pub warning: std::option::Option<crate::model::zone_list::Warning>,
@@ -2702,8 +3274,20 @@ impl ZoneList {
     }
 
     /// Sets the value of [id][crate::model::ZoneList::id].
-    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id = v.into();
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::ZoneList::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
         self
     }
 
@@ -2719,20 +3303,56 @@ impl ZoneList {
     }
 
     /// Sets the value of [kind][crate::model::ZoneList::kind].
-    pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = v.into();
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::ZoneList::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::ZoneList::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::ZoneList::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [self_link][crate::model::ZoneList::self_link].
-    pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.self_link = v.into();
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::ZoneList::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
         self
     }
 
@@ -2773,7 +3393,7 @@ impl gax::paginator::internal::PageableResponse for ZoneList {
 
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
-        self.next_page_token.clone()
+        self.next_page_token.clone().unwrap_or_default()
     }
 }
 
@@ -2791,13 +3411,13 @@ pub mod zone_list {
     #[non_exhaustive]
     pub struct Warning {
         /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
-        pub code: crate::model::zone_list::warning::Code,
+        pub code: std::option::Option<crate::model::zone_list::warning::Code>,
 
         /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
         pub data: std::vec::Vec<crate::model::zone_list::warning::Data>,
 
         /// [Output Only] A human-readable description of the warning code.
-        pub message: std::string::String,
+        pub message: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2809,11 +3429,20 @@ pub mod zone_list {
         }
 
         /// Sets the value of [code][crate::model::zone_list::Warning::code].
-        pub fn set_code<T: std::convert::Into<crate::model::zone_list::warning::Code>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.code = v.into();
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::zone_list::warning::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::zone_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::zone_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
             self
         }
 
@@ -2829,8 +3458,20 @@ pub mod zone_list {
         }
 
         /// Sets the value of [message][crate::model::zone_list::Warning::message].
-        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.message = v.into();
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::zone_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
             self
         }
     }
@@ -2856,10 +3497,10 @@ pub mod zone_list {
         #[non_exhaustive]
         pub struct Data {
             /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
-            pub key: std::string::String,
+            pub key: std::option::Option<std::string::String>,
 
             /// [Output Only] A warning data value corresponding to the key.
-            pub value: std::string::String,
+            pub value: std::option::Option<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -2871,14 +3512,38 @@ pub mod zone_list {
             }
 
             /// Sets the value of [key][crate::model::zone_list::warning::Data::key].
-            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.key = v.into();
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::zone_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
                 self
             }
 
             /// Sets the value of [value][crate::model::zone_list::warning::Data::value].
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.value = v.into();
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::zone_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
                 self
             }
         }
