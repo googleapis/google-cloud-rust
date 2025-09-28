@@ -26,6 +26,142 @@
 
 pub(crate) mod dynamic;
 
+/// Defines the trait used to implement [super::client::Images].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::Images`.  In other use-cases, application developers only
+/// use `client::Images` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "images")]
+#[cfg_attr(docsrs, doc(cfg(feature = "images")))]
+pub trait Images: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Images::delete].
+    fn delete(
+        &self,
+        _req: crate::model::images::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Images::deprecate].
+    fn deprecate(
+        &self,
+        _req: crate::model::images::DeprecateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Images::get].
+    fn get(
+        &self,
+        _req: crate::model::images::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Image>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Images::get_from_family].
+    fn get_from_family(
+        &self,
+        _req: crate::model::images::GetFromFamilyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Image>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Images::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: crate::model::images::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Images::insert].
+    fn insert(
+        &self,
+        _req: crate::model::images::InsertRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Images::list].
+    fn list(
+        &self,
+        _req: crate::model::images::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ImageList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Images::patch].
+    fn patch(
+        &self,
+        _req: crate::model::images::PatchRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Images::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: crate::model::images::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Images::set_labels].
+    fn set_labels(
+        &self,
+        _req: crate::model::images::SetLabelsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Images::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::images::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::MachineTypes].
 ///
 /// Application developers may need to implement this trait to mock

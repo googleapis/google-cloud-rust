@@ -31,6 +31,7 @@
 //!
 //! # Available Clients
 //!
+//! * [Images](client/struct.Images.html)
 //! * [MachineTypes](client/struct.MachineTypes.html)
 //! * [Zones](client/struct.Zones.html)
 
@@ -61,10 +62,10 @@ pub(crate) mod tracing;
 pub(crate) mod transport;
 
 /// The default host used by the service.
-#[cfg(any(feature = "machine-types", feature = "zones",))]
+#[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
 const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
 
-#[cfg(any(feature = "machine-types", feature = "zones",))]
+#[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
