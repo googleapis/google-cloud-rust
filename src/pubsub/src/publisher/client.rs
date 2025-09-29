@@ -53,7 +53,7 @@ pub(crate) mod client_builder {
 }
 
 impl Publisher {
-    /// Returns a builder for [StorageControl].
+    /// Returns a builder for [Publisher].
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
@@ -64,12 +64,6 @@ impl Publisher {
     pub fn builder() -> ClientBuilder {
         gax::client_builder::internal::new_builder(client_builder::Factory)
     }
-
-    // /// Creates a new Pub/Sub publisher client with default configuration.
-    // pub async fn new() -> Result<Self, gax::client_builder::Error> {
-    //     let config = gaxi::options::ClientConfig::default();
-    //     Self::with_config(config).await
-    // }
 
     /// Creates a new Pub/Sub publisher client with the given configuration.
     pub async fn new(
