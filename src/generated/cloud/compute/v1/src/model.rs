@@ -937,18 +937,14 @@ impl MachineTypeAggregatedList {
     }
 
     /// Sets the value of [items][crate::model::MachineTypeAggregatedList::items].
-    pub fn set_items<
-        T: std::convert::Into<
-                std::collections::HashMap<
-                    std::string::String,
-                    crate::model::MachineTypesScopedList,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.items = v.into();
+    pub fn set_items<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::MachineTypesScopedList>,
+    {
+        use std::iter::Iterator;
+        self.items = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
