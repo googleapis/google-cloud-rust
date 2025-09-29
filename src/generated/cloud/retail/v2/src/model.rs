@@ -18666,10 +18666,10 @@ impl wkt::message::Message for SearchResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for SearchResponse {
-    type PageItem = crate::model::search_response::Facet;
+    type PageItem = crate::model::search_response::SearchResult;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
-        self.facets
+        self.results
     }
 
     fn next_page_token(&self) -> std::string::String {

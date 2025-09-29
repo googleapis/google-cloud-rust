@@ -4283,10 +4283,10 @@ impl wkt::message::Message for InstancesListResponse {
 
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for InstancesListResponse {
-    type PageItem = crate::model::DatabaseInstance;
+    type PageItem = crate::model::ApiWarning;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
-        self.items
+        self.warnings
     }
 
     fn next_page_token(&self) -> std::string::String {
