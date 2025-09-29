@@ -33,7 +33,6 @@ pub use gax::error::Error;
 
 pub mod builder {
     pub use crate::generated::gapic::builder::*;
-    // pub use crate::generated::gapic_dataplane::builder::*;
     pub mod publisher {
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
         pub use crate::publisher::client::ClientBuilder;
