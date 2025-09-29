@@ -15,8 +15,41 @@
 use crate::{Error, Result};
 
 use gax::paginator::ItemPaginator as _;
-use pubsub::{client::TopicAdmin, model::Topic};
+use pubsub::client::{TopicAdmin, Publisher};
+use pubsub::model::{Topic, PubsubMessage};
 use rand::{Rng, distr::Alphanumeric};
+
+pub async fn basic_publisher() -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let (topic_admin, topic) = create_test_topic().await?;
+
+    tracing::info!("testing publish()");
+    let publisher = Publisher::new().await?;
+    let messages: [PubsubMessage; 2] = [
+        PubsubMessage::new().set_data("Hello"), 
+        PubsubMessage::new().set_data("World"), 
+    ];
+    let resp = publisher.publish().set_topic(&topic.name).set_messages(messages).send().await?;
+    assert_eq!(resp.message_ids.len(), 2);
+    tracing::info!("successfully published messages");
+
+    cleanup_test_topic(&topic_admin, topic.name).await?;
+
+    Ok(())
+}
 
 pub async fn basic_topic() -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually

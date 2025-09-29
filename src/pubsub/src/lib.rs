@@ -26,6 +26,8 @@
 
 pub(crate) mod generated;
 
+pub mod publisher;
+
 pub use gax::Result;
 pub use gax::error::Error;
 
@@ -39,7 +41,7 @@ pub mod model {
 }
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::generated::gapic_dataplane::client::*;
+    pub use crate::publisher::client::*;
 }
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
