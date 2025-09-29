@@ -292,10 +292,10 @@ pub mod deprecation_status {
             S: serde::Serializer,
         {
             match self {
-                Self::Active => serializer.serialize_i32(0),
-                Self::Deleted => serializer.serialize_i32(1),
-                Self::Deprecated => serializer.serialize_i32(2),
-                Self::Obsolete => serializer.serialize_i32(3),
+                Self::Active => serializer.serialize_str("ACTIVE"),
+                Self::Deleted => serializer.serialize_str("DELETED"),
+                Self::Deprecated => serializer.serialize_str("DEPRECATED"),
+                Self::Obsolete => serializer.serialize_str("OBSOLETE"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -863,9 +863,9 @@ pub mod machine_type {
             S: serde::Serializer,
         {
             match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::Arm64 => serializer.serialize_i32(1),
-                Self::X8664 => serializer.serialize_i32(2),
+                Self::Unspecified => serializer.serialize_str("ARCHITECTURE_UNSPECIFIED"),
+                Self::Arm64 => serializer.serialize_str("ARM64"),
+                Self::X8664 => serializer.serialize_str("X86_64"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1528,35 +1528,71 @@ pub mod machine_type_aggregated_list {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -2217,35 +2253,71 @@ pub mod machine_type_list {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -2806,35 +2878,71 @@ pub mod machine_types_scoped_list {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -3221,8 +3329,8 @@ pub mod zone {
             S: serde::Serializer,
         {
             match self {
-                Self::Down => serializer.serialize_i32(0),
-                Self::Up => serializer.serialize_i32(1),
+                Self::Down => serializer.serialize_str("DOWN"),
+                Self::Up => serializer.serialize_str("UP"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -3882,35 +3990,71 @@ pub mod zone_list {
                 S: serde::Serializer,
             {
                 match self {
-                    Self::CleanupFailed => serializer.serialize_i32(0),
-                    Self::DeprecatedResourceUsed => serializer.serialize_i32(1),
-                    Self::DeprecatedTypeUsed => serializer.serialize_i32(2),
-                    Self::DiskSizeLargerThanImageSize => serializer.serialize_i32(3),
-                    Self::ExperimentalTypeUsed => serializer.serialize_i32(4),
-                    Self::ExternalApiWarning => serializer.serialize_i32(5),
-                    Self::FieldValueOverriden => serializer.serialize_i32(6),
-                    Self::InjectedKernelsDeprecated => serializer.serialize_i32(7),
-                    Self::InvalidHealthCheckForDynamicWieghtedLb => serializer.serialize_i32(8),
-                    Self::LargeDeploymentWarning => serializer.serialize_i32(9),
-                    Self::ListOverheadQuotaExceed => serializer.serialize_i32(10),
-                    Self::MissingTypeDependency => serializer.serialize_i32(11),
-                    Self::NextHopAddressNotAssigned => serializer.serialize_i32(12),
-                    Self::NextHopCannotIpForward => serializer.serialize_i32(13),
-                    Self::NextHopInstanceHasNoIpv6Interface => serializer.serialize_i32(14),
-                    Self::NextHopInstanceNotFound => serializer.serialize_i32(15),
-                    Self::NextHopInstanceNotOnNetwork => serializer.serialize_i32(16),
-                    Self::NextHopNotRunning => serializer.serialize_i32(17),
-                    Self::NotCriticalError => serializer.serialize_i32(18),
-                    Self::NoResultsOnPage => serializer.serialize_i32(19),
-                    Self::PartialSuccess => serializer.serialize_i32(20),
-                    Self::QuotaInfoUnavailable => serializer.serialize_i32(21),
-                    Self::RequiredTosAgreement => serializer.serialize_i32(22),
-                    Self::ResourceInUseByOtherResourceWarning => serializer.serialize_i32(23),
-                    Self::ResourceNotDeleted => serializer.serialize_i32(24),
-                    Self::SchemaValidationIgnored => serializer.serialize_i32(25),
-                    Self::SingleInstancePropertyTemplate => serializer.serialize_i32(26),
-                    Self::UndeclaredProperties => serializer.serialize_i32(27),
-                    Self::Unreachable => serializer.serialize_i32(28),
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
