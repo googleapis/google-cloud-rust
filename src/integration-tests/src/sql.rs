@@ -15,7 +15,6 @@
 use crate::Result;
 use futures::stream::StreamExt;
 use gax::paginator::ItemPaginator;
-use gax::paginator::Paginator;
 use rand::Rng;
 use sql::model;
 use storage_samples::RandomChars;
@@ -113,28 +112,36 @@ async fn cleanup_stale_sql_instances(
 
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
-    let mut instances = client
+    let instances = client
         .list()
         .set_project(project_id)
         .set_filter(format!(
             "name:{PREFIX}* AND settings.userLabels.{INSTANCE_LABEL}:true"
         ))
-        .by_page();
+        .by_item()
+        .into_stream();
 
-    let mut pending_deletion = Vec::new();
-    while let Some(page) = instances.next().await.transpose()? {
-        for instance in page.items.into_iter() {
-            if instance.create_time.is_some_and(|v| v >= stale_deadline) {
-                continue;
+    let pending_deletion = instances
+        .filter_map(|instance| async {
+            match instance {
+                Ok(instance) => {
+                    if instance.create_time? < stale_deadline {
+                        Some(
+                            client
+                                .delete()
+                                .set_project(project_id)
+                                .set_instance(instance.name)
+                                .send(),
+                        )
+                    } else {
+                        None
+                    }
+                }
+                Err(_) => None,
             }
-            let delete = client
-                .delete()
-                .set_project(project_id)
-                .set_instance(instance.name)
-                .send();
-            pending_deletion.push(delete);
-        }
-    }
+        })
+        .collect::<Vec<_>>()
+        .await;
 
     futures::future::join_all(pending_deletion.into_iter())
         .await
