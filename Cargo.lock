@@ -1246,7 +1246,6 @@ version = "1.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
- "axum",
  "base64",
  "bon",
  "google-cloud-gax",
@@ -5000,7 +4999,6 @@ name = "grpc-server"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "axum",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
