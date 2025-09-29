@@ -246,7 +246,7 @@ impl serde::ser::Serialize for super::MachineTypeAggregatedList {
         if self.id.is_some() {
             state.serialize_entry("id", &self.id)?;
         }
-        if !wkt::internal::is_default(&self.items) {
+        if !self.items.is_empty() {
             state.serialize_entry("items", &self.items)?;
         }
         if self.kind.is_some() {
