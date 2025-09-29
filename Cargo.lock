@@ -2286,7 +2286,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-discoveryengine-v1"
-version = "1.1.0"
+version = "2.0.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4008,7 +4008,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-retail-v2"
-version = "1.1.0"
+version = "2.0.0"
 dependencies = [
  "async-trait",
  "bytes",
