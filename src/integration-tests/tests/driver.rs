@@ -81,6 +81,13 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_pubsub_basic_publisher() -> integration_tests::Result<()> {
+        integration_tests::pubsub::basic_publisher()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
     #[test_case(sm::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
     #[test_case(sm::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
