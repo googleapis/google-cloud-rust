@@ -26,12 +26,11 @@ use gax::retry_throttler::SharedRetryThrottler;
 use http::{Extensions, Method};
 use std::sync::Arc;
 use std::time::Duration;
-
-use crate::observability;
-use crate::options;
 use tracing::Instrument;
 
-// TODO(#3239): Enable this flag to true once integration tests are in place.
+#[cfg(feature = "_unstable-o12y")]
+const ENABLE_HTTP_TRACING: bool = true;
+#[cfg(not(feature = "_unstable-o12y"))]
 const ENABLE_HTTP_TRACING: bool = false;
 
 #[derive(Clone, Debug)]
@@ -57,7 +56,7 @@ impl ReqwestClient {
         let cred = Self::make_credentials(&config).await?;
         let inner = reqwest::Client::new();
         let host = crate::host::host_from_endpoint(config.endpoint.as_deref(), default_endpoint)?;
-        let tracing_enabled = options::tracing_enabled(&config);
+        let tracing_enabled = crate::options::tracing_enabled(&config);
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
@@ -179,14 +178,16 @@ impl ReqwestClient {
         let request = builder.build().map_err(Self::map_send_error)?;
 
         let response_result = if self.tracing_enabled && ENABLE_HTTP_TRACING {
-            let mut span_info = observability::HttpSpanInfo::from_request(
+            let mut span_info = crate::observability::HttpSpanInfo::from_request(
                 &request,
                 options,
                 self.instrumentation,
                 attempt_count,
             );
             let span = span_info.create_span();
+            // The instrument call ensures the span is entered/exited as the execute future is polled.
             let result = self.inner.execute(request).instrument(span.clone()).await;
+            // Re-enter the span's context to record response attributes after the future has completed.
             let _enter = span.enter();
             span_info.update_from_response(&result);
             span_info.record_response_attributes(&span);
