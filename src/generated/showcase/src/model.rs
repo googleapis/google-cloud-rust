@@ -1941,21 +1941,6 @@ impl wkt::message::Message for PagedExpandLegacyMappedResponse {
     }
 }
 
-#[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for PagedExpandLegacyMappedResponse {
-    type PageItem = (std::string::String, crate::model::PagedExpandResponseList);
-
-    fn items(self) -> std::vec::Vec<Self::PageItem> {
-        use std::iter::{IntoIterator, Iterator};
-        self.alphabetized.into_iter().collect()
-    }
-
-    fn next_page_token(&self) -> std::string::String {
-        use std::clone::Clone;
-        self.next_page_token.clone()
-    }
-}
-
 /// The request for Wait method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
