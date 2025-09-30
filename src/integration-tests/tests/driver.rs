@@ -91,6 +91,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_pubsub_basic_publisher() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
         integration_tests::pubsub::basic_publisher()
             .await
             .map_err(integration_tests::report_error)
