@@ -16,8 +16,8 @@ use crate::Result;
 use compute::client::{Images, Instances, MachineTypes, ZoneOperations, Zones};
 use compute::model::{
     AttachedDisk, AttachedDiskInitializeParams, Duration as ComputeDuration, Instance,
-    NetworkInterface, Scheduling, ServiceAccount, scheduling::InstanceTerminationAction,
-    scheduling::ProvisioningModel,
+    NetworkInterface, Scheduling, ServiceAccount, operation::Status,
+    scheduling::InstanceTerminationAction, scheduling::ProvisioningModel,
 };
 use gax::paginator::ItemPaginator as _;
 
@@ -157,8 +157,9 @@ pub async fn instances() -> Result<()> {
         .set_description("A test VM created by the Rust client library.")
         .set_disks([AttachedDisk::new()
             .set_initialize_params(
+                // Use an image family with a stable name. Something like `debian-13` will break after 2030.
                 AttachedDiskInitializeParams::new().set_source_image(
-                    "projects/fedora-coreos-cloud/global/images/fedora-coreos-stable"
+                    "projects/fedora-coreos-cloud/global/images/family/fedora-coreos-stable",
                 ),
             )
             .set_boot(true)
@@ -176,7 +177,7 @@ pub async fn instances() -> Result<()> {
     );
 
     eprintln!("Starting new instance.");
-    let pending = client
+    let mut operation = client
         .insert()
         .set_project(&project_id)
         .set_zone(&zone_id)
@@ -184,15 +185,24 @@ pub async fn instances() -> Result<()> {
         .send()
         .await?;
 
-    eprintln!("Waiting for new instance operation.");
-    let done = operations
-        .wait()
-        .set_project(&project_id)
-        .set_zone(&zone_id)
-        .set_operation(pending.name.clone().unwrap_or_default())
-        .send()
-        .await?;
-    eprintln!("Operation completed with = {done:?}");
+    while !operation
+        .status
+        .as_ref()
+        .is_some_and(|s| *s != Status::Done)
+    {
+        eprintln!("Waiting for new instance operation: {operation:?}");
+        if let Some(err) = operation.error {
+            return Err(anyhow::Error::msg(format!("{err:?}")));
+        }
+        operation = operations
+            .wait()
+            .set_project(&project_id)
+            .set_zone(&zone_id)
+            .set_operation(operation.name.unwrap_or_default())
+            .send()
+            .await?;
+    }
+    eprintln!("Operation completed with = {operation:?}");
 
     eprintln!("Getting instance details.");
     let instance = client
