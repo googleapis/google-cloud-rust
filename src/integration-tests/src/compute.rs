@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
-use compute::client::{MachineTypes, Zones};
+use compute::client::{Images, MachineTypes, Zones};
 use gax::paginator::ItemPaginator as _;
 
 pub async fn zones() -> Result<()> {
@@ -97,6 +97,41 @@ pub async fn machine_types() -> Result<()> {
         .await?;
     assert_eq!(response.is_shared_cpu, Some(true), "response={response:?}");
     tracing::info!("MachineTypes::get() = {response:?}");
+
+    Ok(())
+}
+
+pub async fn images() -> Result<()> {
+    use compute::model::image::Architecture;
+
+    let client = Images::builder().with_tracing().build().await?;
+
+    tracing::info!("Testing Images::list()");
+    let mut latest = None;
+    let mut items = client.list().set_project("cos-cloud").by_item();
+    while let Some(item) = items.next().await.transpose()? {
+        tracing::info!("item = {item:?}");
+        if item.architecture != Some(Architecture::X8664)
+            || item
+                .family
+                .as_ref()
+                .is_some_and(|v| v.strip_prefix("cos-").is_some())
+        {
+            continue;
+        }
+        latest = match &latest {
+            None => Some(item),
+            Some(i) if item.family > i.family => Some(item),
+            Some(i)
+                if item.family == i.family && item.creation_timestamp > i.creation_timestamp =>
+            {
+                Some(item)
+            }
+            _ => latest,
+        };
+    }
+    tracing::info!("DONE with Images::list()");
+    tracing::info!("LATEST cos-cloud image is {latest:?}");
 
     Ok(())
 }
