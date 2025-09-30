@@ -185,11 +185,7 @@ pub async fn instances() -> Result<()> {
         .send()
         .await?;
 
-    while operation
-        .status
-        .as_ref()
-        .is_none_or(|s| *s != Status::Done)
-    {
+    while operation.status.as_ref().is_none_or(|s| *s != Status::Done) {
         tracing::info!("Waiting for new instance operation: {operation:?}");
         if let Some(err) = operation.error {
             return Err(anyhow::Error::msg(format!("{err:?}")));
@@ -214,16 +210,16 @@ pub async fn instances() -> Result<()> {
         .await?;
     tracing::info!("instance = {instance:?}");
 
-//    tracing::info!("Testing Instances::list()");
-//    let mut items = client
-//        .list()
-//        .set_project(&project_id)
-//        .set_zone(&zone_id)
-//        .by_item();
-//    while let Some(instance) = items.next().await.transpose()? {
-//        tracing::info!("instance = {instance:?}");
-//    }
-//    tracing::info!("DONE Instances::list()");
+    //    tracing::info!("Testing Instances::list()");
+    //    let mut items = client
+    //        .list()
+    //        .set_project(&project_id)
+    //        .set_zone(&zone_id)
+    //        .by_item();
+    //    while let Some(instance) = items.next().await.transpose()? {
+    //        tracing::info!("instance = {instance:?}");
+    //    }
+    //    tracing::info!("DONE Instances::list()");
 
     Ok(())
 }
