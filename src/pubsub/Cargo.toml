@@ -45,6 +45,7 @@ tracing.workspace     = true
 wkt.workspace         = true
 
 [dev-dependencies]
+auth.workspace       = true
 anyhow.workspace     = true
 tokio-test.workspace = true
 tokio.workspace      = true

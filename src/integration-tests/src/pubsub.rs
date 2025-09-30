@@ -49,7 +49,7 @@ pub async fn basic_publisher() -> Result<()> {
         .send()
         .await?;
     assert_eq!(resp.message_ids.len(), 2);
-    tracing::info!("successfully published messages");
+    tracing::info!("successfully published messages: {:#?}", resp.message_ids);
 
     cleanup_test_topic(&topic_admin, topic.name).await?;
 

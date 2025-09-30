@@ -86,7 +86,10 @@ mod tests {
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let _ = Publisher::builder().build().await?;
+        let _ = Publisher::builder()
+            .with_credentials(auth::credentials::anonymous::Builder::new().build())
+            .build()
+            .await?;
         Ok(())
     }
 }
