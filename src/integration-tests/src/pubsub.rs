@@ -15,8 +15,32 @@
 use crate::{Error, Result};
 
 use gax::paginator::ItemPaginator as _;
-use pubsub::{client::TopicAdmin, model::Topic};
+use pubsub::client::{Publisher, TopicAdmin};
+use pubsub::model::{PubsubMessage, Topic};
 use rand::{Rng, distr::Alphanumeric};
+
+pub async fn basic_publisher() -> Result<()> {
+    let (topic_admin, topic) = create_test_topic().await?;
+
+    tracing::info!("testing publish()");
+    let publisher = Publisher::builder().build().await?;
+    let messages: [PubsubMessage; 2] = [
+        PubsubMessage::new().set_data("Hello"),
+        PubsubMessage::new().set_data("World"),
+    ];
+    let resp = publisher
+        .publish()
+        .set_topic(&topic.name)
+        .set_messages(messages)
+        .send()
+        .await?;
+    assert_eq!(resp.message_ids.len(), 2);
+    tracing::info!("successfully published messages: {:#?}", resp.message_ids);
+
+    cleanup_test_topic(&topic_admin, topic.name).await?;
+
+    Ok(())
+}
 
 pub async fn basic_topic() -> Result<()> {
     let (client, topic) = create_test_topic().await?;

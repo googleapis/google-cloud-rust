@@ -3850,8 +3850,10 @@ dependencies = [
 name = "google-cloud-pubsub"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "async-trait",
  "bytes",
+ "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
@@ -3864,6 +3866,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "tokio",
  "tokio-test",
  "tonic",
  "tracing",
