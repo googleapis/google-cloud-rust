@@ -146,28 +146,9 @@ pub async fn images() -> Result<()> {
 pub async fn instances() -> Result<()> {
     let client = Instances::builder().with_tracing().build().await?;
     let operations = ZoneOperations::builder().with_tracing().build().await?;
-    let images = Images::builder().with_tracing().build().await?;
     let project_id = crate::project_id()?;
     let service_account = crate::test_service_account()?;
     let zone_id = crate::zone_id();
-
-    // Find a suitable image. Images are updated periodically, we need to query
-    // what is available. Even image families are removed after a few years,
-    // fortunately, fedora-coreos-stable is a rolling release.
-    let mut image = None;
-    let mut items = images
-        .list()
-        .set_project("fedora-coreos-cloud")
-        .set_filter("family=fedora-coreos-stable")
-        .by_item();
-    while let Some(i) = items.next().await.transpose()? {
-        if !i.family.is_some_and(|v| v == "fedora-coreos-stable") {
-            continue;
-        }
-        image = i.name;
-    }
-
-    let image = image.expect("cannot find an image in the fedora-coreos-stable family");
 
     let id = crate::random_vm_id();
     let body = Instance::new()
@@ -176,9 +157,9 @@ pub async fn instances() -> Result<()> {
         .set_description("A test VM created by the Rust client library.")
         .set_disks([AttachedDisk::new()
             .set_initialize_params(
-                AttachedDiskInitializeParams::new().set_source_image(format!(
-                    "projects/fedora-coreos-cloud/global/images/{image}"
-                )),
+                AttachedDiskInitializeParams::new().set_source_image(
+                    "projects/fedora-coreos-cloud/global/images/fedora-coreos-stable"
+                ),
             )
             .set_boot(true)
             .set_auto_delete(true)])
@@ -194,7 +175,7 @@ pub async fn instances() -> Result<()> {
             .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
     );
 
-    tracing::info!("Starting new instance with image: {image:?}.");
+    eprintln!("Starting new instance.");
     let pending = client
         .insert()
         .set_project(&project_id)
@@ -203,7 +184,7 @@ pub async fn instances() -> Result<()> {
         .send()
         .await?;
 
-    tracing::info!("Waiting for new instance operation.");
+    eprintln!("Waiting for new instance operation.");
     let done = operations
         .wait()
         .set_project(&project_id)
@@ -211,9 +192,9 @@ pub async fn instances() -> Result<()> {
         .set_operation(pending.name.clone().unwrap_or_default())
         .send()
         .await?;
-    tracing::info!("Operation completed with = {done:?}");
+    eprintln!("Operation completed with = {done:?}");
 
-    tracing::info!("Getting instance details.");
+    eprintln!("Getting instance details.");
     let instance = client
         .get()
         .set_project(&project_id)
@@ -221,9 +202,9 @@ pub async fn instances() -> Result<()> {
         .set_instance(&id)
         .send()
         .await?;
-    tracing::warn!("instance = {instance:?}");
+    eprintln!("instance = {instance:?}");
 
-    tracing::info!("Testing Instances::list()");
+    eprintln!("Testing Instances::list()");
     let mut items = client
         .list()
         .set_project(&project_id)
@@ -232,7 +213,7 @@ pub async fn instances() -> Result<()> {
     while let Some(instance) = items.next().await.transpose()? {
         tracing::info!("instance = {instance:?}");
     }
-    tracing::info!("DONE Instances::list()");
+    eprintln!("DONE Instances::list()");
 
     Ok(())
 }
