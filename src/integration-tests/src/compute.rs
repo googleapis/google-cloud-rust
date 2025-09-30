@@ -152,7 +152,7 @@ pub async fn instances() -> Result<()> {
 
     let id = crate::random_vm_id();
     let body = Instance::new()
-        .set_machine_type(format!("zones/{zone_id}/machineTypes/f1-micro"))
+        .set_machine_type(format!("zones/{zone_id}/machineTypes/e2-standard-32"))
         .set_name(&id)
         .set_description("A test VM created by the Rust client library.")
         .set_disks([AttachedDisk::new()
@@ -185,10 +185,10 @@ pub async fn instances() -> Result<()> {
         .send()
         .await?;
 
-    while !operation
+    while operation
         .status
         .as_ref()
-        .is_some_and(|s| *s != Status::Done)
+        .is_none_or(|s| *s != Status::Done)
     {
         tracing::info!("Waiting for new instance operation: {operation:?}");
         if let Some(err) = operation.error {
@@ -214,16 +214,16 @@ pub async fn instances() -> Result<()> {
         .await?;
     tracing::info!("instance = {instance:?}");
 
-    tracing::info!("Testing Instances::list()");
-    let mut items = client
-        .list()
-        .set_project(&project_id)
-        .set_zone(&zone_id)
-        .by_item();
-    while let Some(instance) = items.next().await.transpose()? {
-        tracing::info!("instance = {instance:?}");
-    }
-    tracing::info!("DONE Instances::list()");
+//    tracing::info!("Testing Instances::list()");
+//    let mut items = client
+//        .list()
+//        .set_project(&project_id)
+//        .set_zone(&zone_id)
+//        .by_item();
+//    while let Some(instance) = items.next().await.transpose()? {
+//        tracing::info!("instance = {instance:?}");
+//    }
+//    tracing::info!("DONE Instances::list()");
 
     Ok(())
 }
