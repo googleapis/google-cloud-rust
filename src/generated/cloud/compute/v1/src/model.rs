@@ -34,8 +34,765 @@ mod debug;
 mod deserialize;
 mod serialize;
 
+/// Specifies the audit configuration for a service. The configuration determines which permission types are logged, and what identities, if any, are exempted from logging. An AuditConfig must have one or more AuditLogConfigs. If there are AuditConfigs for both `allServices` and a specific service, the union of the two AuditConfigs is used for that service: the log_types specified in each AuditConfig are enabled, and the exempted_members in each AuditLogConfig are exempted. Example Policy with multiple AuditConfigs: { "audit_configs": [ { "service": "allServices", "audit_log_configs": [ { "log_type": "DATA_READ", "exempted_members": [ "user:jose@example.com" ] }, { "log_type": "DATA_WRITE" }, { "log_type": "ADMIN_READ" } ] }, { "service": "sampleservice.googleapis.com", "audit_log_configs": [ { "log_type": "DATA_READ" }, { "log_type": "DATA_WRITE", "exempted_members": [ "user:aliya@example.com" ] } ] } ] } For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ logging. It also exempts `jose@example.com` from DATA_READ logging, and `aliya@example.com` from DATA_WRITE logging.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AuditConfig {
+    /// The configuration for logging of each type of permission.
+    pub audit_log_configs: std::vec::Vec<crate::model::AuditLogConfig>,
+
+    /// Specifies a service that will be enabled for audit logging. For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. `allServices` is a special value that covers all services.
+    pub service: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl AuditConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [audit_log_configs][crate::model::AuditConfig::audit_log_configs].
+    pub fn set_audit_log_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuditLogConfig>,
+    {
+        use std::iter::Iterator;
+        self.audit_log_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [service][crate::model::AuditConfig::service].
+    pub fn set_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service][crate::model::AuditConfig::service].
+    pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.service = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for AuditConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.AuditConfig"
+    }
+}
+
+/// Provides the configuration for logging a type of permissions. Example: { "audit_log_configs": [ { "log_type": "DATA_READ", "exempted_members": [ "user:jose@example.com" ] }, { "log_type": "DATA_WRITE" } ] } This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting jose@example.com from DATA_READ logging.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AuditLogConfig {
+    /// Specifies the identities that do not cause logging for this type of permission. Follows the same format of Binding.members.
+    pub exempted_members: std::vec::Vec<std::string::String>,
+
+    /// The log type that this config enables.
+    pub log_type: std::option::Option<crate::model::audit_log_config::LogType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl AuditLogConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [exempted_members][crate::model::AuditLogConfig::exempted_members].
+    pub fn set_exempted_members<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.exempted_members = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [log_type][crate::model::AuditLogConfig::log_type].
+    pub fn set_log_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::audit_log_config::LogType>,
+    {
+        self.log_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [log_type][crate::model::AuditLogConfig::log_type].
+    pub fn set_or_clear_log_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::audit_log_config::LogType>,
+    {
+        self.log_type = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for AuditLogConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.AuditLogConfig"
+    }
+}
+
+/// Defines additional types related to [AuditLogConfig].
+#[cfg(feature = "images")]
+pub mod audit_log_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [logType][google.cloud.compute.v1.AuditLogConfig.logType] field.
+    ///
+    /// [google.cloud.compute.v1.AuditLogConfig.logType]: crate::model::audit_log_config::LogType
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "images")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum LogType {
+        /// Admin reads. Example: CloudIAM getIamPolicy
+        AdminRead,
+        /// Data reads. Example: CloudSQL Users list
+        DataRead,
+        /// Data writes. Example: CloudSQL Users create
+        DataWrite,
+        /// Default case. Should never be this.
+        Unspecified,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [LogType::value] or
+        /// [LogType::name].
+        UnknownValue(log_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "images")]
+    pub mod log_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "images")]
+    impl LogType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::AdminRead => std::option::Option::Some(0),
+                Self::DataRead => std::option::Option::Some(1),
+                Self::DataWrite => std::option::Option::Some(2),
+                Self::Unspecified => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::AdminRead => std::option::Option::Some("ADMIN_READ"),
+                Self::DataRead => std::option::Option::Some("DATA_READ"),
+                Self::DataWrite => std::option::Option::Some("DATA_WRITE"),
+                Self::Unspecified => std::option::Option::Some("LOG_TYPE_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::default::Default for LogType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::fmt::Display for LogType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<i32> for LogType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::AdminRead,
+                1 => Self::DataRead,
+                2 => Self::DataWrite,
+                3 => Self::Unspecified,
+                _ => Self::UnknownValue(log_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<&str> for LogType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ADMIN_READ" => Self::AdminRead,
+                "DATA_READ" => Self::DataRead,
+                "DATA_WRITE" => Self::DataWrite,
+                "LOG_TYPE_UNSPECIFIED" => Self::Unspecified,
+                _ => Self::UnknownValue(log_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl serde::ser::Serialize for LogType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::AdminRead => serializer.serialize_str("ADMIN_READ"),
+                Self::DataRead => serializer.serialize_str("DATA_READ"),
+                Self::DataWrite => serializer.serialize_str("DATA_WRITE"),
+                Self::Unspecified => serializer.serialize_str("LOG_TYPE_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl<'de> serde::de::Deserialize<'de> for LogType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<LogType>::new(
+                ".google.cloud.compute.v1.AuditLogConfig.logType",
+            ))
+        }
+    }
+}
+
+/// Associates `members`, or principals, with a `role`.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Binding {
+    /// The condition that is associated with this binding. If the condition evaluates to `true`, then this binding applies to the current request. If the condition evaluates to `false`, then this binding does not apply to the current request. However, a different role binding might grant the same role to one or more of the principals in this binding. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+    pub condition: std::option::Option<crate::model::Expr>,
+
+    /// Specifies the principals requesting access for a Google Cloud resource. `members` can have the following values: * `allUsers`: A special identifier that represents anyone who is on the internet; with or without a Google account. * `allAuthenticatedUsers`: A special identifier that represents anyone who is authenticated with a Google account or a service account. Does not include identities that come from external identity providers (IdPs) through identity federation. * `user:{emailid}`: An email address that represents a specific Google account. For example, `alice@example.com` . * `serviceAccount:{emailid}`: An email address that represents a Google service account. For example, `my-other-app@appspot.gserviceaccount.com`. * `serviceAccount:{projectid}.svc.id.goog[{namespace}/{kubernetes-sa}]`: An identifier for a [Kubernetes service account](https://cloud.google.com/kubernetes-engine/docs/how-to/kubernetes-service-accounts). For example, `my-project.svc.id.goog[my-namespace/my-kubernetes-sa]`. * `group:{emailid}`: An email address that represents a Google group. For example, `admins@example.com`. * `domain:{domain}`: The G Suite domain (primary) that represents all the users of that domain. For example, `google.com` or `example.com`. * `principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`: A single identity in a workforce identity pool. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/group/{group_id}`: All workforce identities in a group. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/attribute.{attribute_name}/{attribute_value}`: All workforce identities with a specific attribute value. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id}/*`: All identities in a workforce identity pool. * `principal://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/subject/{subject_attribute_value}`: A single identity in a workload identity pool. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/group/{group_id}`: A workload identity pool group. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/attribute.{attribute_name}/{attribute_value}`: All identities in a workload identity pool with a certain attribute. * `principalSet://iam.googleapis.com/projects/{project_number}/locations/global/workloadIdentityPools/{pool_id}/*`: All identities in a workload identity pool. * `deleted:user:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a user that has been recently deleted. For example, `alice@example.com?uid=123456789012345678901`. If the user is recovered, this value reverts to `user:{emailid}` and the recovered user retains the role in the binding. * `deleted:serviceAccount:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a service account that has been recently deleted. For example, `my-other-app@appspot.gserviceaccount.com?uid=123456789012345678901`. If the service account is undeleted, this value reverts to `serviceAccount:{emailid}` and the undeleted service account retains the role in the binding. * `deleted:group:{emailid}?uid={uniqueid}`: An email address (plus unique identifier) representing a Google group that has been recently deleted. For example, `admins@example.com?uid=123456789012345678901`. If the group is recovered, this value reverts to `group:{emailid}` and the recovered group retains the role in the binding. * `deleted:principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`: Deleted single identity in a workforce identity pool. For example, `deleted:principal://iam.googleapis.com/locations/global/workforcePools/my-pool-id/subject/my-subject-attribute-value`.
+    pub members: std::vec::Vec<std::string::String>,
+
+    /// Role that is assigned to the list of `members`, or principals. For example, `roles/viewer`, `roles/editor`, or `roles/owner`. For an overview of the IAM roles and permissions, see the [IAM documentation](https://cloud.google.com/iam/docs/roles-overview). For a list of the available pre-defined roles, see [here](https://cloud.google.com/iam/docs/understanding-roles).
+    pub role: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl Binding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [condition][crate::model::Binding::condition].
+    pub fn set_condition<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Expr>,
+    {
+        self.condition = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [condition][crate::model::Binding::condition].
+    pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Expr>,
+    {
+        self.condition = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [members][crate::model::Binding::members].
+    pub fn set_members<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.members = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [role][crate::model::Binding::role].
+    pub fn set_role<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.role = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [role][crate::model::Binding::role].
+    pub fn set_or_clear_role<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.role = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for Binding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.Binding"
+    }
+}
+
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BulkInsertOperationStatus {
+    /// [Output Only] Count of VMs successfully created so far.
+    pub created_vm_count: std::option::Option<i32>,
+
+    /// [Output Only] Count of VMs that got deleted during rollback.
+    pub deleted_vm_count: std::option::Option<i32>,
+
+    /// [Output Only] Count of VMs that started creating but encountered an error.
+    pub failed_to_create_vm_count: std::option::Option<i32>,
+
+    /// [Output Only] Creation status of BulkInsert operation - information if the flow is rolling forward or rolling back.
+    pub status: std::option::Option<crate::model::bulk_insert_operation_status::Status>,
+
+    /// [Output Only] Count of VMs originally planned to be created.
+    pub target_vm_count: std::option::Option<i32>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl BulkInsertOperationStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [created_vm_count][crate::model::BulkInsertOperationStatus::created_vm_count].
+    pub fn set_created_vm_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.created_vm_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [created_vm_count][crate::model::BulkInsertOperationStatus::created_vm_count].
+    pub fn set_or_clear_created_vm_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.created_vm_count = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [deleted_vm_count][crate::model::BulkInsertOperationStatus::deleted_vm_count].
+    pub fn set_deleted_vm_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.deleted_vm_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deleted_vm_count][crate::model::BulkInsertOperationStatus::deleted_vm_count].
+    pub fn set_or_clear_deleted_vm_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.deleted_vm_count = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [failed_to_create_vm_count][crate::model::BulkInsertOperationStatus::failed_to_create_vm_count].
+    pub fn set_failed_to_create_vm_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.failed_to_create_vm_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [failed_to_create_vm_count][crate::model::BulkInsertOperationStatus::failed_to_create_vm_count].
+    pub fn set_or_clear_failed_to_create_vm_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.failed_to_create_vm_count = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [status][crate::model::BulkInsertOperationStatus::status].
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::bulk_insert_operation_status::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::BulkInsertOperationStatus::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::bulk_insert_operation_status::Status>,
+    {
+        self.status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target_vm_count][crate::model::BulkInsertOperationStatus::target_vm_count].
+    pub fn set_target_vm_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.target_vm_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_vm_count][crate::model::BulkInsertOperationStatus::target_vm_count].
+    pub fn set_or_clear_target_vm_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.target_vm_count = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for BulkInsertOperationStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.BulkInsertOperationStatus"
+    }
+}
+
+/// Defines additional types related to [BulkInsertOperationStatus].
+#[cfg(feature = "images")]
+pub mod bulk_insert_operation_status {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [status][google.cloud.compute.v1.BulkInsertOperationStatus.status] field.
+    ///
+    /// [google.cloud.compute.v1.BulkInsertOperationStatus.status]: crate::model::bulk_insert_operation_status::Status
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "images")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Status {
+        /// Rolling forward - creating VMs.
+        Creating,
+        /// Done
+        Done,
+        /// Rolling back - cleaning up after an error.
+        RollingBack,
+        Unspecified,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Status::value] or
+        /// [Status::name].
+        UnknownValue(status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "images")]
+    pub mod status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "images")]
+    impl Status {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Creating => std::option::Option::Some(0),
+                Self::Done => std::option::Option::Some(1),
+                Self::RollingBack => std::option::Option::Some(2),
+                Self::Unspecified => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Done => std::option::Option::Some("DONE"),
+                Self::RollingBack => std::option::Option::Some("ROLLING_BACK"),
+                Self::Unspecified => std::option::Option::Some("STATUS_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Creating,
+                1 => Self::Done,
+                2 => Self::RollingBack,
+                3 => Self::Unspecified,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<&str> for Status {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CREATING" => Self::Creating,
+                "DONE" => Self::Done,
+                "ROLLING_BACK" => Self::RollingBack,
+                "STATUS_UNSPECIFIED" => Self::Unspecified,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl serde::ser::Serialize for Status {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Creating => serializer.serialize_str("CREATING"),
+                Self::Done => serializer.serialize_str("DONE"),
+                Self::RollingBack => serializer.serialize_str("ROLLING_BACK"),
+                Self::Unspecified => serializer.serialize_str("STATUS_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl<'de> serde::de::Deserialize<'de> for Status {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
+                ".google.cloud.compute.v1.BulkInsertOperationStatus.status",
+            ))
+        }
+    }
+}
+
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CustomerEncryptionKey {
+    /// The name of the encryption key that is stored in Google Cloud KMS. For example: "kmsKeyName": "projects/kms_project_id/locations/region/keyRings/ key_region/cryptoKeys/key The fully-qualifed key name may be returned for resource GET requests. For example: "kmsKeyName": "projects/kms_project_id/locations/region/keyRings/ key_region/cryptoKeys/key /cryptoKeyVersions/1
+    pub kms_key_name: std::option::Option<std::string::String>,
+
+    /// The service account being used for the encryption request for the given KMS key. If absent, the Compute Engine default service account is used. For example: "kmsKeyServiceAccount": "name@project_id.iam.gserviceaccount.com/
+    pub kms_key_service_account: std::option::Option<std::string::String>,
+
+    /// Specifies a 256-bit customer-supplied encryption key, encoded in RFC 4648 base64 to either encrypt or decrypt this resource. You can provide either the rawKey or the rsaEncryptedKey. For example: "rawKey": "SGVsbG8gZnJvbSBHb29nbGUgQ2xvdWQgUGxhdGZvcm0="
+    pub raw_key: std::option::Option<std::string::String>,
+
+    /// Specifies an RFC 4648 base64 encoded, RSA-wrapped 2048-bit customer-supplied encryption key to either encrypt or decrypt this resource. You can provide either the rawKey or the rsaEncryptedKey. For example: "rsaEncryptedKey": "ieCx/NcW06PcT7Ep1X6LUTc/hLvUDYyzSZPPVCVPTVEohpeHASqC8uw5TzyO9U+Fka9JFH z0mBibXUInrC/jEk014kCK/NPjYgEMOyssZ4ZINPKxlUh2zn1bV+MCaTICrdmuSBTWlUUiFoD D6PYznLwh8ZNdaheCeZ8ewEXgFQ8V+sDroLaN3Xs3MDTXQEMMoNUXMCZEIpg9Vtp9x2oe==" The key must meet the following requirements before you can provide it to Compute Engine: 1. The key is wrapped using a RSA public key certificate provided by Google. 2. After being wrapped, the key must be encoded in RFC 4648 base64 encoding. Gets the RSA public key certificate provided by Google at: <https://cloud-certs.storage.googleapis.com/google-cloud-csek-ingress.pem>
+    pub rsa_encrypted_key: std::option::Option<std::string::String>,
+
+    /// [Output only] The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied encryption key that protects this resource.
+    pub sha256: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl CustomerEncryptionKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [kms_key_name][crate::model::CustomerEncryptionKey::kms_key_name].
+    pub fn set_kms_key_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kms_key_name][crate::model::CustomerEncryptionKey::kms_key_name].
+    pub fn set_or_clear_kms_key_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key_name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [kms_key_service_account][crate::model::CustomerEncryptionKey::kms_key_service_account].
+    pub fn set_kms_key_service_account<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key_service_account = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kms_key_service_account][crate::model::CustomerEncryptionKey::kms_key_service_account].
+    pub fn set_or_clear_kms_key_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kms_key_service_account = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [raw_key][crate::model::CustomerEncryptionKey::raw_key].
+    pub fn set_raw_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.raw_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [raw_key][crate::model::CustomerEncryptionKey::raw_key].
+    pub fn set_or_clear_raw_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.raw_key = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [rsa_encrypted_key][crate::model::CustomerEncryptionKey::rsa_encrypted_key].
+    pub fn set_rsa_encrypted_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rsa_encrypted_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rsa_encrypted_key][crate::model::CustomerEncryptionKey::rsa_encrypted_key].
+    pub fn set_or_clear_rsa_encrypted_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rsa_encrypted_key = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [sha256][crate::model::CustomerEncryptionKey::sha256].
+    pub fn set_sha256<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.sha256 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sha256][crate::model::CustomerEncryptionKey::sha256].
+    pub fn set_or_clear_sha256<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.sha256 = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for CustomerEncryptionKey {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.CustomerEncryptionKey"
+    }
+}
+
 /// Deprecation status for a public resource.
-#[cfg(any(feature = "machine-types", feature = "zones",))]
+#[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeprecationStatus {
@@ -57,7 +814,7 @@ pub struct DeprecationStatus {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "machine-types", feature = "zones",))]
+#[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
 impl DeprecationStatus {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -154,7 +911,7 @@ impl DeprecationStatus {
     }
 }
 
-#[cfg(any(feature = "machine-types", feature = "zones",))]
+#[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
 impl wkt::message::Message for DeprecationStatus {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.DeprecationStatus"
@@ -162,7 +919,7 @@ impl wkt::message::Message for DeprecationStatus {
 }
 
 /// Defines additional types related to [DeprecationStatus].
-#[cfg(any(feature = "machine-types", feature = "zones",))]
+#[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
 pub mod deprecation_status {
     #[allow(unused_imports)]
     use super::*;
@@ -184,7 +941,7 @@ pub mod deprecation_status {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-    #[cfg(any(feature = "machine-types", feature = "zones",))]
+    #[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -200,7 +957,7 @@ pub mod deprecation_status {
     }
 
     #[doc(hidden)]
-    #[cfg(any(feature = "machine-types", feature = "zones",))]
+    #[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -208,7 +965,7 @@ pub mod deprecation_status {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
-    #[cfg(any(feature = "machine-types", feature = "zones",))]
+    #[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
     impl State {
         /// Gets the enum value.
         ///
@@ -239,7 +996,7 @@ pub mod deprecation_status {
         }
     }
 
-    #[cfg(any(feature = "machine-types", feature = "zones",))]
+    #[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -247,14 +1004,14 @@ pub mod deprecation_status {
         }
     }
 
-    #[cfg(any(feature = "machine-types", feature = "zones",))]
+    #[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
-    #[cfg(any(feature = "machine-types", feature = "zones",))]
+    #[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -269,7 +1026,7 @@ pub mod deprecation_status {
         }
     }
 
-    #[cfg(any(feature = "machine-types", feature = "zones",))]
+    #[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -285,7 +1042,7 @@ pub mod deprecation_status {
         }
     }
 
-    #[cfg(any(feature = "machine-types", feature = "zones",))]
+    #[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -301,7 +1058,7 @@ pub mod deprecation_status {
         }
     }
 
-    #[cfg(any(feature = "machine-types", feature = "zones",))]
+    #[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -311,6 +1068,3180 @@ pub mod deprecation_status {
                 ".google.cloud.compute.v1.DeprecationStatus.state",
             ))
         }
+    }
+}
+
+/// Describes the cause of the error with structured details. Example of an error when contacting the "pubsub.googleapis.com" API when it is not enabled: { "reason": "API_DISABLED" "domain": "googleapis.com" "metadata": { "resource": "projects/123", "service": "pubsub.googleapis.com" } } This response indicates that the pubsub.googleapis.com API is not enabled. Example of an error that is returned when attempting to create a Spanner instance in a region that is out of stock: { "reason": "STOCKOUT" "domain": "spanner.googleapis.com", "metadata": { "availableRegions": "us-central1,us-east2" } }
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ErrorInfo {
+    /// The logical grouping to which the "reason" belongs. The error domain is typically the registered service name of the tool or product that generates the error. Example: "pubsub.googleapis.com". If the error is generated by some common infrastructure, the error domain must be a globally unique value that identifies the infrastructure. For Google API infrastructure, the error domain is "googleapis.com".
+    pub domain: std::option::Option<std::string::String>,
+
+    /// Additional structured details about this error. Keys must match a regular expression of `a-z+` but should ideally be lowerCamelCase. Also, they must be limited to 64 characters in length. When identifying the current value of an exceeded limit, the units should be contained in the key, not the value. For example, rather than `{"instanceLimit": "100/request"}`, should be returned as, `{"instanceLimitPerRequest": "100"}`, if the client exceeds the number of instances that can be created in a single (batch) request.
+    pub metadatas: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// The reason of the error. This is a constant value that identifies the proximate cause of the error. Error reasons are unique within a particular domain of errors. This should be at most 63 characters and match a regular expression of `A-Z+[A-Z0-9]`, which represents UPPER_SNAKE_CASE.
+    pub reason: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl ErrorInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [domain][crate::model::ErrorInfo::domain].
+    pub fn set_domain<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.domain = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [domain][crate::model::ErrorInfo::domain].
+    pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.domain = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metadatas][crate::model::ErrorInfo::metadatas].
+    pub fn set_metadatas<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadatas = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [reason][crate::model::ErrorInfo::reason].
+    pub fn set_reason<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.reason = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reason][crate::model::ErrorInfo::reason].
+    pub fn set_or_clear_reason<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.reason = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for ErrorInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.ErrorInfo"
+    }
+}
+
+/// Represents a textual expression in the Common Expression Language (CEL) syntax. CEL is a C-like expression language. The syntax and semantics of CEL are documented at <https://github.com/google/cel-spec>. Example (Comparison): title: "Summary size limit" description: "Determines if a summary is less than 100 chars" expression: "document.summary.size() < 100" Example (Equality): title: "Requestor is owner" description: "Determines if requestor is the document owner" expression: "document.owner == request.auth.claims.email" Example (Logic): title: "Public documents" description: "Determine whether the document should be publicly visible" expression: "document.type != 'private' && document.type != 'internal'" Example (Data Manipulation): title: "Notification string" description: "Create a notification string with a timestamp." expression: "'New message received at ' + string(document.create_time)" The exact variables and functions that may be referenced within an expression are determined by the service that evaluates it. See the service documentation for additional information.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Expr {
+    /// Optional. Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
+    pub description: std::option::Option<std::string::String>,
+
+    /// Textual representation of an expression in Common Expression Language syntax.
+    pub expression: std::option::Option<std::string::String>,
+
+    /// Optional. String indicating the location of the expression for error reporting, e.g. a file name and a position in the file.
+    pub location: std::option::Option<std::string::String>,
+
+    /// Optional. Title for the expression, i.e. a short string describing its purpose. This can be used e.g. in UIs which allow to enter the expression.
+    pub title: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl Expr {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [description][crate::model::Expr::description].
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::Expr::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [expression][crate::model::Expr::expression].
+    pub fn set_expression<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.expression = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expression][crate::model::Expr::expression].
+    pub fn set_or_clear_expression<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.expression = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [location][crate::model::Expr::location].
+    pub fn set_location<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.location = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [location][crate::model::Expr::location].
+    pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.location = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [title][crate::model::Expr::title].
+    pub fn set_title<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.title = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [title][crate::model::Expr::title].
+    pub fn set_or_clear_title<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.title = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for Expr {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.Expr"
+    }
+}
+
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FileContentBuffer {
+    /// The raw content in the secure keys file.
+    pub content: std::option::Option<::bytes::Bytes>,
+
+    /// The file type of source file.
+    pub file_type: std::option::Option<crate::model::file_content_buffer::FileType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl FileContentBuffer {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [content][crate::model::FileContentBuffer::content].
+    pub fn set_content<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.content = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [content][crate::model::FileContentBuffer::content].
+    pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.content = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [file_type][crate::model::FileContentBuffer::file_type].
+    pub fn set_file_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::file_content_buffer::FileType>,
+    {
+        self.file_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [file_type][crate::model::FileContentBuffer::file_type].
+    pub fn set_or_clear_file_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::file_content_buffer::FileType>,
+    {
+        self.file_type = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for FileContentBuffer {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.FileContentBuffer"
+    }
+}
+
+/// Defines additional types related to [FileContentBuffer].
+#[cfg(feature = "images")]
+pub mod file_content_buffer {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [fileType][google.cloud.compute.v1.FileContentBuffer.fileType] field.
+    ///
+    /// [google.cloud.compute.v1.FileContentBuffer.fileType]: crate::model::file_content_buffer::FileType
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "images")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FileType {
+        Bin,
+        Undefined,
+        X509,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [FileType::value] or
+        /// [FileType::name].
+        UnknownValue(file_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "images")]
+    pub mod file_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "images")]
+    impl FileType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Bin => std::option::Option::Some(0),
+                Self::Undefined => std::option::Option::Some(1),
+                Self::X509 => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Bin => std::option::Option::Some("BIN"),
+                Self::Undefined => std::option::Option::Some("UNDEFINED"),
+                Self::X509 => std::option::Option::Some("X509"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::default::Default for FileType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::fmt::Display for FileType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<i32> for FileType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Bin,
+                1 => Self::Undefined,
+                2 => Self::X509,
+                _ => Self::UnknownValue(file_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<&str> for FileType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BIN" => Self::Bin,
+                "UNDEFINED" => Self::Undefined,
+                "X509" => Self::X509,
+                _ => Self::UnknownValue(file_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl serde::ser::Serialize for FileType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Bin => serializer.serialize_str("BIN"),
+                Self::Undefined => serializer.serialize_str("UNDEFINED"),
+                Self::X509 => serializer.serialize_str("X509"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl<'de> serde::de::Deserialize<'de> for FileType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<FileType>::new(
+                ".google.cloud.compute.v1.FileContentBuffer.fileType",
+            ))
+        }
+    }
+}
+
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GlobalSetLabelsRequest {
+    /// The fingerprint of the previous set of labels for this resource, used to detect conflicts. The fingerprint is initially generated by Compute Engine and changes after every request to modify or update labels. You must always provide an up-to-date fingerprint hash when updating or changing labels, otherwise the request will fail with error 412 conditionNotMet. Make a get() request to the resource to get the latest fingerprint.
+    pub label_fingerprint: std::option::Option<::bytes::Bytes>,
+
+    /// A list of labels to apply for this resource. Each label must comply with the requirements for labels. For example, "webserver-frontend": "images". A label value can also be empty (e.g. "my-label": "").
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl GlobalSetLabelsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [label_fingerprint][crate::model::GlobalSetLabelsRequest::label_fingerprint].
+    pub fn set_label_fingerprint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [label_fingerprint][crate::model::GlobalSetLabelsRequest::label_fingerprint].
+    pub fn set_or_clear_label_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::GlobalSetLabelsRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for GlobalSetLabelsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.GlobalSetLabelsRequest"
+    }
+}
+
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GlobalSetPolicyRequest {
+    /// Flatten Policy to create a backward compatible wire-format. Deprecated. Use 'policy' to specify bindings.
+    pub bindings: std::vec::Vec<crate::model::Binding>,
+
+    /// Flatten Policy to create a backward compatible wire-format. Deprecated. Use 'policy' to specify the etag.
+    pub etag: std::option::Option<::bytes::Bytes>,
+
+    /// REQUIRED: The complete policy to be applied to the 'resource'. The size of the policy is limited to a few 10s of KB. An empty policy is in general a valid policy but certain services (like Projects) might reject them.
+    pub policy: std::option::Option<crate::model::Policy>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl GlobalSetPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [bindings][crate::model::GlobalSetPolicyRequest::bindings].
+    pub fn set_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Binding>,
+    {
+        use std::iter::Iterator;
+        self.bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::GlobalSetPolicyRequest::etag].
+    pub fn set_etag<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.etag = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [etag][crate::model::GlobalSetPolicyRequest::etag].
+    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.etag = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [policy][crate::model::GlobalSetPolicyRequest::policy].
+    pub fn set_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Policy>,
+    {
+        self.policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [policy][crate::model::GlobalSetPolicyRequest::policy].
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Policy>,
+    {
+        self.policy = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for GlobalSetPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.GlobalSetPolicyRequest"
+    }
+}
+
+/// Guest OS features.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GuestOsFeature {
+    /// The ID of a supported feature. To add multiple values, use commas to separate values. Set to one or more of the following values: - VIRTIO_SCSI_MULTIQUEUE - WINDOWS - MULTI_IP_SUBNET - UEFI_COMPATIBLE - GVNIC - SEV_CAPABLE - SUSPEND_RESUME_COMPATIBLE - SEV_LIVE_MIGRATABLE_V2 - SEV_SNP_CAPABLE - TDX_CAPABLE - IDPF - SNP_SVSM_CAPABLE For more information, see Enabling guest operating system features.
+    pub r#type: std::option::Option<crate::model::guest_os_feature::Type>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl GuestOsFeature {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::GuestOsFeature::type].
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::guest_os_feature::Type>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::GuestOsFeature::type].
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::guest_os_feature::Type>,
+    {
+        self.r#type = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for GuestOsFeature {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.GuestOsFeature"
+    }
+}
+
+/// Defines additional types related to [GuestOsFeature].
+#[cfg(feature = "images")]
+pub mod guest_os_feature {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [type][google.cloud.compute.v1.GuestOsFeature.type] field.
+    ///
+    /// [google.cloud.compute.v1.GuestOsFeature.type]: crate::model::guest_os_feature::Type
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "images")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        BareMetalLinuxCompatible,
+        FeatureTypeUnspecified,
+        Gvnic,
+        Idpf,
+        MultiIpSubnet,
+        SecureBoot,
+        SevCapable,
+        SevLiveMigratable,
+        SevLiveMigratableV2,
+        SevSnpCapable,
+        SnpSvsmCapable,
+        TdxCapable,
+        UefiCompatible,
+        VirtioScsiMultiqueue,
+        Windows,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "images")]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "images")]
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::BareMetalLinuxCompatible => std::option::Option::Some(0),
+                Self::FeatureTypeUnspecified => std::option::Option::Some(1),
+                Self::Gvnic => std::option::Option::Some(2),
+                Self::Idpf => std::option::Option::Some(3),
+                Self::MultiIpSubnet => std::option::Option::Some(4),
+                Self::SecureBoot => std::option::Option::Some(5),
+                Self::SevCapable => std::option::Option::Some(6),
+                Self::SevLiveMigratable => std::option::Option::Some(7),
+                Self::SevLiveMigratableV2 => std::option::Option::Some(8),
+                Self::SevSnpCapable => std::option::Option::Some(9),
+                Self::SnpSvsmCapable => std::option::Option::Some(10),
+                Self::TdxCapable => std::option::Option::Some(11),
+                Self::UefiCompatible => std::option::Option::Some(12),
+                Self::VirtioScsiMultiqueue => std::option::Option::Some(13),
+                Self::Windows => std::option::Option::Some(14),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::BareMetalLinuxCompatible => {
+                    std::option::Option::Some("BARE_METAL_LINUX_COMPATIBLE")
+                }
+                Self::FeatureTypeUnspecified => {
+                    std::option::Option::Some("FEATURE_TYPE_UNSPECIFIED")
+                }
+                Self::Gvnic => std::option::Option::Some("GVNIC"),
+                Self::Idpf => std::option::Option::Some("IDPF"),
+                Self::MultiIpSubnet => std::option::Option::Some("MULTI_IP_SUBNET"),
+                Self::SecureBoot => std::option::Option::Some("SECURE_BOOT"),
+                Self::SevCapable => std::option::Option::Some("SEV_CAPABLE"),
+                Self::SevLiveMigratable => std::option::Option::Some("SEV_LIVE_MIGRATABLE"),
+                Self::SevLiveMigratableV2 => std::option::Option::Some("SEV_LIVE_MIGRATABLE_V2"),
+                Self::SevSnpCapable => std::option::Option::Some("SEV_SNP_CAPABLE"),
+                Self::SnpSvsmCapable => std::option::Option::Some("SNP_SVSM_CAPABLE"),
+                Self::TdxCapable => std::option::Option::Some("TDX_CAPABLE"),
+                Self::UefiCompatible => std::option::Option::Some("UEFI_COMPATIBLE"),
+                Self::VirtioScsiMultiqueue => std::option::Option::Some("VIRTIO_SCSI_MULTIQUEUE"),
+                Self::Windows => std::option::Option::Some("WINDOWS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::BareMetalLinuxCompatible,
+                1 => Self::FeatureTypeUnspecified,
+                2 => Self::Gvnic,
+                3 => Self::Idpf,
+                4 => Self::MultiIpSubnet,
+                5 => Self::SecureBoot,
+                6 => Self::SevCapable,
+                7 => Self::SevLiveMigratable,
+                8 => Self::SevLiveMigratableV2,
+                9 => Self::SevSnpCapable,
+                10 => Self::SnpSvsmCapable,
+                11 => Self::TdxCapable,
+                12 => Self::UefiCompatible,
+                13 => Self::VirtioScsiMultiqueue,
+                14 => Self::Windows,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BARE_METAL_LINUX_COMPATIBLE" => Self::BareMetalLinuxCompatible,
+                "FEATURE_TYPE_UNSPECIFIED" => Self::FeatureTypeUnspecified,
+                "GVNIC" => Self::Gvnic,
+                "IDPF" => Self::Idpf,
+                "MULTI_IP_SUBNET" => Self::MultiIpSubnet,
+                "SECURE_BOOT" => Self::SecureBoot,
+                "SEV_CAPABLE" => Self::SevCapable,
+                "SEV_LIVE_MIGRATABLE" => Self::SevLiveMigratable,
+                "SEV_LIVE_MIGRATABLE_V2" => Self::SevLiveMigratableV2,
+                "SEV_SNP_CAPABLE" => Self::SevSnpCapable,
+                "SNP_SVSM_CAPABLE" => Self::SnpSvsmCapable,
+                "TDX_CAPABLE" => Self::TdxCapable,
+                "UEFI_COMPATIBLE" => Self::UefiCompatible,
+                "VIRTIO_SCSI_MULTIQUEUE" => Self::VirtioScsiMultiqueue,
+                "WINDOWS" => Self::Windows,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::BareMetalLinuxCompatible => {
+                    serializer.serialize_str("BARE_METAL_LINUX_COMPATIBLE")
+                }
+                Self::FeatureTypeUnspecified => {
+                    serializer.serialize_str("FEATURE_TYPE_UNSPECIFIED")
+                }
+                Self::Gvnic => serializer.serialize_str("GVNIC"),
+                Self::Idpf => serializer.serialize_str("IDPF"),
+                Self::MultiIpSubnet => serializer.serialize_str("MULTI_IP_SUBNET"),
+                Self::SecureBoot => serializer.serialize_str("SECURE_BOOT"),
+                Self::SevCapable => serializer.serialize_str("SEV_CAPABLE"),
+                Self::SevLiveMigratable => serializer.serialize_str("SEV_LIVE_MIGRATABLE"),
+                Self::SevLiveMigratableV2 => serializer.serialize_str("SEV_LIVE_MIGRATABLE_V2"),
+                Self::SevSnpCapable => serializer.serialize_str("SEV_SNP_CAPABLE"),
+                Self::SnpSvsmCapable => serializer.serialize_str("SNP_SVSM_CAPABLE"),
+                Self::TdxCapable => serializer.serialize_str("TDX_CAPABLE"),
+                Self::UefiCompatible => serializer.serialize_str("UEFI_COMPATIBLE"),
+                Self::VirtioScsiMultiqueue => serializer.serialize_str("VIRTIO_SCSI_MULTIQUEUE"),
+                Self::Windows => serializer.serialize_str("WINDOWS"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.compute.v1.GuestOsFeature.type",
+            ))
+        }
+    }
+}
+
+/// Provides links to documentation or for performing an out of band action. For example, if a quota check failed with an error indicating the calling project hasn't enabled the accessed service, this can contain a URL pointing directly to the right place in the developer console to flip the bit.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Help {
+    /// URL(s) pointing to additional information on handling the current error.
+    pub links: std::vec::Vec<crate::model::HelpLink>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl Help {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [links][crate::model::Help::links].
+    pub fn set_links<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::HelpLink>,
+    {
+        use std::iter::Iterator;
+        self.links = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for Help {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.Help"
+    }
+}
+
+/// Describes a URL link.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct HelpLink {
+    /// Describes what the link offers.
+    pub description: std::option::Option<std::string::String>,
+
+    /// The URL of the link.
+    pub url: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl HelpLink {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [description][crate::model::HelpLink::description].
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::HelpLink::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [url][crate::model::HelpLink::url].
+    pub fn set_url<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.url = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [url][crate::model::HelpLink::url].
+    pub fn set_or_clear_url<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.url = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for HelpLink {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.HelpLink"
+    }
+}
+
+/// Represents an Image resource. You can use images to create boot disks for your VM instances. For more information, read Images.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Image {
+    /// The architecture of the image. Valid values are ARM64 or X86_64.
+    pub architecture: std::option::Option<crate::model::image::Architecture>,
+
+    /// Size of the image tar.gz archive stored in Google Cloud Storage (in bytes).
+    pub archive_size_bytes: std::option::Option<i64>,
+
+    /// [Output Only] Creation timestamp in RFC3339 text format.
+    pub creation_timestamp: std::option::Option<std::string::String>,
+
+    /// The deprecation status associated with this image.
+    pub deprecated: std::option::Option<crate::model::DeprecationStatus>,
+
+    /// An optional description of this resource. Provide this property when you create the resource.
+    pub description: std::option::Option<std::string::String>,
+
+    /// Size of the image when restored onto a persistent disk (in GB).
+    pub disk_size_gb: std::option::Option<i64>,
+
+    /// Whether this image is created from a confidential compute mode disk. [Output Only]: This field is not set by user, but from source disk.
+    pub enable_confidential_compute: std::option::Option<bool>,
+
+    /// The name of the image family to which this image belongs. The image family name can be from a publicly managed image family provided by Compute Engine, or from a custom image family you create. For example, centos-stream-9 is a publicly available image family. For more information, see Image family best practices. When creating disks, you can specify an image family instead of a specific image name. The image family always returns its latest image that is not deprecated. The name of the image family must comply with RFC1035.
+    pub family: std::option::Option<std::string::String>,
+
+    /// A list of features to enable on the guest operating system. Applicable only for bootable images. To see a list of available options, see the guestOSfeatures[].type parameter.
+    pub guest_os_features: std::vec::Vec<crate::model::GuestOsFeature>,
+
+    /// [Output Only] The unique identifier for the resource. This identifier is defined by the server.
+    pub id: std::option::Option<u64>,
+
+    /// Encrypts the image using a customer-supplied encryption key. After you encrypt an image with a customer-supplied key, you must provide the same key if you use the image later (e.g. to create a disk from the image). Customer-supplied encryption keys do not protect access to metadata of the disk. If you do not provide an encryption key when creating the image, then the disk will be encrypted using an automatically generated key and you do not need to provide a key to use the image later.
+    pub image_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
+
+    /// [Output Only] Type of the resource. Always compute#image for images.
+    pub kind: std::option::Option<std::string::String>,
+
+    /// A fingerprint for the labels being applied to this image, which is essentially a hash of the labels used for optimistic locking. The fingerprint is initially generated by Compute Engine and changes after every request to modify or update labels. You must always provide an up-to-date fingerprint hash in order to update or change labels, otherwise the request will fail with error 412 conditionNotMet. To see the latest fingerprint, make a get() request to retrieve an image.
+    pub label_fingerprint: std::option::Option<::bytes::Bytes>,
+
+    /// Labels to apply to this image. These can be later modified by the setLabels method.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Integer license codes indicating which licenses are attached to this image.
+    pub license_codes: std::vec::Vec<i64>,
+
+    /// Any applicable license URI.
+    pub licenses: std::vec::Vec<std::string::String>,
+
+    /// Name of the resource; provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
+    pub name: std::option::Option<std::string::String>,
+
+    /// The parameters of the raw disk image.
+    pub raw_disk: std::option::Option<crate::model::image::RawDisk>,
+
+    /// Output only. Reserved for future use.
+    pub satisfies_pzi: std::option::Option<bool>,
+
+    /// [Output Only] Reserved for future use.
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// [Output Only] Server-defined URL for the resource.
+    pub self_link: std::option::Option<std::string::String>,
+
+    /// Set the secure boot keys of shielded instance.
+    pub shielded_instance_initial_state: std::option::Option<crate::model::InitialStateConfig>,
+
+    /// URL of the source disk used to create this image. For example, the following are valid values: - <https://www.googleapis.com/compute/v1/projects/project/zones/zone> /disks/disk - projects/project/zones/zone/disks/disk - zones/zone/disks/disk In order to create an image, you must provide the full or partial URL of one of the following: - The rawDisk.source URL - The sourceDisk URL - The sourceImage URL - The sourceSnapshot URL
+    pub source_disk: std::option::Option<std::string::String>,
+
+    /// The customer-supplied encryption key of the source disk. Required if the source disk is protected by a customer-supplied encryption key.
+    pub source_disk_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
+
+    /// [Output Only] The ID value of the disk used to create this image. This value may be used to determine whether the image was taken from the current or a previous instance of a given disk name.
+    pub source_disk_id: std::option::Option<std::string::String>,
+
+    /// URL of the source image used to create this image. The following are valid formats for the URL: - <https://www.googleapis.com/compute/v1/projects/project_id/global/> images/image_name - projects/project_id/global/images/image_name In order to create an image, you must provide the full or partial URL of one of the following: - The rawDisk.source URL - The sourceDisk URL - The sourceImage URL - The sourceSnapshot URL
+    pub source_image: std::option::Option<std::string::String>,
+
+    /// The customer-supplied encryption key of the source image. Required if the source image is protected by a customer-supplied encryption key.
+    pub source_image_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
+
+    /// [Output Only] The ID value of the image used to create this image. This value may be used to determine whether the image was taken from the current or a previous instance of a given image name.
+    pub source_image_id: std::option::Option<std::string::String>,
+
+    /// URL of the source snapshot used to create this image. The following are valid formats for the URL: - <https://www.googleapis.com/compute/v1/projects/project_id/global/> snapshots/snapshot_name - projects/project_id/global/snapshots/snapshot_name In order to create an image, you must provide the full or partial URL of one of the following: - The rawDisk.source URL - The sourceDisk URL - The sourceImage URL - The sourceSnapshot URL
+    pub source_snapshot: std::option::Option<std::string::String>,
+
+    /// The customer-supplied encryption key of the source snapshot. Required if the source snapshot is protected by a customer-supplied encryption key.
+    pub source_snapshot_encryption_key: std::option::Option<crate::model::CustomerEncryptionKey>,
+
+    /// [Output Only] The ID value of the snapshot used to create this image. This value may be used to determine whether the snapshot was taken from the current or a previous instance of a given snapshot name.
+    pub source_snapshot_id: std::option::Option<std::string::String>,
+
+    /// The type of the image used to create this disk. The default and only valid value is RAW.
+    pub source_type: std::option::Option<crate::model::image::SourceType>,
+
+    /// [Output Only] The status of the image. An image can be used to create other resources, such as instances, only after the image has been successfully created and the status is set to READY. Possible values are FAILED, PENDING, or READY.
+    pub status: std::option::Option<crate::model::image::Status>,
+
+    /// Cloud Storage bucket storage location of the image (regional or multi-regional).
+    pub storage_locations: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl Image {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [architecture][crate::model::Image::architecture].
+    pub fn set_architecture<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::image::Architecture>,
+    {
+        self.architecture = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [architecture][crate::model::Image::architecture].
+    pub fn set_or_clear_architecture<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::image::Architecture>,
+    {
+        self.architecture = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [archive_size_bytes][crate::model::Image::archive_size_bytes].
+    pub fn set_archive_size_bytes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.archive_size_bytes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [archive_size_bytes][crate::model::Image::archive_size_bytes].
+    pub fn set_or_clear_archive_size_bytes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.archive_size_bytes = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [creation_timestamp][crate::model::Image::creation_timestamp].
+    pub fn set_creation_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_timestamp][crate::model::Image::creation_timestamp].
+    pub fn set_or_clear_creation_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [deprecated][crate::model::Image::deprecated].
+    pub fn set_deprecated<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DeprecationStatus>,
+    {
+        self.deprecated = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deprecated][crate::model::Image::deprecated].
+    pub fn set_or_clear_deprecated<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DeprecationStatus>,
+    {
+        self.deprecated = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Image::description].
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::Image::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [disk_size_gb][crate::model::Image::disk_size_gb].
+    pub fn set_disk_size_gb<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.disk_size_gb = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disk_size_gb][crate::model::Image::disk_size_gb].
+    pub fn set_or_clear_disk_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.disk_size_gb = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [enable_confidential_compute][crate::model::Image::enable_confidential_compute].
+    pub fn set_enable_confidential_compute<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_confidential_compute = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_confidential_compute][crate::model::Image::enable_confidential_compute].
+    pub fn set_or_clear_enable_confidential_compute<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_confidential_compute = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [family][crate::model::Image::family].
+    pub fn set_family<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.family = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [family][crate::model::Image::family].
+    pub fn set_or_clear_family<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.family = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [guest_os_features][crate::model::Image::guest_os_features].
+    pub fn set_guest_os_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GuestOsFeature>,
+    {
+        use std::iter::Iterator;
+        self.guest_os_features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [id][crate::model::Image::id].
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::Image::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [image_encryption_key][crate::model::Image::image_encryption_key].
+    pub fn set_image_encryption_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.image_encryption_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image_encryption_key][crate::model::Image::image_encryption_key].
+    pub fn set_or_clear_image_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.image_encryption_key = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::Image::kind].
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Image::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [label_fingerprint][crate::model::Image::label_fingerprint].
+    pub fn set_label_fingerprint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [label_fingerprint][crate::model::Image::label_fingerprint].
+    pub fn set_or_clear_label_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.label_fingerprint = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Image::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [license_codes][crate::model::Image::license_codes].
+    pub fn set_license_codes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i64>,
+    {
+        use std::iter::Iterator;
+        self.license_codes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [licenses][crate::model::Image::licenses].
+    pub fn set_licenses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.licenses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::Image::name].
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::Image::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [raw_disk][crate::model::Image::raw_disk].
+    pub fn set_raw_disk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::image::RawDisk>,
+    {
+        self.raw_disk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [raw_disk][crate::model::Image::raw_disk].
+    pub fn set_or_clear_raw_disk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::image::RawDisk>,
+    {
+        self.raw_disk = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::Image::satisfies_pzi].
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::Image::satisfies_pzi].
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::Image::satisfies_pzs].
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::Image::satisfies_pzs].
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::Image::self_link].
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::Image::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [shielded_instance_initial_state][crate::model::Image::shielded_instance_initial_state].
+    pub fn set_shielded_instance_initial_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InitialStateConfig>,
+    {
+        self.shielded_instance_initial_state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [shielded_instance_initial_state][crate::model::Image::shielded_instance_initial_state].
+    pub fn set_or_clear_shielded_instance_initial_state<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::InitialStateConfig>,
+    {
+        self.shielded_instance_initial_state = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_disk][crate::model::Image::source_disk].
+    pub fn set_source_disk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_disk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_disk][crate::model::Image::source_disk].
+    pub fn set_or_clear_source_disk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_disk = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_disk_encryption_key][crate::model::Image::source_disk_encryption_key].
+    pub fn set_source_disk_encryption_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.source_disk_encryption_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_disk_encryption_key][crate::model::Image::source_disk_encryption_key].
+    pub fn set_or_clear_source_disk_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.source_disk_encryption_key = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_disk_id][crate::model::Image::source_disk_id].
+    pub fn set_source_disk_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_disk_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_disk_id][crate::model::Image::source_disk_id].
+    pub fn set_or_clear_source_disk_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_disk_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_image][crate::model::Image::source_image].
+    pub fn set_source_image<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_image = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_image][crate::model::Image::source_image].
+    pub fn set_or_clear_source_image<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_image = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_image_encryption_key][crate::model::Image::source_image_encryption_key].
+    pub fn set_source_image_encryption_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.source_image_encryption_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_image_encryption_key][crate::model::Image::source_image_encryption_key].
+    pub fn set_or_clear_source_image_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.source_image_encryption_key = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_image_id][crate::model::Image::source_image_id].
+    pub fn set_source_image_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_image_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_image_id][crate::model::Image::source_image_id].
+    pub fn set_or_clear_source_image_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_image_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_snapshot][crate::model::Image::source_snapshot].
+    pub fn set_source_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_snapshot][crate::model::Image::source_snapshot].
+    pub fn set_or_clear_source_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_snapshot = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_snapshot_encryption_key][crate::model::Image::source_snapshot_encryption_key].
+    pub fn set_source_snapshot_encryption_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.source_snapshot_encryption_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_snapshot_encryption_key][crate::model::Image::source_snapshot_encryption_key].
+    pub fn set_or_clear_source_snapshot_encryption_key<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.source_snapshot_encryption_key = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_snapshot_id][crate::model::Image::source_snapshot_id].
+    pub fn set_source_snapshot_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_snapshot_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_snapshot_id][crate::model::Image::source_snapshot_id].
+    pub fn set_or_clear_source_snapshot_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_snapshot_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_type][crate::model::Image::source_type].
+    pub fn set_source_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::image::SourceType>,
+    {
+        self.source_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_type][crate::model::Image::source_type].
+    pub fn set_or_clear_source_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::image::SourceType>,
+    {
+        self.source_type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [status][crate::model::Image::status].
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::image::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::Image::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::image::Status>,
+    {
+        self.status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [storage_locations][crate::model::Image::storage_locations].
+    pub fn set_storage_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.storage_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for Image {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.Image"
+    }
+}
+
+/// Defines additional types related to [Image].
+#[cfg(feature = "images")]
+pub mod image {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The message type for the [rawDisk][google.cloud.compute.v1.Image.rawDisk] field.
+    ///
+    /// [google.cloud.compute.v1.Image.rawDisk]: crate::model::image::RawDisk
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RawDisk {
+        /// The format used to encode and transmit the block device, which should be TAR. This is just a container and transmission format and not a runtime format. Provided by the client when the disk image is created.
+        pub container_type: std::option::Option<crate::model::image::raw_disk::ContainerType>,
+
+        /// [Deprecated] This field is deprecated. An optional SHA1 checksum of the disk image before unpackaging provided by the client when the disk image is created.
+        #[deprecated]
+        pub sha_1_checksum: std::option::Option<std::string::String>,
+
+        /// The full Google Cloud Storage URL where the raw disk image archive is stored. The following are valid formats for the URL: - <https://storage.googleapis.com/bucket_name/image_archive_name> - <https://storage.googleapis.com/bucket_name/folder_name/> image_archive_name In order to create an image, you must provide the full or partial URL of one of the following: - The rawDisk.source URL - The sourceDisk URL - The sourceImage URL - The sourceSnapshot URL
+        pub source: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl RawDisk {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [container_type][crate::model::image::RawDisk::container_type].
+        pub fn set_container_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::image::raw_disk::ContainerType>,
+        {
+            self.container_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [container_type][crate::model::image::RawDisk::container_type].
+        pub fn set_or_clear_container_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::image::raw_disk::ContainerType>,
+        {
+            self.container_type = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [sha_1_checksum][crate::model::image::RawDisk::sha_1_checksum].
+        #[deprecated]
+        pub fn set_sha_1_checksum<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.sha_1_checksum = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sha_1_checksum][crate::model::image::RawDisk::sha_1_checksum].
+        #[deprecated]
+        pub fn set_or_clear_sha_1_checksum<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.sha_1_checksum = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [source][crate::model::image::RawDisk::source].
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::image::RawDisk::source].
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.source = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl wkt::message::Message for RawDisk {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.Image.rawDisk"
+        }
+    }
+
+    /// Defines additional types related to [RawDisk].
+    #[cfg(feature = "images")]
+    pub mod raw_disk {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The enumerated type for the [containerType][google.cloud.compute.v1.Image.rawDisk.containerType] field.
+        ///
+        /// [google.cloud.compute.v1.Image.rawDisk.containerType]: crate::model::image::raw_disk::ContainerType
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "images")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ContainerType {
+            Tar,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ContainerType::value] or
+            /// [ContainerType::name].
+            UnknownValue(container_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "images")]
+        pub mod container_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "images")]
+        impl ContainerType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Tar => std::option::Option::Some(0),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Tar => std::option::Option::Some("TAR"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::default::Default for ContainerType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::fmt::Display for ContainerType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::convert::From<i32> for ContainerType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Tar,
+                    _ => Self::UnknownValue(container_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::convert::From<&str> for ContainerType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TAR" => Self::Tar,
+                    _ => Self::UnknownValue(container_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl serde::ser::Serialize for ContainerType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Tar => serializer.serialize_str("TAR"),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl<'de> serde::de::Deserialize<'de> for ContainerType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ContainerType>::new(
+                    ".google.cloud.compute.v1.Image.rawDisk.containerType",
+                ))
+            }
+        }
+    }
+
+    /// The enumerated type for the [architecture][google.cloud.compute.v1.Image.architecture] field.
+    ///
+    /// [google.cloud.compute.v1.Image.architecture]: crate::model::image::Architecture
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "images")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Architecture {
+        /// Default value indicating Architecture is not set.
+        Unspecified,
+        /// Machines with architecture ARM64
+        Arm64,
+        /// Machines with architecture X86_64
+        X8664,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Architecture::value] or
+        /// [Architecture::name].
+        UnknownValue(architecture::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "images")]
+    pub mod architecture {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "images")]
+    impl Architecture {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Arm64 => std::option::Option::Some(1),
+                Self::X8664 => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ARCHITECTURE_UNSPECIFIED"),
+                Self::Arm64 => std::option::Option::Some("ARM64"),
+                Self::X8664 => std::option::Option::Some("X86_64"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::default::Default for Architecture {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::fmt::Display for Architecture {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<i32> for Architecture {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Arm64,
+                2 => Self::X8664,
+                _ => Self::UnknownValue(architecture::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<&str> for Architecture {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ARCHITECTURE_UNSPECIFIED" => Self::Unspecified,
+                "ARM64" => Self::Arm64,
+                "X86_64" => Self::X8664,
+                _ => Self::UnknownValue(architecture::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl serde::ser::Serialize for Architecture {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_str("ARCHITECTURE_UNSPECIFIED"),
+                Self::Arm64 => serializer.serialize_str("ARM64"),
+                Self::X8664 => serializer.serialize_str("X86_64"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl<'de> serde::de::Deserialize<'de> for Architecture {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Architecture>::new(
+                ".google.cloud.compute.v1.Image.architecture",
+            ))
+        }
+    }
+
+    /// The enumerated type for the [sourceType][google.cloud.compute.v1.Image.sourceType] field.
+    ///
+    /// [google.cloud.compute.v1.Image.sourceType]: crate::model::image::SourceType
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "images")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SourceType {
+        Raw,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SourceType::value] or
+        /// [SourceType::name].
+        UnknownValue(source_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "images")]
+    pub mod source_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "images")]
+    impl SourceType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Raw => std::option::Option::Some(0),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Raw => std::option::Option::Some("RAW"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::default::Default for SourceType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::fmt::Display for SourceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<i32> for SourceType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Raw,
+                _ => Self::UnknownValue(source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<&str> for SourceType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RAW" => Self::Raw,
+                _ => Self::UnknownValue(source_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl serde::ser::Serialize for SourceType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Raw => serializer.serialize_str("RAW"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl<'de> serde::de::Deserialize<'de> for SourceType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SourceType>::new(
+                ".google.cloud.compute.v1.Image.sourceType",
+            ))
+        }
+    }
+
+    /// The enumerated type for the [status][google.cloud.compute.v1.Image.status] field.
+    ///
+    /// [google.cloud.compute.v1.Image.status]: crate::model::image::Status
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "images")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Status {
+        /// Image is deleting.
+        Deleting,
+        /// Image creation failed due to an error.
+        Failed,
+        /// Image hasn't been created as yet.
+        Pending,
+        /// Image has been successfully created.
+        Ready,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Status::value] or
+        /// [Status::name].
+        UnknownValue(status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "images")]
+    pub mod status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "images")]
+    impl Status {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Deleting => std::option::Option::Some(0),
+                Self::Failed => std::option::Option::Some(1),
+                Self::Pending => std::option::Option::Some(2),
+                Self::Ready => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Deleting,
+                1 => Self::Failed,
+                2 => Self::Pending,
+                3 => Self::Ready,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<&str> for Status {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DELETING" => Self::Deleting,
+                "FAILED" => Self::Failed,
+                "PENDING" => Self::Pending,
+                "READY" => Self::Ready,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl serde::ser::Serialize for Status {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Deleting => serializer.serialize_str("DELETING"),
+                Self::Failed => serializer.serialize_str("FAILED"),
+                Self::Pending => serializer.serialize_str("PENDING"),
+                Self::Ready => serializer.serialize_str("READY"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl<'de> serde::de::Deserialize<'de> for Status {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
+                ".google.cloud.compute.v1.Image.status",
+            ))
+        }
+    }
+}
+
+/// Contains a list of images.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImageList {
+    /// [Output Only] Unique identifier for the resource; defined by the server.
+    pub id: std::option::Option<std::string::String>,
+
+    /// A list of Image resources.
+    pub items: std::vec::Vec<crate::model::Image>,
+
+    /// Type of resource.
+    pub kind: std::option::Option<std::string::String>,
+
+    /// [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
+    pub next_page_token: std::option::Option<std::string::String>,
+
+    /// [Output Only] Server-defined URL for this resource.
+    pub self_link: std::option::Option<std::string::String>,
+
+    /// [Output Only] Informational warning message.
+    pub warning: std::option::Option<crate::model::image_list::Warning>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl ImageList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::ImageList::id].
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::ImageList::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [items][crate::model::ImageList::items].
+    pub fn set_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Image>,
+    {
+        use std::iter::Iterator;
+        self.items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::ImageList::kind].
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::ImageList::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ImageList::next_page_token].
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::ImageList::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::ImageList::self_link].
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::ImageList::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [warning][crate::model::ImageList::warning].
+    pub fn set_warning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::image_list::Warning>,
+    {
+        self.warning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [warning][crate::model::ImageList::warning].
+    pub fn set_or_clear_warning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::image_list::Warning>,
+    {
+        self.warning = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for ImageList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.ImageList"
+    }
+}
+
+#[cfg(feature = "images")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ImageList {
+    type PageItem = crate::model::Image;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.items
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone().unwrap_or_default()
+    }
+}
+
+/// Defines additional types related to [ImageList].
+#[cfg(feature = "images")]
+pub mod image_list {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The message type for the [warning][google.cloud.compute.v1.ImageList.warning] field.
+    ///
+    /// [google.cloud.compute.v1.ImageList.warning]: crate::model::image_list::Warning
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Warning {
+        /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
+        pub code: std::option::Option<crate::model::image_list::warning::Code>,
+
+        /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+        pub data: std::vec::Vec<crate::model::image_list::warning::Data>,
+
+        /// [Output Only] A human-readable description of the warning code.
+        pub message: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl Warning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::image_list::Warning::code].
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::image_list::warning::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::image_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::image_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [data][crate::model::image_list::Warning::data].
+        pub fn set_data<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::image_list::warning::Data>,
+        {
+            use std::iter::Iterator;
+            self.data = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::image_list::Warning::message].
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::image_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl wkt::message::Message for Warning {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.ImageList.warning"
+        }
+    }
+
+    /// Defines additional types related to [Warning].
+    #[cfg(feature = "images")]
+    pub mod warning {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The message type for the [data][google.cloud.compute.v1.ImageList.warning.data] field.
+        ///
+        /// [google.cloud.compute.v1.ImageList.warning.data]: crate::model::image_list::warning::Data
+        #[cfg(feature = "images")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Data {
+            /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
+            pub key: std::option::Option<std::string::String>,
+
+            /// [Output Only] A warning data value corresponding to the key.
+            pub value: std::option::Option<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "images")]
+        impl Data {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::image_list::warning::Data::key].
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::image_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [value][crate::model::image_list::warning::Data::value].
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::image_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl wkt::message::Message for Data {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.compute.v1.ImageList.warning.data"
+            }
+        }
+
+        /// The enumerated type for the [code][google.cloud.compute.v1.ImageList.warning.code] field.
+        ///
+        /// [google.cloud.compute.v1.ImageList.warning.code]: crate::model::image_list::warning::Code
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "images")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Code {
+            /// Warning about failed cleanup of transient changes made by a failed operation.
+            CleanupFailed,
+            /// A link to a deprecated resource was created.
+            DeprecatedResourceUsed,
+            /// When deploying and at least one of the resources has a type marked as deprecated
+            DeprecatedTypeUsed,
+            /// The user created a boot disk that is larger than image size.
+            DiskSizeLargerThanImageSize,
+            /// When deploying and at least one of the resources has a type marked as experimental
+            ExperimentalTypeUsed,
+            /// Warning that is present in an external api call
+            ExternalApiWarning,
+            /// Warning that value of a field has been overridden. Deprecated unused field.
+            #[deprecated]
+            FieldValueOverriden,
+            /// The operation involved use of an injected kernel, which is deprecated.
+            InjectedKernelsDeprecated,
+            /// A WEIGHTED_MAGLEV backend service is associated with a health check that is not of type HTTP/HTTPS/HTTP2.
+            InvalidHealthCheckForDynamicWieghtedLb,
+            /// When deploying a deployment with a exceedingly large number of resources
+            LargeDeploymentWarning,
+            /// Resource can't be retrieved due to list overhead quota exceed which captures the amount of resources filtered out by user-defined list filter.
+            ListOverheadQuotaExceed,
+            /// A resource depends on a missing type
+            MissingTypeDependency,
+            /// The route's nextHopIp address is not assigned to an instance on the network.
+            NextHopAddressNotAssigned,
+            /// The route's next hop instance cannot ip forward.
+            NextHopCannotIpForward,
+            /// The route's nextHopInstance URL refers to an instance that does not have an ipv6 interface on the same network as the route.
+            NextHopInstanceHasNoIpv6Interface,
+            /// The route's nextHopInstance URL refers to an instance that does not exist.
+            NextHopInstanceNotFound,
+            /// The route's nextHopInstance URL refers to an instance that is not on the same network as the route.
+            NextHopInstanceNotOnNetwork,
+            /// The route's next hop instance does not have a status of RUNNING.
+            NextHopNotRunning,
+            /// Error which is not critical. We decided to continue the process despite the mentioned error.
+            NotCriticalError,
+            /// No results are present on a particular list page.
+            NoResultsOnPage,
+            /// Success is reported, but some results may be missing due to errors
+            PartialSuccess,
+            /// Quota information is not available to client requests (e.g: regions.list).
+            QuotaInfoUnavailable,
+            /// The user attempted to use a resource that requires a TOS they have not accepted.
+            RequiredTosAgreement,
+            /// Warning that a resource is in use.
+            ResourceInUseByOtherResourceWarning,
+            /// One or more of the resources set to auto-delete could not be deleted because they were in use.
+            ResourceNotDeleted,
+            /// When a resource schema validation is ignored.
+            SchemaValidationIgnored,
+            /// Instance template used in instance group manager is valid as such, but its application does not make a lot of sense, because it allows only single instance in instance group.
+            SingleInstancePropertyTemplate,
+            /// When undeclared properties in the schema are present
+            UndeclaredProperties,
+            /// A given scope cannot be reached.
+            Unreachable,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Code::value] or
+            /// [Code::name].
+            UnknownValue(code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "images")]
+        pub mod code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "images")]
+        impl Code {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some(0),
+                    Self::DeprecatedResourceUsed => std::option::Option::Some(1),
+                    Self::DeprecatedTypeUsed => std::option::Option::Some(2),
+                    Self::DiskSizeLargerThanImageSize => std::option::Option::Some(3),
+                    Self::ExperimentalTypeUsed => std::option::Option::Some(4),
+                    Self::ExternalApiWarning => std::option::Option::Some(5),
+                    Self::FieldValueOverriden => std::option::Option::Some(6),
+                    Self::InjectedKernelsDeprecated => std::option::Option::Some(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => std::option::Option::Some(8),
+                    Self::LargeDeploymentWarning => std::option::Option::Some(9),
+                    Self::ListOverheadQuotaExceed => std::option::Option::Some(10),
+                    Self::MissingTypeDependency => std::option::Option::Some(11),
+                    Self::NextHopAddressNotAssigned => std::option::Option::Some(12),
+                    Self::NextHopCannotIpForward => std::option::Option::Some(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => std::option::Option::Some(14),
+                    Self::NextHopInstanceNotFound => std::option::Option::Some(15),
+                    Self::NextHopInstanceNotOnNetwork => std::option::Option::Some(16),
+                    Self::NextHopNotRunning => std::option::Option::Some(17),
+                    Self::NotCriticalError => std::option::Option::Some(18),
+                    Self::NoResultsOnPage => std::option::Option::Some(19),
+                    Self::PartialSuccess => std::option::Option::Some(20),
+                    Self::QuotaInfoUnavailable => std::option::Option::Some(21),
+                    Self::RequiredTosAgreement => std::option::Option::Some(22),
+                    Self::ResourceInUseByOtherResourceWarning => std::option::Option::Some(23),
+                    Self::ResourceNotDeleted => std::option::Option::Some(24),
+                    Self::SchemaValidationIgnored => std::option::Option::Some(25),
+                    Self::SingleInstancePropertyTemplate => std::option::Option::Some(26),
+                    Self::UndeclaredProperties => std::option::Option::Some(27),
+                    Self::Unreachable => std::option::Option::Some(28),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        std::option::Option::Some("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => std::option::Option::Some("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        std::option::Option::Some("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        std::option::Option::Some("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => std::option::Option::Some("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => std::option::Option::Some("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        std::option::Option::Some("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        std::option::Option::Some("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        std::option::Option::Some("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        std::option::Option::Some("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        std::option::Option::Some("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        std::option::Option::Some("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        std::option::Option::Some("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => std::option::Option::Some("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => std::option::Option::Some("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => std::option::Option::Some("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => std::option::Option::Some("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        std::option::Option::Some("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        std::option::Option::Some("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        std::option::Option::Some("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => std::option::Option::Some("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        std::option::Option::Some("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        std::option::Option::Some("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => {
+                        std::option::Option::Some("UNDECLARED_PROPERTIES")
+                    }
+                    Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::fmt::Display for Code {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::CleanupFailed,
+                    1 => Self::DeprecatedResourceUsed,
+                    2 => Self::DeprecatedTypeUsed,
+                    3 => Self::DiskSizeLargerThanImageSize,
+                    4 => Self::ExperimentalTypeUsed,
+                    5 => Self::ExternalApiWarning,
+                    6 => Self::FieldValueOverriden,
+                    7 => Self::InjectedKernelsDeprecated,
+                    8 => Self::InvalidHealthCheckForDynamicWieghtedLb,
+                    9 => Self::LargeDeploymentWarning,
+                    10 => Self::ListOverheadQuotaExceed,
+                    11 => Self::MissingTypeDependency,
+                    12 => Self::NextHopAddressNotAssigned,
+                    13 => Self::NextHopCannotIpForward,
+                    14 => Self::NextHopInstanceHasNoIpv6Interface,
+                    15 => Self::NextHopInstanceNotFound,
+                    16 => Self::NextHopInstanceNotOnNetwork,
+                    17 => Self::NextHopNotRunning,
+                    18 => Self::NotCriticalError,
+                    19 => Self::NoResultsOnPage,
+                    20 => Self::PartialSuccess,
+                    21 => Self::QuotaInfoUnavailable,
+                    22 => Self::RequiredTosAgreement,
+                    23 => Self::ResourceInUseByOtherResourceWarning,
+                    24 => Self::ResourceNotDeleted,
+                    25 => Self::SchemaValidationIgnored,
+                    26 => Self::SingleInstancePropertyTemplate,
+                    27 => Self::UndeclaredProperties,
+                    28 => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::convert::From<&str> for Code {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CLEANUP_FAILED" => Self::CleanupFailed,
+                    "DEPRECATED_RESOURCE_USED" => Self::DeprecatedResourceUsed,
+                    "DEPRECATED_TYPE_USED" => Self::DeprecatedTypeUsed,
+                    "DISK_SIZE_LARGER_THAN_IMAGE_SIZE" => Self::DiskSizeLargerThanImageSize,
+                    "EXPERIMENTAL_TYPE_USED" => Self::ExperimentalTypeUsed,
+                    "EXTERNAL_API_WARNING" => Self::ExternalApiWarning,
+                    "FIELD_VALUE_OVERRIDEN" => Self::FieldValueOverriden,
+                    "INJECTED_KERNELS_DEPRECATED" => Self::InjectedKernelsDeprecated,
+                    "INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB" => {
+                        Self::InvalidHealthCheckForDynamicWieghtedLb
+                    }
+                    "LARGE_DEPLOYMENT_WARNING" => Self::LargeDeploymentWarning,
+                    "LIST_OVERHEAD_QUOTA_EXCEED" => Self::ListOverheadQuotaExceed,
+                    "MISSING_TYPE_DEPENDENCY" => Self::MissingTypeDependency,
+                    "NEXT_HOP_ADDRESS_NOT_ASSIGNED" => Self::NextHopAddressNotAssigned,
+                    "NEXT_HOP_CANNOT_IP_FORWARD" => Self::NextHopCannotIpForward,
+                    "NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE" => {
+                        Self::NextHopInstanceHasNoIpv6Interface
+                    }
+                    "NEXT_HOP_INSTANCE_NOT_FOUND" => Self::NextHopInstanceNotFound,
+                    "NEXT_HOP_INSTANCE_NOT_ON_NETWORK" => Self::NextHopInstanceNotOnNetwork,
+                    "NEXT_HOP_NOT_RUNNING" => Self::NextHopNotRunning,
+                    "NOT_CRITICAL_ERROR" => Self::NotCriticalError,
+                    "NO_RESULTS_ON_PAGE" => Self::NoResultsOnPage,
+                    "PARTIAL_SUCCESS" => Self::PartialSuccess,
+                    "QUOTA_INFO_UNAVAILABLE" => Self::QuotaInfoUnavailable,
+                    "REQUIRED_TOS_AGREEMENT" => Self::RequiredTosAgreement,
+                    "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING" => {
+                        Self::ResourceInUseByOtherResourceWarning
+                    }
+                    "RESOURCE_NOT_DELETED" => Self::ResourceNotDeleted,
+                    "SCHEMA_VALIDATION_IGNORED" => Self::SchemaValidationIgnored,
+                    "SINGLE_INSTANCE_PROPERTY_TEMPLATE" => Self::SingleInstancePropertyTemplate,
+                    "UNDECLARED_PROPERTIES" => Self::UndeclaredProperties,
+                    "UNREACHABLE" => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                    ".google.cloud.compute.v1.ImageList.warning.code",
+                ))
+            }
+        }
+    }
+}
+
+/// Initial State for shielded instance, these are public keys which are safe to store in public
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InitialStateConfig {
+    /// The Key Database (db).
+    pub dbs: std::vec::Vec<crate::model::FileContentBuffer>,
+
+    /// The forbidden key database (dbx).
+    pub dbxs: std::vec::Vec<crate::model::FileContentBuffer>,
+
+    /// The Key Exchange Key (KEK).
+    pub keks: std::vec::Vec<crate::model::FileContentBuffer>,
+
+    /// The Platform Key (PK).
+    pub pk: std::option::Option<crate::model::FileContentBuffer>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl InitialStateConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dbs][crate::model::InitialStateConfig::dbs].
+    pub fn set_dbs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FileContentBuffer>,
+    {
+        use std::iter::Iterator;
+        self.dbs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [dbxs][crate::model::InitialStateConfig::dbxs].
+    pub fn set_dbxs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FileContentBuffer>,
+    {
+        use std::iter::Iterator;
+        self.dbxs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [keks][crate::model::InitialStateConfig::keks].
+    pub fn set_keks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FileContentBuffer>,
+    {
+        use std::iter::Iterator;
+        self.keks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [pk][crate::model::InitialStateConfig::pk].
+    pub fn set_pk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FileContentBuffer>,
+    {
+        self.pk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pk][crate::model::InitialStateConfig::pk].
+    pub fn set_or_clear_pk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FileContentBuffer>,
+    {
+        self.pk = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for InitialStateConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.InitialStateConfig"
+    }
+}
+
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InstancesBulkInsertOperationMetadata {
+    /// Status information per location (location name is key). Example key: zones/us-central1-a
+    pub per_location_status:
+        std::collections::HashMap<std::string::String, crate::model::BulkInsertOperationStatus>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl InstancesBulkInsertOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [per_location_status][crate::model::InstancesBulkInsertOperationMetadata::per_location_status].
+    pub fn set_per_location_status<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::BulkInsertOperationStatus>,
+    {
+        use std::iter::Iterator;
+        self.per_location_status = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for InstancesBulkInsertOperationMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.InstancesBulkInsertOperationMetadata"
+    }
+}
+
+/// Provides a localized error message that is safe to return to the user which can be attached to an RPC error.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct LocalizedMessage {
+    /// The locale used following the specification defined at <https://www.rfc-editor.org/rfc/bcp/bcp47.txt>. Examples are: "en-US", "fr-CH", "es-MX"
+    pub locale: std::option::Option<std::string::String>,
+
+    /// The localized error message in the above locale.
+    pub message: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl LocalizedMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [locale][crate::model::LocalizedMessage::locale].
+    pub fn set_locale<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.locale = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [locale][crate::model::LocalizedMessage::locale].
+    pub fn set_or_clear_locale<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.locale = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [message][crate::model::LocalizedMessage::message].
+    pub fn set_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [message][crate::model::LocalizedMessage::message].
+    pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for LocalizedMessage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.LocalizedMessage"
     }
 }
 
@@ -2958,6 +6889,2361 @@ pub mod machine_types_scoped_list {
     }
 }
 
+/// Represents an Operation resource. Google Compute Engine has three Operation resources: * [Global](/compute/docs/reference/rest/v1/globalOperations) * [Regional](/compute/docs/reference/rest/v1/regionOperations) * [Zonal](/compute/docs/reference/rest/v1/zoneOperations) You can use an operation resource to manage asynchronous API requests. For more information, read Handling API responses. Operations can be global, regional or zonal. - For global operations, use the `globalOperations` resource. - For regional operations, use the `regionOperations` resource. - For zonal operations, use the `zoneOperations` resource. For more information, read Global, Regional, and Zonal Resources. Note that completed Operation resources have a limited retention period.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Operation {
+    /// [Output Only] The value of `requestId` if you provided it in the request. Not present otherwise.
+    pub client_operation_id: std::option::Option<std::string::String>,
+
+    /// [Deprecated] This field is deprecated.
+    pub creation_timestamp: std::option::Option<std::string::String>,
+
+    /// [Output Only] A textual description of the operation, which is set when the operation is created.
+    pub description: std::option::Option<std::string::String>,
+
+    /// [Output Only] The time that this operation was completed. This value is in RFC3339 text format.
+    pub end_time: std::option::Option<std::string::String>,
+
+    /// [Output Only] If errors are generated during processing of the operation, this field will be populated.
+    pub error: std::option::Option<crate::model::operation::Error>,
+
+    /// [Output Only] If the operation fails, this field contains the HTTP error message that was returned, such as `NOT FOUND`.
+    pub http_error_message: std::option::Option<std::string::String>,
+
+    /// [Output Only] If the operation fails, this field contains the HTTP error status code that was returned. For example, a `404` means the resource was not found.
+    pub http_error_status_code: std::option::Option<i32>,
+
+    /// [Output Only] The unique identifier for the operation. This identifier is defined by the server.
+    pub id: std::option::Option<u64>,
+
+    /// [Output Only] The time that this operation was requested. This value is in RFC3339 text format.
+    pub insert_time: std::option::Option<std::string::String>,
+
+    pub instances_bulk_insert_operation_metadata:
+        std::option::Option<crate::model::InstancesBulkInsertOperationMetadata>,
+
+    /// [Output Only] Type of the resource. Always `compute#operation` for Operation resources.
+    pub kind: std::option::Option<std::string::String>,
+
+    /// [Output Only] Name of the operation.
+    pub name: std::option::Option<std::string::String>,
+
+    /// [Output Only] An ID that represents a group of operations, such as when a group of operations results from a `bulkInsert` API request.
+    pub operation_group_id: std::option::Option<std::string::String>,
+
+    /// [Output Only] The type of operation, such as `insert`, `update`, or `delete`, and so on.
+    pub operation_type: std::option::Option<std::string::String>,
+
+    /// [Output Only] An optional progress indicator that ranges from 0 to 100. There is no requirement that this be linear or support any granularity of operations. This should not be used to guess when the operation will be complete. This number should monotonically increase as the operation progresses.
+    pub progress: std::option::Option<i32>,
+
+    /// [Output Only] The URL of the region where the operation resides. Only applicable when performing regional operations.
+    pub region: std::option::Option<std::string::String>,
+
+    /// [Output Only] Server-defined URL for the resource.
+    pub self_link: std::option::Option<std::string::String>,
+
+    /// [Output Only] If the operation is for projects.setCommonInstanceMetadata, this field will contain information on all underlying zonal actions and their state.
+    pub set_common_instance_metadata_operation_metadata:
+        std::option::Option<crate::model::SetCommonInstanceMetadataOperationMetadata>,
+
+    /// [Output Only] The time that this operation was started by the server. This value is in RFC3339 text format.
+    pub start_time: std::option::Option<std::string::String>,
+
+    /// [Output Only] The status of the operation, which can be one of the following: `PENDING`, `RUNNING`, or `DONE`.
+    pub status: std::option::Option<crate::model::operation::Status>,
+
+    /// [Output Only] An optional textual description of the current status of the operation.
+    pub status_message: std::option::Option<std::string::String>,
+
+    /// [Output Only] The unique target ID, which identifies a specific incarnation of the target resource.
+    pub target_id: std::option::Option<u64>,
+
+    /// [Output Only] The URL of the resource that the operation modifies. For operations related to creating a snapshot, this points to the disk that the snapshot was created from.
+    pub target_link: std::option::Option<std::string::String>,
+
+    /// [Output Only] User who requested the operation, for example: `user@example.com` or `alice_smith_identifier (global/workforcePools/example-com-us-employees)`.
+    pub user: std::option::Option<std::string::String>,
+
+    /// [Output Only] If warning messages are generated during processing of the operation, this field will be populated.
+    pub warnings: std::vec::Vec<crate::model::operation::Warnings>,
+
+    /// [Output Only] The URL of the zone where the operation resides. Only applicable when performing per-zone operations.
+    pub zone: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl Operation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [client_operation_id][crate::model::Operation::client_operation_id].
+    pub fn set_client_operation_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.client_operation_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_operation_id][crate::model::Operation::client_operation_id].
+    pub fn set_or_clear_client_operation_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.client_operation_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [creation_timestamp][crate::model::Operation::creation_timestamp].
+    pub fn set_creation_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_timestamp][crate::model::Operation::creation_timestamp].
+    pub fn set_or_clear_creation_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Operation::description].
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::Operation::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::Operation::end_time].
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::Operation::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [error][crate::model::Operation::error].
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::operation::Error>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::Operation::error].
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::operation::Error>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [http_error_message][crate::model::Operation::http_error_message].
+    pub fn set_http_error_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.http_error_message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_error_message][crate::model::Operation::http_error_message].
+    pub fn set_or_clear_http_error_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.http_error_message = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [http_error_status_code][crate::model::Operation::http_error_status_code].
+    pub fn set_http_error_status_code<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.http_error_status_code = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_error_status_code][crate::model::Operation::http_error_status_code].
+    pub fn set_or_clear_http_error_status_code<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.http_error_status_code = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [id][crate::model::Operation::id].
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::Operation::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [insert_time][crate::model::Operation::insert_time].
+    pub fn set_insert_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.insert_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [insert_time][crate::model::Operation::insert_time].
+    pub fn set_or_clear_insert_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.insert_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [instances_bulk_insert_operation_metadata][crate::model::Operation::instances_bulk_insert_operation_metadata].
+    pub fn set_instances_bulk_insert_operation_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InstancesBulkInsertOperationMetadata>,
+    {
+        self.instances_bulk_insert_operation_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instances_bulk_insert_operation_metadata][crate::model::Operation::instances_bulk_insert_operation_metadata].
+    pub fn set_or_clear_instances_bulk_insert_operation_metadata<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::InstancesBulkInsertOperationMetadata>,
+    {
+        self.instances_bulk_insert_operation_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::Operation::kind].
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Operation::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [name][crate::model::Operation::name].
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::Operation::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [operation_group_id][crate::model::Operation::operation_group_id].
+    pub fn set_operation_group_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.operation_group_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [operation_group_id][crate::model::Operation::operation_group_id].
+    pub fn set_or_clear_operation_group_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.operation_group_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [operation_type][crate::model::Operation::operation_type].
+    pub fn set_operation_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.operation_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [operation_type][crate::model::Operation::operation_type].
+    pub fn set_or_clear_operation_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.operation_type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [progress][crate::model::Operation::progress].
+    pub fn set_progress<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.progress = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [progress][crate::model::Operation::progress].
+    pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.progress = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [region][crate::model::Operation::region].
+    pub fn set_region<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.region = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [region][crate::model::Operation::region].
+    pub fn set_or_clear_region<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.region = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::Operation::self_link].
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::Operation::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [set_common_instance_metadata_operation_metadata][crate::model::Operation::set_common_instance_metadata_operation_metadata].
+    pub fn set_set_common_instance_metadata_operation_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SetCommonInstanceMetadataOperationMetadata>,
+    {
+        self.set_common_instance_metadata_operation_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [set_common_instance_metadata_operation_metadata][crate::model::Operation::set_common_instance_metadata_operation_metadata].
+    pub fn set_or_clear_set_common_instance_metadata_operation_metadata<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::SetCommonInstanceMetadataOperationMetadata>,
+    {
+        self.set_common_instance_metadata_operation_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::Operation::start_time].
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::Operation::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [status][crate::model::Operation::status].
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::operation::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::Operation::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::operation::Status>,
+    {
+        self.status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [status_message][crate::model::Operation::status_message].
+    pub fn set_status_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.status_message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status_message][crate::model::Operation::status_message].
+    pub fn set_or_clear_status_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.status_message = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target_id][crate::model::Operation::target_id].
+    pub fn set_target_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.target_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_id][crate::model::Operation::target_id].
+    pub fn set_or_clear_target_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.target_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target_link][crate::model::Operation::target_link].
+    pub fn set_target_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_link][crate::model::Operation::target_link].
+    pub fn set_or_clear_target_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target_link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [user][crate::model::Operation::user].
+    pub fn set_user<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.user = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [user][crate::model::Operation::user].
+    pub fn set_or_clear_user<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.user = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [warnings][crate::model::Operation::warnings].
+    pub fn set_warnings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::operation::Warnings>,
+    {
+        use std::iter::Iterator;
+        self.warnings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::Operation::zone].
+    pub fn set_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [zone][crate::model::Operation::zone].
+    pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for Operation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.Operation"
+    }
+}
+
+/// Defines additional types related to [Operation].
+#[cfg(feature = "images")]
+pub mod operation {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The message type for the [error][google.cloud.compute.v1.Operation.error] field.
+    ///
+    /// [google.cloud.compute.v1.Operation.error]: crate::model::operation::Error
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Error {
+        /// [Output Only] The array of errors encountered while processing this operation.
+        pub errors: std::vec::Vec<crate::model::operation::error::Errors>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl Error {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [errors][crate::model::operation::Error::errors].
+        pub fn set_errors<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::operation::error::Errors>,
+        {
+            use std::iter::Iterator;
+            self.errors = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl wkt::message::Message for Error {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.Operation.error"
+        }
+    }
+
+    /// Defines additional types related to [Error].
+    #[cfg(feature = "images")]
+    pub mod error {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The message type for the [errors][google.cloud.compute.v1.Operation.error.errors] field.
+        ///
+        /// [google.cloud.compute.v1.Operation.error.errors]: crate::model::operation::error::Errors
+        #[cfg(feature = "images")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Errors {
+            /// [Output Only] The error type identifier for this error.
+            pub code: std::option::Option<std::string::String>,
+
+            /// [Output Only] An optional list of messages that contain the error details. There is a set of defined message types to use for providing details.The syntax depends on the error code. For example, QuotaExceededInfo will have details when the error code is QUOTA_EXCEEDED.
+            pub error_details: std::vec::Vec<crate::model::operation::error::errors::ErrorDetails>,
+
+            /// [Output Only] Indicates the field in the request that caused the error. This property is optional.
+            pub location: std::option::Option<std::string::String>,
+
+            /// [Output Only] An optional, human-readable error message.
+            pub message: std::option::Option<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "images")]
+        impl Errors {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [code][crate::model::operation::error::Errors::code].
+            pub fn set_code<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.code = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [code][crate::model::operation::error::Errors::code].
+            pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.code = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [error_details][crate::model::operation::error::Errors::error_details].
+            pub fn set_error_details<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::operation::error::errors::ErrorDetails>,
+            {
+                use std::iter::Iterator;
+                self.error_details = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [location][crate::model::operation::error::Errors::location].
+            pub fn set_location<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.location = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [location][crate::model::operation::error::Errors::location].
+            pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.location = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [message][crate::model::operation::error::Errors::message].
+            pub fn set_message<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.message = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [message][crate::model::operation::error::Errors::message].
+            pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.message = v.map(|x| x.into());
+                self
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl wkt::message::Message for Errors {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.compute.v1.Operation.error.errors"
+            }
+        }
+
+        /// Defines additional types related to [Errors].
+        #[cfg(feature = "images")]
+        pub mod errors {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// The message type for the [errorDetails][google.cloud.compute.v1.Operation.error.errors.errorDetails] field.
+            ///
+            /// [google.cloud.compute.v1.Operation.error.errors.errorDetails]: crate::model::operation::error::errors::ErrorDetails
+            #[cfg(feature = "images")]
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct ErrorDetails {
+                pub error_info: std::option::Option<crate::model::ErrorInfo>,
+
+                pub help: std::option::Option<crate::model::Help>,
+
+                pub localized_message: std::option::Option<crate::model::LocalizedMessage>,
+
+                pub quota_info: std::option::Option<crate::model::QuotaExceededInfo>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            #[cfg(feature = "images")]
+            impl ErrorDetails {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [error_info][crate::model::operation::error::errors::ErrorDetails::error_info].
+                pub fn set_error_info<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<crate::model::ErrorInfo>,
+                {
+                    self.error_info = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [error_info][crate::model::operation::error::errors::ErrorDetails::error_info].
+                pub fn set_or_clear_error_info<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<crate::model::ErrorInfo>,
+                {
+                    self.error_info = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [help][crate::model::operation::error::errors::ErrorDetails::help].
+                pub fn set_help<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<crate::model::Help>,
+                {
+                    self.help = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [help][crate::model::operation::error::errors::ErrorDetails::help].
+                pub fn set_or_clear_help<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<crate::model::Help>,
+                {
+                    self.help = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [localized_message][crate::model::operation::error::errors::ErrorDetails::localized_message].
+                pub fn set_localized_message<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<crate::model::LocalizedMessage>,
+                {
+                    self.localized_message = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [localized_message][crate::model::operation::error::errors::ErrorDetails::localized_message].
+                pub fn set_or_clear_localized_message<T>(
+                    mut self,
+                    v: std::option::Option<T>,
+                ) -> Self
+                where
+                    T: std::convert::Into<crate::model::LocalizedMessage>,
+                {
+                    self.localized_message = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [quota_info][crate::model::operation::error::errors::ErrorDetails::quota_info].
+                pub fn set_quota_info<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<crate::model::QuotaExceededInfo>,
+                {
+                    self.quota_info = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [quota_info][crate::model::operation::error::errors::ErrorDetails::quota_info].
+                pub fn set_or_clear_quota_info<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<crate::model::QuotaExceededInfo>,
+                {
+                    self.quota_info = v.map(|x| x.into());
+                    self
+                }
+            }
+
+            #[cfg(feature = "images")]
+            impl wkt::message::Message for ErrorDetails {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.compute.v1.Operation.error.errors.errorDetails"
+                }
+            }
+        }
+    }
+
+    /// The message type for the [warnings][google.cloud.compute.v1.Operation.warnings] field.
+    ///
+    /// [google.cloud.compute.v1.Operation.warnings]: crate::model::operation::Warnings
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Warnings {
+        /// [Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.
+        pub code: std::option::Option<crate::model::operation::warnings::Code>,
+
+        /// [Output Only] Metadata about this warning in key: value format. For example: "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+        pub data: std::vec::Vec<crate::model::operation::warnings::Data>,
+
+        /// [Output Only] A human-readable description of the warning code.
+        pub message: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl Warnings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::operation::Warnings::code].
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::operation::warnings::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::operation::Warnings::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::operation::warnings::Code>,
+        {
+            self.code = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [data][crate::model::operation::Warnings::data].
+        pub fn set_data<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::operation::warnings::Data>,
+        {
+            use std::iter::Iterator;
+            self.data = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::operation::Warnings::message].
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::operation::Warnings::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl wkt::message::Message for Warnings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.Operation.warnings"
+        }
+    }
+
+    /// Defines additional types related to [Warnings].
+    #[cfg(feature = "images")]
+    pub mod warnings {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The message type for the [data][google.cloud.compute.v1.Operation.warnings.data] field.
+        ///
+        /// [google.cloud.compute.v1.Operation.warnings.data]: crate::model::operation::warnings::Data
+        #[cfg(feature = "images")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Data {
+            /// [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
+            pub key: std::option::Option<std::string::String>,
+
+            /// [Output Only] A warning data value corresponding to the key.
+            pub value: std::option::Option<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "images")]
+        impl Data {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::operation::warnings::Data::key].
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::operation::warnings::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [value][crate::model::operation::warnings::Data::value].
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::operation::warnings::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl wkt::message::Message for Data {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.compute.v1.Operation.warnings.data"
+            }
+        }
+
+        /// The enumerated type for the [code][google.cloud.compute.v1.Operation.warnings.code] field.
+        ///
+        /// [google.cloud.compute.v1.Operation.warnings.code]: crate::model::operation::warnings::Code
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "images")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Code {
+            /// Warning about failed cleanup of transient changes made by a failed operation.
+            CleanupFailed,
+            /// A link to a deprecated resource was created.
+            DeprecatedResourceUsed,
+            /// When deploying and at least one of the resources has a type marked as deprecated
+            DeprecatedTypeUsed,
+            /// The user created a boot disk that is larger than image size.
+            DiskSizeLargerThanImageSize,
+            /// When deploying and at least one of the resources has a type marked as experimental
+            ExperimentalTypeUsed,
+            /// Warning that is present in an external api call
+            ExternalApiWarning,
+            /// Warning that value of a field has been overridden. Deprecated unused field.
+            #[deprecated]
+            FieldValueOverriden,
+            /// The operation involved use of an injected kernel, which is deprecated.
+            InjectedKernelsDeprecated,
+            /// A WEIGHTED_MAGLEV backend service is associated with a health check that is not of type HTTP/HTTPS/HTTP2.
+            InvalidHealthCheckForDynamicWieghtedLb,
+            /// When deploying a deployment with a exceedingly large number of resources
+            LargeDeploymentWarning,
+            /// Resource can't be retrieved due to list overhead quota exceed which captures the amount of resources filtered out by user-defined list filter.
+            ListOverheadQuotaExceed,
+            /// A resource depends on a missing type
+            MissingTypeDependency,
+            /// The route's nextHopIp address is not assigned to an instance on the network.
+            NextHopAddressNotAssigned,
+            /// The route's next hop instance cannot ip forward.
+            NextHopCannotIpForward,
+            /// The route's nextHopInstance URL refers to an instance that does not have an ipv6 interface on the same network as the route.
+            NextHopInstanceHasNoIpv6Interface,
+            /// The route's nextHopInstance URL refers to an instance that does not exist.
+            NextHopInstanceNotFound,
+            /// The route's nextHopInstance URL refers to an instance that is not on the same network as the route.
+            NextHopInstanceNotOnNetwork,
+            /// The route's next hop instance does not have a status of RUNNING.
+            NextHopNotRunning,
+            /// Error which is not critical. We decided to continue the process despite the mentioned error.
+            NotCriticalError,
+            /// No results are present on a particular list page.
+            NoResultsOnPage,
+            /// Success is reported, but some results may be missing due to errors
+            PartialSuccess,
+            /// Quota information is not available to client requests (e.g: regions.list).
+            QuotaInfoUnavailable,
+            /// The user attempted to use a resource that requires a TOS they have not accepted.
+            RequiredTosAgreement,
+            /// Warning that a resource is in use.
+            ResourceInUseByOtherResourceWarning,
+            /// One or more of the resources set to auto-delete could not be deleted because they were in use.
+            ResourceNotDeleted,
+            /// When a resource schema validation is ignored.
+            SchemaValidationIgnored,
+            /// Instance template used in instance group manager is valid as such, but its application does not make a lot of sense, because it allows only single instance in instance group.
+            SingleInstancePropertyTemplate,
+            /// When undeclared properties in the schema are present
+            UndeclaredProperties,
+            /// A given scope cannot be reached.
+            Unreachable,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Code::value] or
+            /// [Code::name].
+            UnknownValue(code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "images")]
+        pub mod code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "images")]
+        impl Code {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some(0),
+                    Self::DeprecatedResourceUsed => std::option::Option::Some(1),
+                    Self::DeprecatedTypeUsed => std::option::Option::Some(2),
+                    Self::DiskSizeLargerThanImageSize => std::option::Option::Some(3),
+                    Self::ExperimentalTypeUsed => std::option::Option::Some(4),
+                    Self::ExternalApiWarning => std::option::Option::Some(5),
+                    Self::FieldValueOverriden => std::option::Option::Some(6),
+                    Self::InjectedKernelsDeprecated => std::option::Option::Some(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => std::option::Option::Some(8),
+                    Self::LargeDeploymentWarning => std::option::Option::Some(9),
+                    Self::ListOverheadQuotaExceed => std::option::Option::Some(10),
+                    Self::MissingTypeDependency => std::option::Option::Some(11),
+                    Self::NextHopAddressNotAssigned => std::option::Option::Some(12),
+                    Self::NextHopCannotIpForward => std::option::Option::Some(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => std::option::Option::Some(14),
+                    Self::NextHopInstanceNotFound => std::option::Option::Some(15),
+                    Self::NextHopInstanceNotOnNetwork => std::option::Option::Some(16),
+                    Self::NextHopNotRunning => std::option::Option::Some(17),
+                    Self::NotCriticalError => std::option::Option::Some(18),
+                    Self::NoResultsOnPage => std::option::Option::Some(19),
+                    Self::PartialSuccess => std::option::Option::Some(20),
+                    Self::QuotaInfoUnavailable => std::option::Option::Some(21),
+                    Self::RequiredTosAgreement => std::option::Option::Some(22),
+                    Self::ResourceInUseByOtherResourceWarning => std::option::Option::Some(23),
+                    Self::ResourceNotDeleted => std::option::Option::Some(24),
+                    Self::SchemaValidationIgnored => std::option::Option::Some(25),
+                    Self::SingleInstancePropertyTemplate => std::option::Option::Some(26),
+                    Self::UndeclaredProperties => std::option::Option::Some(27),
+                    Self::Unreachable => std::option::Option::Some(28),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        std::option::Option::Some("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => std::option::Option::Some("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        std::option::Option::Some("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        std::option::Option::Some("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => std::option::Option::Some("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => std::option::Option::Some("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        std::option::Option::Some("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        std::option::Option::Some("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        std::option::Option::Some("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        std::option::Option::Some("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        std::option::Option::Some("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        std::option::Option::Some("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        std::option::Option::Some("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => std::option::Option::Some("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => std::option::Option::Some("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => std::option::Option::Some("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => std::option::Option::Some("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        std::option::Option::Some("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        std::option::Option::Some("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        std::option::Option::Some("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => std::option::Option::Some("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        std::option::Option::Some("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        std::option::Option::Some("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => {
+                        std::option::Option::Some("UNDECLARED_PROPERTIES")
+                    }
+                    Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::fmt::Display for Code {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::CleanupFailed,
+                    1 => Self::DeprecatedResourceUsed,
+                    2 => Self::DeprecatedTypeUsed,
+                    3 => Self::DiskSizeLargerThanImageSize,
+                    4 => Self::ExperimentalTypeUsed,
+                    5 => Self::ExternalApiWarning,
+                    6 => Self::FieldValueOverriden,
+                    7 => Self::InjectedKernelsDeprecated,
+                    8 => Self::InvalidHealthCheckForDynamicWieghtedLb,
+                    9 => Self::LargeDeploymentWarning,
+                    10 => Self::ListOverheadQuotaExceed,
+                    11 => Self::MissingTypeDependency,
+                    12 => Self::NextHopAddressNotAssigned,
+                    13 => Self::NextHopCannotIpForward,
+                    14 => Self::NextHopInstanceHasNoIpv6Interface,
+                    15 => Self::NextHopInstanceNotFound,
+                    16 => Self::NextHopInstanceNotOnNetwork,
+                    17 => Self::NextHopNotRunning,
+                    18 => Self::NotCriticalError,
+                    19 => Self::NoResultsOnPage,
+                    20 => Self::PartialSuccess,
+                    21 => Self::QuotaInfoUnavailable,
+                    22 => Self::RequiredTosAgreement,
+                    23 => Self::ResourceInUseByOtherResourceWarning,
+                    24 => Self::ResourceNotDeleted,
+                    25 => Self::SchemaValidationIgnored,
+                    26 => Self::SingleInstancePropertyTemplate,
+                    27 => Self::UndeclaredProperties,
+                    28 => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl std::convert::From<&str> for Code {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CLEANUP_FAILED" => Self::CleanupFailed,
+                    "DEPRECATED_RESOURCE_USED" => Self::DeprecatedResourceUsed,
+                    "DEPRECATED_TYPE_USED" => Self::DeprecatedTypeUsed,
+                    "DISK_SIZE_LARGER_THAN_IMAGE_SIZE" => Self::DiskSizeLargerThanImageSize,
+                    "EXPERIMENTAL_TYPE_USED" => Self::ExperimentalTypeUsed,
+                    "EXTERNAL_API_WARNING" => Self::ExternalApiWarning,
+                    "FIELD_VALUE_OVERRIDEN" => Self::FieldValueOverriden,
+                    "INJECTED_KERNELS_DEPRECATED" => Self::InjectedKernelsDeprecated,
+                    "INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB" => {
+                        Self::InvalidHealthCheckForDynamicWieghtedLb
+                    }
+                    "LARGE_DEPLOYMENT_WARNING" => Self::LargeDeploymentWarning,
+                    "LIST_OVERHEAD_QUOTA_EXCEED" => Self::ListOverheadQuotaExceed,
+                    "MISSING_TYPE_DEPENDENCY" => Self::MissingTypeDependency,
+                    "NEXT_HOP_ADDRESS_NOT_ASSIGNED" => Self::NextHopAddressNotAssigned,
+                    "NEXT_HOP_CANNOT_IP_FORWARD" => Self::NextHopCannotIpForward,
+                    "NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE" => {
+                        Self::NextHopInstanceHasNoIpv6Interface
+                    }
+                    "NEXT_HOP_INSTANCE_NOT_FOUND" => Self::NextHopInstanceNotFound,
+                    "NEXT_HOP_INSTANCE_NOT_ON_NETWORK" => Self::NextHopInstanceNotOnNetwork,
+                    "NEXT_HOP_NOT_RUNNING" => Self::NextHopNotRunning,
+                    "NOT_CRITICAL_ERROR" => Self::NotCriticalError,
+                    "NO_RESULTS_ON_PAGE" => Self::NoResultsOnPage,
+                    "PARTIAL_SUCCESS" => Self::PartialSuccess,
+                    "QUOTA_INFO_UNAVAILABLE" => Self::QuotaInfoUnavailable,
+                    "REQUIRED_TOS_AGREEMENT" => Self::RequiredTosAgreement,
+                    "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING" => {
+                        Self::ResourceInUseByOtherResourceWarning
+                    }
+                    "RESOURCE_NOT_DELETED" => Self::ResourceNotDeleted,
+                    "SCHEMA_VALIDATION_IGNORED" => Self::SchemaValidationIgnored,
+                    "SINGLE_INSTANCE_PROPERTY_TEMPLATE" => Self::SingleInstancePropertyTemplate,
+                    "UNDECLARED_PROPERTIES" => Self::UndeclaredProperties,
+                    "UNREACHABLE" => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "images")]
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                    ".google.cloud.compute.v1.Operation.warnings.code",
+                ))
+            }
+        }
+    }
+
+    /// The enumerated type for the [status][google.cloud.compute.v1.Operation.status] field.
+    ///
+    /// [google.cloud.compute.v1.Operation.status]: crate::model::operation::Status
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "images")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Status {
+        Done,
+        Pending,
+        Running,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Status::value] or
+        /// [Status::name].
+        UnknownValue(status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "images")]
+    pub mod status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "images")]
+    impl Status {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Done => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Done => std::option::Option::Some("DONE"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Done,
+                1 => Self::Pending,
+                2 => Self::Running,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<&str> for Status {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DONE" => Self::Done,
+                "PENDING" => Self::Pending,
+                "RUNNING" => Self::Running,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl serde::ser::Serialize for Status {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Done => serializer.serialize_str("DONE"),
+                Self::Pending => serializer.serialize_str("PENDING"),
+                Self::Running => serializer.serialize_str("RUNNING"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl<'de> serde::de::Deserialize<'de> for Status {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
+                ".google.cloud.compute.v1.Operation.status",
+            ))
+        }
+    }
+}
+
+/// An Identity and Access Management (IAM) policy, which specifies access controls for Google Cloud resources. A `Policy` is a collection of `bindings`. A `binding` binds one or more `members`, or principals, to a single `role`. Principals can be user accounts, service accounts, Google groups, and domains (such as G Suite). A `role` is a named list of permissions; each `role` can be an IAM predefined role or a user-created custom role. For some types of Google Cloud resources, a `binding` can also specify a `condition`, which is a logical expression that allows access to a resource only if the expression evaluates to `true`. A condition can add constraints based on attributes of the request, the resource, or both. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies). **JSON example:** ``` { "bindings": [ { "role": "roles/resourcemanager.organizationAdmin", "members": [ "user:mike@example.com", "group:admins@example.com", "domain:google.com", "serviceAccount:my-project-id@appspot.gserviceaccount.com" ] }, { "role": "roles/resourcemanager.organizationViewer", "members": [ "user:eve@example.com" ], "condition": { "title": "expirable access", "description": "Does not grant access after Sep 2020", "expression": "request.time < timestamp('2020-10-01T00:00:00.000Z')", } } ], "etag": "BwWWja0YfJA=", "version": 3 } ``` **YAML example:** ``` bindings: - members: - user:mike@example.com - group:admins@example.com - domain:google.com - serviceAccount:my-project-id@appspot.gserviceaccount.com role: roles/resourcemanager.organizationAdmin - members: - user:eve@example.com role: roles/resourcemanager.organizationViewer condition: title: expirable access description: Does not grant access after Sep 2020 expression: request.time < timestamp('2020-10-01T00:00:00.000Z') etag: BwWWja0YfJA= version: 3 ``` For a description of IAM and its features, see the [IAM documentation](https://cloud.google.com/iam/docs/).
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Policy {
+    /// Specifies cloud audit logging configuration for this policy.
+    pub audit_configs: std::vec::Vec<crate::model::AuditConfig>,
+
+    /// Associates a list of `members`, or principals, with a `role`. Optionally, may specify a `condition` that determines how and when the `bindings` are applied. Each of the `bindings` must contain at least one principal. The `bindings` in a `Policy` can refer to up to 1,500 principals; up to 250 of these principals can be Google groups. Each occurrence of a principal counts towards these limits. For example, if the `bindings` grant 50 different roles to `user:alice@example.com`, and not to any other principal, then you can add another 1,450 principals to the `bindings` in the `Policy`.
+    pub bindings: std::vec::Vec<crate::model::Binding>,
+
+    /// `etag` is used for optimistic concurrency control as a way to help prevent simultaneous updates of a policy from overwriting each other. It is strongly suggested that systems make use of the `etag` in the read-modify-write cycle to perform policy updates in order to avoid race conditions: An `etag` is returned in the response to `getIamPolicy`, and systems are expected to put that etag in the request to `setIamPolicy` to ensure that their change will be applied to the same version of the policy. **Important:** If you use IAM Conditions, you must include the `etag` field whenever you call `setIamPolicy`. If you omit this field, then IAM allows you to overwrite a version `3` policy with a version `1` policy, and all of the conditions in the version `3` policy are lost.
+    pub etag: std::option::Option<::bytes::Bytes>,
+
+    /// Specifies the format of the policy. Valid values are `0`, `1`, and `3`. Requests that specify an invalid value are rejected. Any operation that affects conditional role bindings must specify version `3`. This requirement applies to the following operations: * Getting a policy that includes a conditional role binding * Adding a conditional role binding to a policy * Changing a conditional role binding in a policy * Removing any role binding, with or without a condition, from a policy that includes conditions **Important:** If you use IAM Conditions, you must include the `etag` field whenever you call `setIamPolicy`. If you omit this field, then IAM allows you to overwrite a version `3` policy with a version `1` policy, and all of the conditions in the version `3` policy are lost. If a policy does not include any conditions, operations on that policy may specify any valid version or leave the field unset. To learn which resources support conditions in their IAM policies, see the [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+    pub version: std::option::Option<i32>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl Policy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [audit_configs][crate::model::Policy::audit_configs].
+    pub fn set_audit_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuditConfig>,
+    {
+        use std::iter::Iterator;
+        self.audit_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [bindings][crate::model::Policy::bindings].
+    pub fn set_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Binding>,
+    {
+        use std::iter::Iterator;
+        self.bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Policy::etag].
+    pub fn set_etag<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.etag = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [etag][crate::model::Policy::etag].
+    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<::bytes::Bytes>,
+    {
+        self.etag = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [version][crate::model::Policy::version].
+    pub fn set_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [version][crate::model::Policy::version].
+    pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.version = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for Policy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.Policy"
+    }
+}
+
+/// Additional details for quota exceeded error for resource quota.
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QuotaExceededInfo {
+    /// The map holding related quota dimensions.
+    pub dimensions: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Future quota limit being rolled out. The limit's unit depends on the quota type or metric.
+    pub future_limit: std::option::Option<f64>,
+
+    /// Current effective quota limit. The limit's unit depends on the quota type or metric.
+    pub limit: std::option::Option<f64>,
+
+    /// The name of the quota limit.
+    pub limit_name: std::option::Option<std::string::String>,
+
+    /// The Compute Engine quota metric name.
+    pub metric_name: std::option::Option<std::string::String>,
+
+    /// Rollout status of the future quota limit.
+    pub rollout_status: std::option::Option<crate::model::quota_exceeded_info::RolloutStatus>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl QuotaExceededInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dimensions][crate::model::QuotaExceededInfo::dimensions].
+    pub fn set_dimensions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.dimensions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [future_limit][crate::model::QuotaExceededInfo::future_limit].
+    pub fn set_future_limit<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.future_limit = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [future_limit][crate::model::QuotaExceededInfo::future_limit].
+    pub fn set_or_clear_future_limit<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.future_limit = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [limit][crate::model::QuotaExceededInfo::limit].
+    pub fn set_limit<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.limit = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [limit][crate::model::QuotaExceededInfo::limit].
+    pub fn set_or_clear_limit<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.limit = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [limit_name][crate::model::QuotaExceededInfo::limit_name].
+    pub fn set_limit_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.limit_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [limit_name][crate::model::QuotaExceededInfo::limit_name].
+    pub fn set_or_clear_limit_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.limit_name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metric_name][crate::model::QuotaExceededInfo::metric_name].
+    pub fn set_metric_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.metric_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metric_name][crate::model::QuotaExceededInfo::metric_name].
+    pub fn set_or_clear_metric_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.metric_name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [rollout_status][crate::model::QuotaExceededInfo::rollout_status].
+    pub fn set_rollout_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::quota_exceeded_info::RolloutStatus>,
+    {
+        self.rollout_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rollout_status][crate::model::QuotaExceededInfo::rollout_status].
+    pub fn set_or_clear_rollout_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::quota_exceeded_info::RolloutStatus>,
+    {
+        self.rollout_status = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for QuotaExceededInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.QuotaExceededInfo"
+    }
+}
+
+/// Defines additional types related to [QuotaExceededInfo].
+#[cfg(feature = "images")]
+pub mod quota_exceeded_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [rolloutStatus][google.cloud.compute.v1.QuotaExceededInfo.rolloutStatus] field.
+    ///
+    /// [google.cloud.compute.v1.QuotaExceededInfo.rolloutStatus]: crate::model::quota_exceeded_info::RolloutStatus
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "images")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RolloutStatus {
+        /// IN_PROGRESS - A rollout is in process which will change the limit value to future limit.
+        InProgress,
+        /// ROLLOUT_STATUS_UNSPECIFIED - Rollout status is not specified. The default value.
+        Unspecified,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RolloutStatus::value] or
+        /// [RolloutStatus::name].
+        UnknownValue(rollout_status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "images")]
+    pub mod rollout_status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "images")]
+    impl RolloutStatus {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::InProgress => std::option::Option::Some(0),
+                Self::Unspecified => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
+                Self::Unspecified => std::option::Option::Some("ROLLOUT_STATUS_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::default::Default for RolloutStatus {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::fmt::Display for RolloutStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<i32> for RolloutStatus {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::InProgress,
+                1 => Self::Unspecified,
+                _ => Self::UnknownValue(rollout_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<&str> for RolloutStatus {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "IN_PROGRESS" => Self::InProgress,
+                "ROLLOUT_STATUS_UNSPECIFIED" => Self::Unspecified,
+                _ => Self::UnknownValue(rollout_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl serde::ser::Serialize for RolloutStatus {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::InProgress => serializer.serialize_str("IN_PROGRESS"),
+                Self::Unspecified => serializer.serialize_str("ROLLOUT_STATUS_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl<'de> serde::de::Deserialize<'de> for RolloutStatus {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RolloutStatus>::new(
+                ".google.cloud.compute.v1.QuotaExceededInfo.rolloutStatus",
+            ))
+        }
+    }
+}
+
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SetCommonInstanceMetadataOperationMetadata {
+    /// [Output Only] The client operation id.
+    pub client_operation_id: std::option::Option<std::string::String>,
+
+    /// [Output Only] Status information per location (location name is key). Example key: zones/us-central1-a
+    pub per_location_operations: std::collections::HashMap<
+        std::string::String,
+        crate::model::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo,
+    >,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl SetCommonInstanceMetadataOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [client_operation_id][crate::model::SetCommonInstanceMetadataOperationMetadata::client_operation_id].
+    pub fn set_client_operation_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.client_operation_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_operation_id][crate::model::SetCommonInstanceMetadataOperationMetadata::client_operation_id].
+    pub fn set_or_clear_client_operation_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.client_operation_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [per_location_operations][crate::model::SetCommonInstanceMetadataOperationMetadata::per_location_operations].
+    pub fn set_per_location_operations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<
+                crate::model::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo,
+            >,
+    {
+        use std::iter::Iterator;
+        self.per_location_operations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for SetCommonInstanceMetadataOperationMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.SetCommonInstanceMetadataOperationMetadata"
+    }
+}
+
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
+
+    /// [Output Only] If state is `ABANDONED` or `FAILED`, this field is populated.
+    pub error: std::option::Option<crate::model::Status>,
+
+    /// [Output Only] Status of the action, which can be one of the following: `PROPAGATING`, `PROPAGATED`, `ABANDONED`, `FAILED`, or `DONE`.
+    pub state: std::option::Option<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [error][crate::model::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo::error].
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo::error].
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo::state].
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo::state].
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State>
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo"
+    }
+}
+
+/// Defines additional types related to [SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo].
+#[cfg(feature = "images")]
+pub mod set_common_instance_metadata_operation_metadata_per_location_operation_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [state][google.cloud.compute.v1.SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo.state] field.
+    ///
+    /// [google.cloud.compute.v1.SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo.state]: crate::model::set_common_instance_metadata_operation_metadata_per_location_operation_info::State
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "images")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Operation not tracked in this location e.g. zone is marked as DOWN.
+        Abandoned,
+        /// Operation has completed successfully.
+        Done,
+        /// Operation is in an error state.
+        Failed,
+        /// Operation is confirmed to be in the location.
+        Propagated,
+        /// Operation is not yet confirmed to have been created in the location.
+        Propagating,
+        Unspecified,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "images")]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "images")]
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Abandoned => std::option::Option::Some(0),
+                Self::Done => std::option::Option::Some(1),
+                Self::Failed => std::option::Option::Some(2),
+                Self::Propagated => std::option::Option::Some(3),
+                Self::Propagating => std::option::Option::Some(4),
+                Self::Unspecified => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Abandoned => std::option::Option::Some("ABANDONED"),
+                Self::Done => std::option::Option::Some("DONE"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Propagated => std::option::Option::Some("PROPAGATED"),
+                Self::Propagating => std::option::Option::Some("PROPAGATING"),
+                Self::Unspecified => std::option::Option::Some("UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Abandoned,
+                1 => Self::Done,
+                2 => Self::Failed,
+                3 => Self::Propagated,
+                4 => Self::Propagating,
+                5 => Self::Unspecified,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ABANDONED" => Self::Abandoned,
+                "DONE" => Self::Done,
+                "FAILED" => Self::Failed,
+                "PROPAGATED" => Self::Propagated,
+                "PROPAGATING" => Self::Propagating,
+                "UNSPECIFIED" => Self::Unspecified,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Abandoned => serializer.serialize_str("ABANDONED"),
+                Self::Done => serializer.serialize_str("DONE"),
+                Self::Failed => serializer.serialize_str("FAILED"),
+                Self::Propagated => serializer.serialize_str("PROPAGATED"),
+                Self::Propagating => serializer.serialize_str("PROPAGATING"),
+                Self::Unspecified => serializer.serialize_str("UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "images")]
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.compute.v1.SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo.state"))
+        }
+    }
+}
+
+/// The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Status {
+    /// The status code, which should be an enum value of google.rpc.Code.
+    pub code: std::option::Option<i32>,
+
+    /// A list of messages that carry the error details. There is a common set of message types for APIs to use.
+    pub details: std::vec::Vec<wkt::Any>,
+
+    /// A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
+    pub message: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl Status {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::Status::code].
+    pub fn set_code<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.code = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [code][crate::model::Status::code].
+    pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.code = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [details][crate::model::Status::details].
+    pub fn set_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Any>,
+    {
+        use std::iter::Iterator;
+        self.details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [message][crate::model::Status::message].
+    pub fn set_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [message][crate::model::Status::message].
+    pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for Status {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.Status"
+    }
+}
+
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TestPermissionsRequest {
+    /// The set of permissions to check for the 'resource'. Permissions with wildcards (such as '*' or 'storage.*') are not allowed.
+    pub permissions: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl TestPermissionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [permissions][crate::model::TestPermissionsRequest::permissions].
+    pub fn set_permissions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.permissions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for TestPermissionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.TestPermissionsRequest"
+    }
+}
+
+#[cfg(feature = "images")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TestPermissionsResponse {
+    /// A subset of `TestPermissionsRequest.permissions` that the caller is allowed.
+    pub permissions: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "images")]
+impl TestPermissionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [permissions][crate::model::TestPermissionsResponse::permissions].
+    pub fn set_permissions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.permissions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(feature = "images")]
+impl wkt::message::Message for TestPermissionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.TestPermissionsResponse"
+    }
+}
+
 /// Represents a Zone resource. A zone is a deployment area. These deployment areas are subsets of a region. For example the zone us-east1-b is located in the us-east1 region. For more information, read Regions and Zones.
 #[cfg(feature = "zones")]
 #[derive(Clone, Default, PartialEq)]
@@ -4066,6 +10352,754 @@ pub mod zone_list {
                     ".google.cloud.compute.v1.ZoneList.warning.code",
                 ))
             }
+        }
+    }
+}
+
+/// Synthetic messages for the [images][google.cloud.compute.v1.images] service
+///
+/// [google.cloud.compute.v1.images]: crate::model::Images
+#[cfg(feature = "images")]
+pub mod images {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Synthetic request message for the [delete()][google.cloud.compute.v1.images.delete] method.
+    ///
+    /// [google.cloud.compute.v1.images.delete]: crate::client::Images::delete
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DeleteRequest {
+        /// Name of the image resource to delete.
+        pub image: std::string::String,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported ( 00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl DeleteRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [image][crate::model::images::DeleteRequest::image].
+        pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.image = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::images::DeleteRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::images::DeleteRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::images::DeleteRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [deprecate()][google.cloud.compute.v1.images.deprecate] method.
+    ///
+    /// [google.cloud.compute.v1.images.deprecate]: crate::client::Images::deprecate
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DeprecateRequest {
+        /// Image name.
+        pub image: std::string::String,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported ( 00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [deprecate()][google.cloud.compute.v1.images.deprecate] method.
+        ///
+        /// [google.cloud.compute.v1.images.deprecate]: crate::client::Images::deprecate
+        pub body: std::option::Option<crate::model::DeprecationStatus>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl DeprecateRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [image][crate::model::images::DeprecateRequest::image].
+        pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.image = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::images::DeprecateRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::images::DeprecateRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::images::DeprecateRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::images::DeprecateRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeprecationStatus>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::images::DeprecateRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeprecationStatus>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [get()][google.cloud.compute.v1.images.get] method.
+    ///
+    /// [google.cloud.compute.v1.images.get]: crate::client::Images::get
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetRequest {
+        /// Name of the image resource to return.
+        pub image: std::string::String,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl GetRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [image][crate::model::images::GetRequest::image].
+        pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.image = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::images::GetRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [getFromFamily()][google.cloud.compute.v1.images.getFromFamily] method.
+    ///
+    /// [google.cloud.compute.v1.images.getFromFamily]: crate::client::Images::get_from_family
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetFromFamilyRequest {
+        /// Name of the image family to search for.
+        pub family: std::string::String,
+
+        /// The image project that the image belongs to. For example, to get a CentOS image, specify centos-cloud as the image project.
+        pub project: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl GetFromFamilyRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [family][crate::model::images::GetFromFamilyRequest::family].
+        pub fn set_family<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.family = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::images::GetFromFamilyRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [getIamPolicy()][google.cloud.compute.v1.images.getIamPolicy] method.
+    ///
+    /// [google.cloud.compute.v1.images.getIamPolicy]: crate::client::Images::get_iam_policy
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetIamPolicyRequest {
+        /// Requested IAM Policy version.
+        pub options_requested_policy_version: std::option::Option<i32>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Name or id of the resource for this request.
+        pub resource: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl GetIamPolicyRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [options_requested_policy_version][crate::model::images::GetIamPolicyRequest::options_requested_policy_version].
+        pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.options_requested_policy_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options_requested_policy_version][crate::model::images::GetIamPolicyRequest::options_requested_policy_version].
+        pub fn set_or_clear_options_requested_policy_version<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.options_requested_policy_version = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::images::GetIamPolicyRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::images::GetIamPolicyRequest::resource].
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.resource = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [insert()][google.cloud.compute.v1.images.insert] method.
+    ///
+    /// [google.cloud.compute.v1.images.insert]: crate::client::Images::insert
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct InsertRequest {
+        /// Force image creation if true.
+        pub force_create: std::option::Option<bool>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported ( 00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [insert()][google.cloud.compute.v1.images.insert] method.
+        ///
+        /// [google.cloud.compute.v1.images.insert]: crate::client::Images::insert
+        pub body: std::option::Option<crate::model::Image>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl InsertRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [force_create][crate::model::images::InsertRequest::force_create].
+        pub fn set_force_create<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.force_create = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [force_create][crate::model::images::InsertRequest::force_create].
+        pub fn set_or_clear_force_create<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.force_create = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::images::InsertRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::images::InsertRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::images::InsertRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::images::InsertRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Image>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::images::InsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Image>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [list()][google.cloud.compute.v1.images.list] method.
+    ///
+    /// [google.cloud.compute.v1.images.list]: crate::client::Images::list
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ListRequest {
+        /// A filter expression that filters resources listed in the response. Most Compute resources support two types of filter expressions: expressions that support regular expressions and expressions that follow API improvement proposal AIP-160. These two types of filter expressions cannot be mixed in one request. If you want to use AIP-160, your expression must specify the field name, an operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The operator must be either `=`, `!=`, `>`, `<`, `<=`, `>=` or `:`. For example, if you are filtering Compute Engine instances, you can exclude instances named `example-instance` by specifying `name != example-instance`. The `:*` comparison can be used to test whether a key has been defined. For example, to find all objects with `owner` label use: ``` labels.owner:* ``` You can also filter nested fields. For example, you could specify `scheduling.automaticRestart = false` to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels. To filter on multiple expressions, provide each separate expression within parentheses. For example: ``` (scheduling.automaticRestart = true) (cpuPlatform = "Intel Skylake") ``` By default, each expression is an `AND` expression. However, you can include `AND` and `OR` expressions explicitly. For example: ``` (cpuPlatform = "Intel Skylake") OR (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart = true) ``` If you want to use a regular expression, use the `eq` (equal) or `ne` (not equal) operator against a single un-parenthesized expression with or without quotes or against multiple parenthesized expressions. Examples: `fieldname eq unquoted literal` `fieldname eq 'single quoted literal'` `fieldname eq "double quoted literal"` `(fieldname1 eq literal) (fieldname2 ne "literal")` The literal value is interpreted as a regular expression using Google RE2 library syntax. The literal value must match the entire field. For example, to filter for instances that do not end with name "instance", you would use `name ne .*instance`. You cannot combine constraints on multiple fields using regular expressions.
+        pub filter: std::option::Option<std::string::String>,
+
+        /// The maximum number of results per page that should be returned. If the number of available results is larger than `maxResults`, Compute Engine returns a `nextPageToken` that can be used to get the next page of results in subsequent list requests. Acceptable values are `0` to `500`, inclusive. (Default: `500`)
+        pub max_results: std::option::Option<u32>,
+
+        /// Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name. You can also sort results in descending order based on the creation timestamp using `orderBy="creationTimestamp desc"`. This sorts results based on the `creationTimestamp` field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first. Currently, only sorting by `name` or `creationTimestamp desc` is supported.
+        pub order_by: std::option::Option<std::string::String>,
+
+        /// Specifies a page token to use. Set `pageToken` to the `nextPageToken` returned by a previous list request to get the next page of results.
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Opt-in for partial success behavior which provides partial results in case of failure. The default value is false. For example, when partial success behavior is enabled, aggregatedList for a single zone scope either returns all resources in the zone or no resources, with an error code.
+        pub return_partial_success: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl ListRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filter][crate::model::images::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::images::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::images::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::images::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::images::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::images::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::images::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::images::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::images::ListRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::images::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::images::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [patch()][google.cloud.compute.v1.images.patch] method.
+    ///
+    /// [google.cloud.compute.v1.images.patch]: crate::client::Images::patch
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PatchRequest {
+        /// Name of the image resource to patch.
+        pub image: std::string::String,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported ( 00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [patch()][google.cloud.compute.v1.images.patch] method.
+        ///
+        /// [google.cloud.compute.v1.images.patch]: crate::client::Images::patch
+        pub body: std::option::Option<crate::model::Image>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl PatchRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [image][crate::model::images::PatchRequest::image].
+        pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.image = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::images::PatchRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::images::PatchRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::images::PatchRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::images::PatchRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Image>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::images::PatchRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Image>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [setIamPolicy()][google.cloud.compute.v1.images.setIamPolicy] method.
+    ///
+    /// [google.cloud.compute.v1.images.setIamPolicy]: crate::client::Images::set_iam_policy
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SetIamPolicyRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Name or id of the resource for this request.
+        pub resource: std::string::String,
+
+        /// Synthetic request body field for the [setIamPolicy()][google.cloud.compute.v1.images.setIamPolicy] method.
+        ///
+        /// [google.cloud.compute.v1.images.setIamPolicy]: crate::client::Images::set_iam_policy
+        pub body: std::option::Option<crate::model::GlobalSetPolicyRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl SetIamPolicyRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::images::SetIamPolicyRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::images::SetIamPolicyRequest::resource].
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::images::SetIamPolicyRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GlobalSetPolicyRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::images::SetIamPolicyRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GlobalSetPolicyRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [setLabels()][google.cloud.compute.v1.images.setLabels] method.
+    ///
+    /// [google.cloud.compute.v1.images.setLabels]: crate::client::Images::set_labels
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SetLabelsRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Name or id of the resource for this request.
+        pub resource: std::string::String,
+
+        /// Synthetic request body field for the [setLabels()][google.cloud.compute.v1.images.setLabels] method.
+        ///
+        /// [google.cloud.compute.v1.images.setLabels]: crate::client::Images::set_labels
+        pub body: std::option::Option<crate::model::GlobalSetLabelsRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl SetLabelsRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::images::SetLabelsRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::images::SetLabelsRequest::resource].
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::images::SetLabelsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GlobalSetLabelsRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::images::SetLabelsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GlobalSetLabelsRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [testIamPermissions()][google.cloud.compute.v1.images.testIamPermissions] method.
+    ///
+    /// [google.cloud.compute.v1.images.testIamPermissions]: crate::client::Images::test_iam_permissions
+    #[cfg(feature = "images")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TestIamPermissionsRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Name or id of the resource for this request.
+        pub resource: std::string::String,
+
+        /// Synthetic request body field for the [testIamPermissions()][google.cloud.compute.v1.images.testIamPermissions] method.
+        ///
+        /// [google.cloud.compute.v1.images.testIamPermissions]: crate::client::Images::test_iam_permissions
+        pub body: std::option::Option<crate::model::TestPermissionsRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "images")]
+    impl TestIamPermissionsRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::images::TestIamPermissionsRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::images::TestIamPermissionsRequest::resource].
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::images::TestIamPermissionsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TestPermissionsRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::images::TestIamPermissionsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TestPermissionsRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
         }
     }
 }

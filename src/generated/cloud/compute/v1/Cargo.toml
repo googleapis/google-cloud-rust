@@ -29,9 +29,12 @@ publish                = false
 
 [features]
 default = [
+    "images",
     "machine-types",
     "zones",
 ]
+# Enables `client::Images` and all the types it depends on.
+images = []
 # Enables `client::MachineTypes` and all the types it depends on.
 machine-types = []
 # Enables `client::Zones` and all the types it depends on.

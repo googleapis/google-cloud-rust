@@ -21,6 +21,167 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::Images;
+/// let client = Images::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `images` resource.
+///
+/// # Configuration
+///
+/// To configure `Images` use the `with_*` methods in the type returned
+/// by [builder()][Images::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::images::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::images::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Images` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Images` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "images")]
+#[cfg_attr(docsrs, doc(cfg(feature = "images")))]
+#[derive(Clone, Debug)]
+pub struct Images {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Images>,
+}
+
+#[cfg(feature = "images")]
+impl Images {
+    /// Returns a builder for [Images].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::Images;
+    /// let client = Images::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::images::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::images::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Images + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Images>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Images> {
+        super::transport::Images::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Images> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Images::new)
+    }
+
+    /// Deletes the specified image.
+    pub fn delete(&self) -> super::builder::images::Delete {
+        super::builder::images::Delete::new(self.inner.clone())
+    }
+
+    /// Sets the deprecation status of an image. If an empty request body is given, clears the deprecation status instead.
+    pub fn deprecate(&self) -> super::builder::images::Deprecate {
+        super::builder::images::Deprecate::new(self.inner.clone())
+    }
+
+    /// Returns the specified image.
+    pub fn get(&self) -> super::builder::images::Get {
+        super::builder::images::Get::new(self.inner.clone())
+    }
+
+    /// Returns the latest image that is part of an image family and is not deprecated. For more information on image families, see Public image families documentation.
+    pub fn get_from_family(&self) -> super::builder::images::GetFromFamily {
+        super::builder::images::GetFromFamily::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. May be empty if no such policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::images::GetIamPolicy {
+        super::builder::images::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Creates an image in the specified project using the data included in the request.
+    pub fn insert(&self) -> super::builder::images::Insert {
+        super::builder::images::Insert::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of custom images available to the specified project. Custom images are images you create that belong to your project. This method does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud.
+    pub fn list(&self) -> super::builder::images::List {
+        super::builder::images::List::new(self.inner.clone())
+    }
+
+    /// Patches the specified image with the data included in the request. Only the following fields can be modified: family, description, deprecation status.
+    pub fn patch(&self) -> super::builder::images::Patch {
+        super::builder::images::Patch::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::images::SetIamPolicy {
+        super::builder::images::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the labels on an image. To learn more about labels, read the Labeling Resources documentation.
+    pub fn set_labels(&self) -> super::builder::images::SetLabels {
+        super::builder::images::SetLabels::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::images::TestIamPermissions {
+        super::builder::images::TestIamPermissions::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_compute_v1::client::MachineTypes;
 /// let client = MachineTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.

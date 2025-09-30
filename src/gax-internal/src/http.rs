@@ -26,6 +26,8 @@ use gax::retry_throttler::SharedRetryThrottler;
 use http::{Extensions, Method};
 use std::sync::Arc;
 use std::time::Duration;
+#[cfg(feature = "_unstable-o12y")]
+use tracing::Instrument;
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
@@ -39,6 +41,7 @@ pub struct ReqwestClient {
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
+    _tracing_enabled: bool,
 }
 
 impl ReqwestClient {
@@ -49,6 +52,7 @@ impl ReqwestClient {
         let cred = Self::make_credentials(&config).await?;
         let inner = reqwest::Client::new();
         let host = crate::host::host_from_endpoint(config.endpoint.as_deref(), default_endpoint)?;
+        let tracing_enabled = crate::options::tracing_enabled(&config);
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
@@ -75,6 +79,7 @@ impl ReqwestClient {
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             instrumentation: None,
+            _tracing_enabled: tracing_enabled,
         })
     }
 
@@ -131,11 +136,19 @@ impl ReqwestClient {
         let retry = self.get_retry_policy(&options);
         let backoff = self.get_backoff_policy(&options);
         let this = self.clone();
+
+        let mut attempt_count = 0u32;
+
         let inner = async move |d| {
             let builder = builder
                 .try_clone()
                 .expect("client libraries only create builders where `try_clone()` succeeds");
-            this.request_attempt(builder, &options, d).await
+
+            let current_attempt = attempt_count;
+            attempt_count += 1;
+
+            this.request_attempt(builder, &options, d, current_attempt)
+                .await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
         gax::retry_loop_internal::retry_loop(inner, sleep, idempotent, throttler, retry, backoff)
@@ -147,6 +160,7 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
+        _attempt_count: u32,
     ) -> Result<Response<O>> {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
@@ -156,11 +170,35 @@ impl ReqwestClient {
             Ok(CacheableResource::New { data, .. }) => builder.headers(data),
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
-        let response = builder.send().await.map_err(Self::map_send_error)?;
+
+        let request = builder.build().map_err(Self::map_send_error)?;
+
+        #[cfg(feature = "_unstable-o12y")]
+        let response_result = if self._tracing_enabled {
+            let mut span_info = crate::observability::HttpSpanInfo::from_request(
+                &request,
+                options,
+                self.instrumentation,
+                _attempt_count,
+            );
+            let span = span_info.create_span();
+            // The instrument call ensures the span is entered/exited as the execute future is polled.
+            let result = self.inner.execute(request).instrument(span.clone()).await;
+            // Re-enter the span's context to record response attributes after the future has completed.
+            let _enter = span.enter();
+            span_info.update_from_response(&result);
+            span_info.record_response_attributes(&span);
+            result
+        } else {
+            self.inner.execute(request).await
+        };
+        #[cfg(not(feature = "_unstable-o12y"))]
+        let response_result = self.inner.execute(request).await;
+
+        let response = response_result.map_err(Self::map_send_error)?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;
         }
-
         self::to_http_response(response).await
     }
 
