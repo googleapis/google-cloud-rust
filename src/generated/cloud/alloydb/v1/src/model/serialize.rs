@@ -1004,6 +1004,9 @@ impl serde::ser::Serialize for super::Instance {
         if !wkt::internal::is_default(&self.activation_policy) {
             state.serialize_entry("activationPolicy", &self.activation_policy)?;
         }
+        if self.connection_pool_config.is_some() {
+            state.serialize_entry("connectionPoolConfig", &self.connection_pool_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1409,6 +1412,43 @@ impl serde::ser::Serialize for super::instance::instance_network_config::Authori
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::instance::ConnectionPoolConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enabled) {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if !self.flags.is_empty() {
+            state.serialize_entry("flags", &self.flags)?;
+        }
+        if !wkt::internal::is_default(&self.pooler_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("poolerCount", &__With(&self.pooler_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ConnectionInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1764,6 +1804,15 @@ impl serde::ser::Serialize for super::Database {
         }
         if !self.collation.is_empty() {
             state.serialize_entry("collation", &self.collation)?;
+        }
+        if !self.character_type.is_empty() {
+            state.serialize_entry("characterType", &self.character_type)?;
+        }
+        if !self.database_template.is_empty() {
+            state.serialize_entry("databaseTemplate", &self.database_template)?;
+        }
+        if self.is_template_database.is_some() {
+            state.serialize_entry("isTemplateDatabase", &self.is_template_database)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2993,6 +3042,9 @@ impl serde::ser::Serialize for super::ExecuteSqlRequest {
         if !self.sql_statement.is_empty() {
             state.serialize_entry("sqlStatement", &self.sql_statement)?;
         }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3500,6 +3552,40 @@ impl serde::ser::Serialize for super::upgrade_cluster_status::StageStatus {
         }
         if !wkt::internal::is_default(&self.state) {
             state.serialize_entry("state", &self.state)?;
+        }
+        if self.schedule.is_some() {
+            state.serialize_entry("schedule", &self.schedule)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::upgrade_cluster_status::stage_status::StageSchedule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.estimated_start_time.is_some() {
+            state.serialize_entry("estimatedStartTime", &self.estimated_start_time)?;
+        }
+        if self.actual_start_time.is_some() {
+            state.serialize_entry("actualStartTime", &self.actual_start_time)?;
+        }
+        if self.estimated_end_time.is_some() {
+            state.serialize_entry("estimatedEndTime", &self.estimated_end_time)?;
+        }
+        if self.actual_end_time.is_some() {
+            state.serialize_entry("actualEndTime", &self.actual_end_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

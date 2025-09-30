@@ -441,6 +441,7 @@ impl std::fmt::Debug for super::Instance {
             &self.outbound_public_ip_addresses,
         );
         debug_struct.field("activation_policy", &self.activation_policy);
+        debug_struct.field("connection_pool_config", &self.connection_pool_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -605,6 +606,19 @@ impl std::fmt::Debug for super::instance::instance_network_config::AuthorizedNet
     }
 }
 
+impl std::fmt::Debug for super::instance::ConnectionPoolConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectionPoolConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("flags", &self.flags);
+        debug_struct.field("pooler_count", &self.pooler_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ConnectionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConnectionInfo");
@@ -728,6 +742,9 @@ impl std::fmt::Debug for super::Database {
         debug_struct.field("name", &self.name);
         debug_struct.field("charset", &self.charset);
         debug_struct.field("collation", &self.collation);
+        debug_struct.field("character_type", &self.character_type);
+        debug_struct.field("database_template", &self.database_template);
+        debug_struct.field("is_template_database", &self.is_template_database);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1271,6 +1288,7 @@ impl std::fmt::Debug for super::ExecuteSqlRequest {
         debug_struct.field("database", &self.database);
         debug_struct.field("user", &self.user);
         debug_struct.field("sql_statement", &self.sql_statement);
+        debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("user_credential", &self.user_credential);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1494,7 +1512,22 @@ impl std::fmt::Debug for super::upgrade_cluster_status::StageStatus {
         let mut debug_struct = f.debug_struct("StageStatus");
         debug_struct.field("stage", &self.stage);
         debug_struct.field("state", &self.state);
+        debug_struct.field("schedule", &self.schedule);
         debug_struct.field("stage_specific_status", &self.stage_specific_status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::upgrade_cluster_status::stage_status::StageSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StageSchedule");
+        debug_struct.field("estimated_start_time", &self.estimated_start_time);
+        debug_struct.field("actual_start_time", &self.actual_start_time);
+        debug_struct.field("estimated_end_time", &self.estimated_end_time);
+        debug_struct.field("actual_end_time", &self.actual_end_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

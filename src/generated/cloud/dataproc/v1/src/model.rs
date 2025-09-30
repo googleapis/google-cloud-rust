@@ -19292,6 +19292,8 @@ pub enum Component {
     Iceberg,
     /// The Jupyter Notebook.
     Jupyter,
+    /// The Jupyter Kernel Gateway.
+    JupyterKernelGateway,
     /// The Pig component.
     Pig,
     /// The Presto query engine.
@@ -19339,6 +19341,7 @@ impl Component {
             Self::Hudi => std::option::Option::Some(18),
             Self::Iceberg => std::option::Option::Some(19),
             Self::Jupyter => std::option::Option::Some(1),
+            Self::JupyterKernelGateway => std::option::Option::Some(22),
             Self::Pig => std::option::Option::Some(21),
             Self::Presto => std::option::Option::Some(6),
             Self::Trino => std::option::Option::Some(17),
@@ -19367,6 +19370,7 @@ impl Component {
             Self::Hudi => std::option::Option::Some("HUDI"),
             Self::Iceberg => std::option::Option::Some("ICEBERG"),
             Self::Jupyter => std::option::Option::Some("JUPYTER"),
+            Self::JupyterKernelGateway => std::option::Option::Some("JUPYTER_KERNEL_GATEWAY"),
             Self::Pig => std::option::Option::Some("PIG"),
             Self::Presto => std::option::Option::Some("PRESTO"),
             Self::Trino => std::option::Option::Some("TRINO"),
@@ -19413,6 +19417,7 @@ impl std::convert::From<i32> for Component {
             19 => Self::Iceberg,
             20 => Self::Delta,
             21 => Self::Pig,
+            22 => Self::JupyterKernelGateway,
             _ => Self::UnknownValue(component::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -19435,6 +19440,7 @@ impl std::convert::From<&str> for Component {
             "HUDI" => Self::Hudi,
             "ICEBERG" => Self::Iceberg,
             "JUPYTER" => Self::Jupyter,
+            "JUPYTER_KERNEL_GATEWAY" => Self::JupyterKernelGateway,
             "PIG" => Self::Pig,
             "PRESTO" => Self::Presto,
             "TRINO" => Self::Trino,
@@ -19466,6 +19472,7 @@ impl serde::ser::Serialize for Component {
             Self::Hudi => serializer.serialize_i32(18),
             Self::Iceberg => serializer.serialize_i32(19),
             Self::Jupyter => serializer.serialize_i32(1),
+            Self::JupyterKernelGateway => serializer.serialize_i32(22),
             Self::Pig => serializer.serialize_i32(21),
             Self::Presto => serializer.serialize_i32(6),
             Self::Trino => serializer.serialize_i32(17),
