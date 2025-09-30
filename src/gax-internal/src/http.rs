@@ -26,12 +26,8 @@ use gax::retry_throttler::SharedRetryThrottler;
 use http::{Extensions, Method};
 use std::sync::Arc;
 use std::time::Duration;
-use tracing::Instrument;
-
 #[cfg(feature = "_unstable-o12y")]
-const ENABLE_HTTP_TRACING: bool = true;
-#[cfg(not(feature = "_unstable-o12y"))]
-const ENABLE_HTTP_TRACING: bool = false;
+use tracing::Instrument;
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
@@ -45,7 +41,7 @@ pub struct ReqwestClient {
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
-    tracing_enabled: bool,
+    _tracing_enabled: bool,
 }
 
 impl ReqwestClient {
@@ -83,7 +79,7 @@ impl ReqwestClient {
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             instrumentation: None,
-            tracing_enabled,
+            _tracing_enabled: tracing_enabled,
         })
     }
 
@@ -164,7 +160,7 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
-        attempt_count: u32,
+        _attempt_count: u32,
     ) -> Result<Response<O>> {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
@@ -177,12 +173,13 @@ impl ReqwestClient {
 
         let request = builder.build().map_err(Self::map_send_error)?;
 
-        let response_result = if self.tracing_enabled && ENABLE_HTTP_TRACING {
+        #[cfg(feature = "_unstable-o12y")]
+        let response_result = if self._tracing_enabled {
             let mut span_info = crate::observability::HttpSpanInfo::from_request(
                 &request,
                 options,
                 self.instrumentation,
-                attempt_count,
+                _attempt_count,
             );
             let span = span_info.create_span();
             // The instrument call ensures the span is entered/exited as the execute future is polled.
@@ -195,6 +192,8 @@ impl ReqwestClient {
         } else {
             self.inner.execute(request).await
         };
+        #[cfg(not(feature = "_unstable-o12y"))]
+        let response_result = self.inner.execute(request).await;
 
         let response = response_result.map_err(Self::map_send_error)?;
         if !response.status().is_success() {
