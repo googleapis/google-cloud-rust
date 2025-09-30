@@ -1695,6 +1695,61 @@ impl serde::ser::Serialize for super::grounding_chunk::Maps {
         if self.place_id.is_some() {
             state.serialize_entry("placeId", &self.place_id)?;
         }
+        if self.place_answer_sources.is_some() {
+            state.serialize_entry("placeAnswerSources", &self.place_answer_sources)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::grounding_chunk::maps::PlaceAnswerSources {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.review_snippets.is_empty() {
+            state.serialize_entry("reviewSnippets", &self.review_snippets)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::grounding_chunk::maps::place_answer_sources::ReviewSnippet {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.review_id.is_empty() {
+            state.serialize_entry("reviewId", &self.review_id)?;
+        }
+        if !self.google_maps_uri.is_empty() {
+            state.serialize_entry("googleMapsUri", &self.google_maps_uri)?;
+        }
+        if !self.title.is_empty() {
+            state.serialize_entry("title", &self.title)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1789,6 +1844,35 @@ impl serde::ser::Serialize for super::GroundingMetadata {
                 "googleMapsWidgetContextToken",
                 &self.google_maps_widget_context_token,
             )?;
+        }
+        if !self.source_flagging_uris.is_empty() {
+            state.serialize_entry("sourceFlaggingUris", &self.source_flagging_uris)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::grounding_metadata::SourceFlaggingUri {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.source_id.is_empty() {
+            state.serialize_entry("sourceId", &self.source_id)?;
+        }
+        if !self.flag_content_uri.is_empty() {
+            state.serialize_entry("flagContentUri", &self.flag_content_uri)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -33967,6 +34051,9 @@ impl serde::ser::Serialize for super::tool::GoogleSearch {
         if !self.exclude_domains.is_empty() {
             state.serialize_entry("excludeDomains", &self.exclude_domains)?;
         }
+        if self.blocking_confidence.is_some() {
+            state.serialize_entry("blockingConfidence", &self.blocking_confidence)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -34471,6 +34558,9 @@ impl serde::ser::Serialize for super::GoogleMaps {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enable_widget) {
+            state.serialize_entry("enableWidget", &self.enable_widget)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -34497,6 +34587,9 @@ impl serde::ser::Serialize for super::EnterpriseWebSearch {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.exclude_domains.is_empty() {
             state.serialize_entry("excludeDomains", &self.exclude_domains)?;
+        }
+        if self.blocking_confidence.is_some() {
+            state.serialize_entry("blockingConfidence", &self.blocking_confidence)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -3114,11 +3114,8 @@ pub mod cluster {
         Unspecified,
         /// The cluster is active and running.
         Ready,
-        /// The cluster is stopped. All instances in the cluster are stopped.
-        /// Customers can start a stopped cluster at any point and all their
-        /// instances will come back to life with same names and IP resources. In
-        /// this state, customer pays for storage.
-        /// Associated backups could also be present in a stopped cluster.
+        /// This is unused. Even when all instances in the cluster are stopped, the
+        /// cluster remains in READY state.
         Stopped,
         /// The cluster is empty and has no associated resources.
         /// All instances, associated storage and backups have been deleted.
@@ -3577,6 +3574,9 @@ pub struct Instance {
     /// etc.). Please refer to the API documentation for more details.
     pub activation_policy: crate::model::instance::ActivationPolicy,
 
+    /// Optional. The configuration for Managed Connection Pool (MCP).
+    pub connection_pool_config: std::option::Option<crate::model::instance::ConnectionPoolConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3932,6 +3932,24 @@ impl Instance {
         v: T,
     ) -> Self {
         self.activation_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [connection_pool_config][crate::model::Instance::connection_pool_config].
+    pub fn set_connection_pool_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::ConnectionPoolConfig>,
+    {
+        self.connection_pool_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [connection_pool_config][crate::model::Instance::connection_pool_config].
+    pub fn set_or_clear_connection_pool_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::ConnectionPoolConfig>,
+    {
+        self.connection_pool_config = v.map(|x| x.into());
         self
     }
 }
@@ -4773,6 +4791,58 @@ pub mod instance {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.alloydb.v1.Instance.InstanceNetworkConfig.AuthorizedNetwork"
             }
+        }
+    }
+
+    /// Configuration for Managed Connection Pool (MCP).
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConnectionPoolConfig {
+        /// Optional. Whether to enable Managed Connection Pool (MCP).
+        pub enabled: bool,
+
+        /// Optional. Connection Pool flags, as a list of "key": "value" pairs.
+        pub flags: std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// Output only. The number of running poolers per instance.
+        pub pooler_count: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ConnectionPoolConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::instance::ConnectionPoolConfig::enabled].
+        pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [flags][crate::model::instance::ConnectionPoolConfig::flags].
+        pub fn set_flags<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.flags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [pooler_count][crate::model::instance::ConnectionPoolConfig::pooler_count].
+        pub fn set_pooler_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.pooler_count = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConnectionPoolConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.Instance.ConnectionPoolConfig"
         }
     }
 
@@ -7076,15 +7146,27 @@ pub struct Database {
     /// `projects/{project}/locations/{location}/clusters/{cluster}/databases/{database}`.
     pub name: std::string::String,
 
-    /// Optional. Charset for the database.
+    /// Optional. Immutable. Charset for the database.
     /// This field can contain any PostgreSQL supported charset name.
     /// Example values include "UTF8", "SQL_ASCII", etc.
     pub charset: std::string::String,
 
-    /// Optional. Collation for the database.
-    /// Name of the custom or native collation for postgres.
-    /// Example values include "C", "POSIX", etc
+    /// Optional. Immutable. lc_collate for the database.
+    /// String sort order.
+    /// Example values include "C", "POSIX", etc.
     pub collation: std::string::String,
+
+    /// Optional. Immutable. lc_ctype for the database.
+    /// Character classification (What is a letter? The upper-case equivalent?).
+    /// Example values include "C", "POSIX", etc.
+    pub character_type: std::string::String,
+
+    /// Input only. Immutable. Template of the database to be used for creating a
+    /// new database.
+    pub database_template: std::string::String,
+
+    /// Optional. Whether the database is a template database.
+    pub is_template_database: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7109,6 +7191,39 @@ impl Database {
     /// Sets the value of [collation][crate::model::Database::collation].
     pub fn set_collation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collation = v.into();
+        self
+    }
+
+    /// Sets the value of [character_type][crate::model::Database::character_type].
+    pub fn set_character_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.character_type = v.into();
+        self
+    }
+
+    /// Sets the value of [database_template][crate::model::Database::database_template].
+    pub fn set_database_template<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.database_template = v.into();
+        self
+    }
+
+    /// Sets the value of [is_template_database][crate::model::Database::is_template_database].
+    pub fn set_is_template_database<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.is_template_database = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [is_template_database][crate::model::Database::is_template_database].
+    pub fn set_or_clear_is_template_database<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.is_template_database = v.map(|x| x.into());
         self
     }
 }
@@ -10824,6 +10939,10 @@ pub struct ExecuteSqlRequest {
     /// permitted, including DDL, DML, DQL statements.
     pub sql_statement: std::string::String,
 
+    /// Optional. If set, validates the sql statement by performing
+    /// syntax and semantic validation and doesn't execute the query.
+    pub validate_only: bool,
+
     /// Oneof field to support other credential mechanisms in future like
     /// SecretManager etc.
     pub user_credential: std::option::Option<crate::model::execute_sql_request::UserCredential>,
@@ -10857,6 +10976,12 @@ impl ExecuteSqlRequest {
     /// Sets the value of [sql_statement][crate::model::ExecuteSqlRequest::sql_statement].
     pub fn set_sql_statement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sql_statement = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::ExecuteSqlRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
         self
     }
 
@@ -12254,6 +12379,10 @@ pub mod upgrade_cluster_status {
         /// State of this stage.
         pub state: crate::model::upgrade_cluster_response::Status,
 
+        /// Output only. Timing information for the stage execution.
+        pub schedule:
+            std::option::Option<crate::model::upgrade_cluster_status::stage_status::StageSchedule>,
+
         /// Stage specific status information, if any.
         pub stage_specific_status: std::option::Option<
             crate::model::upgrade_cluster_status::stage_status::StageSpecificStatus,
@@ -12282,6 +12411,28 @@ pub mod upgrade_cluster_status {
             v: T,
         ) -> Self {
             self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [schedule][crate::model::upgrade_cluster_status::StageStatus::schedule].
+        pub fn set_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::upgrade_cluster_status::stage_status::StageSchedule,
+                >,
+        {
+            self.schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schedule][crate::model::upgrade_cluster_status::StageStatus::schedule].
+        pub fn set_or_clear_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::upgrade_cluster_status::stage_status::StageSchedule,
+                >,
+        {
+            self.schedule = v.map(|x| x.into());
             self
         }
 
@@ -12354,6 +12505,111 @@ pub mod upgrade_cluster_status {
     pub mod stage_status {
         #[allow(unused_imports)]
         use super::*;
+
+        /// Timing information for the stage execution.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct StageSchedule {
+            /// When the stage is expected to start. Set only if the stage has not
+            /// started yet.
+            pub estimated_start_time: std::option::Option<wkt::Timestamp>,
+
+            /// Actual start time of the stage. Set only if the stage has started.
+            pub actual_start_time: std::option::Option<wkt::Timestamp>,
+
+            /// When the stage is expected to end. Set only if the stage has not
+            /// completed yet.
+            pub estimated_end_time: std::option::Option<wkt::Timestamp>,
+
+            /// Actual end time of the stage. Set only if the stage has completed.
+            pub actual_end_time: std::option::Option<wkt::Timestamp>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl StageSchedule {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [estimated_start_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::estimated_start_time].
+            pub fn set_estimated_start_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.estimated_start_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [estimated_start_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::estimated_start_time].
+            pub fn set_or_clear_estimated_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.estimated_start_time = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [actual_start_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::actual_start_time].
+            pub fn set_actual_start_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.actual_start_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [actual_start_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::actual_start_time].
+            pub fn set_or_clear_actual_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.actual_start_time = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [estimated_end_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::estimated_end_time].
+            pub fn set_estimated_end_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.estimated_end_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [estimated_end_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::estimated_end_time].
+            pub fn set_or_clear_estimated_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.estimated_end_time = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [actual_end_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::actual_end_time].
+            pub fn set_actual_end_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.actual_end_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [actual_end_time][crate::model::upgrade_cluster_status::stage_status::StageSchedule::actual_end_time].
+            pub fn set_or_clear_actual_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.actual_end_time = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for StageSchedule {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.alloydb.v1.UpgradeClusterStatus.StageStatus.StageSchedule"
+            }
+        }
 
         /// Stage specific status information, if any.
         #[derive(Clone, Debug, PartialEq)]
@@ -12888,7 +13144,7 @@ impl wkt::message::Message for DeleteUserRequest {
     }
 }
 
-/// Message for requesting list of Databases.
+/// Message for ListDatabases request.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabasesRequest {
@@ -12949,11 +13205,11 @@ impl wkt::message::Message for ListDatabasesRequest {
     }
 }
 
-/// Message for response to listing Databases.
+/// Message for ListDatabases response.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabasesResponse {
-    /// The list of databases
+    /// The list of databases.
     pub databases: std::vec::Vec<crate::model::Database>,
 
     /// A token identifying the next page of results the server should return.
@@ -13308,6 +13564,8 @@ pub enum DatabaseVersion {
     Postgres15,
     /// The database version is Postgres 16.
     Postgres16,
+    /// The database version is Postgres 17.
+    Postgres17,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [DatabaseVersion::value] or
@@ -13335,6 +13593,7 @@ impl DatabaseVersion {
             Self::Postgres14 => std::option::Option::Some(2),
             Self::Postgres15 => std::option::Option::Some(3),
             Self::Postgres16 => std::option::Option::Some(4),
+            Self::Postgres17 => std::option::Option::Some(5),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -13350,6 +13609,7 @@ impl DatabaseVersion {
             Self::Postgres14 => std::option::Option::Some("POSTGRES_14"),
             Self::Postgres15 => std::option::Option::Some("POSTGRES_15"),
             Self::Postgres16 => std::option::Option::Some("POSTGRES_16"),
+            Self::Postgres17 => std::option::Option::Some("POSTGRES_17"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -13376,6 +13636,7 @@ impl std::convert::From<i32> for DatabaseVersion {
             2 => Self::Postgres14,
             3 => Self::Postgres15,
             4 => Self::Postgres16,
+            5 => Self::Postgres17,
             _ => Self::UnknownValue(database_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -13392,6 +13653,7 @@ impl std::convert::From<&str> for DatabaseVersion {
             "POSTGRES_14" => Self::Postgres14,
             "POSTGRES_15" => Self::Postgres15,
             "POSTGRES_16" => Self::Postgres16,
+            "POSTGRES_17" => Self::Postgres17,
             _ => Self::UnknownValue(database_version::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -13410,6 +13672,7 @@ impl serde::ser::Serialize for DatabaseVersion {
             Self::Postgres14 => serializer.serialize_i32(2),
             Self::Postgres15 => serializer.serialize_i32(3),
             Self::Postgres16 => serializer.serialize_i32(4),
+            Self::Postgres17 => serializer.serialize_i32(5),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

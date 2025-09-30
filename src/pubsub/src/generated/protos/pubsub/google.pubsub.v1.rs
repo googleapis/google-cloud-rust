@@ -2273,6 +2273,8 @@ pub struct StreamingPullRequest {
     pub max_outstanding_messages: i64,
     #[prost(int64, tag = "8")]
     pub max_outstanding_bytes: i64,
+    #[prost(int64, tag = "10")]
+    pub protocol_version: i64,
 }
 impl ::prost::Name for StreamingPullRequest {
     const NAME: &'static str = "StreamingPullRequest";

@@ -3769,6 +3769,12 @@ pub mod alloy_db_admin {
             self
         }
 
+        /// Sets the value of [validate_only][crate::model::ExecuteSqlRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+
         /// Sets the value of [user_credential][crate::model::ExecuteSqlRequest::user_credential].
         ///
         /// Note that all the setters affecting `user_credential` are

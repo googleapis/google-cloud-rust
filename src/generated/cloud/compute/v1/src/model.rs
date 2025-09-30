@@ -4970,6 +4970,22 @@ impl wkt::message::Message for MachineTypeAggregatedList {
     }
 }
 
+#[cfg(feature = "machine-types")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for MachineTypeAggregatedList {
+    type PageItem = (std::string::String, crate::model::MachineTypesScopedList);
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        use std::iter::{IntoIterator, Iterator};
+        self.items.into_iter().collect()
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone().unwrap_or_default()
+    }
+}
+
 /// Defines additional types related to [MachineTypeAggregatedList].
 #[cfg(feature = "machine-types")]
 pub mod machine_type_aggregated_list {

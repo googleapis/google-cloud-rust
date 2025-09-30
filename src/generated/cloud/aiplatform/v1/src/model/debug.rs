@@ -645,6 +645,33 @@ impl std::fmt::Debug for super::grounding_chunk::Maps {
         debug_struct.field("title", &self.title);
         debug_struct.field("text", &self.text);
         debug_struct.field("place_id", &self.place_id);
+        debug_struct.field("place_answer_sources", &self.place_answer_sources);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+impl std::fmt::Debug for super::grounding_chunk::maps::PlaceAnswerSources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlaceAnswerSources");
+        debug_struct.field("review_snippets", &self.review_snippets);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+impl std::fmt::Debug for super::grounding_chunk::maps::place_answer_sources::ReviewSnippet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReviewSnippet");
+        debug_struct.field("review_id", &self.review_id);
+        debug_struct.field("google_maps_uri", &self.google_maps_uri);
+        debug_struct.field("title", &self.title);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -679,6 +706,20 @@ impl std::fmt::Debug for super::GroundingMetadata {
             "google_maps_widget_context_token",
             &self.google_maps_widget_context_token,
         );
+        debug_struct.field("source_flagging_uris", &self.source_flagging_uris);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+impl std::fmt::Debug for super::grounding_metadata::SourceFlaggingUri {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceFlaggingUri");
+        debug_struct.field("source_id", &self.source_id);
+        debug_struct.field("flag_content_uri", &self.flag_content_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14924,6 +14965,7 @@ impl std::fmt::Debug for super::tool::GoogleSearch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GoogleSearch");
         debug_struct.field("exclude_domains", &self.exclude_domains);
+        debug_struct.field("blocking_confidence", &self.blocking_confidence);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15194,6 +15236,7 @@ impl std::fmt::Debug for super::GoogleSearchRetrieval {
 impl std::fmt::Debug for super::GoogleMaps {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GoogleMaps");
+        debug_struct.field("enable_widget", &self.enable_widget);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15210,6 +15253,7 @@ impl std::fmt::Debug for super::EnterpriseWebSearch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnterpriseWebSearch");
         debug_struct.field("exclude_domains", &self.exclude_domains);
+        debug_struct.field("blocking_confidence", &self.blocking_confidence);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
