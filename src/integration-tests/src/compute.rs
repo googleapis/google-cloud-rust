@@ -176,7 +176,7 @@ pub async fn instances() -> Result<()> {
             .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
     );
 
-    eprintln!("Starting new instance.");
+    tracing::info!("Starting new instance.");
     let mut operation = client
         .insert()
         .set_project(&project_id)
@@ -190,7 +190,7 @@ pub async fn instances() -> Result<()> {
         .as_ref()
         .is_some_and(|s| *s != Status::Done)
     {
-        eprintln!("Waiting for new instance operation: {operation:?}");
+        tracing::info!("Waiting for new instance operation: {operation:?}");
         if let Some(err) = operation.error {
             return Err(anyhow::Error::msg(format!("{err:?}")));
         }
@@ -202,9 +202,9 @@ pub async fn instances() -> Result<()> {
             .send()
             .await?;
     }
-    eprintln!("Operation completed with = {operation:?}");
+    tracing::info!("Operation completed with = {operation:?}");
 
-    eprintln!("Getting instance details.");
+    tracing::info!("Getting instance details.");
     let instance = client
         .get()
         .set_project(&project_id)
@@ -212,9 +212,9 @@ pub async fn instances() -> Result<()> {
         .set_instance(&id)
         .send()
         .await?;
-    eprintln!("instance = {instance:?}");
+    tracing::info!("instance = {instance:?}");
 
-    eprintln!("Testing Instances::list()");
+    tracing::info!("Testing Instances::list()");
     let mut items = client
         .list()
         .set_project(&project_id)
@@ -223,7 +223,7 @@ pub async fn instances() -> Result<()> {
     while let Some(instance) = items.next().await.transpose()? {
         tracing::info!("instance = {instance:?}");
     }
-    eprintln!("DONE Instances::list()");
+    tracing::info!("DONE Instances::list()");
 
     Ok(())
 }
