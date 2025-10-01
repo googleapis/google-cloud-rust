@@ -397,6 +397,138 @@ impl TokenProvider for MDSAccessTokenProvider {
     }
 }
 
+pub mod idtoken {
+    use std::sync::Arc;
+
+    use super::{
+        GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE,
+        METADATA_ROOT,
+    };
+    use crate::Result;
+    use crate::errors::CredentialsError;
+    use crate::token::{Token, TokenProvider};
+    use crate::{
+        BuildResult,
+        credentials::idtoken::{IDTokenCredentials, dynamic::IDTokenCredentialsProvider},
+    };
+    use async_trait::async_trait;
+    use http::HeaderValue;
+    use reqwest::Client;
+
+    #[derive(Debug)]
+    pub(crate) struct MDSCredentials<T>
+    where
+        T: TokenProvider,
+    {
+        token_provider: T,
+    }
+
+    #[async_trait]
+    impl<T> IDTokenCredentialsProvider for MDSCredentials<T>
+    where
+        T: TokenProvider,
+    {
+        async fn id_token(&self) -> Result<Token> {
+            self.token_provider.token().await
+        }
+    }
+
+    #[derive(Debug, Default)]
+    pub struct Builder {
+        endpoint: Option<String>,
+        target_audience: String,
+    }
+
+    impl Builder {
+        pub fn new<S: Into<String>>(target_audience: S) -> Self {
+            Builder {
+                endpoint: None,
+                target_audience: target_audience.into(),
+            }
+        }
+
+        pub fn endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
+            self.endpoint = Some(endpoint.into());
+            self
+        }
+
+        fn build_token_provider(self) -> MDSTokenProvider {
+            let final_endpoint: String;
+
+            // Determine the endpoint and whether it was overridden
+            if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
+                // Check GCE_METADATA_HOST environment variable first
+                final_endpoint = format!("http://{host_from_env}");
+            } else if let Some(builder_endpoint) = self.endpoint {
+                // Else, check if an endpoint was provided to the mds::Builder
+                final_endpoint = builder_endpoint;
+            } else {
+                // Else, use the default metadata root
+                final_endpoint = METADATA_ROOT.to_string();
+            };
+
+            MDSTokenProvider {
+                endpoint: final_endpoint,
+                target_audience: self.target_audience,
+            }
+        }
+
+        pub fn build(self) -> BuildResult<IDTokenCredentials> {
+            let creds = MDSCredentials {
+                token_provider: self.build_token_provider(),
+            };
+            Ok(IDTokenCredentials {
+                inner: Arc::new(creds),
+            })
+        }
+    }
+
+    #[derive(Debug, Clone, Default)]
+    struct MDSTokenProvider {
+        endpoint: String,
+        target_audience: String,
+    }
+
+    #[async_trait]
+    impl TokenProvider for MDSTokenProvider {
+        async fn token(&self) -> Result<Token> {
+            let client = Client::new();
+            let audience = self.target_audience.clone();
+            let request = client
+                .get(format!("{}{}/identity", self.endpoint, MDS_DEFAULT_URI))
+                .header(
+                    METADATA_FLAVOR,
+                    HeaderValue::from_static(METADATA_FLAVOR_VALUE),
+                )
+                .query(&[("audience", audience)]);
+
+            let response = request
+                .send()
+                .await
+                .map_err(|e| crate::errors::from_http_error(e, "failed to fetch token"))?;
+
+            if !response.status().is_success() {
+                let err =
+                    crate::errors::from_http_response(response, "failed to fetch token").await;
+                return Err(err);
+            }
+
+            let token = response
+                .text()
+                .await
+                .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+
+            Ok(Token {
+                token,
+                token_type: "Bearer".to_string(),
+                // ID tokens from MDS do not have an expiry.
+                expires_at: None,
+                metadata: None,
+            })
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -962,5 +1094,97 @@ mod tests {
         let universe_domain_response = Builder::default().build()?.universe_domain().await.unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
         Ok(())
+    }
+
+    #[cfg(test)]
+    mod idtoken_tests {
+        use super::idtoken;
+        use super::*;
+        use httptest::{
+            Expectation, Server,
+            matchers::{all_of, contains, request, url_decoded},
+            responders::status_code,
+        };
+        use scoped_env::ScopedEnv;
+        use serial_test::serial;
+
+        type TestResult = anyhow::Result<()>;
+
+        #[tokio::test]
+        #[parallel]
+        async fn test_idtoken_builder_build() -> TestResult {
+            let server = Server::run();
+            let audience = "test-audience";
+            let token_string = "test-id-token";
+            server.expect(
+                Expectation::matching(all_of![
+                    request::path(format!("{MDS_DEFAULT_URI}/identity")),
+                    request::query(url_decoded(contains(("audience", audience))))
+                ])
+                .respond_with(status_code(200).body(token_string)),
+            );
+
+            let creds = idtoken::Builder::new(audience)
+                .endpoint(format!("http://{}", server.addr()))
+                .build()?;
+
+            let token = creds.id_token().await?;
+            assert_eq!(token.token, token_string);
+            assert_eq!(token.token_type, "Bearer");
+            assert!(token.expires_at.is_none());
+            Ok(())
+        }
+
+        #[tokio::test]
+        #[serial]
+        async fn test_idtoken_builder_build_with_env_var() -> TestResult {
+            let server = Server::run();
+            let audience = "test-audience";
+            let token_string = "test-id-token";
+            server.expect(
+                Expectation::matching(all_of![
+                    request::path(format!("{MDS_DEFAULT_URI}/identity")),
+                    request::query(url_decoded(contains(("audience", audience))))
+                ])
+                .respond_with(status_code(200).body(token_string)),
+            );
+
+            let addr = server.addr().to_string();
+            let _e = ScopedEnv::set(super::super::GCE_METADATA_HOST_ENV_VAR, &addr);
+
+            let creds = idtoken::Builder::new(audience).build()?;
+
+            let token = creds.id_token().await?;
+            assert_eq!(token.token, token_string);
+
+            let _e = ScopedEnv::remove(super::super::GCE_METADATA_HOST_ENV_VAR);
+            Ok(())
+        }
+
+        #[tokio::test]
+        #[parallel]
+        async fn test_idtoken_provider_http_error() -> TestResult {
+            let server = Server::run();
+            let audience = "test-audience";
+            server.expect(
+                Expectation::matching(all_of![
+                    request::path(format!("{MDS_DEFAULT_URI}/identity")),
+                    request::query(url_decoded(contains(("audience", audience))))
+                ])
+                .respond_with(status_code(503)),
+            );
+
+            let creds = idtoken::Builder::new(audience)
+                .endpoint(format!("http://{}", server.addr()))
+                .build()?;
+
+            let err = creds.id_token().await.unwrap_err();
+            let source = find_source_error::<reqwest::Error>(&err);
+            assert!(
+                matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
+                "{err:?}"
+            );
+            Ok(())
+        }
     }
 }
