@@ -24,16 +24,34 @@ pub(crate) fn host_from_endpoint(
     endpoint: Option<&str>,
     default_endpoint: &str,
 ) -> gax::client_builder::Result<String> {
-    let default_host = Uri::from_str(default_endpoint)
-        .map_err(BuilderError::transport)?
+    origin_from_endpoint(endpoint, default_endpoint).and_then(|uri| {
+        Ok(uri
+            .authority()
+            .ok_or_else(|| BuilderError::transport("missing authority in endpoint"))?
+            .host()
+            .to_string())
+    })
+}
+
+/// Calculate the origin to use in gRPC requests based on the configured
+/// endpoint and default endpoint.
+///
+/// Notably, locational and regional endpoints are detected and used as the
+/// origin. For VIPs and private networks, we need to use the default origin.
+pub(crate) fn origin_from_endpoint(
+    endpoint: Option<&str>,
+    default_endpoint: &str,
+) -> gax::client_builder::Result<Uri> {
+    let default_origin = Uri::from_str(default_endpoint).expect("default endpoint is well-formed");
+    let default_host = default_origin
         .authority()
-        .expect("missing authority in default endpoint")
+        .expect("default endpoint is well-formed")
         .host()
         .to_string();
 
     if let Some(endpoint) = endpoint {
-        let custom_host = Uri::from_str(endpoint)
-            .map_err(BuilderError::transport)?
+        let custom_origin = Uri::from_str(endpoint).map_err(BuilderError::transport)?;
+        let custom_host = custom_origin
             .authority()
             .ok_or_else(|| BuilderError::transport("missing authority in endpoint"))?
             .host()
@@ -46,16 +64,16 @@ pub(crate) fn host_from_endpoint(
             if parts.len() == 3 && parts[0] == service && parts[2] == "rep" {
                 // This is a regional endpoint. It should be used as the host.
                 // `{service}.{region}.rep.googleapis.com`
-                return Ok(custom_host);
+                return Ok(custom_origin);
             }
             if parts.len() == 1 && parts[0].ends_with(&format!("-{service}")) {
                 // This is a locational endpoint. It should be used as the host.
                 // `{region}-{service}.googleapis.com`
-                return Ok(custom_host);
+                return Ok(custom_origin);
             }
         }
     }
-    Ok(default_host)
+    Ok(default_origin)
 }
 
 #[cfg(test)]

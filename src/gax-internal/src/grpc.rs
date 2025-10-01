@@ -191,7 +191,7 @@ impl Client {
     ) -> gax::client_builder::Result<InnerClient> {
         use tonic::transport::{ClientTlsConfig, Endpoint};
 
-        let origin = Uri::from_str(default_endpoint).map_err(BuilderError::transport)?;
+        let origin = crate::host::origin_from_endpoint(endpoint.as_deref(), default_endpoint)?;
         let endpoint =
             Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
                 .map_err(BuilderError::transport)?
