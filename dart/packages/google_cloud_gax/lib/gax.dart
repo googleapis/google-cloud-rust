@@ -67,12 +67,7 @@ class ServiceClient {
   ServiceClient({required this.client});
 
   Future<Map<String, dynamic>> get(Uri url) async {
-    final response = await client.get(
-      url,
-      headers: {
-        _clientKey: _clientName,
-      },
-    );
+    final response = await client.get(url, headers: {_clientKey: _clientName});
     return _processResponse(response);
   }
 
@@ -86,6 +81,54 @@ class ServiceClient {
       },
     );
     return _processResponse(response);
+  }
+
+  Stream<Map<String, dynamic>> postStreaming(
+    Uri url, {
+    JsonEncodable? body,
+  }) async* {
+    // Some Google APIs can generate Server-sent events (SSE) when an `alt=see`
+    // parameter is added.
+    //
+    // See https://html.spec.whatwg.org/multipage/server-sent-events.html
+    final request = http.Request('POST', _makeUrlStreaming(url));
+    if (body != null) {
+      request.body = body._asEncodedJson;
+    }
+    request.headers.addAll({
+      _clientKey: _clientName,
+      if (body != null) _contentTypeKey: _typeJson,
+    });
+
+    final response = await client.send(request);
+
+    final statusOK = response.statusCode >= 200 && response.statusCode < 300;
+    if (!statusOK) {
+      _throwException(
+        response.statusCode,
+        response.reasonPhrase,
+        await response.stream.bytesToString(),
+      );
+    }
+
+    final lines = response.stream.toStringStream().transform(LineSplitter());
+    await for (final line in lines) {
+      // Google API only generate "data" events.
+      // The SSE specification does not require a space after the colon but
+      // Google APIs always generate one.
+      const dataPrefix = 'data: ';
+      if (line.startsWith(dataPrefix)) {
+        final jsonText = line.substring(dataPrefix.length);
+        final json = jsonDecode(jsonText) as Map<String, dynamic>;
+        yield json;
+      }
+    }
+  }
+
+  static Uri _makeUrlStreaming(Uri url) {
+    final query = Map.of(url.queryParameters);
+    query['alt'] = 'sse';
+    return url.replace(queryParameters: query);
   }
 
   Future<Map<String, dynamic>> put(Uri url, {JsonEncodable? body}) async {
@@ -115,9 +158,7 @@ class ServiceClient {
   Future<Map<String, dynamic>> delete(Uri url) async {
     final response = await client.delete(
       url,
-      headers: {
-        _clientKey: _clientName,
-      },
+      headers: {_clientKey: _clientName},
     );
     return _processResponse(response);
   }
@@ -133,16 +174,22 @@ class ServiceClient {
       final body = response.body;
       return body.isEmpty ? {} : jsonDecode(body);
     }
+    _throwException(response.statusCode, response.reasonPhrase, response.body);
+  }
 
+  Never _throwException(
+    int statusCode,
+    String? reasonPhrase,
+    String responseBody,
+  ) {
     Status status;
 
     try {
-      final json = jsonDecode(response.body);
+      final json = jsonDecode(responseBody);
       status = Status.fromJson(json['error']);
     } catch (_) {
       // Return a general HTTP exception if we can't parse the Status response.
-      throw http.ClientException(
-          '${response.statusCode}: ${response.reasonPhrase}');
+      throw http.ClientException('$statusCode: $reasonPhrase');
     }
 
     throw status;

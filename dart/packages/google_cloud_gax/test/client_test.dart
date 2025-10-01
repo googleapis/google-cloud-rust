@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:convert';
+
 import 'package:google_cloud_gax/gax.dart';
 import 'package:google_cloud_rpc/rpc.dart';
 import 'package:http/http.dart';
@@ -48,6 +50,125 @@ void main() {
 
     expect(request!.method, 'POST');
     expect(request!.headers.keys, contains('x-goog-api-client'));
+  });
+
+  group('postStreaming', () {
+    test('validate request', () async {
+      late Request actualRequest;
+      final service = ServiceClient(
+        client: MockClient((request) async {
+          actualRequest = request;
+          return Response('', 200);
+        }),
+      );
+
+      await service.postStreaming(sampleUrl, body: samplePayload).drain();
+
+      expect(actualRequest.method, 'POST');
+      expect(actualRequest.body, jsonEncode(samplePayload.toJson()));
+      expect(actualRequest.headers.keys, contains('x-goog-api-client'));
+      expect(
+        actualRequest.headers,
+        containsPair('content-type', 'application/json'),
+      );
+      expect(actualRequest.url.queryParameters['alt'], 'sse');
+    });
+
+    test('500 response, no status, no response body', () async {
+      final service = ServiceClient(
+        client: MockClient((request) async {
+          return Response('', 500);
+        }),
+      );
+
+      await expectLater(
+        () => service.post(sampleUrl, body: samplePayload),
+        throwsA(isA<ClientException>()),
+      );
+    });
+
+    test('400 response, status body', () async {
+      final status = Status(code: 1, message: "failure", details: []);
+      final statusJson = jsonEncode(status.toJson());
+      final service = ServiceClient(
+        client: MockClient((request) async {
+          return Response('{"error":$statusJson}', 400);
+        }),
+      );
+
+      await expectLater(
+        () => service.post(sampleUrl, body: samplePayload),
+        throwsA(
+          isA<Status>()
+              .having((e) => e.code, 'code', 1)
+              .having((e) => e.message, 'message', 'failure')
+              .having((e) => e.details, 'details', []),
+        ),
+      );
+    });
+
+    test('200 response, empty response', () async {
+      final service = ServiceClient(
+        client: MockClient((request) async {
+          return Response('', 200);
+        }),
+      );
+
+      expect(service.postStreaming(sampleUrl, body: samplePayload), emitsDone);
+    });
+
+    test('200 response, single data response', () async {
+      final service = ServiceClient(
+        client: MockClient((request) async {
+          return Response('data: {"fruit":"apple"}', 200);
+        }),
+      );
+
+      expect(
+        service.postStreaming(sampleUrl, body: samplePayload),
+        emitsInOrder([
+          {'fruit': 'apple'},
+        ]),
+      );
+    });
+
+    test('200 response, two data response', () async {
+      final service = ServiceClient(
+        client: MockClient((request) async {
+          return Response(
+            'data: {"fruit":"apple"}\ndata: {"fruit":"banana"}',
+            200,
+          );
+        }),
+      );
+
+      expect(
+        service.postStreaming(sampleUrl, body: samplePayload),
+        emitsInOrder([
+          {'fruit': 'apple'},
+          {'fruit': 'banana'},
+        ]),
+      );
+    });
+
+    test('200 response, non-data lines response', () async {
+      final service = ServiceClient(
+        client: MockClient((request) async {
+          return Response(
+            'data: {"fruit":"apple"}\nevent: ?\n\n\ndata: {"fruit":"banana"}',
+            200,
+          );
+        }),
+      );
+
+      expect(
+        service.postStreaming(sampleUrl, body: samplePayload),
+        emitsInOrder([
+          {'fruit': 'apple'},
+          {'fruit': 'banana'},
+        ]),
+      );
+    });
   });
 
   test('put', () async {
