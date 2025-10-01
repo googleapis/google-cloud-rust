@@ -297,9 +297,12 @@ pub fn to_gax_response<T, G>(response: tonic::Response<T>) -> Result<gax::respon
 where
     T: crate::prost::FromProto<G>,
 {
-    let (metadata, body, _extensions) = response.into_parts();
+    let (metadata, body, extensions) = response.into_parts();
+    let mut parts = gax::response::Parts::default();
+    parts.headers = metadata.into_headers();
+    *parts.extensions.lock().unwrap() = extensions;
     Ok(gax::response::Response::from_parts(
-        gax::response::Parts::new().set_headers(metadata.into_headers()),
+        parts,
         body.cnv().map_err(Error::deser)?,
     ))
 }

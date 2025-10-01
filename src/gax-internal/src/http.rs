@@ -24,7 +24,7 @@ use gax::response::{Parts, Response};
 use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
 use http::{Extensions, Method};
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use std::time::Duration;
 #[cfg(feature = "_unstable-o12y")]
 use tracing::Instrument;
@@ -299,6 +299,7 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 ) -> Result<Response<O>> {
     // 204 No Content has no body and throws EOF error if we try to parse with serde::json
     let no_content_status = response.status() == reqwest::StatusCode::NO_CONTENT;
+    let extensions = Arc::new(Mutex::new(response.extensions().clone()));
     let response = http::Response::from(response);
     let (parts, body) = response.into_parts();
 
@@ -311,10 +312,10 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
         content => serde_json::from_slice::<O>(&content).map_err(Error::deser)?,
     };
 
-    Ok(Response::from_parts(
-        Parts::new().set_headers(parts.headers),
-        response,
-    ))
+    let mut parts_out = Parts::default();
+    parts_out.headers = parts.headers;
+    parts_out.extensions = extensions;
+    Ok(Response::from_parts(parts_out, response))
 }
 
 #[cfg(test)]

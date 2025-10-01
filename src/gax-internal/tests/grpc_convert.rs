@@ -21,17 +21,19 @@ mod tests {
 
     #[test]
     fn test_to_gax_response() -> anyhow::Result<()> {
+        #[derive(Clone, Debug, PartialEq)]
+        struct MyGrpcExtension(&'static str);
+
         let tonic_body = prost_types::Duration {
             seconds: 123,
             nanos: 456,
         };
         let mut tonic_headers = MetadataMap::new();
         tonic_headers.insert("key", "value".parse().unwrap());
-        let tonic_response = tonic::Response::from_parts(
-            tonic_headers.clone(),
-            tonic_body,
-            tonic::Extensions::new(),
-        );
+        let mut extensions = tonic::Extensions::new();
+        extensions.insert(MyGrpcExtension("grpc-ext"));
+        let tonic_response =
+            tonic::Response::from_parts(tonic_headers.clone(), tonic_body, extensions);
 
         let gax_response = grpc::to_gax_response(tonic_response)?;
         assert_eq!(
@@ -42,6 +44,14 @@ mod tests {
             gax_response.headers().to_owned(),
             tonic_headers.into_headers()
         );
+        let (parts, _body) = gax_response.into_parts();
+        let ext = parts
+            .extensions
+            .lock()
+            .unwrap()
+            .get::<MyGrpcExtension>()
+            .cloned();
+        assert_eq!(ext, Some(MyGrpcExtension("grpc-ext")));
 
         Ok(())
     }
