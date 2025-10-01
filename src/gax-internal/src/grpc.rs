@@ -29,8 +29,6 @@ use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErro
 use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
 use http::HeaderMap;
-use http::Uri;
-use std::str::FromStr;
 use std::sync::Arc;
 use std::time::Duration;
 

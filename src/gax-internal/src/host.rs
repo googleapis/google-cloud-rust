@@ -42,7 +42,7 @@ pub(crate) fn origin_from_endpoint(
     endpoint: Option<&str>,
     default_endpoint: &str,
 ) -> gax::client_builder::Result<Uri> {
-    let default_origin = Uri::from_str(default_endpoint).expect("default endpoint is well-formed");
+    let default_origin = Uri::from_str(default_endpoint).map_err(BuilderError::transport)?;
     let default_host = default_origin
         .authority()
         .expect("default endpoint is well-formed")
