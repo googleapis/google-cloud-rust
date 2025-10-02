@@ -14,13 +14,16 @@
 
 import 'dart:convert';
 
+import 'package:google_cloud_gax/src/versions.dart';
 import 'package:google_cloud_rpc/rpc.dart';
 import 'package:http/http.dart' as http;
 
 export 'dart:typed_data' show Uint8List;
 
 const String _clientKey = 'x-goog-api-client';
-const String _clientName = 'dart-gax-client';
+
+// `'0'` is a special version string indicating that the version isn't known.
+final String _clientName = 'gl-dart/${dartVersion ?? '0'} gax/$gaxVersion';
 
 const String _contentTypeKey = 'content-type';
 const String _typeJson = 'application/json';
@@ -67,12 +70,7 @@ class ServiceClient {
   ServiceClient({required this.client});
 
   Future<Map<String, dynamic>> get(Uri url) async {
-    final response = await client.get(
-      url,
-      headers: {
-        _clientKey: _clientName,
-      },
-    );
+    final response = await client.get(url, headers: {_clientKey: _clientName});
     return _processResponse(response);
   }
 
@@ -115,9 +113,7 @@ class ServiceClient {
   Future<Map<String, dynamic>> delete(Uri url) async {
     final response = await client.delete(
       url,
-      headers: {
-        _clientKey: _clientName,
-      },
+      headers: {_clientKey: _clientName},
     );
     return _processResponse(response);
   }
@@ -142,7 +138,8 @@ class ServiceClient {
     } catch (_) {
       // Return a general HTTP exception if we can't parse the Status response.
       throw http.ClientException(
-          '${response.statusCode}: ${response.reasonPhrase}');
+        '${response.statusCode}: ${response.reasonPhrase}',
+      );
     }
 
     throw status;

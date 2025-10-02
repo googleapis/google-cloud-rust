@@ -14,6 +14,10 @@
 
 name: google_cloud_gax
 description: Common code for the Google Cloud client library packages.
+# Keep these versions in sync:
+# * CHANGELOG.yaml
+# * pubspec.yaml
+# * lib/src/versions.dart
 version: 0.1.0
 
 environment:
