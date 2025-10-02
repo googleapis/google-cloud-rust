@@ -18,7 +18,7 @@ name = "google-cloud-auth"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version     = "1.0.0"
+version     = "1.0.1"
 description = "Google Cloud Client Libraries for Rust - Authentication"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
