@@ -158,9 +158,8 @@ pub async fn instances() -> Result<()> {
         .set_disks([AttachedDisk::new()
             .set_initialize_params(
                 // Debian-13 will be usable until 2030.
-                AttachedDiskInitializeParams::new().set_source_image(
-                    "projects/debian-cloud/global/images/family/debian-13",
-                ),
+                AttachedDiskInitializeParams::new()
+                    .set_source_image("projects/debian-cloud/global/images/family/debian-13"),
             )
             .set_boot(true)
             .set_auto_delete(true)])
@@ -202,7 +201,9 @@ pub async fn instances() -> Result<()> {
 
     if let Some(err) = operation.error {
         tracing::error!("Operation failed: {err:?}");
-        return Err(anyhow::Error::msg(format!("instance creation failed - {err:?}")));
+        return Err(anyhow::Error::msg(format!(
+            "instance creation failed - {err:?}"
+        )));
     }
 
     tracing::info!("Getting instance details.");
