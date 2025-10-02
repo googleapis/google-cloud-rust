@@ -1125,7 +1125,7 @@ mod tests {
     }
 
     #[cfg(test)]
-    mod idtoken {
+    mod idtoken_tests {
         use super::idtoken;
         use super::*;
         use httptest::{
