@@ -159,7 +159,7 @@ pub async fn instances() -> Result<()> {
             .set_initialize_params(
                 // Use an image family with a stable name. Something like `debian-13` will break after 2030.
                 AttachedDiskInitializeParams::new().set_source_image(
-                    "projects/fedora-coreos-cloud/global/images/family/fedora-coreos-stable",
+                    "projects/fedora-coreos-cloud/global/images/family/debian-13",
                 ),
             )
             .set_boot(true)
@@ -199,6 +199,11 @@ pub async fn instances() -> Result<()> {
             .await?;
     }
     tracing::info!("Operation completed with = {operation:?}");
+
+    if let Some(err) = operation.error {
+        tracing::error!("Operation failed: {err:?}");
+        return Err(anyhow::Error::msg(format!("instance creation failed - {err:?}")));
+    }
 
     tracing::info!("Getting instance details.");
     let instance = client
