@@ -157,9 +157,9 @@ pub async fn instances() -> Result<()> {
         .set_description("A test VM created by the Rust client library.")
         .set_disks([AttachedDisk::new()
             .set_initialize_params(
-                // Use an image family with a stable name. Something like `debian-13` will break after 2030.
+                // Debian-13 will be usable until 2030.
                 AttachedDiskInitializeParams::new().set_source_image(
-                    "projects/fedora-coreos-cloud/global/images/family/debian-13",
+                    "projects/debian-cloud/global/images/family/debian-13",
                 ),
             )
             .set_boot(true)
