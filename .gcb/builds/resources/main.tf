@@ -86,3 +86,14 @@ resource "google_kms_crypto_key_iam_member" "storage-examples" {
 output "build-cache" {
   value = resource.google_storage_bucket.build-cache.id
 }
+
+resource "google_cloud_scheduler_job" "job" {
+  name        = "terraform-job"
+  description = "Periodically sync terraform build"
+  schedule    = "*/2 * * * *"
+
+  pubsub_target {
+    topic_name = "projects/${var.project}/topics/rust-terraform"
+    data       = base64encode("sync")
+  }
+}

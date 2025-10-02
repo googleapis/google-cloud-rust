@@ -43,6 +43,10 @@ locals {
     integration     = {}
     referenceupload = {}
   }
+
+  pubsub_builds = {
+    terraform = {}
+  }
 }
 
 # This is used to retrieve the project number. The project number is embedded in
@@ -105,6 +109,26 @@ resource "google_cloudbuild_trigger" "post-merge" {
     push {
       branch = "^main$"
     }
+  }
+
+  include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
+}
+
+resource "google_cloudbuild_trigger" "pubsub-trigger" {
+  for_each = tomap(local.pubsub_builds)
+  location = var.region
+  name     = "gcb-pubsub-${each.key}"
+  filename = ".gcb/${each.key}.yaml"
+  tags     = ["scheduler", "name:${each.key}"]
+
+  service_account = var.service_account
+
+  pubsub_config {
+    topic = "projects/${var.project}/topics/rust-terraform"
+  }
+
+  source_to_build {
+    repository = google_cloudbuildv2_repository.main.id
   }
 
   include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"

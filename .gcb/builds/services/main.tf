@@ -145,3 +145,27 @@ resource "google_project_service" "sqladmin" {
 
   disable_dependent_services = true
 }
+
+resource "google_project_service" "cloudscheduler" {
+  project = var.project
+  service = "cloudscheduler.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "pubsub" {
+  project = var.project
+  service = "pubsub.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
