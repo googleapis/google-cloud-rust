@@ -436,19 +436,33 @@ pub mod idtoken {
     #[derive(Debug, Default)]
     pub struct Builder {
         endpoint: Option<String>,
+        format: Option<String>,
+        licenses: bool,
         target_audience: String,
     }
 
     impl Builder {
         pub fn new<S: Into<String>>(target_audience: S) -> Self {
             Builder {
+                format: None,
                 endpoint: None,
+                licenses: false,
                 target_audience: target_audience.into(),
             }
         }
 
         pub fn endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
             self.endpoint = Some(endpoint.into());
+            self
+        }
+
+        pub fn format<S: Into<String>>(mut self, format: S) -> Self {
+            self.format = Some(format.into());
+            self
+        }
+
+        pub fn licenses(mut self, licenses: bool) -> Self {
+            self.licenses = licenses;
             self
         }
 
@@ -467,7 +481,13 @@ pub mod idtoken {
                 final_endpoint = METADATA_ROOT.to_string();
             };
 
+            let format = self.format.unwrap_or("standard".to_string());
+            let licenses = if self.licenses { "TRUE" } else { "FALSE" };
+            let licenses = licenses.to_string();
+
             MDSTokenProvider {
+                format,
+                licenses,
                 endpoint: final_endpoint,
                 target_audience: self.target_audience,
             }
@@ -486,6 +506,8 @@ pub mod idtoken {
     #[derive(Debug, Clone, Default)]
     struct MDSTokenProvider {
         endpoint: String,
+        format: String,
+        licenses: String,
         target_audience: String,
     }
 
@@ -494,13 +516,19 @@ pub mod idtoken {
         async fn token(&self) -> Result<Token> {
             let client = Client::new();
             let audience = self.target_audience.clone();
+            let format = self.format.clone();
+            let licenses = self.licenses.clone();
             let request = client
                 .get(format!("{}{}/identity", self.endpoint, MDS_DEFAULT_URI))
                 .header(
                     METADATA_FLAVOR,
                     HeaderValue::from_static(METADATA_FLAVOR_VALUE),
                 )
-                .query(&[("audience", audience)]);
+                .query(&[
+                    ("audience", audience),
+                    ("format", format),
+                    ("licenses", licenses),
+                ]);
 
             let response = request
                 .send()
@@ -1097,7 +1125,7 @@ mod tests {
     }
 
     #[cfg(test)]
-    mod idtoken_tests {
+    mod idtoken {
         use super::idtoken;
         use super::*;
         use httptest::{
