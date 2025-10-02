@@ -152,7 +152,7 @@ class ServiceClient {
 
     final lines = response.stream.toStringStream().transform(LineSplitter());
     await for (final line in lines) {
-      // Google API only generate "data" events.
+      // Google APIs only generate "data" events.
       // The SSE specification does not require a space after the colon but
       // Google APIs always generate one.
       const dataPrefix = 'data: ';
