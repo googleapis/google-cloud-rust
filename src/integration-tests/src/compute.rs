@@ -203,12 +203,13 @@ pub async fn instances() -> Result<()> {
         .await?;
 
     while operation.status.as_ref().is_none_or(|s| *s != Status::Done) {
-        tracing::info!("Waiting for new instance operation: {operation:?}");
         if let Some(err) = operation.error {
             return Err(anyhow::Error::msg(format!("{err:?}")));
         }
+        tracing::info!("Waiting for new instance operation: {operation:?}");
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
         operation = operations
-            .wait()
+            .get()
             .set_project(&project_id)
             .set_zone(&zone_id)
             .set_operation(operation.name.unwrap_or_default())
