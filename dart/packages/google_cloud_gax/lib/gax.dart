@@ -66,83 +66,123 @@ class ServiceClient {
 
   ServiceClient({required this.client});
 
-  Future<Map<String, dynamic>> get(Uri url) async {
-    final response = await client.get(
-      url,
-      headers: {
-        _clientKey: _clientName,
-      },
-    );
-    return _processResponse(response);
-  }
+  Future<Map<String, dynamic>> get(Uri url) => _makeRequest(url, 'GET');
 
-  Future<Map<String, dynamic>> post(Uri url, {JsonEncodable? body}) async {
-    final response = await client.post(
-      url,
-      body: body?._asEncodedJson,
-      headers: {
-        _clientKey: _clientName,
-        if (body != null) _contentTypeKey: _typeJson,
-      },
-    );
-    return _processResponse(response);
-  }
+  Stream<Map<String, dynamic>> getStreaming(Uri url) =>
+      _makeStreamingRequest(url, 'GET');
 
-  Future<Map<String, dynamic>> put(Uri url, {JsonEncodable? body}) async {
-    final response = await client.put(
-      url,
-      body: body?._asEncodedJson,
-      headers: {
-        _clientKey: _clientName,
-        if (body != null) _contentTypeKey: _typeJson,
-      },
-    );
-    return _processResponse(response);
-  }
+  Future<Map<String, dynamic>> delete(Uri url) => _makeRequest(url, 'DELETE');
 
-  Future<Map<String, dynamic>> patch(Uri url, {JsonEncodable? body}) async {
-    final response = await client.patch(
-      url,
-      body: body?._asEncodedJson,
-      headers: {
-        _clientKey: _clientName,
-        if (body != null) _contentTypeKey: _typeJson,
-      },
-    );
-    return _processResponse(response);
-  }
+  Stream<Map<String, dynamic>> deleteStreaming(Uri url) =>
+      _makeStreamingRequest(url, 'DELETE');
 
-  Future<Map<String, dynamic>> delete(Uri url) async {
-    final response = await client.delete(
-      url,
-      headers: {
-        _clientKey: _clientName,
-      },
-    );
-    return _processResponse(response);
-  }
+  Future<Map<String, dynamic>> patch(Uri url, {JsonEncodable? body}) =>
+      _makeRequest(url, 'PATCH', body);
+
+  Stream<Map<String, dynamic>> patchStreaming(Uri url, {JsonEncodable? body}) =>
+      _makeStreamingRequest(url, 'PATCH', body);
+
+  Future<Map<String, dynamic>> post(Uri url, {JsonEncodable? body}) =>
+      _makeRequest(url, 'POST', body);
+
+  Stream<Map<String, dynamic>> postStreaming(Uri url, {JsonEncodable? body}) =>
+      _makeStreamingRequest(url, 'POST', body);
+
+  Future<Map<String, dynamic>> put(Uri url, {JsonEncodable? body}) =>
+      _makeRequest(url, 'PUT', body);
+
+  Stream<Map<String, dynamic>> putStreaming(Uri url, {JsonEncodable? body}) =>
+      _makeStreamingRequest(url, 'PUT', body);
 
   /// Closes the client and cleans up any resources associated with it.
   ///
   /// Once [close] is called, no other methods should be called.
   void close() => client.close();
 
-  Map<String, dynamic> _processResponse(http.Response response) {
+  Future<Map<String, dynamic>> _makeRequest(
+    Uri url,
+    method, [
+    JsonEncodable? requestBody,
+  ]) async {
+    final request = http.Request(method, url);
+    if (requestBody != null) {
+      request.body = requestBody._asEncodedJson;
+    }
+    request.headers.addAll({
+      _clientKey: _clientName,
+      if (requestBody != null) _contentTypeKey: _typeJson,
+    });
+
+    final response = await client.send(request);
+    final responseBody = await response.stream.bytesToString();
     final statusOK = response.statusCode >= 200 && response.statusCode < 300;
-    if (statusOK) {
-      final body = response.body;
-      return body.isEmpty ? {} : jsonDecode(body);
+    if (!statusOK) {
+      _throwException(response.statusCode, response.reasonPhrase, responseBody);
+    }
+    return responseBody.isEmpty ? {} : jsonDecode(responseBody);
+  }
+
+  /// Make a request that streams its results using
+  /// [Server-sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html).
+  ///
+  /// NOTE: most Google APIs do not support Server-sent events.
+  Stream<Map<String, dynamic>> _makeStreamingRequest(
+    Uri url,
+    String method, [
+    JsonEncodable? requestBody,
+  ]) async* {
+    final request = http.Request(method, _makeUrlStreaming(url));
+    if (requestBody != null) {
+      request.body = requestBody._asEncodedJson;
+    }
+    request.headers.addAll({
+      _clientKey: _clientName,
+      if (requestBody != null) _contentTypeKey: _typeJson,
+    });
+
+    final response = await client.send(request);
+    final statusOK = response.statusCode >= 200 && response.statusCode < 300;
+    if (!statusOK) {
+      _throwException(
+        response.statusCode,
+        response.reasonPhrase,
+        await response.stream.bytesToString(),
+      );
     }
 
+    final lines = response.stream.toStringStream().transform(LineSplitter());
+    await for (final line in lines) {
+      // Google API only generate "data" events.
+      // The SSE specification does not require a space after the colon but
+      // Google APIs always generate one.
+      const dataPrefix = 'data: ';
+      if (line.startsWith(dataPrefix)) {
+        final jsonText = line.substring(dataPrefix.length);
+        final json = jsonDecode(jsonText) as Map<String, dynamic>;
+        yield json;
+      }
+    }
+  }
+
+  static Uri _makeUrlStreaming(Uri url) {
+    final query = Map.of(url.queryParameters);
+    query['alt'] = 'sse';
+    return url.replace(queryParameters: query);
+  }
+
+  Never _throwException(
+    int statusCode,
+    String? reasonPhrase,
+    String responseBody,
+  ) {
     Status status;
 
     try {
-      final json = jsonDecode(response.body);
+      final json = jsonDecode(responseBody);
       status = Status.fromJson(json['error']);
     } catch (_) {
       // Return a general HTTP exception if we can't parse the Status response.
-      throw http.ClientException(
-          '${response.statusCode}: ${response.reasonPhrase}');
+      throw http.ClientException('$statusCode: $reasonPhrase');
     }
 
     throw status;
