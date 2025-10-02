@@ -90,7 +90,7 @@ output "build-cache" {
 resource "google_cloud_scheduler_job" "job" {
   name        = "terraform-job"
   description = "Periodically sync terraform build"
-  schedule    = "*/2 * * * *"
+  schedule    = "0 0 1 * *" # Midnight on 1st day of the month	
 
   pubsub_target {
     topic_name = "projects/${var.project}/topics/rust-terraform"
