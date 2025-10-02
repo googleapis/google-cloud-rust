@@ -287,7 +287,7 @@ pub async fn mds_id_token() -> anyhow::Result<()> {
     println!("expected email {}", expected_email); // TODO: remove, just for debug
 
     let expected_id_token = client // TODO: remove, just for debug
-        .get("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity")
+        .get(format!("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience={audience}"))
         .header("Metadata-Flavor", "Google")
         .send()
         .await
