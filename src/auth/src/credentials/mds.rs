@@ -559,6 +559,7 @@ pub mod idtoken {
 
 #[cfg(test)]
 mod tests {
+    use super::idtoken;
     use super::*;
     use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
@@ -1124,95 +1125,80 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(test)]
-    mod idtoken_tests {
-        use super::idtoken;
-        use super::*;
-        use httptest::{
-            Expectation, Server,
-            matchers::{all_of, contains, request, url_decoded},
-            responders::status_code,
-        };
-        use scoped_env::ScopedEnv;
-        use serial_test::serial;
+    #[tokio::test]
+    #[parallel]
+    async fn test_idtoken_builder_build() -> TestResult {
+        let server = Server::run();
+        let audience = "test-audience";
+        let token_string = "test-id-token";
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/identity")),
+                request::query(url_decoded(contains(("audience", audience))))
+            ])
+            .respond_with(status_code(200).body(token_string)),
+        );
 
-        type TestResult = anyhow::Result<()>;
+        let creds = idtoken::Builder::new(audience)
+            .endpoint(format!("http://{}", server.addr()))
+            .build()?;
 
-        #[tokio::test]
-        #[parallel]
-        async fn test_idtoken_builder_build() -> TestResult {
-            let server = Server::run();
-            let audience = "test-audience";
-            let token_string = "test-id-token";
-            server.expect(
-                Expectation::matching(all_of![
-                    request::path(format!("{MDS_DEFAULT_URI}/identity")),
-                    request::query(url_decoded(contains(("audience", audience))))
-                ])
-                .respond_with(status_code(200).body(token_string)),
-            );
+        let token = creds.id_token().await?;
+        assert_eq!(token.token, token_string);
+        assert_eq!(token.token_type, "Bearer");
+        assert!(token.expires_at.is_none());
+        Ok(())
+    }
 
-            let creds = idtoken::Builder::new(audience)
-                .endpoint(format!("http://{}", server.addr()))
-                .build()?;
+    #[tokio::test]
+    #[serial]
+    async fn test_idtoken_builder_build_with_env_var() -> TestResult {
+        let server = Server::run();
+        let audience = "test-audience";
+        let token_string = "test-id-token";
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/identity")),
+                request::query(url_decoded(contains(("audience", audience))))
+            ])
+            .respond_with(status_code(200).body(token_string)),
+        );
 
-            let token = creds.id_token().await?;
-            assert_eq!(token.token, token_string);
-            assert_eq!(token.token_type, "Bearer");
-            assert!(token.expires_at.is_none());
-            Ok(())
-        }
+        let addr = server.addr().to_string();
+        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, &addr);
 
-        #[tokio::test]
-        #[serial]
-        async fn test_idtoken_builder_build_with_env_var() -> TestResult {
-            let server = Server::run();
-            let audience = "test-audience";
-            let token_string = "test-id-token";
-            server.expect(
-                Expectation::matching(all_of![
-                    request::path(format!("{MDS_DEFAULT_URI}/identity")),
-                    request::query(url_decoded(contains(("audience", audience))))
-                ])
-                .respond_with(status_code(200).body(token_string)),
-            );
+        let creds = idtoken::Builder::new(audience).build()?;
 
-            let addr = server.addr().to_string();
-            let _e = ScopedEnv::set(super::super::GCE_METADATA_HOST_ENV_VAR, &addr);
+        let token = creds.id_token().await?;
+        assert_eq!(token.token, token_string);
 
-            let creds = idtoken::Builder::new(audience).build()?;
+        let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
+        Ok(())
+    }
 
-            let token = creds.id_token().await?;
-            assert_eq!(token.token, token_string);
+    #[tokio::test]
+    #[parallel]
+    async fn test_idtoken_provider_http_error() -> TestResult {
+        let server = Server::run();
+        let audience = "test-audience";
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/identity")),
+                request::query(url_decoded(contains(("audience", audience))))
+            ])
+            .respond_with(status_code(503)),
+        );
 
-            let _e = ScopedEnv::remove(super::super::GCE_METADATA_HOST_ENV_VAR);
-            Ok(())
-        }
+        let creds = idtoken::Builder::new(audience)
+            .endpoint(format!("http://{}", server.addr()))
+            .build()?;
 
-        #[tokio::test]
-        #[parallel]
-        async fn test_idtoken_provider_http_error() -> TestResult {
-            let server = Server::run();
-            let audience = "test-audience";
-            server.expect(
-                Expectation::matching(all_of![
-                    request::path(format!("{MDS_DEFAULT_URI}/identity")),
-                    request::query(url_decoded(contains(("audience", audience))))
-                ])
-                .respond_with(status_code(503)),
-            );
-
-            let creds = idtoken::Builder::new(audience)
-                .endpoint(format!("http://{}", server.addr()))
-                .build()?;
-
-            let err = creds.id_token().await.unwrap_err();
-            let source = find_source_error::<reqwest::Error>(&err);
-            assert!(
-                matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
-                "{err:?}"
-            );
-            Ok(())
-        }
+        let err = creds.id_token().await.unwrap_err();
+        let source = find_source_error::<reqwest::Error>(&err);
+        assert!(
+            matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
+            "{err:?}"
+        );
+        Ok(())
     }
 }
