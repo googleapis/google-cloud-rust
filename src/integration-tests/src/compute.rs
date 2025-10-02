@@ -119,7 +119,7 @@ async fn latest_image(client: &Images, project_id: &str, prefix: &str) -> Result
         if item.architecture != Some(Architecture::X8664)
             || item
                 .family
-                .as_ref()
+                .as_deref()
                 .is_some_and(|v| v.strip_prefix(prefix).is_none())
         {
             continue;
@@ -127,9 +127,10 @@ async fn latest_image(client: &Images, project_id: &str, prefix: &str) -> Result
         latest = match &latest {
             None => Some(item),
             Some(i)
-                if item.family.as_ref().is_some_and(|f| {
-                    f.as_str() > i.family.as_ref().map(String::as_str).unwrap_or_default()
-                }) =>
+                if item
+                    .family
+                    .as_deref()
+                    .is_some_and(|f| f > i.family.as_deref().unwrap_or_default()) =>
             {
                 Some(item)
             }
@@ -174,8 +175,10 @@ pub async fn instances() -> Result<()> {
         .set_name(&id)
         .set_description("A test VM created by the Rust client library.")
         .set_disks([AttachedDisk::new()
-            .set_initialize_params(AttachedDiskInitializeParams::new().set_source_image(
-                format!("projects/cos-cloud/global/images/{image}")))
+            .set_initialize_params(
+                AttachedDiskInitializeParams::new()
+                    .set_source_image(format!("projects/cos-cloud/global/images/{image}")),
+            )
             .set_boot(true)
             .set_auto_delete(true)])
         .set_network_interfaces([NetworkInterface::new().set_network("global/networks/default")])
