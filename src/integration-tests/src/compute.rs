@@ -109,27 +109,30 @@ pub async fn machine_types() -> Result<()> {
     Ok(())
 }
 
-pub async fn images() -> Result<()> {
+async fn latest_image(client: &Images, project_id: &str, prefix: &str) -> Result<String> {
     use compute::model::image::Architecture;
 
-    let client = Images::builder().with_tracing().build().await?;
-
-    tracing::info!("Testing Images::list()");
     let mut latest = None;
-    let mut items = client.list().set_project("cos-cloud").by_item();
+    let mut items = client.list().set_project(project_id).by_item();
     while let Some(item) = items.next().await.transpose()? {
         tracing::info!("item = {item:?}");
         if item.architecture != Some(Architecture::X8664)
             || item
                 .family
                 .as_ref()
-                .is_some_and(|v| v.strip_prefix("cos-").is_some())
+                .is_some_and(|v| v.strip_prefix(prefix).is_none())
         {
             continue;
         }
         latest = match &latest {
             None => Some(item),
-            Some(i) if item.family > i.family => Some(item),
+            Some(i)
+                if item.family.as_ref().is_some_and(|f| {
+                    f.as_str() > i.family.as_ref().map(String::as_str).unwrap_or_default()
+                }) =>
+            {
+                Some(item)
+            }
             Some(i)
                 if item.family == i.family && item.creation_timestamp > i.creation_timestamp =>
             {
@@ -138,17 +141,32 @@ pub async fn images() -> Result<()> {
             _ => latest,
         };
     }
+    latest
+        .and_then(|i| i.name)
+        .ok_or(anyhow::Error::msg(format!(
+            "cannot find an image in project {project_id} starting with {prefix}"
+        )))
+}
+
+pub async fn images() -> Result<()> {
+    tracing::info!("Testing Images::list()");
+    let client = Images::builder().with_tracing().build().await?;
+    let name = latest_image(&client, "debian-cloud", "debian-").await?;
     tracing::info!("DONE with Images::list()");
-    tracing::info!("LATEST cos-cloud image is {latest:?}");
+    tracing::info!("LATEST cos-cloud image is {name}");
     Ok(())
 }
 
 pub async fn instances() -> Result<()> {
+    let images = Images::builder().build().await?;
     let client = Instances::builder().with_tracing().build().await?;
     let operations = ZoneOperations::builder().with_tracing().build().await?;
     let project_id = crate::project_id()?;
     let service_account = crate::test_service_account()?;
     let zone_id = crate::zone_id();
+
+    // We need a recent image in an allowed image family.
+    let image = latest_image(&images, "cos-cloud", "cos-").await?;
 
     let id = crate::random_vm_id();
     let body = Instance::new()
@@ -156,11 +174,8 @@ pub async fn instances() -> Result<()> {
         .set_name(&id)
         .set_description("A test VM created by the Rust client library.")
         .set_disks([AttachedDisk::new()
-            .set_initialize_params(
-                // Debian-13 will be usable until 2030.
-                AttachedDiskInitializeParams::new()
-                    .set_source_image("projects/debian-cloud/global/images/family/debian-13"),
-            )
+            .set_initialize_params(AttachedDiskInitializeParams::new().set_source_image(
+                format!("projects/cos-cloud/global/images/{image}")))
             .set_boot(true)
             .set_auto_delete(true)])
         .set_network_interfaces([NetworkInterface::new().set_network("global/networks/default")])
