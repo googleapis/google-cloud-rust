@@ -28,7 +28,7 @@ steps:
       curl --output terraform.zip https://releases.hashicorp.com/terraform/1.13.3/terraform_1.13.3_linux_amd64.zip
       unzip terraform.zip terraform -d /workspace/.bin/
       chmod 755 /workspace/.bin/terraform
-      cd /workspace/.gcb/builds
+      cd /workspace/src/auth/.gcb/builds
       /workspace/.bin/terraform init
       /workspace/.bin/terraform plan -out /tmp/bootstrap.tplan
       /workspace/.bin/terraform apply /tmp/bootstrap.tplan
