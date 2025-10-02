@@ -284,29 +284,6 @@ pub async fn mds_id_token() -> anyhow::Result<()> {
         .text()
         .await
         .expect("failed to read service account email from metadata server response");
-    println!("expected email {}", expected_email); // TODO: remove, just for debug
-
-    let expected_id_token = client // TODO: remove, just for debug
-        .get(format!("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience={audience}"))
-        .header("Metadata-Flavor", "Google")
-        .send()
-        .await
-        .expect("failed to get id token from metadata server")
-        .text()
-        .await
-        .expect("failed to read id token from metadata server response");
-    println!("expected id token {}", expected_id_token); // TODO: remove, just for debug
-
-    let expected_access_token = client // TODO: remove, just for debug
-        .get("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token")
-        .header("Metadata-Flavor", "Google")
-        .send()
-        .await
-        .expect("failed to get access token from metadata server")
-        .text()
-        .await
-        .expect("failed to read access token from metadata server response");
-    println!("expected access token {}", expected_access_token); // TODO: remove, just for debug
 
     // Only works when running on an env that has MDS.
     let id_token_creds = IDTokenMDSBuilder::new(audience)
