@@ -343,6 +343,7 @@ mockall           = { default-features = false, version = "0.13" }
 multer            = { default-features = false, version = "3" }
 mutants           = { default-features = false, version = "0.0.3" }
 num-bigint-dig    = { default-features = false, version = "0.8" }
+once_cell         = { default-features = false, version = "1.19.0" }
 paste             = { default-features = false, version = "1" }
 regex             = { default-features = false, version = "1" }
 rsa               = { default-features = false, version = "0.9.8" }
@@ -403,6 +404,7 @@ google-cloud-secretmanager-v1 = { version = "1", path = "src/generated/cloud/sec
 google-cloud-aiplatform-v1    = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
 google-cloud-storage          = { version = "1", path = "src/storage" }
 
-# Local test package
-integration-tests = { path = "src/integration-tests" }
-storage-samples   = { path = "src/storage/examples" }
+# Local test packages (never add a version)
+google-cloud-test-utils = { path = "src/test-utils" }
+integration-tests       = { path = "src/integration-tests" }
+storage-samples         = { path = "src/storage/examples" }

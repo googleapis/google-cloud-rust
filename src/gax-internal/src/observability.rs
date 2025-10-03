@@ -231,7 +231,7 @@ impl HttpSpanInfo {
                     self.otel_status = OtelStatus::Ok;
                 } else {
                     self.otel_status = OtelStatus::Error;
-                    self.error_type = Some(response.status().to_string());
+                    self.error_type = Some(response.status().as_u16().to_string());
                 }
             }
             Err(err) => {
@@ -289,12 +289,170 @@ mod tests {
     use super::*;
     use crate::options::InstrumentationClientInfo;
     use gax::options::RequestOptions;
+    use google_cloud_test_utils::test_layer::TestLayer;
     use http::Method;
+    use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
     use reqwest;
     use std::collections::HashMap;
-    use std::sync::{Arc, Mutex};
-    use tracing::{Subscriber, field, span};
-    use tracing_subscriber::{Layer, layer::Context};
+
+    #[tokio::test]
+    async fn test_create_span_attributes() {
+        const TEST_ID: &str = "test_create_span_attributes";
+
+        let _guard = TestLayer::initialize(TEST_ID);
+        let request =
+            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
+        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        const INFO: InstrumentationClientInfo = InstrumentationClientInfo {
+            service_name: "test.service",
+            client_version: "1.2.3",
+            client_artifact: "google-cloud-test",
+            default_host: "example.com",
+        };
+        let span_info = HttpSpanInfo::from_request(&request, &options, Some(&INFO), 1);
+        let _span = span_info.create_span();
+
+        let expected_attributes: HashMap<String, String> = [
+            (KEY_OTEL_NAME, "GET /test"),
+            (KEY_OTEL_KIND, "Client"),
+            (otel_trace::RPC_SYSTEM, "http"),
+            (otel_trace::HTTP_REQUEST_METHOD, "GET"),
+            (otel_trace::SERVER_ADDRESS, "example.com"),
+            (otel_trace::SERVER_PORT, "443"),
+            (otel_trace::URL_FULL, "https://example.com/test"),
+            (otel_trace::URL_SCHEME, "https"),
+            (otel_attr::URL_TEMPLATE, "/test"),
+            (otel_attr::URL_DOMAIN, "example.com"),
+            (KEY_GCP_CLIENT_SERVICE, "test.service"),
+            (KEY_GCP_CLIENT_VERSION, "1.2.3"),
+            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+            (KEY_GCP_CLIENT_ARTIFACT, "google-cloud-test"),
+            (otel_trace::HTTP_REQUEST_RESEND_COUNT, "1"),
+            (KEY_OTEL_STATUS, "Unset"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+
+        let captured = TestLayer::capture(TEST_ID);
+        assert_eq!(captured.len(), 1);
+        let attributes = &captured[0].attributes;
+        assert_eq!(*attributes, expected_attributes);
+    }
+
+    #[tokio::test]
+    async fn test_create_span_attributes_optional() {
+        const TEST_ID: &str = "test_create_span_attributes_optional";
+
+        let _guard = TestLayer::initialize(TEST_ID);
+        let request =
+            reqwest::Request::new(Method::POST, "http://localhost:8080/".parse().unwrap());
+        let options = RequestOptions::default(); // No path template
+        // No InstrumentationClientInfo
+        let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
+        let _span = span_info.create_span();
+
+        let expected_attributes: HashMap<String, String> = [
+            (KEY_OTEL_NAME, "POST"),
+            (KEY_OTEL_KIND, "Client"),
+            (otel_trace::RPC_SYSTEM, "http"),
+            (otel_trace::HTTP_REQUEST_METHOD, "POST"),
+            (otel_trace::SERVER_ADDRESS, "localhost"),
+            (otel_trace::SERVER_PORT, "8080"),
+            (otel_trace::URL_FULL, "http://localhost:8080/"),
+            (otel_trace::URL_SCHEME, "http"),
+            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+            (KEY_OTEL_STATUS, "Unset"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+
+        let captured = TestLayer::capture(TEST_ID);
+        assert_eq!(captured.len(), 1);
+        let attributes = &captured[0].attributes;
+        assert_eq!(*attributes, expected_attributes);
+    }
+
+    #[tokio::test]
+    async fn test_record_response_attributes_ok() {
+        const TEST_ID: &str = "test_record_response_attributes_ok";
+
+        let _guard = TestLayer::initialize(TEST_ID);
+        let request =
+            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
+        let mut span_info =
+            HttpSpanInfo::from_request(&request, &RequestOptions::default(), None, 0);
+
+        let span = span_info.create_span();
+        let _enter = span.enter();
+        span_info.update_from_response(&Ok(reqwest::Response::from(
+            http::Response::builder().status(200).body("").unwrap(),
+        )));
+        span_info.record_response_attributes(&span);
+
+        let expected_attributes: HashMap<String, String> = [
+            (KEY_OTEL_NAME, "GET"),
+            (KEY_OTEL_KIND, "Client"),
+            (otel_trace::RPC_SYSTEM, "http"),
+            (otel_trace::HTTP_REQUEST_METHOD, "GET"),
+            (otel_trace::SERVER_ADDRESS, "example.com"),
+            (otel_trace::SERVER_PORT, "443"),
+            (otel_trace::URL_FULL, "https://example.com/test"),
+            (otel_trace::URL_SCHEME, "https"),
+            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+            (KEY_OTEL_STATUS, "Ok"), // Updated
+            (otel_trace::HTTP_RESPONSE_STATUS_CODE, "200"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+
+        let captured = TestLayer::capture(TEST_ID);
+        assert_eq!(captured.len(), 1);
+        let attributes = &captured[0].attributes;
+        assert_eq!(*attributes, expected_attributes);
+    }
+
+    #[tokio::test]
+    async fn test_record_response_attributes_error() {
+        const TEST_ID: &str = "test_record_response_attributes_error";
+
+        let _guard = TestLayer::initialize(TEST_ID);
+        let request =
+            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
+        let mut span_info =
+            HttpSpanInfo::from_request(&request, &RequestOptions::default(), None, 0);
+
+        let span = span_info.create_span();
+        let _enter = span.enter();
+        // Simulate a timeout error
+        span_info.otel_status = OtelStatus::Error;
+        span_info.error_type = Some("TIMEOUT".to_string());
+        span_info.record_response_attributes(&span);
+
+        let expected_attributes: HashMap<String, String> = [
+            (KEY_OTEL_NAME, "GET"),
+            (KEY_OTEL_KIND, "Client"),
+            (otel_trace::RPC_SYSTEM, "http"),
+            (otel_trace::HTTP_REQUEST_METHOD, "GET"),
+            (otel_trace::SERVER_ADDRESS, "example.com"),
+            (otel_trace::SERVER_PORT, "443"),
+            (otel_trace::URL_FULL, "https://example.com/test"),
+            (otel_trace::URL_SCHEME, "https"),
+            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+            (KEY_OTEL_STATUS, "Error"), // Updated
+            (otel_trace::ERROR_TYPE, "TIMEOUT"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+
+        let captured = TestLayer::capture(TEST_ID);
+        assert_eq!(captured.len(), 1);
+        let attributes = &captured[0].attributes;
+        assert_eq!(*attributes, expected_attributes);
+    }
 
     #[tokio::test]
     async fn test_http_span_info_from_request_basic() {
@@ -418,7 +576,7 @@ mod tests {
 
         assert_eq!(span_info.otel_status, OtelStatus::Error);
         assert_eq!(span_info.http_response_status_code, Some(404));
-        assert_eq!(span_info.error_type, Some("404 Not Found".to_string()));
+        assert_eq!(span_info.error_type, Some("404".to_string()));
     }
 
     #[test]
@@ -426,267 +584,5 @@ mod tests {
         assert_eq!(OtelStatus::Unset.as_str(), "Unset");
         assert_eq!(OtelStatus::Ok.as_str(), "Ok");
         assert_eq!(OtelStatus::Error.as_str(), "Error");
-    }
-
-    // TestLayer is a custom tracing_subscriber::Layer to capture span attributes for testing.
-    // It stores the attributes of each span in a HashMap, allowing tests to assert
-    // that the correct attributes are being set on the spans created by HttpSpanInfo.
-    #[derive(Clone, Default)]
-    struct TestLayer {
-        spans: Arc<Mutex<HashMap<span::Id, HashMap<String, String>>>>,
-    }
-
-    impl TestLayer {
-        fn capture_span_attributes<F>(f: F) -> HashMap<String, String>
-        where
-            F: FnOnce() -> span::Id,
-        {
-            let layer = TestLayer::default();
-            use tracing_subscriber::prelude::*;
-            let subscriber = tracing_subscriber::registry().with(layer.clone());
-
-            let span_id = tracing::subscriber::with_default(subscriber, f);
-
-            let spans = layer.spans.lock().unwrap();
-            spans.get(&span_id).cloned().unwrap_or_default()
-        }
-    }
-
-    impl<S> Layer<S> for TestLayer
-    where
-        S: Subscriber + for<'a> tracing_subscriber::registry::LookupSpan<'a>,
-    {
-        // on_new_span is called when a span is created. We record its initial attributes.
-        fn on_new_span(&self, attrs: &span::Attributes<'_>, id: &span::Id, _ctx: Context<'_, S>) {
-            let mut span_map = HashMap::new();
-            let mut visitor = TestVisitor(&mut span_map);
-            attrs.record(&mut visitor);
-            self.spans.lock().unwrap().insert(id.clone(), span_map);
-        }
-
-        fn on_record(&self, id: &span::Id, values: &span::Record<'_>, _ctx: Context<'_, S>) {
-            if let Some(span_map) = self.spans.lock().unwrap().get_mut(id) {
-                let mut visitor = TestVisitor(span_map);
-                values.record(&mut visitor);
-            }
-        }
-    }
-
-    // TestVisitor is a tracing::field::Visit implementation to extract attribute key-value pairs.
-    // We only expect &str and i64 types for span attributes.
-    struct TestVisitor<'a>(&'a mut HashMap<String, String>);
-
-    impl<'a> tracing::field::Visit for TestVisitor<'a> {
-        fn record_str(&mut self, field: &tracing::field::Field, value: &str) {
-            self.0.insert(field.name().to_string(), value.to_string());
-        }
-
-        fn record_i64(&mut self, field: &tracing::field::Field, value: i64) {
-            self.0.insert(field.name().to_string(), value.to_string());
-        }
-
-        fn record_debug(&mut self, field: &tracing::field::Field, value: &dyn std::fmt::Debug) {
-            unimplemented!("Unexpected field type for {:?}: {:?}", field, value);
-        }
-
-        fn record_u64(&mut self, field: &tracing::field::Field, value: u64) {
-            unimplemented!("Unexpected field type for {:?}: {:?}", field, value);
-        }
-
-        fn record_bool(&mut self, field: &tracing::field::Field, value: bool) {
-            unimplemented!("Unexpected field type for {:?}: {:?}", field, value);
-        }
-    }
-
-    #[tokio::test]
-    async fn test_create_span_attributes() {
-        let attributes = TestLayer::capture_span_attributes(|| {
-            let request =
-                reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-            let options =
-                gax::options::internal::set_path_template(RequestOptions::default(), "/test");
-            const INFO: InstrumentationClientInfo = InstrumentationClientInfo {
-                service_name: "test.service",
-                client_version: "1.2.3",
-                client_artifact: "google-cloud-test",
-                default_host: "example.com",
-            };
-            let span_info = HttpSpanInfo::from_request(&request, &options, Some(&INFO), 1);
-            let span = span_info.create_span();
-            span.id().unwrap()
-        });
-
-        let expected: HashMap<String, String> = [
-            (KEY_OTEL_NAME, "GET /test"),
-            (KEY_OTEL_KIND, "Client"),
-            (otel_trace::RPC_SYSTEM, "http"),
-            (otel_trace::HTTP_REQUEST_METHOD, "GET"),
-            (otel_trace::SERVER_ADDRESS, "example.com"),
-            (otel_trace::SERVER_PORT, "443"),
-            (otel_trace::URL_FULL, "https://example.com/test"),
-            (otel_trace::URL_SCHEME, "https"),
-            (otel_attr::URL_TEMPLATE, "/test"),
-            (otel_attr::URL_DOMAIN, "example.com"),
-            (KEY_GCP_CLIENT_SERVICE, "test.service"),
-            (KEY_GCP_CLIENT_VERSION, "1.2.3"),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
-            (KEY_GCP_CLIENT_ARTIFACT, "google-cloud-test"),
-            (otel_trace::HTTP_REQUEST_RESEND_COUNT, "1"),
-            (KEY_OTEL_STATUS, "Unset"),
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v.to_string()))
-        .collect();
-
-        assert_eq!(attributes, expected);
-    }
-
-    #[tokio::test]
-    async fn test_create_span_attributes_optional() {
-        let attributes = TestLayer::capture_span_attributes(|| {
-            let request =
-                reqwest::Request::new(Method::POST, "http://localhost:8080/".parse().unwrap());
-            let options = RequestOptions::default(); // No path template
-            // No InstrumentationClientInfo
-            let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
-            let span = span_info.create_span();
-            span.id().unwrap()
-        });
-
-        // Check only attributes that should be present
-        let expected: HashMap<String, String> = [
-            (KEY_OTEL_NAME, "POST"),
-            (KEY_OTEL_KIND, "Client"),
-            (otel_trace::RPC_SYSTEM, "http"),
-            (otel_trace::HTTP_REQUEST_METHOD, "POST"),
-            (otel_trace::SERVER_ADDRESS, "localhost"),
-            (otel_trace::SERVER_PORT, "8080"),
-            (otel_trace::URL_FULL, "http://localhost:8080/"),
-            (otel_trace::URL_SCHEME, "http"),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
-            (KEY_OTEL_STATUS, "Unset"),
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v.to_string()))
-        .collect();
-
-        assert_eq!(attributes, expected);
-    }
-
-    #[tokio::test]
-    async fn test_record_response_attributes_ok() {
-        let attributes = TestLayer::capture_span_attributes(|| {
-            let request =
-                reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-            let mut span_info =
-                HttpSpanInfo::from_request(&request, &RequestOptions::default(), None, 0);
-
-            let span = span_info.create_span();
-            let id = span.id().unwrap();
-            let _enter = span.enter();
-            span_info.update_from_response(&Ok(reqwest::Response::from(
-                http::Response::builder().status(200).body("").unwrap(),
-            )));
-            span_info.record_response_attributes(&span);
-            id
-        });
-
-        let expected: HashMap<String, String> = [
-            // Initial attributes from create_span
-            (KEY_OTEL_NAME, "GET"),
-            (KEY_OTEL_KIND, "Client"),
-            (otel_trace::RPC_SYSTEM, "http"),
-            (otel_trace::HTTP_REQUEST_METHOD, "GET"),
-            (otel_trace::SERVER_ADDRESS, "example.com"),
-            (otel_trace::SERVER_PORT, "443"),
-            (otel_trace::URL_FULL, "https://example.com/test"),
-            (otel_trace::URL_SCHEME, "https"),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
-            (KEY_OTEL_STATUS, "Ok"), // Updated
-            (otel_trace::HTTP_RESPONSE_STATUS_CODE, "200"),
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v.to_string()))
-        .collect();
-        assert_eq!(attributes, expected);
-    }
-
-    #[tokio::test]
-    async fn test_record_response_attributes_error() {
-        let attributes = TestLayer::capture_span_attributes(|| {
-            let request =
-                reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-            let mut span_info =
-                HttpSpanInfo::from_request(&request, &RequestOptions::default(), None, 0);
-
-            let span = span_info.create_span();
-            let id = span.id().unwrap();
-            let _enter = span.enter();
-            // Simulate a timeout error
-            span_info.otel_status = OtelStatus::Error;
-            span_info.error_type = Some("TIMEOUT".to_string());
-            span_info.record_response_attributes(&span);
-            id
-        });
-
-        let expected: HashMap<String, String> = [
-            // Initial attributes
-            (KEY_OTEL_NAME, "GET"),
-            (KEY_OTEL_KIND, "Client"),
-            (otel_trace::RPC_SYSTEM, "http"),
-            (otel_trace::HTTP_REQUEST_METHOD, "GET"),
-            (otel_trace::SERVER_ADDRESS, "example.com"),
-            (otel_trace::SERVER_PORT, "443"),
-            (otel_trace::URL_FULL, "https://example.com/test"),
-            (otel_trace::URL_SCHEME, "https"),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
-            (KEY_OTEL_STATUS, "Error"), // Updated
-            (otel_trace::ERROR_TYPE, "TIMEOUT"),
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v.to_string()))
-        .collect();
-
-        assert_eq!(attributes, expected);
-    }
-
-    #[test]
-    fn test_layer_on_new_span() {
-        let attributes = TestLayer::capture_span_attributes(|| {
-            let span = tracing::info_span!("test_span", foo = "bar", baz = 123);
-            span.id().unwrap()
-        });
-
-        let expected: HashMap<String, String> = [
-            ("foo".to_string(), "bar".to_string()),
-            ("baz".to_string(), "123".to_string()),
-        ]
-        .into_iter()
-        .collect();
-        assert_eq!(attributes, expected);
-    }
-
-    #[test]
-    fn test_layer_on_record() {
-        let attributes = TestLayer::capture_span_attributes(|| {
-            let span = tracing::info_span!(
-                "test_span",
-                new_attribute = field::Empty,
-                num_attribute = field::Empty
-            );
-            let id = span.id().unwrap();
-            let _enter = span.enter();
-            span.record("new_attribute", "new_value");
-            span.record("num_attribute", 456);
-            id
-        });
-
-        let expected: HashMap<String, String> = [
-            ("new_attribute".to_string(), "new_value".to_string()),
-            ("num_attribute".to_string(), "456".to_string()),
-        ]
-        .into_iter()
-        .collect();
-        assert_eq!(attributes, expected);
     }
 }

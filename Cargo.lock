@@ -2582,6 +2582,7 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-rpc",
+ "google-cloud-test-utils",
  "google-cloud-wkt",
  "grpc-server",
  "http",
@@ -4595,6 +4596,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-test-utils"
+version = "0.0.0"
+dependencies = [
+ "once_cell",
+ "opentelemetry-semantic-conventions",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
+]
+
+[[package]]
 name = "google-cloud-texttospeech-v1"
 version = "1.1.0"
 dependencies = [
@@ -5395,6 +5408,7 @@ dependencies = [
  "google-cloud-sql-v1",
  "google-cloud-storage",
  "google-cloud-telcoautomation-v1",
+ "google-cloud-test-utils",
  "google-cloud-wkt",
  "google-cloud-workflows-executions-v1",
  "google-cloud-workflows-v1",
