@@ -85,14 +85,4 @@ pub(crate) mod info {
             ac.rest_header_value()
         };
     }
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "showcase";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "localhost:7469";
-            info
-        };
-    }
 }

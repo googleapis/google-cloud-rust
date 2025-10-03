@@ -34,13 +34,7 @@ impl std::fmt::Debug for Compliance {
 
 impl Compliance {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&*crate::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -1482,13 +1476,7 @@ impl std::fmt::Debug for Echo {
 
 impl Echo {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&*crate::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -2606,13 +2594,7 @@ impl std::fmt::Debug for Identity {
 
 impl Identity {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&*crate::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -3671,13 +3653,7 @@ impl std::fmt::Debug for Messaging {
 
 impl Messaging {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&*crate::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -5332,13 +5308,7 @@ impl std::fmt::Debug for SequenceService {
 
 impl SequenceService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&*crate::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -6393,13 +6363,7 @@ impl std::fmt::Debug for Testing {
 
 impl Testing {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&*crate::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
