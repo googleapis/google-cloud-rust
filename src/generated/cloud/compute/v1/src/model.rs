@@ -11560,6 +11560,22 @@ impl wkt::message::Message for InstanceAggregatedList {
     }
 }
 
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for InstanceAggregatedList {
+    type PageItem = (std::string::String, crate::model::InstancesScopedList);
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        use std::iter::{IntoIterator, Iterator};
+        self.items.into_iter().collect()
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone().unwrap_or_default()
+    }
+}
+
 /// Defines additional types related to [InstanceAggregatedList].
 #[cfg(feature = "instances")]
 pub mod instance_aggregated_list {
@@ -17536,6 +17552,22 @@ impl MachineTypeAggregatedList {
 impl wkt::message::Message for MachineTypeAggregatedList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.MachineTypeAggregatedList"
+    }
+}
+
+#[cfg(feature = "machine-types")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for MachineTypeAggregatedList {
+    type PageItem = (std::string::String, crate::model::MachineTypesScopedList);
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        use std::iter::{IntoIterator, Iterator};
+        self.items.into_iter().collect()
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone().unwrap_or_default()
     }
 }
 
