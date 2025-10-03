@@ -189,6 +189,782 @@ impl<T: super::Images> Images for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::Instances].
+#[cfg(feature = "instances")]
+#[async_trait::async_trait]
+pub trait Instances: std::fmt::Debug + Send + Sync {
+    async fn add_access_config(
+        &self,
+        req: crate::model::instances::AddAccessConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn add_network_interface(
+        &self,
+        req: crate::model::instances::AddNetworkInterfaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn add_resource_policies(
+        &self,
+        req: crate::model::instances::AddResourcePoliciesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn aggregated_list(
+        &self,
+        req: crate::model::instances::AggregatedListRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceAggregatedList>>;
+
+    async fn attach_disk(
+        &self,
+        req: crate::model::instances::AttachDiskRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn bulk_insert(
+        &self,
+        req: crate::model::instances::BulkInsertRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn delete(
+        &self,
+        req: crate::model::instances::DeleteRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn delete_access_config(
+        &self,
+        req: crate::model::instances::DeleteAccessConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn delete_network_interface(
+        &self,
+        req: crate::model::instances::DeleteNetworkInterfaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn detach_disk(
+        &self,
+        req: crate::model::instances::DetachDiskRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::instances::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>>;
+
+    async fn get_effective_firewalls(
+        &self,
+        req: crate::model::instances::GetEffectiveFirewallsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::InstancesGetEffectiveFirewallsResponse>>;
+
+    async fn get_guest_attributes(
+        &self,
+        req: crate::model::instances::GetGuestAttributesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::GuestAttributes>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::instances::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+
+    async fn get_screenshot(
+        &self,
+        req: crate::model::instances::GetScreenshotRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Screenshot>>;
+
+    async fn get_serial_port_output(
+        &self,
+        req: crate::model::instances::GetSerialPortOutputRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::SerialPortOutput>>;
+
+    async fn get_shielded_instance_identity(
+        &self,
+        req: crate::model::instances::GetShieldedInstanceIdentityRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ShieldedInstanceIdentity>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::instances::InsertRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::instances::ListRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceList>>;
+
+    async fn list_referrers(
+        &self,
+        req: crate::model::instances::ListReferrersRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceListReferrers>>;
+
+    async fn perform_maintenance(
+        &self,
+        req: crate::model::instances::PerformMaintenanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn remove_resource_policies(
+        &self,
+        req: crate::model::instances::RemoveResourcePoliciesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn report_host_as_faulty(
+        &self,
+        req: crate::model::instances::ReportHostAsFaultyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn reset(
+        &self,
+        req: crate::model::instances::ResetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn resume(
+        &self,
+        req: crate::model::instances::ResumeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn send_diagnostic_interrupt(
+        &self,
+        req: crate::model::instances::SendDiagnosticInterruptRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<wkt::Empty>>;
+
+    async fn set_deletion_protection(
+        &self,
+        req: crate::model::instances::SetDeletionProtectionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_disk_auto_delete(
+        &self,
+        req: crate::model::instances::SetDiskAutoDeleteRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::instances::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+
+    async fn set_labels(
+        &self,
+        req: crate::model::instances::SetLabelsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_machine_resources(
+        &self,
+        req: crate::model::instances::SetMachineResourcesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_machine_type(
+        &self,
+        req: crate::model::instances::SetMachineTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_metadata(
+        &self,
+        req: crate::model::instances::SetMetadataRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_min_cpu_platform(
+        &self,
+        req: crate::model::instances::SetMinCpuPlatformRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_name(
+        &self,
+        req: crate::model::instances::SetNameRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_scheduling(
+        &self,
+        req: crate::model::instances::SetSchedulingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_security_policy(
+        &self,
+        req: crate::model::instances::SetSecurityPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_service_account(
+        &self,
+        req: crate::model::instances::SetServiceAccountRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_shielded_instance_integrity_policy(
+        &self,
+        req: crate::model::instances::SetShieldedInstanceIntegrityPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_tags(
+        &self,
+        req: crate::model::instances::SetTagsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn simulate_maintenance_event(
+        &self,
+        req: crate::model::instances::SimulateMaintenanceEventRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn start(
+        &self,
+        req: crate::model::instances::StartRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn start_with_encryption_key(
+        &self,
+        req: crate::model::instances::StartWithEncryptionKeyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn stop(
+        &self,
+        req: crate::model::instances::StopRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn suspend(
+        &self,
+        req: crate::model::instances::SuspendRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::instances::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn update(
+        &self,
+        req: crate::model::instances::UpdateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn update_access_config(
+        &self,
+        req: crate::model::instances::UpdateAccessConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn update_display_device(
+        &self,
+        req: crate::model::instances::UpdateDisplayDeviceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn update_network_interface(
+        &self,
+        req: crate::model::instances::UpdateNetworkInterfaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn update_shielded_instance_config(
+        &self,
+        req: crate::model::instances::UpdateShieldedInstanceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+}
+
+/// All implementations of [super::Instances] also implement [Instances].
+#[cfg(feature = "instances")]
+#[async_trait::async_trait]
+impl<T: super::Instances> Instances for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn add_access_config(
+        &self,
+        req: crate::model::instances::AddAccessConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::add_access_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn add_network_interface(
+        &self,
+        req: crate::model::instances::AddNetworkInterfaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::add_network_interface(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn add_resource_policies(
+        &self,
+        req: crate::model::instances::AddResourcePoliciesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::add_resource_policies(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn aggregated_list(
+        &self,
+        req: crate::model::instances::AggregatedListRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceAggregatedList>> {
+        T::aggregated_list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn attach_disk(
+        &self,
+        req: crate::model::instances::AttachDiskRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::attach_disk(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn bulk_insert(
+        &self,
+        req: crate::model::instances::BulkInsertRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::bulk_insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::instances::DeleteRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_access_config(
+        &self,
+        req: crate::model::instances::DeleteAccessConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::delete_access_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_network_interface(
+        &self,
+        req: crate::model::instances::DeleteNetworkInterfaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::delete_network_interface(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn detach_disk(
+        &self,
+        req: crate::model::instances::DetachDiskRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::detach_disk(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::instances::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_effective_firewalls(
+        &self,
+        req: crate::model::instances::GetEffectiveFirewallsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::InstancesGetEffectiveFirewallsResponse>>
+    {
+        T::get_effective_firewalls(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_guest_attributes(
+        &self,
+        req: crate::model::instances::GetGuestAttributesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::GuestAttributes>> {
+        T::get_guest_attributes(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::instances::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_screenshot(
+        &self,
+        req: crate::model::instances::GetScreenshotRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Screenshot>> {
+        T::get_screenshot(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_serial_port_output(
+        &self,
+        req: crate::model::instances::GetSerialPortOutputRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::SerialPortOutput>> {
+        T::get_serial_port_output(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_shielded_instance_identity(
+        &self,
+        req: crate::model::instances::GetShieldedInstanceIdentityRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ShieldedInstanceIdentity>> {
+        T::get_shielded_instance_identity(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::instances::InsertRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::instances::ListRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceList>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_referrers(
+        &self,
+        req: crate::model::instances::ListReferrersRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceListReferrers>> {
+        T::list_referrers(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn perform_maintenance(
+        &self,
+        req: crate::model::instances::PerformMaintenanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::perform_maintenance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn remove_resource_policies(
+        &self,
+        req: crate::model::instances::RemoveResourcePoliciesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::remove_resource_policies(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn report_host_as_faulty(
+        &self,
+        req: crate::model::instances::ReportHostAsFaultyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::report_host_as_faulty(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn reset(
+        &self,
+        req: crate::model::instances::ResetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::reset(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn resume(
+        &self,
+        req: crate::model::instances::ResumeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::resume(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn send_diagnostic_interrupt(
+        &self,
+        req: crate::model::instances::SendDiagnosticInterruptRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<wkt::Empty>> {
+        T::send_diagnostic_interrupt(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_deletion_protection(
+        &self,
+        req: crate::model::instances::SetDeletionProtectionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_deletion_protection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_disk_auto_delete(
+        &self,
+        req: crate::model::instances::SetDiskAutoDeleteRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_disk_auto_delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::instances::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_labels(
+        &self,
+        req: crate::model::instances::SetLabelsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_labels(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_machine_resources(
+        &self,
+        req: crate::model::instances::SetMachineResourcesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_machine_resources(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_machine_type(
+        &self,
+        req: crate::model::instances::SetMachineTypeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_machine_type(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_metadata(
+        &self,
+        req: crate::model::instances::SetMetadataRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_metadata(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_min_cpu_platform(
+        &self,
+        req: crate::model::instances::SetMinCpuPlatformRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_min_cpu_platform(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_name(
+        &self,
+        req: crate::model::instances::SetNameRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_name(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_scheduling(
+        &self,
+        req: crate::model::instances::SetSchedulingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_scheduling(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_security_policy(
+        &self,
+        req: crate::model::instances::SetSecurityPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_security_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_service_account(
+        &self,
+        req: crate::model::instances::SetServiceAccountRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_service_account(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_shielded_instance_integrity_policy(
+        &self,
+        req: crate::model::instances::SetShieldedInstanceIntegrityPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_shielded_instance_integrity_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_tags(
+        &self,
+        req: crate::model::instances::SetTagsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_tags(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn simulate_maintenance_event(
+        &self,
+        req: crate::model::instances::SimulateMaintenanceEventRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::simulate_maintenance_event(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn start(
+        &self,
+        req: crate::model::instances::StartRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::start(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn start_with_encryption_key(
+        &self,
+        req: crate::model::instances::StartWithEncryptionKeyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::start_with_encryption_key(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stop(
+        &self,
+        req: crate::model::instances::StopRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::stop(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn suspend(
+        &self,
+        req: crate::model::instances::SuspendRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::suspend(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::instances::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update(
+        &self,
+        req: crate::model::instances::UpdateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::update(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_access_config(
+        &self,
+        req: crate::model::instances::UpdateAccessConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::update_access_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_display_device(
+        &self,
+        req: crate::model::instances::UpdateDisplayDeviceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::update_display_device(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_network_interface(
+        &self,
+        req: crate::model::instances::UpdateNetworkInterfaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::update_network_interface(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_shielded_instance_config(
+        &self,
+        req: crate::model::instances::UpdateShieldedInstanceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::update_shielded_instance_config(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::MachineTypes].
 #[cfg(feature = "machine-types")]
 #[async_trait::async_trait]
@@ -241,6 +1017,76 @@ impl<T: super::MachineTypes> MachineTypes for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::MachineTypeList>> {
         T::list(self, req, options).await
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::ZoneOperations].
+#[cfg(feature = "zone-operations")]
+#[async_trait::async_trait]
+pub trait ZoneOperations: std::fmt::Debug + Send + Sync {
+    async fn delete(
+        &self,
+        req: crate::model::zone_operations::DeleteRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<wkt::Empty>>;
+
+    async fn get(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::zone_operations::ListRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::OperationList>>;
+
+    async fn wait(
+        &self,
+        req: crate::model::zone_operations::WaitRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+}
+
+/// All implementations of [super::ZoneOperations] also implement [ZoneOperations].
+#[cfg(feature = "zone-operations")]
+#[async_trait::async_trait]
+impl<T: super::ZoneOperations> ZoneOperations for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::zone_operations::DeleteRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<wkt::Empty>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::zone_operations::ListRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::OperationList>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn wait(
+        &self,
+        req: crate::model::zone_operations::WaitRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::wait(self, req, options).await
     }
 }
 

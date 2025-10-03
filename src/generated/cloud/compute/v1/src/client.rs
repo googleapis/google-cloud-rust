@@ -182,6 +182,375 @@ impl Images {
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::Instances;
+/// let client = Instances::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `instances` resource.
+///
+/// # Configuration
+///
+/// To configure `Instances` use the `with_*` methods in the type returned
+/// by [builder()][Instances::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::instances::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::instances::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Instances` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Instances` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "instances")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instances")))]
+#[derive(Clone, Debug)]
+pub struct Instances {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Instances>,
+}
+
+#[cfg(feature = "instances")]
+impl Instances {
+    /// Returns a builder for [Instances].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// let client = Instances::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::instances::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::instances::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Instances + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Instances>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Instances> {
+        super::transport::Instances::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Instances> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Instances::new)
+    }
+
+    /// Adds an access config to an instance's network interface.
+    pub fn add_access_config(&self) -> super::builder::instances::AddAccessConfig {
+        super::builder::instances::AddAccessConfig::new(self.inner.clone())
+    }
+
+    /// Adds one dynamic network interface to an active instance.
+    pub fn add_network_interface(&self) -> super::builder::instances::AddNetworkInterface {
+        super::builder::instances::AddNetworkInterface::new(self.inner.clone())
+    }
+
+    /// Adds existing resource policies to an instance. You can only add one policy right now which will be applied to this instance for scheduling live migrations.
+    pub fn add_resource_policies(&self) -> super::builder::instances::AddResourcePolicies {
+        super::builder::instances::AddResourcePolicies::new(self.inner.clone())
+    }
+
+    /// Retrieves an aggregated list of all of the instances in your project across all regions and zones. The performance of this method degrades when a filter is specified on a project that has a very large number of instances. To prevent failure, Google recommends that you set the `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::instances::AggregatedList {
+        super::builder::instances::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Attaches an existing Disk resource to an instance. You must first create the disk before you can attach it. It is not possible to create and attach a disk at the same time. For more information, read Adding a persistent disk to your instance.
+    pub fn attach_disk(&self) -> super::builder::instances::AttachDisk {
+        super::builder::instances::AttachDisk::new(self.inner.clone())
+    }
+
+    /// Creates multiple instances. Count specifies the number of instances to create. For more information, see About bulk creation of VMs.
+    pub fn bulk_insert(&self) -> super::builder::instances::BulkInsert {
+        super::builder::instances::BulkInsert::new(self.inner.clone())
+    }
+
+    /// Deletes the specified Instance resource. For more information, see Deleting an instance.
+    pub fn delete(&self) -> super::builder::instances::Delete {
+        super::builder::instances::Delete::new(self.inner.clone())
+    }
+
+    /// Deletes an access config from an instance's network interface.
+    pub fn delete_access_config(&self) -> super::builder::instances::DeleteAccessConfig {
+        super::builder::instances::DeleteAccessConfig::new(self.inner.clone())
+    }
+
+    /// Deletes one dynamic network interface from an active instance. InstancesDeleteNetworkInterfaceRequest indicates: - instance from which to delete, using project+zone+resource_id fields; - dynamic network interface to be deleted, using network_interface_name field;
+    pub fn delete_network_interface(&self) -> super::builder::instances::DeleteNetworkInterface {
+        super::builder::instances::DeleteNetworkInterface::new(self.inner.clone())
+    }
+
+    /// Detaches a disk from an instance.
+    pub fn detach_disk(&self) -> super::builder::instances::DetachDisk {
+        super::builder::instances::DetachDisk::new(self.inner.clone())
+    }
+
+    /// Returns the specified Instance resource.
+    pub fn get(&self) -> super::builder::instances::Get {
+        super::builder::instances::Get::new(self.inner.clone())
+    }
+
+    /// Returns effective firewalls applied to an interface of the instance.
+    pub fn get_effective_firewalls(&self) -> super::builder::instances::GetEffectiveFirewalls {
+        super::builder::instances::GetEffectiveFirewalls::new(self.inner.clone())
+    }
+
+    /// Returns the specified guest attributes entry.
+    pub fn get_guest_attributes(&self) -> super::builder::instances::GetGuestAttributes {
+        super::builder::instances::GetGuestAttributes::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. May be empty if no such policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::instances::GetIamPolicy {
+        super::builder::instances::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns the screenshot from the specified instance.
+    pub fn get_screenshot(&self) -> super::builder::instances::GetScreenshot {
+        super::builder::instances::GetScreenshot::new(self.inner.clone())
+    }
+
+    /// Returns the last 1 MB of serial port output from the specified instance.
+    pub fn get_serial_port_output(&self) -> super::builder::instances::GetSerialPortOutput {
+        super::builder::instances::GetSerialPortOutput::new(self.inner.clone())
+    }
+
+    /// Returns the Shielded Instance Identity of an instance
+    pub fn get_shielded_instance_identity(
+        &self,
+    ) -> super::builder::instances::GetShieldedInstanceIdentity {
+        super::builder::instances::GetShieldedInstanceIdentity::new(self.inner.clone())
+    }
+
+    /// Creates an instance resource in the specified project using the data included in the request.
+    pub fn insert(&self) -> super::builder::instances::Insert {
+        super::builder::instances::Insert::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of instances contained within the specified zone.
+    pub fn list(&self) -> super::builder::instances::List {
+        super::builder::instances::List::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of resources that refer to the VM instance specified in the request. For example, if the VM instance is part of a managed or unmanaged instance group, the referrers list includes the instance group. For more information, read Viewing referrers to VM instances.
+    pub fn list_referrers(&self) -> super::builder::instances::ListReferrers {
+        super::builder::instances::ListReferrers::new(self.inner.clone())
+    }
+
+    /// Perform a manual maintenance on the instance.
+    pub fn perform_maintenance(&self) -> super::builder::instances::PerformMaintenance {
+        super::builder::instances::PerformMaintenance::new(self.inner.clone())
+    }
+
+    /// Removes resource policies from an instance.
+    pub fn remove_resource_policies(&self) -> super::builder::instances::RemoveResourcePolicies {
+        super::builder::instances::RemoveResourcePolicies::new(self.inner.clone())
+    }
+
+    /// Mark the host as faulty and try to restart the instance on a new host.
+    pub fn report_host_as_faulty(&self) -> super::builder::instances::ReportHostAsFaulty {
+        super::builder::instances::ReportHostAsFaulty::new(self.inner.clone())
+    }
+
+    /// Performs a reset on the instance. This is a hard reset. The VM does not do a graceful shutdown. For more information, see Resetting an instance.
+    pub fn reset(&self) -> super::builder::instances::Reset {
+        super::builder::instances::Reset::new(self.inner.clone())
+    }
+
+    /// Resumes an instance that was suspended using the instances().suspend method.
+    pub fn resume(&self) -> super::builder::instances::Resume {
+        super::builder::instances::Resume::new(self.inner.clone())
+    }
+
+    /// Sends diagnostic interrupt to the instance.
+    pub fn send_diagnostic_interrupt(&self) -> super::builder::instances::SendDiagnosticInterrupt {
+        super::builder::instances::SendDiagnosticInterrupt::new(self.inner.clone())
+    }
+
+    /// Sets deletion protection on the instance.
+    pub fn set_deletion_protection(&self) -> super::builder::instances::SetDeletionProtection {
+        super::builder::instances::SetDeletionProtection::new(self.inner.clone())
+    }
+
+    /// Sets the auto-delete flag for a disk attached to an instance.
+    pub fn set_disk_auto_delete(&self) -> super::builder::instances::SetDiskAutoDelete {
+        super::builder::instances::SetDiskAutoDelete::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::instances::SetIamPolicy {
+        super::builder::instances::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets labels on an instance. To learn more about labels, read the Labeling Resources documentation.
+    pub fn set_labels(&self) -> super::builder::instances::SetLabels {
+        super::builder::instances::SetLabels::new(self.inner.clone())
+    }
+
+    /// Changes the number and/or type of accelerator for a stopped instance to the values specified in the request.
+    pub fn set_machine_resources(&self) -> super::builder::instances::SetMachineResources {
+        super::builder::instances::SetMachineResources::new(self.inner.clone())
+    }
+
+    /// Changes the machine type for a stopped instance to the machine type specified in the request.
+    pub fn set_machine_type(&self) -> super::builder::instances::SetMachineType {
+        super::builder::instances::SetMachineType::new(self.inner.clone())
+    }
+
+    /// Sets metadata for the specified instance to the data included in the request.
+    pub fn set_metadata(&self) -> super::builder::instances::SetMetadata {
+        super::builder::instances::SetMetadata::new(self.inner.clone())
+    }
+
+    /// Changes the minimum CPU platform that this instance should use. This method can only be called on a stopped instance. For more information, read Specifying a Minimum CPU Platform.
+    pub fn set_min_cpu_platform(&self) -> super::builder::instances::SetMinCpuPlatform {
+        super::builder::instances::SetMinCpuPlatform::new(self.inner.clone())
+    }
+
+    /// Sets name of an instance.
+    pub fn set_name(&self) -> super::builder::instances::SetName {
+        super::builder::instances::SetName::new(self.inner.clone())
+    }
+
+    /// Sets an instance's scheduling options. You can only call this method on a stopped instance, that is, a VM instance that is in a `TERMINATED` state. See Instance Life Cycle for more information on the possible instance states. For more information about setting scheduling options for a VM, see Set VM host maintenance policy.
+    pub fn set_scheduling(&self) -> super::builder::instances::SetScheduling {
+        super::builder::instances::SetScheduling::new(self.inner.clone())
+    }
+
+    /// Sets the Google Cloud Armor security policy for the specified instance. For more information, see Google Cloud Armor Overview
+    pub fn set_security_policy(&self) -> super::builder::instances::SetSecurityPolicy {
+        super::builder::instances::SetSecurityPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the service account on the instance. For more information, read Changing the service account and access scopes for an instance.
+    pub fn set_service_account(&self) -> super::builder::instances::SetServiceAccount {
+        super::builder::instances::SetServiceAccount::new(self.inner.clone())
+    }
+
+    /// Sets the Shielded Instance integrity policy for an instance. You can only use this method on a running instance. This method supports PATCH semantics and uses the JSON merge patch format and processing rules.
+    pub fn set_shielded_instance_integrity_policy(
+        &self,
+    ) -> super::builder::instances::SetShieldedInstanceIntegrityPolicy {
+        super::builder::instances::SetShieldedInstanceIntegrityPolicy::new(self.inner.clone())
+    }
+
+    /// Sets network tags for the specified instance to the data included in the request.
+    pub fn set_tags(&self) -> super::builder::instances::SetTags {
+        super::builder::instances::SetTags::new(self.inner.clone())
+    }
+
+    /// Simulates a host maintenance event on a VM. For more information, see Simulate a host maintenance event.
+    pub fn simulate_maintenance_event(
+        &self,
+    ) -> super::builder::instances::SimulateMaintenanceEvent {
+        super::builder::instances::SimulateMaintenanceEvent::new(self.inner.clone())
+    }
+
+    /// Starts an instance that was stopped using the instances().stop method. For more information, see Restart an instance.
+    pub fn start(&self) -> super::builder::instances::Start {
+        super::builder::instances::Start::new(self.inner.clone())
+    }
+
+    /// Starts an instance that was stopped using the instances().stop method. For more information, see Restart an instance.
+    pub fn start_with_encryption_key(&self) -> super::builder::instances::StartWithEncryptionKey {
+        super::builder::instances::StartWithEncryptionKey::new(self.inner.clone())
+    }
+
+    /// Stops a running instance, shutting it down cleanly, and allows you to restart the instance at a later time. Stopped instances do not incur VM usage charges while they are stopped. However, resources that the VM is using, such as persistent disks and static IP addresses, will continue to be charged until they are deleted. For more information, see Stopping an instance.
+    pub fn stop(&self) -> super::builder::instances::Stop {
+        super::builder::instances::Stop::new(self.inner.clone())
+    }
+
+    /// This method suspends a running instance, saving its state to persistent storage, and allows you to resume the instance at a later time. Suspended instances have no compute costs (cores or RAM), and incur only storage charges for the saved VM memory and localSSD data. Any charged resources the virtual machine was using, such as persistent disks and static IP addresses, will continue to be charged while the instance is suspended. For more information, see Suspending and resuming an instance.
+    pub fn suspend(&self) -> super::builder::instances::Suspend {
+        super::builder::instances::Suspend::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::instances::TestIamPermissions {
+        super::builder::instances::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Updates an instance only if the necessary resources are available. This method can update only a specific set of instance properties. See Updating a running instance for a list of updatable instance properties.
+    pub fn update(&self) -> super::builder::instances::Update {
+        super::builder::instances::Update::new(self.inner.clone())
+    }
+
+    /// Updates the specified access config from an instance's network interface with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules.
+    pub fn update_access_config(&self) -> super::builder::instances::UpdateAccessConfig {
+        super::builder::instances::UpdateAccessConfig::new(self.inner.clone())
+    }
+
+    /// Updates the Display config for a VM instance. You can only use this method on a stopped VM instance. This method supports PATCH semantics and uses the JSON merge patch format and processing rules.
+    pub fn update_display_device(&self) -> super::builder::instances::UpdateDisplayDevice {
+        super::builder::instances::UpdateDisplayDevice::new(self.inner.clone())
+    }
+
+    /// Updates an instance's network interface. This method can only update an interface's alias IP range and attached network. See Modifying alias IP ranges for an existing instance for instructions on changing alias IP ranges. See Migrating a VM between networks for instructions on migrating an interface. This method follows PATCH semantics.
+    pub fn update_network_interface(&self) -> super::builder::instances::UpdateNetworkInterface {
+        super::builder::instances::UpdateNetworkInterface::new(self.inner.clone())
+    }
+
+    /// Updates the Shielded Instance config for an instance. You can only use this method on a stopped instance. This method supports PATCH semantics and uses the JSON merge patch format and processing rules.
+    pub fn update_shielded_instance_config(
+        &self,
+    ) -> super::builder::instances::UpdateShieldedInstanceConfig {
+        super::builder::instances::UpdateShieldedInstanceConfig::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_compute_v1::client::MachineTypes;
 /// let client = MachineTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -295,6 +664,132 @@ impl MachineTypes {
     /// Retrieves a list of machine types available to the specified project.
     pub fn list(&self) -> super::builder::machine_types::List {
         super::builder::machine_types::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::ZoneOperations;
+/// let client = ZoneOperations::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `zoneOperations` resource.
+///
+/// # Configuration
+///
+/// To configure `ZoneOperations` use the `with_*` methods in the type returned
+/// by [builder()][ZoneOperations::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::zone_operations::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::zone_operations::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ZoneOperations` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `ZoneOperations` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "zone-operations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "zone-operations")))]
+#[derive(Clone, Debug)]
+pub struct ZoneOperations {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ZoneOperations>,
+}
+
+#[cfg(feature = "zone-operations")]
+impl ZoneOperations {
+    /// Returns a builder for [ZoneOperations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::ZoneOperations;
+    /// let client = ZoneOperations::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::zone_operations::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::zone_operations::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::ZoneOperations + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ZoneOperations>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ZoneOperations> {
+        super::transport::ZoneOperations::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ZoneOperations> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ZoneOperations::new)
+    }
+
+    /// Deletes the specified zone-specific Operations resource.
+    pub fn delete(&self) -> super::builder::zone_operations::Delete {
+        super::builder::zone_operations::Delete::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get(&self) -> super::builder::zone_operations::Get {
+        super::builder::zone_operations::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of Operation resources contained within the specified zone.
+    pub fn list(&self) -> super::builder::zone_operations::List {
+        super::builder::zone_operations::List::new(self.inner.clone())
+    }
+
+    /// Waits for the specified Operation resource to return as `DONE` or for the request to approach the 2 minute deadline, and retrieves the specified Operation resource. This method waits for no more than the 2 minutes and then returns the current state of the operation, which might be `DONE` or still in progress. This method is called on a best-effort basis. Specifically: - In uncommon cases, when the server is overloaded, the request might return before the default deadline is reached, or might return after zero seconds. - If the default deadline is reached, there is no guarantee that the operation is actually done when the method returns. Be prepared to retry if the operation is not `DONE`.
+    pub fn wait(&self) -> super::builder::zone_operations::Wait {
+        super::builder::zone_operations::Wait::new(self.inner.clone())
     }
 }
 

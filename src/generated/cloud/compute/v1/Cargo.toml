@@ -29,13 +29,19 @@ rust-version.workspace = true
 [features]
 default = [
     "images",
+    "instances",
     "machine-types",
+    "zone-operations",
     "zones",
 ]
 # Enables `client::Images` and all the types it depends on.
 images = []
+# Enables `client::Instances` and all the types it depends on.
+instances = []
 # Enables `client::MachineTypes` and all the types it depends on.
 machine-types = []
+# Enables `client::ZoneOperations` and all the types it depends on.
+zone-operations = []
 # Enables `client::Zones` and all the types it depends on.
 zones = []
 
