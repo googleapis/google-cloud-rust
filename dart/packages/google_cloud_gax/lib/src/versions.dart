@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'web.dart' if (dart.library.io) 'vm.dart' show dartVersion;
+export 'web.dart' if (dart.library.io) 'vm.dart' show clientDartVersion;
 
 /// The version of this package.
 //

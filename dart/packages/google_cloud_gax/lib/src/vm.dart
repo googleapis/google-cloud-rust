@@ -17,8 +17,11 @@ library;
 
 import 'dart:io';
 
-// ignore: unnecessary_nullable_for_final_variable_declarations
-final String? dartVersion = Platform.version
+/// The Dart version to use in "x-goog-api-client" headers.
+///
+/// The format is either `major.minor.patch` or the special value `0`, which
+/// indicates that the version is unknown.
+final clientDartVersion = Platform.version
     .split(RegExp('[^0-9]+'))
     .take(3)
     .join('.');

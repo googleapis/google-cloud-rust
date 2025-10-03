@@ -22,8 +22,7 @@ export 'dart:typed_data' show Uint8List;
 
 const String _clientKey = 'x-goog-api-client';
 
-// `'0'` is a special version string indicating that the version isn't known.
-final String _clientName = 'gl-dart/${dartVersion ?? '0'} gax/$gaxVersion';
+final String _clientName = 'gl-dart/$clientDartVersion gax/$gaxVersion';
 
 const String _contentTypeKey = 'content-type';
 const String _typeJson = 'application/json';

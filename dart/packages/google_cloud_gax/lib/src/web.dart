@@ -15,4 +15,8 @@
 /// Web-specific implementations.
 library;
 
-final String? dartVersion = null;
+/// The Dart version to use in "x-goog-api-client" headers.
+///
+/// The format is either `major.minor.patch` or the special value `0`, which
+/// indicates that the version is unknown.
+const String clientDartVersion = '0';
