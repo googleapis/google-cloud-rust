@@ -109,65 +109,29 @@ pub async fn machine_types() -> Result<()> {
     Ok(())
 }
 
-async fn latest_image(client: &Images, project_id: &str, prefix: &str) -> Result<String> {
-    use compute::model::image::Architecture;
-
-    let mut latest = None;
-    let mut items = client.list().set_project(project_id).by_item();
-    while let Some(item) = items.next().await.transpose()? {
-        tracing::info!("item = {item:?}");
-        if item.architecture != Some(Architecture::X8664)
-            || item
-                .family
-                .as_deref()
-                .is_some_and(|v| v.strip_prefix(prefix).is_none())
-        {
-            continue;
-        }
-        latest = match &latest {
-            None => Some(item),
-            Some(i)
-                if item
-                    .family
-                    .as_deref()
-                    .is_some_and(|f| f > i.family.as_deref().unwrap_or_default()) =>
-            {
-                Some(item)
-            }
-            Some(i)
-                if item.family == i.family && item.creation_timestamp > i.creation_timestamp =>
-            {
-                Some(item)
-            }
-            _ => latest,
-        };
-    }
-    latest
-        .and_then(|i| i.name)
-        .ok_or(anyhow::Error::msg(format!(
-            "cannot find an image in project {project_id} starting with {prefix}"
-        )))
-}
-
 pub async fn images() -> Result<()> {
     tracing::info!("Testing Images::list()");
     let client = Images::builder().with_tracing().build().await?;
-    let name = latest_image(&client, "debian-cloud", "debian-").await?;
+    // Debian 13 is supported until 2030. When it is dropped, the test will not
+    // be as entertaining, but will still be useful.
+    let mut items = client
+        .list()
+        .set_project("debian-cloud")
+        .set_filter("family=debian-13 AND architecture=X86_64")
+        .by_item();
+    while let Some(item) = items.next().await.transpose()? {
+        tracing::info!("item = {item:?}");
+    }
     tracing::info!("DONE with Images::list()");
-    tracing::info!("LATEST cos-cloud image is {name}");
     Ok(())
 }
 
 pub async fn instances() -> Result<()> {
-    let images = Images::builder().build().await?;
     let client = Instances::builder().with_tracing().build().await?;
     let operations = ZoneOperations::builder().with_tracing().build().await?;
     let project_id = crate::project_id()?;
     let service_account = crate::test_service_account()?;
     let zone_id = crate::zone_id();
-
-    // We need a recent image in an allowed image family.
-    let image = latest_image(&images, "cos-cloud", "cos-").await?;
 
     let id = crate::random_vm_id();
     let body = Instance::new()
@@ -177,7 +141,7 @@ pub async fn instances() -> Result<()> {
         .set_disks([AttachedDisk::new()
             .set_initialize_params(
                 AttachedDiskInitializeParams::new()
-                    .set_source_image(format!("projects/cos-cloud/global/images/{image}")),
+                    .set_source_image("projects/cos-cloud/global/images/family/cos-stable"),
             )
             .set_boot(true)
             .set_auto_delete(true)])
