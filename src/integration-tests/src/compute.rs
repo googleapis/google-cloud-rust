@@ -69,10 +69,7 @@ pub async fn machine_types() -> Result<()> {
     tracing::info!("DONE with MachineTypes::list()");
 
     tracing::info!("Testing MachineTypes::aggregated_list()");
-    let mut aggregates = client
-            .aggregated_list()
-            .set_project(&project_id)
-            .by_item();
+    let mut aggregates = client.aggregated_list().set_project(&project_id).by_item();
     let mut count = 0;
     while let Some((zone, scoped_list)) = aggregates.next().await.transpose()? {
         if count > 10 {
@@ -88,7 +85,10 @@ pub async fn machine_types() -> Result<()> {
             count += 1;
             continue;
         }
-        tracing::warn!("zone {zone} has {} machine types", scoped_list.machine_types.len());
+        tracing::warn!(
+            "zone {zone} has {} machine types",
+            scoped_list.machine_types.len()
+        );
         count += 1;
     }
     tracing::info!("DONE with MachineTypes::aggregated_list()");
