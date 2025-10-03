@@ -62,6 +62,8 @@
 //! }
 //! ```
 
+use std::sync::{Arc, Mutex};
+
 /// Represents a Google Cloud service response.
 ///
 /// A response from a Google Cloud service consists of a body (potentially the
@@ -113,7 +115,7 @@
 ///     Ok(Response::from(body))
 /// }
 /// ```
-///   
+///
 #[derive(Clone, Debug)]
 pub struct Response<T> {
     parts: Parts,
@@ -213,6 +215,16 @@ impl<T> Response<T> {
     pub fn into_body(self) -> T {
         self.body
     }
+
+    /// Inserts a value into the response extensions.
+    pub fn insert_extension<E: Clone + Send + Sync + 'static>(&mut self, val: E) {
+        self.parts.extensions.lock().unwrap().insert(val);
+    }
+
+    /// Gets a reference to a value in the response extensions, if it exists.
+    pub fn get_extension<E: Clone + Send + Sync + 'static>(&self) -> Option<E> {
+        self.parts.extensions.lock().unwrap().get::<E>().cloned()
+    }
 }
 
 /// Component parts of a response.
@@ -235,13 +247,15 @@ impl<T> Response<T> {
 ///     Some(&http::HeaderValue::from_static("application/json"))
 /// );
 /// ```
-///  
+///
 /// [tower]: https://github.com/tower-rs/tower
 #[derive(Clone, Debug, Default)]
 #[non_exhaustive]
 pub struct Parts {
     /// The HTTP headers or the gRPC metadata converted to HTTP headers.
     pub headers: http::HeaderMap<http::HeaderValue>,
+    /// Extensions for passing data from the transport.
+    pub extensions: Arc<Mutex<http::Extensions>>,
 }
 
 impl Parts {

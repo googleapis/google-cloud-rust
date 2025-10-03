@@ -19,6 +19,7 @@ mod tests {
     use google_cloud_gax_internal::options::ClientConfig;
     use http::HeaderValue;
     use httptest::{Expectation, Server, matchers::*, responders::*};
+    use hyper_util::client::legacy::connect::HttpInfo;
     use serde_json::json;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
@@ -44,6 +45,28 @@ mod tests {
             parts.headers.get("x-test-header"),
             Some(&HeaderValue::from_static("test-only"))
         );
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn test_extensions() -> anyhow::Result<()> {
+        let server = start();
+        let endpoint = format!("http://{}", server.addr());
+
+        let client = ReqwestClient::new(test_config(), &endpoint).await?;
+        let builder = client.builder(reqwest::Method::GET, "/hello".into());
+        let body = json!({});
+
+        let response = client
+            .execute::<serde_json::Value, serde_json::Value>(
+                builder,
+                Some(body),
+                RequestOptions::default(),
+            )
+            .await?;
+        let (parts, _body) = response.into_parts();
+        let ext = parts.extensions.lock().unwrap().get::<HttpInfo>().cloned();
+        assert!(ext.is_some(), "HttpInfo extension should be present");
         Ok(())
     }
 

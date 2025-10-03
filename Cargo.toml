@@ -338,6 +338,7 @@ anyhow            = { default-features = false, version = "1.0.100", features = 
 axum              = { default-features = false, version = "0.8" }
 flate2            = { default-features = false, version = "1" }
 httptest          = { default-features = false, version = "0.16.3" }
+hyper-util        = { default-features = false, version = "0.1.17" }
 md5               = { default-features = false, version = "0.8" }
 mockall           = { default-features = false, version = "0.13" }
 multer            = { default-features = false, version = "3" }
