@@ -14,13 +14,15 @@
 
 import 'dart:convert';
 
+import 'package:google_cloud_gax/src/versions.dart';
 import 'package:google_cloud_rpc/rpc.dart';
 import 'package:http/http.dart' as http;
 
 export 'dart:typed_data' show Uint8List;
 
 const String _clientKey = 'x-goog-api-client';
-const String _clientName = 'dart-gax-client';
+
+final String _clientName = 'gl-dart/$clientDartVersion gax/$gaxVersion';
 
 const String _contentTypeKey = 'content-type';
 const String _typeJson = 'application/json';

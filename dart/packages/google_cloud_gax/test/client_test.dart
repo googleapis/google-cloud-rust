@@ -54,7 +54,9 @@ void main() {
 
           expect(actualRequest.method, method);
           expect(actualRequest.url, sampleUrl);
-          expect(actualRequest.headers, {'x-goog-api-client': anything});
+          expect(actualRequest.headers, {
+            'x-goog-api-client': matches(r'gl-dart/3\.\d+\.\d+ gax/0.1.0'),
+          });
           expect(actualRequest.body, isEmpty);
         });
       }
@@ -81,7 +83,7 @@ void main() {
           expect(actualRequest.url, sampleUrl);
           expect(actualRequest.headers, {
             'content-type': 'application/json',
-            'x-goog-api-client': anything,
+            'x-goog-api-client': matches(r'gl-dart/3\.\d+\.\d+ gax/0.1.0'),
           });
           expect(actualRequest.body, '"<test payload>"');
         });
@@ -154,7 +156,9 @@ void main() {
 
           expect(actualRequest.method, method);
           expect(actualRequest.url, Uri.parse('http://example.com/?alt=sse'));
-          expect(actualRequest.headers, {'x-goog-api-client': anything});
+          expect(actualRequest.headers, {
+            'x-goog-api-client': matches(r'gl-dart/3\.\d+\.\d+ gax/0.1.0'),
+          });
           expect(actualRequest.body, isEmpty);
         });
       }
@@ -184,7 +188,7 @@ void main() {
           expect(actualRequest.url, Uri.parse('http://example.com/?alt=sse'));
           expect(actualRequest.headers, {
             'content-type': 'application/json',
-            'x-goog-api-client': anything,
+            'x-goog-api-client': matches(r'gl-dart/3\.\d+\.\d+ gax/0.1.0'),
           });
           expect(actualRequest.body, '"<test payload>"');
         });
