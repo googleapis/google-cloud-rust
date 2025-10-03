@@ -1129,6 +1129,5240 @@ pub mod images {
     }
 }
 
+#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instance-group-manager-resize-requests")))]
+pub mod instance_group_manager_resize_requests {
+    use crate::Result;
+
+    /// A builder for [InstanceGroupManagerResizeRequests][crate::client::InstanceGroupManagerResizeRequests].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::*;
+    /// # use builder::instance_group_manager_resize_requests::ClientBuilder;
+    /// # use client::InstanceGroupManagerResizeRequests;
+    /// let builder : ClientBuilder = InstanceGroupManagerResizeRequests::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://compute.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::InstanceGroupManagerResizeRequests;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = InstanceGroupManagerResizeRequests;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::InstanceGroupManagerResizeRequests] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagerResizeRequests>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::InstanceGroupManagerResizeRequests,
+            >,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagerResizeRequests::cancel][crate::client::InstanceGroupManagerResizeRequests::cancel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_manager_resize_requests::Cancel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Cancel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Cancel(
+        RequestBuilder<crate::model::instance_group_manager_resize_requests::CancelRequest>,
+    );
+
+    impl Cancel {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::InstanceGroupManagerResizeRequests,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_manager_resize_requests::CancelRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .cancel(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_manager_resize_requests::CancelRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_manager_resize_requests::CancelRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_manager_resize_requests::CancelRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_manager_resize_requests::CancelRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [resize_request][crate::model::instance_group_manager_resize_requests::CancelRequest::resize_request].
+        pub fn set_resize_request<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resize_request = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_manager_resize_requests::CancelRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Cancel {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagerResizeRequests::delete][crate::client::InstanceGroupManagerResizeRequests::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_manager_resize_requests::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Delete(
+        RequestBuilder<crate::model::instance_group_manager_resize_requests::DeleteRequest>,
+    );
+
+    impl Delete {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::InstanceGroupManagerResizeRequests,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_manager_resize_requests::DeleteRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_manager_resize_requests::DeleteRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_manager_resize_requests::DeleteRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_manager_resize_requests::DeleteRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_manager_resize_requests::DeleteRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [resize_request][crate::model::instance_group_manager_resize_requests::DeleteRequest::resize_request].
+        pub fn set_resize_request<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resize_request = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_manager_resize_requests::DeleteRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagerResizeRequests::get][crate::client::InstanceGroupManagerResizeRequests::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_manager_resize_requests::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Get(
+        RequestBuilder<crate::model::instance_group_manager_resize_requests::GetRequest>,
+    );
+
+    impl Get {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::InstanceGroupManagerResizeRequests,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_manager_resize_requests::GetRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroupManagerResizeRequest> {
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_manager_resize_requests::GetRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_manager_resize_requests::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [resize_request][crate::model::instance_group_manager_resize_requests::GetRequest::resize_request].
+        pub fn set_resize_request<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resize_request = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_manager_resize_requests::GetRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagerResizeRequests::insert][crate::client::InstanceGroupManagerResizeRequests::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_manager_resize_requests::Insert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Insert(
+        RequestBuilder<crate::model::instance_group_manager_resize_requests::InsertRequest>,
+    );
+
+    impl Insert {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::InstanceGroupManagerResizeRequests,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_manager_resize_requests::InsertRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_manager_resize_requests::InsertRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_manager_resize_requests::InsertRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_manager_resize_requests::InsertRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_manager_resize_requests::InsertRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_manager_resize_requests::InsertRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_manager_resize_requests::InsertRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagerResizeRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_manager_resize_requests::InsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagerResizeRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Insert {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagerResizeRequests::list][crate::client::InstanceGroupManagerResizeRequests::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_manager_resize_requests::List;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct List(
+        RequestBuilder<crate::model::instance_group_manager_resize_requests::ListRequest>,
+    );
+
+    impl List {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::InstanceGroupManagerResizeRequests,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_manager_resize_requests::ListRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::InstanceGroupManagerResizeRequestsListResponse> {
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::InstanceGroupManagerResizeRequestsListResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::InstanceGroupManagerResizeRequestsListResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::instance_group_manager_resize_requests::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::instance_group_manager_resize_requests::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_manager_resize_requests::ListRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::instance_group_manager_resize_requests::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::instance_group_manager_resize_requests::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::instance_group_manager_resize_requests::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::instance_group_manager_resize_requests::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::instance_group_manager_resize_requests::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::instance_group_manager_resize_requests::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_manager_resize_requests::ListRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::instance_group_manager_resize_requests::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_manager_resize_requests::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_manager_resize_requests::ListRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instance-group-managers")))]
+pub mod instance_group_managers {
+    use crate::Result;
+
+    /// A builder for [InstanceGroupManagers][crate::client::InstanceGroupManagers].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::*;
+    /// # use builder::instance_group_managers::ClientBuilder;
+    /// # use client::InstanceGroupManagers;
+    /// let builder : ClientBuilder = InstanceGroupManagers::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://compute.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::InstanceGroupManagers;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = InstanceGroupManagers;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::InstanceGroupManagers] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::abandon_instances][crate::client::InstanceGroupManagers::abandon_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::AbandonInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AbandonInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AbandonInstances(
+        RequestBuilder<crate::model::instance_group_managers::AbandonInstancesRequest>,
+    );
+
+    impl AbandonInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::AbandonInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .abandon_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::AbandonInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::AbandonInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::AbandonInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::AbandonInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::AbandonInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::AbandonInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersAbandonInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::AbandonInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersAbandonInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AbandonInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::aggregated_list][crate::client::InstanceGroupManagers::aggregated_list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::AggregatedList;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AggregatedList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AggregatedList(
+        RequestBuilder<crate::model::instance_group_managers::AggregatedListRequest>,
+    );
+
+    impl AggregatedList {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::AggregatedListRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroupManagerAggregatedList> {
+            (*self.0.stub)
+                .aggregated_list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::InstanceGroupManagerAggregatedList,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::InstanceGroupManagerAggregatedList,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::instance_group_managers::AggregatedListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::instance_group_managers::AggregatedListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [include_all_scopes][crate::model::instance_group_managers::AggregatedListRequest::include_all_scopes].
+        pub fn set_include_all_scopes<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.include_all_scopes = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [include_all_scopes][crate::model::instance_group_managers::AggregatedListRequest::include_all_scopes].
+        pub fn set_or_clear_include_all_scopes<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.include_all_scopes = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::instance_group_managers::AggregatedListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::instance_group_managers::AggregatedListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::instance_group_managers::AggregatedListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::instance_group_managers::AggregatedListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::instance_group_managers::AggregatedListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::instance_group_managers::AggregatedListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::AggregatedListRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::instance_group_managers::AggregatedListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_managers::AggregatedListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [service_project_number][crate::model::instance_group_managers::AggregatedListRequest::service_project_number].
+        pub fn set_service_project_number<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.service_project_number = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_project_number][crate::model::instance_group_managers::AggregatedListRequest::service_project_number].
+        pub fn set_or_clear_service_project_number<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.service_project_number = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AggregatedList {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::apply_updates_to_instances][crate::client::InstanceGroupManagers::apply_updates_to_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::ApplyUpdatesToInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApplyUpdatesToInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ApplyUpdatesToInstances(
+        RequestBuilder<crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest>,
+    );
+
+    impl ApplyUpdatesToInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .apply_updates_to_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersApplyUpdatesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersApplyUpdatesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApplyUpdatesToInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::create_instances][crate::client::InstanceGroupManagers::create_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::CreateInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateInstances(
+        RequestBuilder<crate::model::instance_group_managers::CreateInstancesRequest>,
+    );
+
+    impl CreateInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::CreateInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .create_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::CreateInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::CreateInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::CreateInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::CreateInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::CreateInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::CreateInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersCreateInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::CreateInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersCreateInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::delete][crate::client::InstanceGroupManagers::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Delete(RequestBuilder<crate::model::instance_group_managers::DeleteRequest>);
+
+    impl Delete {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_group_managers::DeleteRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::DeleteRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::DeleteRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::DeleteRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::DeleteRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::DeleteRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::delete_instances][crate::client::InstanceGroupManagers::delete_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::DeleteInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteInstances(
+        RequestBuilder<crate::model::instance_group_managers::DeleteInstancesRequest>,
+    );
+
+    impl DeleteInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::DeleteInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::DeleteInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::DeleteInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::DeleteInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::DeleteInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::DeleteInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::DeleteInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersDeleteInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::DeleteInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersDeleteInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::delete_per_instance_configs][crate::client::InstanceGroupManagers::delete_per_instance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::DeletePerInstanceConfigs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePerInstanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeletePerInstanceConfigs(
+        RequestBuilder<crate::model::instance_group_managers::DeletePerInstanceConfigsRequest>,
+    );
+
+    impl DeletePerInstanceConfigs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::DeletePerInstanceConfigsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete_per_instance_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::DeletePerInstanceConfigsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::DeletePerInstanceConfigsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::DeletePerInstanceConfigsRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::DeletePerInstanceConfigsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersDeletePerInstanceConfigsReq>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::DeletePerInstanceConfigsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersDeletePerInstanceConfigsReq>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePerInstanceConfigs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::get][crate::client::InstanceGroupManagers::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Get(RequestBuilder<crate::model::instance_group_managers::GetRequest>);
+
+    impl Get {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_group_managers::GetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroupManager> {
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::GetRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::GetRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::insert][crate::client::InstanceGroupManagers::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::Insert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Insert(RequestBuilder<crate::model::instance_group_managers::InsertRequest>);
+
+    impl Insert {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_group_managers::InsertRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::InsertRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::InsertRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::InsertRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::InsertRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::InsertRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManager>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::InsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManager>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Insert {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::list][crate::client::InstanceGroupManagers::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::List;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct List(RequestBuilder<crate::model::instance_group_managers::ListRequest>);
+
+    impl List {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_group_managers::ListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroupManagerList> {
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::InstanceGroupManagerList, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::InstanceGroupManagerList, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::instance_group_managers::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::instance_group_managers::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::instance_group_managers::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::instance_group_managers::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::instance_group_managers::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::instance_group_managers::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::instance_group_managers::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::instance_group_managers::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::ListRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::instance_group_managers::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_managers::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::ListRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::list_errors][crate::client::InstanceGroupManagers::list_errors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::ListErrors;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListErrors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListErrors(RequestBuilder<crate::model::instance_group_managers::ListErrorsRequest>);
+
+    impl ListErrors {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_group_managers::ListErrorsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroupManagersListErrorsResponse> {
+            (*self.0.stub)
+                .list_errors(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::InstanceGroupManagersListErrorsResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::InstanceGroupManagersListErrorsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::instance_group_managers::ListErrorsRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::instance_group_managers::ListErrorsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::ListErrorsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::instance_group_managers::ListErrorsRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::instance_group_managers::ListErrorsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::instance_group_managers::ListErrorsRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::instance_group_managers::ListErrorsRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::instance_group_managers::ListErrorsRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::instance_group_managers::ListErrorsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::ListErrorsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::instance_group_managers::ListErrorsRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_managers::ListErrorsRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::ListErrorsRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListErrors {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::list_managed_instances][crate::client::InstanceGroupManagers::list_managed_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::ListManagedInstances;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListManagedInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListManagedInstances(
+        RequestBuilder<crate::model::instance_group_managers::ListManagedInstancesRequest>,
+    );
+
+    impl ListManagedInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::ListManagedInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::InstanceGroupManagersListManagedInstancesResponse> {
+            (*self.0.stub)
+                .list_managed_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::InstanceGroupManagersListManagedInstancesResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::InstanceGroupManagersListManagedInstancesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::instance_group_managers::ListManagedInstancesRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::instance_group_managers::ListManagedInstancesRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::ListManagedInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::instance_group_managers::ListManagedInstancesRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::instance_group_managers::ListManagedInstancesRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::instance_group_managers::ListManagedInstancesRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::instance_group_managers::ListManagedInstancesRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::instance_group_managers::ListManagedInstancesRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::instance_group_managers::ListManagedInstancesRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::ListManagedInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::instance_group_managers::ListManagedInstancesRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_managers::ListManagedInstancesRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::ListManagedInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListManagedInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::list_per_instance_configs][crate::client::InstanceGroupManagers::list_per_instance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::ListPerInstanceConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPerInstanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListPerInstanceConfigs(
+        RequestBuilder<crate::model::instance_group_managers::ListPerInstanceConfigsRequest>,
+    );
+
+    impl ListPerInstanceConfigs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::ListPerInstanceConfigsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::InstanceGroupManagersListPerInstanceConfigsResp> {
+            (*self.0.stub)
+                .list_per_instance_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::InstanceGroupManagersListPerInstanceConfigsResp,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::InstanceGroupManagersListPerInstanceConfigsResp,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::ListPerInstanceConfigsRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPerInstanceConfigs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::patch][crate::client::InstanceGroupManagers::patch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::Patch;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Patch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Patch(RequestBuilder<crate::model::instance_group_managers::PatchRequest>);
+
+    impl Patch {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_group_managers::PatchRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .patch(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::PatchRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::PatchRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::PatchRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::PatchRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::PatchRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::PatchRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManager>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::PatchRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManager>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Patch {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::patch_per_instance_configs][crate::client::InstanceGroupManagers::patch_per_instance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::PatchPerInstanceConfigs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PatchPerInstanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct PatchPerInstanceConfigs(
+        RequestBuilder<crate::model::instance_group_managers::PatchPerInstanceConfigsRequest>,
+    );
+
+    impl PatchPerInstanceConfigs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::PatchPerInstanceConfigsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .patch_per_instance_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::PatchPerInstanceConfigsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::PatchPerInstanceConfigsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::PatchPerInstanceConfigsRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::PatchPerInstanceConfigsRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::PatchPerInstanceConfigsRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::PatchPerInstanceConfigsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersPatchPerInstanceConfigsReq>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::PatchPerInstanceConfigsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersPatchPerInstanceConfigsReq>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PatchPerInstanceConfigs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::recreate_instances][crate::client::InstanceGroupManagers::recreate_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::RecreateInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RecreateInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RecreateInstances(
+        RequestBuilder<crate::model::instance_group_managers::RecreateInstancesRequest>,
+    );
+
+    impl RecreateInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::RecreateInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .recreate_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::RecreateInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::RecreateInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::RecreateInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::RecreateInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::RecreateInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::RecreateInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersRecreateInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::RecreateInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersRecreateInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RecreateInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::resize][crate::client::InstanceGroupManagers::resize] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::Resize;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Resize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Resize(RequestBuilder<crate::model::instance_group_managers::ResizeRequest>);
+
+    impl Resize {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_group_managers::ResizeRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .resize(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::ResizeRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::ResizeRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::ResizeRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::ResizeRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [size][crate::model::instance_group_managers::ResizeRequest::size].
+        pub fn set_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.size = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::ResizeRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Resize {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::resume_instances][crate::client::InstanceGroupManagers::resume_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::ResumeInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ResumeInstances(
+        RequestBuilder<crate::model::instance_group_managers::ResumeInstancesRequest>,
+    );
+
+    impl ResumeInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::ResumeInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .resume_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::ResumeInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::ResumeInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::ResumeInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::ResumeInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::ResumeInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::ResumeInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersResumeInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::ResumeInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersResumeInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumeInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::set_instance_template][crate::client::InstanceGroupManagers::set_instance_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::SetInstanceTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetInstanceTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetInstanceTemplate(
+        RequestBuilder<crate::model::instance_group_managers::SetInstanceTemplateRequest>,
+    );
+
+    impl SetInstanceTemplate {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::SetInstanceTemplateRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_instance_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::SetInstanceTemplateRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::SetInstanceTemplateRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::SetInstanceTemplateRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::SetInstanceTemplateRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::SetInstanceTemplateRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::SetInstanceTemplateRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersSetInstanceTemplateRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::SetInstanceTemplateRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersSetInstanceTemplateRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetInstanceTemplate {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::set_target_pools][crate::client::InstanceGroupManagers::set_target_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::SetTargetPools;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetTargetPools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetTargetPools(
+        RequestBuilder<crate::model::instance_group_managers::SetTargetPoolsRequest>,
+    );
+
+    impl SetTargetPools {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::SetTargetPoolsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_target_pools(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::SetTargetPoolsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::SetTargetPoolsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::SetTargetPoolsRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::SetTargetPoolsRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::SetTargetPoolsRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::SetTargetPoolsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersSetTargetPoolsRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::SetTargetPoolsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersSetTargetPoolsRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetTargetPools {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::start_instances][crate::client::InstanceGroupManagers::start_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::StartInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StartInstances(
+        RequestBuilder<crate::model::instance_group_managers::StartInstancesRequest>,
+    );
+
+    impl StartInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::StartInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .start_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::StartInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::StartInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::StartInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::StartInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::StartInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::StartInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersStartInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::StartInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersStartInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::stop_instances][crate::client::InstanceGroupManagers::stop_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::StopInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StopInstances(
+        RequestBuilder<crate::model::instance_group_managers::StopInstancesRequest>,
+    );
+
+    impl StopInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::StopInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .stop_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::StopInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::StopInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::StopInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::StopInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::StopInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::StopInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersStopInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::StopInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersStopInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StopInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::suspend_instances][crate::client::InstanceGroupManagers::suspend_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::SuspendInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SuspendInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SuspendInstances(
+        RequestBuilder<crate::model::instance_group_managers::SuspendInstancesRequest>,
+    );
+
+    impl SuspendInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::SuspendInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .suspend_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::SuspendInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::SuspendInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::SuspendInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::SuspendInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::SuspendInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::SuspendInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersSuspendInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::SuspendInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersSuspendInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SuspendInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroupManagers::update_per_instance_configs][crate::client::InstanceGroupManagers::update_per_instance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_group_managers::UpdatePerInstanceConfigs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePerInstanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdatePerInstanceConfigs(
+        RequestBuilder<crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest>,
+    );
+
+    impl UpdatePerInstanceConfigs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .update_per_instance_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersUpdatePerInstanceConfigsReq>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManagersUpdatePerInstanceConfigsReq>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePerInstanceConfigs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instance-groups")))]
+pub mod instance_groups {
+    use crate::Result;
+
+    /// A builder for [InstanceGroups][crate::client::InstanceGroups].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::*;
+    /// # use builder::instance_groups::ClientBuilder;
+    /// # use client::InstanceGroups;
+    /// let builder : ClientBuilder = InstanceGroups::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://compute.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::InstanceGroups;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = InstanceGroups;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::InstanceGroups] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [InstanceGroups::add_instances][crate::client::InstanceGroups::add_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_groups::AddInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AddInstances(RequestBuilder<crate::model::instance_groups::AddInstancesRequest>);
+
+    impl AddInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_groups::AddInstancesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .add_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group][crate::model::instance_groups::AddInstancesRequest::instance_group].
+        pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_groups::AddInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_groups::AddInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_groups::AddInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_groups::AddInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_groups::AddInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupsAddInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_groups::AddInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupsAddInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AddInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroups::aggregated_list][crate::client::InstanceGroups::aggregated_list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_groups::AggregatedList;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AggregatedList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AggregatedList(RequestBuilder<crate::model::instance_groups::AggregatedListRequest>);
+
+    impl AggregatedList {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_groups::AggregatedListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroupAggregatedList> {
+            (*self.0.stub)
+                .aggregated_list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::InstanceGroupAggregatedList, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::InstanceGroupAggregatedList,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::instance_groups::AggregatedListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::instance_groups::AggregatedListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [include_all_scopes][crate::model::instance_groups::AggregatedListRequest::include_all_scopes].
+        pub fn set_include_all_scopes<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.include_all_scopes = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [include_all_scopes][crate::model::instance_groups::AggregatedListRequest::include_all_scopes].
+        pub fn set_or_clear_include_all_scopes<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.include_all_scopes = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::instance_groups::AggregatedListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::instance_groups::AggregatedListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::instance_groups::AggregatedListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::instance_groups::AggregatedListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::instance_groups::AggregatedListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::instance_groups::AggregatedListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_groups::AggregatedListRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::instance_groups::AggregatedListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::instance_groups::AggregatedListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [service_project_number][crate::model::instance_groups::AggregatedListRequest::service_project_number].
+        pub fn set_service_project_number<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.service_project_number = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_project_number][crate::model::instance_groups::AggregatedListRequest::service_project_number].
+        pub fn set_or_clear_service_project_number<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.service_project_number = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AggregatedList {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroups::delete][crate::client::InstanceGroups::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_groups::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Delete(RequestBuilder<crate::model::instance_groups::DeleteRequest>);
+
+    impl Delete {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_groups::DeleteRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group][crate::model::instance_groups::DeleteRequest::instance_group].
+        pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_groups::DeleteRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_groups::DeleteRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_groups::DeleteRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_groups::DeleteRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroups::get][crate::client::InstanceGroups::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_groups::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Get(RequestBuilder<crate::model::instance_groups::GetRequest>);
+
+    impl Get {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_groups::GetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroup> {
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group][crate::model::instance_groups::GetRequest::instance_group].
+        pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_groups::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_groups::GetRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroups::insert][crate::client::InstanceGroups::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_groups::Insert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Insert(RequestBuilder<crate::model::instance_groups::InsertRequest>);
+
+    impl Insert {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_groups::InsertRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::instance_groups::InsertRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_groups::InsertRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_groups::InsertRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_groups::InsertRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_groups::InsertRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroup>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_groups::InsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroup>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Insert {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroups::list][crate::client::InstanceGroups::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_groups::List;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct List(RequestBuilder<crate::model::instance_groups::ListRequest>);
+
+    impl List {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_groups::ListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroupList> {
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::InstanceGroupList, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::InstanceGroupList, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::instance_groups::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::instance_groups::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::instance_groups::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::instance_groups::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::instance_groups::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::instance_groups::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::instance_groups::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::instance_groups::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_groups::ListRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::instance_groups::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::instance_groups::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_groups::ListRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroups::list_instances][crate::client::InstanceGroups::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_groups::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListInstances(RequestBuilder<crate::model::instance_groups::ListInstancesRequest>);
+
+    impl ListInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_groups::ListInstancesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroupsListInstances> {
+            (*self.0.stub)
+                .list_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::InstanceGroupsListInstances, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::InstanceGroupsListInstances,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::instance_groups::ListInstancesRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::instance_groups::ListInstancesRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [instance_group][crate::model::instance_groups::ListInstancesRequest::instance_group].
+        pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::instance_groups::ListInstancesRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::instance_groups::ListInstancesRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::instance_groups::ListInstancesRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::instance_groups::ListInstancesRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::instance_groups::ListInstancesRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::instance_groups::ListInstancesRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_groups::ListInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::instance_groups::ListInstancesRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::instance_groups::ListInstancesRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_groups::ListInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_groups::ListInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupsListInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_groups::ListInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupsListInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroups::remove_instances][crate::client::InstanceGroups::remove_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_groups::RemoveInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RemoveInstances(
+        RequestBuilder<crate::model::instance_groups::RemoveInstancesRequest>,
+    );
+
+    impl RemoveInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_groups::RemoveInstancesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .remove_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group][crate::model::instance_groups::RemoveInstancesRequest::instance_group].
+        pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_groups::RemoveInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_groups::RemoveInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_groups::RemoveInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_groups::RemoveInstancesRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_groups::RemoveInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupsRemoveInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_groups::RemoveInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupsRemoveInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RemoveInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroups::set_named_ports][crate::client::InstanceGroups::set_named_ports] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_groups::SetNamedPorts;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetNamedPorts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetNamedPorts(RequestBuilder<crate::model::instance_groups::SetNamedPortsRequest>);
+
+    impl SetNamedPorts {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_groups::SetNamedPortsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_named_ports(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group][crate::model::instance_groups::SetNamedPortsRequest::instance_group].
+        pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::instance_groups::SetNamedPortsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::instance_groups::SetNamedPortsRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::instance_groups::SetNamedPortsRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_groups::SetNamedPortsRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_groups::SetNamedPortsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupsSetNamedPortsRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_groups::SetNamedPortsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupsSetNamedPortsRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetNamedPorts {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InstanceGroups::test_iam_permissions][crate::client::InstanceGroups::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::instance_groups::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TestIamPermissions(
+        RequestBuilder<crate::model::instance_groups::TestIamPermissionsRequest>,
+    );
+
+    impl TestIamPermissions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::instance_groups::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::TestPermissionsResponse> {
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::instance_groups::TestIamPermissionsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::instance_groups::TestIamPermissionsRequest::resource].
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::instance_groups::TestIamPermissionsRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::instance_groups::TestIamPermissionsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TestPermissionsRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::instance_groups::TestIamPermissionsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TestPermissionsRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
 #[cfg(feature = "instances")]
 #[cfg_attr(docsrs, doc(cfg(feature = "instances")))]
 pub mod instances {
@@ -7496,6 +12730,4880 @@ pub mod machine_types {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instance-group-managers")))]
+pub mod region_instance_group_managers {
+    use crate::Result;
+
+    /// A builder for [RegionInstanceGroupManagers][crate::client::RegionInstanceGroupManagers].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::*;
+    /// # use builder::region_instance_group_managers::ClientBuilder;
+    /// # use client::RegionInstanceGroupManagers;
+    /// let builder : ClientBuilder = RegionInstanceGroupManagers::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://compute.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RegionInstanceGroupManagers;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RegionInstanceGroupManagers;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::RegionInstanceGroupManagers] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::abandon_instances][crate::client::RegionInstanceGroupManagers::abandon_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::AbandonInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AbandonInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AbandonInstances(
+        RequestBuilder<crate::model::region_instance_group_managers::AbandonInstancesRequest>,
+    );
+
+    impl AbandonInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::AbandonInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .abandon_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::AbandonInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::AbandonInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::AbandonInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::AbandonInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::AbandonInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::AbandonInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersAbandonInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::AbandonInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersAbandonInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AbandonInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::apply_updates_to_instances][crate::client::RegionInstanceGroupManagers::apply_updates_to_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::ApplyUpdatesToInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApplyUpdatesToInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ApplyUpdatesToInstances(
+        RequestBuilder<
+            crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest,
+        >,
+    );
+
+    impl ApplyUpdatesToInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .apply_updates_to_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersApplyUpdatesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersApplyUpdatesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ApplyUpdatesToInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::create_instances][crate::client::RegionInstanceGroupManagers::create_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::CreateInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateInstances(
+        RequestBuilder<crate::model::region_instance_group_managers::CreateInstancesRequest>,
+    );
+
+    impl CreateInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::CreateInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .create_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::CreateInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::CreateInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::CreateInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::CreateInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::CreateInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::CreateInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersCreateInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::CreateInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersCreateInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::delete][crate::client::RegionInstanceGroupManagers::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Delete(RequestBuilder<crate::model::region_instance_group_managers::DeleteRequest>);
+
+    impl Delete {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::DeleteRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::DeleteRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::DeleteRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::DeleteRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::DeleteRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::DeleteRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::delete_instances][crate::client::RegionInstanceGroupManagers::delete_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::DeleteInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteInstances(
+        RequestBuilder<crate::model::region_instance_group_managers::DeleteInstancesRequest>,
+    );
+
+    impl DeleteInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::DeleteInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::DeleteInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::DeleteInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::DeleteInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::DeleteInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::DeleteInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::DeleteInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersDeleteInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::DeleteInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersDeleteInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::delete_per_instance_configs][crate::client::RegionInstanceGroupManagers::delete_per_instance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::DeletePerInstanceConfigs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePerInstanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeletePerInstanceConfigs(
+        RequestBuilder<
+            crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest,
+        >,
+    );
+
+    impl DeletePerInstanceConfigs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete_per_instance_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagerDeleteInstanceConfigReq>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagerDeleteInstanceConfigReq>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeletePerInstanceConfigs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::get][crate::client::RegionInstanceGroupManagers::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Get(RequestBuilder<crate::model::region_instance_group_managers::GetRequest>);
+
+    impl Get {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_group_managers::GetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroupManager> {
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::GetRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::GetRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::insert][crate::client::RegionInstanceGroupManagers::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::Insert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Insert(RequestBuilder<crate::model::region_instance_group_managers::InsertRequest>);
+
+    impl Insert {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::InsertRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::InsertRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::InsertRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::InsertRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::InsertRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::InsertRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManager>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::InsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManager>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Insert {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::list][crate::client::RegionInstanceGroupManagers::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::List;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct List(RequestBuilder<crate::model::region_instance_group_managers::ListRequest>);
+
+    impl List {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_group_managers::ListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RegionInstanceGroupManagerList> {
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::RegionInstanceGroupManagerList,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::RegionInstanceGroupManagerList,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::region_instance_group_managers::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::region_instance_group_managers::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::region_instance_group_managers::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::region_instance_group_managers::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::region_instance_group_managers::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::region_instance_group_managers::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::region_instance_group_managers::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::region_instance_group_managers::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::ListRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::ListRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::region_instance_group_managers::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_group_managers::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::list_errors][crate::client::RegionInstanceGroupManagers::list_errors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::ListErrors;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListErrors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListErrors(
+        RequestBuilder<crate::model::region_instance_group_managers::ListErrorsRequest>,
+    );
+
+    impl ListErrors {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::ListErrorsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::RegionInstanceGroupManagersListErrorsResponse> {
+            (*self.0.stub)
+                .list_errors(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::RegionInstanceGroupManagersListErrorsResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::RegionInstanceGroupManagersListErrorsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::region_instance_group_managers::ListErrorsRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::region_instance_group_managers::ListErrorsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::ListErrorsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::region_instance_group_managers::ListErrorsRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::region_instance_group_managers::ListErrorsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::region_instance_group_managers::ListErrorsRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::region_instance_group_managers::ListErrorsRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::region_instance_group_managers::ListErrorsRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::region_instance_group_managers::ListErrorsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::ListErrorsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::ListErrorsRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::region_instance_group_managers::ListErrorsRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_group_managers::ListErrorsRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListErrors {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::list_managed_instances][crate::client::RegionInstanceGroupManagers::list_managed_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::ListManagedInstances;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListManagedInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListManagedInstances(
+        RequestBuilder<crate::model::region_instance_group_managers::ListManagedInstancesRequest>,
+    );
+
+    impl ListManagedInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::ListManagedInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::RegionInstanceGroupManagersListInstancesResponse> {
+            (*self.0.stub)
+                .list_managed_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::RegionInstanceGroupManagersListInstancesResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::RegionInstanceGroupManagersListInstancesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::region_instance_group_managers::ListManagedInstancesRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::region_instance_group_managers::ListManagedInstancesRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::ListManagedInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::region_instance_group_managers::ListManagedInstancesRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::region_instance_group_managers::ListManagedInstancesRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::region_instance_group_managers::ListManagedInstancesRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::region_instance_group_managers::ListManagedInstancesRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::region_instance_group_managers::ListManagedInstancesRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::region_instance_group_managers::ListManagedInstancesRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::ListManagedInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::ListManagedInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::region_instance_group_managers::ListManagedInstancesRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_group_managers::ListManagedInstancesRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListManagedInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::list_per_instance_configs][crate::client::RegionInstanceGroupManagers::list_per_instance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::ListPerInstanceConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPerInstanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListPerInstanceConfigs(
+        RequestBuilder<crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest>,
+    );
+
+    impl ListPerInstanceConfigs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::RegionInstanceGroupManagersListInstanceConfigsResp> {
+            (*self.0.stub)
+                .list_per_instance_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::RegionInstanceGroupManagersListInstanceConfigsResp,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::RegionInstanceGroupManagersListInstanceConfigsResp,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListPerInstanceConfigs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::patch][crate::client::RegionInstanceGroupManagers::patch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::Patch;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Patch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Patch(RequestBuilder<crate::model::region_instance_group_managers::PatchRequest>);
+
+    impl Patch {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_group_managers::PatchRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .patch(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::PatchRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::PatchRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::PatchRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::PatchRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::PatchRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::PatchRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManager>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::PatchRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceGroupManager>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Patch {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::patch_per_instance_configs][crate::client::RegionInstanceGroupManagers::patch_per_instance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::PatchPerInstanceConfigs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PatchPerInstanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct PatchPerInstanceConfigs(
+        RequestBuilder<
+            crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest,
+        >,
+    );
+
+    impl PatchPerInstanceConfigs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .patch_per_instance_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagerPatchInstanceConfigReq>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagerPatchInstanceConfigReq>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PatchPerInstanceConfigs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::recreate_instances][crate::client::RegionInstanceGroupManagers::recreate_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::RecreateInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RecreateInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RecreateInstances(
+        RequestBuilder<crate::model::region_instance_group_managers::RecreateInstancesRequest>,
+    );
+
+    impl RecreateInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::RecreateInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .recreate_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::RecreateInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::RecreateInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::RecreateInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::RecreateInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::RecreateInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::RecreateInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersRecreateRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::RecreateInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersRecreateRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RecreateInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::resize][crate::client::RegionInstanceGroupManagers::resize] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::Resize;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Resize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Resize(RequestBuilder<crate::model::region_instance_group_managers::ResizeRequest>);
+
+    impl Resize {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::ResizeRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .resize(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::ResizeRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::ResizeRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::ResizeRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::ResizeRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::ResizeRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [size][crate::model::region_instance_group_managers::ResizeRequest::size].
+        pub fn set_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.size = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Resize {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::resume_instances][crate::client::RegionInstanceGroupManagers::resume_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::ResumeInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ResumeInstances(
+        RequestBuilder<crate::model::region_instance_group_managers::ResumeInstancesRequest>,
+    );
+
+    impl ResumeInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::ResumeInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .resume_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::ResumeInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::ResumeInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::ResumeInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::ResumeInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::ResumeInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::ResumeInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersResumeInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::ResumeInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersResumeInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumeInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::set_instance_template][crate::client::RegionInstanceGroupManagers::set_instance_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::SetInstanceTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetInstanceTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetInstanceTemplate(
+        RequestBuilder<crate::model::region_instance_group_managers::SetInstanceTemplateRequest>,
+    );
+
+    impl SetInstanceTemplate {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::SetInstanceTemplateRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_instance_template(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::SetInstanceTemplateRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::SetInstanceTemplateRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::SetInstanceTemplateRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::SetInstanceTemplateRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::SetInstanceTemplateRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::SetInstanceTemplateRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersSetTemplateRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::SetInstanceTemplateRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersSetTemplateRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetInstanceTemplate {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::set_target_pools][crate::client::RegionInstanceGroupManagers::set_target_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::SetTargetPools;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetTargetPools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetTargetPools(
+        RequestBuilder<crate::model::region_instance_group_managers::SetTargetPoolsRequest>,
+    );
+
+    impl SetTargetPools {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::SetTargetPoolsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_target_pools(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::SetTargetPoolsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::SetTargetPoolsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::SetTargetPoolsRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::SetTargetPoolsRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::SetTargetPoolsRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::SetTargetPoolsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersSetTargetPoolsRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::SetTargetPoolsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersSetTargetPoolsRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetTargetPools {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::start_instances][crate::client::RegionInstanceGroupManagers::start_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::StartInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StartInstances(
+        RequestBuilder<crate::model::region_instance_group_managers::StartInstancesRequest>,
+    );
+
+    impl StartInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::StartInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .start_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::StartInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::StartInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::StartInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::StartInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::StartInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::StartInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersStartInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::StartInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersStartInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StartInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::stop_instances][crate::client::RegionInstanceGroupManagers::stop_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::StopInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StopInstances(
+        RequestBuilder<crate::model::region_instance_group_managers::StopInstancesRequest>,
+    );
+
+    impl StopInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::StopInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .stop_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::StopInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::StopInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::StopInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::StopInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::StopInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::StopInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersStopInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::StopInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersStopInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for StopInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::suspend_instances][crate::client::RegionInstanceGroupManagers::suspend_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::SuspendInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SuspendInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SuspendInstances(
+        RequestBuilder<crate::model::region_instance_group_managers::SuspendInstancesRequest>,
+    );
+
+    impl SuspendInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::SuspendInstancesRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .suspend_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::SuspendInstancesRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::SuspendInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::SuspendInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::SuspendInstancesRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::SuspendInstancesRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::SuspendInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersSuspendInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::SuspendInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagersSuspendInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SuspendInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroupManagers::update_per_instance_configs][crate::client::RegionInstanceGroupManagers::update_per_instance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_group_managers::UpdatePerInstanceConfigs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePerInstanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdatePerInstanceConfigs(
+        RequestBuilder<
+            crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest,
+        >,
+    );
+
+    impl UpdatePerInstanceConfigs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroupManagers>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .update_per_instance_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest::instance_group_manager].
+        pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group_manager = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagerUpdateInstanceConfigReq>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupManagerUpdateInstanceConfigReq>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdatePerInstanceConfigs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instance-groups")))]
+pub mod region_instance_groups {
+    use crate::Result;
+
+    /// A builder for [RegionInstanceGroups][crate::client::RegionInstanceGroups].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::*;
+    /// # use builder::region_instance_groups::ClientBuilder;
+    /// # use client::RegionInstanceGroups;
+    /// let builder : ClientBuilder = RegionInstanceGroups::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://compute.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RegionInstanceGroups;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RegionInstanceGroups;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::RegionInstanceGroups] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroups>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroups>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroups::get][crate::client::RegionInstanceGroups::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_groups::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Get(RequestBuilder<crate::model::region_instance_groups::GetRequest>);
+
+    impl Get {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_groups::GetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceGroup> {
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group][crate::model::region_instance_groups::GetRequest::instance_group].
+        pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_groups::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_groups::GetRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroups::list][crate::client::RegionInstanceGroups::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_groups::List;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct List(RequestBuilder<crate::model::region_instance_groups::ListRequest>);
+
+    impl List {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_groups::ListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RegionInstanceGroupList> {
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::RegionInstanceGroupList, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::RegionInstanceGroupList, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::region_instance_groups::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::region_instance_groups::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::region_instance_groups::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::region_instance_groups::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::region_instance_groups::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::region_instance_groups::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::region_instance_groups::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::region_instance_groups::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_groups::ListRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_groups::ListRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::region_instance_groups::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_groups::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroups::list_instances][crate::client::RegionInstanceGroups::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_groups::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListInstances(
+        RequestBuilder<crate::model::region_instance_groups::ListInstancesRequest>,
+    );
+
+    impl ListInstances {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_groups::ListInstancesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RegionInstanceGroupsListInstances> {
+            (*self.0.stub)
+                .list_instances(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::RegionInstanceGroupsListInstances,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::RegionInstanceGroupsListInstances,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::region_instance_groups::ListInstancesRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::region_instance_groups::ListInstancesRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [instance_group][crate::model::region_instance_groups::ListInstancesRequest::instance_group].
+        pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::region_instance_groups::ListInstancesRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::region_instance_groups::ListInstancesRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::region_instance_groups::ListInstancesRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::region_instance_groups::ListInstancesRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::region_instance_groups::ListInstancesRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::region_instance_groups::ListInstancesRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_groups::ListInstancesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_groups::ListInstancesRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::region_instance_groups::ListInstancesRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_groups::ListInstancesRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_groups::ListInstancesRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupsListInstancesRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_groups::ListInstancesRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupsListInstancesRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListInstances {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroups::set_named_ports][crate::client::RegionInstanceGroups::set_named_ports] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_groups::SetNamedPorts;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetNamedPorts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetNamedPorts(
+        RequestBuilder<crate::model::region_instance_groups::SetNamedPortsRequest>,
+    );
+
+    impl SetNamedPorts {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_groups::SetNamedPortsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_named_ports(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_group][crate::model::region_instance_groups::SetNamedPortsRequest::instance_group].
+        pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_group = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_groups::SetNamedPortsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_groups::SetNamedPortsRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_groups::SetNamedPortsRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_groups::SetNamedPortsRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_groups::SetNamedPortsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupsSetNamedPortsRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_groups::SetNamedPortsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionInstanceGroupsSetNamedPortsRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetNamedPorts {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceGroups::test_iam_permissions][crate::client::RegionInstanceGroups::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_groups::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TestIamPermissions(
+        RequestBuilder<crate::model::region_instance_groups::TestIamPermissionsRequest>,
+    );
+
+    impl TestIamPermissions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceGroups>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::region_instance_groups::TestIamPermissionsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::TestPermissionsResponse> {
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_groups::TestIamPermissionsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_groups::TestIamPermissionsRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::region_instance_groups::TestIamPermissionsRequest::resource].
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_groups::TestIamPermissionsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TestPermissionsRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_groups::TestIamPermissionsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TestPermissionsRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+#[cfg(feature = "region-instance-templates")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instance-templates")))]
+pub mod region_instance_templates {
+    use crate::Result;
+
+    /// A builder for [RegionInstanceTemplates][crate::client::RegionInstanceTemplates].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::*;
+    /// # use builder::region_instance_templates::ClientBuilder;
+    /// # use client::RegionInstanceTemplates;
+    /// let builder : ClientBuilder = RegionInstanceTemplates::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://compute.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RegionInstanceTemplates;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RegionInstanceTemplates;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::RegionInstanceTemplates] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceTemplates>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceTemplates>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [RegionInstanceTemplates::delete][crate::client::RegionInstanceTemplates::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_templates::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Delete(RequestBuilder<crate::model::region_instance_templates::DeleteRequest>);
+
+    impl Delete {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceTemplates>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_templates::DeleteRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_template][crate::model::region_instance_templates::DeleteRequest::instance_template].
+        pub fn set_instance_template<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_template = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_templates::DeleteRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_templates::DeleteRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_templates::DeleteRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_templates::DeleteRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceTemplates::get][crate::client::RegionInstanceTemplates::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_templates::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Get(RequestBuilder<crate::model::region_instance_templates::GetRequest>);
+
+    impl Get {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceTemplates>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_templates::GetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceTemplate> {
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance_template][crate::model::region_instance_templates::GetRequest::instance_template].
+        pub fn set_instance_template<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance_template = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_templates::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_templates::GetRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceTemplates::insert][crate::client::RegionInstanceTemplates::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_templates::Insert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Insert(RequestBuilder<crate::model::region_instance_templates::InsertRequest>);
+
+    impl Insert {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceTemplates>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_templates::InsertRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_templates::InsertRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_templates::InsertRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instance_templates::InsertRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instance_templates::InsertRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instance_templates::InsertRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceTemplate>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instance_templates::InsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceTemplate>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Insert {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionInstanceTemplates::list][crate::client::RegionInstanceTemplates::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instance_templates::List;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct List(RequestBuilder<crate::model::region_instance_templates::ListRequest>);
+
+    impl List {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstanceTemplates>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instance_templates::ListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstanceTemplateList> {
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::InstanceTemplateList, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::InstanceTemplateList, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::region_instance_templates::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::region_instance_templates::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::region_instance_templates::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::region_instance_templates::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::region_instance_templates::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::region_instance_templates::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::region_instance_templates::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::region_instance_templates::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_instance_templates::ListRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instance_templates::ListRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::region_instance_templates::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::region_instance_templates::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+#[cfg(feature = "region-instances")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instances")))]
+pub mod region_instances {
+    use crate::Result;
+
+    /// A builder for [RegionInstances][crate::client::RegionInstances].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::*;
+    /// # use builder::region_instances::ClientBuilder;
+    /// # use client::RegionInstances;
+    /// let builder : ClientBuilder = RegionInstances::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://compute.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RegionInstances;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RegionInstances;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::RegionInstances] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstances>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstances>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [RegionInstances::bulk_insert][crate::client::RegionInstances::bulk_insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_instances::BulkInsert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkInsert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct BulkInsert(RequestBuilder<crate::model::region_instances::BulkInsertRequest>);
+
+    impl BulkInsert {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionInstances>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_instances::BulkInsertRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .bulk_insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::region_instances::BulkInsertRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_instances::BulkInsertRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::region_instances::BulkInsertRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::region_instances::BulkInsertRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_instances::BulkInsertRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BulkInsertInstanceResource>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_instances::BulkInsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BulkInsertInstanceResource>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for BulkInsert {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+#[cfg(feature = "region-operations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-operations")))]
+pub mod region_operations {
+    use crate::Result;
+
+    /// A builder for [RegionOperations][crate::client::RegionOperations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::*;
+    /// # use builder::region_operations::ClientBuilder;
+    /// # use client::RegionOperations;
+    /// let builder : ClientBuilder = RegionOperations::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://compute.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::RegionOperations;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = RegionOperations;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::RegionOperations] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionOperations>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionOperations>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [RegionOperations::delete][crate::client::RegionOperations::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_operations::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Delete(RequestBuilder<crate::model::region_operations::DeleteRequest>);
+
+    impl Delete {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionOperations>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_operations::DeleteRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<wkt::Empty> {
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [operation][crate::model::region_operations::DeleteRequest::operation].
+        pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.operation = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_operations::DeleteRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_operations::DeleteRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionOperations::get][crate::client::RegionOperations::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_operations::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Get(RequestBuilder<crate::model::region_operations::GetRequest>);
+
+    impl Get {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionOperations>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_operations::GetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [operation][crate::model::region_operations::GetRequest::operation].
+        pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.operation = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_operations::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_operations::GetRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionOperations::list][crate::client::RegionOperations::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_operations::List;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct List(RequestBuilder<crate::model::region_operations::ListRequest>);
+
+    impl List {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionOperations>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_operations::ListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::OperationList> {
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::OperationList, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::OperationList, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::region_operations::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::region_operations::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::region_operations::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::region_operations::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::region_operations::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::region_operations::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::region_operations::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::region_operations::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_operations::ListRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_operations::ListRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::region_operations::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::region_operations::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [RegionOperations::wait][crate::client::RegionOperations::wait] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::region_operations::Wait;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Wait {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Wait(RequestBuilder<crate::model::region_operations::WaitRequest>);
+
+    impl Wait {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegionOperations>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::region_operations::WaitRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .wait(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [operation][crate::model::region_operations::WaitRequest::operation].
+        pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.operation = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_operations::WaitRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_operations::WaitRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Wait {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
