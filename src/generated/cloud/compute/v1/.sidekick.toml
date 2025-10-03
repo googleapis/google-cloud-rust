@@ -21,8 +21,16 @@ service-config       = 'google/cloud/compute/v1/compute_v1.yaml'
 roots = 'discovery,googleapis'
 included-ids = """\
     .google.cloud.compute.v1.images,\
+    .google.cloud.compute.v1.instanceGroupManagerResizeRequests,\
+    .google.cloud.compute.v1.instanceGroupManagers,\
+    .google.cloud.compute.v1.instanceGroups,\
     .google.cloud.compute.v1.instances,\
     .google.cloud.compute.v1.machineTypes,\
+    .google.cloud.compute.v1.regionInstanceGroupManagers,\
+    .google.cloud.compute.v1.regionInstanceGroups,\
+    .google.cloud.compute.v1.regionInstanceTemplates,\
+    .google.cloud.compute.v1.regionInstances,\
+    .google.cloud.compute.v1.regionOperations,\
     .google.cloud.compute.v1.zoneOperations,\
     .google.cloud.compute.v1.zones\
     """
