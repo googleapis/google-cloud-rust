@@ -51,7 +51,11 @@ impl ReqwestClient {
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
         let inner = reqwest::Client::new();
-        let host = crate::host::host_from_endpoint(config.endpoint.as_deref(), default_endpoint)?;
+        let host = crate::host::from_endpoint(
+            config.endpoint.as_deref(),
+            default_endpoint,
+            |_origin, host| host,
+        )?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
         let endpoint = config
             .endpoint

@@ -20,20 +20,29 @@ use std::str::FromStr;
 ///
 /// Notably, locational and regional endpoints are detected and used as the
 /// host. For VIPs and private networks, we need to use the default host.
-pub(crate) fn host_from_endpoint(
+///
+/// Accepting a generic function as a parameter lets us avoid dead code warnings
+/// when only one of HTTP, gRPC is enabled.
+///
+/// We could have returned a boolean that says whether to use the default
+/// endpoint vs. the custom endpoint. Note, however, that:
+///   (1) this function already computes the origin and host.
+///   (2) consumers of this function would have to recompute the values.
+pub(crate) fn from_endpoint<T>(
     endpoint: Option<&str>,
     default_endpoint: &str,
-) -> gax::client_builder::Result<String> {
-    let default_host = Uri::from_str(default_endpoint)
-        .map_err(BuilderError::transport)?
+    f: impl FnOnce(Uri, String) -> T,
+) -> gax::client_builder::Result<T> {
+    let default_origin = Uri::from_str(default_endpoint).map_err(BuilderError::transport)?;
+    let default_host = default_origin
         .authority()
         .expect("missing authority in default endpoint")
         .host()
         .to_string();
 
     if let Some(endpoint) = endpoint {
-        let custom_host = Uri::from_str(endpoint)
-            .map_err(BuilderError::transport)?
+        let custom_origin = Uri::from_str(endpoint).map_err(BuilderError::transport)?;
+        let custom_host = custom_origin
             .authority()
             .ok_or_else(|| BuilderError::transport("missing authority in endpoint"))?
             .host()
@@ -46,21 +55,26 @@ pub(crate) fn host_from_endpoint(
             if parts.len() == 3 && parts[0] == service && parts[2] == "rep" {
                 // This is a regional endpoint. It should be used as the host.
                 // `{service}.{region}.rep.googleapis.com`
-                return Ok(custom_host);
+                return Ok(f(custom_origin, custom_host));
             }
             if parts.len() == 1 && parts[0].ends_with(&format!("-{service}")) {
                 // This is a locational endpoint. It should be used as the host.
                 // `{region}-{service}.googleapis.com`
-                return Ok(custom_host);
+                return Ok(f(custom_origin, custom_host));
             }
         }
     }
-    Ok(default_host)
+    Ok(f(default_origin, default_host))
 }
 
 #[cfg(test)]
 mod tests {
+    use http::Uri;
     use test_case::test_case;
+
+    fn as_tuple(o: Uri, h: String) -> (Uri, String) {
+        (o, h)
+    }
 
     #[test_case(None, "test.googleapis.com"; "default")]
     #[test_case(Some("http://www.googleapis.com"), "test.googleapis.com"; "global")]
@@ -75,13 +89,17 @@ mod tests {
         custom_endpoint: Option<&str>,
         expected_host: &str,
     ) -> anyhow::Result<()> {
-        let host = super::host_from_endpoint(custom_endpoint, "https://test.googleapis.com/")?;
+        let (origin, host) =
+            super::from_endpoint(custom_endpoint, "https://test.googleapis.com/", as_tuple)?;
         assert_eq!(host, expected_host);
+        assert_eq!(origin.authority().unwrap().host(), expected_host);
 
         // Rarely, (I think only in GCS), does the default endpoint end without
         // a `/`. Make sure everything still works.
-        let host = super::host_from_endpoint(custom_endpoint, "https://test.googleapis.com")?;
+        let (origin, host) =
+            super::from_endpoint(custom_endpoint, "https://test.googleapis.com", as_tuple)?;
         assert_eq!(host, expected_host);
+        assert_eq!(origin.authority().unwrap().host(), expected_host);
 
         Ok(())
     }
@@ -89,16 +107,19 @@ mod tests {
     #[test_case(None; "default")]
     #[test_case(Some("localhost:5678"); "custom")]
     fn host_from_endpoint_showcase(custom_endpoint: Option<&str>) -> anyhow::Result<()> {
-        let host = super::host_from_endpoint(custom_endpoint, "https://localhost:7469/")?;
+        let (origin, host) =
+            super::from_endpoint(custom_endpoint, "https://localhost:7469/", as_tuple)?;
         assert_eq!(host, "localhost");
+        assert_eq!(origin.authority().unwrap().host(), "localhost");
         Ok(())
     }
 
     #[test]
     fn host_from_endpoint_error() -> anyhow::Result<()> {
-        let err = super::host_from_endpoint(
+        let err = super::from_endpoint(
             Some("/bad/endpoint/no/host"),
             "https://test.googleapis.com/",
+            as_tuple,
         );
         assert!(matches!(&err, Err(e) if e.is_transport()), "{err:?}");
         Ok(())

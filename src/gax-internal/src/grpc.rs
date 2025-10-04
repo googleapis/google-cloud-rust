@@ -29,8 +29,6 @@ use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErro
 use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
 use http::HeaderMap;
-use http::Uri;
-use std::str::FromStr;
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -191,7 +189,10 @@ impl Client {
     ) -> gax::client_builder::Result<InnerClient> {
         use tonic::transport::{ClientTlsConfig, Endpoint};
 
-        let origin = Uri::from_str(default_endpoint).map_err(BuilderError::transport)?;
+        let origin =
+            crate::host::from_endpoint(endpoint.as_deref(), default_endpoint, |origin, _host| {
+                origin
+            })?;
         let endpoint =
             Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
                 .map_err(BuilderError::transport)?
