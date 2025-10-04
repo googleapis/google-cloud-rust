@@ -69,8 +69,8 @@ resource "google_secret_manager_secret" "test-api-key-secret" {
 
 # Store the test API key in secret manager.
 resource "google_secret_manager_secret_version" "test-api-key-secret-version" {
-  secret      = google_secret_manager_secret.test-api-key-secret.id
-  secret_data = google_apikeys_key.test-api-key.key_string
+  secret         = google_secret_manager_secret.test-api-key-secret.id
+  secret_data_wo = google_apikeys_key.test-api-key.key_string
 }
 
 output "secret" {
