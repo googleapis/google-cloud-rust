@@ -62,6 +62,8 @@
 //! }
 //! ```
 
+use std::sync::{Arc, Mutex};
+
 /// Represents a Google Cloud service response.
 ///
 /// A response from a Google Cloud service consists of a body (potentially the
@@ -113,7 +115,7 @@
 ///     Ok(Response::from(body))
 /// }
 /// ```
-///   
+///
 #[derive(Clone, Debug)]
 pub struct Response<T> {
     parts: Parts,
@@ -235,13 +237,18 @@ impl<T> Response<T> {
 ///     Some(&http::HeaderValue::from_static("application/json"))
 /// );
 /// ```
-///  
+///
 /// [tower]: https://github.com/tower-rs/tower
 #[derive(Clone, Debug, Default)]
 #[non_exhaustive]
 pub struct Parts {
     /// The HTTP headers or the gRPC metadata converted to HTTP headers.
     pub headers: http::HeaderMap<http::HeaderValue>,
+    // Internal field for transport-specific observability data.
+    // Wrapped in Arc<Mutex<>> to maintain UnwindSafe for Response<T>,
+    // as the boxed trait object may not be UnwindSafe.
+    // See https://github.com/googleapis/google-cloud-rust/issues/3463 for details.
+    transport_summary: Arc<Mutex<Option<Box<dyn internal::TransportSummary>>>>,
 }
 
 impl Parts {
@@ -279,6 +286,54 @@ impl Parts {
     }
 }
 
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+pub mod internal {
+    //! This module contains implementation details. It is not part of the
+    //! public API. Types and functions in this module may be changed or removed
+    //! without warnings. Applications should not use any types contained
+    //! within.
+
+    use super::Response;
+    use std::any::Any;
+    use std::fmt::Debug;
+    /// Trait for transport-specific summaries to be passed from transport layers.
+    pub trait TransportSummary: Debug + Send + Sync + 'static {
+        /// Get the summary as a `dyn Any` to allow downcasting.
+        fn as_any(&self) -> &dyn Any;
+        /// Clone the boxed trait object.
+        fn clone_box(&self) -> Box<dyn TransportSummary>;
+    }
+
+    impl Clone for Box<dyn TransportSummary> {
+        fn clone(&self) -> Self {
+            self.clone_box()
+        }
+    }
+
+    /// Sets the transport summary for the response.
+    /// This is intended for internal use by transport layers.
+    pub fn set_transport_summary<T>(
+        response: &mut Response<T>,
+        summary: Box<dyn TransportSummary>,
+    ) {
+        let mut guard = response
+            .parts
+            .transport_summary
+            .lock()
+            .expect("Mutex poisoned");
+        *guard = Some(summary);
+    }
+    /// Gets the transport summary from the response.
+    /// This is intended for internal use by observability helpers.
+    pub fn get_transport_summary<T>(response: &Response<T>) -> Option<Box<dyn TransportSummary>> {
+        let guard = response
+            .parts
+            .transport_summary
+            .lock()
+            .expect("Mutex poisoned");
+        guard.clone()
+    }
+}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -328,5 +383,60 @@ mod tests {
             parts.headers.get(http::header::CONTENT_TYPE),
             Some(&http::HeaderValue::from_static("application/json"))
         );
+    }
+
+    #[derive(Debug, Clone)]
+    struct TestSummary {
+        data: &'static str,
+    }
+
+    impl internal::TransportSummary for TestSummary {
+        fn as_any(&self) -> &dyn std::any::Any {
+            self
+        }
+        fn clone_box(&self) -> Box<dyn internal::TransportSummary> {
+            Box::new(self.clone())
+        }
+    }
+
+    #[test]
+    fn transport_summary_set_get() {
+        let mut response = Response::from(());
+        assert!(internal::get_transport_summary(&response).is_none());
+
+        let summary = TestSummary {
+            data: "test_data",
+        };
+        internal::set_transport_summary(&mut response, Box::new(summary.clone()));
+
+        let retrieved = internal::get_transport_summary(&response);
+        assert!(retrieved.is_some());
+
+        let retrieved_summary = retrieved.unwrap();
+        let mock_summary = retrieved_summary.as_any().downcast_ref::<TestSummary>();
+        assert!(mock_summary.is_some());
+        assert_eq!(mock_summary.unwrap().data, "test_data");
+    }
+
+    #[test]
+    fn transport_summary_overwrite() {
+        let mut response = Response::from(());
+        let summary1 = TestSummary {
+            data: "data1",
+        };
+        internal::set_transport_summary(&mut response, Box::new(summary1));
+
+        let summary2 = TestSummary {
+            data: "data2",
+        };
+        internal::set_transport_summary(&mut response, Box::new(summary2));
+
+        let retrieved = internal::get_transport_summary(&response)
+            .unwrap()
+            .as_any()
+            .downcast_ref::<TestSummary>()
+            .unwrap()
+            .data;
+        assert_eq!(retrieved, "data2");
     }
 }
