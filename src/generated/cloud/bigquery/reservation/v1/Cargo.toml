@@ -31,6 +31,7 @@ async-trait.workspace = true
 bytes.workspace      = true
 gax.workspace        = true
 gaxi                 = { workspace = true, features = ["_internal-http-client"] }
+iam_v1.workspace     = true
 lazy_static.workspace = true
 reqwest.workspace    = true
 rpc.workspace        = true

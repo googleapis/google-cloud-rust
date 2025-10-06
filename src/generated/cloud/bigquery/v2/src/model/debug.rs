@@ -535,6 +535,10 @@ impl std::fmt::Debug for super::ExternalDataConfiguration {
         debug_struct.field("datetime_format", &self.datetime_format);
         debug_struct.field("time_format", &self.time_format);
         debug_struct.field("timestamp_format", &self.timestamp_format);
+        debug_struct.field(
+            "timestamp_target_precision",
+            &self.timestamp_target_precision,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -962,6 +966,10 @@ impl std::fmt::Debug for super::JobConfigurationLoad {
         debug_struct.field("time_format", &self.time_format);
         debug_struct.field("timestamp_format", &self.timestamp_format);
         debug_struct.field("source_column_match", &self.source_column_match);
+        debug_struct.field(
+            "timestamp_target_precision",
+            &self.timestamp_target_precision,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1206,6 +1214,25 @@ impl std::fmt::Debug for super::IndexUnusedReason {
     }
 }
 
+impl std::fmt::Debug for super::IndexPruningStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IndexPruningStats");
+        debug_struct.field("base_table", &self.base_table);
+        debug_struct.field(
+            "pre_index_pruning_parallel_input_count",
+            &self.pre_index_pruning_parallel_input_count,
+        );
+        debug_struct.field(
+            "post_index_pruning_parallel_input_count",
+            &self.post_index_pruning_parallel_input_count,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::StoredColumnsUsage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StoredColumnsUsage");
@@ -1240,6 +1267,7 @@ impl std::fmt::Debug for super::SearchStatistics {
         let mut debug_struct = f.debug_struct("SearchStatistics");
         debug_struct.field("index_usage_mode", &self.index_usage_mode);
         debug_struct.field("index_unused_reasons", &self.index_unused_reasons);
+        debug_struct.field("index_pruning_stats", &self.index_pruning_stats);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1279,6 +1307,25 @@ impl std::fmt::Debug for super::LoadQueryStatistics {
         debug_struct.field("output_rows", &self.output_rows);
         debug_struct.field("output_bytes", &self.output_bytes);
         debug_struct.field("bad_records", &self.bad_records);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::IncrementalResultStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IncrementalResultStats");
+        debug_struct.field("disabled_reason", &self.disabled_reason);
+        debug_struct.field(
+            "result_set_last_replace_time",
+            &self.result_set_last_replace_time,
+        );
+        debug_struct.field(
+            "result_set_last_modify_time",
+            &self.result_set_last_modify_time,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1351,6 +1398,7 @@ impl std::fmt::Debug for super::JobStatistics2 {
             &self.materialized_view_statistics,
         );
         debug_struct.field("metadata_cache_statistics", &self.metadata_cache_statistics);
+        debug_struct.field("incremental_result_stats", &self.incremental_result_stats);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1500,6 +1548,7 @@ impl std::fmt::Debug for super::JobStatistics {
             &self.final_execution_duration_ms,
         );
         debug_struct.field("edition", &self.edition);
+        debug_struct.field("reservation_group_path", &self.reservation_group_path);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1684,6 +1733,28 @@ impl std::fmt::Debug for super::MaterializedView {
     }
 }
 
+impl std::fmt::Debug for super::PruningStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PruningStats");
+        debug_struct.field(
+            "post_cmeta_pruning_partition_count",
+            &self.post_cmeta_pruning_partition_count,
+        );
+        debug_struct.field(
+            "pre_cmeta_pruning_parallel_input_count",
+            &self.pre_cmeta_pruning_parallel_input_count,
+        );
+        debug_struct.field(
+            "post_cmeta_pruning_parallel_input_count",
+            &self.post_cmeta_pruning_parallel_input_count,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::TableMetadataCacheUsage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TableMetadataCacheUsage");
@@ -1692,6 +1763,7 @@ impl std::fmt::Debug for super::TableMetadataCacheUsage {
         debug_struct.field("explanation", &self.explanation);
         debug_struct.field("staleness", &self.staleness);
         debug_struct.field("table_type", &self.table_type);
+        debug_struct.field("pruning_stats", &self.pruning_stats);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2345,6 +2417,17 @@ impl std::fmt::Debug for super::model::training_run::TrainingOptions {
         debug_struct.field("contribution_metric", &self.contribution_metric);
         debug_struct.field("is_test_column", &self.is_test_column);
         debug_struct.field("min_apriori_support", &self.min_apriori_support);
+        debug_struct.field("endpoint_idle_ttl", &self.endpoint_idle_ttl);
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("min_replica_count", &self.min_replica_count);
+        debug_struct.field("max_replica_count", &self.max_replica_count);
+        debug_struct.field("reservation_affinity_type", &self.reservation_affinity_type);
+        debug_struct.field("reservation_affinity_key", &self.reservation_affinity_key);
+        debug_struct.field(
+            "reservation_affinity_values",
+            &self.reservation_affinity_values,
+        );
+        debug_struct.field("external_model_id", &self.external_model_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3732,6 +3815,7 @@ impl std::fmt::Debug for super::TableFieldSchema {
         debug_struct.field("max_length", &self.max_length);
         debug_struct.field("precision", &self.precision);
         debug_struct.field("scale", &self.scale);
+        debug_struct.field("timestamp_precision", &self.timestamp_precision);
         debug_struct.field("rounding_mode", &self.rounding_mode);
         debug_struct.field("collation", &self.collation);
         debug_struct.field("default_value_expression", &self.default_value_expression);

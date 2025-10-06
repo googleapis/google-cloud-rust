@@ -277,4 +277,81 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::ReservationService::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: iam_v1::model::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationService::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: iam_v1::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationService::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: iam_v1::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationService::create_reservation_group].
+    fn create_reservation_group(
+        &self,
+        _req: crate::model::CreateReservationGroupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ReservationGroup>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationService::get_reservation_group].
+    fn get_reservation_group(
+        &self,
+        _req: crate::model::GetReservationGroupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ReservationGroup>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationService::delete_reservation_group].
+    fn delete_reservation_group(
+        &self,
+        _req: crate::model::DeleteReservationGroupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationService::list_reservation_groups].
+    fn list_reservation_groups(
+        &self,
+        _req: crate::model::ListReservationGroupsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListReservationGroupsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }

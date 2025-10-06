@@ -4396,6 +4396,26 @@ pub struct ExternalDataConfiguration {
     /// SQL-style values.
     pub timestamp_format: std::option::Option<std::string::String>,
 
+    /// Precisions (maximum number of total digits in base 10) for seconds
+    /// of TIMESTAMP types that are allowed to the destination table for
+    /// autodetection mode.
+    ///
+    /// Available for the formats: CSV.
+    ///
+    /// For the CSV Format, Possible values include:
+    /// Not Specified, [], or [6]: timestamp(6) for all auto detected TIMESTAMP
+    /// columns
+    /// [6, 12]: timestamp(6) for all auto detected TIMESTAMP columns that have
+    /// less than 6 digits of subseconds.
+    /// timestamp(12) for all auto detected TIMESTAMP columns that have
+    /// more than 6 digits of subseconds.
+    /// [12]: timestamp(12) for all auto detected TIMESTAMP columns.
+    ///
+    /// The order of the elements in this array is ignored.
+    /// Inputs that have higher precision than the highest target precision in this
+    /// array will be truncated.
+    pub timestamp_target_precision: std::vec::Vec<i32>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4794,6 +4814,17 @@ impl ExternalDataConfiguration {
         T: std::convert::Into<std::string::String>,
     {
         self.timestamp_format = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [timestamp_target_precision][crate::model::ExternalDataConfiguration::timestamp_target_precision].
+    pub fn set_timestamp_target_precision<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.timestamp_target_precision = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6862,12 +6893,13 @@ pub struct QueryRequest {
     /// if a job does not need to be created.
     pub job_timeout_ms: std::option::Option<i64>,
 
-    /// Optional. INTERNAL: DO NOT USE. The maximum rate of slot consumption to
-    /// allow for this job.
+    /// Optional. A target limit on the rate of slot consumption by this query. If
+    /// set to a value > 0, BigQuery will attempt to limit the rate of slot
+    /// consumption by this query to keep it below the configured limit, even if
+    /// the query is eligible for more slots based on fair scheduling. The unused
+    /// slots will be available for other jobs and queries to use.
     ///
-    /// If set, the number of slots used to execute the job will be throttled
-    /// to try and keep its slot consumption below the requested rate. This limit
-    /// is best effort.
+    /// Note: This feature is not yet generally available.
     pub max_slots: std::option::Option<i32>,
 
     /// Optional. Custom encryption configuration (e.g., Cloud KMS keys)
@@ -8147,8 +8179,9 @@ pub struct JobConfigurationQuery {
     pub system_variables: std::option::Option<crate::model::SystemVariables>,
 
     /// Allows the schema of the destination table to be updated as a side effect
-    /// of the query job. Schema update options are supported in two cases:
+    /// of the query job. Schema update options are supported in three cases:
     /// when writeDisposition is WRITE_APPEND;
+    /// when writeDisposition is WRITE_TRUNCATE_DATA;
     /// when writeDisposition is WRITE_TRUNCATE and the destination table is a
     /// partition of a table, specified by partition decorators. For normal tables,
     /// WRITE_TRUNCATE will always overwrite the schema.
@@ -9000,8 +9033,9 @@ pub struct JobConfigurationLoad {
     /// Allows the schema of the destination table to be updated as a side effect
     /// of the load job if a schema is autodetected or supplied in the job
     /// configuration.
-    /// Schema update options are supported in two cases:
+    /// Schema update options are supported in three cases:
     /// when writeDisposition is WRITE_APPEND;
+    /// when writeDisposition is WRITE_TRUNCATE_DATA;
     /// when writeDisposition is WRITE_TRUNCATE and the destination table is a
     /// partition of a table, specified by partition decorators. For normal tables,
     /// WRITE_TRUNCATE will always overwrite the schema.
@@ -9156,6 +9190,26 @@ pub struct JobConfigurationLoad {
     /// Otherwise, columns are matched by position. This is done to keep the
     /// behavior backward-compatible.
     pub source_column_match: crate::model::job_configuration_load::SourceColumnMatch,
+
+    /// Precisions (maximum number of total digits in base 10) for seconds
+    /// of TIMESTAMP types that are allowed to the destination table for
+    /// autodetection mode.
+    ///
+    /// Available for the formats: CSV.
+    ///
+    /// For the CSV Format, Possible values include:
+    /// Not Specified, [], or [6]: timestamp(6) for all auto detected TIMESTAMP
+    /// columns
+    /// [6, 12]: timestamp(6) for all auto detected TIMESTAMP columns that have
+    /// less than 6 digits of subseconds.
+    /// timestamp(12) for all auto detected TIMESTAMP columns that have
+    /// more than 6 digits of subseconds.
+    /// [12]: timestamp(12) for all auto detected TIMESTAMP columns.
+    ///
+    /// The order of the elements in this array is ignored.
+    /// Inputs that have higher precision than the highest target precision in this
+    /// array will be truncated.
+    pub timestamp_target_precision: std::vec::Vec<i32>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9796,6 +9850,17 @@ impl JobConfigurationLoad {
         v: T,
     ) -> Self {
         self.source_column_match = v.into();
+        self
+    }
+
+    /// Sets the value of [timestamp_target_precision][crate::model::JobConfigurationLoad::timestamp_target_precision].
+    pub fn set_timestamp_target_precision<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.timestamp_target_precision = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -10737,18 +10802,20 @@ pub struct JobConfiguration {
     /// of non-query jobs is undefined.
     pub dry_run: std::option::Option<wkt::BoolValue>,
 
-    /// Optional. Job timeout in milliseconds. If this time limit is exceeded,
-    /// BigQuery will attempt to stop a longer job, but may not always succeed in
-    /// canceling it before the job completes. For example, a job that takes more
-    /// than 60 seconds to complete has a better chance of being stopped than a job
-    /// that takes 10 seconds to complete.
+    /// Optional. Job timeout in milliseconds relative to the job creation time. If
+    /// this time limit is exceeded, BigQuery attempts to stop the job, but might
+    /// not always succeed in canceling it before the job completes. For example, a
+    /// job that takes more than 60 seconds to complete has a better chance of
+    /// being stopped than a job that takes 10 seconds to complete.
     pub job_timeout_ms: std::option::Option<wkt::Int64Value>,
 
-    /// Optional. INTERNAL: DO NOT USE. The maximum rate of slot consumption to
-    /// allow for this job.
+    /// Optional. A target limit on the rate of slot consumption by this job. If
+    /// set to a value > 0, BigQuery will attempt to limit the rate of slot
+    /// consumption by this job to keep it below the configured limit, even if the
+    /// job is eligible for more slots based on fair scheduling. The unused slots
+    /// will be available for other jobs and queries to use.
     ///
-    /// If set, the number of slots used to execute the job will be throttled
-    /// to try and keep its slot consumption below the requested rate.
+    /// Note: This feature is not yet generally available.
     pub max_slots: std::option::Option<i32>,
 
     /// The labels associated with this job. You can use these to organize and
@@ -12187,8 +12254,8 @@ pub struct ExternalServiceCost {
     pub reserved_slot_count: i64,
 
     /// The billing method used for the external job.
-    /// This field is only used when billed on the services sku, set to
-    /// "SERVICES_SKU". Otherwise, it is unspecified for backward compatibility.
+    /// This field, set to `SERVICES_SKU`, is only used when billing under the
+    /// services SKU. Otherwise, it is unspecified for backward compatibility.
     pub billing_method: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13344,6 +13411,94 @@ pub mod index_unused_reason {
     }
 }
 
+/// Statistics for index pruning.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IndexPruningStats {
+    /// The base table reference.
+    pub base_table: std::option::Option<crate::model::TableReference>,
+
+    /// The number of parallel inputs before index pruning.
+    pub pre_index_pruning_parallel_input_count: std::option::Option<i64>,
+
+    /// The number of parallel inputs after index pruning.
+    pub post_index_pruning_parallel_input_count: std::option::Option<i64>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IndexPruningStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [base_table][crate::model::IndexPruningStats::base_table].
+    pub fn set_base_table<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TableReference>,
+    {
+        self.base_table = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [base_table][crate::model::IndexPruningStats::base_table].
+    pub fn set_or_clear_base_table<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TableReference>,
+    {
+        self.base_table = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [pre_index_pruning_parallel_input_count][crate::model::IndexPruningStats::pre_index_pruning_parallel_input_count].
+    pub fn set_pre_index_pruning_parallel_input_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.pre_index_pruning_parallel_input_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pre_index_pruning_parallel_input_count][crate::model::IndexPruningStats::pre_index_pruning_parallel_input_count].
+    pub fn set_or_clear_pre_index_pruning_parallel_input_count<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.pre_index_pruning_parallel_input_count = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [post_index_pruning_parallel_input_count][crate::model::IndexPruningStats::post_index_pruning_parallel_input_count].
+    pub fn set_post_index_pruning_parallel_input_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.post_index_pruning_parallel_input_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [post_index_pruning_parallel_input_count][crate::model::IndexPruningStats::post_index_pruning_parallel_input_count].
+    pub fn set_or_clear_post_index_pruning_parallel_input_count<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.post_index_pruning_parallel_input_count = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for IndexPruningStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.IndexPruningStats"
+    }
+}
+
 /// Indicates the stored columns usage in the query.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -13698,6 +13853,12 @@ pub struct SearchStatistics {
     /// `indexUsageMode` is `FULLY_USED`, this field is not populated.
     pub index_unused_reasons: std::vec::Vec<crate::model::IndexUnusedReason>,
 
+    /// Search index pruning statistics, one for each base table that has a search
+    /// index. If a base table does not have a search index or the index does not
+    /// help with pruning on the base table, then there is no pruning statistics
+    /// for that table.
+    pub index_pruning_stats: std::vec::Vec<crate::model::IndexPruningStats>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -13725,6 +13886,17 @@ impl SearchStatistics {
     {
         use std::iter::Iterator;
         self.index_unused_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [index_pruning_stats][crate::model::SearchStatistics::index_pruning_stats].
+    pub fn set_index_pruning_stats<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IndexPruningStats>,
+    {
+        use std::iter::Iterator;
+        self.index_pruning_stats = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -14272,6 +14444,215 @@ impl wkt::message::Message for LoadQueryStatistics {
     }
 }
 
+/// Statistics related to Incremental Query Results. Populated as part of
+/// JobStatistics2. This feature is not yet available.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IncrementalResultStats {
+    /// Reason why incremental query results are/were not written by the query.
+    pub disabled_reason: crate::model::incremental_result_stats::DisabledReason,
+
+    /// The time at which the result table's contents were completely replaced.
+    /// May be absent if no results have been written or the query has completed.
+    pub result_set_last_replace_time: std::option::Option<wkt::Timestamp>,
+
+    /// The time at which the result table's contents were modified.
+    /// May be absent if no results have been written or the query has completed.
+    pub result_set_last_modify_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IncrementalResultStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [disabled_reason][crate::model::IncrementalResultStats::disabled_reason].
+    pub fn set_disabled_reason<
+        T: std::convert::Into<crate::model::incremental_result_stats::DisabledReason>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.disabled_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [result_set_last_replace_time][crate::model::IncrementalResultStats::result_set_last_replace_time].
+    pub fn set_result_set_last_replace_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.result_set_last_replace_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [result_set_last_replace_time][crate::model::IncrementalResultStats::result_set_last_replace_time].
+    pub fn set_or_clear_result_set_last_replace_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.result_set_last_replace_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [result_set_last_modify_time][crate::model::IncrementalResultStats::result_set_last_modify_time].
+    pub fn set_result_set_last_modify_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.result_set_last_modify_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [result_set_last_modify_time][crate::model::IncrementalResultStats::result_set_last_modify_time].
+    pub fn set_or_clear_result_set_last_modify_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.result_set_last_modify_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for IncrementalResultStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.IncrementalResultStats"
+    }
+}
+
+/// Defines additional types related to [IncrementalResultStats].
+pub mod incremental_result_stats {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Reason why incremental query results are/were not written by the query.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DisabledReason {
+        /// Disabled reason not specified.
+        Unspecified,
+        /// Some other reason.
+        Other,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DisabledReason::value] or
+        /// [DisabledReason::name].
+        UnknownValue(disabled_reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod disabled_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DisabledReason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Other => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DISABLED_REASON_UNSPECIFIED"),
+                Self::Other => std::option::Option::Some("OTHER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DisabledReason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DisabledReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DisabledReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Other,
+                _ => Self::UnknownValue(disabled_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DisabledReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DISABLED_REASON_UNSPECIFIED" => Self::Unspecified,
+                "OTHER" => Self::Other,
+                _ => Self::UnknownValue(disabled_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DisabledReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Other => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DisabledReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DisabledReason>::new(
+                ".google.cloud.bigquery.v2.IncrementalResultStats.DisabledReason",
+            ))
+        }
+    }
+}
+
 /// Statistics for a query job.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -14318,10 +14699,10 @@ pub struct JobStatistics2 {
     /// Output only. Slot-milliseconds for the job.
     pub total_slot_ms: std::option::Option<wkt::Int64Value>,
 
-    /// Output only. Total slot-milliseconds for the job that run on external
-    /// services and billed on the service SKU. This field is only populated for
+    /// Output only. Total slot milliseconds for the job that ran on external
+    /// services and billed on the services SKU. This field is only populated for
     /// jobs that have external service costs, and is the total of the usage for
-    /// costs whose billing method is "SERVICES_SKU".
+    /// costs whose billing method is `"SERVICES_SKU"`.
     pub total_services_sku_slot_ms: std::option::Option<i64>,
 
     /// Output only. Whether the query result was fetched from the query cache.
@@ -14554,6 +14935,10 @@ pub struct JobStatistics2 {
     /// Output only. Statistics of metadata cache usage in a query for BigLake
     /// tables.
     pub metadata_cache_statistics: std::option::Option<crate::model::MetadataCacheStatistics>,
+
+    /// Output only. Statistics related to incremental query results, if enabled
+    /// for the query. This feature is not yet available.
+    pub incremental_result_stats: std::option::Option<crate::model::IncrementalResultStats>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -15229,6 +15614,24 @@ impl JobStatistics2 {
         T: std::convert::Into<crate::model::MetadataCacheStatistics>,
     {
         self.metadata_cache_statistics = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [incremental_result_stats][crate::model::JobStatistics2::incremental_result_stats].
+    pub fn set_incremental_result_stats<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IncrementalResultStats>,
+    {
+        self.incremental_result_stats = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [incremental_result_stats][crate::model::JobStatistics2::incremental_result_stats].
+    pub fn set_or_clear_incremental_result_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IncrementalResultStats>,
+    {
+        self.incremental_result_stats = v.map(|x| x.into());
         self
     }
 }
@@ -16162,6 +16565,13 @@ pub struct JobStatistics {
     /// at the time of this update.
     pub edition: crate::model::ReservationEdition,
 
+    /// Output only. The reservation group path of the reservation assigned to this
+    /// job. This field has a limit of 10 nested reservation groups. This is to
+    /// maintain consistency between reservatins info schema and jobs info schema.
+    /// The first reservation group is the root reservation group and the last is
+    /// the leaf or lowest level reservation group.
+    pub reservation_group_path: std::vec::Vec<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -16448,6 +16858,17 @@ impl JobStatistics {
         v: T,
     ) -> Self {
         self.edition = v.into();
+        self
+    }
+
+    /// Sets the value of [reservation_group_path][crate::model::JobStatistics::reservation_group_path].
+    pub fn set_reservation_group_path<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.reservation_group_path = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -17552,6 +17973,97 @@ pub mod materialized_view {
     }
 }
 
+/// The column metadata index pruning statistics.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PruningStats {
+    /// The number of partitions matched.
+    pub post_cmeta_pruning_partition_count: std::option::Option<i64>,
+
+    /// The number of parallel inputs scanned.
+    pub pre_cmeta_pruning_parallel_input_count: std::option::Option<i64>,
+
+    /// The number of parallel inputs matched.
+    pub post_cmeta_pruning_parallel_input_count: std::option::Option<i64>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PruningStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [post_cmeta_pruning_partition_count][crate::model::PruningStats::post_cmeta_pruning_partition_count].
+    pub fn set_post_cmeta_pruning_partition_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.post_cmeta_pruning_partition_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [post_cmeta_pruning_partition_count][crate::model::PruningStats::post_cmeta_pruning_partition_count].
+    pub fn set_or_clear_post_cmeta_pruning_partition_count<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.post_cmeta_pruning_partition_count = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [pre_cmeta_pruning_parallel_input_count][crate::model::PruningStats::pre_cmeta_pruning_parallel_input_count].
+    pub fn set_pre_cmeta_pruning_parallel_input_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.pre_cmeta_pruning_parallel_input_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pre_cmeta_pruning_parallel_input_count][crate::model::PruningStats::pre_cmeta_pruning_parallel_input_count].
+    pub fn set_or_clear_pre_cmeta_pruning_parallel_input_count<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.pre_cmeta_pruning_parallel_input_count = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [post_cmeta_pruning_parallel_input_count][crate::model::PruningStats::post_cmeta_pruning_parallel_input_count].
+    pub fn set_post_cmeta_pruning_parallel_input_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.post_cmeta_pruning_parallel_input_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [post_cmeta_pruning_parallel_input_count][crate::model::PruningStats::post_cmeta_pruning_parallel_input_count].
+    pub fn set_or_clear_post_cmeta_pruning_parallel_input_count<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.post_cmeta_pruning_parallel_input_count = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for PruningStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.PruningStats"
+    }
+}
+
 /// Table level detail on the usage of metadata caching. Only set for Metadata
 /// caching eligible tables referenced in the query.
 #[derive(Clone, Default, PartialEq)]
@@ -17574,6 +18086,9 @@ pub struct TableMetadataCacheUsage {
     /// [Table
     /// type](https://cloud.google.com/bigquery/docs/reference/rest/v2/tables#Table.FIELDS.type).
     pub table_type: std::string::String,
+
+    /// The column metadata index pruning statistics.
+    pub pruning_stats: std::option::Option<crate::model::PruningStats>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -17658,6 +18173,24 @@ impl TableMetadataCacheUsage {
     /// Sets the value of [table_type][crate::model::TableMetadataCacheUsage::table_type].
     pub fn set_table_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_type = v.into();
+        self
+    }
+
+    /// Sets the value of [pruning_stats][crate::model::TableMetadataCacheUsage::pruning_stats].
+    pub fn set_pruning_stats<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PruningStats>,
+    {
+        self.pruning_stats = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pruning_stats][crate::model::TableMetadataCacheUsage::pruning_stats].
+    pub fn set_or_clear_pruning_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PruningStats>,
+    {
+        self.pruning_stats = v.map(|x| x.into());
         self
     }
 }
@@ -18705,6 +19238,8 @@ pub mod model {
             Quarterly,
             /// Yearly period, 365 days or irregular.
             Yearly,
+            /// Hourly period, 1 hour.
+            Hourly,
             /// If set, the enum was initialized with an unknown value.
             ///
             /// Applications can examine the value using [SeasonalPeriodType::value] or
@@ -18734,6 +19269,7 @@ pub mod model {
                     Self::Monthly => std::option::Option::Some(4),
                     Self::Quarterly => std::option::Option::Some(5),
                     Self::Yearly => std::option::Option::Some(6),
+                    Self::Hourly => std::option::Option::Some(7),
                     Self::UnknownValue(u) => u.0.value(),
                 }
             }
@@ -18753,6 +19289,7 @@ pub mod model {
                     Self::Monthly => std::option::Option::Some("MONTHLY"),
                     Self::Quarterly => std::option::Option::Some("QUARTERLY"),
                     Self::Yearly => std::option::Option::Some("YEARLY"),
+                    Self::Hourly => std::option::Option::Some("HOURLY"),
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -18784,6 +19321,7 @@ pub mod model {
                     4 => Self::Monthly,
                     5 => Self::Quarterly,
                     6 => Self::Yearly,
+                    7 => Self::Hourly,
                     _ => Self::UnknownValue(seasonal_period_type::UnknownValue(
                         wkt::internal::UnknownEnumValue::Integer(value),
                     )),
@@ -18802,6 +19340,7 @@ pub mod model {
                     "MONTHLY" => Self::Monthly,
                     "QUARTERLY" => Self::Quarterly,
                     "YEARLY" => Self::Yearly,
+                    "HOURLY" => Self::Hourly,
                     _ => Self::UnknownValue(seasonal_period_type::UnknownValue(
                         wkt::internal::UnknownEnumValue::String(value.to_string()),
                     )),
@@ -18822,6 +19361,7 @@ pub mod model {
                     Self::Monthly => serializer.serialize_i32(4),
                     Self::Quarterly => serializer.serialize_i32(5),
                     Self::Yearly => serializer.serialize_i32(6),
+                    Self::Hourly => serializer.serialize_i32(7),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -23057,6 +23597,44 @@ pub mod model {
             /// The apriori support minimum. Applies to contribution analysis models.
             pub min_apriori_support: std::option::Option<f64>,
 
+            /// The idle TTL of the endpoint before the resources get destroyed. The
+            /// default value is 6.5 hours.
+            pub endpoint_idle_ttl: std::option::Option<wkt::Duration>,
+
+            /// The type of the machine used to deploy and serve the model.
+            pub machine_type: std::option::Option<std::string::String>,
+
+            /// The minimum number of machine replicas that will be always deployed on
+            /// an endpoint. This value must be greater than or equal to 1. The default
+            /// value is 1.
+            pub min_replica_count: std::option::Option<i64>,
+
+            /// The maximum number of machine replicas that will be deployed on an
+            /// endpoint. The default value is equal to min_replica_count.
+            pub max_replica_count: std::option::Option<i64>,
+
+            /// Specifies the reservation affinity type used to configure a Vertex AI
+            /// resource. The default value is `NO_RESERVATION`.
+            pub reservation_affinity_type: std::option::Option<
+                crate::model::model::training_run::training_options::ReservationAffinityType,
+            >,
+
+            /// Corresponds to the label key of a reservation resource used by Vertex
+            /// AI. To target a SPECIFIC_RESERVATION by name, use
+            /// `compute.googleapis.com/reservation-name` as the key and specify the
+            /// name of your reservation as its value.
+            pub reservation_affinity_key: std::option::Option<std::string::String>,
+
+            /// Corresponds to the label values of a reservation resource used by
+            /// Vertex AI. This must be the full resource name of the reservation or
+            /// reservation block.
+            pub reservation_affinity_values: std::vec::Vec<std::string::String>,
+
+            /// The id that uniquely identifies an external model.
+            pub external_model_id: std::option::Option<
+                crate::model::model::training_run::training_options::ExternalModelId,
+            >,
+
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -24162,11 +24740,368 @@ pub mod model {
                 self.min_apriori_support = v.map(|x| x.into());
                 self
             }
+
+            /// Sets the value of [endpoint_idle_ttl][crate::model::model::training_run::TrainingOptions::endpoint_idle_ttl].
+            pub fn set_endpoint_idle_ttl<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.endpoint_idle_ttl = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [endpoint_idle_ttl][crate::model::model::training_run::TrainingOptions::endpoint_idle_ttl].
+            pub fn set_or_clear_endpoint_idle_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.endpoint_idle_ttl = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [machine_type][crate::model::model::training_run::TrainingOptions::machine_type].
+            pub fn set_machine_type<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.machine_type = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [machine_type][crate::model::model::training_run::TrainingOptions::machine_type].
+            pub fn set_or_clear_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.machine_type = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [min_replica_count][crate::model::model::training_run::TrainingOptions::min_replica_count].
+            pub fn set_min_replica_count<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i64>,
+            {
+                self.min_replica_count = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [min_replica_count][crate::model::model::training_run::TrainingOptions::min_replica_count].
+            pub fn set_or_clear_min_replica_count<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i64>,
+            {
+                self.min_replica_count = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [max_replica_count][crate::model::model::training_run::TrainingOptions::max_replica_count].
+            pub fn set_max_replica_count<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<i64>,
+            {
+                self.max_replica_count = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [max_replica_count][crate::model::model::training_run::TrainingOptions::max_replica_count].
+            pub fn set_or_clear_max_replica_count<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<i64>,
+            {
+                self.max_replica_count = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [reservation_affinity_type][crate::model::model::training_run::TrainingOptions::reservation_affinity_type].
+            pub fn set_reservation_affinity_type<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::model::training_run::training_options::ReservationAffinityType>
+            {
+                self.reservation_affinity_type = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [reservation_affinity_type][crate::model::model::training_run::TrainingOptions::reservation_affinity_type].
+            pub fn set_or_clear_reservation_affinity_type<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::model::training_run::training_options::ReservationAffinityType>
+            {
+                self.reservation_affinity_type = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [reservation_affinity_key][crate::model::model::training_run::TrainingOptions::reservation_affinity_key].
+            pub fn set_reservation_affinity_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.reservation_affinity_key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [reservation_affinity_key][crate::model::model::training_run::TrainingOptions::reservation_affinity_key].
+            pub fn set_or_clear_reservation_affinity_key<T>(
+                mut self,
+                v: std::option::Option<T>,
+            ) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.reservation_affinity_key = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [reservation_affinity_values][crate::model::model::training_run::TrainingOptions::reservation_affinity_values].
+            pub fn set_reservation_affinity_values<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.reservation_affinity_values = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [external_model_id][crate::model::model::training_run::TrainingOptions::external_model_id].
+            ///
+            /// Note that all the setters affecting `external_model_id` are mutually
+            /// exclusive.
+            pub fn set_external_model_id<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::model::training_run::training_options::ExternalModelId,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.external_model_id = v.into();
+                self
+            }
+
+            /// The value of [external_model_id][crate::model::model::training_run::TrainingOptions::external_model_id]
+            /// if it holds a `HuggingFaceModelId`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn hugging_face_model_id(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.external_model_id.as_ref().and_then(|v| match v {
+                    crate::model::model::training_run::training_options::ExternalModelId::HuggingFaceModelId(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [external_model_id][crate::model::model::training_run::TrainingOptions::external_model_id]
+            /// to hold a `HuggingFaceModelId`.
+            ///
+            /// Note that all the setters affecting `external_model_id` are
+            /// mutually exclusive.
+            pub fn set_hugging_face_model_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.external_model_id = std::option::Option::Some(
+                    crate::model::model::training_run::training_options::ExternalModelId::HuggingFaceModelId(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [external_model_id][crate::model::model::training_run::TrainingOptions::external_model_id]
+            /// if it holds a `ModelGardenModelName`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn model_garden_model_name(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.external_model_id.as_ref().and_then(|v| match v {
+                    crate::model::model::training_run::training_options::ExternalModelId::ModelGardenModelName(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [external_model_id][crate::model::model::training_run::TrainingOptions::external_model_id]
+            /// to hold a `ModelGardenModelName`.
+            ///
+            /// Note that all the setters affecting `external_model_id` are
+            /// mutually exclusive.
+            pub fn set_model_garden_model_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.external_model_id = std::option::Option::Some(
+                    crate::model::model::training_run::training_options::ExternalModelId::ModelGardenModelName(
+                        v.into()
+                    )
+                );
+                self
+            }
         }
 
         impl wkt::message::Message for TrainingOptions {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions"
+            }
+        }
+
+        /// Defines additional types related to [TrainingOptions].
+        pub mod training_options {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Supported reservation affinity types to configure a Vertex AI
+            /// resource.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum ReservationAffinityType {
+                /// Default value.
+                Unspecified,
+                /// No reservation.
+                NoReservation,
+                /// Any reservation.
+                AnyReservation,
+                /// Specific reservation.
+                SpecificReservation,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [ReservationAffinityType::value] or
+                /// [ReservationAffinityType::name].
+                UnknownValue(reservation_affinity_type::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod reservation_affinity_type {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl ReservationAffinityType {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::NoReservation => std::option::Option::Some(1),
+                        Self::AnyReservation => std::option::Option::Some(2),
+                        Self::SpecificReservation => std::option::Option::Some(3),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("RESERVATION_AFFINITY_TYPE_UNSPECIFIED")
+                        }
+                        Self::NoReservation => std::option::Option::Some("NO_RESERVATION"),
+                        Self::AnyReservation => std::option::Option::Some("ANY_RESERVATION"),
+                        Self::SpecificReservation => {
+                            std::option::Option::Some("SPECIFIC_RESERVATION")
+                        }
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for ReservationAffinityType {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for ReservationAffinityType {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for ReservationAffinityType {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::NoReservation,
+                        2 => Self::AnyReservation,
+                        3 => Self::SpecificReservation,
+                        _ => Self::UnknownValue(reservation_affinity_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for ReservationAffinityType {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "RESERVATION_AFFINITY_TYPE_UNSPECIFIED" => Self::Unspecified,
+                        "NO_RESERVATION" => Self::NoReservation,
+                        "ANY_RESERVATION" => Self::AnyReservation,
+                        "SPECIFIC_RESERVATION" => Self::SpecificReservation,
+                        _ => Self::UnknownValue(reservation_affinity_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for ReservationAffinityType {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::NoReservation => serializer.serialize_i32(1),
+                        Self::AnyReservation => serializer.serialize_i32(2),
+                        Self::SpecificReservation => serializer.serialize_i32(3),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for ReservationAffinityType {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReservationAffinityType>::new(
+                        ".google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.ReservationAffinityType"))
+                }
+            }
+
+            /// The id that uniquely identifies an external model.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum ExternalModelId {
+                /// The id of a Hugging Face model. For example, `google/gemma-2-2b-it`.
+                HuggingFaceModelId(std::string::String),
+                /// The name of a Vertex model garden publisher model. Format is
+                /// `publishers/{publisher}/models/{model}@{optional_version_id}`.
+                ModelGardenModelName(std::string::String),
             }
         }
 
@@ -36946,8 +37881,9 @@ pub mod foreign_type_info {
     }
 }
 
-/// Data policy option proto, it currently supports name only, will support
-/// precedence later.
+/// Data policy option. For more information, see
+/// [Mask data by applying data policies to a
+/// column](https://cloud.google.com/bigquery/docs/column-data-masking#data-policies-on-column/).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataPolicyOption {
@@ -37033,7 +37969,8 @@ pub struct TableFieldSchema {
     /// access control. If not set, defaults to empty policy_tags.
     pub policy_tags: std::option::Option<crate::model::table_field_schema::PolicyTagList>,
 
-    /// Optional. Data policy options, will replace the data_policies.
+    /// Optional. Data policies attached to this field, used for field-level access
+    /// control.
     pub data_policies: std::vec::Vec<crate::model::DataPolicyOption>,
 
     /// Optional. Maximum length of values of this field for STRINGS or BYTES.
@@ -37087,6 +38024,15 @@ pub struct TableFieldSchema {
 
     /// Optional. See documentation for precision.
     pub scale: i64,
+
+    /// Optional. Precision (maximum number of total digits in base 10) for seconds
+    /// of TIMESTAMP type.
+    ///
+    /// Possible values include:
+    ///
+    /// * 6 (Default, for TIMESTAMP type with microsecond precision)
+    /// * 12 (For TIMESTAMP type with picosecond precision)
+    pub timestamp_precision: std::option::Option<wkt::Int64Value>,
 
     /// Optional. Specifies the rounding mode to be used when storing values of
     /// NUMERIC and BIGNUMERIC type.
@@ -37216,6 +38162,24 @@ impl TableFieldSchema {
     /// Sets the value of [scale][crate::model::TableFieldSchema::scale].
     pub fn set_scale<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.scale = v.into();
+        self
+    }
+
+    /// Sets the value of [timestamp_precision][crate::model::TableFieldSchema::timestamp_precision].
+    pub fn set_timestamp_precision<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.timestamp_precision = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [timestamp_precision][crate::model::TableFieldSchema::timestamp_precision].
+    pub fn set_or_clear_timestamp_precision<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.timestamp_precision = v.map(|x| x.into());
         self
     }
 

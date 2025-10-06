@@ -21,6 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate iam_v1;
 extern crate lazy_static;
 extern crate reqwest;
 extern crate rpc;
@@ -39,14 +40,14 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Reservation {
-    /// The resource name of the reservation, e.g.,
+    /// Identifier. The resource name of the reservation, e.g.,
     /// `projects/*/locations/*/reservations/team1-prod`.
     /// The reservation_id must only contain lower case alphanumeric characters or
     /// dashes. It must start with a letter and must not end with a dash. Its
     /// maximum length is 64 characters.
     pub name: std::string::String,
 
-    /// Baseline slots available to this reservation. A slot is a unit of
+    /// Optional. Baseline slots available to this reservation. A slot is a unit of
     /// computational power in BigQuery, and serves as the unit of parallelism.
     ///
     /// Queries using this reservation might use more slots during runtime if
@@ -62,23 +63,22 @@ pub struct Reservation {
     /// baseline slots every few minutes.
     pub slot_capacity: i64,
 
-    /// If false, any query or pipeline job using this reservation will use idle
-    /// slots from other reservations within the same admin project. If true, a
-    /// query or pipeline job using this reservation will execute with the slot
-    /// capacity specified in the slot_capacity field at most.
+    /// Optional. If false, any query or pipeline job using this reservation will
+    /// use idle slots from other reservations within the same admin project. If
+    /// true, a query or pipeline job using this reservation will execute with the
+    /// slot capacity specified in the slot_capacity field at most.
     pub ignore_idle_slots: bool,
 
-    /// The configuration parameters for the auto scaling feature.
+    /// Optional. The configuration parameters for the auto scaling feature.
     pub autoscale: std::option::Option<crate::model::reservation::Autoscale>,
 
-    /// Job concurrency target which sets a soft upper bound on the number of jobs
-    /// that can run concurrently in this reservation. This is a soft target due to
-    /// asynchronous nature of the system and various optimizations for small
-    /// queries.
-    /// Default value is 0 which means that concurrency target will be
-    /// automatically computed by the system.
-    /// NOTE: this field is exposed as target job concurrency in the Information
-    /// Schema, DDL and BigQuery CLI.
+    /// Optional. Job concurrency target which sets a soft upper bound on the
+    /// number of jobs that can run concurrently in this reservation. This is a
+    /// soft target due to asynchronous nature of the system and various
+    /// optimizations for small queries. Default value is 0 which means that
+    /// concurrency target will be automatically computed by the system. NOTE: this
+    /// field is exposed as target job concurrency in the Information Schema, DDL
+    /// and BigQuery CLI.
     pub concurrency: i64,
 
     /// Output only. Creation time of the reservation.
@@ -96,9 +96,10 @@ pub struct Reservation {
     ///
     /// NOTE: this is a preview feature. Project must be allow-listed in order to
     /// set this field.
+    #[deprecated]
     pub multi_region_auxiliary: bool,
 
-    /// Edition of the reservation.
+    /// Optional. Edition of the reservation.
     pub edition: crate::model::Edition,
 
     /// Output only. The current location of the reservation's primary replica.
@@ -127,10 +128,13 @@ pub struct Reservation {
     /// autoscale.current_slots (which accounts for the additional added slots), it
     /// will never exceed the max_slots - baseline.
     ///
-    /// This field must be set together with the scaling_mode enum value.
+    /// This field must be set together with the scaling_mode enum value,
+    /// otherwise the request will be rejected with error code
+    /// `google.rpc.Code.INVALID_ARGUMENT`.
     ///
     /// If the max_slots and scaling_mode are set, the autoscale or
-    /// autoscale.max_slots field must be unset. However, the
+    /// autoscale.max_slots field must be unset. Otherwise the request will be
+    /// rejected with error code `google.rpc.Code.INVALID_ARGUMENT`. However, the
     /// autoscale field may still be in the output. The autopscale.max_slots will
     /// always show as 0 and the autoscaler.current_slots will represent the
     /// current slots from autoscaler excluding idle slots.
@@ -147,12 +151,14 @@ pub struct Reservation {
     ///
     /// If the max_slots and scaling_mode are set, then the ignore_idle_slots field
     /// must be aligned with the scaling_mode enum value.(See details in
-    /// ScalingMode comments).
+    /// ScalingMode comments). Otherwise the request will be rejected with
+    /// error code `google.rpc.Code.INVALID_ARGUMENT`.
     ///
     /// Please note,  the max_slots is for user to manage the part of slots greater
     /// than the baseline. Therefore, we don't allow users to set max_slots smaller
     /// or equal to the baseline as it will not be meaningful. If the field is
-    /// present and slot_capacity>=max_slots.
+    /// present and slot_capacity>=max_slots, requests will be rejected with error
+    /// code `google.rpc.Code.INVALID_ARGUMENT`.
     ///
     /// Please note that if max_slots is set to 0, we will treat it as unset.
     /// Customers can set max_slots to 0 and set scaling_mode to
@@ -160,8 +166,22 @@ pub struct Reservation {
     pub max_slots: std::option::Option<i64>,
 
     /// Optional. The scaling mode for the reservation.
-    /// If the field is present but max_slots is not present.
+    /// If the field is present but max_slots is not present, requests will be
+    /// rejected with error code `google.rpc.Code.INVALID_ARGUMENT`.
     pub scaling_mode: crate::model::reservation::ScalingMode,
+
+    /// Optional. The labels associated with this reservation. You can use these
+    /// to organize and group your reservations.
+    /// You can set this property when you create or update a reservation.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. The reservation group that this reservation belongs to.
+    /// You can set this property when you create or update a reservation.
+    /// Reservations do not need to belong to a reservation group.
+    /// Format:
+    /// projects/{project}/locations/{location}/reservationGroups/{reservation_group}
+    /// or just {reservation_group}
+    pub reservation_group: std::string::String,
 
     /// Output only. The Disaster Recovery(DR) replication status of the
     /// reservation. This is only available for the primary replicas of DR/failover
@@ -172,6 +192,13 @@ pub struct Reservation {
     /// secondary or that any replication operations on the reservation have
     /// succeeded.
     pub replication_status: std::option::Option<crate::model::reservation::ReplicationStatus>,
+
+    /// Optional. The scheduling policy to use for jobs and queries running under
+    /// this reservation. The scheduling policy controls how the reservation's
+    /// resources are distributed.
+    ///
+    /// This feature is not yet generally available.
+    pub scheduling_policy: std::option::Option<crate::model::SchedulingPolicy>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -260,6 +287,7 @@ impl Reservation {
     }
 
     /// Sets the value of [multi_region_auxiliary][crate::model::Reservation::multi_region_auxiliary].
+    #[deprecated]
     pub fn set_multi_region_auxiliary<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.multi_region_auxiliary = v.into();
         self
@@ -325,6 +353,27 @@ impl Reservation {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Reservation::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [reservation_group][crate::model::Reservation::reservation_group].
+    pub fn set_reservation_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reservation_group = v.into();
+        self
+    }
+
     /// Sets the value of [replication_status][crate::model::Reservation::replication_status].
     pub fn set_replication_status<T>(mut self, v: T) -> Self
     where
@@ -340,6 +389,24 @@ impl Reservation {
         T: std::convert::Into<crate::model::reservation::ReplicationStatus>,
     {
         self.replication_status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [scheduling_policy][crate::model::Reservation::scheduling_policy].
+    pub fn set_scheduling_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SchedulingPolicy>,
+    {
+        self.scheduling_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scheduling_policy][crate::model::Reservation::scheduling_policy].
+    pub fn set_or_clear_scheduling_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SchedulingPolicy>,
+    {
+        self.scheduling_policy = v.map(|x| x.into());
         self
     }
 }
@@ -366,7 +433,7 @@ pub mod reservation {
         /// max_slots for that brief period (less than one minute)
         pub current_slots: i64,
 
-        /// Number of slots to be scaled when needed.
+        /// Optional. Number of slots to be scaled when needed.
         pub max_slots: i64,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -537,7 +604,8 @@ pub mod reservation {
         /// slots and no idle slots will be used.
         ///
         /// Please note, in this mode, the ignore_idle_slots field must be set to
-        /// true.
+        /// true. Otherwise the request will be rejected with error code
+        /// `google.rpc.Code.INVALID_ARGUMENT`.
         AutoscaleOnly,
         /// The reservation will scale up using only idle slots contributed by
         /// other reservations or from unassigned commitments. If no idle slots are
@@ -557,7 +625,8 @@ pub mod reservation {
         ///    to max_slots.
         ///
         /// Please note, in this mode, the ignore_idle_slots field must be set to
-        /// false.
+        /// false. Otherwise the request will be rejected with error code
+        /// `google.rpc.Code.INVALID_ARGUMENT`.
         IdleSlotsOnly,
         /// The reservation will scale up using all slots available to it. It will
         /// use idle slots contributed by other reservations or from unassigned
@@ -575,7 +644,8 @@ pub mod reservation {
         ///    scale up to 1000 slots with 200 baseline and 800 autoscaling slots.
         ///
         /// Please note, in this mode, the ignore_idle_slots field must be set to
-        /// false.
+        /// false. Otherwise the request will be rejected with error code
+        /// `google.rpc.Code.INVALID_ARGUMENT`.
         AllSlots,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -691,6 +761,107 @@ pub mod reservation {
     }
 }
 
+/// The scheduling policy controls how a reservation's resources are distributed.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SchedulingPolicy {
+    /// Optional. If present and > 0, the reservation will attempt to limit the
+    /// concurrency of jobs running for any particular project within it to the
+    /// given value.
+    ///
+    /// This feature is not yet generally available.
+    pub concurrency: std::option::Option<i64>,
+
+    /// Optional. If present and > 0, the reservation will attempt to limit the
+    /// slot consumption of queries running for any particular project within it to
+    /// the given value.
+    ///
+    /// This feature is not yet generally available.
+    pub max_slots: std::option::Option<i64>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SchedulingPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [concurrency][crate::model::SchedulingPolicy::concurrency].
+    pub fn set_concurrency<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.concurrency = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [concurrency][crate::model::SchedulingPolicy::concurrency].
+    pub fn set_or_clear_concurrency<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.concurrency = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [max_slots][crate::model::SchedulingPolicy::max_slots].
+    pub fn set_max_slots<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.max_slots = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_slots][crate::model::SchedulingPolicy::max_slots].
+    pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.max_slots = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SchedulingPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.reservation.v1.SchedulingPolicy"
+    }
+}
+
+/// A reservation group is a container for reservations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ReservationGroup {
+    /// Identifier. The resource name of the reservation group, e.g.,
+    /// `projects/*/locations/*/reservationGroups/team1-prod`.
+    /// The reservation_group_id must only contain lower case alphanumeric
+    /// characters or dashes. It must start with a letter and must not end with a
+    /// dash. Its maximum length is 64 characters.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ReservationGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ReservationGroup::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ReservationGroup {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.reservation.v1.ReservationGroup"
+    }
+}
+
 /// Capacity commitment is a way to purchase compute capacity for BigQuery jobs
 /// (in the form of slots) with some committed period of usage. Annual
 /// commitments renew by default. Commitments can be removed after their
@@ -711,10 +882,10 @@ pub struct CapacityCommitment {
     /// with a dash. Its maximum length is 64 characters.
     pub name: std::string::String,
 
-    /// Number of slots in this commitment.
+    /// Optional. Number of slots in this commitment.
     pub slot_count: i64,
 
-    /// Capacity commitment commitment plan.
+    /// Optional. Capacity commitment commitment plan.
     pub plan: crate::model::capacity_commitment::CommitmentPlan,
 
     /// Output only. State of the commitment.
@@ -728,7 +899,7 @@ pub struct CapacityCommitment {
 
     /// Output only. The end of the current commitment period. It is applicable
     /// only for ACTIVE capacity commitments. Note after renewal,
-    /// commitment_end_time is the time the renewed commitment expires. So it would
+    /// commitment_end_time is the time the renewed commitment expires. So itwould
     /// be at a time after commitment_start_time + committed period, because we
     /// don't change commitment_start_time ,
     pub commitment_end_time: std::option::Option<wkt::Timestamp>,
@@ -736,9 +907,10 @@ pub struct CapacityCommitment {
     /// Output only. For FAILED commitment plan, provides the reason of failure.
     pub failure_status: std::option::Option<rpc::model::Status>,
 
-    /// The plan this capacity commitment is converted to after commitment_end_time
-    /// passes. Once the plan is changed, committed period is extended according to
-    /// commitment plan. Only applicable for ANNUAL and TRIAL commitments.
+    /// Optional. The plan this capacity commitment is converted to after
+    /// commitment_end_time passes. Once the plan is changed, committed period is
+    /// extended according to commitment plan. Only applicable for ANNUAL and TRIAL
+    /// commitments.
     pub renewal_plan: crate::model::capacity_commitment::CommitmentPlan,
 
     /// Applicable only for commitments located within one of the BigQuery
@@ -750,9 +922,10 @@ pub struct CapacityCommitment {
     ///
     /// NOTE: this is a preview feature. Project must be allow-listed in order to
     /// set this field.
+    #[deprecated]
     pub multi_region_auxiliary: bool,
 
-    /// Edition of the capacity commitment.
+    /// Optional. Edition of the capacity commitment.
     pub edition: crate::model::Edition,
 
     /// Output only. If true, the commitment is a flat-rate commitment, otherwise,
@@ -863,6 +1036,7 @@ impl CapacityCommitment {
     }
 
     /// Sets the value of [multi_region_auxiliary][crate::model::CapacityCommitment::multi_region_auxiliary].
+    #[deprecated]
     pub fn set_multi_region_auxiliary<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.multi_region_auxiliary = v.into();
         self
@@ -1587,6 +1761,247 @@ impl wkt::message::Message for FailoverReservationRequest {
 }
 
 /// The request for
+/// [ReservationService.CreateReservationGroup][google.cloud.bigquery.reservation.v1.ReservationService.CreateReservationGroup].
+///
+/// [google.cloud.bigquery.reservation.v1.ReservationService.CreateReservationGroup]: crate::client::ReservationService::create_reservation_group
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateReservationGroupRequest {
+    /// Required. Project, location. E.g.,
+    /// `projects/myproject/locations/US`
+    pub parent: std::string::String,
+
+    /// Required. The reservation group ID. It must only contain lower case
+    /// alphanumeric characters or dashes. It must start with a letter and must not
+    /// end with a dash. Its maximum length is 64 characters.
+    pub reservation_group_id: std::string::String,
+
+    /// Required. New Reservation Group to create.
+    pub reservation_group: std::option::Option<crate::model::ReservationGroup>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateReservationGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateReservationGroupRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [reservation_group_id][crate::model::CreateReservationGroupRequest::reservation_group_id].
+    pub fn set_reservation_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reservation_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [reservation_group][crate::model::CreateReservationGroupRequest::reservation_group].
+    pub fn set_reservation_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReservationGroup>,
+    {
+        self.reservation_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reservation_group][crate::model::CreateReservationGroupRequest::reservation_group].
+    pub fn set_or_clear_reservation_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReservationGroup>,
+    {
+        self.reservation_group = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateReservationGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.reservation.v1.CreateReservationGroupRequest"
+    }
+}
+
+/// The request for
+/// [ReservationService.GetReservationGroup][google.cloud.bigquery.reservation.v1.ReservationService.GetReservationGroup].
+///
+/// [google.cloud.bigquery.reservation.v1.ReservationService.GetReservationGroup]: crate::client::ReservationService::get_reservation_group
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetReservationGroupRequest {
+    /// Required. Resource name of the reservation group to retrieve. E.g.,
+    /// `projects/myproject/locations/US/reservationGroups/team1-prod`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetReservationGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetReservationGroupRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetReservationGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.reservation.v1.GetReservationGroupRequest"
+    }
+}
+
+/// The request for
+/// [ReservationService.ListReservationGroups][google.cloud.bigquery.reservation.v1.ReservationService.ListReservationGroups].
+///
+/// [google.cloud.bigquery.reservation.v1.ReservationService.ListReservationGroups]: crate::client::ReservationService::list_reservation_groups
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListReservationGroupsRequest {
+    /// Required. The parent resource name containing project and location, e.g.:
+    /// `projects/myproject/locations/US`
+    pub parent: std::string::String,
+
+    /// The maximum number of items to return per page.
+    pub page_size: i32,
+
+    /// The next_page_token value returned from a previous List request, if any.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListReservationGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListReservationGroupsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListReservationGroupsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListReservationGroupsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListReservationGroupsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.reservation.v1.ListReservationGroupsRequest"
+    }
+}
+
+/// The response for
+/// [ReservationService.ListReservationGroups][google.cloud.bigquery.reservation.v1.ReservationService.ListReservationGroups].
+///
+/// [google.cloud.bigquery.reservation.v1.ReservationService.ListReservationGroups]: crate::client::ReservationService::list_reservation_groups
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListReservationGroupsResponse {
+    /// List of reservations visible to the user.
+    pub reservation_groups: std::vec::Vec<crate::model::ReservationGroup>,
+
+    /// Token to retrieve the next page of results, or empty if there are no
+    /// more results in the list.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListReservationGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [reservation_groups][crate::model::ListReservationGroupsResponse::reservation_groups].
+    pub fn set_reservation_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReservationGroup>,
+    {
+        use std::iter::Iterator;
+        self.reservation_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListReservationGroupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListReservationGroupsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.reservation.v1.ListReservationGroupsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListReservationGroupsResponse {
+    type PageItem = crate::model::ReservationGroup;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.reservation_groups
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request for
+/// [ReservationService.DeleteReservationGroup][google.cloud.bigquery.reservation.v1.ReservationService.DeleteReservationGroup].
+///
+/// [google.cloud.bigquery.reservation.v1.ReservationService.DeleteReservationGroup]: crate::client::ReservationService::delete_reservation_group
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteReservationGroupRequest {
+    /// Required. Resource name of the reservation group to retrieve. E.g.,
+    /// `projects/myproject/locations/US/reservationGroups/team1-prod`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteReservationGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteReservationGroupRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteReservationGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.reservation.v1.DeleteReservationGroupRequest"
+    }
+}
+
+/// The request for
 /// [ReservationService.CreateCapacityCommitment][google.cloud.bigquery.reservation.v1.ReservationService.CreateCapacityCommitment].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.CreateCapacityCommitment]: crate::client::ReservationService::create_capacity_commitment
@@ -2040,6 +2455,12 @@ pub struct MergeCapacityCommitmentsRequest {
     /// projects/myproject/locations/US/capacityCommitments/abc
     pub capacity_commitment_ids: std::vec::Vec<std::string::String>,
 
+    /// Optional. The optional resulting capacity commitment ID. Capacity
+    /// commitment name will be generated automatically if this field is empty.
+    /// This field must only contain lower case alphanumeric characters or dashes.
+    /// The first and last character cannot be a dash. Max length is 64 characters.
+    pub capacity_commitment_id: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2064,6 +2485,15 @@ impl MergeCapacityCommitmentsRequest {
         self.capacity_commitment_ids = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [capacity_commitment_id][crate::model::MergeCapacityCommitmentsRequest::capacity_commitment_id].
+    pub fn set_capacity_commitment_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.capacity_commitment_id = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for MergeCapacityCommitmentsRequest {
@@ -2083,11 +2513,11 @@ pub struct Assignment {
     /// dashes and the max length is 64 characters.
     pub name: std::string::String,
 
-    /// The resource which will use the reservation. E.g.
+    /// Optional. The resource which will use the reservation. E.g.
     /// `projects/myproject`, `folders/123`, or `organizations/456`.
     pub assignee: std::string::String,
 
-    /// Which type of jobs will use the reservation.
+    /// Optional. Which type of jobs will use the reservation.
     pub job_type: crate::model::assignment::JobType,
 
     /// Output only. State of the assignment.
@@ -2102,6 +2532,14 @@ pub struct Assignment {
     /// give the grantee project/organization access to "Gemini in BigQuery"
     /// features.
     pub enable_gemini_in_bigquery: bool,
+
+    /// Optional. The scheduling policy to use for jobs and queries of this
+    /// assignee when running under the associated reservation. The scheduling
+    /// policy controls how the reservation's resources are distributed. This
+    /// overrides the default scheduling policy specified on the reservation.
+    ///
+    /// This feature is not yet generally available.
+    pub scheduling_policy: std::option::Option<crate::model::SchedulingPolicy>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2144,6 +2582,24 @@ impl Assignment {
     /// Sets the value of [enable_gemini_in_bigquery][crate::model::Assignment::enable_gemini_in_bigquery].
     pub fn set_enable_gemini_in_bigquery<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_gemini_in_bigquery = v.into();
+        self
+    }
+
+    /// Sets the value of [scheduling_policy][crate::model::Assignment::scheduling_policy].
+    pub fn set_scheduling_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SchedulingPolicy>,
+    {
+        self.scheduling_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scheduling_policy][crate::model::Assignment::scheduling_policy].
+    pub fn set_or_clear_scheduling_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SchedulingPolicy>,
+    {
+        self.scheduling_policy = v.map(|x| x.into());
         self
     }
 }
@@ -2192,6 +2648,20 @@ pub mod assignment {
         /// Continuous SQL jobs will use this reservation. Reservations with
         /// continuous assignments cannot be mixed with non-continuous assignments.
         Continuous,
+        /// Finer granularity background jobs for capturing changes in a source
+        /// database and streaming them into BigQuery. Reservations with this job
+        /// type take priority over a default BACKGROUND reservation assignment (if
+        /// it exists).
+        BackgroundChangeDataCapture,
+        /// Finer granularity background jobs for refreshing cached metadata for
+        /// BigQuery tables. Reservations with this job type take priority over a
+        /// default BACKGROUND reservation assignment (if it exists).
+        BackgroundColumnMetadataIndex,
+        /// Finer granularity background jobs for refreshing search indexes upon
+        /// BigQuery table columns. Reservations with this job type
+        /// take priority over a default BACKGROUND reservation assignment (if it
+        /// exists).
+        BackgroundSearchIndexRefresh,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [JobType::value] or
@@ -2220,6 +2690,9 @@ pub mod assignment {
                 Self::MlExternal => std::option::Option::Some(3),
                 Self::Background => std::option::Option::Some(4),
                 Self::Continuous => std::option::Option::Some(6),
+                Self::BackgroundChangeDataCapture => std::option::Option::Some(7),
+                Self::BackgroundColumnMetadataIndex => std::option::Option::Some(8),
+                Self::BackgroundSearchIndexRefresh => std::option::Option::Some(9),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2236,6 +2709,15 @@ pub mod assignment {
                 Self::MlExternal => std::option::Option::Some("ML_EXTERNAL"),
                 Self::Background => std::option::Option::Some("BACKGROUND"),
                 Self::Continuous => std::option::Option::Some("CONTINUOUS"),
+                Self::BackgroundChangeDataCapture => {
+                    std::option::Option::Some("BACKGROUND_CHANGE_DATA_CAPTURE")
+                }
+                Self::BackgroundColumnMetadataIndex => {
+                    std::option::Option::Some("BACKGROUND_COLUMN_METADATA_INDEX")
+                }
+                Self::BackgroundSearchIndexRefresh => {
+                    std::option::Option::Some("BACKGROUND_SEARCH_INDEX_REFRESH")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2263,6 +2745,9 @@ pub mod assignment {
                 3 => Self::MlExternal,
                 4 => Self::Background,
                 6 => Self::Continuous,
+                7 => Self::BackgroundChangeDataCapture,
+                8 => Self::BackgroundColumnMetadataIndex,
+                9 => Self::BackgroundSearchIndexRefresh,
                 _ => Self::UnknownValue(job_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2280,6 +2765,9 @@ pub mod assignment {
                 "ML_EXTERNAL" => Self::MlExternal,
                 "BACKGROUND" => Self::Background,
                 "CONTINUOUS" => Self::Continuous,
+                "BACKGROUND_CHANGE_DATA_CAPTURE" => Self::BackgroundChangeDataCapture,
+                "BACKGROUND_COLUMN_METADATA_INDEX" => Self::BackgroundColumnMetadataIndex,
+                "BACKGROUND_SEARCH_INDEX_REFRESH" => Self::BackgroundSearchIndexRefresh,
                 _ => Self::UnknownValue(job_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2299,6 +2787,9 @@ pub mod assignment {
                 Self::MlExternal => serializer.serialize_i32(3),
                 Self::Background => serializer.serialize_i32(4),
                 Self::Continuous => serializer.serialize_i32(6),
+                Self::BackgroundChangeDataCapture => serializer.serialize_i32(7),
+                Self::BackgroundColumnMetadataIndex => serializer.serialize_i32(8),
+                Self::BackgroundSearchIndexRefresh => serializer.serialize_i32(9),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -3055,13 +3546,13 @@ impl wkt::message::Message for UpdateAssignmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableReference {
-    /// The assigned project ID of the project.
+    /// Optional. The assigned project ID of the project.
     pub project_id: std::string::String,
 
-    /// The ID of the dataset in the above project.
+    /// Optional. The ID of the dataset in the above project.
     pub dataset_id: std::string::String,
 
-    /// The ID of the table in the above dataset.
+    /// Optional. The ID of the table in the above dataset.
     pub table_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3101,7 +3592,7 @@ impl wkt::message::Message for TableReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BiReservation {
-    /// The resource name of the singleton BI reservation.
+    /// Identifier. The resource name of the singleton BI reservation.
     /// Reservation names have the form
     /// `projects/{project_id}/locations/{location_id}/biReservation`.
     pub name: std::string::String,
@@ -3109,10 +3600,10 @@ pub struct BiReservation {
     /// Output only. The last update timestamp of a reservation.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Size of a reservation, in bytes.
+    /// Optional. Size of a reservation, in bytes.
     pub size: i64,
 
-    /// Preferred tables to use BI capacity for.
+    /// Optional. Preferred tables to use BI capacity for.
     pub preferred_tables: std::vec::Vec<crate::model::TableReference>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3403,7 +3894,7 @@ impl<'de> serde::de::Deserialize<'de> for Edition {
 }
 
 /// The failover mode when a user initiates a failover on a reservation
-/// determines how writes that arepending replication are handled after the
+/// determines how writes that are pending replication are handled after the
 /// failover is initiated.
 ///
 /// # Working with unknown values
