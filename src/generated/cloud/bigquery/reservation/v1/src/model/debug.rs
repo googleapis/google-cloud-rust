@@ -34,7 +34,10 @@ impl std::fmt::Debug for super::Reservation {
         debug_struct.field("original_primary_location", &self.original_primary_location);
         debug_struct.field("max_slots", &self.max_slots);
         debug_struct.field("scaling_mode", &self.scaling_mode);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("reservation_group", &self.reservation_group);
         debug_struct.field("replication_status", &self.replication_status);
+        debug_struct.field("scheduling_policy", &self.scheduling_policy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -61,6 +64,29 @@ impl std::fmt::Debug for super::reservation::ReplicationStatus {
         debug_struct.field("last_error_time", &self.last_error_time);
         debug_struct.field("last_replication_time", &self.last_replication_time);
         debug_struct.field("soft_failover_start_time", &self.soft_failover_start_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SchedulingPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchedulingPolicy");
+        debug_struct.field("concurrency", &self.concurrency);
+        debug_struct.field("max_slots", &self.max_slots);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ReservationGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReservationGroup");
+        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -166,6 +192,66 @@ impl std::fmt::Debug for super::FailoverReservationRequest {
         let mut debug_struct = f.debug_struct("FailoverReservationRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("failover_mode", &self.failover_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateReservationGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateReservationGroupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("reservation_group_id", &self.reservation_group_id);
+        debug_struct.field("reservation_group", &self.reservation_group);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetReservationGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetReservationGroupRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListReservationGroupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReservationGroupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListReservationGroupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReservationGroupsResponse");
+        debug_struct.field("reservation_groups", &self.reservation_groups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteReservationGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteReservationGroupRequest");
+        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -279,6 +365,7 @@ impl std::fmt::Debug for super::MergeCapacityCommitmentsRequest {
         let mut debug_struct = f.debug_struct("MergeCapacityCommitmentsRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("capacity_commitment_ids", &self.capacity_commitment_ids);
+        debug_struct.field("capacity_commitment_id", &self.capacity_commitment_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -294,6 +381,7 @@ impl std::fmt::Debug for super::Assignment {
         debug_struct.field("job_type", &self.job_type);
         debug_struct.field("state", &self.state);
         debug_struct.field("enable_gemini_in_bigquery", &self.enable_gemini_in_bigquery);
+        debug_struct.field("scheduling_policy", &self.scheduling_policy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

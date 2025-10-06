@@ -1562,6 +1562,7 @@ dependencies = [
  "bytes",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
