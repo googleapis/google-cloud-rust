@@ -29,7 +29,7 @@ pub trait DiscoveryOperation {
     fn error(&self) -> Option<gax::error::Error>;
 }
 
-pub fn new_poller<S, SF, Q, QF, O, E>(
+pub fn new_poller<S, SF, Q, QF, O>(
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     start: S,
