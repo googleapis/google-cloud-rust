@@ -16,19 +16,19 @@ options:
   dynamic_substitutions: true
   substitutionOption: 'ALLOW_LOOSE'
   logging: CLOUD_LOGGING_ONLY
-serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
+serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/terraform-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
-  - name: 'gcr.io/cloud-builders/curl'
+  - name: 'ubuntu:latest'
     script: |
       #!/usr/bin/env bash
       set -e
-      apt-get update
-      apt-get install -y unzip
-      mkdir -p .bin
-      curl --output terraform.zip https://releases.hashicorp.com/terraform/1.13.3/terraform_1.13.3_linux_amd64.zip
-      unzip terraform.zip terraform -d /workspace/.bin/
-      chmod 755 /workspace/.bin/terraform
+      apt-get update && apt-get install -y gnupg software-properties-common wget
+      wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+      gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint
+      echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
+      apt-get update && apt-get install -y terraform
+      echo "Running terraform"
       cd /workspace/src/auth/.gcb/builds
-      /workspace/.bin/terraform init
-      /workspace/.bin/terraform plan -out /tmp/bootstrap.tplan
-      # /workspace/.bin/terraform apply /tmp/bootstrap.tplan
+      terraform init
+      terraform plan -out /tmp/bootstrap.tplan
+      # terraform apply /tmp/bootstrap.tplan
