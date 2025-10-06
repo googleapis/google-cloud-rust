@@ -144,7 +144,10 @@ mod tests {
         assert_eq!(source.code(), tonic::Code::Internal);
 
         let fmt = format!("{got}");
-        assert!(fmt.contains("should start with application/grpc"), "fmt={fmt}, got={got:?}");
+        assert!(
+            fmt.contains("should start with application/grpc"),
+            "fmt={fmt}, got={got:?}"
+        );
     }
 
     #[test]
