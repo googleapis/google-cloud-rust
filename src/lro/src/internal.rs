@@ -22,6 +22,8 @@ use super::{Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Res
 use gax::polling_state::PollingState;
 use std::sync::Arc;
 
+pub mod discovery;
+
 pub type Operation<R, M> = super::details::Operation<R, M>;
 
 /// Creates a new `impl Poller<R, M>` from the closures created by the generator.
