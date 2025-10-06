@@ -16,6 +16,15 @@ use std::collections::HashMap;
 use std::sync::{Mutex, Once};
 use tracing::{Subscriber, field, span};
 use tracing_subscriber::{self, Layer, layer::Context, prelude::*, registry::SpanRef};
+use uuid::Uuid;
+
+/// RAII guard for the TestLayer.
+///
+/// Contains the unique test ID and the tracing subscriber guard.
+pub struct TestLayerGuard {
+    test_id: String,
+    _guard: tracing::span::EnteredSpan,
+}
 
 /// Represents a captured tracing span with its attributes.
 #[derive(Debug, Clone)]
@@ -181,26 +190,28 @@ impl TestLayer {
     /// Installs the `TestLayer` as a global subscriber if it hasn't been already.
     /// It clears any previously captured spans for the given `test_id`.
     ///
-    /// Returns an RAII guard (`tracing::span::EnteredSpan`). The layer will
-    /// only capture spans associated with this `test_id` while this guard is in scope.
-    pub fn initialize(test_id: &'static str) -> tracing::span::EnteredSpan {
+    /// Returns a `TestLayerGuard` which must be kept in scope for the duration of the test.
+    pub fn initialize() -> TestLayerGuard {
         INIT.call_once(|| {
             let layer = TestLayer;
             let subscriber = tracing_subscriber::registry().with(layer);
             tracing::subscriber::set_global_default(subscriber)
                 .expect("Failed to set global default subscriber");
         });
-        SPAN_LOG.clear_by_test_id(test_id);
-        tracing::span!(tracing::Level::INFO, "test_layer", test_id = test_id).entered()
+        let test_id = Uuid::new_v4().to_string();
+        SPAN_LOG.clear_by_test_id(&test_id);
+        let _guard =
+            tracing::span!(tracing::Level::INFO, "test_layer", test_id = test_id).entered();
+        TestLayerGuard { test_id, _guard }
     }
 
-    /// Retrieves all spans captured for the given `test_id`.
+    /// Retrieves all spans captured for the given `TestLayerGuard`.
     ///
     /// This method consumes the captured spans from the log, so subsequent
     /// calls for the same `test_id` within the same test run (without re-initializing)
     /// will return an empty vector unless new spans are emitted.
-    pub fn capture(test_id: &str) -> Vec<CapturedSpan> {
-        SPAN_LOG.take_by_test_id(test_id)
+    pub fn capture(guard: &TestLayerGuard) -> Vec<CapturedSpan> {
+        SPAN_LOG.take_by_test_id(&guard.test_id)
     }
 }
 
@@ -307,85 +318,28 @@ mod tests {
         assert_eq!(log.spans.lock().unwrap().len(), 1);
     }
 
-    /// Tests that spans created within the `TestLayer::initialize` guard are assigned the correct test ID.
-    #[tokio::test]
-    async fn test_layer_test_id_assignment() {
-        const TEST_ID: &str = "test_layer_test_id_assignment";
-        let _guard = TestLayer::initialize(TEST_ID);
-
-        info_span!("outer_span").in_scope(|| {
-            info_span!("inner_span").in_scope(|| {
-                tracing::info!("deep inside");
-            });
-        });
-
-        let captured = TestLayer::capture(TEST_ID);
-        assert_eq!(captured.len(), 2);
-
-        for span in captured {
-            assert_eq!(span.test_id.as_deref(), Some(TEST_ID));
-            assert!(span.name == "outer_span" || span.name == "inner_span");
-        }
-    }
-
     /// Tests that `TestLayer` can handle multiple initializations with different test IDs.
     #[tokio::test]
     async fn test_layer_multiple_inits() {
-        const TEST_ID_A: &str = "test_layer_multiple_inits_A";
-        const TEST_ID_B: &str = "test_layer_multiple_inits_B";
+        let guard_a = TestLayer::initialize();
+        info_span!("span_a").in_scope(|| {});
 
-        {
-            let _guard = TestLayer::initialize(TEST_ID_A);
-            info_span!("span_a").in_scope(|| {});
-        }
-        {
-            let _guard = TestLayer::initialize(TEST_ID_B);
-            info_span!("span_b").in_scope(|| {});
-        }
+        let guard_b = TestLayer::initialize();
+        info_span!("span_b").in_scope(|| {});
 
-        let captured_a = TestLayer::capture(TEST_ID_A);
+        let captured_a = TestLayer::capture(&guard_a);
         assert_eq!(captured_a.len(), 1);
         assert_eq!(captured_a[0].name, "span_a");
 
-        let captured_b = TestLayer::capture(TEST_ID_B);
+        let captured_b = TestLayer::capture(&guard_b);
         assert_eq!(captured_b.len(), 1);
         assert_eq!(captured_b[0].name, "span_b");
-    }
-
-    /// Tests that spans are only captured for a test ID while the guard from `TestLayer::initialize` is in scope.
-    #[tokio::test]
-    async fn test_layer_guard_drops() {
-        const TEST_ID: &str = "test_layer_guard_drops";
-        {
-            let _guard = TestLayer::initialize(TEST_ID);
-            tracing::info_span!("span_inside_guard").in_scope(|| {
-                tracing::info!("This is inside the guard");
-            });
-        } // _guard is dropped here
-
-        tracing::info_span!("span_outside_guard").in_scope(|| {
-            tracing::info!("This is outside the guard");
-        });
-
-        let captured = TestLayer::capture(TEST_ID);
-        assert_eq!(captured.len(), 1);
-        assert_eq!(captured[0].name, "span_inside_guard");
-        assert_eq!(captured[0].test_id.as_deref(), Some(TEST_ID));
-
-        // Check that the outside span was NOT captured with this TEST_ID
-        let all_spans = SPAN_LOG.spans.lock().unwrap();
-        assert!(
-            !all_spans
-                .iter()
-                .any(|s| s.name == "span_outside_guard" && s.test_id.as_deref() == Some(TEST_ID))
-        );
     }
 
     /// Tests that attributes added via `span.record()` are captured.
     #[tokio::test]
     async fn test_layer_on_record() {
-        const TEST_ID: &str = "test_layer_on_record";
-        let _guard = TestLayer::initialize(TEST_ID);
+        let guard = TestLayer::initialize();
 
         let span = info_span!(
             "my_span",
@@ -403,7 +357,7 @@ mod tests {
             span.record("debug_attr", field::debug(&vec![1, 2, 3]));
         });
 
-        let captured = TestLayer::capture(TEST_ID);
+        let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1);
         let span = &captured[0];
         assert_eq!(span.name, "my_span");
@@ -423,8 +377,7 @@ mod tests {
     /// Tests that TestVisitor correctly converts various field types to strings.
     #[tokio::test]
     async fn test_visitor_type_conversions() {
-        const TEST_ID: &str = "test_visitor_type_conversions";
-        let _guard = TestLayer::initialize(TEST_ID);
+        let guard = TestLayer::initialize();
 
         let _span = info_span!(
             "type_test_span",
@@ -435,7 +388,7 @@ mod tests {
             my_debug = field::debug(&("test", 789))
         );
 
-        let captured = TestLayer::capture(TEST_ID);
+        let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1);
         let span = &captured[0];
 

@@ -297,9 +297,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_create_span_attributes() {
-        const TEST_ID: &str = "test_create_span_attributes";
-
-        let _guard = TestLayer::initialize(TEST_ID);
+        let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
         let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
@@ -334,7 +332,7 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v.to_string()))
         .collect();
 
-        let captured = TestLayer::capture(TEST_ID);
+        let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1);
         let attributes = &captured[0].attributes;
         assert_eq!(*attributes, expected_attributes);
@@ -342,9 +340,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_create_span_attributes_optional() {
-        const TEST_ID: &str = "test_create_span_attributes_optional";
-
-        let _guard = TestLayer::initialize(TEST_ID);
+        let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::POST, "http://localhost:8080/".parse().unwrap());
         let options = RequestOptions::default(); // No path template
@@ -368,7 +364,7 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v.to_string()))
         .collect();
 
-        let captured = TestLayer::capture(TEST_ID);
+        let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1);
         let attributes = &captured[0].attributes;
         assert_eq!(*attributes, expected_attributes);
@@ -376,9 +372,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_record_response_attributes_ok() {
-        const TEST_ID: &str = "test_record_response_attributes_ok";
-
-        let _guard = TestLayer::initialize(TEST_ID);
+        let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
         let mut span_info =
@@ -408,7 +402,7 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v.to_string()))
         .collect();
 
-        let captured = TestLayer::capture(TEST_ID);
+        let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1);
         let attributes = &captured[0].attributes;
         assert_eq!(*attributes, expected_attributes);
@@ -416,9 +410,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_record_response_attributes_error() {
-        const TEST_ID: &str = "test_record_response_attributes_error";
-
-        let _guard = TestLayer::initialize(TEST_ID);
+        let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
         let mut span_info =
@@ -448,7 +440,7 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v.to_string()))
         .collect();
 
-        let captured = TestLayer::capture(TEST_ID);
+        let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1);
         let attributes = &captured[0].attributes;
         assert_eq!(*attributes, expected_attributes);
