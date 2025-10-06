@@ -299,7 +299,6 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 ) -> Result<Response<O>> {
     // 204 No Content has no body and throws EOF error if we try to parse with serde::json
     let no_content_status = response.status() == reqwest::StatusCode::NO_CONTENT;
-    let extensions = Arc::new(Mutex::new(response.extensions().clone()));
     let response = http::Response::from(response);
     let (parts, body) = response.into_parts();
 
@@ -314,7 +313,7 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 
     let mut parts_out = Parts::default();
     parts_out.headers = parts.headers;
-    parts_out.extensions = extensions;
+    parts_out.extensions = Arc::new(Mutex::new(parts.extensions));
     Ok(Response::from_parts(parts_out, response))
 }
 

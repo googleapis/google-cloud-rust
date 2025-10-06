@@ -300,7 +300,12 @@ where
     let (metadata, body, extensions) = response.into_parts();
     let mut parts = gax::response::Parts::default();
     parts.headers = metadata.into_headers();
-    *parts.extensions.lock().unwrap() = extensions;
+    let mut lock = parts
+        .extensions
+        .lock()
+        .expect("Extensions mutex is not poisoned");
+    *lock = extensions;
+    drop(lock); // Ensure the lock is dropped before parts is moved
     Ok(gax::response::Response::from_parts(
         parts,
         body.cnv().map_err(Error::deser)?,

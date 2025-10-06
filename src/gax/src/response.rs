@@ -216,14 +216,34 @@ impl<T> Response<T> {
         self.body
     }
 
-    /// Inserts a value into the response extensions.
-    pub fn insert_extension<E: Clone + Send + Sync + 'static>(&mut self, val: E) {
-        self.parts.extensions.lock().unwrap().insert(val);
+    /// Returns a locked reference to the associated extensions.
+    ///
+    /// This method provides access to the `http::Extensions` for this response.
+    /// The `Arc<Mutex<>>` wrapping is to maintain `UnwindSafe` (see github.com/googleapis/google-cloud-rust/issues/3463).
+    ///
+    /// # Panics
+    ///
+    /// Panics if the underlying mutex is poisoned.
+    pub fn extensions(&self) -> std::sync::MutexGuard<'_, http::Extensions> {
+        self.parts
+            .extensions
+            .lock()
+            .expect("Extensions mutex is not poisoned")
     }
 
-    /// Gets a reference to a value in the response extensions, if it exists.
-    pub fn get_extension<E: Clone + Send + Sync + 'static>(&self) -> Option<E> {
-        self.parts.extensions.lock().unwrap().get::<E>().cloned()
+    /// Returns a locked mutable reference to the associated extensions.
+    ///
+    /// This method provides access to the `http::Extensions` for this response.
+    /// The `Arc<Mutex<>>` wrapping is to maintain `UnwindSafe` (see github.com/googleapis/google-cloud-rust/issues/3463).
+    ///
+    /// # Panics
+    ///
+    /// Panics if the underlying mutex is poisoned.
+    pub fn extensions_mut(&mut self) -> std::sync::MutexGuard<'_, http::Extensions> {
+        self.parts
+            .extensions
+            .lock()
+            .expect("Extensions mutex is not poisoned")
     }
 }
 
@@ -255,6 +275,7 @@ pub struct Parts {
     /// The HTTP headers or the gRPC metadata converted to HTTP headers.
     pub headers: http::HeaderMap<http::HeaderValue>,
     /// Extensions for passing data from the transport.
+    // Wrapped in Arc<Mutex<>> to maintain UnwindSafe, see github.com/googleapis/google-cloud-rust/issues/3463
     pub extensions: Arc<Mutex<http::Extensions>>,
 }
 
