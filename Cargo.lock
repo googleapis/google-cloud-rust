@@ -91,7 +91,6 @@ name = "auth-integration-tests"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64",
  "google-cloud-auth",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
@@ -99,7 +98,6 @@ dependencies = [
  "google-cloud-language-v2",
  "google-cloud-secretmanager-v1",
  "httptest",
- "reqwest",
  "scoped-env",
  "serde_json",
  "serial_test",

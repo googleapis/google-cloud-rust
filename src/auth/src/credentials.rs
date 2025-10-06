@@ -26,7 +26,8 @@ pub mod anonymous;
 pub mod api_key_credentials;
 pub mod external_account;
 pub(crate) mod external_account_sources;
-pub mod idtoken;
+#[allow(dead_code)]
+pub(crate) mod idtoken;
 pub mod impersonated;
 pub(crate) mod internal;
 pub mod mds;

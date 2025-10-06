@@ -397,7 +397,8 @@ impl TokenProvider for MDSAccessTokenProvider {
     }
 }
 
-pub mod idtoken {
+#[allow(dead_code)]
+pub(crate) mod idtoken {
     //! Types for fetching ID tokens from the metadata service.
     use std::sync::Arc;
 
@@ -436,18 +437,6 @@ pub mod idtoken {
 
     /// Creates [`IDTokenCredentials`] instances that fetch ID tokens from the
     /// metadata service.
-    ///
-    /// ## Example
-    ///
-    /// ```
-    /// # use google_cloud_auth::credentials::mds::idtoken::Builder;
-    /// # tokio_test::block_on(async {
-    /// let credentials = Builder::new("https://example.com")
-    ///     .with_format("full")
-    ///     .build();
-    /// # assert!(credentials.is_ok());
-    /// # });
-    /// ```
     #[derive(Debug, Default)]
     pub struct Builder {
         endpoint: Option<String>,
@@ -462,16 +451,6 @@ pub mod idtoken {
         /// The `target_audience` is a required parameter that specifies the
         /// intended audience of the ID token. This is typically the URL of the
         /// service that will be receiving the token.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_auth::credentials::mds::idtoken::Builder;
-        /// # tokio_test::block_on(async {
-        /// let credentials = Builder::new("https://example.com")
-        ///     .with_endpoint("https://metadata.google.foobar")
-        ///     .build();
-        /// # });
-        /// ```
         pub fn new<S: Into<String>>(target_audience: S) -> Self {
             Builder {
                 format: None,
@@ -485,16 +464,6 @@ pub mod idtoken {
         ///
         /// A trailing slash is significant, so specify the base URL without a trailing  
         /// slash. If not set, the credentials use `http://metadata.google.internal`.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_auth::credentials::mds::idtoken::Builder;
-        /// # tokio_test::block_on(async {
-        /// let credentials = Builder::new("https://example.com")
-        ///     .with_endpoint("https://metadata.google.foobar")
-        ///     .build();
-        /// # });
-        /// ```
         pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
             self.endpoint = Some(endpoint.into());
             self
@@ -507,16 +476,6 @@ pub mod idtoken {
         /// from the payload. The default value is `standard``.
         ///
         /// [format]: https://cloud.google.com/compute/docs/instances/verifying-instance-identity#token_format
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_auth::credentials::mds::idtoken::Builder;
-        /// # tokio_test::block_on(async {
-        /// let credentials = Builder::new("https://example.com")
-        ///     .with_format("full")
-        ///     .build();
-        /// # });
-        /// ```
         pub fn with_format<S: Into<String>>(mut self, format: S) -> Self {
             self.format = Some(format.into());
             self
@@ -528,17 +487,6 @@ pub mod idtoken {
         /// The default value is `false`. Has no effect unless format is `full`.
         ///
         /// [license codes]: https://cloud.google.com/compute/docs/reference/rest/v1/images/get#body.Image.FIELDS.license_code
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_auth::credentials::mds::idtoken::Builder;
-        /// # tokio_test::block_on(async {
-        /// let credentials = Builder::new("https://example.com")
-        ///     .with_format("full")
-        ///     .with_licenses(true)
-        ///     .build();
-        /// # });
-        /// ```
         pub fn with_licenses(mut self, licenses: bool) -> Self {
             self.licenses = if licenses {
                 Some("TRUE".to_string())
@@ -1210,17 +1158,22 @@ mod tests {
     async fn test_idtoken_builder_build() -> TestResult {
         let server = Server::run();
         let audience = "test-audience";
+        let format = "format";
         let token_string = "test-id-token";
         server.expect(
             Expectation::matching(all_of![
                 request::path(format!("{MDS_DEFAULT_URI}/identity")),
-                request::query(url_decoded(contains(("audience", audience))))
+                request::query(url_decoded(contains(("audience", audience)))),
+                request::query(url_decoded(contains(("format", format)))),
+                request::query(url_decoded(contains(("licenses", "TRUE"))))
             ])
             .respond_with(status_code(200).body(token_string)),
         );
 
         let creds = idtoken::Builder::new(audience)
             .with_endpoint(format!("http://{}", server.addr()))
+            .with_format(format)
+            .with_licenses(true)
             .build()?;
 
         let token = creds.id_token().await?;
