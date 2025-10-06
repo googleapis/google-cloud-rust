@@ -17,15 +17,19 @@ use crate::token::Token;
 use std::future::Future;
 use std::sync::Arc;
 
-/// Represents an `IDTokenCredentials` used to obtain an ID token.
+/// Obtain [OIDC ID Tokens].
 ///
 /// `IDTokenCredentials` provide a way to obtain OIDC ID tokens, which are
-/// commonly used for authenticating to services like Cloud Run or Identity-Aware
-/// Proxy (IAP). Unlike access tokens, ID tokens are not used to authorize access
-// to Google Cloud APIs but to verify the identity of a principal.
+/// commonly used for [service to service authentication], like when services are
+/// hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+/// Unlike access tokens, ID tokens are not used to authorize access to
+/// Google Cloud APIs but to verify the identity of a principal.
 ///
 /// This struct serves as a wrapper around different credential types that can
 /// produce ID tokens, such as service accounts or metadata server credentials.
+///
+/// [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+/// [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
 #[derive(Clone, Debug)]
 pub struct IDTokenCredentials {
     pub(crate) inner: Arc<dyn dynamic::IDTokenCredentialsProvider>,
@@ -62,7 +66,7 @@ pub trait IDTokenCredentialsProvider: std::fmt::Debug {
     fn id_token(&self) -> impl Future<Output = Result<Token>> + Send;
 }
 
-/// A module containing the dynamically-typed, object-safe version of the
+/// A module containing the dynamically-typed, dyn-compatible version of the
 /// `IDTokenCredentialsProvider` trait. This is an internal implementation detail.
 pub(crate) mod dynamic {
     use crate::Result;
