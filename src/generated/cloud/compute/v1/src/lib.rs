@@ -71,8 +71,6 @@ pub(crate) mod tracing;
 #[doc(hidden)]
 pub(crate) mod transport;
 
-mod operation;
-
 /// The default host used by the service.
 #[cfg(any(
     feature = "images",

@@ -160,6 +160,17 @@ pub trait Images: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::Images::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::global_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }
 
 /// Defines the trait used to implement [super::client::InstanceGroupManagerResizeRequests].
@@ -231,6 +242,17 @@ pub trait InstanceGroupManagerResizeRequests: std::fmt::Debug + Send + Sync {
         Output = crate::Result<
             gax::response::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>,
         >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagerResizeRequests::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::zone_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -523,6 +545,17 @@ pub trait InstanceGroupManagers: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::InstanceGroupManagers::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::zone_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }
 
 /// Defines the trait used to implement [super::client::InstanceGroups].
@@ -645,6 +678,17 @@ pub trait InstanceGroups: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroups::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::zone_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1225,6 +1269,17 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::Instances::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::zone_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }
 
 /// Defines the trait used to implement [super::client::MachineTypes].
@@ -1551,6 +1606,17 @@ pub trait RegionInstanceGroupManagers: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }
 
 /// Defines the trait used to implement [super::client::RegionInstanceGroups].
@@ -1623,6 +1689,17 @@ pub trait RegionInstanceGroups: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::RegionInstanceGroups::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }
 
 /// Defines the trait used to implement [super::client::RegionInstanceTemplates].
@@ -1682,6 +1759,17 @@ pub trait RegionInstanceTemplates: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::RegionInstanceTemplates::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }
 
 /// Defines the trait used to implement [super::client::RegionInstances].
@@ -1702,6 +1790,17 @@ pub trait RegionInstances: std::fmt::Debug + Send + Sync {
     fn bulk_insert(
         &self,
         _req: crate::model::region_instances::BulkInsertRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstances::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,

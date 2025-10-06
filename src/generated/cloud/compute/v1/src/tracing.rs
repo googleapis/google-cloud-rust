@@ -153,6 +153,15 @@ where
     ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
 }
 
 /// Implements a [InstanceGroupManagerResizeRequests](super::stub::InstanceGroupManagerResizeRequests) decorator for logging and tracing.
@@ -224,6 +233,15 @@ where
     ) -> Result<gax::response::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>>
     {
         self.inner.list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
     }
 }
 
@@ -472,6 +490,15 @@ where
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.update_per_instance_configs(req, options).await
     }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
 }
 
 /// Implements a [InstanceGroups](super::stub::InstanceGroups) decorator for logging and tracing.
@@ -587,6 +614,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
     }
 }
 
@@ -1079,6 +1115,15 @@ where
             .update_shielded_instance_config(req, options)
             .await
     }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
 }
 
 /// Implements a [MachineTypes](super::stub::MachineTypes) decorator for logging and tracing.
@@ -1370,6 +1415,15 @@ where
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.update_per_instance_configs(req, options).await
     }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
 }
 
 /// Implements a [RegionInstanceGroups](super::stub::RegionInstanceGroups) decorator for logging and tracing.
@@ -1441,6 +1495,15 @@ where
     ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
 }
 
 /// Implements a [RegionInstanceTemplates](super::stub::RegionInstanceTemplates) decorator for logging and tracing.
@@ -1503,6 +1566,15 @@ where
     ) -> Result<gax::response::Response<crate::model::InstanceTemplateList>> {
         self.inner.list(req, options).await
     }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
 }
 
 /// Implements a [RegionInstances](super::stub::RegionInstances) decorator for logging and tracing.
@@ -1537,6 +1609,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.bulk_insert(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
     }
 }
 

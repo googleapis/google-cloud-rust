@@ -81,7 +81,6 @@ serde_json.workspace = true
 serde_with.workspace = true
 tracing.workspace    = true
 wkt.workspace        = true
-lro.workspace = true
 
 [dev-dependencies]
 tokio-test.workspace = true

@@ -83,6 +83,12 @@ pub trait Images: std::fmt::Debug + Send + Sync {
         req: crate::model::images::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 }
 
 /// All implementations of [super::Images] also implement [Images].
@@ -187,6 +193,15 @@ impl<T: super::Images> Images for T {
     ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::InstanceGroupManagerResizeRequests].
@@ -224,6 +239,12 @@ pub trait InstanceGroupManagerResizeRequests: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<
         gax::response::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>,
     >;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 }
 
 /// All implementations of [super::InstanceGroupManagerResizeRequests] also implement [InstanceGroupManagerResizeRequests].
@@ -276,6 +297,15 @@ impl<T: super::InstanceGroupManagerResizeRequests> InstanceGroupManagerResizeReq
         gax::response::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>,
     > {
         T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
     }
 }
 
@@ -428,6 +458,12 @@ pub trait InstanceGroupManagers: std::fmt::Debug + Send + Sync {
     async fn update_per_instance_configs(
         &self,
         req: crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 }
@@ -657,6 +693,15 @@ impl<T: super::InstanceGroupManagers> InstanceGroupManagers for T {
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update_per_instance_configs(self, req, options).await
     }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::InstanceGroups].
@@ -722,6 +767,12 @@ pub trait InstanceGroups: std::fmt::Debug + Send + Sync {
         req: crate::model::instance_groups::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 }
 
 /// All implementations of [super::InstanceGroups] also implement [InstanceGroups].
@@ -816,6 +867,15 @@ impl<T: super::InstanceGroups> InstanceGroups for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
     }
 }
 
@@ -1126,6 +1186,12 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
     async fn update_shielded_instance_config(
         &self,
         req: crate::model::instances::UpdateShieldedInstanceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 }
@@ -1593,6 +1659,15 @@ impl<T: super::Instances> Instances for T {
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update_shielded_instance_config(self, req, options).await
     }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::MachineTypes].
@@ -1795,6 +1870,12 @@ pub trait RegionInstanceGroupManagers: std::fmt::Debug + Send + Sync {
     async fn update_per_instance_configs(
         &self,
         req: crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 }
@@ -2015,6 +2096,15 @@ impl<T: super::RegionInstanceGroupManagers> RegionInstanceGroupManagers for T {
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update_per_instance_configs(self, req, options).await
     }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::RegionInstanceGroups].
@@ -2050,6 +2140,12 @@ pub trait RegionInstanceGroups: std::fmt::Debug + Send + Sync {
         req: crate::model::region_instance_groups::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 }
 
 /// All implementations of [super::RegionInstanceGroups] also implement [RegionInstanceGroups].
@@ -2101,6 +2197,15 @@ impl<T: super::RegionInstanceGroups> RegionInstanceGroups for T {
     ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::RegionInstanceTemplates].
@@ -2130,6 +2235,12 @@ pub trait RegionInstanceTemplates: std::fmt::Debug + Send + Sync {
         req: crate::model::region_instance_templates::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::InstanceTemplateList>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 }
 
 /// All implementations of [super::RegionInstanceTemplates] also implement [RegionInstanceTemplates].
@@ -2171,6 +2282,15 @@ impl<T: super::RegionInstanceTemplates> RegionInstanceTemplates for T {
     ) -> crate::Result<gax::response::Response<crate::model::InstanceTemplateList>> {
         T::list(self, req, options).await
     }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
 }
 
 /// A dyn-compatible, crate-private version of [super::RegionInstances].
@@ -2180,6 +2300,12 @@ pub trait RegionInstances: std::fmt::Debug + Send + Sync {
     async fn bulk_insert(
         &self,
         req: crate::model::region_instances::BulkInsertRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 }
@@ -2195,6 +2321,15 @@ impl<T: super::RegionInstances> RegionInstances for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::bulk_insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
     }
 }
 

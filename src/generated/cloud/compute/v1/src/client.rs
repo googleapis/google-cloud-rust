@@ -175,6 +175,11 @@ impl Images {
     pub fn test_iam_permissions(&self) -> super::builder::images::TestIamPermissions {
         super::builder::images::TestIamPermissions::new(self.inner.clone())
     }
+
+    /// Retrieves the specified Operations resource.
+    pub fn get_operation(&self) -> super::builder::images::GetOperation {
+        super::builder::images::GetOperation::new(self.inner.clone())
+    }
 }
 
 /// Implements a client for the Google Compute Engine API.
@@ -309,6 +314,15 @@ impl InstanceGroupManagerResizeRequests {
     /// Retrieves a list of resize requests that are contained in the managed instance group.
     pub fn list(&self) -> super::builder::instance_group_manager_resize_requests::List {
         super::builder::instance_group_manager_resize_requests::List::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get_operation(
+        &self,
+    ) -> super::builder::instance_group_manager_resize_requests::GetOperation {
+        super::builder::instance_group_manager_resize_requests::GetOperation::new(
+            self.inner.clone(),
+        )
     }
 }
 
@@ -553,6 +567,11 @@ impl InstanceGroupManagers {
     ) -> super::builder::instance_group_managers::UpdatePerInstanceConfigs {
         super::builder::instance_group_managers::UpdatePerInstanceConfigs::new(self.inner.clone())
     }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::instance_group_managers::GetOperation {
+        super::builder::instance_group_managers::GetOperation::new(self.inner.clone())
+    }
 }
 
 /// Implements a client for the Google Compute Engine API.
@@ -708,6 +727,11 @@ impl InstanceGroups {
     /// Returns permissions that a caller has on the specified resource.
     pub fn test_iam_permissions(&self) -> super::builder::instance_groups::TestIamPermissions {
         super::builder::instance_groups::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::instance_groups::GetOperation {
+        super::builder::instance_groups::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -1077,6 +1101,11 @@ impl Instances {
         &self,
     ) -> super::builder::instances::UpdateShieldedInstanceConfig {
         super::builder::instances::UpdateShieldedInstanceConfig::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::instances::GetOperation {
+        super::builder::instances::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -1466,6 +1495,11 @@ impl RegionInstanceGroupManagers {
             self.inner.clone(),
         )
     }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::region_instance_group_managers::GetOperation {
+        super::builder::region_instance_group_managers::GetOperation::new(self.inner.clone())
+    }
 }
 
 /// Implements a client for the Google Compute Engine API.
@@ -1602,6 +1636,11 @@ impl RegionInstanceGroups {
     ) -> super::builder::region_instance_groups::TestIamPermissions {
         super::builder::region_instance_groups::TestIamPermissions::new(self.inner.clone())
     }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::region_instance_groups::GetOperation {
+        super::builder::region_instance_groups::GetOperation::new(self.inner.clone())
+    }
 }
 
 /// Implements a client for the Google Compute Engine API.
@@ -1732,6 +1771,11 @@ impl RegionInstanceTemplates {
     pub fn list(&self) -> super::builder::region_instance_templates::List {
         super::builder::region_instance_templates::List::new(self.inner.clone())
     }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::region_instance_templates::GetOperation {
+        super::builder::region_instance_templates::GetOperation::new(self.inner.clone())
+    }
 }
 
 /// Implements a client for the Google Compute Engine API.
@@ -1845,6 +1889,11 @@ impl RegionInstances {
     /// Creates multiple instances in a given region. Count specifies the number of instances to create.
     pub fn bulk_insert(&self) -> super::builder::region_instances::BulkInsert {
         super::builder::region_instances::BulkInsert::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::region_instances::GetOperation {
+        super::builder::region_instances::GetOperation::new(self.inner.clone())
     }
 }
 

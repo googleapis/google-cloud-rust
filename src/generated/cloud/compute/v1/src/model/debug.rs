@@ -4598,6 +4598,19 @@ impl std::fmt::Debug for super::ZoneSetPolicyRequest {
 }
 
 #[cfg(feature = "images")]
+impl std::fmt::Debug for super::global_operations::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("project", &self.project);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "images")]
 impl std::fmt::Debug for super::images::DeleteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteRequest");
@@ -6818,7 +6831,13 @@ impl std::fmt::Debug for super::region_operations::DeleteRequest {
     }
 }
 
-#[cfg(feature = "region-operations")]
+#[cfg(any(
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+))]
 impl std::fmt::Debug for super::region_operations::GetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRequest");
@@ -6878,7 +6897,13 @@ impl std::fmt::Debug for super::zone_operations::DeleteRequest {
     }
 }
 
-#[cfg(feature = "zone-operations")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::zone_operations::GetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRequest");
