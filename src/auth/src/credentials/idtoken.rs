@@ -45,8 +45,7 @@ where
 impl IDTokenCredentials {
     /// Asynchronously retrieves an ID token.
     ///
-    /// This method will contact the underlying credential source to obtain a
-    /// fresh ID token if a valid one is not already cached.
+    /// Obtains an ID token. If one is cached, returns the cached value.
     pub async fn id_token(&self) -> Result<Token> {
         self.inner.id_token().await
     }
@@ -54,9 +53,10 @@ impl IDTokenCredentials {
 
 /// A trait for credential types that can provide OIDC ID tokens.
 ///
-/// Implement this trait to create custom ID token providers. This is useful for
-/// testing or for integrating with authentication systems not natively
-/// supported by this library.
+/// Implement this trait to create custom ID token providers.
+/// For example, if you are working with an authentication system not
+/// supported by this crate. Or if you are trying to write a test and need
+/// to mock the existing `IDTokenCredentialsProvider` implementations.
 pub trait IDTokenCredentialsProvider: std::fmt::Debug {
     /// Asynchronously retrieves an ID token.
     fn id_token(&self) -> impl Future<Output = Result<Token>> + Send;

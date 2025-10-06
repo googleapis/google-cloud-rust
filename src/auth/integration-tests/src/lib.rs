@@ -287,7 +287,7 @@ pub async fn mds_id_token() -> anyhow::Result<()> {
 
     // Only works when running on an env that has MDS.
     let id_token_creds = IDTokenMDSBuilder::new(audience)
-        .format("full")
+        .with_format("full")
         .build()
         .expect("failed to create id token credentials");
     let token = id_token_creds

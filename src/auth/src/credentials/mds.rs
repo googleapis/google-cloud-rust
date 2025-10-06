@@ -398,6 +398,7 @@ impl TokenProvider for MDSAccessTokenProvider {
 }
 
 pub mod idtoken {
+    //! Types for fetching ID tokens from the metadata service.
     use std::sync::Arc;
 
     use super::{
@@ -433,6 +434,20 @@ pub mod idtoken {
         }
     }
 
+    /// Creates [`IDTokenCredentials`] instances that fetch ID tokens from the
+    /// metadata service.
+    ///
+    /// ## Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::idtoken::Builder;
+    /// # tokio_test::block_on(async {
+    /// let credentials = Builder::new("https://example.com")
+    ///     .with_format("full")
+    ///     .build();
+    /// # assert!(credentials.is_ok());
+    /// # });
+    /// ```
     #[derive(Debug, Default)]
     pub struct Builder {
         endpoint: Option<String>,
@@ -442,6 +457,21 @@ pub mod idtoken {
     }
 
     impl Builder {
+        /// Creates a new `Builder`.
+        ///
+        /// The `target_audience` is a required parameter that specifies the
+        /// intended audience of the ID token. This is typically the URL of the
+        /// service that will be receiving the token.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_auth::credentials::mds::idtoken::Builder;
+        /// # tokio_test::block_on(async {
+        /// let credentials = Builder::new("https://example.com")
+        ///     .with_endpoint("https://metadata.google.foobar")
+        ///     .build();
+        /// # });
+        /// ```
         pub fn new<S: Into<String>>(target_audience: S) -> Self {
             Builder {
                 format: None,
@@ -451,17 +481,65 @@ pub mod idtoken {
             }
         }
 
-        pub fn endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
+        /// Sets the endpoint for this credentials.
+        ///
+        /// A trailing slash is significant, so specify the base URL without a trailing  
+        /// slash. If not set, the credentials use `http://metadata.google.internal`.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_auth::credentials::mds::idtoken::Builder;
+        /// # tokio_test::block_on(async {
+        /// let credentials = Builder::new("https://example.com")
+        ///     .with_endpoint("https://metadata.google.foobar")
+        ///     .build();
+        /// # });
+        /// ```
+        pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
             self.endpoint = Some(endpoint.into());
             self
         }
 
-        pub fn format<S: Into<String>>(mut self, format: S) -> Self {
+        /// Sets the [format] of the token.
+        ///
+        /// Specifies whether or not the project and instance details are included in the payload.
+        /// Specify `full` to include this information in the payload or `standard` to omit the information
+        /// from the payload. The default value is `standard``.
+        ///
+        /// [format]: https://cloud.google.com/compute/docs/instances/verifying-instance-identity#token_format
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_auth::credentials::mds::idtoken::Builder;
+        /// # tokio_test::block_on(async {
+        /// let credentials = Builder::new("https://example.com")
+        ///     .with_format("full")
+        ///     .build();
+        /// # });
+        /// ```
+        pub fn with_format<S: Into<String>>(mut self, format: S) -> Self {
             self.format = Some(format.into());
             self
         }
 
-        pub fn licenses(mut self, licenses: bool) -> Self {
+        /// Whether to include the [license codes] of the instance in the token.
+        ///
+        /// Specify `true` to include this information or `false` to omit this information from the payload.
+        /// The default value is `false`. Has no effect unless format is `full`.
+        ///
+        /// [license codes]: https://cloud.google.com/compute/docs/reference/rest/v1/images/get#body.Image.FIELDS.license_code
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_auth::credentials::mds::idtoken::Builder;
+        /// # tokio_test::block_on(async {
+        /// let credentials = Builder::new("https://example.com")
+        ///     .with_format("full")
+        ///     .with_licenses(true)
+        ///     .build();
+        /// # });
+        /// ```
+        pub fn with_licenses(mut self, licenses: bool) -> Self {
             self.licenses = licenses;
             self
         }
@@ -493,6 +571,8 @@ pub mod idtoken {
             }
         }
 
+        /// Returns an [`IDTokenCredentials`] instance with the configured
+        /// settings.
         pub fn build(self) -> BuildResult<IDTokenCredentials> {
             let creds = MDSCredentials {
                 token_provider: self.build_token_provider(),
@@ -1140,7 +1220,7 @@ mod tests {
         );
 
         let creds = idtoken::Builder::new(audience)
-            .endpoint(format!("http://{}", server.addr()))
+            .with_endpoint(format!("http://{}", server.addr()))
             .build()?;
 
         let token = creds.id_token().await?;
@@ -1190,7 +1270,7 @@ mod tests {
         );
 
         let creds = idtoken::Builder::new(audience)
-            .endpoint(format!("http://{}", server.addr()))
+            .with_endpoint(format!("http://{}", server.addr()))
             .build()?;
 
         let err = creds.id_token().await.unwrap_err();
