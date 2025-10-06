@@ -34,6 +34,14 @@ included-ids = """\
     .google.cloud.compute.v1.zoneOperations,\
     .google.cloud.compute.v1.zones\
     """
+lro-operation                                        = '.google.cloud.compute.v1.Operation'
+'lro:compute/v1/projects/{project}/zones/{zone}'     = '.google.cloud.compute.v1.zoneOperations.get'
+'lro:compute/v1/projects/{project}/regions/{region}' = '.google.cloud.compute.v1.regionOperations.get'
+'lro:compute/v1/projects/{project}'                  = '.google.cloud.compute.v1.globalOperations.get'
+lro-services = """\
+    .google.cloud.compute.v1.regionOperations,\
+    .google.cloud.compute.v1.zoneOperations\
+    """
 
 [codec]
 version               = '0.1.0'
