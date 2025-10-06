@@ -29,10 +29,13 @@ mod tests {
     use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
+    use google_cloud_test_utils::test_layer::TestLayer;
     use http::StatusCode;
     use httptest::{Expectation, Server, matchers::*, responders::*};
+    use opentelemetry_semantic_conventions::trace as semconv;
     use serde_json::json;
     use std::time::Duration;
+    use test_case::test_case;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
@@ -82,13 +85,24 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(false; "tracing off")]
+    #[test_case(true; "tracing on")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn retry_loop_retry_success() -> Result<()> {
+    async fn retry_loop_retry_success(enable_tracing: bool) -> Result<()> {
+        if enable_tracing && !cfg!(feature = "_unstable-o12y") {
+            // Skip this test if the feature is disabled.
+            return Ok(());
+        }
+
+        let mut config = test_config();
+        config.tracing = enable_tracing;
+        let guard = TestLayer::initialize();
+
         // We create a server that will return two transient errors and then succeed.
         let server = start(vec![transient(), transient(), success()]);
         let endpoint = format!("http://{}", server.addr());
 
-        let client = ReqwestClient::new(test_config(), &endpoint).await?;
+        let client = ReqwestClient::new(config, &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
         let body = json!({});
 
@@ -103,16 +117,53 @@ mod tests {
             .await;
         let response = response?.into_body();
         assert_eq!(response, json!({"status": "done"}));
+
+        let spans = TestLayer::capture(&guard);
+        if enable_tracing {
+            assert_eq!(spans.len(), 3, "Expected 3 spans");
+            // Span 1 (attempt 0)
+            assert_eq!(spans[0].name, "http_request");
+            assert!(
+                !spans[0]
+                    .attributes
+                    .contains_key(semconv::HTTP_REQUEST_RESEND_COUNT)
+            );
+            // Span 2 (attempt 1)
+            assert_eq!(spans[1].name, "http_request");
+            assert_eq!(
+                spans[1].attributes.get(semconv::HTTP_REQUEST_RESEND_COUNT),
+                Some(&"1".to_string())
+            );
+            // Span 3 (attempt 2)
+            assert_eq!(spans[2].name, "http_request");
+            assert_eq!(
+                spans[2].attributes.get(semconv::HTTP_REQUEST_RESEND_COUNT),
+                Some(&"2".to_string())
+            );
+        } else {
+            assert_eq!(spans.len(), 0, "Expected 0 spans when tracing is disabled");
+        }
         Ok(())
     }
 
+    #[test_case(false; "tracing off")]
+    #[test_case(true; "tracing on")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn retry_loop_too_many_transients() -> Result<()> {
+    async fn retry_loop_too_many_transients(enable_tracing: bool) -> Result<()> {
+        if enable_tracing && !cfg!(feature = "_unstable-o12y") {
+            // Skip this test if the feature is disabled.
+            return Ok(());
+        }
+
+        let mut config = test_config();
+        config.tracing = enable_tracing;
+        let guard = TestLayer::initialize();
+
         // We create a server that will return N transient errors.
         let server = start(vec![transient(), transient(), transient()]);
         let endpoint = format!("http://{}", server.addr());
 
-        let client = ReqwestClient::new(test_config(), &endpoint).await?;
+        let client = ReqwestClient::new(config, &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
         let body = json!({});
 
@@ -127,6 +178,29 @@ mod tests {
             .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
         assert!(response.is_err(), "{response:?}");
+
+        let spans = TestLayer::capture(&guard);
+        if enable_tracing {
+            assert_eq!(spans.len(), 3, "Expected 3 spans");
+            // Span 1 (attempt 0)
+            assert!(
+                !spans[0]
+                    .attributes
+                    .contains_key(semconv::HTTP_REQUEST_RESEND_COUNT)
+            );
+            // Span 2 (attempt 1)
+            assert_eq!(
+                spans[1].attributes.get(semconv::HTTP_REQUEST_RESEND_COUNT),
+                Some(&"1".to_string())
+            );
+            // Span 3 (attempt 2)
+            assert_eq!(
+                spans[2].attributes.get(semconv::HTTP_REQUEST_RESEND_COUNT),
+                Some(&"2".to_string())
+            );
+        } else {
+            assert_eq!(spans.len(), 0, "Expected 0 spans when tracing is disabled");
+        }
         Ok(())
     }
 
