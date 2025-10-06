@@ -8314,6 +8314,28 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        pub async fn poll(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let zone = self.0.request.zone.clone();
+            let query = move |name| async {
+                // TODO(#....) - reuse the current stub
+                let client = crate::client::ZoneOperations::builder().build().await.map_err(Error::transport)?;
+                client.get().set_project(&project).set_zone(&zone).set_operation(name).with_options(options).send().await
+            };
+
+            let start = move || async {
+                self.send().await
+            };
+
+
+            lro::internal::discovery::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
         /// Sets the value of [project][crate::model::instances::InsertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
