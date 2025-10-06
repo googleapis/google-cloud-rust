@@ -8324,7 +8324,7 @@ pub mod instances {
             let zone = self.0.request.zone.clone();
             let query = move |name| async {
                 // TODO(#....) - reuse the current stub
-                let client = crate::client::ZoneOperations::builder().build().await.map_err(Error::transport)?;
+                let client = crate::client::ZoneOperations::builder().build().await.map_err(crate::Error::io)?;
                 client.get().set_project(&project).set_zone(&zone).set_operation(name).with_options(options).send().await
             };
 
