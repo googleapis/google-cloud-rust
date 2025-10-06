@@ -22,6 +22,7 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate lazy_static;
+extern crate lro;
 extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
@@ -53482,7 +53483,17 @@ impl wkt::message::Message for ZoneSetPolicyRequest {
 /// Synthetic messages for the [globalOperations][google.cloud.compute.v1.globalOperations] service
 ///
 /// [google.cloud.compute.v1.globalOperations]: crate::model::GlobalOperations
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
 pub mod global_operations {
     #[allow(unused_imports)]
     use super::*;
@@ -53490,7 +53501,17 @@ pub mod global_operations {
     /// Synthetic request message for the [get()][google.cloud.compute.v1.globalOperations.get] method.
     ///
     /// [google.cloud.compute.v1.globalOperations.get]: crate::client::GlobalOperations::get
-    #[cfg(feature = "images")]
+    #[cfg(any(
+        feature = "images",
+        feature = "instance-group-manager-resize-requests",
+        feature = "instance-group-managers",
+        feature = "instance-groups",
+        feature = "instances",
+        feature = "region-instance-group-managers",
+        feature = "region-instance-groups",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetRequest {
@@ -53503,7 +53524,17 @@ pub mod global_operations {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(feature = "images")]
+    #[cfg(any(
+        feature = "images",
+        feature = "instance-group-manager-resize-requests",
+        feature = "instance-group-managers",
+        feature = "instance-groups",
+        feature = "instances",
+        feature = "region-instance-group-managers",
+        feature = "region-instance-groups",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
     impl GetRequest {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -66409,13 +66440,7 @@ pub mod region_instances {
 /// Synthetic messages for the [regionOperations][google.cloud.compute.v1.regionOperations] service
 ///
 /// [google.cloud.compute.v1.regionOperations]: crate::model::RegionOperations
-#[cfg(any(
-    feature = "region-instance-group-managers",
-    feature = "region-instance-groups",
-    feature = "region-instance-templates",
-    feature = "region-instances",
-    feature = "region-operations",
-))]
+#[cfg(feature = "region-operations")]
 pub mod region_operations {
     #[allow(unused_imports)]
     use super::*;
@@ -66467,13 +66492,7 @@ pub mod region_operations {
     /// Synthetic request message for the [get()][google.cloud.compute.v1.regionOperations.get] method.
     ///
     /// [google.cloud.compute.v1.regionOperations.get]: crate::client::RegionOperations::get
-    #[cfg(any(
-        feature = "region-instance-group-managers",
-        feature = "region-instance-groups",
-        feature = "region-instance-templates",
-        feature = "region-instances",
-        feature = "region-operations",
-    ))]
+    #[cfg(feature = "region-operations")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetRequest {
@@ -66489,13 +66508,7 @@ pub mod region_operations {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(any(
-        feature = "region-instance-group-managers",
-        feature = "region-instance-groups",
-        feature = "region-instance-templates",
-        feature = "region-instances",
-        feature = "region-operations",
-    ))]
+    #[cfg(feature = "region-operations")]
     impl GetRequest {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -66708,13 +66721,7 @@ pub mod region_operations {
 /// Synthetic messages for the [zoneOperations][google.cloud.compute.v1.zoneOperations] service
 ///
 /// [google.cloud.compute.v1.zoneOperations]: crate::model::ZoneOperations
-#[cfg(any(
-    feature = "instance-group-manager-resize-requests",
-    feature = "instance-group-managers",
-    feature = "instance-groups",
-    feature = "instances",
-    feature = "zone-operations",
-))]
+#[cfg(feature = "zone-operations")]
 pub mod zone_operations {
     #[allow(unused_imports)]
     use super::*;
@@ -66766,13 +66773,7 @@ pub mod zone_operations {
     /// Synthetic request message for the [get()][google.cloud.compute.v1.zoneOperations.get] method.
     ///
     /// [google.cloud.compute.v1.zoneOperations.get]: crate::client::ZoneOperations::get
-    #[cfg(any(
-        feature = "instance-group-manager-resize-requests",
-        feature = "instance-group-managers",
-        feature = "instance-groups",
-        feature = "instances",
-        feature = "zone-operations",
-    ))]
+    #[cfg(feature = "zone-operations")]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetRequest {
@@ -66788,13 +66789,7 @@ pub mod zone_operations {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(any(
-        feature = "instance-group-manager-resize-requests",
-        feature = "instance-group-managers",
-        feature = "instance-groups",
-        feature = "instances",
-        feature = "zone-operations",
-    ))]
+    #[cfg(feature = "zone-operations")]
     impl GetRequest {
         pub fn new() -> Self {
             std::default::Default::default()

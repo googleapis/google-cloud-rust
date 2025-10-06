@@ -794,6 +794,20 @@ impl super::stub::Images for Images {
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
     }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
 }
 
 /// Implements [InstanceGroupManagerResizeRequests](super::stub::InstanceGroupManagerResizeRequests) using a [gaxi::http::ReqwestClient].
@@ -1233,7 +1247,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
 
     async fn get_operation(
         &self,
-        req: crate::model::zone_operations::GetRequest,
+        req: crate::model::global_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         use gax::error::binding::BindingError;
@@ -1243,13 +1257,9 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
         let (builder, method) = None
             .or_else(|| {
                 let path = format!(
-                    "/compute/v1/projects/{}/zones/{}/operations/{}",
+                    "/compute/v1/projects/{}/global/operations/{}",
                     try_match(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                         &[Segment::SingleWildcard]
                     )?,
                     try_match(
@@ -1273,12 +1283,6 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                         "*",
                     );
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
                         "operation",
@@ -1298,6 +1302,20 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 
@@ -3094,7 +3112,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
 
     async fn get_operation(
         &self,
-        req: crate::model::zone_operations::GetRequest,
+        req: crate::model::global_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         use gax::error::binding::BindingError;
@@ -3104,13 +3122,9 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         let (builder, method) = None
             .or_else(|| {
                 let path = format!(
-                    "/compute/v1/projects/{}/zones/{}/operations/{}",
+                    "/compute/v1/projects/{}/global/operations/{}",
                     try_match(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                         &[Segment::SingleWildcard]
                     )?,
                     try_match(
@@ -3134,12 +3148,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                         "*",
                     );
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
                         "operation",
@@ -3159,6 +3167,20 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 
@@ -3935,7 +3957,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
 
     async fn get_operation(
         &self,
-        req: crate::model::zone_operations::GetRequest,
+        req: crate::model::global_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         use gax::error::binding::BindingError;
@@ -3945,13 +3967,9 @@ impl super::stub::InstanceGroups for InstanceGroups {
         let (builder, method) = None
             .or_else(|| {
                 let path = format!(
-                    "/compute/v1/projects/{}/zones/{}/operations/{}",
+                    "/compute/v1/projects/{}/global/operations/{}",
                     try_match(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                         &[Segment::SingleWildcard]
                     )?,
                     try_match(
@@ -3975,12 +3993,6 @@ impl super::stub::InstanceGroups for InstanceGroups {
                         "*",
                     );
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
                         "operation",
@@ -4000,6 +4012,20 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 
@@ -7785,7 +7811,7 @@ impl super::stub::Instances for Instances {
 
     async fn get_operation(
         &self,
-        req: crate::model::zone_operations::GetRequest,
+        req: crate::model::global_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         use gax::error::binding::BindingError;
@@ -7795,13 +7821,9 @@ impl super::stub::Instances for Instances {
         let (builder, method) = None
             .or_else(|| {
                 let path = format!(
-                    "/compute/v1/projects/{}/zones/{}/operations/{}",
+                    "/compute/v1/projects/{}/global/operations/{}",
                     try_match(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                         &[Segment::SingleWildcard]
                     )?,
                     try_match(
@@ -7825,12 +7847,6 @@ impl super::stub::Instances for Instances {
                         "*",
                     );
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
                         "operation",
@@ -7850,6 +7866,20 @@ impl super::stub::Instances for Instances {
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 
@@ -9806,7 +9836,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
 
     async fn get_operation(
         &self,
-        req: crate::model::region_operations::GetRequest,
+        req: crate::model::global_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         use gax::error::binding::BindingError;
@@ -9816,13 +9846,9 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         let (builder, method) = None
             .or_else(|| {
                 let path = format!(
-                    "/compute/v1/projects/{}/regions/{}/operations/{}",
+                    "/compute/v1/projects/{}/global/operations/{}",
                     try_match(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
                         &[Segment::SingleWildcard]
                     )?,
                     try_match(
@@ -9846,12 +9872,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                         "*",
                     );
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "region",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
                         "operation",
@@ -9871,6 +9891,20 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 
@@ -10285,7 +10319,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
 
     async fn get_operation(
         &self,
-        req: crate::model::region_operations::GetRequest,
+        req: crate::model::global_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         use gax::error::binding::BindingError;
@@ -10295,13 +10329,9 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
         let (builder, method) = None
             .or_else(|| {
                 let path = format!(
-                    "/compute/v1/projects/{}/regions/{}/operations/{}",
+                    "/compute/v1/projects/{}/global/operations/{}",
                     try_match(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
                         &[Segment::SingleWildcard]
                     )?,
                     try_match(
@@ -10325,12 +10355,6 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                         "*",
                     );
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "region",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
                         "operation",
@@ -10350,6 +10374,20 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 
@@ -10667,7 +10705,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
 
     async fn get_operation(
         &self,
-        req: crate::model::region_operations::GetRequest,
+        req: crate::model::global_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         use gax::error::binding::BindingError;
@@ -10677,13 +10715,9 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
         let (builder, method) = None
             .or_else(|| {
                 let path = format!(
-                    "/compute/v1/projects/{}/regions/{}/operations/{}",
+                    "/compute/v1/projects/{}/global/operations/{}",
                     try_match(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
                         &[Segment::SingleWildcard]
                     )?,
                     try_match(
@@ -10707,12 +10741,6 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                         "*",
                     );
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "region",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
                         "operation",
@@ -10732,6 +10760,20 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 
@@ -10826,7 +10868,7 @@ impl super::stub::RegionInstances for RegionInstances {
 
     async fn get_operation(
         &self,
-        req: crate::model::region_operations::GetRequest,
+        req: crate::model::global_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         use gax::error::binding::BindingError;
@@ -10836,13 +10878,9 @@ impl super::stub::RegionInstances for RegionInstances {
         let (builder, method) = None
             .or_else(|| {
                 let path = format!(
-                    "/compute/v1/projects/{}/regions/{}/operations/{}",
+                    "/compute/v1/projects/{}/global/operations/{}",
                     try_match(
                         Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
                         &[Segment::SingleWildcard]
                     )?,
                     try_match(
@@ -10866,12 +10904,6 @@ impl super::stub::RegionInstances for RegionInstances {
                         "*",
                     );
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "region",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
                         "operation",
@@ -10891,6 +10923,20 @@ impl super::stub::RegionInstances for RegionInstances {
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 

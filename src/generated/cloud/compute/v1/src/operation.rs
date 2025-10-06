@@ -28,12 +28,14 @@ impl lro::internal::discovery::DiscoveryOperation for crate::model::Operation {
             .iter()
             .filter_map(|e| e.code.as_ref())
             .filter_map(|c| Code::try_from(c.as_str()).ok())
-            .take(1).next();
+            .take(1)
+            .next();
         let message = error
             .errors
             .iter()
             .flat_map(|e| e.message.as_ref())
-            .take(1).next();
+            .take(1)
+            .next();
         let status = gax::error::rpc::Status::default();
         let status = code.into_iter().fold(status, |s, c| s.set_code(c));
         let status = message.into_iter().fold(status, |s, m| s.set_message(m));

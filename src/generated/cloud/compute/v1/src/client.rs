@@ -316,7 +316,7 @@ impl InstanceGroupManagerResizeRequests {
         super::builder::instance_group_manager_resize_requests::List::new(self.inner.clone())
     }
 
-    /// Retrieves the specified zone-specific Operations resource.
+    /// Retrieves the specified Operations resource.
     pub fn get_operation(
         &self,
     ) -> super::builder::instance_group_manager_resize_requests::GetOperation {
@@ -568,7 +568,7 @@ impl InstanceGroupManagers {
         super::builder::instance_group_managers::UpdatePerInstanceConfigs::new(self.inner.clone())
     }
 
-    /// Retrieves the specified zone-specific Operations resource.
+    /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::instance_group_managers::GetOperation {
         super::builder::instance_group_managers::GetOperation::new(self.inner.clone())
     }
@@ -729,7 +729,7 @@ impl InstanceGroups {
         super::builder::instance_groups::TestIamPermissions::new(self.inner.clone())
     }
 
-    /// Retrieves the specified zone-specific Operations resource.
+    /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::instance_groups::GetOperation {
         super::builder::instance_groups::GetOperation::new(self.inner.clone())
     }
@@ -1103,7 +1103,7 @@ impl Instances {
         super::builder::instances::UpdateShieldedInstanceConfig::new(self.inner.clone())
     }
 
-    /// Retrieves the specified zone-specific Operations resource.
+    /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::instances::GetOperation {
         super::builder::instances::GetOperation::new(self.inner.clone())
     }
@@ -1496,7 +1496,7 @@ impl RegionInstanceGroupManagers {
         )
     }
 
-    /// Retrieves the specified region-specific Operations resource.
+    /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::region_instance_group_managers::GetOperation {
         super::builder::region_instance_group_managers::GetOperation::new(self.inner.clone())
     }
@@ -1637,7 +1637,7 @@ impl RegionInstanceGroups {
         super::builder::region_instance_groups::TestIamPermissions::new(self.inner.clone())
     }
 
-    /// Retrieves the specified region-specific Operations resource.
+    /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::region_instance_groups::GetOperation {
         super::builder::region_instance_groups::GetOperation::new(self.inner.clone())
     }
@@ -1772,7 +1772,7 @@ impl RegionInstanceTemplates {
         super::builder::region_instance_templates::List::new(self.inner.clone())
     }
 
-    /// Retrieves the specified region-specific Operations resource.
+    /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::region_instance_templates::GetOperation {
         super::builder::region_instance_templates::GetOperation::new(self.inner.clone())
     }
@@ -1891,7 +1891,7 @@ impl RegionInstances {
         super::builder::region_instances::BulkInsert::new(self.inner.clone())
     }
 
-    /// Retrieves the specified region-specific Operations resource.
+    /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::region_instances::GetOperation {
         super::builder::region_instances::GetOperation::new(self.inner.clone())
     }

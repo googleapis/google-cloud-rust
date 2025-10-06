@@ -116,6 +116,35 @@ pub mod images {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `delete`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [image][crate::model::images::DeleteRequest::image].
         pub fn set_image<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.image = v.into();
@@ -200,6 +229,35 @@ pub mod images {
                 .deprecate(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `deprecate`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [image][crate::model::images::DeprecateRequest::image].
@@ -525,6 +583,35 @@ pub mod images {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `insert`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [force_create][crate::model::images::InsertRequest::force_create].
         pub fn set_force_create<T>(mut self, v: T) -> Self
         where
@@ -814,6 +901,35 @@ pub mod images {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `patch`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [image][crate::model::images::PatchRequest::image].
         pub fn set_image<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.image = v.into();
@@ -1002,6 +1118,35 @@ pub mod images {
                 .set_labels(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_labels`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project][crate::model::images::SetLabelsRequest::project].
@@ -1314,6 +1459,35 @@ pub mod instance_group_manager_resize_requests {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `cancel`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::instance_group_manager_resize_requests::CancelRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -1418,6 +1592,35 @@ pub mod instance_group_manager_resize_requests {
                 .delete(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::instance_group_manager_resize_requests::DeleteRequest::instance_group_manager].
@@ -1612,6 +1815,35 @@ pub mod instance_group_manager_resize_requests {
                 .insert(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `insert`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::instance_group_manager_resize_requests::InsertRequest::instance_group_manager].
@@ -1900,7 +2132,7 @@ pub mod instance_group_manager_resize_requests {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -1912,7 +2144,7 @@ pub mod instance_group_manager_resize_requests {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::zone_operations::GetRequest>>(
+        pub fn with_request<V: Into<crate::model::global_operations::GetRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -1934,21 +2166,15 @@ pub mod instance_group_manager_resize_requests {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [operation][crate::model::zone_operations::GetRequest::operation].
+        /// Sets the value of [operation][crate::model::global_operations::GetRequest::operation].
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
-        /// Sets the value of [project][crate::model::zone_operations::GetRequest::project].
+        /// Sets the value of [project][crate::model::global_operations::GetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [zone][crate::model::zone_operations::GetRequest::zone].
-        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.zone = v.into();
             self
         }
     }
@@ -2072,6 +2298,35 @@ pub mod instance_group_managers {
                 .abandon_instances(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `abandon_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::AbandonInstancesRequest::instance_group_manager].
@@ -2416,6 +2671,35 @@ pub mod instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `apply_updates_to_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -2512,6 +2796,35 @@ pub mod instance_group_managers {
                 .create_instances(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::CreateInstancesRequest::instance_group_manager].
@@ -2626,6 +2939,35 @@ pub mod instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `delete`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::DeleteRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -2722,6 +3064,35 @@ pub mod instance_group_managers {
                 .delete_instances(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::DeleteInstancesRequest::instance_group_manager].
@@ -2838,6 +3209,35 @@ pub mod instance_group_managers {
                 .delete_per_instance_configs(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_per_instance_configs`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::DeletePerInstanceConfigsRequest::instance_group_manager].
@@ -3008,6 +3408,35 @@ pub mod instance_group_managers {
                 .insert(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `insert`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project][crate::model::instance_group_managers::InsertRequest::project].
@@ -3910,6 +4339,35 @@ pub mod instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `patch`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::PatchRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -4024,6 +4482,35 @@ pub mod instance_group_managers {
                 .patch_per_instance_configs(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `patch_per_instance_configs`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::PatchPerInstanceConfigsRequest::instance_group_manager].
@@ -4142,6 +4629,35 @@ pub mod instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `recreate_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::RecreateInstancesRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -4254,6 +4770,35 @@ pub mod instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `resize`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::ResizeRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -4356,6 +4901,35 @@ pub mod instance_group_managers {
                 .resume_instances(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `resume_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::ResumeInstancesRequest::instance_group_manager].
@@ -4474,6 +5048,35 @@ pub mod instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `set_instance_template`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::SetInstanceTemplateRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -4588,6 +5191,35 @@ pub mod instance_group_managers {
                 .set_target_pools(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_target_pools`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::SetTargetPoolsRequest::instance_group_manager].
@@ -4706,6 +5338,35 @@ pub mod instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `start_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::StartInstancesRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -4820,6 +5481,35 @@ pub mod instance_group_managers {
                 .stop_instances(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `stop_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::StopInstancesRequest::instance_group_manager].
@@ -4938,6 +5628,35 @@ pub mod instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `suspend_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::SuspendInstancesRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -5054,6 +5773,35 @@ pub mod instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `update_per_instance_configs`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -5134,7 +5882,7 @@ pub mod instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -5144,7 +5892,7 @@ pub mod instance_group_managers {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::zone_operations::GetRequest>>(
+        pub fn with_request<V: Into<crate::model::global_operations::GetRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -5166,21 +5914,15 @@ pub mod instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [operation][crate::model::zone_operations::GetRequest::operation].
+        /// Sets the value of [operation][crate::model::global_operations::GetRequest::operation].
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
-        /// Sets the value of [project][crate::model::zone_operations::GetRequest::project].
+        /// Sets the value of [project][crate::model::global_operations::GetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [zone][crate::model::zone_operations::GetRequest::zone].
-        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.zone = v.into();
             self
         }
     }
@@ -5300,6 +6042,35 @@ pub mod instance_groups {
                 .add_instances(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `add_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group][crate::model::instance_groups::AddInstancesRequest::instance_group].
@@ -5634,6 +6405,35 @@ pub mod instance_groups {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `delete`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group][crate::model::instance_groups::DeleteRequest::instance_group].
         pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group = v.into();
@@ -5802,6 +6602,35 @@ pub mod instance_groups {
                 .insert(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `insert`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project][crate::model::instance_groups::InsertRequest::project].
@@ -6314,6 +7143,35 @@ pub mod instance_groups {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `remove_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group][crate::model::instance_groups::RemoveInstancesRequest::instance_group].
         pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group = v.into();
@@ -6424,6 +7282,35 @@ pub mod instance_groups {
                 .set_named_ports(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_named_ports`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group][crate::model::instance_groups::SetNamedPortsRequest::instance_group].
@@ -6602,7 +7489,7 @@ pub mod instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -6612,7 +7499,7 @@ pub mod instance_groups {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::zone_operations::GetRequest>>(
+        pub fn with_request<V: Into<crate::model::global_operations::GetRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -6634,21 +7521,15 @@ pub mod instance_groups {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [operation][crate::model::zone_operations::GetRequest::operation].
+        /// Sets the value of [operation][crate::model::global_operations::GetRequest::operation].
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
-        /// Sets the value of [project][crate::model::zone_operations::GetRequest::project].
+        /// Sets the value of [project][crate::model::global_operations::GetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [zone][crate::model::zone_operations::GetRequest::zone].
-        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.zone = v.into();
             self
         }
     }
@@ -6768,6 +7649,35 @@ pub mod instances {
                 .add_access_config(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `add_access_config`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::AddAccessConfigRequest::instance].
@@ -6890,6 +7800,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `add_network_interface`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::AddNetworkInterfaceRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -7002,6 +7941,35 @@ pub mod instances {
                 .add_resource_policies(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `add_resource_policies`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::AddResourcePoliciesRequest::instance].
@@ -7334,6 +8302,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `attach_disk`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [force_attach][crate::model::instances::AttachDiskRequest::force_attach].
         pub fn set_force_attach<T>(mut self, v: T) -> Self
         where
@@ -7464,6 +8461,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `bulk_insert`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [project][crate::model::instances::BulkInsertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
@@ -7570,6 +8596,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `delete`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::DeleteRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -7664,6 +8719,35 @@ pub mod instances {
                 .delete_access_config(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_access_config`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [access_config][crate::model::instances::DeleteAccessConfigRequest::access_config].
@@ -7774,6 +8858,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `delete_network_interface`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::DeleteNetworkInterfaceRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -7872,6 +8985,35 @@ pub mod instances {
                 .detach_disk(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `detach_disk`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [device_name][crate::model::instances::DetachDiskRequest::device_name].
@@ -8612,6 +9754,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `insert`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [project][crate::model::instances::InsertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
@@ -9134,6 +10305,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `perform_maintenance`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::PerformMaintenanceRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -9228,6 +10428,35 @@ pub mod instances {
                 .remove_resource_policies(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `remove_resource_policies`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::RemoveResourcePoliciesRequest::instance].
@@ -9344,6 +10573,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `report_host_as_faulty`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::ReportHostAsFaultyRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -9456,6 +10714,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `reset`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::ResetRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -9548,6 +10835,35 @@ pub mod instances {
                 .resume(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `resume`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::ResumeRequest::instance].
@@ -9724,6 +11040,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `set_deletion_protection`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [deletion_protection][crate::model::instances::SetDeletionProtectionRequest::deletion_protection].
         pub fn set_deletion_protection<T>(mut self, v: T) -> Self
         where
@@ -9834,6 +11179,35 @@ pub mod instances {
                 .set_disk_auto_delete(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_disk_auto_delete`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [auto_delete][crate::model::instances::SetDiskAutoDeleteRequest::auto_delete].
@@ -10036,6 +11410,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `set_labels`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::SetLabelsRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -10150,6 +11553,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `set_machine_resources`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::SetMachineResourcesRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -10260,6 +11692,35 @@ pub mod instances {
                 .set_machine_type(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_machine_type`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::SetMachineTypeRequest::instance].
@@ -10374,6 +11835,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `set_metadata`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::SetMetadataRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -10484,6 +11974,35 @@ pub mod instances {
                 .set_min_cpu_platform(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_min_cpu_platform`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::SetMinCpuPlatformRequest::instance].
@@ -10598,6 +12117,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `set_name`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::SetNameRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -10708,6 +12256,35 @@ pub mod instances {
                 .set_scheduling(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_scheduling`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::SetSchedulingRequest::instance].
@@ -10822,6 +12399,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `set_security_policy`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::SetSecurityPolicyRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -10932,6 +12538,35 @@ pub mod instances {
                 .set_service_account(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_service_account`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::SetServiceAccountRequest::instance].
@@ -11050,6 +12685,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `set_shielded_instance_integrity_policy`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::SetShieldedInstanceIntegrityPolicyRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -11160,6 +12824,35 @@ pub mod instances {
                 .set_tags(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_tags`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::SetTagsRequest::instance].
@@ -11274,6 +12967,35 @@ pub mod instances {
                 .simulate_maintenance_event(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `simulate_maintenance_event`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::SimulateMaintenanceEventRequest::instance].
@@ -11391,6 +13113,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `start`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::StartRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -11485,6 +13236,35 @@ pub mod instances {
                 .start_with_encryption_key(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `start_with_encryption_key`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::StartWithEncryptionKeyRequest::instance].
@@ -11594,6 +13374,35 @@ pub mod instances {
                 .stop(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `stop`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [discard_local_ssd][crate::model::instances::StopRequest::discard_local_ssd].
@@ -11706,6 +13515,35 @@ pub mod instances {
                 .suspend(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `suspend`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [discard_local_ssd][crate::model::instances::SuspendRequest::discard_local_ssd].
@@ -11916,6 +13754,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `update`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::UpdateRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -12073,6 +13940,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `update_access_config`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::UpdateAccessConfigRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -12193,6 +14089,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `update_display_device`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::UpdateDisplayDeviceRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -12305,6 +14230,35 @@ pub mod instances {
                 .update_network_interface(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_network_interface`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance][crate::model::instances::UpdateNetworkInterfaceRequest::instance].
@@ -12429,6 +14383,35 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `update_shielded_instance_config`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance][crate::model::instances::UpdateShieldedInstanceConfigRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -12509,7 +14492,7 @@ pub mod instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::zone_operations::GetRequest>);
+    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -12519,7 +14502,7 @@ pub mod instances {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::zone_operations::GetRequest>>(
+        pub fn with_request<V: Into<crate::model::global_operations::GetRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -12541,21 +14524,15 @@ pub mod instances {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [operation][crate::model::zone_operations::GetRequest::operation].
+        /// Sets the value of [operation][crate::model::global_operations::GetRequest::operation].
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
-        /// Sets the value of [project][crate::model::zone_operations::GetRequest::project].
+        /// Sets the value of [project][crate::model::global_operations::GetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [zone][crate::model::zone_operations::GetRequest::zone].
-        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.zone = v.into();
             self
         }
     }
@@ -13223,6 +15200,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `abandon_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::AbandonInstancesRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -13341,6 +15347,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `apply_updates_to_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -13437,6 +15472,35 @@ pub mod region_instance_group_managers {
                 .create_instances(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::CreateInstancesRequest::instance_group_manager].
@@ -13553,6 +15617,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `delete`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::DeleteRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -13649,6 +15742,35 @@ pub mod region_instance_group_managers {
                 .delete_instances(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::DeleteInstancesRequest::instance_group_manager].
@@ -13767,6 +15889,35 @@ pub mod region_instance_group_managers {
                 .delete_per_instance_configs(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_per_instance_configs`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest::instance_group_manager].
@@ -13939,6 +16090,35 @@ pub mod region_instance_group_managers {
                 .insert(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `insert`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project][crate::model::region_instance_group_managers::InsertRequest::project].
@@ -14851,6 +17031,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `patch`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::PatchRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -14969,6 +17178,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `patch_per_instance_configs`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -15085,6 +17323,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `recreate_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::RecreateInstancesRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -15199,6 +17466,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `resize`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::ResizeRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -15301,6 +17597,35 @@ pub mod region_instance_group_managers {
                 .resume_instances(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `resume_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::ResumeInstancesRequest::instance_group_manager].
@@ -15419,6 +17744,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `set_instance_template`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::SetInstanceTemplateRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -15533,6 +17887,35 @@ pub mod region_instance_group_managers {
                 .set_target_pools(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_target_pools`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::SetTargetPoolsRequest::instance_group_manager].
@@ -15651,6 +18034,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `start_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::StartInstancesRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -15767,6 +18179,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `stop_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::StopInstancesRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -15881,6 +18322,35 @@ pub mod region_instance_group_managers {
                 .suspend_instances(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `suspend_instances`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::SuspendInstancesRequest::instance_group_manager].
@@ -16001,6 +18471,35 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `update_per_instance_configs`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group_manager][crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest::instance_group_manager].
         pub fn set_instance_group_manager<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group_manager = v.into();
@@ -16081,7 +18580,7 @@ pub mod region_instance_group_managers {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -16091,7 +18590,7 @@ pub mod region_instance_group_managers {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::region_operations::GetRequest>>(
+        pub fn with_request<V: Into<crate::model::global_operations::GetRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -16113,21 +18612,15 @@ pub mod region_instance_group_managers {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [operation][crate::model::region_operations::GetRequest::operation].
+        /// Sets the value of [operation][crate::model::global_operations::GetRequest::operation].
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
-        /// Sets the value of [project][crate::model::region_operations::GetRequest::project].
+        /// Sets the value of [project][crate::model::global_operations::GetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [region][crate::model::region_operations::GetRequest::region].
-        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.region = v.into();
             self
         }
     }
@@ -16733,6 +19226,35 @@ pub mod region_instance_groups {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `set_named_ports`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [instance_group][crate::model::region_instance_groups::SetNamedPortsRequest::instance_group].
         pub fn set_instance_group<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_group = v.into();
@@ -16911,7 +19433,7 @@ pub mod region_instance_groups {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -16921,7 +19443,7 @@ pub mod region_instance_groups {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::region_operations::GetRequest>>(
+        pub fn with_request<V: Into<crate::model::global_operations::GetRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -16943,21 +19465,15 @@ pub mod region_instance_groups {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [operation][crate::model::region_operations::GetRequest::operation].
+        /// Sets the value of [operation][crate::model::global_operations::GetRequest::operation].
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
-        /// Sets the value of [project][crate::model::region_operations::GetRequest::project].
+        /// Sets the value of [project][crate::model::global_operations::GetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [region][crate::model::region_operations::GetRequest::region].
-        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.region = v.into();
             self
         }
     }
@@ -17077,6 +19593,35 @@ pub mod region_instance_templates {
                 .delete(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [instance_template][crate::model::region_instance_templates::DeleteRequest::instance_template].
@@ -17247,6 +19792,35 @@ pub mod region_instance_templates {
                 .insert(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `insert`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project][crate::model::region_instance_templates::InsertRequest::project].
@@ -17511,7 +20085,7 @@ pub mod region_instance_templates {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -17521,7 +20095,7 @@ pub mod region_instance_templates {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::region_operations::GetRequest>>(
+        pub fn with_request<V: Into<crate::model::global_operations::GetRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -17543,21 +20117,15 @@ pub mod region_instance_templates {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [operation][crate::model::region_operations::GetRequest::operation].
+        /// Sets the value of [operation][crate::model::global_operations::GetRequest::operation].
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
-        /// Sets the value of [project][crate::model::region_operations::GetRequest::project].
+        /// Sets the value of [project][crate::model::global_operations::GetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [region][crate::model::region_operations::GetRequest::region].
-        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.region = v.into();
             self
         }
     }
@@ -17679,6 +20247,35 @@ pub mod region_instances {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `bulk_insert`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| async {
+                let stub = stub.clone();
+                let options = options.clone();
+                GetOperation::new(stub)
+                    .set_project(&project)
+                    .with_options(options)
+                    .send()
+                    .await
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::discovery::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [project][crate::model::region_instances::BulkInsertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
@@ -17753,7 +20350,7 @@ pub mod region_instances {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOperation(RequestBuilder<crate::model::region_operations::GetRequest>);
+    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
@@ -17763,7 +20360,7 @@ pub mod region_instances {
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::region_operations::GetRequest>>(
+        pub fn with_request<V: Into<crate::model::global_operations::GetRequest>>(
             mut self,
             v: V,
         ) -> Self {
@@ -17785,21 +20382,15 @@ pub mod region_instances {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [operation][crate::model::region_operations::GetRequest::operation].
+        /// Sets the value of [operation][crate::model::global_operations::GetRequest::operation].
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
-        /// Sets the value of [project][crate::model::region_operations::GetRequest::project].
+        /// Sets the value of [project][crate::model::global_operations::GetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
-            self
-        }
-
-        /// Sets the value of [region][crate::model::region_operations::GetRequest::region].
-        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.region = v.into();
             self
         }
     }
