@@ -142,6 +142,9 @@ mod tests {
             .and_then(|e| e.downcast_ref::<tonic::Status>())
             .expect("want a tonic::Status as source().source()");
         assert_eq!(source.code(), tonic::Code::Internal);
+
+        let fmt = format!("{got}");
+        assert!(fmt.contains("should start with application/grpc"), "fmt={fmt}, got={got:?}");
     }
 
     #[test]
