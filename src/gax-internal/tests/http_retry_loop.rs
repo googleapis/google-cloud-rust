@@ -34,6 +34,11 @@ mod tests {
     use serde_json::json;
     use std::time::Duration;
 
+    #[cfg(feature = "_unstable-o12y")]
+    use google_cloud_test_utils::test_layer::TestLayer;
+    #[cfg(feature = "_unstable-o12y")]
+    use opentelemetry_semantic_conventions::trace::HTTP_REQUEST_RESEND_COUNT;
+
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
@@ -103,6 +108,88 @@ mod tests {
             .await;
         let response = response?.into_body();
         assert_eq!(response, json!({"status": "done"}));
+        Ok(())
+    }
+
+    #[cfg(feature = "_unstable-o12y")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn retry_loop_retry_success_with_tracing_on() -> Result<()> {
+        let guard = TestLayer::initialize();
+        // We create a server that will return two transient errors and then succeed.
+        let server = start(vec![transient(), transient(), success()]);
+        let endpoint = format!("http://{}", server.addr());
+
+        let mut config = test_config();
+        config.tracing = true;
+        let client = ReqwestClient::new(config, &endpoint).await?;
+        let builder = client.builder(reqwest::Method::GET, "/retry".into());
+        let body = json!({});
+
+        let options = {
+            let mut options = RequestOptions::default();
+            options.set_backoff_policy(test_backoff());
+            options.set_idempotency(true);
+            options
+        };
+        let response = client
+            .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
+            .await;
+        let response = response?.into_body();
+        assert_eq!(response, json!({"status": "done"}));
+
+        let spans = TestLayer::capture(&guard);
+        assert_eq!(
+            spans.len(),
+            3,
+            "Expected 3 spans for 3 attempts, got: {:?}",
+            spans
+        );
+
+        // Span 0 (Initial Attempt)
+        let span0 = &spans[0];
+        assert_eq!(span0.name, "http_request");
+        let attributes0 = &span0.attributes;
+
+        assert!(
+            attributes0.get(HTTP_REQUEST_RESEND_COUNT).is_none(),
+            "Span 0: '{}' should not be present, got: {:?}, all attributes: {:?}",
+            HTTP_REQUEST_RESEND_COUNT,
+            attributes0.get(HTTP_REQUEST_RESEND_COUNT),
+            attributes0
+        );
+
+        // Span 1 (Retry 1)
+        let span1 = &spans[1];
+        assert_eq!(span1.name, "http_request");
+        let attributes1 = &span1.attributes;
+
+        let expected_resend_count = "1".to_string();
+        assert_eq!(
+            attributes1.get(HTTP_REQUEST_RESEND_COUNT),
+            Some(&expected_resend_count),
+            "Span 1: '{}' mismatch, expected: {:?}, got: {:?}, all attributes: {:?}",
+            HTTP_REQUEST_RESEND_COUNT,
+            Some(&expected_resend_count),
+            attributes1.get(HTTP_REQUEST_RESEND_COUNT),
+            attributes1
+        );
+
+        // Span 2 (Retry 2 - Success)
+        let span2 = &spans[2];
+        assert_eq!(span2.name, "http_request");
+        let attributes2 = &span2.attributes;
+
+        let expected_resend_count = "2".to_string();
+        assert_eq!(
+            attributes2.get(HTTP_REQUEST_RESEND_COUNT),
+            Some(&expected_resend_count),
+            "Span 2: '{}' mismatch, expected: {:?}, got: {:?}, all attributes: {:?}",
+            HTTP_REQUEST_RESEND_COUNT,
+            Some(&expected_resend_count),
+            attributes2.get(HTTP_REQUEST_RESEND_COUNT),
+            attributes2
+        );
+
         Ok(())
     }
 
