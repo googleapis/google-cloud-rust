@@ -252,7 +252,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
@@ -522,7 +522,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
@@ -661,7 +661,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
@@ -1175,7 +1175,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
@@ -1489,7 +1489,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
@@ -1583,7 +1583,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
@@ -1668,7 +1668,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
@@ -1726,7 +1726,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await

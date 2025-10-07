@@ -266,7 +266,7 @@ pub trait InstanceGroupManagerResizeRequests: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
@@ -336,7 +336,7 @@ impl<T: super::InstanceGroupManagerResizeRequests> InstanceGroupManagerResizeReq
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await
@@ -511,7 +511,7 @@ pub trait InstanceGroupManagers: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
@@ -755,7 +755,7 @@ impl<T: super::InstanceGroupManagers> InstanceGroupManagers for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await
@@ -842,7 +842,7 @@ pub trait InstanceGroups: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
@@ -954,7 +954,7 @@ impl<T: super::InstanceGroups> InstanceGroups for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await
@@ -1287,7 +1287,7 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
@@ -1769,7 +1769,7 @@ impl<T: super::Instances> Instances for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::zone_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await
@@ -1995,7 +1995,7 @@ pub trait RegionInstanceGroupManagers: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
@@ -2230,7 +2230,7 @@ impl<T: super::RegionInstanceGroupManagers> RegionInstanceGroupManagers for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await
@@ -2287,7 +2287,7 @@ pub trait RegionInstanceGroups: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
@@ -2355,7 +2355,7 @@ impl<T: super::RegionInstanceGroups> RegionInstanceGroups for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await
@@ -2406,7 +2406,7 @@ pub trait RegionInstanceTemplates: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
@@ -2464,7 +2464,7 @@ impl<T: super::RegionInstanceTemplates> RegionInstanceTemplates for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await
@@ -2497,7 +2497,7 @@ pub trait RegionInstances: std::fmt::Debug + Send + Sync {
 
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
@@ -2528,7 +2528,7 @@ impl<T: super::RegionInstances> RegionInstances for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
-        req: crate::model::global_operations::GetRequest,
+        req: crate::model::region_operations::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await

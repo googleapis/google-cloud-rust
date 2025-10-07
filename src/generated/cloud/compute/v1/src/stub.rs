@@ -271,7 +271,7 @@ pub trait InstanceGroupManagerResizeRequests: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::InstanceGroupManagerResizeRequests::get_operation].
     fn get_operation(
         &self,
-        _req: crate::model::global_operations::GetRequest,
+        _req: crate::model::zone_operations::GetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
@@ -593,7 +593,7 @@ pub trait InstanceGroupManagers: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::InstanceGroupManagers::get_operation].
     fn get_operation(
         &self,
-        _req: crate::model::global_operations::GetRequest,
+        _req: crate::model::zone_operations::GetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
@@ -751,7 +751,7 @@ pub trait InstanceGroups: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::InstanceGroups::get_operation].
     fn get_operation(
         &self,
-        _req: crate::model::global_operations::GetRequest,
+        _req: crate::model::zone_operations::GetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
@@ -1361,7 +1361,7 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Instances::get_operation].
     fn get_operation(
         &self,
-        _req: crate::model::global_operations::GetRequest,
+        _req: crate::model::zone_operations::GetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
@@ -1720,7 +1720,7 @@ pub trait RegionInstanceGroupManagers: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RegionInstanceGroupManagers::get_operation].
     fn get_operation(
         &self,
-        _req: crate::model::global_operations::GetRequest,
+        _req: crate::model::region_operations::GetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
@@ -1825,7 +1825,7 @@ pub trait RegionInstanceGroups: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RegionInstanceGroups::get_operation].
     fn get_operation(
         &self,
-        _req: crate::model::global_operations::GetRequest,
+        _req: crate::model::region_operations::GetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
@@ -1917,7 +1917,7 @@ pub trait RegionInstanceTemplates: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RegionInstanceTemplates::get_operation].
     fn get_operation(
         &self,
-        _req: crate::model::global_operations::GetRequest,
+        _req: crate::model::region_operations::GetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
@@ -1976,7 +1976,7 @@ pub trait RegionInstances: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RegionInstances::get_operation].
     fn get_operation(
         &self,
-        _req: crate::model::global_operations::GetRequest,
+        _req: crate::model::region_operations::GetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
