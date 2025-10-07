@@ -125,14 +125,18 @@ pub mod images {
             let mut options = self.0.options.clone();
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -240,14 +244,18 @@ pub mod images {
             let mut options = self.0.options.clone();
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -592,14 +600,18 @@ pub mod images {
             let mut options = self.0.options.clone();
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -910,14 +922,18 @@ pub mod images {
             let mut options = self.0.options.clone();
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -1129,14 +1145,18 @@ pub mod images {
             let mut options = self.0.options.clone();
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -1469,15 +1489,20 @@ pub mod instance_group_manager_resize_requests {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -1606,15 +1631,20 @@ pub mod instance_group_manager_resize_requests {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -1831,15 +1861,20 @@ pub mod instance_group_manager_resize_requests {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -2322,15 +2357,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -2695,15 +2735,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -2824,15 +2869,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -2967,15 +3017,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -3096,15 +3151,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -3243,15 +3303,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -3444,15 +3509,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -4375,15 +4445,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -4522,15 +4597,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -4669,15 +4749,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -4812,15 +4897,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -4947,15 +5037,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -5094,15 +5189,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -5241,15 +5341,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -5388,15 +5493,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -5535,15 +5645,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -5682,15 +5797,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -5829,15 +5949,20 @@ pub mod instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -6108,15 +6233,20 @@ pub mod instance_groups {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -6471,15 +6601,20 @@ pub mod instance_groups {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -6672,15 +6807,20 @@ pub mod instance_groups {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -7213,15 +7353,20 @@ pub mod instance_groups {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -7356,15 +7501,20 @@ pub mod instance_groups {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -7731,15 +7881,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -7882,15 +8037,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -8027,15 +8187,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -8388,15 +8553,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -8549,15 +8719,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -8686,15 +8861,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -8813,15 +8993,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -8952,15 +9137,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -9083,15 +9273,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -9852,15 +10047,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -10405,15 +10605,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -10532,15 +10737,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -10677,15 +10887,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -10820,15 +11035,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -10945,15 +11165,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -11150,15 +11375,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -11293,15 +11523,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -11524,15 +11759,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -11669,15 +11909,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -11812,15 +12057,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -11955,15 +12205,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -12098,15 +12353,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -12241,15 +12501,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -12384,15 +12649,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -12527,15 +12797,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -12670,15 +12945,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -12817,15 +13097,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -12960,15 +13245,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -13105,15 +13395,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -13251,15 +13546,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -13378,15 +13678,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -13518,15 +13823,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -13661,15 +13971,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -13900,15 +14215,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -14088,15 +14408,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -14239,15 +14564,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -14384,15 +14714,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -14537,15 +14872,20 @@ pub mod instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let zone = self.0.request.zone.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_zone(&zone)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -15362,15 +15702,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -15511,15 +15856,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -15640,15 +15990,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -15785,15 +16140,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -15914,15 +16274,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -16063,15 +16428,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -16266,15 +16636,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -17207,15 +17582,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -17356,15 +17736,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -17503,15 +17888,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -17648,15 +18038,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -17783,15 +18178,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -17930,15 +18330,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -18077,15 +18482,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -18224,15 +18634,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -18371,15 +18786,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -18518,15 +18938,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -18667,15 +19092,20 @@ pub mod region_instance_group_managers {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -19430,15 +19860,20 @@ pub mod region_instance_groups {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -19807,15 +20242,20 @@ pub mod region_instance_templates {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async { 
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -20008,15 +20448,20 @@ pub mod region_instance_templates {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
@@ -20469,15 +20914,20 @@ pub mod region_instances {
             options.set_retry_policy(gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let region = self.0.request.region.clone();
-            let query = move |name| async {
+            let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
-                GetOperation::new(stub)
-                    .set_project(&project)
-                    .set_region(&region)
-                    .with_options(options)
-                    .send()
-                    .await
+                let project = project.clone();
+                let region = region.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_region(region)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
             };
 
             let start = move || async { self.send().await };
