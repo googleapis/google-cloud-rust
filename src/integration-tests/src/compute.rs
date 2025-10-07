@@ -16,8 +16,8 @@ use crate::Result;
 use compute::client::{Images, Instances, MachineTypes, Zones};
 use compute::model::{
     AttachedDisk, AttachedDiskInitializeParams, Duration as ComputeDuration, Instance,
-    NetworkInterface, Scheduling, ServiceAccount,
-    scheduling::InstanceTerminationAction, scheduling::ProvisioningModel,
+    NetworkInterface, Scheduling, ServiceAccount, scheduling::InstanceTerminationAction,
+    scheduling::ProvisioningModel,
 };
 use gax::paginator::ItemPaginator as _;
 use lro::Poller;
