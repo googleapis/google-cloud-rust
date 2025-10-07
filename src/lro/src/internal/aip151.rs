@@ -210,17 +210,7 @@ fn map_polling_metadata<R>(result: PollingResult<R, wkt::Empty>) -> PollingResul
 ///   It receives the name of the operation as its only input parameter. It
 ///   should have captured any stubs and request options.
 /// * `QF` - the type of future returned by `Q`.
-struct PollerImpl<ResponseType, MetadataType, S, SF, Q, QF>
-where
-    S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
-        + Send
-        + 'static,
-    Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
-        + Send
-        + 'static,
-{
+struct PollerImpl<S, Q> {
     error_policy: Arc<dyn PollingErrorPolicy>,
     backoff_policy: Arc<dyn PollingBackoffPolicy>,
     start: Option<S>,
@@ -229,17 +219,7 @@ where
     state: PollingState,
 }
 
-impl<ResponseType, MetadataType, S, SF, Q, QF> PollerImpl<ResponseType, MetadataType, S, SF, Q, QF>
-where
-    S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
-        + Send
-        + 'static,
-    Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
-        + Send
-        + 'static,
-{
+impl<S, Q> PollerImpl<S, Q> {
     pub fn new(
         error_policy: Arc<dyn PollingErrorPolicy>,
         backoff_policy: Arc<dyn PollingBackoffPolicy>,
@@ -258,7 +238,7 @@ where
 }
 
 impl<ResponseType, MetadataType, S, SF, P, PF> Poller<ResponseType, MetadataType>
-    for PollerImpl<ResponseType, MetadataType, S, SF, P, PF>
+    for PollerImpl<S, P>
 where
     ResponseType:
         wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
@@ -334,23 +314,7 @@ where
     }
 }
 
-impl<ResponseType, MetadataType, S, SF, P, PF> crate::sealed::Poller
-    for PollerImpl<ResponseType, MetadataType, S, SF, P, PF>
-where
-    ResponseType:
-        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
-    MetadataType:
-        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
-    S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
-        + Send
-        + 'static,
-    P: Fn(String) -> PF + Send + Sync + Clone,
-    PF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
-        + Send
-        + 'static,
-{
-}
+impl<S, Q> crate::sealed::Poller for PollerImpl<S, Q> {}
 
 #[cfg(test)]
 mod tests {
