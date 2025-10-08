@@ -31,4 +31,4 @@ steps:
       cd /workspace/src/auth/.gcb/builds
       terraform init
       terraform plan -out /tmp/bootstrap.tplan
-      # terraform apply /tmp/bootstrap.tplan
+      terraform apply /tmp/bootstrap.tplan
