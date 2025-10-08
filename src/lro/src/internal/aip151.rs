@@ -198,18 +198,12 @@ fn map_polling_metadata<R>(result: PollingResult<R, wkt::Empty>) -> PollingResul
 /// only public so the generated code can use it.
 ///
 /// # Parameters
-/// * `ResponseType` - the response type. Typically this is a message
-///   representing the final disposition of the long-running operation.
-/// * `MetadataType` - the metadata type. The data included with partially
-///   completed instances of this long-running operations.
 /// * `S` - the start closure. Starts a LRO. This implementation expects that
 ///   all necessary parameters, and request options, including retry options
 ///   are captured by this function.
-/// * `SF` - the type of future returned by `S`.
 /// * `Q` - the query closure. Queries the status of the LRO created by `start`.
 ///   It receives the name of the operation as its only input parameter. It
 ///   should have captured any stubs and request options.
-/// * `QF` - the type of future returned by `Q`.
 struct PollerImpl<S, Q> {
     error_policy: Arc<dyn PollingErrorPolicy>,
     backoff_policy: Arc<dyn PollingBackoffPolicy>,
@@ -237,6 +231,21 @@ impl<S, Q> PollerImpl<S, Q> {
     }
 }
 
+/// Implements the `Poller` trait for `PollerImpl`.
+///
+/// # Parameters
+/// * `ResponseType` - the response type. Typically this is a message
+///   representing the final disposition of the long-running operation.
+/// * `MetadataType` - the metadata type. The data included with partially
+///   completed instances of this long-running operations.
+/// * `S` - the start closure. Starts a LRO. This implementation expects that
+///   all necessary parameters, and request options, including retry options
+///   are captured by this function.
+/// * `SF` - the type of future returned by `S`.
+/// * `Q` - the query closure. Queries the status of the LRO created by `start`.
+///   It receives the name of the operation as its only input parameter. It
+///   should have captured any stubs and request options.
+/// * `QF` - the type of future returned by `Q`.
 impl<ResponseType, MetadataType, S, SF, P, PF> Poller<ResponseType, MetadataType>
     for PollerImpl<S, P>
 where
