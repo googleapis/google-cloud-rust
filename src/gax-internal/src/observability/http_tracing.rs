@@ -15,61 +15,10 @@
 #![allow(dead_code)] // TODO(#3239): Remove once used in http.rs
 
 use crate::options::InstrumentationClientInfo;
+use crate::observability::attributes::*;
 use gax::options::RequestOptions;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use tracing::{Span, field};
-
-// OpenTelemetry Semantic Convention Keys
-// See https://opentelemetry.io/docs/specs/semconv/http/http-spans/
-
-/// Span Kind for OpenTelemetry interop.
-///
-/// Always "Client" for a span representing an outbound HTTP request.
-const KEY_OTEL_KIND: &str = "otel.kind";
-/// Span Name for OpenTelemetry interop.
-///
-/// If `url.template` is available use "{http.request.method} {url.template}", otherwise use "{http.request.method}".
-const KEY_OTEL_NAME: &str = "otel.name";
-/// Span Status for OpenTelemetry interop.
-///
-/// Use "Error" for unrecoverable errors like network issues or 5xx status codes.
-/// Otherwise, leave "Unset" (including for 4xx codes on CLIENT spans).
-const KEY_OTEL_STATUS: &str = "otel.status";
-
-// Custom GCP Attributes
-/// The Google Cloud service name.
-///
-/// Examples: appengine, run, firestore
-const KEY_GCP_CLIENT_SERVICE: &str = "gcp.client.service";
-/// The client library version.
-///
-/// Example: v1.0.2
-const KEY_GCP_CLIENT_VERSION: &str = "gcp.client.version";
-/// The client library repository.
-///
-/// Always "googleapis/google-cloud-rust".
-const KEY_GCP_CLIENT_REPO: &str = "gcp.client.repo";
-/// The client library crate name.
-///
-/// Example: google-cloud-storage
-const KEY_GCP_CLIENT_ARTIFACT: &str = "gcp.client.artifact";
-
-#[derive(Debug, Clone, PartialEq)]
-pub(crate) enum OtelStatus {
-    Unset,
-    Ok,
-    Error,
-}
-
-impl OtelStatus {
-    pub(crate) fn as_str(&self) -> &'static str {
-        match self {
-            OtelStatus::Unset => "Unset",
-            OtelStatus::Ok => "Ok",
-            OtelStatus::Error => "Error",
-        }
-    }
-}
 
 /// Populate attributes of tracing spans for HTTP requests.
 ///
@@ -79,7 +28,7 @@ impl OtelStatus {
 /// OpenTelemetry semantic conventions.
 /// See [OpenTelemetry Semantic Conventions for HTTP](https://opentelemetry.io/docs/specs/semconv/http/http-spans/).
 #[derive(Debug, Clone)]
-pub(crate) struct HttpSpanInfo {
+pub struct HttpSpanInfo {
     // Attributes for OpenTelemetry SDK interop
     /// The span kind for OpenTelemetry interop.
     ///
@@ -569,12 +518,5 @@ mod tests {
         assert_eq!(span_info.otel_status, OtelStatus::Error);
         assert_eq!(span_info.http_response_status_code, Some(404));
         assert_eq!(span_info.error_type, Some("404".to_string()));
-    }
-
-    #[test]
-    fn test_otel_status_as_str() {
-        assert_eq!(OtelStatus::Unset.as_str(), "Unset");
-        assert_eq!(OtelStatus::Ok.as_str(), "Ok");
-        assert_eq!(OtelStatus::Error.as_str(), "Error");
     }
 }
