@@ -34,7 +34,7 @@ use std::sync::Arc;
 /// In discovery-based services each client library defines a different type as
 /// the "Operation" type for long-running operations.
 ///
-/// The client libraries must implement the `DiscoveryOperation`` trait for this
+/// The client libraries must implement the `DiscoveryOperation` trait for this
 /// type. The trait defines how to determine if an operation has completed, if
 /// it completed with an error, and how to extract its name to perform
 /// additional polling requests.
@@ -231,9 +231,11 @@ where
 
 #[cfg(test)]
 mod tests {
+    use std::time::Duration;
+
     use super::*;
     use gax::error::rpc::Code;
-    use gax::exponential_backoff::ExponentialBackoff;
+    use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
     use gax::polling_error_policy::{Aip194Strict, AlwaysContinue};
 
     #[tokio::test]
@@ -255,13 +257,12 @@ mod tests {
         };
         let got = new_discovery_poller(
             Arc::new(AlwaysContinue),
-            Arc::new(ExponentialBackoff::default()),
+            Arc::new(test_backoff()),
             start,
             query,
         )
         .until_done()
         .await;
-        // The stream should return 2 Some(t) and a None.
         assert!(
             matches!(
                 got,
@@ -303,13 +304,12 @@ mod tests {
         };
         let got = new_discovery_poller(
             Arc::new(AlwaysContinue),
-            Arc::new(ExponentialBackoff::default()),
+            Arc::new(test_backoff()),
             start,
             query,
         )
         .until_done()
         .await;
-        // The stream should return 2 Some(t) and a None.
         assert!(
             matches!(
                 got,
@@ -341,13 +341,12 @@ mod tests {
         };
         let got = new_discovery_poller(
             Arc::new(AlwaysContinue),
-            Arc::new(ExponentialBackoff::default()),
+            Arc::new(test_backoff()),
             start,
             query,
         )
         .until_done()
         .await;
-        // The stream should return 2 Some(t) and a None.
         assert!(
             matches!(
                 got,
@@ -365,13 +364,12 @@ mod tests {
         };
         let got = new_discovery_poller(
             Arc::new(AlwaysContinue),
-            Arc::new(ExponentialBackoff::default()),
+            Arc::new(test_backoff()),
             start,
             query,
         )
         .until_done()
         .await;
-        // The stream should return 2 Some(t) and a None.
         assert!(
             matches!(
                 got,
@@ -401,7 +399,7 @@ mod tests {
         };
         let mut stream = new_discovery_poller(
             Arc::new(AlwaysContinue),
-            Arc::new(ExponentialBackoff::default()),
+            Arc::new(test_backoff()),
             start,
             query,
         )
@@ -633,6 +631,14 @@ mod tests {
         Status::default()
             .set_code(Code::PermissionDenied)
             .set_message("uh-oh")
+    }
+
+    fn test_backoff() -> ExponentialBackoff {
+        ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_millis(1))
+            .with_maximum_delay(Duration::from_millis(1))
+            .build()
+            .expect("hard-coded values should succeed")
     }
 
     #[derive(Debug, Default, PartialEq)]
