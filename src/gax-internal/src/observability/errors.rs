@@ -62,21 +62,18 @@ impl ReqwestErrorDetails for reqwest::Error {
 }
 
 impl ErrorType {
-    pub(crate) fn from_reqwest_error(err: &dyn ReqwestErrorDetails) -> Self {
-        if err.is_timeout() {
-            ErrorType::ClientTimeout
-        } else if err.is_connect() {
-            ErrorType::ClientConnectionError
-        } else if err.is_request() {
-            ErrorType::ClientRequestError
-        } else if err.is_body() {
-            ErrorType::ClientRequestBodyError
-        } else if err.is_decode() {
-            ErrorType::ClientResponseDecodeError
-        } else if err.is_redirect() {
-            ErrorType::ClientRedirectError
-        } else {
-            ErrorType::Internal
+    pub(crate) fn from_reqwest_error<E>(err: &E) -> Self
+    where
+        E: ReqwestErrorDetails,
+    {
+        match err {
+            e if e.is_timeout() => ErrorType::ClientTimeout,
+            e if e.is_connect() => ErrorType::ClientConnectionError,
+            e if e.is_request() => ErrorType::ClientRequestError,
+            e if e.is_body() => ErrorType::ClientRequestBodyError,
+            e if e.is_decode() => ErrorType::ClientResponseDecodeError,
+            e if e.is_redirect() => ErrorType::ClientRedirectError,
+            _ => ErrorType::Internal,
         }
     }
 
@@ -134,6 +131,7 @@ impl ErrorType {
 pub(crate) mod tests {
     use super::*;
     use http::StatusCode;
+    use test_case::test_case;
 
     #[derive(Default)]
     pub struct MockReqwestError {
@@ -166,164 +164,66 @@ pub(crate) mod tests {
         }
     }
 
-    fn http_error(http_code: StatusCode, rpc_code: Code) -> (ErrorType, String, Code) {
-        (
-            ErrorType::HttpError {
-                code: http_code,
-                reason: None,
-            },
-            http_code.as_str().to_string(),
-            rpc_code,
-        )
+    #[test_case(ErrorType::HttpError { code: StatusCode::OK, reason: None }, "200", Code::Ok; "OK")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: None }, "400", Code::InvalidArgument; "Bad Request")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::UNAUTHORIZED, reason: None }, "401", Code::Unauthenticated; "Unauthorized")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::FORBIDDEN, reason: None }, "403", Code::PermissionDenied; "Forbidden")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::NOT_FOUND, reason: None }, "404", Code::NotFound; "Not Found")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::CONFLICT, reason: None }, "409", Code::Aborted; "Conflict")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::TOO_MANY_REQUESTS, reason: None }, "429", Code::ResourceExhausted; "Too Many Requests")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::INTERNAL_SERVER_ERROR, reason: None }, "500", Code::Internal; "Internal Server Error")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::NOT_IMPLEMENTED, reason: None }, "501", Code::Unimplemented; "Not Implemented")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::SERVICE_UNAVAILABLE, reason: None }, "503", Code::Unavailable; "Service Unavailable")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::GATEWAY_TIMEOUT, reason: None }, "504", Code::DeadlineExceeded; "Gateway Timeout")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::IM_A_TEAPOT, reason: None }, "418", Code::FailedPrecondition; "I'm a teapot")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::CREATED, reason: None }, "201", Code::Ok; "Created")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::METHOD_NOT_ALLOWED, reason: None }, "405", Code::FailedPrecondition; "Method Not Allowed")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_GATEWAY, reason: None }, "502", Code::Internal; "Bad Gateway")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::from_u16(499).unwrap(), reason: None }, "499", Code::Cancelled; "Client Closed Request")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: Some("REASON".to_string()) }, "REASON", Code::InvalidArgument; "Bad Request with Reason")]
+    #[test_case(ErrorType::ClientTimeout, "CLIENT_TIMEOUT", Code::DeadlineExceeded; "Client Timeout")]
+    #[test_case(ErrorType::ClientConnectionError, "CLIENT_CONNECTION_ERROR", Code::Unavailable; "Client Connection Error")]
+    #[test_case(ErrorType::ClientRequestError, "CLIENT_REQUEST_ERROR", Code::InvalidArgument; "Client Request Error")]
+    #[test_case(ErrorType::ClientRequestBodyError, "CLIENT_REQUEST_BODY_ERROR", Code::InvalidArgument; "Client Request Body Error")]
+    #[test_case(ErrorType::ClientResponseDecodeError, "CLIENT_RESPONSE_DECODE_ERROR", Code::Internal; "Client Response Decode Error")]
+    #[test_case(ErrorType::ClientRedirectError, "CLIENT_REDIRECT_ERROR", Code::Aborted; "Client Redirect Error")]
+    #[test_case(ErrorType::Internal, "INTERNAL", Code::Internal; "Internal")]
+    fn test_error_type_conversions(
+        error_type: ErrorType,
+        expected_as_str: &str,
+        expected_grpc_code: Code,
+    ) {
+        assert_eq!(
+            error_type.as_str(),
+            expected_as_str,
+            "expected as_str for {:?}",
+            error_type
+        );
+        assert_eq!(
+            error_type.grpc_code(),
+            expected_grpc_code,
+            "grpc_code for {:?}",
+            error_type
+        );
+        assert_eq!(
+            error_type.grpc_status(),
+            expected_grpc_code.name().to_string(),
+            "grpc_status for {:?}",
+            error_type
+        );
     }
 
-    fn client_error(error_type: ErrorType, name: &str, code: Code) -> (ErrorType, String, Code) {
-        (error_type, name.to_string(), code)
-    }
-
-    #[test]
-    fn test_error_type_conversions() {
-        // Table of test case tuples.
-        // (error_type: ErrorType, expected_as_str: String, expected_grpc_code: Code)
-        let test_cases = vec![
-            http_error(StatusCode::OK, Code::Ok),
-            http_error(StatusCode::BAD_REQUEST, Code::InvalidArgument),
-            http_error(StatusCode::UNAUTHORIZED, Code::Unauthenticated),
-            http_error(StatusCode::FORBIDDEN, Code::PermissionDenied),
-            http_error(StatusCode::NOT_FOUND, Code::NotFound),
-            http_error(StatusCode::CONFLICT, Code::Aborted),
-            http_error(StatusCode::TOO_MANY_REQUESTS, Code::ResourceExhausted),
-            http_error(StatusCode::INTERNAL_SERVER_ERROR, Code::Internal),
-            http_error(StatusCode::NOT_IMPLEMENTED, Code::Unimplemented),
-            http_error(StatusCode::SERVICE_UNAVAILABLE, Code::Unavailable),
-            http_error(StatusCode::GATEWAY_TIMEOUT, Code::DeadlineExceeded),
-            http_error(StatusCode::IM_A_TEAPOT, Code::FailedPrecondition),
-            http_error(StatusCode::CREATED, Code::Ok),
-            http_error(StatusCode::METHOD_NOT_ALLOWED, Code::FailedPrecondition),
-            http_error(StatusCode::BAD_GATEWAY, Code::Internal),
-            // Client closed request.
-            http_error(StatusCode::from_u16(499).unwrap(), Code::Cancelled),
-            (
-                ErrorType::HttpError {
-                    code: StatusCode::BAD_REQUEST,
-                    reason: Some("REASON".to_string()),
-                },
-                "REASON".to_string(),
-                Code::InvalidArgument,
-            ),
-            client_error(
-                ErrorType::ClientTimeout,
-                "CLIENT_TIMEOUT",
-                Code::DeadlineExceeded,
-            ),
-            client_error(
-                ErrorType::ClientConnectionError,
-                "CLIENT_CONNECTION_ERROR",
-                Code::Unavailable,
-            ),
-            client_error(
-                ErrorType::ClientRequestError,
-                "CLIENT_REQUEST_ERROR",
-                Code::InvalidArgument,
-            ),
-            client_error(
-                ErrorType::ClientRequestBodyError,
-                "CLIENT_REQUEST_BODY_ERROR",
-                Code::InvalidArgument,
-            ),
-            client_error(
-                ErrorType::ClientResponseDecodeError,
-                "CLIENT_RESPONSE_DECODE_ERROR",
-                Code::Internal,
-            ),
-            client_error(
-                ErrorType::ClientRedirectError,
-                "CLIENT_REDIRECT_ERROR",
-                Code::Aborted,
-            ),
-            client_error(ErrorType::Internal, "INTERNAL", Code::Internal),
-        ];
-
-        for (error_type, expected_as_str, expected_grpc_code) in test_cases {
-            assert_eq!(
-                error_type.as_str(),
-                expected_as_str,
-                "expected as_str for {:?}",
-                error_type
-            );
-            assert_eq!(
-                error_type.grpc_code(),
-                expected_grpc_code,
-                "grpc_code for {:?}",
-                error_type
-            );
-            assert_eq!(
-                error_type.grpc_status(),
-                expected_grpc_code.name().to_string(),
-                "grpc_status for {:?}",
-                error_type
-            );
-        }
-    }
-
-    #[test]
-    fn test_from_reqwest_error() {
-        let test_cases = vec![
-            (
-                MockReqwestError {
-                    is_timeout: true,
-                    ..Default::default()
-                },
-                ErrorType::ClientTimeout,
-            ),
-            (
-                MockReqwestError {
-                    is_connect: true,
-                    ..Default::default()
-                },
-                ErrorType::ClientConnectionError,
-            ),
-            (
-                MockReqwestError {
-                    is_request: true,
-                    ..Default::default()
-                },
-                ErrorType::ClientRequestError,
-            ),
-            (
-                MockReqwestError {
-                    is_body: true,
-                    ..Default::default()
-                },
-                ErrorType::ClientRequestBodyError,
-            ),
-            (
-                MockReqwestError {
-                    is_decode: true,
-                    ..Default::default()
-                },
-                ErrorType::ClientResponseDecodeError,
-            ),
-            (
-                MockReqwestError {
-                    is_redirect: true,
-                    ..Default::default()
-                },
-                ErrorType::ClientRedirectError,
-            ),
-            (
-                MockReqwestError {
-                    ..Default::default()
-                },
-                ErrorType::Internal,
-            ),
-        ];
-
-        for (mock_err, expected_error_type) in test_cases {
-            assert_eq!(
-                ErrorType::from_reqwest_error(&mock_err),
-                expected_error_type
-            );
-        }
+    #[test_case(MockReqwestError { is_timeout: true, ..Default::default() }, ErrorType::ClientTimeout; "Timeout")]
+    #[test_case(MockReqwestError { is_connect: true, ..Default::default() }, ErrorType::ClientConnectionError; "Connect")]
+    #[test_case(MockReqwestError { is_request: true, ..Default::default() }, ErrorType::ClientRequestError; "Request")]
+    #[test_case(MockReqwestError { is_body: true, ..Default::default() }, ErrorType::ClientRequestBodyError; "Body")]
+    #[test_case(MockReqwestError { is_decode: true, ..Default::default() }, ErrorType::ClientResponseDecodeError; "Decode")]
+    #[test_case(MockReqwestError { is_redirect: true, ..Default::default() }, ErrorType::ClientRedirectError; "Redirect")]
+    #[test_case(MockReqwestError { ..Default::default() }, ErrorType::Internal; "Internal")]
+    fn test_from_reqwest_error(mock_err: MockReqwestError, expected_error_type: ErrorType) {
+        assert_eq!(
+            ErrorType::from_reqwest_error(&mock_err),
+            expected_error_type
+        );
     }
 }
