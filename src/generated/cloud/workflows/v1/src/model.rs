@@ -200,7 +200,8 @@ impl Workflow {
     /// ```
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use google_cloud_workflows_v1::model::workflow::State;
-    /// let x = Workflow::new().set_state(State::default());
+    /// let x0 = Workflow::new().set_state(State::Active);
+    /// let x1 = Workflow::new().set_state(State::Unavailable);
     /// ```
     pub fn set_state<T: std::convert::Into<crate::model::workflow::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -402,7 +403,9 @@ impl Workflow {
     /// ```
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use google_cloud_workflows_v1::model::workflow::CallLogLevel;
-    /// let x = Workflow::new().set_call_log_level(CallLogLevel::default());
+    /// let x0 = Workflow::new().set_call_log_level(CallLogLevel::LogAllCalls);
+    /// let x1 = Workflow::new().set_call_log_level(CallLogLevel::LogErrorsOnly);
+    /// let x2 = Workflow::new().set_call_log_level(CallLogLevel::LogNone);
     /// ```
     pub fn set_call_log_level<T: std::convert::Into<crate::model::workflow::CallLogLevel>>(
         mut self,
@@ -439,7 +442,8 @@ impl Workflow {
     /// ```
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use google_cloud_workflows_v1::model::ExecutionHistoryLevel;
-    /// let x = Workflow::new().set_execution_history_level(ExecutionHistoryLevel::default());
+    /// let x0 = Workflow::new().set_execution_history_level(ExecutionHistoryLevel::ExecutionHistoryBasic);
+    /// let x1 = Workflow::new().set_execution_history_level(ExecutionHistoryLevel::ExecutionHistoryDetailed);
     /// ```
     pub fn set_execution_history_level<
         T: std::convert::Into<crate::model::ExecutionHistoryLevel>,
@@ -605,7 +609,7 @@ pub mod workflow {
         /// ```
         /// # use google_cloud_workflows_v1::model::workflow::StateError;
         /// use google_cloud_workflows_v1::model::workflow::state_error::Type;
-        /// let x = StateError::new().set_type(Type::default());
+        /// let x0 = StateError::new().set_type(Type::KmsError);
         /// ```
         pub fn set_type<T: std::convert::Into<crate::model::workflow::state_error::Type>>(
             mut self,
