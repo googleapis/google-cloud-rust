@@ -280,7 +280,7 @@ resource "google_cloudbuild_trigger" "pubsub-trigger" {
 
   source_to_build {
     repository = google_cloudbuildv2_repository.main.id
-    ref = "refs/heads/main"
-    repo_type = "GITHUB"
+    ref        = "refs/heads/main"
+    repo_type  = "GITHUB"
   }
 }
