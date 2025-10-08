@@ -162,6 +162,1071 @@ pub trait Images: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::InstanceGroupManagerResizeRequests].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::InstanceGroupManagerResizeRequests`.  In other use-cases, application developers only
+/// use `client::InstanceGroupManagerResizeRequests` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instance-group-manager-resize-requests")))]
+pub trait InstanceGroupManagerResizeRequests: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::InstanceGroupManagerResizeRequests::cancel].
+    fn cancel(
+        &self,
+        _req: crate::model::instance_group_manager_resize_requests::CancelRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagerResizeRequests::delete].
+    fn delete(
+        &self,
+        _req: crate::model::instance_group_manager_resize_requests::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagerResizeRequests::get].
+    fn get(
+        &self,
+        _req: crate::model::instance_group_manager_resize_requests::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::InstanceGroupManagerResizeRequest>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagerResizeRequests::insert].
+    fn insert(
+        &self,
+        _req: crate::model::instance_group_manager_resize_requests::InsertRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagerResizeRequests::list].
+    fn list(
+        &self,
+        _req: crate::model::instance_group_manager_resize_requests::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::InstanceGroupManagers].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::InstanceGroupManagers`.  In other use-cases, application developers only
+/// use `client::InstanceGroupManagers` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "instance-group-managers")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instance-group-managers")))]
+pub trait InstanceGroupManagers: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::InstanceGroupManagers::abandon_instances].
+    fn abandon_instances(
+        &self,
+        _req: crate::model::instance_group_managers::AbandonInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::aggregated_list].
+    fn aggregated_list(
+        &self,
+        _req: crate::model::instance_group_managers::AggregatedListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::InstanceGroupManagerAggregatedList>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::apply_updates_to_instances].
+    fn apply_updates_to_instances(
+        &self,
+        _req: crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::create_instances].
+    fn create_instances(
+        &self,
+        _req: crate::model::instance_group_managers::CreateInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::delete].
+    fn delete(
+        &self,
+        _req: crate::model::instance_group_managers::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::delete_instances].
+    fn delete_instances(
+        &self,
+        _req: crate::model::instance_group_managers::DeleteInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::delete_per_instance_configs].
+    fn delete_per_instance_configs(
+        &self,
+        _req: crate::model::instance_group_managers::DeletePerInstanceConfigsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::get].
+    fn get(
+        &self,
+        _req: crate::model::instance_group_managers::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceGroupManager>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::insert].
+    fn insert(
+        &self,
+        _req: crate::model::instance_group_managers::InsertRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::list].
+    fn list(
+        &self,
+        _req: crate::model::instance_group_managers::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceGroupManagerList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::list_errors].
+    fn list_errors(
+        &self,
+        _req: crate::model::instance_group_managers::ListErrorsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::InstanceGroupManagersListErrorsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::list_managed_instances].
+    fn list_managed_instances(
+        &self,
+        _req: crate::model::instance_group_managers::ListManagedInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<
+                crate::model::InstanceGroupManagersListManagedInstancesResponse,
+            >,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::list_per_instance_configs].
+    fn list_per_instance_configs(
+        &self,
+        _req: crate::model::instance_group_managers::ListPerInstanceConfigsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::InstanceGroupManagersListPerInstanceConfigsResp>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::patch].
+    fn patch(
+        &self,
+        _req: crate::model::instance_group_managers::PatchRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::patch_per_instance_configs].
+    fn patch_per_instance_configs(
+        &self,
+        _req: crate::model::instance_group_managers::PatchPerInstanceConfigsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::recreate_instances].
+    fn recreate_instances(
+        &self,
+        _req: crate::model::instance_group_managers::RecreateInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::resize].
+    fn resize(
+        &self,
+        _req: crate::model::instance_group_managers::ResizeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::resume_instances].
+    fn resume_instances(
+        &self,
+        _req: crate::model::instance_group_managers::ResumeInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::set_instance_template].
+    fn set_instance_template(
+        &self,
+        _req: crate::model::instance_group_managers::SetInstanceTemplateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::set_target_pools].
+    fn set_target_pools(
+        &self,
+        _req: crate::model::instance_group_managers::SetTargetPoolsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::start_instances].
+    fn start_instances(
+        &self,
+        _req: crate::model::instance_group_managers::StartInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::stop_instances].
+    fn stop_instances(
+        &self,
+        _req: crate::model::instance_group_managers::StopInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::suspend_instances].
+    fn suspend_instances(
+        &self,
+        _req: crate::model::instance_group_managers::SuspendInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroupManagers::update_per_instance_configs].
+    fn update_per_instance_configs(
+        &self,
+        _req: crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::InstanceGroups].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::InstanceGroups`.  In other use-cases, application developers only
+/// use `client::InstanceGroups` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "instance-groups")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instance-groups")))]
+pub trait InstanceGroups: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::InstanceGroups::add_instances].
+    fn add_instances(
+        &self,
+        _req: crate::model::instance_groups::AddInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroups::aggregated_list].
+    fn aggregated_list(
+        &self,
+        _req: crate::model::instance_groups::AggregatedListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceGroupAggregatedList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroups::delete].
+    fn delete(
+        &self,
+        _req: crate::model::instance_groups::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroups::get].
+    fn get(
+        &self,
+        _req: crate::model::instance_groups::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceGroup>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroups::insert].
+    fn insert(
+        &self,
+        _req: crate::model::instance_groups::InsertRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroups::list].
+    fn list(
+        &self,
+        _req: crate::model::instance_groups::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceGroupList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroups::list_instances].
+    fn list_instances(
+        &self,
+        _req: crate::model::instance_groups::ListInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceGroupsListInstances>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroups::remove_instances].
+    fn remove_instances(
+        &self,
+        _req: crate::model::instance_groups::RemoveInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroups::set_named_ports].
+    fn set_named_ports(
+        &self,
+        _req: crate::model::instance_groups::SetNamedPortsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstanceGroups::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::instance_groups::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::Instances].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::Instances`.  In other use-cases, application developers only
+/// use `client::Instances` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "instances")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instances")))]
+pub trait Instances: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Instances::add_access_config].
+    fn add_access_config(
+        &self,
+        _req: crate::model::instances::AddAccessConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::add_network_interface].
+    fn add_network_interface(
+        &self,
+        _req: crate::model::instances::AddNetworkInterfaceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::add_resource_policies].
+    fn add_resource_policies(
+        &self,
+        _req: crate::model::instances::AddResourcePoliciesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::aggregated_list].
+    fn aggregated_list(
+        &self,
+        _req: crate::model::instances::AggregatedListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceAggregatedList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::attach_disk].
+    fn attach_disk(
+        &self,
+        _req: crate::model::instances::AttachDiskRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::bulk_insert].
+    fn bulk_insert(
+        &self,
+        _req: crate::model::instances::BulkInsertRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::delete].
+    fn delete(
+        &self,
+        _req: crate::model::instances::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::delete_access_config].
+    fn delete_access_config(
+        &self,
+        _req: crate::model::instances::DeleteAccessConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::delete_network_interface].
+    fn delete_network_interface(
+        &self,
+        _req: crate::model::instances::DeleteNetworkInterfaceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::detach_disk].
+    fn detach_disk(
+        &self,
+        _req: crate::model::instances::DetachDiskRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::get].
+    fn get(
+        &self,
+        _req: crate::model::instances::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::get_effective_firewalls].
+    fn get_effective_firewalls(
+        &self,
+        _req: crate::model::instances::GetEffectiveFirewallsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::InstancesGetEffectiveFirewallsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::get_guest_attributes].
+    fn get_guest_attributes(
+        &self,
+        _req: crate::model::instances::GetGuestAttributesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GuestAttributes>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: crate::model::instances::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::get_screenshot].
+    fn get_screenshot(
+        &self,
+        _req: crate::model::instances::GetScreenshotRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Screenshot>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::get_serial_port_output].
+    fn get_serial_port_output(
+        &self,
+        _req: crate::model::instances::GetSerialPortOutputRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SerialPortOutput>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::get_shielded_instance_identity].
+    fn get_shielded_instance_identity(
+        &self,
+        _req: crate::model::instances::GetShieldedInstanceIdentityRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ShieldedInstanceIdentity>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::insert].
+    fn insert(
+        &self,
+        _req: crate::model::instances::InsertRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::list].
+    fn list(
+        &self,
+        _req: crate::model::instances::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::list_referrers].
+    fn list_referrers(
+        &self,
+        _req: crate::model::instances::ListReferrersRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceListReferrers>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::perform_maintenance].
+    fn perform_maintenance(
+        &self,
+        _req: crate::model::instances::PerformMaintenanceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::remove_resource_policies].
+    fn remove_resource_policies(
+        &self,
+        _req: crate::model::instances::RemoveResourcePoliciesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::report_host_as_faulty].
+    fn report_host_as_faulty(
+        &self,
+        _req: crate::model::instances::ReportHostAsFaultyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::reset].
+    fn reset(
+        &self,
+        _req: crate::model::instances::ResetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::resume].
+    fn resume(
+        &self,
+        _req: crate::model::instances::ResumeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::send_diagnostic_interrupt].
+    fn send_diagnostic_interrupt(
+        &self,
+        _req: crate::model::instances::SendDiagnosticInterruptRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_deletion_protection].
+    fn set_deletion_protection(
+        &self,
+        _req: crate::model::instances::SetDeletionProtectionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_disk_auto_delete].
+    fn set_disk_auto_delete(
+        &self,
+        _req: crate::model::instances::SetDiskAutoDeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: crate::model::instances::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_labels].
+    fn set_labels(
+        &self,
+        _req: crate::model::instances::SetLabelsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_machine_resources].
+    fn set_machine_resources(
+        &self,
+        _req: crate::model::instances::SetMachineResourcesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_machine_type].
+    fn set_machine_type(
+        &self,
+        _req: crate::model::instances::SetMachineTypeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_metadata].
+    fn set_metadata(
+        &self,
+        _req: crate::model::instances::SetMetadataRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_min_cpu_platform].
+    fn set_min_cpu_platform(
+        &self,
+        _req: crate::model::instances::SetMinCpuPlatformRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_name].
+    fn set_name(
+        &self,
+        _req: crate::model::instances::SetNameRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_scheduling].
+    fn set_scheduling(
+        &self,
+        _req: crate::model::instances::SetSchedulingRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_security_policy].
+    fn set_security_policy(
+        &self,
+        _req: crate::model::instances::SetSecurityPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_service_account].
+    fn set_service_account(
+        &self,
+        _req: crate::model::instances::SetServiceAccountRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_shielded_instance_integrity_policy].
+    fn set_shielded_instance_integrity_policy(
+        &self,
+        _req: crate::model::instances::SetShieldedInstanceIntegrityPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_tags].
+    fn set_tags(
+        &self,
+        _req: crate::model::instances::SetTagsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::simulate_maintenance_event].
+    fn simulate_maintenance_event(
+        &self,
+        _req: crate::model::instances::SimulateMaintenanceEventRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::start].
+    fn start(
+        &self,
+        _req: crate::model::instances::StartRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::start_with_encryption_key].
+    fn start_with_encryption_key(
+        &self,
+        _req: crate::model::instances::StartWithEncryptionKeyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::stop].
+    fn stop(
+        &self,
+        _req: crate::model::instances::StopRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::suspend].
+    fn suspend(
+        &self,
+        _req: crate::model::instances::SuspendRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::instances::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::update].
+    fn update(
+        &self,
+        _req: crate::model::instances::UpdateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::update_access_config].
+    fn update_access_config(
+        &self,
+        _req: crate::model::instances::UpdateAccessConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::update_display_device].
+    fn update_display_device(
+        &self,
+        _req: crate::model::instances::UpdateDisplayDeviceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::update_network_interface].
+    fn update_network_interface(
+        &self,
+        _req: crate::model::instances::UpdateNetworkInterfaceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::update_shielded_instance_config].
+    fn update_shielded_instance_config(
+        &self,
+        _req: crate::model::instances::UpdateShieldedInstanceConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::MachineTypes].
 ///
 /// Application developers may need to implement this trait to mock
@@ -205,6 +1270,557 @@ pub trait MachineTypes: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::MachineTypeList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::RegionInstanceGroupManagers].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionInstanceGroupManagers`.  In other use-cases, application developers only
+/// use `client::RegionInstanceGroupManagers` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-instance-group-managers")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instance-group-managers")))]
+pub trait RegionInstanceGroupManagers: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionInstanceGroupManagers::abandon_instances].
+    fn abandon_instances(
+        &self,
+        _req: crate::model::region_instance_group_managers::AbandonInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::apply_updates_to_instances].
+    fn apply_updates_to_instances(
+        &self,
+        _req: crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::create_instances].
+    fn create_instances(
+        &self,
+        _req: crate::model::region_instance_group_managers::CreateInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::delete].
+    fn delete(
+        &self,
+        _req: crate::model::region_instance_group_managers::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::delete_instances].
+    fn delete_instances(
+        &self,
+        _req: crate::model::region_instance_group_managers::DeleteInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::delete_per_instance_configs].
+    fn delete_per_instance_configs(
+        &self,
+        _req: crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::get].
+    fn get(
+        &self,
+        _req: crate::model::region_instance_group_managers::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceGroupManager>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::insert].
+    fn insert(
+        &self,
+        _req: crate::model::region_instance_group_managers::InsertRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::list].
+    fn list(
+        &self,
+        _req: crate::model::region_instance_group_managers::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::RegionInstanceGroupManagerList>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::list_errors].
+    fn list_errors(
+        &self,
+        _req: crate::model::region_instance_group_managers::ListErrorsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::RegionInstanceGroupManagersListErrorsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::list_managed_instances].
+    fn list_managed_instances(
+        &self,
+        _req: crate::model::region_instance_group_managers::ListManagedInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::RegionInstanceGroupManagersListInstancesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::list_per_instance_configs].
+    fn list_per_instance_configs(
+        &self,
+        _req: crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<
+                crate::model::RegionInstanceGroupManagersListInstanceConfigsResp,
+            >,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::patch].
+    fn patch(
+        &self,
+        _req: crate::model::region_instance_group_managers::PatchRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::patch_per_instance_configs].
+    fn patch_per_instance_configs(
+        &self,
+        _req: crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::recreate_instances].
+    fn recreate_instances(
+        &self,
+        _req: crate::model::region_instance_group_managers::RecreateInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::resize].
+    fn resize(
+        &self,
+        _req: crate::model::region_instance_group_managers::ResizeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::resume_instances].
+    fn resume_instances(
+        &self,
+        _req: crate::model::region_instance_group_managers::ResumeInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::set_instance_template].
+    fn set_instance_template(
+        &self,
+        _req: crate::model::region_instance_group_managers::SetInstanceTemplateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::set_target_pools].
+    fn set_target_pools(
+        &self,
+        _req: crate::model::region_instance_group_managers::SetTargetPoolsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::start_instances].
+    fn start_instances(
+        &self,
+        _req: crate::model::region_instance_group_managers::StartInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::stop_instances].
+    fn stop_instances(
+        &self,
+        _req: crate::model::region_instance_group_managers::StopInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::suspend_instances].
+    fn suspend_instances(
+        &self,
+        _req: crate::model::region_instance_group_managers::SuspendInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagers::update_per_instance_configs].
+    fn update_per_instance_configs(
+        &self,
+        _req: crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::RegionInstanceGroups].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionInstanceGroups`.  In other use-cases, application developers only
+/// use `client::RegionInstanceGroups` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-instance-groups")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instance-groups")))]
+pub trait RegionInstanceGroups: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionInstanceGroups::get].
+    fn get(
+        &self,
+        _req: crate::model::region_instance_groups::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceGroup>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroups::list].
+    fn list(
+        &self,
+        _req: crate::model::region_instance_groups::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RegionInstanceGroupList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroups::list_instances].
+    fn list_instances(
+        &self,
+        _req: crate::model::region_instance_groups::ListInstancesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::RegionInstanceGroupsListInstances>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroups::set_named_ports].
+    fn set_named_ports(
+        &self,
+        _req: crate::model::region_instance_groups::SetNamedPortsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroups::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::region_instance_groups::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::RegionInstanceTemplates].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionInstanceTemplates`.  In other use-cases, application developers only
+/// use `client::RegionInstanceTemplates` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-instance-templates")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instance-templates")))]
+pub trait RegionInstanceTemplates: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionInstanceTemplates::delete].
+    fn delete(
+        &self,
+        _req: crate::model::region_instance_templates::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceTemplates::get].
+    fn get(
+        &self,
+        _req: crate::model::region_instance_templates::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceTemplate>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceTemplates::insert].
+    fn insert(
+        &self,
+        _req: crate::model::region_instance_templates::InsertRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceTemplates::list].
+    fn list(
+        &self,
+        _req: crate::model::region_instance_templates::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstanceTemplateList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::RegionInstances].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionInstances`.  In other use-cases, application developers only
+/// use `client::RegionInstances` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-instances")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instances")))]
+pub trait RegionInstances: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionInstances::bulk_insert].
+    fn bulk_insert(
+        &self,
+        _req: crate::model::region_instances::BulkInsertRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::RegionOperations].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionOperations`.  In other use-cases, application developers only
+/// use `client::RegionOperations` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-operations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-operations")))]
+pub trait RegionOperations: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionOperations::delete].
+    fn delete(
+        &self,
+        _req: crate::model::region_operations::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionOperations::get].
+    fn get(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionOperations::list].
+    fn list(
+        &self,
+        _req: crate::model::region_operations::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OperationList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionOperations::wait].
+    fn wait(
+        &self,
+        _req: crate::model::region_operations::WaitRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::ZoneOperations].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ZoneOperations`.  In other use-cases, application developers only
+/// use `client::ZoneOperations` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "zone-operations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "zone-operations")))]
+pub trait ZoneOperations: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ZoneOperations::delete].
+    fn delete(
+        &self,
+        _req: crate::model::zone_operations::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ZoneOperations::get].
+    fn get(
+        &self,
+        _req: crate::model::zone_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ZoneOperations::list].
+    fn list(
+        &self,
+        _req: crate::model::zone_operations::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OperationList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ZoneOperations::wait].
+    fn wait(
+        &self,
+        _req: crate::model::zone_operations::WaitRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

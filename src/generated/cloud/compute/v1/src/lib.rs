@@ -32,7 +32,17 @@
 //! # Available Clients
 //!
 //! * [Images](client/struct.Images.html)
+//! * [InstanceGroupManagerResizeRequests](client/struct.InstanceGroupManagerResizeRequests.html)
+//! * [InstanceGroupManagers](client/struct.InstanceGroupManagers.html)
+//! * [InstanceGroups](client/struct.InstanceGroups.html)
+//! * [Instances](client/struct.Instances.html)
 //! * [MachineTypes](client/struct.MachineTypes.html)
+//! * [RegionInstanceGroupManagers](client/struct.RegionInstanceGroupManagers.html)
+//! * [RegionInstanceGroups](client/struct.RegionInstanceGroups.html)
+//! * [RegionInstanceTemplates](client/struct.RegionInstanceTemplates.html)
+//! * [RegionInstances](client/struct.RegionInstances.html)
+//! * [RegionOperations](client/struct.RegionOperations.html)
+//! * [ZoneOperations](client/struct.ZoneOperations.html)
 //! * [Zones](client/struct.Zones.html)
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
@@ -62,10 +72,38 @@ pub(crate) mod tracing;
 pub(crate) mod transport;
 
 /// The default host used by the service.
-#[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "machine-types",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+    feature = "zones",
+))]
 const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
 
-#[cfg(any(feature = "images", feature = "machine-types", feature = "zones",))]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "machine-types",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+    feature = "zones",
+))]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");

@@ -148,6 +148,48 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateBiReservationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::BiReservation>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+
+    async fn create_reservation_group(
+        &self,
+        req: crate::model::CreateReservationGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ReservationGroup>>;
+
+    async fn get_reservation_group(
+        &self,
+        req: crate::model::GetReservationGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ReservationGroup>>;
+
+    async fn delete_reservation_group(
+        &self,
+        req: crate::model::DeleteReservationGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn list_reservation_groups(
+        &self,
+        req: crate::model::ListReservationGroupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListReservationGroupsResponse>>;
 }
 
 /// All implementations of [super::ReservationService] also implement [ReservationService].
@@ -349,5 +391,68 @@ impl<T: super::ReservationService> ReservationService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::BiReservation>> {
         T::update_bi_reservation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_reservation_group(
+        &self,
+        req: crate::model::CreateReservationGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ReservationGroup>> {
+        T::create_reservation_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_reservation_group(
+        &self,
+        req: crate::model::GetReservationGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ReservationGroup>> {
+        T::get_reservation_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_reservation_group(
+        &self,
+        req: crate::model::DeleteReservationGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_reservation_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_reservation_groups(
+        &self,
+        req: crate::model::ListReservationGroupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListReservationGroupsResponse>> {
+        T::list_reservation_groups(self, req, options).await
     }
 }

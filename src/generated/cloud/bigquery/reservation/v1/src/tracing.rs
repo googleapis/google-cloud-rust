@@ -234,4 +234,67 @@ where
     ) -> Result<gax::response::Response<crate::model::BiReservation>> {
         self.inner.update_bi_reservation(req, options).await
     }
+
+    #[tracing::instrument(ret)]
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        self.inner.get_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        self.inner.set_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_reservation_group(
+        &self,
+        req: crate::model::CreateReservationGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ReservationGroup>> {
+        self.inner.create_reservation_group(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_reservation_group(
+        &self,
+        req: crate::model::GetReservationGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ReservationGroup>> {
+        self.inner.get_reservation_group(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_reservation_group(
+        &self,
+        req: crate::model::DeleteReservationGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_reservation_group(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_reservation_groups(
+        &self,
+        req: crate::model::ListReservationGroupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListReservationGroupsResponse>> {
+        self.inner.list_reservation_groups(req, options).await
+    }
 }

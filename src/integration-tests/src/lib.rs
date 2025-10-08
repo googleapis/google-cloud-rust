@@ -14,6 +14,7 @@
 
 use anyhow::Error;
 use rand::{Rng, distr::Alphanumeric};
+use storage_samples::RandomChars;
 
 pub type Result<T> = anyhow::Result<T>;
 pub mod aiplatform;
@@ -32,6 +33,8 @@ pub mod workflows_executions;
 use storage_samples::random_bucket_id;
 
 pub const SECRET_ID_LENGTH: usize = 64;
+
+pub const VM_ID_LENGTH: usize = 63;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
 
@@ -54,6 +57,13 @@ pub fn region_id() -> String {
         .unwrap_or("us-central1".to_string())
 }
 
+/// Returns the preferred zone id used for the integration tests.
+pub fn zone_id() -> String {
+    std::env::var("GOOGLE_CLOUD_RUST_TEST_REGION")
+        .ok()
+        .unwrap_or("us-central1-a".to_string())
+}
+
 pub fn report_error(e: anyhow::Error) -> anyhow::Error {
     eprintln!("\n\nERROR {e:?}\n");
     tracing::error!("ERROR {e:?}");
@@ -70,6 +80,17 @@ pub(crate) fn random_workflow_id() -> String {
         .map(char::from)
         .collect();
     format!("{PREFIX}{workflow_id}")
+}
+
+pub(crate) fn random_vm_id() -> String {
+    const PREFIX: &str = "vm-";
+    const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
+    let vm_id: String = rand::rng()
+        .sample_iter(&RandomChars::new(CHARSET))
+        .take(VM_ID_LENGTH - PREFIX.len())
+        .map(char::from)
+        .collect();
+    format!("{PREFIX}{vm_id}")
 }
 
 pub fn enable_tracing() -> tracing::subscriber::DefaultGuard {

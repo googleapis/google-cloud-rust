@@ -16,7 +16,17 @@ should not introduce breaking changes to the client libraries.
 The main types to work with this crate are the clients:
 
 - [Images]: enabled by the `images` feature.
+- [InstanceGroupManagerResizeRequests]: enabled by the `instance-group-manager-resize-requests` feature.
+- [InstanceGroupManagers]: enabled by the `instance-group-managers` feature.
+- [InstanceGroups]: enabled by the `instance-groups` feature.
+- [Instances]: enabled by the `instances` feature.
 - [MachineTypes]: enabled by the `machine-types` feature.
+- [RegionInstanceGroupManagers]: enabled by the `region-instance-group-managers` feature.
+- [RegionInstanceGroups]: enabled by the `region-instance-groups` feature.
+- [RegionInstanceTemplates]: enabled by the `region-instance-templates` feature.
+- [RegionInstances]: enabled by the `region-instances` feature.
+- [RegionOperations]: enabled by the `region-operations` feature.
+- [ZoneOperations]: enabled by the `zone-operations` feature.
 - [Zones]: enabled by the `zones` feature.
 
 ## More Information
@@ -24,5 +34,15 @@ The main types to work with this crate are the clients:
 - Read the [crate's documentation](https://docs.rs/google-cloud-compute-v1/latest/google-cloud-compute-v1)
 
 [Images]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Images.html
+[InstanceGroupManagerResizeRequests]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceGroupManagerResizeRequests.html
+[InstanceGroupManagers]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceGroupManagers.html
+[InstanceGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceGroups.html
+[Instances]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Instances.html
 [MachineTypes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.MachineTypes.html
+[RegionInstanceGroupManagers]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstanceGroupManagers.html
+[RegionInstanceGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstanceGroups.html
+[RegionInstanceTemplates]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstanceTemplates.html
+[RegionInstances]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstances.html
+[RegionOperations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionOperations.html
+[ZoneOperations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.ZoneOperations.html
 [Zones]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Zones.html

@@ -1287,6 +1287,23 @@ impl serde::ser::Serialize for super::ExternalDataConfiguration {
         if self.timestamp_format.is_some() {
             state.serialize_entry("timestampFormat", &self.timestamp_format)?;
         }
+        if !self.timestamp_target_precision.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "timestampTargetPrecision",
+                &__With(&self.timestamp_target_precision),
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2587,6 +2604,23 @@ impl serde::ser::Serialize for super::JobConfigurationLoad {
         if !wkt::internal::is_default(&self.source_column_match) {
             state.serialize_entry("sourceColumnMatch", &self.source_column_match)?;
         }
+        if !self.timestamp_target_precision.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "timestampTargetPrecision",
+                &__With(&self.timestamp_target_precision),
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3615,6 +3649,62 @@ impl serde::ser::Serialize for super::IndexUnusedReason {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::IndexPruningStats {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.base_table.is_some() {
+            state.serialize_entry("baseTable", &self.base_table)?;
+        }
+        if self.pre_index_pruning_parallel_input_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "preIndexPruningParallelInputCount",
+                &__With(&self.pre_index_pruning_parallel_input_count),
+            )?;
+        }
+        if self.post_index_pruning_parallel_input_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "postIndexPruningParallelInputCount",
+                &__With(&self.post_index_pruning_parallel_input_count),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::StoredColumnsUsage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -3688,6 +3778,9 @@ impl serde::ser::Serialize for super::SearchStatistics {
         }
         if !self.index_unused_reasons.is_empty() {
             state.serialize_entry("indexUnusedReasons", &self.index_unused_reasons)?;
+        }
+        if !self.index_pruning_stats.is_empty() {
+            state.serialize_entry("indexPruningStats", &self.index_pruning_stats)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3827,6 +3920,37 @@ impl serde::ser::Serialize for super::LoadQueryStatistics {
                 }
             }
             state.serialize_entry("badRecords", &__With(&self.bad_records))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::IncrementalResultStats {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.disabled_reason) {
+            state.serialize_entry("disabledReason", &self.disabled_reason)?;
+        }
+        if self.result_set_last_replace_time.is_some() {
+            state.serialize_entry(
+                "resultSetLastReplaceTime",
+                &self.result_set_last_replace_time,
+            )?;
+        }
+        if self.result_set_last_modify_time.is_some() {
+            state.serialize_entry("resultSetLastModifyTime", &self.result_set_last_modify_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4103,6 +4227,9 @@ impl serde::ser::Serialize for super::JobStatistics2 {
         }
         if self.metadata_cache_statistics.is_some() {
             state.serialize_entry("metadataCacheStatistics", &self.metadata_cache_statistics)?;
+        }
+        if self.incremental_result_stats.is_some() {
+            state.serialize_entry("incrementalResultStats", &self.incremental_result_stats)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4647,6 +4774,9 @@ impl serde::ser::Serialize for super::JobStatistics {
         if !wkt::internal::is_default(&self.edition) {
             state.serialize_entry("edition", &self.edition)?;
         }
+        if !self.reservation_group_path.is_empty() {
+            state.serialize_entry("reservationGroupPath", &self.reservation_group_path)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -5146,6 +5276,76 @@ impl serde::ser::Serialize for super::MaterializedView {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::PruningStats {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.post_cmeta_pruning_partition_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "postCmetaPruningPartitionCount",
+                &__With(&self.post_cmeta_pruning_partition_count),
+            )?;
+        }
+        if self.pre_cmeta_pruning_parallel_input_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "preCmetaPruningParallelInputCount",
+                &__With(&self.pre_cmeta_pruning_parallel_input_count),
+            )?;
+        }
+        if self.post_cmeta_pruning_parallel_input_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "postCmetaPruningParallelInputCount",
+                &__With(&self.post_cmeta_pruning_parallel_input_count),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::TableMetadataCacheUsage {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -5169,6 +5369,9 @@ impl serde::ser::Serialize for super::TableMetadataCacheUsage {
         }
         if !self.table_type.is_empty() {
             state.serialize_entry("tableType", &self.table_type)?;
+        }
+        if self.pruning_stats.is_some() {
+            state.serialize_entry("pruningStats", &self.pruning_stats)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7507,6 +7710,58 @@ impl serde::ser::Serialize for super::model::training_run::TrainingOptions {
                 }
             }
             state.serialize_entry("minAprioriSupport", &__With(&self.min_apriori_support))?;
+        }
+        if let Some(value) = self.hugging_face_model_id() {
+            state.serialize_entry("huggingFaceModelId", value)?;
+        }
+        if let Some(value) = self.model_garden_model_name() {
+            state.serialize_entry("modelGardenModelName", value)?;
+        }
+        if self.endpoint_idle_ttl.is_some() {
+            state.serialize_entry("endpointIdleTtl", &self.endpoint_idle_ttl)?;
+        }
+        if self.machine_type.is_some() {
+            state.serialize_entry("machineType", &self.machine_type)?;
+        }
+        if self.min_replica_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("minReplicaCount", &__With(&self.min_replica_count))?;
+        }
+        if self.max_replica_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("maxReplicaCount", &__With(&self.max_replica_count))?;
+        }
+        if self.reservation_affinity_type.is_some() {
+            state.serialize_entry("reservationAffinityType", &self.reservation_affinity_type)?;
+        }
+        if self.reservation_affinity_key.is_some() {
+            state.serialize_entry("reservationAffinityKey", &self.reservation_affinity_key)?;
+        }
+        if !self.reservation_affinity_values.is_empty() {
+            state.serialize_entry(
+                "reservationAffinityValues",
+                &self.reservation_affinity_values,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -11355,6 +11610,20 @@ impl serde::ser::Serialize for super::TableFieldSchema {
                 }
             }
             state.serialize_entry("scale", &__With(&self.scale))?;
+        }
+        if self.timestamp_precision.is_some() {
+            struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("timestampPrecision", &__With(&self.timestamp_precision))?;
         }
         if !wkt::internal::is_default(&self.rounding_mode) {
             state.serialize_entry("roundingMode", &self.rounding_mode)?;

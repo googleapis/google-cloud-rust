@@ -17,7 +17,175 @@
 #[allow(unused_imports)]
 use super::*;
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::AcceleratorConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceleratorConfig");
+        debug_struct.field("accelerator_count", &self.accelerator_count);
+        debug_struct.field("accelerator_type", &self.accelerator_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::AccessConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessConfig");
+        debug_struct.field("external_ipv_6", &self.external_ipv_6);
+        debug_struct.field(
+            "external_ipv_6_prefix_length",
+            &self.external_ipv_6_prefix_length,
+        );
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("nat_ip", &self.nat_ip);
+        debug_struct.field("network_tier", &self.network_tier);
+        debug_struct.field("public_ptr_domain_name", &self.public_ptr_domain_name);
+        debug_struct.field("security_policy", &self.security_policy);
+        debug_struct.field("set_public_ptr", &self.set_public_ptr);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::AdvancedMachineFeatures {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdvancedMachineFeatures");
+        debug_struct.field(
+            "enable_nested_virtualization",
+            &self.enable_nested_virtualization,
+        );
+        debug_struct.field("enable_uefi_networking", &self.enable_uefi_networking);
+        debug_struct.field(
+            "performance_monitoring_unit",
+            &self.performance_monitoring_unit,
+        );
+        debug_struct.field("threads_per_core", &self.threads_per_core);
+        debug_struct.field("turbo_mode", &self.turbo_mode);
+        debug_struct.field("visible_core_count", &self.visible_core_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::AliasIpRange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AliasIpRange");
+        debug_struct.field("ip_cidr_range", &self.ip_cidr_range);
+        debug_struct.field("subnetwork_range_name", &self.subnetwork_range_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::AttachedDisk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedDisk");
+        debug_struct.field("architecture", &self.architecture);
+        debug_struct.field("auto_delete", &self.auto_delete);
+        debug_struct.field("boot", &self.boot);
+        debug_struct.field("device_name", &self.device_name);
+        debug_struct.field("disk_encryption_key", &self.disk_encryption_key);
+        debug_struct.field("disk_size_gb", &self.disk_size_gb);
+        debug_struct.field("force_attach", &self.force_attach);
+        debug_struct.field("guest_os_features", &self.guest_os_features);
+        debug_struct.field("index", &self.index);
+        debug_struct.field("initialize_params", &self.initialize_params);
+        debug_struct.field("interface", &self.interface);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("licenses", &self.licenses);
+        debug_struct.field("mode", &self.mode);
+        debug_struct.field("saved_state", &self.saved_state);
+        debug_struct.field(
+            "shielded_instance_initial_state",
+            &self.shielded_instance_initial_state,
+        );
+        debug_struct.field("source", &self.source);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::AttachedDiskInitializeParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedDiskInitializeParams");
+        debug_struct.field("architecture", &self.architecture);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("disk_name", &self.disk_name);
+        debug_struct.field("disk_size_gb", &self.disk_size_gb);
+        debug_struct.field("disk_type", &self.disk_type);
+        debug_struct.field(
+            "enable_confidential_compute",
+            &self.enable_confidential_compute,
+        );
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("licenses", &self.licenses);
+        debug_struct.field("on_update_action", &self.on_update_action);
+        debug_struct.field("provisioned_iops", &self.provisioned_iops);
+        debug_struct.field("provisioned_throughput", &self.provisioned_throughput);
+        debug_struct.field("replica_zones", &self.replica_zones);
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
+        debug_struct.field("resource_policies", &self.resource_policies);
+        debug_struct.field("source_image", &self.source_image);
+        debug_struct.field(
+            "source_image_encryption_key",
+            &self.source_image_encryption_key,
+        );
+        debug_struct.field("source_snapshot", &self.source_snapshot);
+        debug_struct.field(
+            "source_snapshot_encryption_key",
+            &self.source_snapshot_encryption_key,
+        );
+        debug_struct.field("storage_pool", &self.storage_pool);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "images", feature = "instances",))]
 impl std::fmt::Debug for super::AuditConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuditConfig");
@@ -30,7 +198,7 @@ impl std::fmt::Debug for super::AuditConfig {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(feature = "images", feature = "instances",))]
 impl std::fmt::Debug for super::AuditLogConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuditLogConfig");
@@ -43,7 +211,7 @@ impl std::fmt::Debug for super::AuditLogConfig {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(feature = "images", feature = "instances",))]
 impl std::fmt::Debug for super::Binding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Binding");
@@ -57,7 +225,50 @@ impl std::fmt::Debug for super::Binding {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+impl std::fmt::Debug for super::BulkInsertInstanceResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BulkInsertInstanceResource");
+        debug_struct.field("count", &self.count);
+        debug_struct.field("instance_properties", &self.instance_properties);
+        debug_struct.field("location_policy", &self.location_policy);
+        debug_struct.field("min_count", &self.min_count);
+        debug_struct.field("name_pattern", &self.name_pattern);
+        debug_struct.field("per_instance_properties", &self.per_instance_properties);
+        debug_struct.field("source_instance_template", &self.source_instance_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BulkInsertInstanceResourcePerInstanceProperties");
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::BulkInsertOperationStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BulkInsertOperationStatus");
@@ -73,7 +284,35 @@ impl std::fmt::Debug for super::BulkInsertOperationStatus {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::ConfidentialInstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfidentialInstanceConfig");
+        debug_struct.field(
+            "confidential_instance_type",
+            &self.confidential_instance_type,
+        );
+        debug_struct.field(
+            "enable_confidential_compute",
+            &self.enable_confidential_compute,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
 impl std::fmt::Debug for super::CustomerEncryptionKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomerEncryptionKey");
@@ -82,6 +321,19 @@ impl std::fmt::Debug for super::CustomerEncryptionKey {
         debug_struct.field("raw_key", &self.raw_key);
         debug_struct.field("rsa_encrypted_key", &self.rsa_encrypted_key);
         debug_struct.field("sha256", &self.sha256);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::CustomerEncryptionKeyProtectedDisk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomerEncryptionKeyProtectedDisk");
+        debug_struct.field("disk_encryption_key", &self.disk_encryption_key);
+        debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -105,7 +357,95 @@ impl std::fmt::Debug for super::DeprecationStatus {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(feature = "region-instance-templates")]
+impl std::fmt::Debug for super::DiskInstantiationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiskInstantiationConfig");
+        debug_struct.field("auto_delete", &self.auto_delete);
+        debug_struct.field("custom_image", &self.custom_image);
+        debug_struct.field("device_name", &self.device_name);
+        debug_struct.field("instantiate_from", &self.instantiate_from);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::DisplayDevice {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisplayDevice");
+        debug_struct.field("enable_display", &self.enable_display);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::DistributionPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DistributionPolicy");
+        debug_struct.field("target_shape", &self.target_shape);
+        debug_struct.field("zones", &self.zones);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::DistributionPolicyZoneConfiguration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DistributionPolicyZoneConfiguration");
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::Duration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Duration");
+        debug_struct.field("nanos", &self.nanos);
+        debug_struct.field("seconds", &self.seconds);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::ErrorInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ErrorInfo");
@@ -119,7 +459,7 @@ impl std::fmt::Debug for super::ErrorInfo {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(feature = "images", feature = "instances",))]
 impl std::fmt::Debug for super::Expr {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Expr");
@@ -134,12 +474,194 @@ impl std::fmt::Debug for super::Expr {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
 impl std::fmt::Debug for super::FileContentBuffer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FileContentBuffer");
         debug_struct.field("content", &self.content);
         debug_struct.field("file_type", &self.file_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::Firewall {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Firewall");
+        debug_struct.field("allowed", &self.allowed);
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("denied", &self.denied);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("destination_ranges", &self.destination_ranges);
+        debug_struct.field("direction", &self.direction);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("log_config", &self.log_config);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("params", &self.params);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("source_ranges", &self.source_ranges);
+        debug_struct.field("source_service_accounts", &self.source_service_accounts);
+        debug_struct.field("source_tags", &self.source_tags);
+        debug_struct.field("target_service_accounts", &self.target_service_accounts);
+        debug_struct.field("target_tags", &self.target_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::firewall::Allowed {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Allowed");
+        debug_struct.field("ip_protocol", &self.ip_protocol);
+        debug_struct.field("ports", &self.ports);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::firewall::Denied {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Denied");
+        debug_struct.field("ip_protocol", &self.ip_protocol);
+        debug_struct.field("ports", &self.ports);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::FirewallLogConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallLogConfig");
+        debug_struct.field("enable", &self.enable);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::FirewallParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::FirewallPolicyRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallPolicyRule");
+        debug_struct.field("action", &self.action);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("direction", &self.direction);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("enable_logging", &self.enable_logging);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("r#match", &self.r#match);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("rule_name", &self.rule_name);
+        debug_struct.field("rule_tuple_count", &self.rule_tuple_count);
+        debug_struct.field("security_profile_group", &self.security_profile_group);
+        debug_struct.field("target_resources", &self.target_resources);
+        debug_struct.field("target_secure_tags", &self.target_secure_tags);
+        debug_struct.field("target_service_accounts", &self.target_service_accounts);
+        debug_struct.field("tls_inspect", &self.tls_inspect);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::FirewallPolicyRuleMatcher {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallPolicyRuleMatcher");
+        debug_struct.field("dest_address_groups", &self.dest_address_groups);
+        debug_struct.field("dest_fqdns", &self.dest_fqdns);
+        debug_struct.field("dest_ip_ranges", &self.dest_ip_ranges);
+        debug_struct.field("dest_network_type", &self.dest_network_type);
+        debug_struct.field("dest_region_codes", &self.dest_region_codes);
+        debug_struct.field("dest_threat_intelligences", &self.dest_threat_intelligences);
+        debug_struct.field("layer_4_configs", &self.layer_4_configs);
+        debug_struct.field("src_address_groups", &self.src_address_groups);
+        debug_struct.field("src_fqdns", &self.src_fqdns);
+        debug_struct.field("src_ip_ranges", &self.src_ip_ranges);
+        debug_struct.field("src_network_type", &self.src_network_type);
+        debug_struct.field("src_networks", &self.src_networks);
+        debug_struct.field("src_region_codes", &self.src_region_codes);
+        debug_struct.field("src_secure_tags", &self.src_secure_tags);
+        debug_struct.field("src_threat_intelligences", &self.src_threat_intelligences);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::FirewallPolicyRuleMatcherLayer4Config {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallPolicyRuleMatcherLayer4Config");
+        debug_struct.field("ip_protocol", &self.ip_protocol);
+        debug_struct.field("ports", &self.ports);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::FirewallPolicyRuleSecureTag {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallPolicyRuleSecureTag");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::FixedOrPercent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FixedOrPercent");
+        debug_struct.field("calculated", &self.calculated);
+        debug_struct.field("fixed", &self.fixed);
+        debug_struct.field("percent", &self.percent);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -174,7 +696,55 @@ impl std::fmt::Debug for super::GlobalSetPolicyRequest {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::GuestAttributes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GuestAttributes");
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("query_path", &self.query_path);
+        debug_struct.field("query_value", &self.query_value);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("variable_key", &self.variable_key);
+        debug_struct.field("variable_value", &self.variable_value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::GuestAttributesEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GuestAttributesEntry");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("namespace", &self.namespace);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::GuestAttributesValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GuestAttributesValue");
+        debug_struct.field("items", &self.items);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
 impl std::fmt::Debug for super::GuestOsFeature {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GuestOsFeature");
@@ -186,7 +756,19 @@ impl std::fmt::Debug for super::GuestOsFeature {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::Help {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Help");
@@ -198,7 +780,19 @@ impl std::fmt::Debug for super::Help {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::HelpLink {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HelpLink");
@@ -329,7 +923,12 @@ impl std::fmt::Debug for super::image_list::warning::Data {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
 impl std::fmt::Debug for super::InitialStateConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InitialStateConfig");
@@ -344,7 +943,1582 @@ impl std::fmt::Debug for super::InitialStateConfig {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("advanced_machine_features", &self.advanced_machine_features);
+        debug_struct.field("can_ip_forward", &self.can_ip_forward);
+        debug_struct.field(
+            "confidential_instance_config",
+            &self.confidential_instance_config,
+        );
+        debug_struct.field("cpu_platform", &self.cpu_platform);
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("deletion_protection", &self.deletion_protection);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("disks", &self.disks);
+        debug_struct.field("display_device", &self.display_device);
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("guest_accelerators", &self.guest_accelerators);
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("instance_encryption_key", &self.instance_encryption_key);
+        debug_struct.field(
+            "key_revocation_action_type",
+            &self.key_revocation_action_type,
+        );
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("label_fingerprint", &self.label_fingerprint);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("last_start_timestamp", &self.last_start_timestamp);
+        debug_struct.field("last_stop_timestamp", &self.last_stop_timestamp);
+        debug_struct.field("last_suspended_timestamp", &self.last_suspended_timestamp);
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("network_interfaces", &self.network_interfaces);
+        debug_struct.field(
+            "network_performance_config",
+            &self.network_performance_config,
+        );
+        debug_struct.field("params", &self.params);
+        debug_struct.field(
+            "private_ipv_6_google_access",
+            &self.private_ipv_6_google_access,
+        );
+        debug_struct.field("reservation_affinity", &self.reservation_affinity);
+        debug_struct.field("resource_policies", &self.resource_policies);
+        debug_struct.field("resource_status", &self.resource_status);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("scheduling", &self.scheduling);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("service_accounts", &self.service_accounts);
+        debug_struct.field("shielded_instance_config", &self.shielded_instance_config);
+        debug_struct.field(
+            "shielded_instance_integrity_policy",
+            &self.shielded_instance_integrity_policy,
+        );
+        debug_struct.field("source_machine_image", &self.source_machine_image);
+        debug_struct.field(
+            "source_machine_image_encryption_key",
+            &self.source_machine_image_encryption_key,
+        );
+        debug_struct.field("start_restricted", &self.start_restricted);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstanceAggregatedList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceAggregatedList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instance_aggregated_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instance_aggregated_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "instance-groups", feature = "region-instance-groups",))]
+impl std::fmt::Debug for super::InstanceGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroup");
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("named_ports", &self.named_ports);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("size", &self.size);
+        debug_struct.field("subnetwork", &self.subnetwork);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::InstanceGroupAggregatedList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupAggregatedList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_group_aggregated_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_group_aggregated_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::InstanceGroupList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_group_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_group_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManager {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManager");
+        debug_struct.field("all_instances_config", &self.all_instances_config);
+        debug_struct.field("auto_healing_policies", &self.auto_healing_policies);
+        debug_struct.field("base_instance_name", &self.base_instance_name);
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("current_actions", &self.current_actions);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("distribution_policy", &self.distribution_policy);
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("id", &self.id);
+        debug_struct.field(
+            "instance_flexibility_policy",
+            &self.instance_flexibility_policy,
+        );
+        debug_struct.field("instance_group", &self.instance_group);
+        debug_struct.field("instance_lifecycle_policy", &self.instance_lifecycle_policy);
+        debug_struct.field("instance_template", &self.instance_template);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field(
+            "list_managed_instances_results",
+            &self.list_managed_instances_results,
+        );
+        debug_struct.field("name", &self.name);
+        debug_struct.field("named_ports", &self.named_ports);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource_policies", &self.resource_policies);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("standby_policy", &self.standby_policy);
+        debug_struct.field("stateful_policy", &self.stateful_policy);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("target_pools", &self.target_pools);
+        debug_struct.field("target_size", &self.target_size);
+        debug_struct.field("target_stopped_size", &self.target_stopped_size);
+        debug_struct.field("target_suspended_size", &self.target_suspended_size);
+        debug_struct.field("update_policy", &self.update_policy);
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerActionsSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerActionsSummary");
+        debug_struct.field("abandoning", &self.abandoning);
+        debug_struct.field("creating", &self.creating);
+        debug_struct.field("creating_without_retries", &self.creating_without_retries);
+        debug_struct.field("deleting", &self.deleting);
+        debug_struct.field("none", &self.none);
+        debug_struct.field("recreating", &self.recreating);
+        debug_struct.field("refreshing", &self.refreshing);
+        debug_struct.field("restarting", &self.restarting);
+        debug_struct.field("resuming", &self.resuming);
+        debug_struct.field("starting", &self.starting);
+        debug_struct.field("stopping", &self.stopping);
+        debug_struct.field("suspending", &self.suspending);
+        debug_struct.field("verifying", &self.verifying);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagerAggregatedList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerAggregatedList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_manager_aggregated_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_manager_aggregated_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerAllInstancesConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerAllInstancesConfig");
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerAutoHealingPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerAutoHealingPolicy");
+        debug_struct.field("health_check", &self.health_check);
+        debug_struct.field("initial_delay_sec", &self.initial_delay_sec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerInstanceFlexibilityPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerInstanceFlexibilityPolicy");
+        debug_struct.field("instance_selections", &self.instance_selections);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerInstanceFlexibilityPolicyInstanceSelection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("InstanceGroupManagerInstanceFlexibilityPolicyInstanceSelection");
+        debug_struct.field("machine_types", &self.machine_types);
+        debug_struct.field("rank", &self.rank);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerInstanceLifecyclePolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerInstanceLifecyclePolicy");
+        debug_struct.field("default_action_on_failure", &self.default_action_on_failure);
+        debug_struct.field("force_update_on_repair", &self.force_update_on_repair);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagerList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_manager_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_manager_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::InstanceGroupManagerResizeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerResizeRequest");
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("requested_run_duration", &self.requested_run_duration);
+        debug_struct.field("resize_by", &self.resize_by);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::InstanceGroupManagerResizeRequestStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerResizeRequestStatus");
+        debug_struct.field("error", &self.error);
+        debug_struct.field("last_attempt", &self.last_attempt);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::instance_group_manager_resize_request_status::Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Error");
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::instance_group_manager_resize_request_status::error::Errors {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Errors");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("error_details", &self.error_details);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug
+    for super::instance_group_manager_resize_request_status::error::errors::ErrorDetails
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorDetails");
+        debug_struct.field("error_info", &self.error_info);
+        debug_struct.field("help", &self.help);
+        debug_struct.field("localized_message", &self.localized_message);
+        debug_struct.field("quota_info", &self.quota_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::InstanceGroupManagerResizeRequestStatusLastAttempt {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerResizeRequestStatusLastAttempt");
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::instance_group_manager_resize_request_status_last_attempt::Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Error");
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug
+    for super::instance_group_manager_resize_request_status_last_attempt::error::Errors
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Errors");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("error_details", &self.error_details);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::instance_group_manager_resize_request_status_last_attempt::error::errors::ErrorDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorDetails");
+        debug_struct.field("error_info", &self.error_info);
+        debug_struct.field("help", &self.help);
+        debug_struct.field("localized_message", &self.localized_message);
+        debug_struct.field("quota_info", &self.quota_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::InstanceGroupManagerResizeRequestsListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerResizeRequestsListResponse");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::instance_group_manager_resize_requests_list_response::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug
+    for super::instance_group_manager_resize_requests_list_response::warning::Data
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerResourcePolicies {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerResourcePolicies");
+        debug_struct.field("workload_policy", &self.workload_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerStandbyPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerStandbyPolicy");
+        debug_struct.field("initial_delay_sec", &self.initial_delay_sec);
+        debug_struct.field("mode", &self.mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerStatus");
+        debug_struct.field("all_instances_config", &self.all_instances_config);
+        debug_struct.field("autoscaler", &self.autoscaler);
+        debug_struct.field("is_stable", &self.is_stable);
+        debug_struct.field("stateful", &self.stateful);
+        debug_struct.field("version_target", &self.version_target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerStatusAllInstancesConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerStatusAllInstancesConfig");
+        debug_struct.field("current_revision", &self.current_revision);
+        debug_struct.field("effective", &self.effective);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerStatusStateful {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerStatusStateful");
+        debug_struct.field("has_stateful_config", &self.has_stateful_config);
+        debug_struct.field("per_instance_configs", &self.per_instance_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("InstanceGroupManagerStatusStatefulPerInstanceConfigs");
+        debug_struct.field("all_effective", &self.all_effective);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerStatusVersionTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerStatusVersionTarget");
+        debug_struct.field("is_reached", &self.is_reached);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerUpdatePolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerUpdatePolicy");
+        debug_struct.field(
+            "instance_redistribution_type",
+            &self.instance_redistribution_type,
+        );
+        debug_struct.field("max_surge", &self.max_surge);
+        debug_struct.field("max_unavailable", &self.max_unavailable);
+        debug_struct.field("minimal_action", &self.minimal_action);
+        debug_struct.field(
+            "most_disruptive_allowed_action",
+            &self.most_disruptive_allowed_action,
+        );
+        debug_struct.field("replacement_method", &self.replacement_method);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerVersion");
+        debug_struct.field("instance_template", &self.instance_template);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("target_size", &self.target_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersAbandonInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersAbandonInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersApplyUpdatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersApplyUpdatesRequest");
+        debug_struct.field("all_instances", &self.all_instances);
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("minimal_action", &self.minimal_action);
+        debug_struct.field(
+            "most_disruptive_allowed_action",
+            &self.most_disruptive_allowed_action,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersCreateInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersCreateInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersDeleteInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersDeleteInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field(
+            "skip_instances_on_validation_error",
+            &self.skip_instances_on_validation_error,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersDeletePerInstanceConfigsReq {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersDeletePerInstanceConfigsReq");
+        debug_struct.field("names", &self.names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersListErrorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersListErrorsResponse");
+        debug_struct.field("items", &self.items);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersListManagedInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersListManagedInstancesResponse");
+        debug_struct.field("managed_instances", &self.managed_instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersListPerInstanceConfigsResp {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersListPerInstanceConfigsResp");
+        debug_struct.field("items", &self.items);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers_list_per_instance_configs_resp::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug
+    for super::instance_group_managers_list_per_instance_configs_resp::warning::Data
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersPatchPerInstanceConfigsReq {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersPatchPerInstanceConfigsReq");
+        debug_struct.field("per_instance_configs", &self.per_instance_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersRecreateInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersRecreateInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersResumeInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersResumeInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersScopedList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersScopedList");
+        debug_struct.field("instance_group_managers", &self.instance_group_managers);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers_scoped_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers_scoped_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersSetInstanceTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersSetInstanceTemplateRequest");
+        debug_struct.field("instance_template", &self.instance_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersSetTargetPoolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersSetTargetPoolsRequest");
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("target_pools", &self.target_pools);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersStartInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersStartInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersStopInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersStopInstancesRequest");
+        debug_struct.field("force_stop", &self.force_stop);
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersSuspendInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersSuspendInstancesRequest");
+        debug_struct.field("force_suspend", &self.force_suspend);
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::InstanceGroupManagersUpdatePerInstanceConfigsReq {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagersUpdatePerInstanceConfigsReq");
+        debug_struct.field("per_instance_configs", &self.per_instance_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::InstanceGroupsAddInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupsAddInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::InstanceGroupsListInstances {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupsListInstances");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups_list_instances::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups_list_instances::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::InstanceGroupsListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupsListInstancesRequest");
+        debug_struct.field("instance_state", &self.instance_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::InstanceGroupsRemoveInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupsRemoveInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::InstanceGroupsScopedList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupsScopedList");
+        debug_struct.field("instance_groups", &self.instance_groups);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups_scoped_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups_scoped_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::InstanceGroupsSetNamedPortsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupsSetNamedPortsRequest");
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("named_ports", &self.named_ports);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstanceList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instance_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instance_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstanceListReferrers {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceListReferrers");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instance_list_referrers::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instance_list_referrers::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceManagedByIgmError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceManagedByIgmError");
+        debug_struct.field("error", &self.error);
+        debug_struct.field("instance_action_details", &self.instance_action_details);
+        debug_struct.field("timestamp", &self.timestamp);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceManagedByIgmErrorInstanceActionDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceManagedByIgmErrorInstanceActionDetails");
+        debug_struct.field("action", &self.action);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceManagedByIgmErrorManagedInstanceError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceManagedByIgmErrorManagedInstanceError");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstanceParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceParams");
+        debug_struct.field(
+            "request_valid_for_duration",
+            &self.request_valid_for_duration,
+        );
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::InstanceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceProperties");
+        debug_struct.field("advanced_machine_features", &self.advanced_machine_features);
+        debug_struct.field("can_ip_forward", &self.can_ip_forward);
+        debug_struct.field(
+            "confidential_instance_config",
+            &self.confidential_instance_config,
+        );
+        debug_struct.field("description", &self.description);
+        debug_struct.field("disks", &self.disks);
+        debug_struct.field("guest_accelerators", &self.guest_accelerators);
+        debug_struct.field(
+            "key_revocation_action_type",
+            &self.key_revocation_action_type,
+        );
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
+        debug_struct.field("network_interfaces", &self.network_interfaces);
+        debug_struct.field(
+            "network_performance_config",
+            &self.network_performance_config,
+        );
+        debug_struct.field(
+            "private_ipv_6_google_access",
+            &self.private_ipv_6_google_access,
+        );
+        debug_struct.field("reservation_affinity", &self.reservation_affinity);
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
+        debug_struct.field("resource_policies", &self.resource_policies);
+        debug_struct.field("scheduling", &self.scheduling);
+        debug_struct.field("service_accounts", &self.service_accounts);
+        debug_struct.field("shielded_instance_config", &self.shielded_instance_config);
+        debug_struct.field("tags", &self.tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstancePropertiesPatch {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancePropertiesPatch");
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::InstanceReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceReference");
+        debug_struct.field("instance", &self.instance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-templates")]
+impl std::fmt::Debug for super::InstanceTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceTemplate");
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("source_instance", &self.source_instance);
+        debug_struct.field("source_instance_params", &self.source_instance_params);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-templates")]
+impl std::fmt::Debug for super::InstanceTemplateList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceTemplateList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-templates")]
+impl std::fmt::Debug for super::instance_template_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-templates")]
+impl std::fmt::Debug for super::instance_template_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "instance-groups", feature = "region-instance-groups",))]
+impl std::fmt::Debug for super::InstanceWithNamedPorts {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceWithNamedPorts");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("named_ports", &self.named_ports);
+        debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesAddResourcePoliciesRequest");
+        debug_struct.field("resource_policies", &self.resource_policies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::InstancesBulkInsertOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstancesBulkInsertOperationMetadata");
@@ -356,12 +2530,272 @@ impl std::fmt::Debug for super::InstancesBulkInsertOperationMetadata {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesGetEffectiveFirewallsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesGetEffectiveFirewallsResponse");
+        debug_struct.field("firewall_policys", &self.firewall_policys);
+        debug_struct.field("firewalls", &self.firewalls);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("InstancesGetEffectiveFirewallsResponseEffectiveFirewallPolicy");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("packet_mirroring_rules", &self.packet_mirroring_rules);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("rules", &self.rules);
+        debug_struct.field("short_name", &self.short_name);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesRemoveResourcePoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesRemoveResourcePoliciesRequest");
+        debug_struct.field("resource_policies", &self.resource_policies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesReportHostAsFaultyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesReportHostAsFaultyRequest");
+        debug_struct.field("disruption_schedule", &self.disruption_schedule);
+        debug_struct.field("fault_reasons", &self.fault_reasons);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesReportHostAsFaultyRequestFaultReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesReportHostAsFaultyRequestFaultReason");
+        debug_struct.field("behavior", &self.behavior);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesScopedList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesScopedList");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances_scoped_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances_scoped_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesSetLabelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesSetLabelsRequest");
+        debug_struct.field("label_fingerprint", &self.label_fingerprint);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesSetMachineResourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesSetMachineResourcesRequest");
+        debug_struct.field("guest_accelerators", &self.guest_accelerators);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesSetMachineTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesSetMachineTypeRequest");
+        debug_struct.field("machine_type", &self.machine_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesSetMinCpuPlatformRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesSetMinCpuPlatformRequest");
+        debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesSetNameRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesSetNameRequest");
+        debug_struct.field("current_name", &self.current_name);
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesSetSecurityPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesSetSecurityPolicyRequest");
+        debug_struct.field("network_interfaces", &self.network_interfaces);
+        debug_struct.field("security_policy", &self.security_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesSetServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesSetServiceAccountRequest");
+        debug_struct.field("email", &self.email);
+        debug_struct.field("scopes", &self.scopes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::InstancesStartWithEncryptionKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancesStartWithEncryptionKeyRequest");
+        debug_struct.field("disks", &self.disks);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::LocalizedMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LocalizedMessage");
         debug_struct.field("locale", &self.locale);
         debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+impl std::fmt::Debug for super::LocationPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationPolicy");
+        debug_struct.field("locations", &self.locations);
+        debug_struct.field("target_shape", &self.target_shape);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+impl std::fmt::Debug for super::LocationPolicyLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationPolicyLocation");
+        debug_struct.field("constraints", &self.constraints);
+        debug_struct.field("preference", &self.preference);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+impl std::fmt::Debug for super::LocationPolicyLocationConstraints {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationPolicyLocationConstraints");
+        debug_struct.field("max_count", &self.max_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -541,7 +2975,274 @@ impl std::fmt::Debug for super::machine_types_scoped_list::warning::Data {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::ManagedInstance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedInstance");
+        debug_struct.field("current_action", &self.current_action);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("instance_health", &self.instance_health);
+        debug_struct.field("instance_status", &self.instance_status);
+        debug_struct.field("last_attempt", &self.last_attempt);
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "preserved_state_from_config",
+            &self.preserved_state_from_config,
+        );
+        debug_struct.field(
+            "preserved_state_from_policy",
+            &self.preserved_state_from_policy,
+        );
+        debug_struct.field(
+            "properties_from_flexibility_policy",
+            &self.properties_from_flexibility_policy,
+        );
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::ManagedInstanceInstanceHealth {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedInstanceInstanceHealth");
+        debug_struct.field("detailed_health_state", &self.detailed_health_state);
+        debug_struct.field("health_check", &self.health_check);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::ManagedInstanceLastAttempt {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedInstanceLastAttempt");
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::managed_instance_last_attempt::Errors {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Errors");
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::managed_instance_last_attempt::errors::Errors {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Errors");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("error_details", &self.error_details);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::managed_instance_last_attempt::errors::errors::ErrorDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorDetails");
+        debug_struct.field("error_info", &self.error_info);
+        debug_struct.field("help", &self.help);
+        debug_struct.field("localized_message", &self.localized_message);
+        debug_struct.field("quota_info", &self.quota_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::ManagedInstancePropertiesFromFlexibilityPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedInstancePropertiesFromFlexibilityPolicy");
+        debug_struct.field("machine_type", &self.machine_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::ManagedInstanceVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedInstanceVersion");
+        debug_struct.field("instance_template", &self.instance_template);
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::Metadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Metadata");
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::metadata::Items {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Items");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+))]
+impl std::fmt::Debug for super::NamedPort {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NamedPort");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("port", &self.port);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::NetworkInterface {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkInterface");
+        debug_struct.field("access_configs", &self.access_configs);
+        debug_struct.field("alias_ip_ranges", &self.alias_ip_ranges);
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field(
+            "internal_ipv_6_prefix_length",
+            &self.internal_ipv_6_prefix_length,
+        );
+        debug_struct.field("ipv_6_access_configs", &self.ipv_6_access_configs);
+        debug_struct.field("ipv_6_access_type", &self.ipv_6_access_type);
+        debug_struct.field("ipv_6_address", &self.ipv_6_address);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("network_attachment", &self.network_attachment);
+        debug_struct.field("network_ip", &self.network_ip);
+        debug_struct.field("nic_type", &self.nic_type);
+        debug_struct.field("parent_nic_name", &self.parent_nic_name);
+        debug_struct.field("queue_count", &self.queue_count);
+        debug_struct.field("stack_type", &self.stack_type);
+        debug_struct.field("subnetwork", &self.subnetwork);
+        debug_struct.field("vlan", &self.vlan);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::NetworkPerformanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkPerformanceConfig");
+        debug_struct.field(
+            "total_egress_bandwidth_tier",
+            &self.total_egress_bandwidth_tier,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::Operation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Operation");
@@ -584,7 +3285,19 @@ impl std::fmt::Debug for super::Operation {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::operation::Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Error");
@@ -596,7 +3309,19 @@ impl std::fmt::Debug for super::operation::Error {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::operation::error::Errors {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Errors");
@@ -611,7 +3336,19 @@ impl std::fmt::Debug for super::operation::error::Errors {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ErrorDetails");
@@ -626,7 +3363,19 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::operation::Warnings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Warnings");
@@ -640,7 +3389,19 @@ impl std::fmt::Debug for super::operation::Warnings {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::operation::warnings::Data {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Data");
@@ -653,7 +3414,69 @@ impl std::fmt::Debug for super::operation::warnings::Data {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+impl std::fmt::Debug for super::OperationList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+impl std::fmt::Debug for super::operation_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+impl std::fmt::Debug for super::operation_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::PerInstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PerInstanceConfig");
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("preserved_state", &self.preserved_state);
+        debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "images", feature = "instances",))]
 impl std::fmt::Debug for super::Policy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Policy");
@@ -668,7 +3491,86 @@ impl std::fmt::Debug for super::Policy {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::PreservedState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreservedState");
+        debug_struct.field("disks", &self.disks);
+        debug_struct.field("external_i_ps", &self.external_i_ps);
+        debug_struct.field("internal_i_ps", &self.internal_i_ps);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::PreservedStatePreservedDisk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreservedStatePreservedDisk");
+        debug_struct.field("auto_delete", &self.auto_delete);
+        debug_struct.field("mode", &self.mode);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::PreservedStatePreservedNetworkIp {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreservedStatePreservedNetworkIp");
+        debug_struct.field("auto_delete", &self.auto_delete);
+        debug_struct.field("ip_address", &self.ip_address);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::PreservedStatePreservedNetworkIpIpAddress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreservedStatePreservedNetworkIpIpAddress");
+        debug_struct.field("address", &self.address);
+        debug_struct.field("literal", &self.literal);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::QuotaExceededInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QuotaExceededInfo");
@@ -685,7 +3587,668 @@ impl std::fmt::Debug for super::QuotaExceededInfo {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::Reference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Reference");
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("reference_type", &self.reference_type);
+        debug_struct.field("referrer", &self.referrer);
+        debug_struct.field("target", &self.target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::RegionInstanceGroupList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::region_instance_group_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::region_instance_group_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagerDeleteInstanceConfigReq {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagerDeleteInstanceConfigReq");
+        debug_struct.field("names", &self.names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagerList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagerList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_manager_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_manager_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagerPatchInstanceConfigReq {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagerPatchInstanceConfigReq");
+        debug_struct.field("per_instance_configs", &self.per_instance_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagerUpdateInstanceConfigReq {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagerUpdateInstanceConfigReq");
+        debug_struct.field("per_instance_configs", &self.per_instance_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersAbandonInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersAbandonInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersApplyUpdatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersApplyUpdatesRequest");
+        debug_struct.field("all_instances", &self.all_instances);
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("minimal_action", &self.minimal_action);
+        debug_struct.field(
+            "most_disruptive_allowed_action",
+            &self.most_disruptive_allowed_action,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersCreateInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersCreateInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersDeleteInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersDeleteInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field(
+            "skip_instances_on_validation_error",
+            &self.skip_instances_on_validation_error,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersListErrorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersListErrorsResponse");
+        debug_struct.field("items", &self.items);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersListInstanceConfigsResp {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersListInstanceConfigsResp");
+        debug_struct.field("items", &self.items);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers_list_instance_configs_resp::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug
+    for super::region_instance_group_managers_list_instance_configs_resp::warning::Data
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersListInstancesResponse");
+        debug_struct.field("managed_instances", &self.managed_instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersRecreateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersRecreateRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersResumeInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersResumeInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersSetTargetPoolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersSetTargetPoolsRequest");
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("target_pools", &self.target_pools);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersSetTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersSetTemplateRequest");
+        debug_struct.field("instance_template", &self.instance_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersStartInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersStartInstancesRequest");
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersStopInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersStopInstancesRequest");
+        debug_struct.field("force_stop", &self.force_stop);
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagersSuspendInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupManagersSuspendInstancesRequest");
+        debug_struct.field("force_suspend", &self.force_suspend);
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::RegionInstanceGroupsListInstances {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupsListInstances");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::region_instance_groups_list_instances::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::region_instance_groups_list_instances::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::RegionInstanceGroupsListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupsListInstancesRequest");
+        debug_struct.field("instance_state", &self.instance_state);
+        debug_struct.field("port_name", &self.port_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::RegionInstanceGroupsSetNamedPortsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionInstanceGroupsSetNamedPortsRequest");
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("named_ports", &self.named_ports);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::ReservationAffinity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReservationAffinity");
+        debug_struct.field("consume_reservation_type", &self.consume_reservation_type);
+        debug_struct.field("key", &self.key);
+        debug_struct.field("values", &self.values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::ResourceStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceStatus");
+        debug_struct.field(
+            "effective_instance_metadata",
+            &self.effective_instance_metadata,
+        );
+        debug_struct.field("physical_host", &self.physical_host);
+        debug_struct.field("physical_host_topology", &self.physical_host_topology);
+        debug_struct.field("scheduling", &self.scheduling);
+        debug_struct.field("upcoming_maintenance", &self.upcoming_maintenance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::ResourceStatusEffectiveInstanceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceStatusEffectiveInstanceMetadata");
+        debug_struct.field(
+            "block_project_ssh_keys_metadata_value",
+            &self.block_project_ssh_keys_metadata_value,
+        );
+        debug_struct.field(
+            "enable_guest_attributes_metadata_value",
+            &self.enable_guest_attributes_metadata_value,
+        );
+        debug_struct.field(
+            "enable_os_inventory_metadata_value",
+            &self.enable_os_inventory_metadata_value,
+        );
+        debug_struct.field(
+            "enable_osconfig_metadata_value",
+            &self.enable_osconfig_metadata_value,
+        );
+        debug_struct.field(
+            "enable_oslogin_metadata_value",
+            &self.enable_oslogin_metadata_value,
+        );
+        debug_struct.field(
+            "serial_port_enable_metadata_value",
+            &self.serial_port_enable_metadata_value,
+        );
+        debug_struct.field(
+            "serial_port_logging_enable_metadata_value",
+            &self.serial_port_logging_enable_metadata_value,
+        );
+        debug_struct.field(
+            "vm_dns_setting_metadata_value",
+            &self.vm_dns_setting_metadata_value,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::ResourceStatusPhysicalHostTopology {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceStatusPhysicalHostTopology");
+        debug_struct.field("block", &self.block);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("subblock", &self.subblock);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::ResourceStatusScheduling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceStatusScheduling");
+        debug_struct.field("availability_domain", &self.availability_domain);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::Scheduling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Scheduling");
+        debug_struct.field("automatic_restart", &self.automatic_restart);
+        debug_struct.field("availability_domain", &self.availability_domain);
+        debug_struct.field(
+            "host_error_timeout_seconds",
+            &self.host_error_timeout_seconds,
+        );
+        debug_struct.field(
+            "instance_termination_action",
+            &self.instance_termination_action,
+        );
+        debug_struct.field(
+            "local_ssd_recovery_timeout",
+            &self.local_ssd_recovery_timeout,
+        );
+        debug_struct.field("location_hint", &self.location_hint);
+        debug_struct.field("max_run_duration", &self.max_run_duration);
+        debug_struct.field("min_node_cpus", &self.min_node_cpus);
+        debug_struct.field("node_affinities", &self.node_affinities);
+        debug_struct.field("on_host_maintenance", &self.on_host_maintenance);
+        debug_struct.field("on_instance_stop_action", &self.on_instance_stop_action);
+        debug_struct.field("preemptible", &self.preemptible);
+        debug_struct.field("provisioning_model", &self.provisioning_model);
+        debug_struct.field("skip_guest_os_shutdown", &self.skip_guest_os_shutdown);
+        debug_struct.field("termination_time", &self.termination_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::SchedulingNodeAffinity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchedulingNodeAffinity");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("operator", &self.operator);
+        debug_struct.field("values", &self.values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::SchedulingOnInstanceStopAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchedulingOnInstanceStopAction");
+        debug_struct.field("discard_local_ssd", &self.discard_local_ssd);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::Screenshot {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Screenshot");
+        debug_struct.field("contents", &self.contents);
+        debug_struct.field("kind", &self.kind);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::SerialPortOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SerialPortOutput");
+        debug_struct.field("contents", &self.contents);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next", &self.next);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("start", &self.start);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::ServiceAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceAccount");
+        debug_struct.field("email", &self.email);
+        debug_struct.field("scopes", &self.scopes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SetCommonInstanceMetadataOperationMetadata");
@@ -698,7 +4261,19 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct =
@@ -712,7 +4287,153 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadataPerLoc
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::ShieldedInstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShieldedInstanceConfig");
+        debug_struct.field(
+            "enable_integrity_monitoring",
+            &self.enable_integrity_monitoring,
+        );
+        debug_struct.field("enable_secure_boot", &self.enable_secure_boot);
+        debug_struct.field("enable_vtpm", &self.enable_vtpm);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::ShieldedInstanceIdentity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShieldedInstanceIdentity");
+        debug_struct.field("encryption_key", &self.encryption_key);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("signing_key", &self.signing_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::ShieldedInstanceIdentityEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShieldedInstanceIdentityEntry");
+        debug_struct.field("ek_cert", &self.ek_cert);
+        debug_struct.field("ek_pub", &self.ek_pub);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::ShieldedInstanceIntegrityPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShieldedInstanceIntegrityPolicy");
+        debug_struct.field("update_auto_learn_policy", &self.update_auto_learn_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-templates")]
+impl std::fmt::Debug for super::SourceInstanceParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceInstanceParams");
+        debug_struct.field("disk_configs", &self.disk_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::StatefulPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StatefulPolicy");
+        debug_struct.field("preserved_state", &self.preserved_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::StatefulPolicyPreservedState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StatefulPolicyPreservedState");
+        debug_struct.field("disks", &self.disks);
+        debug_struct.field("external_i_ps", &self.external_i_ps);
+        debug_struct.field("internal_i_ps", &self.internal_i_ps);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::StatefulPolicyPreservedStateDiskDevice {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StatefulPolicyPreservedStateDiskDevice");
+        debug_struct.field("auto_delete", &self.auto_delete);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StatefulPolicyPreservedStateNetworkIp");
+        debug_struct.field("auto_delete", &self.auto_delete);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl std::fmt::Debug for super::Status {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Status");
@@ -726,7 +4447,29 @@ impl std::fmt::Debug for super::Status {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "instances",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::Tags {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Tags");
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("items", &self.items);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "images",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-groups",
+))]
 impl std::fmt::Debug for super::TestPermissionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TestPermissionsRequest");
@@ -738,11 +4481,35 @@ impl std::fmt::Debug for super::TestPermissionsRequest {
     }
 }
 
-#[cfg(feature = "images")]
+#[cfg(any(
+    feature = "images",
+    feature = "instance-groups",
+    feature = "instances",
+    feature = "region-instance-groups",
+))]
 impl std::fmt::Debug for super::TestPermissionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TestPermissionsResponse");
         debug_struct.field("permissions", &self.permissions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::UpcomingMaintenance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpcomingMaintenance");
+        debug_struct.field("can_reschedule", &self.can_reschedule);
+        debug_struct.field("latest_window_start_time", &self.latest_window_start_time);
+        debug_struct.field("maintenance_on_shutdown", &self.maintenance_on_shutdown);
+        debug_struct.field("maintenance_reasons", &self.maintenance_reasons);
+        debug_struct.field("maintenance_status", &self.maintenance_status);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("window_end_time", &self.window_end_time);
+        debug_struct.field("window_start_time", &self.window_start_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -809,6 +4576,20 @@ impl std::fmt::Debug for super::zone_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::ZoneSetPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ZoneSetPolicyRequest");
+        debug_struct.field("bindings", &self.bindings);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("policy", &self.policy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -977,6 +4758,1468 @@ impl std::fmt::Debug for super::images::TestIamPermissionsRequest {
     }
 }
 
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::instance_group_manager_resize_requests::CancelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("resize_request", &self.resize_request);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::instance_group_manager_resize_requests::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("resize_request", &self.resize_request);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::instance_group_manager_resize_requests::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resize_request", &self.resize_request);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::instance_group_manager_resize_requests::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::instance_group_manager_resize_requests::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::AbandonInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AbandonInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::AggregatedListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AggregatedListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("include_all_scopes", &self.include_all_scopes);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("service_project_number", &self.service_project_number);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::ApplyUpdatesToInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApplyUpdatesToInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::CreateInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::DeleteInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::DeletePerInstanceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePerInstanceConfigsRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::ListErrorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListErrorsRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::ListManagedInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListManagedInstancesRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::ListPerInstanceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPerInstanceConfigsRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::PatchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::PatchPerInstanceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchPerInstanceConfigsRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::RecreateInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecreateInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::ResizeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResizeRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("size", &self.size);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::ResumeInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::SetInstanceTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetInstanceTemplateRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::SetTargetPoolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetTargetPoolsRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::StartInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::StopInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::SuspendInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SuspendInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl std::fmt::Debug for super::instance_group_managers::UpdatePerInstanceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePerInstanceConfigsRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups::AddInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddInstancesRequest");
+        debug_struct.field("instance_group", &self.instance_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups::AggregatedListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AggregatedListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("include_all_scopes", &self.include_all_scopes);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("service_project_number", &self.service_project_number);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("instance_group", &self.instance_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("instance_group", &self.instance_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups::ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_group", &self.instance_group);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups::RemoveInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveInstancesRequest");
+        debug_struct.field("instance_group", &self.instance_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups::SetNamedPortsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetNamedPortsRequest");
+        debug_struct.field("instance_group", &self.instance_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instance-groups")]
+impl std::fmt::Debug for super::instance_groups::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::AddAccessConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddAccessConfigRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("network_interface", &self.network_interface);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::AddNetworkInterfaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddNetworkInterfaceRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::AddResourcePoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddResourcePoliciesRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::AggregatedListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AggregatedListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("include_all_scopes", &self.include_all_scopes);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("service_project_number", &self.service_project_number);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::AttachDiskRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachDiskRequest");
+        debug_struct.field("force_attach", &self.force_attach);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::BulkInsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BulkInsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::DeleteAccessConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAccessConfigRequest");
+        debug_struct.field("access_config", &self.access_config);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("network_interface", &self.network_interface);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::DeleteNetworkInterfaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNetworkInterfaceRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("network_interface_name", &self.network_interface_name);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::DetachDiskRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetachDiskRequest");
+        debug_struct.field("device_name", &self.device_name);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::GetEffectiveFirewallsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEffectiveFirewallsRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("network_interface", &self.network_interface);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::GetGuestAttributesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGuestAttributesRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("query_path", &self.query_path);
+        debug_struct.field("variable_key", &self.variable_key);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::GetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
+        debug_struct.field(
+            "options_requested_policy_version",
+            &self.options_requested_policy_version,
+        );
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::GetScreenshotRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetScreenshotRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::GetSerialPortOutputRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSerialPortOutputRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("start", &self.start);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::GetShieldedInstanceIdentityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetShieldedInstanceIdentityRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("source_instance_template", &self.source_instance_template);
+        debug_struct.field("source_machine_image", &self.source_machine_image);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::ListReferrersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReferrersRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::PerformMaintenanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PerformMaintenanceRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::RemoveResourcePoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveResourcePoliciesRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::ReportHostAsFaultyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReportHostAsFaultyRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::ResetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::ResumeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SendDiagnosticInterruptRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SendDiagnosticInterruptRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetDeletionProtectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetDeletionProtectionRequest");
+        debug_struct.field("deletion_protection", &self.deletion_protection);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetDiskAutoDeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetDiskAutoDeleteRequest");
+        debug_struct.field("auto_delete", &self.auto_delete);
+        debug_struct.field("device_name", &self.device_name);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetIamPolicyRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetLabelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetLabelsRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetMachineResourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetMachineResourcesRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetMachineTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetMachineTypeRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetMetadataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetMetadataRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetMinCpuPlatformRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetMinCpuPlatformRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetNameRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetNameRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetSchedulingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetSchedulingRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetSecurityPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetSecurityPolicyRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetServiceAccountRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetShieldedInstanceIntegrityPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetShieldedInstanceIntegrityPolicyRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SetTagsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetTagsRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SimulateMaintenanceEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SimulateMaintenanceEventRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field(
+            "with_extended_notifications",
+            &self.with_extended_notifications,
+        );
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::StartRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::StartWithEncryptionKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartWithEncryptionKeyRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::StopRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopRequest");
+        debug_struct.field("discard_local_ssd", &self.discard_local_ssd);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::SuspendRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SuspendRequest");
+        debug_struct.field("discard_local_ssd", &self.discard_local_ssd);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::UpdateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("minimal_action", &self.minimal_action);
+        debug_struct.field(
+            "most_disruptive_allowed_action",
+            &self.most_disruptive_allowed_action,
+        );
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::UpdateAccessConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAccessConfigRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("network_interface", &self.network_interface);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::UpdateDisplayDeviceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDisplayDeviceRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::UpdateNetworkInterfaceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNetworkInterfaceRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("network_interface", &self.network_interface);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::UpdateShieldedInstanceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateShieldedInstanceConfigRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "machine-types")]
 impl std::fmt::Debug for super::machine_types::AggregatedListRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1020,6 +6263,659 @@ impl std::fmt::Debug for super::machine_types::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::AbandonInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AbandonInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::ApplyUpdatesToInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApplyUpdatesToInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::CreateInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::DeleteInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::DeletePerInstanceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePerInstanceConfigsRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::ListErrorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListErrorsRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::ListManagedInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListManagedInstancesRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::ListPerInstanceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPerInstanceConfigsRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::PatchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::PatchPerInstanceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchPerInstanceConfigsRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::RecreateInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecreateInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::ResizeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResizeRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("size", &self.size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::ResumeInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::SetInstanceTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetInstanceTemplateRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::SetTargetPoolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetTargetPoolsRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::StartInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::StopInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::SuspendInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SuspendInstancesRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl std::fmt::Debug for super::region_instance_group_managers::UpdatePerInstanceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePerInstanceConfigsRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::region_instance_groups::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("instance_group", &self.instance_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::region_instance_groups::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::region_instance_groups::ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_group", &self.instance_group);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::region_instance_groups::SetNamedPortsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetNamedPortsRequest");
+        debug_struct.field("instance_group", &self.instance_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl std::fmt::Debug for super::region_instance_groups::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-templates")]
+impl std::fmt::Debug for super::region_instance_templates::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("instance_template", &self.instance_template);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-templates")]
+impl std::fmt::Debug for super::region_instance_templates::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("instance_template", &self.instance_template);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-templates")]
+impl std::fmt::Debug for super::region_instance_templates::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-templates")]
+impl std::fmt::Debug for super::region_instance_templates::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instances")]
+impl std::fmt::Debug for super::region_instances::BulkInsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BulkInsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-operations")]
+impl std::fmt::Debug for super::region_operations::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-operations")]
+impl std::fmt::Debug for super::region_operations::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-operations")]
+impl std::fmt::Debug for super::region_operations::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-operations")]
+impl std::fmt::Debug for super::region_operations::WaitRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WaitRequest");
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-operations")]
+impl std::fmt::Debug for super::zone_operations::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-operations")]
+impl std::fmt::Debug for super::zone_operations::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-operations")]
+impl std::fmt::Debug for super::zone_operations::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-operations")]
+impl std::fmt::Debug for super::zone_operations::WaitRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WaitRequest");
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("project", &self.project);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

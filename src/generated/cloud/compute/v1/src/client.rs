@@ -182,6 +182,909 @@ impl Images {
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::InstanceGroupManagerResizeRequests;
+/// let client = InstanceGroupManagerResizeRequests::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `instanceGroupManagerResizeRequests` resource.
+///
+/// # Configuration
+///
+/// To configure `InstanceGroupManagerResizeRequests` use the `with_*` methods in the type returned
+/// by [builder()][InstanceGroupManagerResizeRequests::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::instance_group_manager_resize_requests::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::instance_group_manager_resize_requests::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `InstanceGroupManagerResizeRequests` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `InstanceGroupManagerResizeRequests` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instance-group-manager-resize-requests")))]
+#[derive(Clone, Debug)]
+pub struct InstanceGroupManagerResizeRequests {
+    inner: std::sync::Arc<dyn super::stub::dynamic::InstanceGroupManagerResizeRequests>,
+}
+
+#[cfg(feature = "instance-group-manager-resize-requests")]
+impl InstanceGroupManagerResizeRequests {
+    /// Returns a builder for [InstanceGroupManagerResizeRequests].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::InstanceGroupManagerResizeRequests;
+    /// let client = InstanceGroupManagerResizeRequests::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::instance_group_manager_resize_requests::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::instance_group_manager_resize_requests::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::InstanceGroupManagerResizeRequests + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::InstanceGroupManagerResizeRequests>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagerResizeRequests> {
+        super::transport::InstanceGroupManagerResizeRequests::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagerResizeRequests> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::InstanceGroupManagerResizeRequests::new)
+    }
+
+    /// Cancels the specified resize request and removes it from the queue. Cancelled resize request does no longer wait for the resources to be provisioned. Cancel is only possible for requests that are accepted in the queue.
+    pub fn cancel(&self) -> super::builder::instance_group_manager_resize_requests::Cancel {
+        super::builder::instance_group_manager_resize_requests::Cancel::new(self.inner.clone())
+    }
+
+    /// Deletes the specified, inactive resize request. Requests that are still active cannot be deleted. Deleting request does not delete instances that were provisioned previously.
+    pub fn delete(&self) -> super::builder::instance_group_manager_resize_requests::Delete {
+        super::builder::instance_group_manager_resize_requests::Delete::new(self.inner.clone())
+    }
+
+    /// Returns all of the details about the specified resize request.
+    pub fn get(&self) -> super::builder::instance_group_manager_resize_requests::Get {
+        super::builder::instance_group_manager_resize_requests::Get::new(self.inner.clone())
+    }
+
+    /// Creates a new resize request that starts provisioning VMs immediately or queues VM creation.
+    pub fn insert(&self) -> super::builder::instance_group_manager_resize_requests::Insert {
+        super::builder::instance_group_manager_resize_requests::Insert::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of resize requests that are contained in the managed instance group.
+    pub fn list(&self) -> super::builder::instance_group_manager_resize_requests::List {
+        super::builder::instance_group_manager_resize_requests::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::InstanceGroupManagers;
+/// let client = InstanceGroupManagers::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `instanceGroupManagers` resource.
+///
+/// # Configuration
+///
+/// To configure `InstanceGroupManagers` use the `with_*` methods in the type returned
+/// by [builder()][InstanceGroupManagers::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::instance_group_managers::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::instance_group_managers::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `InstanceGroupManagers` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `InstanceGroupManagers` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "instance-group-managers")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instance-group-managers")))]
+#[derive(Clone, Debug)]
+pub struct InstanceGroupManagers {
+    inner: std::sync::Arc<dyn super::stub::dynamic::InstanceGroupManagers>,
+}
+
+#[cfg(feature = "instance-group-managers")]
+impl InstanceGroupManagers {
+    /// Returns a builder for [InstanceGroupManagers].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::InstanceGroupManagers;
+    /// let client = InstanceGroupManagers::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::instance_group_managers::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::instance_group_managers::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::InstanceGroupManagers + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceGroupManagers>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagers> {
+        super::transport::InstanceGroupManagers::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InstanceGroupManagers> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::InstanceGroupManagers::new)
+    }
+
+    /// Flags the specified instances to be removed from the managed instance group. Abandoning an instance does not delete the instance, but it does remove the instance from any target pools that are applied by the managed instance group. This method reduces the targetSize of the managed instance group by the number of instances that you abandon. This operation is marked as DONE when the action is scheduled even if the instances have not yet been removed from the group. You must separately verify the status of the abandoning action with the listmanagedinstances method. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is removed or deleted. You can specify a maximum of 1000 instances with this method per request.
+    pub fn abandon_instances(&self) -> super::builder::instance_group_managers::AbandonInstances {
+        super::builder::instance_group_managers::AbandonInstances::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of managed instance groups and groups them by zone. To prevent failure, Google recommends that you set the `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::instance_group_managers::AggregatedList {
+        super::builder::instance_group_managers::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Applies changes to selected instances on the managed instance group. This method can be used to apply new overrides and/or new versions.
+    pub fn apply_updates_to_instances(
+        &self,
+    ) -> super::builder::instance_group_managers::ApplyUpdatesToInstances {
+        super::builder::instance_group_managers::ApplyUpdatesToInstances::new(self.inner.clone())
+    }
+
+    /// Creates instances with per-instance configurations in this managed instance group. Instances are created using the current instance template. The create instances operation is marked DONE if the createInstances request is successful. The underlying actions take additional time. You must separately verify the status of the creating or actions with the listmanagedinstances method.
+    pub fn create_instances(&self) -> super::builder::instance_group_managers::CreateInstances {
+        super::builder::instance_group_managers::CreateInstances::new(self.inner.clone())
+    }
+
+    /// Deletes the specified managed instance group and all of the instances in that group. Note that the instance group must not belong to a backend service. Read Deleting an instance group for more information.
+    pub fn delete(&self) -> super::builder::instance_group_managers::Delete {
+        super::builder::instance_group_managers::Delete::new(self.inner.clone())
+    }
+
+    /// Flags the specified instances in the managed instance group for immediate deletion. The instances are also removed from any target pools of which they were a member. This method reduces the targetSize of the managed instance group by the number of instances that you delete. This operation is marked as DONE when the action is scheduled even if the instances are still being deleted. You must separately verify the status of the deleting action with the listmanagedinstances method. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is removed or deleted. You can specify a maximum of 1000 instances with this method per request.
+    pub fn delete_instances(&self) -> super::builder::instance_group_managers::DeleteInstances {
+        super::builder::instance_group_managers::DeleteInstances::new(self.inner.clone())
+    }
+
+    /// Deletes selected per-instance configurations for the managed instance group.
+    pub fn delete_per_instance_configs(
+        &self,
+    ) -> super::builder::instance_group_managers::DeletePerInstanceConfigs {
+        super::builder::instance_group_managers::DeletePerInstanceConfigs::new(self.inner.clone())
+    }
+
+    /// Returns all of the details about the specified managed instance group.
+    pub fn get(&self) -> super::builder::instance_group_managers::Get {
+        super::builder::instance_group_managers::Get::new(self.inner.clone())
+    }
+
+    /// Creates a managed instance group using the information that you specify in the request. After the group is created, instances in the group are created using the specified instance template. This operation is marked as DONE when the group is created even if the instances in the group have not yet been created. You must separately verify the status of the individual instances with the listmanagedinstances method. A managed instance group can have up to 1000 VM instances per group. Please contact Cloud Support if you need an increase in this limit.
+    pub fn insert(&self) -> super::builder::instance_group_managers::Insert {
+        super::builder::instance_group_managers::Insert::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of managed instance groups that are contained within the specified project and zone.
+    pub fn list(&self) -> super::builder::instance_group_managers::List {
+        super::builder::instance_group_managers::List::new(self.inner.clone())
+    }
+
+    /// Lists all errors thrown by actions on instances for a given managed instance group. The filter and orderBy query parameters are not supported.
+    pub fn list_errors(&self) -> super::builder::instance_group_managers::ListErrors {
+        super::builder::instance_group_managers::ListErrors::new(self.inner.clone())
+    }
+
+    /// Lists all of the instances in the managed instance group. Each instance in the list has a currentAction, which indicates the action that the managed instance group is performing on the instance. For example, if the group is still creating an instance, the currentAction is CREATING. If a previous action failed, the list displays the errors for that failed action. The orderBy query parameter is not supported. The `pageToken` query parameter is supported only if the group's `listManagedInstancesResults` field is set to `PAGINATED`.
+    pub fn list_managed_instances(
+        &self,
+    ) -> super::builder::instance_group_managers::ListManagedInstances {
+        super::builder::instance_group_managers::ListManagedInstances::new(self.inner.clone())
+    }
+
+    /// Lists all of the per-instance configurations defined for the managed instance group. The orderBy query parameter is not supported.
+    pub fn list_per_instance_configs(
+        &self,
+    ) -> super::builder::instance_group_managers::ListPerInstanceConfigs {
+        super::builder::instance_group_managers::ListPerInstanceConfigs::new(self.inner.clone())
+    }
+
+    /// Updates a managed instance group using the information that you specify in the request. This operation is marked as DONE when the group is patched even if the instances in the group are still in the process of being patched. You must separately verify the status of the individual instances with the listManagedInstances method. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. If you update your group to specify a new template or instance configuration, it's possible that your intended specification for each VM in the group is different from the current state of that VM. To learn how to apply an updated configuration to the VMs in a MIG, see Updating instances in a MIG.
+    pub fn patch(&self) -> super::builder::instance_group_managers::Patch {
+        super::builder::instance_group_managers::Patch::new(self.inner.clone())
+    }
+
+    /// Inserts or patches per-instance configurations for the managed instance group. perInstanceConfig.name serves as a key used to distinguish whether to perform insert or patch.
+    pub fn patch_per_instance_configs(
+        &self,
+    ) -> super::builder::instance_group_managers::PatchPerInstanceConfigs {
+        super::builder::instance_group_managers::PatchPerInstanceConfigs::new(self.inner.clone())
+    }
+
+    /// Flags the specified VM instances in the managed instance group to be immediately recreated. Each instance is recreated using the group's current configuration. This operation is marked as DONE when the flag is set even if the instances have not yet been recreated. You must separately verify the status of each instance by checking its currentAction field; for more information, see Checking the status of managed instances. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is removed or deleted. You can specify a maximum of 1000 instances with this method per request.
+    pub fn recreate_instances(&self) -> super::builder::instance_group_managers::RecreateInstances {
+        super::builder::instance_group_managers::RecreateInstances::new(self.inner.clone())
+    }
+
+    /// Resizes the managed instance group. If you increase the size, the group creates new instances using the current instance template. If you decrease the size, the group deletes instances. The resize operation is marked DONE when the resize actions are scheduled even if the group has not yet added or deleted any instances. You must separately verify the status of the creating or deleting actions with the listmanagedinstances method. When resizing down, the instance group arbitrarily chooses the order in which VMs are deleted. The group takes into account some VM attributes when making the selection including: + The status of the VM instance. + The health of the VM instance. + The instance template version the VM is based on. + For regional managed instance groups, the location of the VM instance. This list is subject to change. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is removed or deleted.
+    pub fn resize(&self) -> super::builder::instance_group_managers::Resize {
+        super::builder::instance_group_managers::Resize::new(self.inner.clone())
+    }
+
+    /// Flags the specified instances in the managed instance group to be resumed. This method increases the targetSize and decreases the targetSuspendedSize of the managed instance group by the number of instances that you resume. The resumeInstances operation is marked DONE if the resumeInstances request is successful. The underlying actions take additional time. You must separately verify the status of the RESUMING action with the listmanagedinstances method. In this request, you can only specify instances that are suspended. For example, if an instance was previously suspended using the suspendInstances method, it can be resumed using the resumeInstances method. If a health check is attached to the managed instance group, the specified instances will be verified as healthy after they are resumed. You can specify a maximum of 1000 instances with this method per request.
+    pub fn resume_instances(&self) -> super::builder::instance_group_managers::ResumeInstances {
+        super::builder::instance_group_managers::ResumeInstances::new(self.inner.clone())
+    }
+
+    /// Specifies the instance template to use when creating new instances in this group. The templates for existing instances in the group do not change unless you run recreateInstances, run applyUpdatesToInstances, or set the group's updatePolicy.type to PROACTIVE.
+    pub fn set_instance_template(
+        &self,
+    ) -> super::builder::instance_group_managers::SetInstanceTemplate {
+        super::builder::instance_group_managers::SetInstanceTemplate::new(self.inner.clone())
+    }
+
+    /// Modifies the target pools to which all instances in this managed instance group are assigned. The target pools automatically apply to all of the instances in the managed instance group. This operation is marked DONE when you make the request even if the instances have not yet been added to their target pools. The change might take some time to apply to all of the instances in the group depending on the size of the group.
+    pub fn set_target_pools(&self) -> super::builder::instance_group_managers::SetTargetPools {
+        super::builder::instance_group_managers::SetTargetPools::new(self.inner.clone())
+    }
+
+    /// Flags the specified instances in the managed instance group to be started. This method increases the targetSize and decreases the targetStoppedSize of the managed instance group by the number of instances that you start. The startInstances operation is marked DONE if the startInstances request is successful. The underlying actions take additional time. You must separately verify the status of the STARTING action with the listmanagedinstances method. In this request, you can only specify instances that are stopped. For example, if an instance was previously stopped using the stopInstances method, it can be started using the startInstances method. If a health check is attached to the managed instance group, the specified instances will be verified as healthy after they are started. You can specify a maximum of 1000 instances with this method per request.
+    pub fn start_instances(&self) -> super::builder::instance_group_managers::StartInstances {
+        super::builder::instance_group_managers::StartInstances::new(self.inner.clone())
+    }
+
+    /// Flags the specified instances in the managed instance group to be immediately stopped. You can only specify instances that are running in this request. This method reduces the targetSize and increases the targetStoppedSize of the managed instance group by the number of instances that you stop. The stopInstances operation is marked DONE if the stopInstances request is successful. The underlying actions take additional time. You must separately verify the status of the STOPPING action with the listmanagedinstances method. If the standbyPolicy.initialDelaySec field is set, the group delays stopping the instances until initialDelaySec have passed from instance.creationTimestamp (that is, when the instance was created). This delay gives your application time to set itself up and initialize on the instance. If more than initialDelaySec seconds have passed since instance.creationTimestamp when this method is called, there will be zero delay. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is stopped. Stopped instances can be started using the startInstances method. You can specify a maximum of 1000 instances with this method per request.
+    pub fn stop_instances(&self) -> super::builder::instance_group_managers::StopInstances {
+        super::builder::instance_group_managers::StopInstances::new(self.inner.clone())
+    }
+
+    /// Flags the specified instances in the managed instance group to be immediately suspended. You can only specify instances that are running in this request. This method reduces the targetSize and increases the targetSuspendedSize of the managed instance group by the number of instances that you suspend. The suspendInstances operation is marked DONE if the suspendInstances request is successful. The underlying actions take additional time. You must separately verify the status of the SUSPENDING action with the listmanagedinstances method. If the standbyPolicy.initialDelaySec field is set, the group delays suspension of the instances until initialDelaySec have passed from instance.creationTimestamp (that is, when the instance was created). This delay gives your application time to set itself up and initialize on the instance. If more than initialDelaySec seconds have passed since instance.creationTimestamp when this method is called, there will be zero delay. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is suspended. Suspended instances can be resumed using the resumeInstances method. You can specify a maximum of 1000 instances with this method per request.
+    pub fn suspend_instances(&self) -> super::builder::instance_group_managers::SuspendInstances {
+        super::builder::instance_group_managers::SuspendInstances::new(self.inner.clone())
+    }
+
+    /// Inserts or updates per-instance configurations for the managed instance group. perInstanceConfig.name serves as a key used to distinguish whether to perform insert or patch.
+    pub fn update_per_instance_configs(
+        &self,
+    ) -> super::builder::instance_group_managers::UpdatePerInstanceConfigs {
+        super::builder::instance_group_managers::UpdatePerInstanceConfigs::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::InstanceGroups;
+/// let client = InstanceGroups::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `instanceGroups` resource.
+///
+/// # Configuration
+///
+/// To configure `InstanceGroups` use the `with_*` methods in the type returned
+/// by [builder()][InstanceGroups::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::instance_groups::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::instance_groups::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `InstanceGroups` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `InstanceGroups` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "instance-groups")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instance-groups")))]
+#[derive(Clone, Debug)]
+pub struct InstanceGroups {
+    inner: std::sync::Arc<dyn super::stub::dynamic::InstanceGroups>,
+}
+
+#[cfg(feature = "instance-groups")]
+impl InstanceGroups {
+    /// Returns a builder for [InstanceGroups].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::InstanceGroups;
+    /// let client = InstanceGroups::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::instance_groups::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::instance_groups::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::InstanceGroups + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceGroups>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InstanceGroups> {
+        super::transport::InstanceGroups::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InstanceGroups> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::InstanceGroups::new)
+    }
+
+    /// Adds a list of instances to the specified instance group. All of the instances in the instance group must be in the same network/subnetwork. Read Adding instances for more information.
+    pub fn add_instances(&self) -> super::builder::instance_groups::AddInstances {
+        super::builder::instance_groups::AddInstances::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of instance groups and sorts them by zone. To prevent failure, Google recommends that you set the `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::instance_groups::AggregatedList {
+        super::builder::instance_groups::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Deletes the specified instance group. The instances in the group are not deleted. Note that instance group must not belong to a backend service. Read Deleting an instance group for more information.
+    pub fn delete(&self) -> super::builder::instance_groups::Delete {
+        super::builder::instance_groups::Delete::new(self.inner.clone())
+    }
+
+    /// Returns the specified zonal instance group. Get a list of available zonal instance groups by making a list() request. For managed instance groups, use the instanceGroupManagers or regionInstanceGroupManagers methods instead.
+    pub fn get(&self) -> super::builder::instance_groups::Get {
+        super::builder::instance_groups::Get::new(self.inner.clone())
+    }
+
+    /// Creates an instance group in the specified project using the parameters that are included in the request.
+    pub fn insert(&self) -> super::builder::instance_groups::Insert {
+        super::builder::instance_groups::Insert::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of zonal instance group resources contained within the specified zone. For managed instance groups, use the instanceGroupManagers or regionInstanceGroupManagers methods instead.
+    pub fn list(&self) -> super::builder::instance_groups::List {
+        super::builder::instance_groups::List::new(self.inner.clone())
+    }
+
+    /// Lists the instances in the specified instance group. The orderBy query parameter is not supported. The filter query parameter is supported, but only for expressions that use `eq` (equal) or `ne` (not equal) operators.
+    pub fn list_instances(&self) -> super::builder::instance_groups::ListInstances {
+        super::builder::instance_groups::ListInstances::new(self.inner.clone())
+    }
+
+    /// Removes one or more instances from the specified instance group, but does not delete those instances. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration before the VM instance is removed or deleted.
+    pub fn remove_instances(&self) -> super::builder::instance_groups::RemoveInstances {
+        super::builder::instance_groups::RemoveInstances::new(self.inner.clone())
+    }
+
+    /// Sets the named ports for the specified instance group.
+    pub fn set_named_ports(&self) -> super::builder::instance_groups::SetNamedPorts {
+        super::builder::instance_groups::SetNamedPorts::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::instance_groups::TestIamPermissions {
+        super::builder::instance_groups::TestIamPermissions::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::Instances;
+/// let client = Instances::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `instances` resource.
+///
+/// # Configuration
+///
+/// To configure `Instances` use the `with_*` methods in the type returned
+/// by [builder()][Instances::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::instances::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::instances::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Instances` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Instances` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "instances")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instances")))]
+#[derive(Clone, Debug)]
+pub struct Instances {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Instances>,
+}
+
+#[cfg(feature = "instances")]
+impl Instances {
+    /// Returns a builder for [Instances].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::Instances;
+    /// let client = Instances::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::instances::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::instances::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Instances + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Instances>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Instances> {
+        super::transport::Instances::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Instances> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Instances::new)
+    }
+
+    /// Adds an access config to an instance's network interface.
+    pub fn add_access_config(&self) -> super::builder::instances::AddAccessConfig {
+        super::builder::instances::AddAccessConfig::new(self.inner.clone())
+    }
+
+    /// Adds one dynamic network interface to an active instance.
+    pub fn add_network_interface(&self) -> super::builder::instances::AddNetworkInterface {
+        super::builder::instances::AddNetworkInterface::new(self.inner.clone())
+    }
+
+    /// Adds existing resource policies to an instance. You can only add one policy right now which will be applied to this instance for scheduling live migrations.
+    pub fn add_resource_policies(&self) -> super::builder::instances::AddResourcePolicies {
+        super::builder::instances::AddResourcePolicies::new(self.inner.clone())
+    }
+
+    /// Retrieves an aggregated list of all of the instances in your project across all regions and zones. The performance of this method degrades when a filter is specified on a project that has a very large number of instances. To prevent failure, Google recommends that you set the `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::instances::AggregatedList {
+        super::builder::instances::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Attaches an existing Disk resource to an instance. You must first create the disk before you can attach it. It is not possible to create and attach a disk at the same time. For more information, read Adding a persistent disk to your instance.
+    pub fn attach_disk(&self) -> super::builder::instances::AttachDisk {
+        super::builder::instances::AttachDisk::new(self.inner.clone())
+    }
+
+    /// Creates multiple instances. Count specifies the number of instances to create. For more information, see About bulk creation of VMs.
+    pub fn bulk_insert(&self) -> super::builder::instances::BulkInsert {
+        super::builder::instances::BulkInsert::new(self.inner.clone())
+    }
+
+    /// Deletes the specified Instance resource. For more information, see Deleting an instance.
+    pub fn delete(&self) -> super::builder::instances::Delete {
+        super::builder::instances::Delete::new(self.inner.clone())
+    }
+
+    /// Deletes an access config from an instance's network interface.
+    pub fn delete_access_config(&self) -> super::builder::instances::DeleteAccessConfig {
+        super::builder::instances::DeleteAccessConfig::new(self.inner.clone())
+    }
+
+    /// Deletes one dynamic network interface from an active instance. InstancesDeleteNetworkInterfaceRequest indicates: - instance from which to delete, using project+zone+resource_id fields; - dynamic network interface to be deleted, using network_interface_name field;
+    pub fn delete_network_interface(&self) -> super::builder::instances::DeleteNetworkInterface {
+        super::builder::instances::DeleteNetworkInterface::new(self.inner.clone())
+    }
+
+    /// Detaches a disk from an instance.
+    pub fn detach_disk(&self) -> super::builder::instances::DetachDisk {
+        super::builder::instances::DetachDisk::new(self.inner.clone())
+    }
+
+    /// Returns the specified Instance resource.
+    pub fn get(&self) -> super::builder::instances::Get {
+        super::builder::instances::Get::new(self.inner.clone())
+    }
+
+    /// Returns effective firewalls applied to an interface of the instance.
+    pub fn get_effective_firewalls(&self) -> super::builder::instances::GetEffectiveFirewalls {
+        super::builder::instances::GetEffectiveFirewalls::new(self.inner.clone())
+    }
+
+    /// Returns the specified guest attributes entry.
+    pub fn get_guest_attributes(&self) -> super::builder::instances::GetGuestAttributes {
+        super::builder::instances::GetGuestAttributes::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. May be empty if no such policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::instances::GetIamPolicy {
+        super::builder::instances::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns the screenshot from the specified instance.
+    pub fn get_screenshot(&self) -> super::builder::instances::GetScreenshot {
+        super::builder::instances::GetScreenshot::new(self.inner.clone())
+    }
+
+    /// Returns the last 1 MB of serial port output from the specified instance.
+    pub fn get_serial_port_output(&self) -> super::builder::instances::GetSerialPortOutput {
+        super::builder::instances::GetSerialPortOutput::new(self.inner.clone())
+    }
+
+    /// Returns the Shielded Instance Identity of an instance
+    pub fn get_shielded_instance_identity(
+        &self,
+    ) -> super::builder::instances::GetShieldedInstanceIdentity {
+        super::builder::instances::GetShieldedInstanceIdentity::new(self.inner.clone())
+    }
+
+    /// Creates an instance resource in the specified project using the data included in the request.
+    pub fn insert(&self) -> super::builder::instances::Insert {
+        super::builder::instances::Insert::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of instances contained within the specified zone.
+    pub fn list(&self) -> super::builder::instances::List {
+        super::builder::instances::List::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of resources that refer to the VM instance specified in the request. For example, if the VM instance is part of a managed or unmanaged instance group, the referrers list includes the instance group. For more information, read Viewing referrers to VM instances.
+    pub fn list_referrers(&self) -> super::builder::instances::ListReferrers {
+        super::builder::instances::ListReferrers::new(self.inner.clone())
+    }
+
+    /// Perform a manual maintenance on the instance.
+    pub fn perform_maintenance(&self) -> super::builder::instances::PerformMaintenance {
+        super::builder::instances::PerformMaintenance::new(self.inner.clone())
+    }
+
+    /// Removes resource policies from an instance.
+    pub fn remove_resource_policies(&self) -> super::builder::instances::RemoveResourcePolicies {
+        super::builder::instances::RemoveResourcePolicies::new(self.inner.clone())
+    }
+
+    /// Mark the host as faulty and try to restart the instance on a new host.
+    pub fn report_host_as_faulty(&self) -> super::builder::instances::ReportHostAsFaulty {
+        super::builder::instances::ReportHostAsFaulty::new(self.inner.clone())
+    }
+
+    /// Performs a reset on the instance. This is a hard reset. The VM does not do a graceful shutdown. For more information, see Resetting an instance.
+    pub fn reset(&self) -> super::builder::instances::Reset {
+        super::builder::instances::Reset::new(self.inner.clone())
+    }
+
+    /// Resumes an instance that was suspended using the instances().suspend method.
+    pub fn resume(&self) -> super::builder::instances::Resume {
+        super::builder::instances::Resume::new(self.inner.clone())
+    }
+
+    /// Sends diagnostic interrupt to the instance.
+    pub fn send_diagnostic_interrupt(&self) -> super::builder::instances::SendDiagnosticInterrupt {
+        super::builder::instances::SendDiagnosticInterrupt::new(self.inner.clone())
+    }
+
+    /// Sets deletion protection on the instance.
+    pub fn set_deletion_protection(&self) -> super::builder::instances::SetDeletionProtection {
+        super::builder::instances::SetDeletionProtection::new(self.inner.clone())
+    }
+
+    /// Sets the auto-delete flag for a disk attached to an instance.
+    pub fn set_disk_auto_delete(&self) -> super::builder::instances::SetDiskAutoDelete {
+        super::builder::instances::SetDiskAutoDelete::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::instances::SetIamPolicy {
+        super::builder::instances::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets labels on an instance. To learn more about labels, read the Labeling Resources documentation.
+    pub fn set_labels(&self) -> super::builder::instances::SetLabels {
+        super::builder::instances::SetLabels::new(self.inner.clone())
+    }
+
+    /// Changes the number and/or type of accelerator for a stopped instance to the values specified in the request.
+    pub fn set_machine_resources(&self) -> super::builder::instances::SetMachineResources {
+        super::builder::instances::SetMachineResources::new(self.inner.clone())
+    }
+
+    /// Changes the machine type for a stopped instance to the machine type specified in the request.
+    pub fn set_machine_type(&self) -> super::builder::instances::SetMachineType {
+        super::builder::instances::SetMachineType::new(self.inner.clone())
+    }
+
+    /// Sets metadata for the specified instance to the data included in the request.
+    pub fn set_metadata(&self) -> super::builder::instances::SetMetadata {
+        super::builder::instances::SetMetadata::new(self.inner.clone())
+    }
+
+    /// Changes the minimum CPU platform that this instance should use. This method can only be called on a stopped instance. For more information, read Specifying a Minimum CPU Platform.
+    pub fn set_min_cpu_platform(&self) -> super::builder::instances::SetMinCpuPlatform {
+        super::builder::instances::SetMinCpuPlatform::new(self.inner.clone())
+    }
+
+    /// Sets name of an instance.
+    pub fn set_name(&self) -> super::builder::instances::SetName {
+        super::builder::instances::SetName::new(self.inner.clone())
+    }
+
+    /// Sets an instance's scheduling options. You can only call this method on a stopped instance, that is, a VM instance that is in a `TERMINATED` state. See Instance Life Cycle for more information on the possible instance states. For more information about setting scheduling options for a VM, see Set VM host maintenance policy.
+    pub fn set_scheduling(&self) -> super::builder::instances::SetScheduling {
+        super::builder::instances::SetScheduling::new(self.inner.clone())
+    }
+
+    /// Sets the Google Cloud Armor security policy for the specified instance. For more information, see Google Cloud Armor Overview
+    pub fn set_security_policy(&self) -> super::builder::instances::SetSecurityPolicy {
+        super::builder::instances::SetSecurityPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the service account on the instance. For more information, read Changing the service account and access scopes for an instance.
+    pub fn set_service_account(&self) -> super::builder::instances::SetServiceAccount {
+        super::builder::instances::SetServiceAccount::new(self.inner.clone())
+    }
+
+    /// Sets the Shielded Instance integrity policy for an instance. You can only use this method on a running instance. This method supports PATCH semantics and uses the JSON merge patch format and processing rules.
+    pub fn set_shielded_instance_integrity_policy(
+        &self,
+    ) -> super::builder::instances::SetShieldedInstanceIntegrityPolicy {
+        super::builder::instances::SetShieldedInstanceIntegrityPolicy::new(self.inner.clone())
+    }
+
+    /// Sets network tags for the specified instance to the data included in the request.
+    pub fn set_tags(&self) -> super::builder::instances::SetTags {
+        super::builder::instances::SetTags::new(self.inner.clone())
+    }
+
+    /// Simulates a host maintenance event on a VM. For more information, see Simulate a host maintenance event.
+    pub fn simulate_maintenance_event(
+        &self,
+    ) -> super::builder::instances::SimulateMaintenanceEvent {
+        super::builder::instances::SimulateMaintenanceEvent::new(self.inner.clone())
+    }
+
+    /// Starts an instance that was stopped using the instances().stop method. For more information, see Restart an instance.
+    pub fn start(&self) -> super::builder::instances::Start {
+        super::builder::instances::Start::new(self.inner.clone())
+    }
+
+    /// Starts an instance that was stopped using the instances().stop method. For more information, see Restart an instance.
+    pub fn start_with_encryption_key(&self) -> super::builder::instances::StartWithEncryptionKey {
+        super::builder::instances::StartWithEncryptionKey::new(self.inner.clone())
+    }
+
+    /// Stops a running instance, shutting it down cleanly, and allows you to restart the instance at a later time. Stopped instances do not incur VM usage charges while they are stopped. However, resources that the VM is using, such as persistent disks and static IP addresses, will continue to be charged until they are deleted. For more information, see Stopping an instance.
+    pub fn stop(&self) -> super::builder::instances::Stop {
+        super::builder::instances::Stop::new(self.inner.clone())
+    }
+
+    /// This method suspends a running instance, saving its state to persistent storage, and allows you to resume the instance at a later time. Suspended instances have no compute costs (cores or RAM), and incur only storage charges for the saved VM memory and localSSD data. Any charged resources the virtual machine was using, such as persistent disks and static IP addresses, will continue to be charged while the instance is suspended. For more information, see Suspending and resuming an instance.
+    pub fn suspend(&self) -> super::builder::instances::Suspend {
+        super::builder::instances::Suspend::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::instances::TestIamPermissions {
+        super::builder::instances::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Updates an instance only if the necessary resources are available. This method can update only a specific set of instance properties. See Updating a running instance for a list of updatable instance properties.
+    pub fn update(&self) -> super::builder::instances::Update {
+        super::builder::instances::Update::new(self.inner.clone())
+    }
+
+    /// Updates the specified access config from an instance's network interface with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules.
+    pub fn update_access_config(&self) -> super::builder::instances::UpdateAccessConfig {
+        super::builder::instances::UpdateAccessConfig::new(self.inner.clone())
+    }
+
+    /// Updates the Display config for a VM instance. You can only use this method on a stopped VM instance. This method supports PATCH semantics and uses the JSON merge patch format and processing rules.
+    pub fn update_display_device(&self) -> super::builder::instances::UpdateDisplayDevice {
+        super::builder::instances::UpdateDisplayDevice::new(self.inner.clone())
+    }
+
+    /// Updates an instance's network interface. This method can only update an interface's alias IP range and attached network. See Modifying alias IP ranges for an existing instance for instructions on changing alias IP ranges. See Migrating a VM between networks for instructions on migrating an interface. This method follows PATCH semantics.
+    pub fn update_network_interface(&self) -> super::builder::instances::UpdateNetworkInterface {
+        super::builder::instances::UpdateNetworkInterface::new(self.inner.clone())
+    }
+
+    /// Updates the Shielded Instance config for an instance. You can only use this method on a stopped instance. This method supports PATCH semantics and uses the JSON merge patch format and processing rules.
+    pub fn update_shielded_instance_config(
+        &self,
+    ) -> super::builder::instances::UpdateShieldedInstanceConfig {
+        super::builder::instances::UpdateShieldedInstanceConfig::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_compute_v1::client::MachineTypes;
 /// let client = MachineTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -295,6 +1198,908 @@ impl MachineTypes {
     /// Retrieves a list of machine types available to the specified project.
     pub fn list(&self) -> super::builder::machine_types::List {
         super::builder::machine_types::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
+/// let client = RegionInstanceGroupManagers::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionInstanceGroupManagers` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionInstanceGroupManagers` use the `with_*` methods in the type returned
+/// by [builder()][RegionInstanceGroupManagers::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_instance_group_managers::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_instance_group_managers::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionInstanceGroupManagers` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `RegionInstanceGroupManagers` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-instance-group-managers")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instance-group-managers")))]
+#[derive(Clone, Debug)]
+pub struct RegionInstanceGroupManagers {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionInstanceGroupManagers>,
+}
+
+#[cfg(feature = "region-instance-group-managers")]
+impl RegionInstanceGroupManagers {
+    /// Returns a builder for [RegionInstanceGroupManagers].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
+    /// let client = RegionInstanceGroupManagers::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::region_instance_group_managers::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::region_instance_group_managers::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionInstanceGroupManagers + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::RegionInstanceGroupManagers>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroupManagers> {
+        super::transport::RegionInstanceGroupManagers::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroupManagers> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionInstanceGroupManagers::new)
+    }
+
+    /// Flags the specified instances to be immediately removed from the managed instance group. Abandoning an instance does not delete the instance, but it does remove the instance from any target pools that are applied by the managed instance group. This method reduces the targetSize of the managed instance group by the number of instances that you abandon. This operation is marked as DONE when the action is scheduled even if the instances have not yet been removed from the group. You must separately verify the status of the abandoning action with the listmanagedinstances method. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is removed or deleted. You can specify a maximum of 1000 instances with this method per request.
+    pub fn abandon_instances(
+        &self,
+    ) -> super::builder::region_instance_group_managers::AbandonInstances {
+        super::builder::region_instance_group_managers::AbandonInstances::new(self.inner.clone())
+    }
+
+    /// Apply updates to selected instances the managed instance group.
+    pub fn apply_updates_to_instances(
+        &self,
+    ) -> super::builder::region_instance_group_managers::ApplyUpdatesToInstances {
+        super::builder::region_instance_group_managers::ApplyUpdatesToInstances::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Creates instances with per-instance configurations in this regional managed instance group. Instances are created using the current instance template. The create instances operation is marked DONE if the createInstances request is successful. The underlying actions take additional time. You must separately verify the status of the creating or actions with the listmanagedinstances method.
+    pub fn create_instances(
+        &self,
+    ) -> super::builder::region_instance_group_managers::CreateInstances {
+        super::builder::region_instance_group_managers::CreateInstances::new(self.inner.clone())
+    }
+
+    /// Deletes the specified managed instance group and all of the instances in that group.
+    pub fn delete(&self) -> super::builder::region_instance_group_managers::Delete {
+        super::builder::region_instance_group_managers::Delete::new(self.inner.clone())
+    }
+
+    /// Flags the specified instances in the managed instance group to be immediately deleted. The instances are also removed from any target pools of which they were a member. This method reduces the targetSize of the managed instance group by the number of instances that you delete. The deleteInstances operation is marked DONE if the deleteInstances request is successful. The underlying actions take additional time. You must separately verify the status of the deleting action with the listmanagedinstances method. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is removed or deleted. You can specify a maximum of 1000 instances with this method per request.
+    pub fn delete_instances(
+        &self,
+    ) -> super::builder::region_instance_group_managers::DeleteInstances {
+        super::builder::region_instance_group_managers::DeleteInstances::new(self.inner.clone())
+    }
+
+    /// Deletes selected per-instance configurations for the managed instance group.
+    pub fn delete_per_instance_configs(
+        &self,
+    ) -> super::builder::region_instance_group_managers::DeletePerInstanceConfigs {
+        super::builder::region_instance_group_managers::DeletePerInstanceConfigs::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Returns all of the details about the specified managed instance group.
+    pub fn get(&self) -> super::builder::region_instance_group_managers::Get {
+        super::builder::region_instance_group_managers::Get::new(self.inner.clone())
+    }
+
+    /// Creates a managed instance group using the information that you specify in the request. After the group is created, instances in the group are created using the specified instance template. This operation is marked as DONE when the group is created even if the instances in the group have not yet been created. You must separately verify the status of the individual instances with the listmanagedinstances method. A regional managed instance group can contain up to 2000 instances.
+    pub fn insert(&self) -> super::builder::region_instance_group_managers::Insert {
+        super::builder::region_instance_group_managers::Insert::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of managed instance groups that are contained within the specified region.
+    pub fn list(&self) -> super::builder::region_instance_group_managers::List {
+        super::builder::region_instance_group_managers::List::new(self.inner.clone())
+    }
+
+    /// Lists all errors thrown by actions on instances for a given regional managed instance group. The filter and orderBy query parameters are not supported.
+    pub fn list_errors(&self) -> super::builder::region_instance_group_managers::ListErrors {
+        super::builder::region_instance_group_managers::ListErrors::new(self.inner.clone())
+    }
+
+    /// Lists the instances in the managed instance group and instances that are scheduled to be created. The list includes any current actions that the group has scheduled for its instances. The orderBy query parameter is not supported. The `pageToken` query parameter is supported only if the group's `listManagedInstancesResults` field is set to `PAGINATED`.
+    pub fn list_managed_instances(
+        &self,
+    ) -> super::builder::region_instance_group_managers::ListManagedInstances {
+        super::builder::region_instance_group_managers::ListManagedInstances::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists all of the per-instance configurations defined for the managed instance group. The orderBy query parameter is not supported.
+    pub fn list_per_instance_configs(
+        &self,
+    ) -> super::builder::region_instance_group_managers::ListPerInstanceConfigs {
+        super::builder::region_instance_group_managers::ListPerInstanceConfigs::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates a managed instance group using the information that you specify in the request. This operation is marked as DONE when the group is patched even if the instances in the group are still in the process of being patched. You must separately verify the status of the individual instances with the listmanagedinstances method. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. If you update your group to specify a new template or instance configuration, it's possible that your intended specification for each VM in the group is different from the current state of that VM. To learn how to apply an updated configuration to the VMs in a MIG, see Updating instances in a MIG.
+    pub fn patch(&self) -> super::builder::region_instance_group_managers::Patch {
+        super::builder::region_instance_group_managers::Patch::new(self.inner.clone())
+    }
+
+    /// Inserts or patches per-instance configurations for the managed instance group. perInstanceConfig.name serves as a key used to distinguish whether to perform insert or patch.
+    pub fn patch_per_instance_configs(
+        &self,
+    ) -> super::builder::region_instance_group_managers::PatchPerInstanceConfigs {
+        super::builder::region_instance_group_managers::PatchPerInstanceConfigs::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Flags the specified VM instances in the managed instance group to be immediately recreated. Each instance is recreated using the group's current configuration. This operation is marked as DONE when the flag is set even if the instances have not yet been recreated. You must separately verify the status of each instance by checking its currentAction field; for more information, see Checking the status of managed instances. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is removed or deleted. You can specify a maximum of 1000 instances with this method per request.
+    pub fn recreate_instances(
+        &self,
+    ) -> super::builder::region_instance_group_managers::RecreateInstances {
+        super::builder::region_instance_group_managers::RecreateInstances::new(self.inner.clone())
+    }
+
+    /// Changes the intended size of the managed instance group. If you increase the size, the group creates new instances using the current instance template. If you decrease the size, the group deletes one or more instances. The resize operation is marked DONE if the resize request is successful. The underlying actions take additional time. You must separately verify the status of the creating or deleting actions with the listmanagedinstances method. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is removed or deleted.
+    pub fn resize(&self) -> super::builder::region_instance_group_managers::Resize {
+        super::builder::region_instance_group_managers::Resize::new(self.inner.clone())
+    }
+
+    /// Flags the specified instances in the managed instance group to be resumed. This method increases the targetSize and decreases the targetSuspendedSize of the managed instance group by the number of instances that you resume. The resumeInstances operation is marked DONE if the resumeInstances request is successful. The underlying actions take additional time. You must separately verify the status of the RESUMING action with the listmanagedinstances method. In this request, you can only specify instances that are suspended. For example, if an instance was previously suspended using the suspendInstances method, it can be resumed using the resumeInstances method. If a health check is attached to the managed instance group, the specified instances will be verified as healthy after they are resumed. You can specify a maximum of 1000 instances with this method per request.
+    pub fn resume_instances(
+        &self,
+    ) -> super::builder::region_instance_group_managers::ResumeInstances {
+        super::builder::region_instance_group_managers::ResumeInstances::new(self.inner.clone())
+    }
+
+    /// Sets the instance template to use when creating new instances or recreating instances in this group. Existing instances are not affected.
+    pub fn set_instance_template(
+        &self,
+    ) -> super::builder::region_instance_group_managers::SetInstanceTemplate {
+        super::builder::region_instance_group_managers::SetInstanceTemplate::new(self.inner.clone())
+    }
+
+    /// Modifies the target pools to which all new instances in this group are assigned. Existing instances in the group are not affected.
+    pub fn set_target_pools(
+        &self,
+    ) -> super::builder::region_instance_group_managers::SetTargetPools {
+        super::builder::region_instance_group_managers::SetTargetPools::new(self.inner.clone())
+    }
+
+    /// Flags the specified instances in the managed instance group to be started. This method increases the targetSize and decreases the targetStoppedSize of the managed instance group by the number of instances that you start. The startInstances operation is marked DONE if the startInstances request is successful. The underlying actions take additional time. You must separately verify the status of the STARTING action with the listmanagedinstances method. In this request, you can only specify instances that are stopped. For example, if an instance was previously stopped using the stopInstances method, it can be started using the startInstances method. If a health check is attached to the managed instance group, the specified instances will be verified as healthy after they are started. You can specify a maximum of 1000 instances with this method per request.
+    pub fn start_instances(
+        &self,
+    ) -> super::builder::region_instance_group_managers::StartInstances {
+        super::builder::region_instance_group_managers::StartInstances::new(self.inner.clone())
+    }
+
+    /// Flags the specified instances in the managed instance group to be immediately stopped. You can only specify instances that are running in this request. This method reduces the targetSize and increases the targetStoppedSize of the managed instance group by the number of instances that you stop. The stopInstances operation is marked DONE if the stopInstances request is successful. The underlying actions take additional time. You must separately verify the status of the STOPPING action with the listmanagedinstances method. If the standbyPolicy.initialDelaySec field is set, the group delays stopping the instances until initialDelaySec have passed from instance.creationTimestamp (that is, when the instance was created). This delay gives your application time to set itself up and initialize on the instance. If more than initialDelaySec seconds have passed since instance.creationTimestamp when this method is called, there will be zero delay. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is stopped. Stopped instances can be started using the startInstances method. You can specify a maximum of 1000 instances with this method per request.
+    pub fn stop_instances(&self) -> super::builder::region_instance_group_managers::StopInstances {
+        super::builder::region_instance_group_managers::StopInstances::new(self.inner.clone())
+    }
+
+    /// Flags the specified instances in the managed instance group to be immediately suspended. You can only specify instances that are running in this request. This method reduces the targetSize and increases the targetSuspendedSize of the managed instance group by the number of instances that you suspend. The suspendInstances operation is marked DONE if the suspendInstances request is successful. The underlying actions take additional time. You must separately verify the status of the SUSPENDING action with the listmanagedinstances method. If the standbyPolicy.initialDelaySec field is set, the group delays suspension of the instances until initialDelaySec have passed from instance.creationTimestamp (that is, when the instance was created). This delay gives your application time to set itself up and initialize on the instance. If more than initialDelaySec seconds have passed since instance.creationTimestamp when this method is called, there will be zero delay. If the group is part of a backend service that has enabled connection draining, it can take up to 60 seconds after the connection draining duration has elapsed before the VM instance is suspended. Suspended instances can be resumed using the resumeInstances method. You can specify a maximum of 1000 instances with this method per request.
+    pub fn suspend_instances(
+        &self,
+    ) -> super::builder::region_instance_group_managers::SuspendInstances {
+        super::builder::region_instance_group_managers::SuspendInstances::new(self.inner.clone())
+    }
+
+    /// Inserts or updates per-instance configurations for the managed instance group. perInstanceConfig.name serves as a key used to distinguish whether to perform insert or patch.
+    pub fn update_per_instance_configs(
+        &self,
+    ) -> super::builder::region_instance_group_managers::UpdatePerInstanceConfigs {
+        super::builder::region_instance_group_managers::UpdatePerInstanceConfigs::new(
+            self.inner.clone(),
+        )
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::RegionInstanceGroups;
+/// let client = RegionInstanceGroups::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionInstanceGroups` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionInstanceGroups` use the `with_*` methods in the type returned
+/// by [builder()][RegionInstanceGroups::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_instance_groups::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_instance_groups::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionInstanceGroups` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `RegionInstanceGroups` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-instance-groups")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instance-groups")))]
+#[derive(Clone, Debug)]
+pub struct RegionInstanceGroups {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionInstanceGroups>,
+}
+
+#[cfg(feature = "region-instance-groups")]
+impl RegionInstanceGroups {
+    /// Returns a builder for [RegionInstanceGroups].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::RegionInstanceGroups;
+    /// let client = RegionInstanceGroups::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::region_instance_groups::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::region_instance_groups::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionInstanceGroups + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionInstanceGroups>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroups> {
+        super::transport::RegionInstanceGroups::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceGroups> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionInstanceGroups::new)
+    }
+
+    /// Returns the specified instance group resource.
+    pub fn get(&self) -> super::builder::region_instance_groups::Get {
+        super::builder::region_instance_groups::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of instance group resources contained within the specified region.
+    pub fn list(&self) -> super::builder::region_instance_groups::List {
+        super::builder::region_instance_groups::List::new(self.inner.clone())
+    }
+
+    /// Lists the instances in the specified instance group and displays information about the named ports. Depending on the specified options, this method can list all instances or only the instances that are running. The orderBy query parameter is not supported.
+    pub fn list_instances(&self) -> super::builder::region_instance_groups::ListInstances {
+        super::builder::region_instance_groups::ListInstances::new(self.inner.clone())
+    }
+
+    /// Sets the named ports for the specified regional instance group.
+    pub fn set_named_ports(&self) -> super::builder::region_instance_groups::SetNamedPorts {
+        super::builder::region_instance_groups::SetNamedPorts::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::region_instance_groups::TestIamPermissions {
+        super::builder::region_instance_groups::TestIamPermissions::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::RegionInstanceTemplates;
+/// let client = RegionInstanceTemplates::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionInstanceTemplates` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionInstanceTemplates` use the `with_*` methods in the type returned
+/// by [builder()][RegionInstanceTemplates::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_instance_templates::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_instance_templates::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionInstanceTemplates` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `RegionInstanceTemplates` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-instance-templates")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instance-templates")))]
+#[derive(Clone, Debug)]
+pub struct RegionInstanceTemplates {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionInstanceTemplates>,
+}
+
+#[cfg(feature = "region-instance-templates")]
+impl RegionInstanceTemplates {
+    /// Returns a builder for [RegionInstanceTemplates].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::RegionInstanceTemplates;
+    /// let client = RegionInstanceTemplates::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::region_instance_templates::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::region_instance_templates::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionInstanceTemplates + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::RegionInstanceTemplates>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceTemplates> {
+        super::transport::RegionInstanceTemplates::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RegionInstanceTemplates> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionInstanceTemplates::new)
+    }
+
+    /// Deletes the specified instance template. Deleting an instance template is permanent and cannot be undone.
+    pub fn delete(&self) -> super::builder::region_instance_templates::Delete {
+        super::builder::region_instance_templates::Delete::new(self.inner.clone())
+    }
+
+    /// Returns the specified instance template.
+    pub fn get(&self) -> super::builder::region_instance_templates::Get {
+        super::builder::region_instance_templates::Get::new(self.inner.clone())
+    }
+
+    /// Creates an instance template in the specified project and region using the global instance template whose URL is included in the request.
+    pub fn insert(&self) -> super::builder::region_instance_templates::Insert {
+        super::builder::region_instance_templates::Insert::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of instance templates that are contained within the specified project and region.
+    pub fn list(&self) -> super::builder::region_instance_templates::List {
+        super::builder::region_instance_templates::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::RegionInstances;
+/// let client = RegionInstances::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionInstances` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionInstances` use the `with_*` methods in the type returned
+/// by [builder()][RegionInstances::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_instances::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_instances::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionInstances` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `RegionInstances` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-instances")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instances")))]
+#[derive(Clone, Debug)]
+pub struct RegionInstances {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionInstances>,
+}
+
+#[cfg(feature = "region-instances")]
+impl RegionInstances {
+    /// Returns a builder for [RegionInstances].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::RegionInstances;
+    /// let client = RegionInstances::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::region_instances::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::region_instances::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionInstances + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionInstances>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RegionInstances> {
+        super::transport::RegionInstances::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RegionInstances> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionInstances::new)
+    }
+
+    /// Creates multiple instances in a given region. Count specifies the number of instances to create.
+    pub fn bulk_insert(&self) -> super::builder::region_instances::BulkInsert {
+        super::builder::region_instances::BulkInsert::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::RegionOperations;
+/// let client = RegionOperations::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionOperations` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionOperations` use the `with_*` methods in the type returned
+/// by [builder()][RegionOperations::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_operations::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_operations::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionOperations` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `RegionOperations` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-operations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-operations")))]
+#[derive(Clone, Debug)]
+pub struct RegionOperations {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionOperations>,
+}
+
+#[cfg(feature = "region-operations")]
+impl RegionOperations {
+    /// Returns a builder for [RegionOperations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::RegionOperations;
+    /// let client = RegionOperations::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::region_operations::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::region_operations::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionOperations + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegionOperations>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RegionOperations> {
+        super::transport::RegionOperations::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::RegionOperations> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionOperations::new)
+    }
+
+    /// Deletes the specified region-specific Operations resource.
+    pub fn delete(&self) -> super::builder::region_operations::Delete {
+        super::builder::region_operations::Delete::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get(&self) -> super::builder::region_operations::Get {
+        super::builder::region_operations::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of Operation resources contained within the specified region.
+    pub fn list(&self) -> super::builder::region_operations::List {
+        super::builder::region_operations::List::new(self.inner.clone())
+    }
+
+    /// Waits for the specified Operation resource to return as `DONE` or for the request to approach the 2 minute deadline, and retrieves the specified Operation resource. This method differs from the `GET` method in that it waits for no more than the default deadline (2 minutes) and then returns the current state of the operation, which might be `DONE` or still in progress. This method is called on a best-effort basis. Specifically: - In uncommon cases, when the server is overloaded, the request might return before the default deadline is reached, or might return after zero seconds. - If the default deadline is reached, there is no guarantee that the operation is actually done when the method returns. Be prepared to retry if the operation is not `DONE`.
+    pub fn wait(&self) -> super::builder::region_operations::Wait {
+        super::builder::region_operations::Wait::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::ZoneOperations;
+/// let client = ZoneOperations::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `zoneOperations` resource.
+///
+/// # Configuration
+///
+/// To configure `ZoneOperations` use the `with_*` methods in the type returned
+/// by [builder()][ZoneOperations::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::zone_operations::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::zone_operations::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ZoneOperations` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `ZoneOperations` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "zone-operations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "zone-operations")))]
+#[derive(Clone, Debug)]
+pub struct ZoneOperations {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ZoneOperations>,
+}
+
+#[cfg(feature = "zone-operations")]
+impl ZoneOperations {
+    /// Returns a builder for [ZoneOperations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::ZoneOperations;
+    /// let client = ZoneOperations::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::zone_operations::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::zone_operations::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::ZoneOperations + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ZoneOperations>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ZoneOperations> {
+        super::transport::ZoneOperations::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ZoneOperations> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ZoneOperations::new)
+    }
+
+    /// Deletes the specified zone-specific Operations resource.
+    pub fn delete(&self) -> super::builder::zone_operations::Delete {
+        super::builder::zone_operations::Delete::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get(&self) -> super::builder::zone_operations::Get {
+        super::builder::zone_operations::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of Operation resources contained within the specified zone.
+    pub fn list(&self) -> super::builder::zone_operations::List {
+        super::builder::zone_operations::List::new(self.inner.clone())
+    }
+
+    /// Waits for the specified Operation resource to return as `DONE` or for the request to approach the 2 minute deadline, and retrieves the specified Operation resource. This method waits for no more than the 2 minutes and then returns the current state of the operation, which might be `DONE` or still in progress. This method is called on a best-effort basis. Specifically: - In uncommon cases, when the server is overloaded, the request might return before the default deadline is reached, or might return after zero seconds. - If the default deadline is reached, there is no guarantee that the operation is actually done when the method returns. Be prepared to retry if the operation is not `DONE`.
+    pub fn wait(&self) -> super::builder::zone_operations::Wait {
+        super::builder::zone_operations::Wait::new(self.inner.clone())
     }
 }
 

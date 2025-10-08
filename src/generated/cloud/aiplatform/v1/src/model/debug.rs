@@ -6963,6 +6963,7 @@ impl std::fmt::Debug for super::DeployedIndex {
         );
         debug_struct.field("reserved_ip_ranges", &self.reserved_ip_ranges);
         debug_struct.field("deployment_group", &self.deployment_group);
+        debug_struct.field("deployment_tier", &self.deployment_tier);
         debug_struct.field("psc_automation_configs", &self.psc_automation_configs);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

@@ -16307,6 +16307,9 @@ impl serde::ser::Serialize for super::DeployedIndex {
         if !self.deployment_group.is_empty() {
             state.serialize_entry("deploymentGroup", &self.deployment_group)?;
         }
+        if !wkt::internal::is_default(&self.deployment_tier) {
+            state.serialize_entry("deploymentTier", &self.deployment_tier)?;
+        }
         if !self.psc_automation_configs.is_empty() {
             state.serialize_entry("pscAutomationConfigs", &self.psc_automation_configs)?;
         }

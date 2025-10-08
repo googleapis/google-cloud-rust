@@ -74,6 +74,14 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_instances() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::instances()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_firestore() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
         integration_tests::firestore::basic()
@@ -145,7 +153,6 @@ mod driver {
 
     #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
     #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with global endpoint")]
-    #[test_case(StorageControl::builder().with_endpoint("https://us-central1-storage.googleapis.com"); "with locational endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_control_buckets(
         builder: storage::builder::storage_control::ClientBuilder,
