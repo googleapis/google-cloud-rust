@@ -145,13 +145,13 @@ Wait for the PR to be approved and merged.
 Then finish your PR in `google-cloud-rust` by running sidekick again:
 
 ```bash
-go run github.com/googleapis/librarian/cmd/sidekick@main refreshall && cargo fmt
+GOPROXY=direct go run github.com/googleapis/librarian/cmd/sidekick@main refreshall && cargo fmt
 ```
 
 Find out what is the new version of librarian:
 
 ```bash
-go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main
+GOPROXY=direct go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main
 ```
 
 Then update any references in this document and in the `.github/workflows/*`
