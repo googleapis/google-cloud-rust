@@ -87,9 +87,13 @@ resource "google_storage_bucket" "build-cache" {
   }
 }
 
-# This service account is created externally. It is used for all the builds.
+# These service account is created externally. It is used for all the builds.
 data "google_service_account" "integration-test-runner" {
   account_id = "integration-test-runner"
+}
+
+data "google_service_account" "terraform-runner" {
+  account_id = "terraform-runner"
 }
 
 # The service account will need to read tarballs uploaded by `gcloud submit`.
@@ -241,13 +245,22 @@ resource "google_cloudbuild_trigger" "post-merge" {
   include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
 }
 
+resource "google_pubsub_topic" "terraform_runner_topic" {
+  name = "terraform-runner"
+}
+
+resource "google_pubsub_subscription" "terraform_runner_sub" {
+  name  = "terraform-sub"
+  topic = google_pubsub_topic.terraform_runner_topic.name
+}
+
 resource "google_cloud_scheduler_job" "job" {
   name        = "terraform-job"
   description = "Periodically sync terraform build"
   schedule    = "0 0 1 * *" # Midnight on 1st day of the month	
 
   pubsub_target {
-    topic_name = "projects/${var.project}/topics/rust-terraform"
+    topic_name = google_pubsub_topic.terraform_runner_topic.id
     data       = base64encode("sync")
   }
 }
@@ -259,10 +272,10 @@ resource "google_cloudbuild_trigger" "pubsub-trigger" {
   filename = ".gcb/${each.key}.yaml"
   tags     = ["scheduler", "name:${each.key}"]
 
-  service_account = var.service_account
+  service_account = data.google_service_account.terraform-runner.id
 
   pubsub_config {
-    topic = "projects/${var.project}/topics/rust-terraform"
+    topic = google_pubsub_topic.terraform_runner_topic.id
   }
 
   source_to_build {
