@@ -15,6 +15,7 @@
 #![allow(dead_code)] // TODO(#3239): Remove once used in http.rs
 
 use crate::observability::attributes::*;
+use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
 use gax::options::RequestOptions;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
@@ -86,7 +87,7 @@ pub(crate) struct HttpSpanInfo {
     ///
     /// For HTTP status codes >= 400, this is the status code as a string.
     /// For network errors, use a short identifier like TIMEOUT, CONNECTION_ERROR.
-    error_type: Option<String>,
+    error_type: Option<ErrorType>,
     /// The ordinal number of times this request has been resent.
     ///
     /// None for the first attempt.
@@ -175,23 +176,23 @@ impl HttpSpanInfo {
     ) {
         match result {
             Ok(response) => {
-                self.http_response_status_code = Some(response.status().as_u16() as i64);
-                if response.status().is_success() {
+                let status = response.status();
+                self.http_response_status_code = Some(status.as_u16() as i64);
+                if status.is_success() {
                     self.otel_status = OtelStatus::Ok;
+                    self.error_type = None;
                 } else {
                     self.otel_status = OtelStatus::Error;
-                    self.error_type = Some(response.status().as_u16().to_string());
+                    // TODO(#3239): Extract reason from response headers/body if available
+                    self.error_type = Some(ErrorType::HttpError {
+                        code: status,
+                        reason: None,
+                    });
                 }
             }
             Err(err) => {
                 self.otel_status = OtelStatus::Error;
-                let name = match err {
-                    e if e.is_timeout() => "TIMEOUT",
-                    e if e.is_connect() => "CONNECTION_ERROR",
-                    e if e.is_request() => "REQUEST_ERROR",
-                    _ => "UNKNOWN",
-                };
-                self.error_type = Some(name.to_string());
+                self.error_type = Some(ErrorType::from_reqwest_error(err));
             }
         }
     }
@@ -219,6 +220,8 @@ impl HttpSpanInfo {
             { KEY_OTEL_STATUS } = self.otel_status.as_str(), // Initial state
             { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
             { otel_trace::ERROR_TYPE } = field::Empty,
+            { otel_attr::RPC_GRPC_STATUS_CODE } = field::Empty,
+            { KEY_GRPC_STATUS } = field::Empty,
         )
     }
 
@@ -229,7 +232,14 @@ impl HttpSpanInfo {
             otel_trace::HTTP_RESPONSE_STATUS_CODE,
             self.http_response_status_code,
         );
-        span.record(otel_trace::ERROR_TYPE, self.error_type.as_deref());
+        if let Some(error_type) = &self.error_type {
+            span.record(otel_trace::ERROR_TYPE, error_type.as_str());
+            span.record(
+                otel_attr::RPC_GRPC_STATUS_CODE,
+                error_type.grpc_code() as i64,
+            );
+            span.record(KEY_GRPC_STATUS, error_type.grpc_status());
+        }
     }
 }
 
@@ -239,7 +249,7 @@ mod tests {
     use crate::options::InstrumentationClientInfo;
     use gax::options::RequestOptions;
     use google_cloud_test_utils::test_layer::TestLayer;
-    use http::Method;
+    use http::{Method, StatusCode};
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
     use reqwest;
     use std::collections::HashMap;
@@ -369,7 +379,7 @@ mod tests {
         let _enter = span.enter();
         // Simulate a timeout error
         span_info.otel_status = OtelStatus::Error;
-        span_info.error_type = Some("TIMEOUT".to_string());
+        span_info.error_type = Some(ErrorType::ClientTimeout);
         span_info.record_response_attributes(&span);
 
         let expected_attributes: HashMap<String, String> = [
@@ -383,7 +393,9 @@ mod tests {
             (otel_trace::URL_SCHEME, "https"),
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
             (KEY_OTEL_STATUS, "Error"), // Updated
-            (otel_trace::ERROR_TYPE, "TIMEOUT"),
+            (otel_trace::ERROR_TYPE, "CLIENT_TIMEOUT"),
+            (otel_attr::RPC_GRPC_STATUS_CODE, "4"), // DEADLINE_EXCEEDED
+            (KEY_GRPC_STATUS, "DEADLINE_EXCEEDED"),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v.to_string()))
@@ -517,6 +529,12 @@ mod tests {
 
         assert_eq!(span_info.otel_status, OtelStatus::Error);
         assert_eq!(span_info.http_response_status_code, Some(404));
-        assert_eq!(span_info.error_type, Some("404".to_string()));
+        assert_eq!(
+            span_info.error_type,
+            Some(ErrorType::HttpError {
+                code: StatusCode::NOT_FOUND,
+                reason: None
+            })
+        );
     }
 }
