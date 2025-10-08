@@ -87,11 +87,12 @@ resource "google_storage_bucket" "build-cache" {
   }
 }
 
-# These service account is created externally. It is used for all the builds.
+# This service account is created externally. It is used for integration test builds.
 data "google_service_account" "integration-test-runner" {
   account_id = "integration-test-runner"
 }
 
+# This service account is created externally. It is used for the terraform build.
 data "google_service_account" "terraform-runner" {
   account_id = "terraform-runner"
 }
@@ -168,10 +169,6 @@ locals {
   # Add to this list if you want to have more triggers.
   builds = {
     integration = {}
-  }
-
-  pubsub_builds = {
-    terraform = {}
   }
 }
 
@@ -257,7 +254,7 @@ resource "google_pubsub_subscription" "terraform_runner_sub" {
 resource "google_cloud_scheduler_job" "job" {
   name        = "terraform-job"
   description = "Periodically sync terraform build"
-  schedule    = "0 0 1 * *" # Midnight on 1st day of the month	
+  schedule    = "0 0 * * 0" # Once a week at midnight on Sunday.
 
   pubsub_target {
     topic_name = google_pubsub_topic.terraform_runner_topic.id
@@ -266,11 +263,10 @@ resource "google_cloud_scheduler_job" "job" {
 }
 
 resource "google_cloudbuild_trigger" "pubsub-trigger" {
-  for_each = tomap(local.pubsub_builds)
   location = var.region
-  name     = "gcb-pubsub-${each.key}"
-  filename = ".gcb/${each.key}.yaml"
-  tags     = ["scheduler", "name:${each.key}"]
+  name     = "gcb-pubsub-terraform"
+  filename = ".gcb/terraform.yaml"
+  tags     = ["scheduler", "name:terraform"]
 
   service_account = data.google_service_account.terraform-runner.id
 
