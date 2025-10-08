@@ -19,6 +19,9 @@
 //! any types or functions contained within.
 
 mod aip151;
+mod discovery;
 pub use aip151::{
     Operation, new_poller, new_unit_metadata_poller, new_unit_poller, new_unit_response_poller,
 };
+
+pub use discovery::{DiscoveryOperation, new_discovery_poller};
