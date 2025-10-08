@@ -24,15 +24,112 @@ involve network calls, and do not incur billing.
 
 In this guide, you will learn:
 
-- Why the design of the `Storage` client deviates from the design of other
-  Google Cloud clients
 - How to write testable interfaces using the `Storage` client
 - How to mock reads
 - How to mock writes
+- Why the design of the `Storage` client deviates from the design of other
+  Google Cloud clients
 
 This guide is specifically for mocking the `Storage` client. For a generic
 mocking guide (which applies to the `StorageControl` client), see
 [How to write tests using a client](../mock_a_client.md).
+
+## Testable interfaces
+
+Applications that do not need to test their code can simply write all interfaces
+in terms of `Storage`. The default `T` is the real implementation of the client.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:prod-only-interface}}
+```
+
+Applications that need to test their code should write their interfaces in terms
+of the generic `T`, with the appropriate constraints.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:testable-interface}}
+```
+
+## Mocking reads
+
+This section of the guide will show you how to mock `read_object` requests.
+
+Let's say you have an application function which downloads an object and counts
+how many newlines it contains.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:count-newlines}}
+```
+
+You want to test your code against a known response from the server. You can do
+this by faking the `ReadObjectResponse`.
+
+A `ReadObjectResponse` is essentially a stream of bytes. You can create a fake
+`ReadObjectResponse` in tests by supplying a payload to
+`ReadObjectResponse::from_source`. The library accepts the same payload types as
+`Storage::write_object`.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:fake-read-object-resp}}
+```
+
+To return the fake response, you need to mock the client.
+
+This guide uses the `mockall` crate to create a mock. You can use a different
+mocking framework in your tests.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:mockall}}
+```
+
+You are then ready to write a unit test, which calls into your `count_newlines`
+function.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:test-count-lines}}
+```
+
+## Mocking writes
+
+This section of the guide will show you how to mock `write_object` requests.
+
+Let's say you have an application function which uploads an object from memory.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:upload}}
+```
+
+To test this function, you need to mock the client.
+
+This guide uses the `mockall` crate to create a mock. You can use a different
+mocking framework in your tests.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:mockall}}
+```
+
+You are then ready to write a unit test, which calls into your `upload`
+function.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:test-upload}}
+```
+
+### Details
+
+Because your function calls `send_unbuffered()`, you should use the
+corresponding `write_object_unbuffered()`.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:expect-unbuffered}}
+```
+
+Generics in `mockall::mock!` are treated as different functions. You need to
+provide the exact payload type, so the compiler knows which function to use.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../../samples/tests/storage/mocking.rs:explicit-payload-type}}
+```
 
 ## Design rationale
 
@@ -43,8 +140,9 @@ implementation of the stub trait internally. They use dynamic dispatch to
 forward requests from the client to their stub (which could be the real
 implementation or a mock).
 
-Because dynamic dispatch is used, the exact type of the stub does not need to be
-known by the compiler. The clients do not need to be templated on their stub.
+Because these clients use dynamic dispatch, the exact type of the stub does not
+need to be known by the compiler. The clients do not need to be generic on their
+stub type.
 
 ### `Storage` client
 
@@ -62,91 +160,6 @@ an extra heap allocation, plus the dynamic dispatch.
 Because we want the `Storage` client to be as performant as possible, we decided
 it was preferable to template the client on a non-`dyn`-compatible, concrete
 implementation of the stub trait.
-
-## Testable interfaces
-
-Applications that do not need to test their code can simply write all interfaces
-in terms of `Storage`. The default `T` is the real implementation of the client.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:prod-only-interface}}
-```
-
-Applications that need to test their code, should write their interfaces in
-terms of the generic `T`.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:testable-interface}}
-```
-
-## Mocking reads
-
-Let's say we have an application function which downloads an object and counts
-how many newlines it contains.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:count-newlines}}
-```
-
-We want to test our code against a known response from the server. We can do
-this by faking the `ReadObjectResponse`.
-
-A `ReadObjectResponse` is essentially a stream of bytes. You can create a fake
-`ReadObjectResponse` in tests by supplying a payload to
-`ReadObjectResponse::from_source`. The library accepts the same payload types as
-`Storage::write_object`.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:fake-read-object-resp}}
-```
-
-We define the mock as usual, using `mockall`.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:mockall}}
-```
-
-We write a unit test, which calls into our `count_newlines` function.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:test-count-lines}}
-```
-
-## Mocking writes
-
-Let's say we have an application function which uploads an object from memory.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:upload}}
-```
-
-To test this function, we define the mock as usual, using `mockall`.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:mockall}}
-```
-
-We write a unit test, which calls into our `upload` function.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:test-upload}}
-```
-
-### Details
-
-Because our function calls `send_unbuffered()`, we should use the corresponding
-`write_object_unbuffered()`.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:expect-unbuffered}}
-```
-
-Generics in `mockall::mock!` are treated as different functions. We need to
-provide the exact payload type, so the compiler knows which function to use.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/mocking.rs:explicit-payload-type}}
-```
 
 ______________________________________________________________________
 
