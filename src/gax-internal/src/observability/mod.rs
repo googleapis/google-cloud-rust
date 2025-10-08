@@ -20,4 +20,4 @@
 mod attributes;
 mod http_tracing;
 
-pub use http_tracing::HttpSpanInfo;
+pub(crate) use http_tracing::HttpSpanInfo;

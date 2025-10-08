@@ -14,8 +14,8 @@
 
 #![allow(dead_code)] // TODO(#3239): Remove once used in http.rs
 
-use crate::options::InstrumentationClientInfo;
 use crate::observability::attributes::*;
+use crate::options::InstrumentationClientInfo;
 use gax::options::RequestOptions;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use tracing::{Span, field};
@@ -28,7 +28,7 @@ use tracing::{Span, field};
 /// OpenTelemetry semantic conventions.
 /// See [OpenTelemetry Semantic Conventions for HTTP](https://opentelemetry.io/docs/specs/semconv/http/http-spans/).
 #[derive(Debug, Clone)]
-pub struct HttpSpanInfo {
+pub(crate) struct HttpSpanInfo {
     // Attributes for OpenTelemetry SDK interop
     /// The span kind for OpenTelemetry interop.
     ///
