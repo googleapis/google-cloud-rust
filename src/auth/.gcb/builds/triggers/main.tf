@@ -283,6 +283,4 @@ resource "google_cloudbuild_trigger" "pubsub-trigger" {
     ref = "refs/heads/main"
     repo_type = "GITHUB"
   }
-
-  include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
 }
