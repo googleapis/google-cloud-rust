@@ -431,7 +431,7 @@ pub(crate) mod idtoken {
         T: TokenProvider,
     {
         async fn id_token(&self) -> Result<String> {
-            self.token_provider.token().await.and_then(|t| Ok(t.token))
+            self.token_provider.token().await.map(|t| t.token)
         }
     }
 
