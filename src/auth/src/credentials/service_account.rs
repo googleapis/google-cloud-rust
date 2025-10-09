@@ -353,9 +353,41 @@ fn token_expiry_time(current_time: OffsetDateTime) -> OffsetDateTime {
 #[async_trait]
 impl TokenProvider for ServiceAccountTokenProvider {
     async fn token(&self) -> Result<Token> {
+        let expires_at = Instant::now() + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
+        let tg = ServiceAccountTokenGenerator {
+            audience: self.access_specifier.audience().cloned(),
+            scopes: self
+                .access_specifier
+                .scopes()
+                .map(|scopes| scopes.join(" ")),
+            service_account_key: self.service_account_key.clone(),
+            target_audience: None,
+        };
+
+        let token = tg.generate()?;
+
+        let token = Token {
+            token,
+            token_type: "Bearer".to_string(),
+            expires_at: Some(expires_at),
+            metadata: None,
+        };
+        Ok(token)
+    }
+}
+
+#[derive(Default, Clone)]
+struct ServiceAccountTokenGenerator {
+    service_account_key: ServiceAccountKey,
+    audience: Option<String>,
+    scopes: Option<String>,
+    target_audience: Option<String>,
+}
+
+impl ServiceAccountTokenGenerator {
+    fn generate(&self) -> Result<String> {
         let signer = self.signer(&self.service_account_key.private_key)?;
 
-        let expires_at = Instant::now() + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
         // The claims encode a unix timestamp. `std::time::Instant` has no
         // epoch, so we use `time::OffsetDateTime`, which reads system time, in
         // the implementation.
@@ -363,11 +395,9 @@ impl TokenProvider for ServiceAccountTokenProvider {
 
         let claims = JwsClaims {
             iss: self.service_account_key.client_email.clone(),
-            scope: self
-                .access_specifier
-                .scopes()
-                .map(|scopes| scopes.join(" ")),
-            aud: self.access_specifier.audience().cloned(),
+            scope: self.scopes.clone(),
+            target_audience: self.target_audience.clone(),
+            aud: self.audience.clone(),
             exp: token_expiry_time(current_time),
             iat: token_issue_time(current_time),
             typ: None,
@@ -390,17 +420,9 @@ impl TokenProvider for ServiceAccountTokenProvider {
             &BASE64_URL_SAFE_NO_PAD.encode(sig)
         );
 
-        let token = Token {
-            token,
-            token_type: "Bearer".to_string(),
-            expires_at: Some(expires_at),
-            metadata: None,
-        };
         Ok(token)
     }
-}
 
-impl ServiceAccountTokenProvider {
     // Creates a signer using the private key stored in the service account file.
     fn signer(&self, private_key: &String) -> Result<Box<dyn Signer>> {
         let key_provider = CryptoProvider::get_default().map_or_else(
@@ -439,6 +461,146 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&token, &self.quota_project_id)
+    }
+}
+
+pub(crate) mod idtoken {
+    use std::sync::Arc;
+
+    use async_trait::async_trait;
+    use gax::error::CredentialsError;
+    use reqwest::Client;
+    use serde_json::Value;
+
+    use crate::Result;
+    use crate::build_errors::Error as BuilderError;
+    use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
+    use crate::credentials::idtoken::dynamic::IDTokenCredentialsProvider;
+    use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
+    use crate::token::{Token, TokenProvider};
+    use crate::{BuildResult, credentials::idtoken::IDTokenCredentials};
+
+    #[derive(Debug)]
+    struct ServiceAccountCredentials<T>
+    where
+        T: TokenProvider,
+    {
+        token_provider: T,
+    }
+
+    #[async_trait]
+    impl<T> IDTokenCredentialsProvider for ServiceAccountCredentials<T>
+    where
+        T: TokenProvider,
+    {
+        async fn id_token(&self) -> Result<Token> {
+            self.token_provider.token().await
+        }
+    }
+
+    #[derive(Debug)]
+    struct ServiceAccountTokenProvider {
+        service_account_key: ServiceAccountKey,
+        audience: Option<String>,
+        target_audience: String,
+    }
+
+    #[async_trait]
+    impl TokenProvider for ServiceAccountTokenProvider {
+        async fn token(&self) -> Result<Token> {
+            let audience = self.audience.clone();
+            let target_audience = Some(self.target_audience.clone());
+            let service_account_key = self.service_account_key.clone();
+            let tg = ServiceAccountTokenGenerator {
+                audience: audience.or(Some(OAUTH2_TOKEN_SERVER_URL.to_string())),
+                service_account_key,
+                target_audience,
+                scopes: None,
+            };
+            let assertion = tg.generate()?;
+
+            let client = Client::new();
+            let request = client
+                .post(OAUTH2_TOKEN_SERVER_URL.to_string())
+                .form(&[
+                    ("grant_type", JWT_BEARER_GRANT_TYPE.to_string()),
+                    ("assertion", assertion)
+                ]);
+
+            let response = request
+                .send()
+                .await
+                .map_err(|e| crate::errors::from_http_error(e, "failed to exchange id token"))?;
+
+            if !response.status().is_success() {
+                let err =
+                    crate::errors::from_http_response(response, "failed to fetch id token").await;
+                return Err(err);
+            }
+
+            let token = response
+                .text()
+                .await
+                .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+
+            Ok(Token {
+                token,
+                token_type: "Bearer".to_string(),                
+                expires_at: None,
+                metadata: None,
+            })
+        }
+    }
+
+    pub(crate) struct Builder {
+        service_account_key: Value,
+        target_audience: Option<String>,
+    }
+
+    /// Creates [`IDTokenCredentials`] instances that fetch ID tokens using
+    /// service accounts.
+    impl Builder {
+        pub fn new(service_account_key: Value) -> Self {
+            Self {
+                service_account_key,
+                target_audience: None,
+            }
+        }
+
+        pub fn with_target_audience<S: Into<String>>(mut self, target_audience: S) -> Self {
+            self.target_audience = Some(target_audience.into());
+            self
+        }
+
+        fn build_token_provider(
+            self,
+            target_audience: String,
+        ) -> BuildResult<ServiceAccountTokenProvider> {
+            let service_account_key =
+                serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
+                    .map_err(BuilderError::parsing)?;
+            Ok(ServiceAccountTokenProvider {
+                service_account_key,
+                audience: Some(OAUTH2_TOKEN_SERVER_URL.to_string()),
+                target_audience,
+            })
+        }
+
+        /// Returns an [`IDTokenCredentials`] instance with the configured
+        /// settings.
+        pub fn build(self) -> BuildResult<IDTokenCredentials> {
+            // TODO(#3449): also check for scopes
+            let target_audience = self
+                .target_audience
+                .clone()
+                .ok_or_else(|| BuilderError::missing_field("audience"))?;
+            let creds = ServiceAccountCredentials {
+                token_provider: self.build_token_provider(target_audience)?,
+            };
+            Ok(IDTokenCredentials {
+                inner: Arc::new(creds),
+            })
+        }
     }
 }
 
@@ -711,8 +873,12 @@ mod tests {
     #[test]
     fn signer_failure() -> TestResult {
         let tp = Builder::new(get_mock_service_key()).build_token_provider()?;
+        let tg = ServiceAccountTokenGenerator {
+            service_account_key: tp.service_account_key.clone(),
+            ..Default::default()
+        };
 
-        let signer = tp.signer(&tp.service_account_key.private_key);
+        let signer = tg.signer(&tg.service_account_key.private_key);
         let expected_error_message = "missing PEM section in service account key";
         assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
@@ -725,8 +891,9 @@ mod tests {
             Item::Crl(Vec::new().into()) // Example unsupported key type
         );
 
-        let error =
-            ServiceAccountTokenProvider::unexpected_private_key_error(Item::Crl(Vec::new().into()));
+        let error = ServiceAccountTokenGenerator::unexpected_private_key_error(Item::Crl(
+            Vec::new().into(),
+        ));
         assert!(error.to_string().contains(&expected_message));
         Ok(())
     }
