@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod storage {
+    pub mod mocking;
     pub mod queue;
     pub mod quickstart;
     pub mod rewrite_object;
