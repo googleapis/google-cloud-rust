@@ -20,7 +20,7 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::future::Future;
 use std::sync::Arc;
-use std::time::Duration;
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use tokio::time::Instant;
 
 /// Obtain [OIDC ID Tokens].
@@ -110,21 +110,24 @@ pub(crate) fn parse_id_token_from_str(token: String) -> Result<Token> {
     let claims: HashMap<String, Value> =
         serde_json::from_slice(&payload).map_err(|e| CredentialsError::from_source(false, e))?;
 
-    let expires_at = claims["exp"]
-        .as_u64()
-        .map(|d| Instant::now() + Duration::from_secs(d)); // TODO: this is wrong, how to create an Instant from a seconds since epoch ?
-
-    let values = claims.into_iter().map(|(k, v)| {
-        let value = v.as_str().map(|v| v.to_string()).unwrap_or(v.to_string());
-        (k, value)
-    });
+    let expires_at = claims["exp"].as_u64().and_then(instant_from_epoch_seconds);
 
     Ok(Token {
         token,
         token_type: "Bearer".to_string(),
         expires_at,
-        metadata: Some(HashMap::from_iter(values)),
+        metadata: None,
     })
+}
+
+fn instant_from_epoch_seconds(secs: u64) -> Option<Instant> {
+    match SystemTime::now().duration_since(UNIX_EPOCH) {
+        Ok(now) => {
+            let diff = now.abs_diff(Duration::from_secs(secs));
+            Some(Instant::now() + diff)
+        }
+        Err(_) => None,
+    }
 }
 
 #[cfg(test)]
@@ -137,10 +140,12 @@ pub(crate) mod tests {
 
     type TestResult = anyhow::Result<()>;
 
+    const DEFAULT_TEST_TOKEN_EXPIRATION: Duration = Duration::from_secs(3600);
+
     /// Function to be used in tests to generate a fake, but valid enough, id token.
     pub(crate) fn generate_test_id_token<S: Into<String>>(audience: S) -> String {
         let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        let then = now + Duration::from_secs(3600);
+        let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
         let claims = serde_json::json!({
             "iss": "test_iss".to_string(),
             "aud": Some(audience.into()),
@@ -165,10 +170,12 @@ pub(crate) mod tests {
         assert_eq!(token.token, id_token);
         assert!(token.expires_at.is_some());
 
-        let metadata = token.metadata.expect("should parse claims as metadata");
-        assert_eq!(metadata["aud"], audience);
-
-        // TODO: check parsed expires_at
+        let expires_at = token.expires_at.unwrap();
+        let now = Instant::now();
+        let skew = Duration::from_secs(1);
+        let duration = expires_at.duration_since(now);
+        assert!(duration > DEFAULT_TEST_TOKEN_EXPIRATION - skew);
+        assert!(duration < DEFAULT_TEST_TOKEN_EXPIRATION + skew);
 
         Ok(())
     }

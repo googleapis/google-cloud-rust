@@ -1265,32 +1265,4 @@ mod tests {
 
         Ok(())
     }
-
-    #[tokio::test]
-    #[parallel]
-    async fn test_idtoken_parsing() -> TestResult {
-        let server = Server::run();
-        let audience = "test-audience";
-        let token_string = generate_test_id_token(audience);
-        server.expect(
-            Expectation::matching(all_of![
-                request::path(format!("{MDS_DEFAULT_URI}/identity")),
-                request::query(url_decoded(contains(("audience", audience))))
-            ])
-            .respond_with(status_code(200).body(token_string.clone())),
-        );
-
-        let creds = idtoken::Builder::new(audience)
-            .with_endpoint(format!("http://{}", server.addr()))
-            .build()?;
-
-        let token = creds.id_token().await?;
-        assert_eq!(token.token, token_string);
-
-        let metadata = token.metadata.expect("metadata missing from token");
-
-        assert_eq!(metadata["aud"], audience);
-
-        Ok(())
-    }
 }
