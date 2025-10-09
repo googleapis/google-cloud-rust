@@ -18,6 +18,7 @@
 //! tracing spans and metrics.
 
 mod attributes;
+mod errors;
 mod http_tracing;
 
 pub(crate) use http_tracing::HttpSpanInfo;
