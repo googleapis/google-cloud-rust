@@ -427,7 +427,9 @@ async fn get_api_key_and_project() -> anyhow::Result<(String, SecretPayload)> {
     get_secret_and_project_from_mds("test-api-key").await
 }
 
-async fn get_secret_and_project_from_mds(secret_name: &str) -> anyhow::Result<(String, SecretPayload)> {
+async fn get_secret_and_project_from_mds(
+    secret_name: &str,
+) -> anyhow::Result<(String, SecretPayload)> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
 
     // Create a SecretManager client. When running on GCB, this loads MDS
@@ -442,9 +444,8 @@ async fn get_secret_and_project_from_mds(secret_name: &str) -> anyhow::Result<(S
         ))
         .send()
         .await?;
-    let payload = response
-        .payload
-        .expect(format!("missing payload in {secret_name} response").as_str());
+    let err_msg = format!("missing payload in {secret_name} response");
+    let payload = response.payload.expect(err_msg.as_str());
 
     Ok((project, payload))
 }

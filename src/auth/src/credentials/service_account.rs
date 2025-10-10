@@ -493,8 +493,8 @@ pub(crate) mod idtoken {
     where
         T: TokenProvider,
     {
-        async fn id_token(&self) -> Result<Token> {
-            self.token_provider.token().await
+        async fn id_token(&self) -> Result<String> {
+            self.token_provider.token().await.map(|token| token.token)
         }
     }
 
@@ -520,12 +520,10 @@ pub(crate) mod idtoken {
             let assertion = tg.generate()?;
 
             let client = Client::new();
-            let request = client
-                .post(OAUTH2_TOKEN_SERVER_URL.to_string())
-                .form(&[
-                    ("grant_type", JWT_BEARER_GRANT_TYPE.to_string()),
-                    ("assertion", assertion)
-                ]);
+            let request = client.post(OAUTH2_TOKEN_SERVER_URL.to_string()).form(&[
+                ("grant_type", JWT_BEARER_GRANT_TYPE.to_string()),
+                ("assertion", assertion),
+            ]);
 
             let response = request
                 .send()
@@ -545,7 +543,7 @@ pub(crate) mod idtoken {
 
             Ok(Token {
                 token,
-                token_type: "Bearer".to_string(),                
+                token_type: "Bearer".to_string(),
                 expires_at: None,
                 metadata: None,
             })
