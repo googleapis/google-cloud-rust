@@ -13,13 +13,14 @@
 // limitations under the License.
 
 use crate::Result;
-use compute::client::{Images, Instances, MachineTypes, ZoneOperations, Zones};
+use compute::client::{Images, Instances, MachineTypes, Zones};
 use compute::model::{
     AttachedDisk, AttachedDiskInitializeParams, Duration as ComputeDuration, Instance,
-    NetworkInterface, Scheduling, ServiceAccount, operation::Status,
-    scheduling::InstanceTerminationAction, scheduling::ProvisioningModel,
+    NetworkInterface, Scheduling, ServiceAccount, scheduling::InstanceTerminationAction,
+    scheduling::ProvisioningModel,
 };
 use gax::paginator::ItemPaginator as _;
+use lro::Poller;
 
 pub async fn zones() -> Result<()> {
     let client = Zones::builder().with_tracing().build().await?;
@@ -210,7 +211,6 @@ pub async fn images() -> Result<()> {
 
 pub async fn instances() -> Result<()> {
     let client = Instances::builder().with_tracing().build().await?;
-    let operations = ZoneOperations::builder().with_tracing().build().await?;
     let project_id = crate::project_id()?;
     let service_account = crate::test_service_account()?;
     let zone_id = crate::zone_id();
@@ -240,36 +240,15 @@ pub async fn instances() -> Result<()> {
     );
 
     tracing::info!("Starting new instance.");
-    let mut operation = client
+    let operation = client
         .insert()
         .set_project(&project_id)
         .set_zone(&zone_id)
         .set_body(body)
-        .send()
+        .poller()
+        .until_done()
         .await?;
-
-    while operation.status.as_ref().is_none_or(|s| *s != Status::Done) {
-        if let Some(err) = operation.error {
-            return Err(anyhow::Error::msg(format!("{err:?}")));
-        }
-        tracing::info!("Waiting for new instance operation: {operation:?}");
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-        operation = operations
-            .get()
-            .set_project(&project_id)
-            .set_zone(&zone_id)
-            .set_operation(operation.name.unwrap_or_default())
-            .send()
-            .await?;
-    }
     tracing::info!("Operation completed with = {operation:?}");
-
-    if let Some(err) = operation.error {
-        tracing::error!("Operation failed: {err:?}");
-        return Err(anyhow::Error::msg(format!(
-            "instance creation failed - {err:?}"
-        )));
-    }
 
     tracing::info!("Getting instance details.");
     let instance = client
