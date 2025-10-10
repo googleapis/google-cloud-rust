@@ -118,7 +118,7 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if a unsupported credential type is provided
+    /// Returns a [BuilderError] if a unsupported credential type is provided
     /// or if the JSON value is either malformed
     /// or missing required fields. For more information, on how to generate
     /// json, consult the relevant section in the [application-default credentials] guide.
