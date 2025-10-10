@@ -397,8 +397,7 @@ impl TokenProvider for MDSAccessTokenProvider {
     }
 }
 
-#[allow(dead_code)]
-pub(crate) mod idtoken {
+pub mod idtoken {
     //! Types for fetching ID tokens from the metadata service.
     use std::sync::Arc;
 
