@@ -31,6 +31,8 @@
 //!
 //! # Available Clients
 //!
+//! * [GlobalOperations](client/struct.GlobalOperations.html)
+//! * [GlobalOrganizationOperations](client/struct.GlobalOrganizationOperations.html)
 //! * [Images](client/struct.Images.html)
 //! * [InstanceGroupManagerResizeRequests](client/struct.InstanceGroupManagerResizeRequests.html)
 //! * [InstanceGroupManagers](client/struct.InstanceGroupManagers.html)
@@ -73,6 +75,8 @@ pub(crate) mod transport;
 
 /// The default host used by the service.
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -90,6 +94,8 @@ pub(crate) mod transport;
 const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
