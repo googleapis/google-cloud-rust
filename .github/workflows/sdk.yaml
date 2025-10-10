@@ -24,6 +24,8 @@ on:
 env:
   GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.90", "rust:nightly": "nightly" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.25.0" }'
+  UNSTABLE_FLAGS: '--cfg google_cloud_unstable_tracing'
+
 jobs:
   build:
     strategy:
@@ -41,6 +43,8 @@ jobs:
           path: |
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Set RUSTFLAGS for the job
+        run: echo "RUSTFLAGS=${{ env.UNSTABLE_FLAGS }}" >> $GITHUB_ENV
       - name: Setup Rust ${{ matrix.rust-version }}
         run: rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
       - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
@@ -64,6 +68,7 @@ jobs:
       matrix:
         os: ['ubuntu-24.04']
         rust-version: ['rust:current']
+        stability: ['stable', 'unstable']
     runs-on: ${{ matrix.os }}
     env:
       RUSTDOCFLAGS: "-D warnings"
@@ -73,7 +78,9 @@ jobs:
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}-${{ matrix.stability }}
+      - name: Set RUSTFLAGS for the job
+        run: echo "RUSTFLAGS=${{ matrix.stability == 'unstable' && env.UNSTABLE_FLAGS || '' }}" >> $GITHUB_ENV
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
@@ -168,6 +175,8 @@ jobs:
           path: |
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Set RUSTFLAGS for the job
+        run: echo "RUSTFLAGS=${{ env.UNSTABLE_FLAGS }}" >> $GITHUB_ENV
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
@@ -197,6 +206,8 @@ jobs:
           path: |
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Set RUSTFLAGS for the job
+        run: echo "RUSTFLAGS=${{ env.UNSTABLE_FLAGS }}" >> $GITHUB_ENV
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
@@ -320,13 +331,16 @@ jobs:
       matrix:
         rust-version: ['rust:current']
         go-version: ['go:current']
+        stability: ['stable', 'unstable']
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}-${{ matrix.stability }}
+      - name: Set RUSTFLAGS for the job
+        run: echo "RUSTFLAGS=${{ matrix.stability == 'unstable' && env.UNSTABLE_FLAGS || '' }}" >> $GITHUB_ENV
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
@@ -390,13 +404,19 @@ jobs:
     strategy:
       matrix:
         rust-version: ['rust:current', 'rust:nightly']
+        stability: ['stable']
+        include:
+          - rust-version: ['rust:current']
+            stability: ['unstable']
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}-${{ matrix.stability }}
+      - name: Set RUSTFLAGS for the job
+        run: echo "RUSTFLAGS=${{ matrix.stability == 'unstable' && env.UNSTABLE_FLAGS || '' }}" >> $GITHUB_ENV
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
@@ -420,7 +440,7 @@ jobs:
       - run: mdbook build guide
       - run: mdbook test guide
       - name: Upload user guide
-        if: matrix.rust-version == 'rust:current'
+        if: matrix.rust-version == 'rust:current' && matrix.stability == 'stable'
         id: deployment
         uses: actions/upload-pages-artifact@v4 # or specific "vX.X.X" version tag for this action
         with:
@@ -447,13 +467,16 @@ jobs:
     strategy:
       matrix:
         rust-version: ['rust:current']
+        stability: ['stable', 'unstable']
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}-${{ matrix.stability }}
+      - name: Set RUSTFLAGS for the job
+        run: echo "RUSTFLAGS=${{ matrix.stability == 'unstable' && env.UNSTABLE_FLAGS || '' }}" >> $GITHUB_ENV
       - name: Setup Rust ${{ matrix.rust-version }}
         run: |
           set -e
