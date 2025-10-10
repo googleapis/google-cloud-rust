@@ -26,6 +26,122 @@
 
 pub(crate) mod dynamic;
 
+/// Defines the trait used to implement [super::client::GlobalOperations].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::GlobalOperations`.  In other use-cases, application developers only
+/// use `client::GlobalOperations` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "global-operations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "global-operations")))]
+pub trait GlobalOperations: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::GlobalOperations::aggregated_list].
+    fn aggregated_list(
+        &self,
+        _req: crate::model::global_operations::AggregatedListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OperationAggregatedList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GlobalOperations::delete].
+    fn delete(
+        &self,
+        _req: crate::model::global_operations::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GlobalOperations::get].
+    fn get(
+        &self,
+        _req: crate::model::global_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GlobalOperations::list].
+    fn list(
+        &self,
+        _req: crate::model::global_operations::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OperationList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GlobalOperations::wait].
+    fn wait(
+        &self,
+        _req: crate::model::global_operations::WaitRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::GlobalOrganizationOperations].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::GlobalOrganizationOperations`.  In other use-cases, application developers only
+/// use `client::GlobalOrganizationOperations` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "global-organization-operations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "global-organization-operations")))]
+pub trait GlobalOrganizationOperations: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::GlobalOrganizationOperations::delete].
+    fn delete(
+        &self,
+        _req: crate::model::global_organization_operations::DeleteRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GlobalOrganizationOperations::get].
+    fn get(
+        &self,
+        _req: crate::model::global_organization_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GlobalOrganizationOperations::list].
+    fn list(
+        &self,
+        _req: crate::model::global_organization_operations::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OperationList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::Images].
 ///
 /// Application developers may need to implement this trait to mock

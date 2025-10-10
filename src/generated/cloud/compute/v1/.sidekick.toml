@@ -20,6 +20,8 @@ service-config       = 'google/cloud/compute/v1/compute_v1.yaml'
 [source]
 roots = 'discovery,googleapis'
 included-ids = """\
+    .google.cloud.compute.v1.globalOperations,\
+    .google.cloud.compute.v1.globalOrganizationOperations,\
     .google.cloud.compute.v1.images,\
     .google.cloud.compute.v1.instanceGroupManagerResizeRequests,\
     .google.cloud.compute.v1.instanceGroupManagers,\

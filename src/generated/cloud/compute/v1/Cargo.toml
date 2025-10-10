@@ -28,6 +28,8 @@ rust-version.workspace = true
 
 [features]
 default = [
+    "global-operations",
+    "global-organization-operations",
     "images",
     "instance-group-manager-resize-requests",
     "instance-group-managers",
@@ -42,6 +44,10 @@ default = [
     "zone-operations",
     "zones",
 ]
+# Enables `client::GlobalOperations` and all the types it depends on.
+global-operations = []
+# Enables `client::GlobalOrganizationOperations` and all the types it depends on.
+global-organization-operations = []
 # Enables `client::Images` and all the types it depends on.
 images = []
 # Enables `client::InstanceGroupManagerResizeRequests` and all the types it depends on.
