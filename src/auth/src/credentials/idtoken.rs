@@ -93,29 +93,27 @@ pub(crate) mod dynamic {
 }
 
 pub(crate) struct Builder {
-    target_audience: Option<String>,
+    target_audience: String,
 }
 
-impl Default for Builder {
+impl Builder {
     /// Creates a new builder where id tokens will be obtained via [application-default login].
     ///
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::idtoken::Builder;
     /// # tokio_test::block_on(async {
-    /// let credentials = Builder::default().build();
+    /// let credentials = Builder::new("my-audience").build();
     /// # });
     /// ```
     ///
     /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
-    fn default() -> Self {
+    pub fn new<S: Into<String>>(target_audience: S) -> Self {
         Self {
-            target_audience: None,
+            target_audience: target_audience.into(),
         }
     }
-}
 
-impl Builder {
     /// Returns a [IDTokenCredentials] instance with the configured settings.
     ///
     /// # Errors
@@ -134,20 +132,20 @@ impl Builder {
             AdcContents::FallbackToMds => None,
         };
 
-        // TODO: accept scopes and quota project id on builder
-        build_id_token_credentials(json_data, self.target_audience)
+        build_id_token_credentials(self.target_audience, json_data)
     }
 }
 
 fn build_id_token_credentials(
+    audience: String,
     json: Option<Value>,
-    audience: Option<String>,
 ) -> BuildResult<IDTokenCredentials> {
     match json {
         None => {
-            let audience = audience.ok_or_else(|| BuilderError::missing_field("audience"))?;
             // TODO(#3449): pass context that is being built from ADC flow.
-            mds::idtoken::Builder::new(audience).build()
+            mds::idtoken::Builder::new(audience)
+                .with_format("full")
+                .build()
         }
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
@@ -156,14 +154,7 @@ fn build_id_token_credentials(
                     // TODO(#3449): need to guide user to use user_account::idtoken::Builder directly
                     Err(BuilderError::not_supported(cred_type))
                 }
-                "service_account" => {
-                    let builder = service_account::idtoken::Builder::new(json);
-                    let builder = audience
-                        .into_iter()
-                        .fold(builder, |b, audience| b.with_target_audience(audience));
-
-                    builder.build()
-                }
+                "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
                 "impersonated_service_account" => {
                     // TODO(#3449): to be implemented
                     Err(BuilderError::not_supported(cred_type))

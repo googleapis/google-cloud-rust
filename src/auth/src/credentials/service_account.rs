@@ -552,22 +552,20 @@ pub(crate) mod idtoken {
 
     pub(crate) struct Builder {
         service_account_key: Value,
-        target_audience: Option<String>,
+        target_audience: String,
     }
 
     /// Creates [`IDTokenCredentials`] instances that fetch ID tokens using
     /// service accounts.
     impl Builder {
-        pub fn new(service_account_key: Value) -> Self {
+        /// The `target_audience` is a required parameter that specifies the
+        /// intended audience of the ID token. This is typically the URL of the
+        /// service that will be receiving the token.
+        pub fn new<S: Into<String>>(target_audience: S, service_account_key: Value) -> Self {
             Self {
                 service_account_key,
-                target_audience: None,
+                target_audience: target_audience.into(),
             }
-        }
-
-        pub fn with_target_audience<S: Into<String>>(mut self, target_audience: S) -> Self {
-            self.target_audience = Some(target_audience.into());
-            self
         }
 
         fn build_token_provider(
@@ -587,11 +585,7 @@ pub(crate) mod idtoken {
         /// Returns an [`IDTokenCredentials`] instance with the configured
         /// settings.
         pub fn build(self) -> BuildResult<IDTokenCredentials> {
-            // TODO(#3449): also check for scopes
-            let target_audience = self
-                .target_audience
-                .clone()
-                .ok_or_else(|| BuilderError::missing_field("audience"))?;
+            let target_audience = self.target_audience.clone();
             let creds = ServiceAccountCredentials {
                 token_provider: self.build_token_provider(target_audience)?,
             };
