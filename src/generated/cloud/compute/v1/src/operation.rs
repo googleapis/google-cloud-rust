@@ -33,6 +33,8 @@ impl lro::internal::DiscoveryOperation for Operation {
 #[doc(hidden)]
 impl From<&Error> for Status {
     fn from(value: &Error) -> Self {
+        // TODO(#3501) - we only keep the first code and message, figure out
+        //     if we need to preserve more details.
         let code = value
             .errors
             .iter()
@@ -168,7 +170,7 @@ impl From<QuotaExceededInfo> for rpc::model::QuotaFailure {
             .metric_name
             .into_iter()
             .fold(r, |r, v| r.set_quota_metric(v));
-        // There is no way to represent representation for `value.rollout_status`
+        // There is no representation for `value.rollout_status`
         // let r = r.rollout_status.....
 
         Self::new().set_violations([r])
