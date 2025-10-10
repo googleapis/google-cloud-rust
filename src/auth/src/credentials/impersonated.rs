@@ -436,60 +436,27 @@ impl Builder {
         TokenProviderWithRetry<ImpersonatedTokenProvider>,
         Option<String>,
     )> {
-        let (
-            source_credentials,
-            service_account_impersonation_url,
-            delegates,
-            quota_project_id,
-            scopes,
-        ) = match self.source {
-            BuilderSource::FromJson(json) => {
-                let config = serde_json::from_value::<ImpersonatedConfig>(json)
-                    .map_err(BuilderError::parsing)?;
-
-                let source_credential_type = extract_credential_type(&config.source_credentials)?;
-                if source_credential_type == "impersonated_service_account" {
-                    return Err(BuilderError::parsing(
-                        "source credential of type `impersonated_service_account` is not supported. \
-                        Use the `delegates` field to specify a delegation chain.",
-                    ));
-                }
-
-                // Do not pass along scopes and quota project to the source credentials.
-                // It is not necessary that the source and target credentials have same permissions on
-                // the quota project and they typically need different scopes.
-                // If user does want some specific scopes or quota, they can build using the
-                // from_source_credentials method.
-                let source_credentials =
-                    build_credentials(Some(config.source_credentials), None, None)?;
-
-                (
-                    source_credentials,
-                    config.service_account_impersonation_url,
-                    config.delegates,
-                    config.quota_project_id,
-                    config.scopes,
-                )
-            }
+        let components = match self.source {
+            BuilderSource::FromJson(json) => build_components_from_json(json)?,
             BuilderSource::FromCredentials(source_credentials) => {
-                let url = self.service_account_impersonation_url.ok_or_else(|| {
-                    BuilderError::parsing("`service_account_impersonation_url` is required when building from source credentials")
-                })?;
-                (source_credentials, url, None, None, None)
+                build_components_from_credentials(
+                    source_credentials,
+                    self.service_account_impersonation_url,
+                )?
             }
         };
 
         let scopes = self
             .scopes
-            .or(scopes)
+            .or(components.scopes)
             .unwrap_or_else(|| vec![DEFAULT_SCOPE.to_string()]);
 
-        let quota_project_id = self.quota_project_id.or(quota_project_id);
-        let delegates = self.delegates.or(delegates);
+        let quota_project_id = self.quota_project_id.or(components.quota_project_id);
+        let delegates = self.delegates.or(components.delegates);
 
         let token_provider = ImpersonatedTokenProvider {
-            source_credentials,
-            service_account_impersonation_url,
+            source_credentials: components.source_credentials,
+            service_account_impersonation_url: components.service_account_impersonation_url,
             delegates,
             scopes,
             lifetime: self.lifetime.unwrap_or(DEFAULT_LIFETIME),
@@ -497,6 +464,60 @@ impl Builder {
         let token_provider = self.retry_builder.build(token_provider);
         Ok((token_provider, quota_project_id))
     }
+}
+
+struct ImpersonatedCredentialComponents {
+    source_credentials: Credentials,
+    service_account_impersonation_url: String,
+    delegates: Option<Vec<String>>,
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+}
+
+fn build_components_from_json(json: Value) -> BuildResult<ImpersonatedCredentialComponents> {
+    let config =
+        serde_json::from_value::<ImpersonatedConfig>(json).map_err(BuilderError::parsing)?;
+
+    let source_credential_type = extract_credential_type(&config.source_credentials)?;
+    if source_credential_type == "impersonated_service_account" {
+        return Err(BuilderError::parsing(
+            "source credential of type `impersonated_service_account` is not supported. \
+                        Use the `delegates` field to specify a delegation chain.",
+        ));
+    }
+
+    // Do not pass along scopes and quota project to the source credentials.
+    // It is not necessary that the source and target credentials have same permissions on
+    // the quota project and they typically need different scopes.
+    // If user does want some specific scopes or quota, they can build using the
+    // from_source_credentials method.
+    let source_credentials = build_credentials(Some(config.source_credentials), None, None)?;
+
+    Ok(ImpersonatedCredentialComponents {
+        source_credentials,
+        service_account_impersonation_url: config.service_account_impersonation_url,
+        delegates: config.delegates,
+        quota_project_id: config.quota_project_id,
+        scopes: config.scopes,
+    })
+}
+
+fn build_components_from_credentials(
+    source_credentials: Credentials,
+    service_account_impersonation_url: Option<String>,
+) -> BuildResult<ImpersonatedCredentialComponents> {
+    let url = service_account_impersonation_url.ok_or_else(|| {
+        BuilderError::parsing(
+            "`service_account_impersonation_url` is required when building from source credentials",
+        )
+    })?;
+    Ok(ImpersonatedCredentialComponents {
+        source_credentials,
+        service_account_impersonation_url: url,
+        delegates: None,
+        quota_project_id: None,
+        scopes: None,
+    })
 }
 
 #[derive(serde::Deserialize, Debug, PartialEq)]
