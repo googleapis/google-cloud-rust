@@ -42,6 +42,8 @@ pub struct JwsClaims {
     pub typ: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sub: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target_audience: Option<String>,
 }
 
 impl JwsClaims {
@@ -102,6 +104,7 @@ mod tests {
             iat: now,
             typ: None,
             sub: None,
+            target_audience: None,
         };
 
         let encoded = claims.encode().unwrap();
@@ -135,6 +138,7 @@ mod tests {
             iat: now,
             typ: Some("test_typ".to_string()),
             sub: Some("test_sub".to_string()),
+            target_audience: None,
         };
 
         let encoded = claims.encode().unwrap();
@@ -168,6 +172,7 @@ mod tests {
             iat: now,
             typ: None,
             sub: None,
+            target_audience: None,
         };
         let expected_error_message = "must be later than issued time";
         assert!(
@@ -190,6 +195,7 @@ mod tests {
             iat: now,
             typ: None,
             sub: None,
+            target_audience: None,
         };
         let expected_error_message = "expecting only 1 of them to be set";
         assert!(

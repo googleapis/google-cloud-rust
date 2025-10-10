@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
+use crate::build_errors::Error as BuilderError;
+use crate::credentials::{AdcContents, extract_credential_type, load_adc, mds, service_account};
+use crate::{BuildResult, Result};
+use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 
@@ -85,6 +88,84 @@ pub(crate) mod dynamic {
     {
         async fn id_token(&self) -> Result<String> {
             T::id_token(self).await
+        }
+    }
+}
+
+pub struct Builder {
+    target_audience: String,
+}
+
+impl Builder {
+    /// Creates a new builder where id tokens will be obtained via [application-default login].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken::Builder;
+    /// # tokio_test::block_on(async {
+    /// let credentials = Builder::new("my-audience").build();
+    /// # });
+    /// ```
+    ///
+    /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
+    pub fn new<S: Into<String>>(target_audience: S) -> Self {
+        Self {
+            target_audience: target_audience.into(),
+        }
+    }
+
+    /// Returns a [IDTokenCredentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [BuilderError] if a unsupported credential type is provided
+    /// or if the JSON value is either malformed
+    /// or missing required fields. For more information, on how to generate
+    /// json, consult the relevant section in the [application-default credentials] guide.
+    ///
+    /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+    pub fn build(self) -> BuildResult<IDTokenCredentials> {
+        let json_data = match load_adc()? {
+            AdcContents::Contents(contents) => {
+                Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
+            }
+            AdcContents::FallbackToMds => None,
+        };
+
+        build_id_token_credentials(self.target_audience, json_data)
+    }
+}
+
+fn build_id_token_credentials(
+    audience: String,
+    json: Option<Value>,
+) -> BuildResult<IDTokenCredentials> {
+    match json {
+        None => {
+            // TODO(#3449): pass context that is being built from ADC flow.
+            mds::idtoken::Builder::new(audience)
+                .with_format("full")
+                .build()
+        }
+        Some(json) => {
+            let cred_type = extract_credential_type(&json)?;
+            match cred_type {
+                "authorized_user" => {
+                    // TODO(#3449): need to guide user to use user_account::idtoken::Builder directly
+                    Err(BuilderError::not_supported(cred_type))
+                }
+                "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
+                "impersonated_service_account" => {
+                    // TODO(#3449): to be implemented
+                    Err(BuilderError::not_supported(cred_type))
+                }
+                "external_account" =>
+                // never gonna be supported for id tokens
+                {
+                    Err(BuilderError::not_supported(cred_type))
+                }
+                _ => Err(BuilderError::unknown_type(cred_type)),
+            }
         }
     }
 }
