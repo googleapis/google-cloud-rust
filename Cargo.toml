@@ -408,3 +408,6 @@ google-cloud-storage          = { version = "1", path = "src/storage" }
 google-cloud-test-utils = { path = "src/test-utils" }
 integration-tests       = { path = "src/integration-tests" }
 storage-samples         = { path = "src/storage/examples" }
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "deny", check-cfg = ['cfg(google_cloud_unstable_tracing)'] }
