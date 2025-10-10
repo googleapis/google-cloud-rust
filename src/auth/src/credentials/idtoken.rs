@@ -92,7 +92,7 @@ pub(crate) mod dynamic {
     }
 }
 
-pub(crate) struct Builder {
+pub struct Builder {
     target_audience: String,
 }
 

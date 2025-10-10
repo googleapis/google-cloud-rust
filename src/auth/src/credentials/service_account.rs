@@ -464,7 +464,7 @@ where
     }
 }
 
-pub(crate) mod idtoken {
+pub mod idtoken {
     use std::sync::Arc;
 
     use async_trait::async_trait;
@@ -550,7 +550,7 @@ pub(crate) mod idtoken {
         }
     }
 
-    pub(crate) struct Builder {
+    pub struct Builder {
         service_account_key: Value,
         target_audience: String,
     }
