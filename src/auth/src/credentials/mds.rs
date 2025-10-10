@@ -430,8 +430,8 @@ pub(crate) mod idtoken {
     where
         T: TokenProvider,
     {
-        async fn id_token(&self) -> Result<Token> {
-            self.token_provider.token().await
+        async fn id_token(&self) -> Result<String> {
+            self.token_provider.token().await.map(|t| t.token)
         }
     }
 
@@ -1176,10 +1176,8 @@ mod tests {
             .with_licenses(true)
             .build()?;
 
-        let token = creds.id_token().await?;
-        assert_eq!(token.token, token_string);
-        assert_eq!(token.token_type, "Bearer");
-        assert!(token.expires_at.is_none());
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token_string);
         Ok(())
     }
 
@@ -1202,8 +1200,8 @@ mod tests {
 
         let creds = idtoken::Builder::new(audience).build()?;
 
-        let token = creds.id_token().await?;
-        assert_eq!(token.token, token_string);
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token_string);
 
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
         Ok(())

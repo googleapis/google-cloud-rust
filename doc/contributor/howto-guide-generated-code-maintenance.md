@@ -67,6 +67,16 @@ git commit -m"chore: update googleapis SHA circa $(date +%Y-%m-%d)" .
 
 Then send a PR with whatever changed.
 
+## Update the code with new discovery docs
+
+```bash
+git checkout -b chore-update-discovery-sha-circa-$(date +%Y-%m-%d)
+go run github.com/googleapis/librarian/cmd/sidekick@main update -updated-root discovery && taplo fmt .sidekick.toml && cargo fmt
+git commit -m"chore: update discovery SHA circa $(date +%Y-%m-%d)" .
+```
+
+Then send a PR with whatever changed.
+
 ## Bump all version numbers
 
 Run:

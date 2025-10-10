@@ -13,10 +13,8 @@
 // limitations under the License.
 
 use serde_json::Value;
-
 use crate::build_errors::Error as BuilderError;
 use crate::credentials::{AdcContents, extract_credential_type, load_adc, mds, service_account};
-use crate::token::Token;
 use crate::{BuildResult, Result};
 use std::future::Future;
 use std::sync::Arc;
@@ -54,7 +52,7 @@ impl IDTokenCredentials {
     /// Asynchronously retrieves an ID token.
     ///
     /// Obtains an ID token. If one is cached, returns the cached value.
-    pub async fn id_token(&self) -> Result<Token> {
+    pub async fn id_token(&self) -> Result<String> {
         self.inner.id_token().await
     }
 }
@@ -67,20 +65,19 @@ impl IDTokenCredentials {
 /// to mock the existing `IDTokenCredentialsProvider` implementations.
 pub trait IDTokenCredentialsProvider: std::fmt::Debug {
     /// Asynchronously retrieves an ID token.
-    fn id_token(&self) -> impl Future<Output = Result<Token>> + Send;
+    fn id_token(&self) -> impl Future<Output = Result<String>> + Send;
 }
 
 /// A module containing the dynamically-typed, dyn-compatible version of the
 /// `IDTokenCredentialsProvider` trait. This is an internal implementation detail.
 pub(crate) mod dynamic {
     use crate::Result;
-    use crate::token::Token;
 
     /// A dyn-compatible, crate-private version of `IDTokenCredentialsProvider`.
     #[async_trait::async_trait]
     pub trait IDTokenCredentialsProvider: Send + Sync + std::fmt::Debug {
         /// Asynchronously retrieves an ID token.
-        async fn id_token(&self) -> Result<Token>;
+        async fn id_token(&self) -> Result<String>;
     }
 
     /// The public `IDTokenCredentialsProvider` implements the dyn-compatible `IDTokenCredentialsProvider`.
@@ -89,7 +86,7 @@ pub(crate) mod dynamic {
     where
         T: super::IDTokenCredentialsProvider + Send + Sync,
     {
-        async fn id_token(&self) -> Result<Token> {
+        async fn id_token(&self) -> Result<String> {
             T::id_token(self).await
         }
     }

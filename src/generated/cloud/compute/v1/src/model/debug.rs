@@ -829,6 +829,7 @@ impl std::fmt::Debug for super::Image {
         debug_struct.field("license_codes", &self.license_codes);
         debug_struct.field("licenses", &self.licenses);
         debug_struct.field("name", &self.name);
+        debug_struct.field("params", &self.params);
         debug_struct.field("raw_disk", &self.raw_disk);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
@@ -916,6 +917,18 @@ impl std::fmt::Debug for super::image_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "images")]
+impl std::fmt::Debug for super::ImageParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4038,6 +4051,10 @@ impl std::fmt::Debug for super::ResourceStatus {
         );
         debug_struct.field("physical_host", &self.physical_host);
         debug_struct.field("physical_host_topology", &self.physical_host_topology);
+        debug_struct.field(
+            "reservation_consumption_info",
+            &self.reservation_consumption_info,
+        );
         debug_struct.field("scheduling", &self.scheduling);
         debug_struct.field("upcoming_maintenance", &self.upcoming_maintenance);
         if !self._unknown_fields.is_empty() {
@@ -4098,6 +4115,18 @@ impl std::fmt::Debug for super::ResourceStatusPhysicalHostTopology {
         debug_struct.field("cluster", &self.cluster);
         debug_struct.field("host", &self.host);
         debug_struct.field("subblock", &self.subblock);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::ResourceStatusReservationConsumptionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceStatusReservationConsumptionInfo");
+        debug_struct.field("consumed_reservation", &self.consumed_reservation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
