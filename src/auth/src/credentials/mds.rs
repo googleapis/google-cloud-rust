@@ -432,10 +432,10 @@ pub(crate) mod idtoken {
     where
         T: CachedTokenProvider,
     {
-        async fn id_token(&self) -> Result<Token> {
+        async fn id_token(&self) -> Result<String> {
             let cached_token = self.token_provider.token(Extensions::new()).await?;
             match cached_token {
-                CacheableResource::New { data, .. } => Ok(data),
+                CacheableResource::New { data, .. } => Ok(data.token),
                 CacheableResource::NotModified => {
                     Err(CredentialsError::from_msg(false, "failed to fetch token"))
                 }
@@ -1179,10 +1179,8 @@ mod tests {
             .with_licenses(true)
             .build()?;
 
-        let token = creds.id_token().await?;
-        assert_eq!(token.token, token_string);
-        assert_eq!(token.token_type, "Bearer");
-        assert!(token.expires_at.is_some());
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token_string);
         Ok(())
     }
 
@@ -1205,8 +1203,8 @@ mod tests {
 
         let creds = idtoken::Builder::new(audience).build()?;
 
-        let token = creds.id_token().await?;
-        assert_eq!(token.token, token_string);
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token_string);
 
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
         Ok(())
@@ -1257,11 +1255,11 @@ mod tests {
             .with_endpoint(format!("http://{}", server.addr()))
             .build()?;
 
-        let token = creds.id_token().await?;
-        assert_eq!(token.token, token_string);
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token_string);
 
-        let token = creds.id_token().await?;
-        assert_eq!(token.token, token_string);
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token_string);
 
         Ok(())
     }

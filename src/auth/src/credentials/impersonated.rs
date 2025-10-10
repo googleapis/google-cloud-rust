@@ -254,6 +254,10 @@ impl Builder {
     }
 
     /// Sets the [scopes] for these credentials.
+    ///
+    /// Any value set here overrides a `scopes` value from the
+    /// input `impersonated_service_account` JSON.
+    ///
     /// By default `https://www.googleapis.com/auth/cloud-platform` scope is used.
     ///
     /// # Example
@@ -432,54 +436,27 @@ impl Builder {
         TokenProviderWithRetry<ImpersonatedTokenProvider>,
         Option<String>,
     )> {
-        let (source_credentials, service_account_impersonation_url, delegates, quota_project_id) =
-            match self.source {
-                BuilderSource::FromJson(json) => {
-                    let config = serde_json::from_value::<ImpersonatedConfig>(json)
-                        .map_err(BuilderError::parsing)?;
-
-                    let source_credential_type =
-                        extract_credential_type(&config.source_credentials)?;
-                    if source_credential_type == "impersonated_service_account" {
-                        return Err(BuilderError::parsing(
-                            "source credential of type `impersonated_service_account` is not supported. \
-                        Use the `delegates` field to specify a delegation chain.",
-                        ));
-                    }
-
-                    // Do not pass along scopes and quota project to the source credentials.
-                    // It is not necessary that the source and target credentials have same permissions on
-                    // the quota project and they typically need different scopes.
-                    // If user does want some specific scopes or quota, they can build using the
-                    // from_source_credentials method.
-                    let source_credentials =
-                        build_credentials(Some(config.source_credentials), None, None)?;
-
-                    (
-                        source_credentials,
-                        config.service_account_impersonation_url,
-                        config.delegates,
-                        config.quota_project_id,
-                    )
-                }
-                BuilderSource::FromCredentials(source_credentials) => {
-                    let url = self.service_account_impersonation_url.ok_or_else(|| {
-                    BuilderError::parsing("`service_account_impersonation_url` is required when building from source credentials")
-                })?;
-                    (source_credentials, url, None, None)
-                }
-            };
+        let components = match self.source {
+            BuilderSource::FromJson(json) => build_components_from_json(json)?,
+            BuilderSource::FromCredentials(source_credentials) => {
+                build_components_from_credentials(
+                    source_credentials,
+                    self.service_account_impersonation_url,
+                )?
+            }
+        };
 
         let scopes = self
             .scopes
+            .or(components.scopes)
             .unwrap_or_else(|| vec![DEFAULT_SCOPE.to_string()]);
 
-        let quota_project_id = self.quota_project_id.or(quota_project_id);
-        let delegates = self.delegates.or(delegates);
+        let quota_project_id = self.quota_project_id.or(components.quota_project_id);
+        let delegates = self.delegates.or(components.delegates);
 
         let token_provider = ImpersonatedTokenProvider {
-            source_credentials,
-            service_account_impersonation_url,
+            source_credentials: components.source_credentials,
+            service_account_impersonation_url: components.service_account_impersonation_url,
             delegates,
             scopes,
             lifetime: self.lifetime.unwrap_or(DEFAULT_LIFETIME),
@@ -489,12 +466,67 @@ impl Builder {
     }
 }
 
+struct ImpersonatedCredentialComponents {
+    source_credentials: Credentials,
+    service_account_impersonation_url: String,
+    delegates: Option<Vec<String>>,
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+}
+
+fn build_components_from_json(json: Value) -> BuildResult<ImpersonatedCredentialComponents> {
+    let config =
+        serde_json::from_value::<ImpersonatedConfig>(json).map_err(BuilderError::parsing)?;
+
+    let source_credential_type = extract_credential_type(&config.source_credentials)?;
+    if source_credential_type == "impersonated_service_account" {
+        return Err(BuilderError::parsing(
+            "source credential of type `impersonated_service_account` is not supported. \
+                        Use the `delegates` field to specify a delegation chain.",
+        ));
+    }
+
+    // Do not pass along scopes and quota project to the source credentials.
+    // It is not necessary that the source and target credentials have same permissions on
+    // the quota project and they typically need different scopes.
+    // If user does want some specific scopes or quota, they can build using the
+    // from_source_credentials method.
+    let source_credentials = build_credentials(Some(config.source_credentials), None, None)?;
+
+    Ok(ImpersonatedCredentialComponents {
+        source_credentials,
+        service_account_impersonation_url: config.service_account_impersonation_url,
+        delegates: config.delegates,
+        quota_project_id: config.quota_project_id,
+        scopes: config.scopes,
+    })
+}
+
+fn build_components_from_credentials(
+    source_credentials: Credentials,
+    service_account_impersonation_url: Option<String>,
+) -> BuildResult<ImpersonatedCredentialComponents> {
+    let url = service_account_impersonation_url.ok_or_else(|| {
+        BuilderError::parsing(
+            "`service_account_impersonation_url` is required when building from source credentials",
+        )
+    })?;
+    Ok(ImpersonatedCredentialComponents {
+        source_credentials,
+        service_account_impersonation_url: url,
+        delegates: None,
+        quota_project_id: None,
+        scopes: None,
+    })
+}
+
 #[derive(serde::Deserialize, Debug, PartialEq)]
 struct ImpersonatedConfig {
     service_account_impersonation_url: String,
     source_credentials: Value,
     delegates: Option<Vec<String>>,
     quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
 }
 
 #[derive(Debug)]
@@ -1059,6 +1091,7 @@ mod tests {
             "source_credentials": source_credentials_json,
             "delegates": ["delegate1"],
             "quota_project_id": "test-project-id",
+            "scopes": ["scope1"],
         });
 
         let expected = ImpersonatedConfig {
@@ -1066,6 +1099,7 @@ mod tests {
             source_credentials: source_credentials_json,
             delegates: Some(vec!["delegate1".to_string()]),
             quota_project_id: Some("test-project-id".to_string()),
+            scopes: Some(vec!["scope1".to_string()]),
         };
         let actual: ImpersonatedConfig = serde_json::from_value(json).unwrap();
         assert_eq!(actual, expected);
@@ -1093,6 +1127,7 @@ mod tests {
         assert_eq!(config.source_credentials, source_credentials_json);
         assert_eq!(config.delegates, None);
         assert_eq!(config.quota_project_id, None);
+        assert_eq!(config.scopes, None);
     }
 
     #[tokio::test]
@@ -1685,6 +1720,112 @@ mod tests {
         assert_eq!(token.token, "test-impersonated-token");
 
         server.verify_and_clear();
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_scopes_from_json() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
+                ),
+                request::body(json_decoded(eq(json!({
+                    "scope": ["scope-from-json"],
+                    "lifetime": "3600s"
+                }))))
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "scopes": ["scope-from-json"],
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+
+        let token = token_provider.token().await?;
+        assert_eq!(token.token, "test-impersonated-token");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_with_scopes_overrides_json_scopes() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
+                ),
+                request::body(json_decoded(eq(json!({
+                    "scope": ["scope-from-with-scopes"],
+                    "lifetime": "3600s"
+                }))))
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "scopes": ["scope-from-json"],
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let (token_provider, _) = Builder::new(impersonated_credential)
+            .with_scopes(vec!["scope-from-with-scopes"])
+            .build_components()?;
+
+        let token = token_provider.token().await?;
+        assert_eq!(token.token, "test-impersonated-token");
+
         Ok(())
     }
 
