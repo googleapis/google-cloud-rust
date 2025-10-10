@@ -1999,6 +1999,9 @@ impl serde::ser::Serialize for super::Image {
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.raw_disk.is_some() {
             state.serialize_entry("rawDisk", &self.raw_disk)?;
         }
@@ -2180,6 +2183,29 @@ impl serde::ser::Serialize for super::image_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "images")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ImageParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9074,6 +9100,12 @@ impl serde::ser::Serialize for super::ResourceStatus {
         if self.physical_host_topology.is_some() {
             state.serialize_entry("physicalHostTopology", &self.physical_host_topology)?;
         }
+        if self.reservation_consumption_info.is_some() {
+            state.serialize_entry(
+                "reservationConsumptionInfo",
+                &self.reservation_consumption_info,
+            )?;
+        }
         if self.scheduling.is_some() {
             state.serialize_entry("scheduling", &self.scheduling)?;
         }
@@ -9179,6 +9211,29 @@ impl serde::ser::Serialize for super::ResourceStatusPhysicalHostTopology {
         }
         if self.subblock.is_some() {
             state.serialize_entry("subblock", &self.subblock)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ResourceStatusReservationConsumptionInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.consumed_reservation.is_some() {
+            state.serialize_entry("consumedReservation", &self.consumed_reservation)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
