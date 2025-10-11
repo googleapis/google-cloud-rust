@@ -43,6 +43,7 @@ pub struct Client {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
 }
 
 impl Client {
@@ -74,7 +75,17 @@ impl Client {
             polling_backoff_policy: config
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
+            instrumentation: None,
         })
+    }
+
+    /// Sets the instrumentation client info.
+    pub fn with_instrumentation(
+        mut self,
+        instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
+    ) -> Self {
+        self.instrumentation = instrumentation;
+        self
     }
 
     /// Sends a request.
@@ -303,4 +314,26 @@ where
         gax::response::Parts::new().set_headers(metadata.into_headers()),
         body.cnv().map_err(Error::deser)?,
     ))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::options::InstrumentationClientInfo;
+
+    #[tokio::test]
+    async fn test_with_instrumentation() {
+        let config = crate::options::ClientConfig::default();
+        let client = Client::new(config, "http://example.com").await.unwrap();
+        assert!(client.instrumentation.is_none());
+        static TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
+            service_name: "test-service",
+            client_version: "1.0.0",
+            client_artifact: "test-artifact",
+            default_host: "example.com",
+        };
+        let client = client.with_instrumentation(Some(&TEST_INFO));
+        assert!(client.instrumentation.is_some());
+        assert_eq!(client.instrumentation.unwrap().service_name, "test-service");
+    }
 }
