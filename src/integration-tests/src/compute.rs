@@ -192,9 +192,53 @@ pub async fn machine_types() -> Result<()> {
     Ok(())
 }
 
+pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<()> {
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
+    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
+    let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+
+    let mut items = client.list().set_project(project_id).by_item();
+    while let Some(item) = items.next().await.transpose()? {
+        if item
+            .labels
+            .get("integration-test")
+            .is_none_or(|v| v != "true")
+        {
+            continue;
+        }
+        if item
+            .creation_timestamp
+            .map(|v| wkt::Timestamp::try_from(&v).ok())
+            .flatten()
+            .is_none_or(|t| t > stale_deadline)
+        {
+            continue;
+        }
+        let Some(name) = item.name else {
+            continue;
+        };
+        let _ = client
+            .delete()
+            .set_project(project_id)
+            .set_image(name)
+            .poller()
+            .until_done()
+            .await?;
+    }
+    Ok(())
+}
+
 pub async fn images() -> Result<()> {
-    tracing::info!("Testing Images::list()");
+    use compute::model::Image;
+    let project_id = crate::project_id()?;
+
     let client = Images::builder().with_tracing().build().await?;
+    if let Err(e) = cleanup_stale_images(&client, &project_id).await {
+        tracing::error!("Error cleaning up stale test images: {e:?}");
+    };
+
+    tracing::info!("Testing Images::list()");
     // Debian 13 is supported until 2030. When it is dropped, the test will not
     // be as entertaining, but will still be useful.
     let mut items = client
@@ -202,10 +246,42 @@ pub async fn images() -> Result<()> {
         .set_project("debian-cloud")
         .set_filter("family=debian-13 AND architecture=X86_64")
         .by_item();
+    let mut found = None;
     while let Some(item) = items.next().await.transpose()? {
         tracing::info!("item = {item:?}");
+        found = item.name.or(found);
     }
     tracing::info!("DONE with Images::list()");
+
+    let found = found.expect("a Debian 13 image should be available");
+
+    tracing::info!("Testing Images::insert()");
+    let name = crate::random_image_name();
+    let body = Image::new()
+        .set_name(&name)
+        .set_description("A test Image created by the Rust client library.")
+        .set_family("cos-stable")
+        .set_labels([("integration-test", "true")])
+        .set_source_image(format!("projects/debian-cloud/global/images/{found}"));
+    let operation = client
+        .insert()
+        .set_project(&project_id)
+        .set_body(body)
+        .poller()
+        .until_done()
+        .await?;
+    tracing::info!("Images::insert() finished with {operation:?}");
+
+    tracing::info!("Testing Images::delete()");
+    let operation = client
+        .delete()
+        .set_project(&project_id)
+        .set_image(&name)
+        .poller()
+        .until_done()
+        .await;
+    tracing::info!("Images::delete() completed with {operation:?}");
+
     Ok(())
 }
 
