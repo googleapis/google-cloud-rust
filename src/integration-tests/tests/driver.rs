@@ -90,6 +90,14 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_region_instances() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::region_instances()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_firestore() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
         integration_tests::firestore::basic()

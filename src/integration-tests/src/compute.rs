@@ -273,3 +273,54 @@ pub async fn instances() -> Result<()> {
 
     Ok(())
 }
+
+pub async fn region_instances() -> Result<()> {
+    use compute::client::RegionInstances;
+    use compute::model::{BulkInsertInstanceResource, InstanceProperties};
+
+    let client = RegionInstances::builder().with_tracing().build().await?;
+    let project_id = crate::project_id()?;
+    let service_account = crate::test_service_account()?;
+    let region_id = crate::region_id();
+
+    let instance_properties = InstanceProperties::new()
+        .set_description("A test VM created by the Rust client library.")
+        .set_machine_type("f1-micro")
+        .set_disks([AttachedDisk::new()
+            .set_initialize_params(
+                AttachedDiskInitializeParams::new()
+                    .set_source_image("projects/cos-cloud/global/images/family/cos-stable"),
+            )
+            .set_boot(true)
+            .set_auto_delete(true)])
+        .set_network_interfaces([NetworkInterface::new().set_network("global/networks/default")])
+        .set_service_accounts([ServiceAccount::new()
+            .set_email(&service_account)
+            .set_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])]);
+    // Automatically shutdown and delete the instance after 15m.
+    let instance_properties = instance_properties.set_scheduling(
+        Scheduling::new()
+            .set_provisioning_model(ProvisioningModel::Spot)
+            .set_instance_termination_action(InstanceTerminationAction::Delete)
+            .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
+    );
+
+    let id = crate::random_vm_prefix(16);
+    let body = BulkInsertInstanceResource::new()
+        .set_count(1)
+        .set_name_pattern(format!("{id}-####"))
+        .set_instance_properties(instance_properties);
+
+    tracing::info!("Starting new instance.");
+    let operation = client
+        .bulk_insert()
+        .set_project(&project_id)
+        .set_region(&region_id)
+        .set_body(body)
+        .poller()
+        .until_done()
+        .await?;
+    tracing::info!("Operation completed with = {operation:?}");
+
+    Ok(())
+}
