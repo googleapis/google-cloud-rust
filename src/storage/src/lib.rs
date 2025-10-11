@@ -33,6 +33,7 @@ pub use gax::Result;
 pub use gax::error::Error;
 
 pub mod backoff_policy;
+pub mod iam_occ;
 pub mod read_object;
 pub mod read_resume_policy;
 pub mod retry_policy;

@@ -79,6 +79,7 @@ pub mod set_public_access_prevention_unspecified;
 pub mod set_retention_policy;
 pub mod set_rpo_async_turbo;
 pub mod set_rpo_default;
+pub mod update_bucket_iam_with_retry;
 pub mod view_bucket_iam_members;
 pub mod view_lifecycle_management_configuration;
 pub mod view_versioning_status;

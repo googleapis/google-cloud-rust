@@ -87,6 +87,159 @@ pub struct StorageControl {
 
 // Note that the `impl` is defined in `generated/client.rs`
 
+impl StorageControl {
+    /// Updates the IAM policy for a resource using an Optimistic Concurrency Control (OCC) loop.
+    ///
+    /// This method safely handles concurrent IAM policy updates by automatically retrying
+    /// when conflicts are detected. It uses the policy's `etag` to prevent race conditions
+    /// and overwrites from concurrent modifications.
+    ///
+    /// # Arguments
+    ///
+    /// * `resource` - The resource name (e.g., `"projects/_/buckets/my-bucket"`)
+    /// * `updater` - A closure that modifies the policy. Return `None` to cancel the operation.
+    ///
+    /// # Returns
+    ///
+    /// The updated IAM policy after successful application.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if:
+    /// - The updater function returns an error
+    /// - Maximum retry attempts are exhausted
+    /// - Maximum retry duration is exceeded
+    /// - A non-retryable error occurs (e.g., permission denied)
+    ///
+    /// # Examples
+    ///
+    /// Add an IAM member to a bucket:
+    /// ```no_run
+    /// # use google_cloud_storage::client::StorageControl;
+    /// # use iam_v1::model::Binding;
+    /// # async fn example(client: &StorageControl) -> anyhow::Result<()> {
+    /// let policy = client
+    ///     .update_iam_policy_with_retry(
+    ///         "projects/_/buckets/my-bucket",
+    ///         |mut policy| {
+    ///             policy.bindings.push(
+    ///                 Binding::new()
+    ///                     .set_role("roles/storage.admin")
+    ///                     .set_members(["user:alice@example.com"])
+    ///             );
+    ///             Ok(Some(policy))
+    ///         },
+    ///     )
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Conditionally add a binding only if it doesn't exist:
+    /// ```rust
+    /// # use google_cloud_storage::client::StorageControl;
+    /// # async fn example(client: &StorageControl) -> anyhow::Result<()> {
+    /// let policy = client
+    ///     .update_iam_policy_with_retry(
+    ///         "projects/_/buckets/my-bucket",
+    ///         |mut policy| {
+    ///             let member = "user:bob@example.com";
+    ///             let role = "roles/storage.viewer";
+    ///             
+    ///             // Check if binding already exists
+    ///             let exists = policy.bindings.iter().any(|b| {
+    ///                 b.role == role && b.members.contains(&member.to_string())
+    ///             });
+    ///             
+    ///             if !exists {
+    ///                 policy.bindings.push(
+    ///                     iam_v1::model::Binding::new()
+    ///                         .set_role(role)
+    ///                         .set_members([member])
+    ///                 );
+    ///                 Ok(Some(policy))
+    ///             } else {
+    ///                 // Already exists, cancel operation
+    ///                 Ok(None)
+    ///             }
+    ///         },
+    ///     )
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn update_iam_policy_with_retry<F>(
+        &self,
+        resource: impl Into<String>,
+        updater: F,
+    ) -> crate::Result<iam_v1::model::Policy>
+    where
+        F: FnMut(iam_v1::model::Policy) -> crate::Result<Option<iam_v1::model::Policy>>
+            + Send
+            + 'static,
+    {
+        crate::iam_occ::update_iam_policy_with_occ(
+            self,
+            resource,
+            Box::new(updater),
+            crate::iam_occ::OccConfig::default(),
+        )
+        .await
+    }
+
+    /// Updates the IAM policy with a custom OCC configuration.
+    ///
+    /// This is similar to [`update_iam_policy_with_retry`][Self::update_iam_policy_with_retry],
+    /// but allows customizing the retry behavior (max attempts, timeout, backoff strategy).
+    ///
+    /// # Arguments
+    ///
+    /// * `resource` - The resource name
+    /// * `updater` - A closure that modifies the policy
+    /// * `config` - Custom OCC configuration
+    ///
+    /// # Examples
+    ///
+    /// Use custom retry configuration:
+    /// ```rust
+    /// # use google_cloud_storage::client::StorageControl;
+    /// # use google_cloud_storage::iam_occ::OccConfig;
+    /// # use std::time::Duration;
+    /// # async fn example(client: &StorageControl) -> anyhow::Result<()> {
+    /// let config = OccConfig {
+    ///     max_attempts: 5,
+    ///     max_duration: Duration::from_secs(10),
+    ///     ..Default::default()
+    /// };
+    ///
+    /// let policy = client
+    ///     .update_iam_policy_with_retry_config(
+    ///         "projects/_/buckets/my-bucket",
+    ///         |mut policy| {
+    ///             // Update policy...
+    ///             Ok(Some(policy))
+    ///         },
+    ///         config,
+    ///     )
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn update_iam_policy_with_retry_config<F>(
+        &self,
+        resource: impl Into<String>,
+        updater: F,
+        config: crate::iam_occ::OccConfig,
+    ) -> crate::Result<iam_v1::model::Policy>
+    where
+        F: FnMut(iam_v1::model::Policy) -> crate::Result<Option<iam_v1::model::Policy>>
+            + Send
+            + 'static,
+    {
+        crate::iam_occ::update_iam_policy_with_occ(self, resource, Box::new(updater), config).await
+    }
+}
+
 /// A builder for [StorageControl].
 ///
 /// ```
