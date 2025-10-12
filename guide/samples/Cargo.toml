@@ -32,7 +32,9 @@ anyhow.workspace                        = true
 crc32c.workspace                        = true
 futures.workspace                       = true
 google-cloud-aiplatform-v1              = { workspace = true, default-features = false, features = ["prediction-service"] }
+google-cloud-compute-v1                 = { workspace = true, default-features = false, features = ["images", "instances", "projects", "zone-operations"] }
 google-cloud-gax                        = { workspace = true, features = ["unstable-stream"] }
+google-cloud-iam-v1                     = { workspace = true }
 google-cloud-language-v2.workspace      = true
 google-cloud-longrunning.workspace      = true
 google-cloud-lro                        = { workspace = true, features = ["unstable-stream"] }

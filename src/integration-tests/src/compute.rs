@@ -13,13 +13,13 @@
 // limitations under the License.
 
 use crate::Result;
-use compute::client::{Images, Instances, MachineTypes, Zones};
-use compute::model::{
+use gax::paginator::ItemPaginator as _;
+use google_cloud_compute_v1::client::{Images, Instances, MachineTypes, Zones};
+use google_cloud_compute_v1::model::{
     AttachedDisk, AttachedDiskInitializeParams, Duration as ComputeDuration, Instance,
     NetworkInterface, Scheduling, ServiceAccount, scheduling::InstanceTerminationAction,
     scheduling::ProvisioningModel,
 };
-use gax::paginator::ItemPaginator as _;
 use lro::Poller;
 
 pub async fn zones() -> Result<()> {
@@ -45,7 +45,7 @@ pub async fn zones() -> Result<()> {
         .await?;
     assert_eq!(
         response.status,
-        Some(compute::model::zone::Status::Up),
+        Some(google_cloud_compute_v1::model::zone::Status::Up),
         "response={response:?}"
     );
     tracing::info!("Zones::get() = {response:?}");
@@ -229,7 +229,7 @@ pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<(
 }
 
 pub async fn images() -> Result<()> {
-    use compute::model::Image;
+    use google_cloud_compute_v1::model::Image;
     let project_id = crate::project_id()?;
 
     let client = Images::builder().with_tracing().build().await?;
@@ -349,8 +349,8 @@ pub async fn instances() -> Result<()> {
 }
 
 pub async fn region_instances() -> Result<()> {
-    use compute::client::RegionInstances;
-    use compute::model::{BulkInsertInstanceResource, InstanceProperties};
+    use google_cloud_compute_v1::client::RegionInstances;
+    use google_cloud_compute_v1::model::{BulkInsertInstanceResource, InstanceProperties};
 
     let client = RegionInstances::builder().with_tracing().build().await?;
     let project_id = crate::project_id()?;
