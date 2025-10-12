@@ -52,6 +52,88 @@ pub async fn zones() -> Result<()> {
     Ok(())
 }
 
+pub async fn errors() -> Result<()> {
+    use gax::error::rpc::Code;
+    use gax::error::rpc::StatusDetails;
+
+    let project_id = crate::project_id()?;
+    let zone_id = crate::zone_id();
+
+    let credentials = auth::credentials::anonymous::Builder::new().build();
+    let client = Zones::builder()
+        .with_credentials(credentials)
+        .build()
+        .await?;
+
+    let err = client
+        .get()
+        .set_project(&project_id)
+        .set_zone(&zone_id)
+        .send()
+        .await
+        .expect_err("request should fail with anonymous credentials");
+
+    assert_eq!(
+        err.status().map(|s| s.code),
+        Some(Code::Unauthenticated),
+        "{err:?}"
+    );
+    assert!(
+        err.status()
+            .map(|s| &s.details)
+            .is_some_and(|d| !d.is_empty()),
+        "{err:?}"
+    );
+
+    let client = Zones::builder().build().await?;
+    let err = client
+        .get()
+        .set_project("google-not-a-valid-project-name-starts-with-google--")
+        .set_zone(&zone_id)
+        .send()
+        .await
+        .expect_err("request should fail with bad project id");
+    assert_eq!(
+        err.status().map(|s| s.code),
+        Some(Code::NotFound),
+        "{err:?}"
+    );
+
+    let err = client
+        .get()
+        .set_project("undefined")
+        .set_zone(&zone_id)
+        .send()
+        .await
+        .expect_err("request should fail with bad project id");
+    assert_eq!(
+        err.status().map(|s| s.code),
+        Some(Code::PermissionDenied),
+        "{err:?}"
+    );
+
+    let error_info = err.status().and_then(|s| {
+        s.details
+            .iter()
+            .find(|d| matches!(d, StatusDetails::ErrorInfo(_)))
+    });
+    assert!(
+        matches!(error_info, Some(StatusDetails::ErrorInfo(_))),
+        "{err:?}"
+    );
+    let msg = err.status().and_then(|s| {
+        s.details
+            .iter()
+            .find(|d| matches!(d, StatusDetails::LocalizedMessage(_)))
+    });
+    assert!(
+        matches!(msg, Some(StatusDetails::LocalizedMessage(_))),
+        "{err:?}"
+    );
+
+    Ok(())
+}
+
 pub async fn machine_types() -> Result<()> {
     let client = MachineTypes::builder().with_tracing().build().await?;
     let project_id = crate::project_id()?;
