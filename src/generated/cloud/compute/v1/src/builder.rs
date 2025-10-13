@@ -16671,6 +16671,1912 @@ pub mod machine_types {
     }
 }
 
+#[cfg(feature = "projects")]
+#[cfg_attr(docsrs, doc(cfg(feature = "projects")))]
+pub mod projects {
+    use crate::Result;
+
+    /// A builder for [Projects][crate::client::Projects].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::*;
+    /// # use builder::projects::ClientBuilder;
+    /// # use client::Projects;
+    /// let builder : ClientBuilder = Projects::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://compute.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Projects;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = Projects;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::Projects] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [Projects::disable_xpn_host][crate::client::Projects::disable_xpn_host] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::DisableXpnHost;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableXpnHost {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DisableXpnHost(RequestBuilder<crate::model::projects::DisableXpnHostRequest>);
+
+    impl DisableXpnHost {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::DisableXpnHostRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .disable_xpn_host(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `disable_xpn_host`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [project][crate::model::projects::DisableXpnHostRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::DisableXpnHostRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::DisableXpnHostRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableXpnHost {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::disable_xpn_resource][crate::client::Projects::disable_xpn_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::DisableXpnResource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableXpnResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DisableXpnResource(
+        RequestBuilder<crate::model::projects::DisableXpnResourceRequest>,
+    );
+
+    impl DisableXpnResource {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::DisableXpnResourceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .disable_xpn_resource(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `disable_xpn_resource`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [project][crate::model::projects::DisableXpnResourceRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::DisableXpnResourceRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::DisableXpnResourceRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::DisableXpnResourceRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsDisableXpnResourceRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::DisableXpnResourceRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsDisableXpnResourceRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableXpnResource {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::enable_xpn_host][crate::client::Projects::enable_xpn_host] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::EnableXpnHost;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableXpnHost {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct EnableXpnHost(RequestBuilder<crate::model::projects::EnableXpnHostRequest>);
+
+    impl EnableXpnHost {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::EnableXpnHostRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .enable_xpn_host(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `enable_xpn_host`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [project][crate::model::projects::EnableXpnHostRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::EnableXpnHostRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::EnableXpnHostRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnableXpnHost {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::enable_xpn_resource][crate::client::Projects::enable_xpn_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::EnableXpnResource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableXpnResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct EnableXpnResource(RequestBuilder<crate::model::projects::EnableXpnResourceRequest>);
+
+    impl EnableXpnResource {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::EnableXpnResourceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .enable_xpn_resource(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `enable_xpn_resource`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [project][crate::model::projects::EnableXpnResourceRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::EnableXpnResourceRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::EnableXpnResourceRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::EnableXpnResourceRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsEnableXpnResourceRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::EnableXpnResourceRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsEnableXpnResourceRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnableXpnResource {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::get][crate::client::Projects::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Get(RequestBuilder<crate::model::projects::GetRequest>);
+
+    impl Get {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::GetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Project> {
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::projects::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::get_xpn_host][crate::client::Projects::get_xpn_host] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::GetXpnHost;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetXpnHost {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetXpnHost(RequestBuilder<crate::model::projects::GetXpnHostRequest>);
+
+    impl GetXpnHost {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::GetXpnHostRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Project> {
+            (*self.0.stub)
+                .get_xpn_host(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::projects::GetXpnHostRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetXpnHost {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::get_xpn_resources][crate::client::Projects::get_xpn_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::GetXpnResources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetXpnResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetXpnResources(RequestBuilder<crate::model::projects::GetXpnResourcesRequest>);
+
+    impl GetXpnResources {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::GetXpnResourcesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ProjectsGetXpnResources> {
+            (*self.0.stub)
+                .get_xpn_resources(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ProjectsGetXpnResources, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ProjectsGetXpnResources, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::projects::GetXpnResourcesRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::projects::GetXpnResourcesRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::projects::GetXpnResourcesRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::projects::GetXpnResourcesRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::projects::GetXpnResourcesRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::projects::GetXpnResourcesRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::projects::GetXpnResourcesRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::projects::GetXpnResourcesRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::projects::GetXpnResourcesRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::projects::GetXpnResourcesRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::projects::GetXpnResourcesRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetXpnResources {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::list_xpn_hosts][crate::client::Projects::list_xpn_hosts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::ListXpnHosts;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListXpnHosts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListXpnHosts(RequestBuilder<crate::model::projects::ListXpnHostsRequest>);
+
+    impl ListXpnHosts {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::ListXpnHostsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::XpnHostList> {
+            (*self.0.stub)
+                .list_xpn_hosts(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::XpnHostList, gax::error::Error> {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone().unwrap_or_default();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::XpnHostList, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [filter][crate::model::projects::ListXpnHostsRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::projects::ListXpnHostsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::projects::ListXpnHostsRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::projects::ListXpnHostsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::projects::ListXpnHostsRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::projects::ListXpnHostsRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::projects::ListXpnHostsRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::projects::ListXpnHostsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::projects::ListXpnHostsRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::projects::ListXpnHostsRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::projects::ListXpnHostsRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::ListXpnHostsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsListXpnHostsRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::ListXpnHostsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsListXpnHostsRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListXpnHosts {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::move_disk][crate::client::Projects::move_disk] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::MoveDisk;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveDisk {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct MoveDisk(RequestBuilder<crate::model::projects::MoveDiskRequest>);
+
+    impl MoveDisk {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::MoveDiskRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .move_disk(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `move_disk`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [project][crate::model::projects::MoveDiskRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::MoveDiskRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::MoveDiskRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::MoveDiskRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DiskMoveRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::MoveDiskRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DiskMoveRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MoveDisk {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::move_instance][crate::client::Projects::move_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::MoveInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct MoveInstance(RequestBuilder<crate::model::projects::MoveInstanceRequest>);
+
+    impl MoveInstance {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::MoveInstanceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .move_instance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `move_instance`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [project][crate::model::projects::MoveInstanceRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::MoveInstanceRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::MoveInstanceRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::MoveInstanceRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceMoveRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::MoveInstanceRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceMoveRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for MoveInstance {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::set_cloud_armor_tier][crate::client::Projects::set_cloud_armor_tier] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::SetCloudArmorTier;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetCloudArmorTier {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetCloudArmorTier(RequestBuilder<crate::model::projects::SetCloudArmorTierRequest>);
+
+    impl SetCloudArmorTier {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::SetCloudArmorTierRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_cloud_armor_tier(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_cloud_armor_tier`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [project][crate::model::projects::SetCloudArmorTierRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::SetCloudArmorTierRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::SetCloudArmorTierRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::SetCloudArmorTierRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsSetCloudArmorTierRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::SetCloudArmorTierRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsSetCloudArmorTierRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetCloudArmorTier {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::set_common_instance_metadata][crate::client::Projects::set_common_instance_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::SetCommonInstanceMetadata;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetCommonInstanceMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetCommonInstanceMetadata(
+        RequestBuilder<crate::model::projects::SetCommonInstanceMetadataRequest>,
+    );
+
+    impl SetCommonInstanceMetadata {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::SetCommonInstanceMetadataRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_common_instance_metadata(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_common_instance_metadata`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [project][crate::model::projects::SetCommonInstanceMetadataRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::SetCommonInstanceMetadataRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::SetCommonInstanceMetadataRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::SetCommonInstanceMetadataRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Metadata>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::SetCommonInstanceMetadataRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Metadata>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetCommonInstanceMetadata {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::set_default_network_tier][crate::client::Projects::set_default_network_tier] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::SetDefaultNetworkTier;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetDefaultNetworkTier {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetDefaultNetworkTier(
+        RequestBuilder<crate::model::projects::SetDefaultNetworkTierRequest>,
+    );
+
+    impl SetDefaultNetworkTier {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::SetDefaultNetworkTierRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_default_network_tier(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_default_network_tier`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [project][crate::model::projects::SetDefaultNetworkTierRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::SetDefaultNetworkTierRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::SetDefaultNetworkTierRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::SetDefaultNetworkTierRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsSetDefaultNetworkTierRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::SetDefaultNetworkTierRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsSetDefaultNetworkTierRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetDefaultNetworkTier {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::set_usage_export_bucket][crate::client::Projects::set_usage_export_bucket] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::SetUsageExportBucket;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetUsageExportBucket {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetUsageExportBucket(
+        RequestBuilder<crate::model::projects::SetUsageExportBucketRequest>,
+    );
+
+    impl SetUsageExportBucket {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::projects::SetUsageExportBucketRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .set_usage_export_bucket(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `set_usage_export_bucket`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [project][crate::model::projects::SetUsageExportBucketRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::SetUsageExportBucketRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::SetUsageExportBucketRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::SetUsageExportBucketRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UsageExportLocation>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::SetUsageExportBucketRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UsageExportLocation>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for SetUsageExportBucket {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Projects::get_operation][crate::client::Projects::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_compute_v1::builder;
+    /// use builder::projects::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<crate::model::global_operations::GetRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::global_operations::GetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [operation][crate::model::global_operations::GetRequest::operation].
+        pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.operation = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::global_operations::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
 #[cfg(feature = "region-instance-group-managers")]
 #[cfg_attr(docsrs, doc(cfg(feature = "region-instance-group-managers")))]
 pub mod region_instance_group_managers {

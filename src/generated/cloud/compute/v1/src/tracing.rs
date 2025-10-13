@@ -22,6 +22,7 @@
     feature = "instance-groups",
     feature = "instances",
     feature = "machine-types",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -1372,6 +1373,181 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::MachineTypeList>> {
         self.inner.list(req, options).await
+    }
+}
+
+/// Implements a [Projects](super::stub::Projects) decorator for logging and tracing.
+#[cfg(feature = "projects")]
+#[derive(Clone, Debug)]
+pub struct Projects<T>
+where
+    T: super::stub::Projects + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+#[cfg(feature = "projects")]
+impl<T> Projects<T>
+where
+    T: super::stub::Projects + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(feature = "projects")]
+impl<T> super::stub::Projects for Projects<T>
+where
+    T: super::stub::Projects + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn disable_xpn_host(
+        &self,
+        req: crate::model::projects::DisableXpnHostRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.disable_xpn_host(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn disable_xpn_resource(
+        &self,
+        req: crate::model::projects::DisableXpnResourceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.disable_xpn_resource(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn enable_xpn_host(
+        &self,
+        req: crate::model::projects::EnableXpnHostRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.enable_xpn_host(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn enable_xpn_resource(
+        &self,
+        req: crate::model::projects::EnableXpnResourceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.enable_xpn_resource(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get(
+        &self,
+        req: crate::model::projects::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Project>> {
+        self.inner.get(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_xpn_host(
+        &self,
+        req: crate::model::projects::GetXpnHostRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Project>> {
+        self.inner.get_xpn_host(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_xpn_resources(
+        &self,
+        req: crate::model::projects::GetXpnResourcesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ProjectsGetXpnResources>> {
+        self.inner.get_xpn_resources(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_xpn_hosts(
+        &self,
+        req: crate::model::projects::ListXpnHostsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::XpnHostList>> {
+        self.inner.list_xpn_hosts(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn move_disk(
+        &self,
+        req: crate::model::projects::MoveDiskRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.move_disk(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn move_instance(
+        &self,
+        req: crate::model::projects::MoveInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.move_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_cloud_armor_tier(
+        &self,
+        req: crate::model::projects::SetCloudArmorTierRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.set_cloud_armor_tier(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_common_instance_metadata(
+        &self,
+        req: crate::model::projects::SetCommonInstanceMetadataRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.set_common_instance_metadata(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_default_network_tier(
+        &self,
+        req: crate::model::projects::SetDefaultNetworkTierRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.set_default_network_tier(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_usage_export_bucket(
+        &self,
+        req: crate::model::projects::SetUsageExportBucketRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.set_usage_export_bucket(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 
