@@ -209,8 +209,7 @@ pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<(
         }
         if item
             .creation_timestamp
-            .map(|v| wkt::Timestamp::try_from(&v).ok())
-            .flatten()
+            .and_then(|v| wkt::Timestamp::try_from(&v).ok())
             .is_none_or(|t| t > stale_deadline)
         {
             continue;
@@ -239,12 +238,11 @@ pub async fn images() -> Result<()> {
     };
 
     tracing::info!("Testing Images::list()");
-    // Debian 13 is supported until 2030. When it is dropped, the test will not
-    // be as entertaining, but will still be useful.
+    // The test project cannot copy Debian or other "untrusted" images.
     let mut items = client
         .list()
-        .set_project("debian-cloud")
-        .set_filter("family=debian-13 AND architecture=X86_64")
+        .set_project("cos-cloud")
+        .set_filter("family=cos-stable AND architecture=X86_64")
         .by_item();
     let mut found = None;
     while let Some(item) = items.next().await.transpose()? {
@@ -253,7 +251,7 @@ pub async fn images() -> Result<()> {
     }
     tracing::info!("DONE with Images::list()");
 
-    let found = found.expect("a Debian 13 image should be available");
+    let found = found.expect("a COS image should be available");
 
     tracing::info!("Testing Images::insert()");
     let name = crate::random_image_name();
