@@ -21,6 +21,288 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::GlobalOperations;
+/// let client = GlobalOperations::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `globalOperations` resource.
+///
+/// # Configuration
+///
+/// To configure `GlobalOperations` use the `with_*` methods in the type returned
+/// by [builder()][GlobalOperations::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::global_operations::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::global_operations::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `GlobalOperations` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `GlobalOperations` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "global-operations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "global-operations")))]
+#[derive(Clone, Debug)]
+pub struct GlobalOperations {
+    inner: std::sync::Arc<dyn super::stub::dynamic::GlobalOperations>,
+}
+
+#[cfg(feature = "global-operations")]
+impl GlobalOperations {
+    /// Returns a builder for [GlobalOperations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::GlobalOperations;
+    /// let client = GlobalOperations::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::global_operations::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::global_operations::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::GlobalOperations + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GlobalOperations>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::GlobalOperations> {
+        super::transport::GlobalOperations::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::GlobalOperations> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::GlobalOperations::new)
+    }
+
+    /// Retrieves an aggregated list of all operations.
+    ///
+    /// To prevent failure, Google recommends that you set the
+    /// `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::global_operations::AggregatedList {
+        super::builder::global_operations::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Deletes the specified Operations resource.
+    pub fn delete(&self) -> super::builder::global_operations::Delete {
+        super::builder::global_operations::Delete::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified Operations resource.
+    pub fn get(&self) -> super::builder::global_operations::Get {
+        super::builder::global_operations::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of Operation resources contained within the specified
+    /// project.
+    pub fn list(&self) -> super::builder::global_operations::List {
+        super::builder::global_operations::List::new(self.inner.clone())
+    }
+
+    /// Waits for the specified Operation resource to return as `DONE`
+    /// or for the request to approach the 2 minute deadline, and retrieves the
+    /// specified Operation resource. This method differs from the
+    /// `GET` method in that it waits for no more than the default
+    /// deadline (2 minutes) and then returns the current state of the operation,
+    /// which might be `DONE` or still in progress.
+    ///
+    /// This method is called on a best-effort basis. Specifically:
+    ///
+    /// ```norust
+    /// - In uncommon cases, when the server is overloaded, the request might
+    /// return before the default deadline is reached, or might return after zero
+    /// seconds.
+    /// ```
+    ///
+    /// - If the default deadline is reached, there is no guarantee that the
+    ///   operation is actually done when the method returns. Be prepared to retry
+    ///   if the operation is not `DONE`.
+    pub fn wait(&self) -> super::builder::global_operations::Wait {
+        super::builder::global_operations::Wait::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::GlobalOrganizationOperations;
+/// let client = GlobalOrganizationOperations::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `globalOrganizationOperations` resource.
+///
+/// # Configuration
+///
+/// To configure `GlobalOrganizationOperations` use the `with_*` methods in the type returned
+/// by [builder()][GlobalOrganizationOperations::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::global_organization_operations::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::global_organization_operations::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `GlobalOrganizationOperations` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `GlobalOrganizationOperations` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "global-organization-operations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "global-organization-operations")))]
+#[derive(Clone, Debug)]
+pub struct GlobalOrganizationOperations {
+    inner: std::sync::Arc<dyn super::stub::dynamic::GlobalOrganizationOperations>,
+}
+
+#[cfg(feature = "global-organization-operations")]
+impl GlobalOrganizationOperations {
+    /// Returns a builder for [GlobalOrganizationOperations].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::GlobalOrganizationOperations;
+    /// let client = GlobalOrganizationOperations::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::global_organization_operations::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::global_organization_operations::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::GlobalOrganizationOperations + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::GlobalOrganizationOperations>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::GlobalOrganizationOperations> {
+        super::transport::GlobalOrganizationOperations::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::GlobalOrganizationOperations> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::GlobalOrganizationOperations::new)
+    }
+
+    /// Deletes the specified Operations resource.
+    pub fn delete(&self) -> super::builder::global_organization_operations::Delete {
+        super::builder::global_organization_operations::Delete::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified Operations resource. Gets a list of operations
+    /// by making a `list()` request.
+    pub fn get(&self) -> super::builder::global_organization_operations::Get {
+        super::builder::global_organization_operations::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of Operation resources contained within the specified
+    /// organization.
+    pub fn list(&self) -> super::builder::global_organization_operations::List {
+        super::builder::global_organization_operations::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_compute_v1::client::Images;
 /// let client = Images::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.

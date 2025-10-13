@@ -15,6 +15,8 @@ should not introduce breaking changes to the client libraries.
 
 The main types to work with this crate are the clients:
 
+- [GlobalOperations]: enabled by the `global-operations` feature.
+- [GlobalOrganizationOperations]: enabled by the `global-organization-operations` feature.
 - [Images]: enabled by the `images` feature.
 - [InstanceGroupManagerResizeRequests]: enabled by the `instance-group-manager-resize-requests` feature.
 - [InstanceGroupManagers]: enabled by the `instance-group-managers` feature.
@@ -33,6 +35,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-compute-v1/latest/google-cloud-compute-v1)
 
+[GlobalOperations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.GlobalOperations.html
+[GlobalOrganizationOperations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.GlobalOrganizationOperations.html
 [Images]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Images.html
 [InstanceGroupManagerResizeRequests]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceGroupManagerResizeRequests.html
 [InstanceGroupManagers]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceGroupManagers.html

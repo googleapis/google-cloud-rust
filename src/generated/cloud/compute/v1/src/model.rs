@@ -4242,6 +4242,8 @@ impl wkt::message::Message for BulkInsertInstanceResourcePerInstanceProperties {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -4278,6 +4280,8 @@ pub struct BulkInsertOperationStatus {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -4387,6 +4391,8 @@ impl BulkInsertOperationStatus {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -4407,6 +4413,8 @@ impl wkt::message::Message for BulkInsertOperationStatus {
 
 /// Defines additional types related to [BulkInsertOperationStatus].
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -4441,6 +4449,8 @@ pub mod bulk_insert_operation_status {
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -4472,6 +4482,8 @@ pub mod bulk_insert_operation_status {
 
     #[doc(hidden)]
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -4492,6 +4504,8 @@ pub mod bulk_insert_operation_status {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -4535,6 +4549,8 @@ pub mod bulk_insert_operation_status {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -4555,6 +4571,8 @@ pub mod bulk_insert_operation_status {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -4574,6 +4592,8 @@ pub mod bulk_insert_operation_status {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -4601,6 +4621,8 @@ pub mod bulk_insert_operation_status {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -4629,6 +4651,8 @@ pub mod bulk_insert_operation_status {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -4657,6 +4681,8 @@ pub mod bulk_insert_operation_status {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -6309,6 +6335,8 @@ impl wkt::message::Message for Duration {
 /// }
 /// ```
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -6354,6 +6382,8 @@ pub struct ErrorInfo {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -6421,6 +6451,8 @@ impl ErrorInfo {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -10098,6 +10130,8 @@ pub mod guest_os_feature {
 /// project hasn't enabled the accessed service, this can contain a URL pointing
 /// directly to the right place in the developer console to flip the bit.
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -10120,6 +10154,8 @@ pub struct Help {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -10150,6 +10186,8 @@ impl Help {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -10170,6 +10208,8 @@ impl wkt::message::Message for Help {
 
 /// Describes a URL link.
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -10195,6 +10235,8 @@ pub struct HelpLink {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -10250,6 +10292,8 @@ impl HelpLink {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -32956,6 +33000,8 @@ impl wkt::message::Message for InstancesAddResourcePoliciesRequest {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -32980,6 +33026,8 @@ pub struct InstancesBulkInsertOperationMetadata {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -33011,6 +33059,8 @@ impl InstancesBulkInsertOperationMetadata {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -34934,6 +34984,8 @@ impl wkt::message::Message for InstancesStartWithEncryptionKeyRequest {
 /// Provides a localized error message that is safe to return to the user
 /// which can be attached to an RPC error.
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -34961,6 +35013,8 @@ pub struct LocalizedMessage {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -35016,6 +35070,8 @@ impl LocalizedMessage {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -41396,6 +41452,8 @@ pub mod network_performance_config {
 /// Note that completed Operation resources have a limited
 /// retention period.
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -41526,6 +41584,8 @@ pub struct Operation {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -42012,6 +42072,8 @@ impl Operation {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -42032,6 +42094,8 @@ impl wkt::message::Message for Operation {
 
 /// Defines additional types related to [Operation].
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -42052,6 +42116,8 @@ pub mod operation {
     ///
     /// [google.cloud.compute.v1.Operation.error]: crate::model::operation::Error
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -42075,6 +42141,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -42105,6 +42173,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -42125,6 +42195,8 @@ pub mod operation {
 
     /// Defines additional types related to [Error].
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -42145,6 +42217,8 @@ pub mod operation {
         ///
         /// [google.cloud.compute.v1.Operation.error.errors]: crate::model::operation::error::Errors
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42181,6 +42255,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42265,6 +42341,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42285,6 +42363,8 @@ pub mod operation {
 
         /// Defines additional types related to [Errors].
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42305,6 +42385,8 @@ pub mod operation {
             ///
             /// [google.cloud.compute.v1.Operation.error.errors.errorDetails]: crate::model::operation::error::errors::ErrorDetails
             #[cfg(any(
+                feature = "global-operations",
+                feature = "global-organization-operations",
                 feature = "images",
                 feature = "instance-group-manager-resize-requests",
                 feature = "instance-group-managers",
@@ -42332,6 +42414,8 @@ pub mod operation {
             }
 
             #[cfg(any(
+                feature = "global-operations",
+                feature = "global-organization-operations",
                 feature = "images",
                 feature = "instance-group-manager-resize-requests",
                 feature = "instance-group-managers",
@@ -42426,6 +42510,8 @@ pub mod operation {
             }
 
             #[cfg(any(
+                feature = "global-operations",
+                feature = "global-organization-operations",
                 feature = "images",
                 feature = "instance-group-manager-resize-requests",
                 feature = "instance-group-managers",
@@ -42450,6 +42536,8 @@ pub mod operation {
     ///
     /// [google.cloud.compute.v1.Operation.warnings]: crate::model::operation::Warnings
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -42487,6 +42575,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -42553,6 +42643,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -42573,6 +42665,8 @@ pub mod operation {
 
     /// Defines additional types related to [Warnings].
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -42593,6 +42687,8 @@ pub mod operation {
         ///
         /// [google.cloud.compute.v1.Operation.warnings.data]: crate::model::operation::warnings::Data
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42624,6 +42720,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42679,6 +42777,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42715,6 +42815,8 @@ pub mod operation {
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42814,6 +42916,8 @@ pub mod operation {
 
         #[doc(hidden)]
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42834,6 +42938,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42965,6 +43071,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -42985,6 +43093,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -43007,6 +43117,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -43059,6 +43171,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -43118,6 +43232,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -43207,6 +43323,8 @@ pub mod operation {
         }
 
         #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
             feature = "images",
             feature = "instance-group-manager-resize-requests",
             feature = "instance-group-managers",
@@ -43249,6 +43367,8 @@ pub mod operation {
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -43276,6 +43396,8 @@ pub mod operation {
 
     #[doc(hidden)]
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -43296,6 +43418,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -43337,6 +43461,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -43357,6 +43483,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -43376,6 +43504,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -43402,6 +43532,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -43429,6 +43561,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -43456,6 +43590,8 @@ pub mod operation {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -43480,8 +43616,791 @@ pub mod operation {
     }
 }
 
+#[cfg(feature = "global-operations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OperationAggregatedList {
+    /// [Output Only] The unique identifier for the resource. This identifier is
+    /// defined by the server.
+    pub id: std::option::Option<std::string::String>,
+
+    /// [Output Only] A map of scoped operation lists.
+    pub items: std::collections::HashMap<std::string::String, crate::model::OperationsScopedList>,
+
+    /// [Output Only] Type of resource. Always `compute#operationAggregatedList`
+    /// for aggregated lists of operations.
+    pub kind: std::option::Option<std::string::String>,
+
+    /// [Output Only] This token allows you to get the next page of results for
+    /// list requests. If the number of results is larger than
+    /// `maxResults`, use the `nextPageToken` as a value for
+    /// the query parameter `pageToken` in the next list request.
+    /// Subsequent list requests will have their own `nextPageToken` to
+    /// continue paging through the results.
+    pub next_page_token: std::option::Option<std::string::String>,
+
+    /// [Output Only] Server-defined URL for this resource.
+    pub self_link: std::option::Option<std::string::String>,
+
+    /// [Output Only] Unreachable resources.
+    pub unreachables: std::vec::Vec<std::string::String>,
+
+    /// [Output Only] Informational warning message.
+    pub warning: std::option::Option<crate::model::operation_aggregated_list::Warning>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "global-operations")]
+impl OperationAggregatedList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::OperationAggregatedList::id].
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::OperationAggregatedList::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [items][crate::model::OperationAggregatedList::items].
+    pub fn set_items<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::OperationsScopedList>,
+    {
+        use std::iter::Iterator;
+        self.items = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::OperationAggregatedList::kind].
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::OperationAggregatedList::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::OperationAggregatedList::next_page_token].
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::OperationAggregatedList::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::OperationAggregatedList::self_link].
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::OperationAggregatedList::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [unreachables][crate::model::OperationAggregatedList::unreachables].
+    pub fn set_unreachables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [warning][crate::model::OperationAggregatedList::warning].
+    pub fn set_warning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::operation_aggregated_list::Warning>,
+    {
+        self.warning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [warning][crate::model::OperationAggregatedList::warning].
+    pub fn set_or_clear_warning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::operation_aggregated_list::Warning>,
+    {
+        self.warning = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "global-operations")]
+impl wkt::message::Message for OperationAggregatedList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.OperationAggregatedList"
+    }
+}
+
+#[cfg(feature = "global-operations")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for OperationAggregatedList {
+    type PageItem = (std::string::String, crate::model::OperationsScopedList);
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        use std::iter::{IntoIterator, Iterator};
+        self.items.into_iter().collect()
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone().unwrap_or_default()
+    }
+}
+
+/// Defines additional types related to [OperationAggregatedList].
+#[cfg(feature = "global-operations")]
+pub mod operation_aggregated_list {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The message type for the [warning][google.cloud.compute.v1.OperationAggregatedList.warning] field.
+    ///
+    /// [google.cloud.compute.v1.OperationAggregatedList.warning]: crate::model::operation_aggregated_list::Warning
+    #[cfg(feature = "global-operations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Warning {
+        /// [Output Only] A warning code, if applicable. For example, Compute
+        /// Engine returns NO_RESULTS_ON_PAGE if there
+        /// are no results in the response.
+        pub code: std::option::Option<crate::model::operation_aggregated_list::warning::Code>,
+
+        /// [Output Only] Metadata about this warning in key:
+        /// value format. For example:
+        ///
+        /// "data": [
+        /// {
+        /// "key": "scope",
+        /// "value": "zones/us-east1-d"
+        /// }
+        pub data: std::vec::Vec<crate::model::operation_aggregated_list::warning::Data>,
+
+        /// [Output Only] A human-readable description of the warning code.
+        pub message: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "global-operations")]
+    impl Warning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::operation_aggregated_list::Warning::code].
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::operation_aggregated_list::warning::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::operation_aggregated_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::operation_aggregated_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [data][crate::model::operation_aggregated_list::Warning::data].
+        pub fn set_data<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::operation_aggregated_list::warning::Data>,
+        {
+            use std::iter::Iterator;
+            self.data = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::operation_aggregated_list::Warning::message].
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::operation_aggregated_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "global-operations")]
+    impl wkt::message::Message for Warning {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.OperationAggregatedList.warning"
+        }
+    }
+
+    /// Defines additional types related to [Warning].
+    #[cfg(feature = "global-operations")]
+    pub mod warning {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The message type for the [data][google.cloud.compute.v1.OperationAggregatedList.warning.data] field.
+        ///
+        /// [google.cloud.compute.v1.OperationAggregatedList.warning.data]: crate::model::operation_aggregated_list::warning::Data
+        #[cfg(feature = "global-operations")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Data {
+            /// [Output Only] A key that provides more detail on the warning being
+            /// returned. For example, for warnings where there are no results in a list
+            /// request for a particular zone, this key might be scope and
+            /// the key value might be the zone name. Other examples might be a key
+            /// indicating a deprecated resource and a suggested replacement, or a
+            /// warning about invalid network settings (for example, if an instance
+            /// attempts to perform IP forwarding but is not enabled for IP forwarding).
+            pub key: std::option::Option<std::string::String>,
+
+            /// [Output Only] A warning data value corresponding to the key.
+            pub value: std::option::Option<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl Data {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::operation_aggregated_list::warning::Data::key].
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::operation_aggregated_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [value][crate::model::operation_aggregated_list::warning::Data::value].
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::operation_aggregated_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl wkt::message::Message for Data {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.compute.v1.OperationAggregatedList.warning.data"
+            }
+        }
+
+        /// The enumerated type for the [code][google.cloud.compute.v1.OperationAggregatedList.warning.code] field.
+        ///
+        /// [google.cloud.compute.v1.OperationAggregatedList.warning.code]: crate::model::operation_aggregated_list::warning::Code
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "global-operations")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Code {
+            /// Warning about failed cleanup of transient changes made by a failed
+            /// operation.
+            CleanupFailed,
+            /// A link to a deprecated resource was created.
+            DeprecatedResourceUsed,
+            /// When deploying and at least one of the resources has a type marked as
+            /// deprecated
+            DeprecatedTypeUsed,
+            /// The user created a boot disk that is larger than image size.
+            DiskSizeLargerThanImageSize,
+            /// When deploying and at least one of the resources has a type marked as
+            /// experimental
+            ExperimentalTypeUsed,
+            /// Warning that is present in an external api call
+            ExternalApiWarning,
+            /// Warning that value of a field has been overridden.
+            /// Deprecated unused field.
+            #[deprecated]
+            FieldValueOverriden,
+            /// The operation involved use of an injected kernel, which is deprecated.
+            InjectedKernelsDeprecated,
+            /// A WEIGHTED_MAGLEV backend service is associated with a health check that is
+            /// not of type HTTP/HTTPS/HTTP2.
+            InvalidHealthCheckForDynamicWieghtedLb,
+            /// When deploying a deployment with a exceedingly large number of resources
+            LargeDeploymentWarning,
+            /// Resource can't be retrieved due to list overhead quota exceed
+            /// which captures the amount of resources filtered out by
+            /// user-defined list filter.
+            ListOverheadQuotaExceed,
+            /// A resource depends on a missing type
+            MissingTypeDependency,
+            /// The route's nextHopIp address is not assigned to an instance on the
+            /// network.
+            NextHopAddressNotAssigned,
+            /// The route's next hop instance cannot ip forward.
+            NextHopCannotIpForward,
+            /// The route's nextHopInstance URL refers to an instance that does not have an
+            /// ipv6 interface on the same network as the route.
+            NextHopInstanceHasNoIpv6Interface,
+            /// The route's nextHopInstance URL refers to an instance that does not exist.
+            NextHopInstanceNotFound,
+            /// The route's nextHopInstance URL refers to an instance that is not on the
+            /// same network as the route.
+            NextHopInstanceNotOnNetwork,
+            /// The route's next hop instance does not have a status of RUNNING.
+            NextHopNotRunning,
+            /// Error which is not critical. We decided to continue the process despite
+            /// the mentioned error.
+            NotCriticalError,
+            /// No results are present on a particular list page.
+            NoResultsOnPage,
+            /// Success is reported, but some results may be missing due to errors
+            PartialSuccess,
+            /// Quota information is not available to client requests (e.g:
+            /// regions.list).
+            QuotaInfoUnavailable,
+            /// The user attempted to use a resource that requires a TOS they have not
+            /// accepted.
+            RequiredTosAgreement,
+            /// Warning that a resource is in use.
+            ResourceInUseByOtherResourceWarning,
+            /// One or more of the resources set to auto-delete could not be deleted
+            /// because they were in use.
+            ResourceNotDeleted,
+            /// When a resource schema validation is ignored.
+            SchemaValidationIgnored,
+            /// Instance template used in instance group manager is valid as such, but
+            /// its application does not make a lot of sense, because it allows only
+            /// single instance in instance group.
+            SingleInstancePropertyTemplate,
+            /// When undeclared properties in the schema are present
+            UndeclaredProperties,
+            /// A given scope cannot be reached.
+            Unreachable,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Code::value] or
+            /// [Code::name].
+            UnknownValue(code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "global-operations")]
+        pub mod code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl Code {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some(0),
+                    Self::DeprecatedResourceUsed => std::option::Option::Some(1),
+                    Self::DeprecatedTypeUsed => std::option::Option::Some(2),
+                    Self::DiskSizeLargerThanImageSize => std::option::Option::Some(3),
+                    Self::ExperimentalTypeUsed => std::option::Option::Some(4),
+                    Self::ExternalApiWarning => std::option::Option::Some(5),
+                    Self::FieldValueOverriden => std::option::Option::Some(6),
+                    Self::InjectedKernelsDeprecated => std::option::Option::Some(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => std::option::Option::Some(8),
+                    Self::LargeDeploymentWarning => std::option::Option::Some(9),
+                    Self::ListOverheadQuotaExceed => std::option::Option::Some(10),
+                    Self::MissingTypeDependency => std::option::Option::Some(11),
+                    Self::NextHopAddressNotAssigned => std::option::Option::Some(12),
+                    Self::NextHopCannotIpForward => std::option::Option::Some(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => std::option::Option::Some(14),
+                    Self::NextHopInstanceNotFound => std::option::Option::Some(15),
+                    Self::NextHopInstanceNotOnNetwork => std::option::Option::Some(16),
+                    Self::NextHopNotRunning => std::option::Option::Some(17),
+                    Self::NotCriticalError => std::option::Option::Some(18),
+                    Self::NoResultsOnPage => std::option::Option::Some(19),
+                    Self::PartialSuccess => std::option::Option::Some(20),
+                    Self::QuotaInfoUnavailable => std::option::Option::Some(21),
+                    Self::RequiredTosAgreement => std::option::Option::Some(22),
+                    Self::ResourceInUseByOtherResourceWarning => std::option::Option::Some(23),
+                    Self::ResourceNotDeleted => std::option::Option::Some(24),
+                    Self::SchemaValidationIgnored => std::option::Option::Some(25),
+                    Self::SingleInstancePropertyTemplate => std::option::Option::Some(26),
+                    Self::UndeclaredProperties => std::option::Option::Some(27),
+                    Self::Unreachable => std::option::Option::Some(28),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        std::option::Option::Some("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => std::option::Option::Some("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        std::option::Option::Some("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        std::option::Option::Some("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => std::option::Option::Some("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => std::option::Option::Some("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        std::option::Option::Some("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        std::option::Option::Some("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        std::option::Option::Some("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        std::option::Option::Some("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        std::option::Option::Some("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        std::option::Option::Some("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        std::option::Option::Some("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => std::option::Option::Some("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => std::option::Option::Some("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => std::option::Option::Some("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => std::option::Option::Some("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        std::option::Option::Some("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        std::option::Option::Some("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        std::option::Option::Some("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => std::option::Option::Some("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        std::option::Option::Some("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        std::option::Option::Some("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => {
+                        std::option::Option::Some("UNDECLARED_PROPERTIES")
+                    }
+                    Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl std::fmt::Display for Code {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::CleanupFailed,
+                    1 => Self::DeprecatedResourceUsed,
+                    2 => Self::DeprecatedTypeUsed,
+                    3 => Self::DiskSizeLargerThanImageSize,
+                    4 => Self::ExperimentalTypeUsed,
+                    5 => Self::ExternalApiWarning,
+                    6 => Self::FieldValueOverriden,
+                    7 => Self::InjectedKernelsDeprecated,
+                    8 => Self::InvalidHealthCheckForDynamicWieghtedLb,
+                    9 => Self::LargeDeploymentWarning,
+                    10 => Self::ListOverheadQuotaExceed,
+                    11 => Self::MissingTypeDependency,
+                    12 => Self::NextHopAddressNotAssigned,
+                    13 => Self::NextHopCannotIpForward,
+                    14 => Self::NextHopInstanceHasNoIpv6Interface,
+                    15 => Self::NextHopInstanceNotFound,
+                    16 => Self::NextHopInstanceNotOnNetwork,
+                    17 => Self::NextHopNotRunning,
+                    18 => Self::NotCriticalError,
+                    19 => Self::NoResultsOnPage,
+                    20 => Self::PartialSuccess,
+                    21 => Self::QuotaInfoUnavailable,
+                    22 => Self::RequiredTosAgreement,
+                    23 => Self::ResourceInUseByOtherResourceWarning,
+                    24 => Self::ResourceNotDeleted,
+                    25 => Self::SchemaValidationIgnored,
+                    26 => Self::SingleInstancePropertyTemplate,
+                    27 => Self::UndeclaredProperties,
+                    28 => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl std::convert::From<&str> for Code {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CLEANUP_FAILED" => Self::CleanupFailed,
+                    "DEPRECATED_RESOURCE_USED" => Self::DeprecatedResourceUsed,
+                    "DEPRECATED_TYPE_USED" => Self::DeprecatedTypeUsed,
+                    "DISK_SIZE_LARGER_THAN_IMAGE_SIZE" => Self::DiskSizeLargerThanImageSize,
+                    "EXPERIMENTAL_TYPE_USED" => Self::ExperimentalTypeUsed,
+                    "EXTERNAL_API_WARNING" => Self::ExternalApiWarning,
+                    "FIELD_VALUE_OVERRIDEN" => Self::FieldValueOverriden,
+                    "INJECTED_KERNELS_DEPRECATED" => Self::InjectedKernelsDeprecated,
+                    "INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB" => {
+                        Self::InvalidHealthCheckForDynamicWieghtedLb
+                    }
+                    "LARGE_DEPLOYMENT_WARNING" => Self::LargeDeploymentWarning,
+                    "LIST_OVERHEAD_QUOTA_EXCEED" => Self::ListOverheadQuotaExceed,
+                    "MISSING_TYPE_DEPENDENCY" => Self::MissingTypeDependency,
+                    "NEXT_HOP_ADDRESS_NOT_ASSIGNED" => Self::NextHopAddressNotAssigned,
+                    "NEXT_HOP_CANNOT_IP_FORWARD" => Self::NextHopCannotIpForward,
+                    "NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE" => {
+                        Self::NextHopInstanceHasNoIpv6Interface
+                    }
+                    "NEXT_HOP_INSTANCE_NOT_FOUND" => Self::NextHopInstanceNotFound,
+                    "NEXT_HOP_INSTANCE_NOT_ON_NETWORK" => Self::NextHopInstanceNotOnNetwork,
+                    "NEXT_HOP_NOT_RUNNING" => Self::NextHopNotRunning,
+                    "NOT_CRITICAL_ERROR" => Self::NotCriticalError,
+                    "NO_RESULTS_ON_PAGE" => Self::NoResultsOnPage,
+                    "PARTIAL_SUCCESS" => Self::PartialSuccess,
+                    "QUOTA_INFO_UNAVAILABLE" => Self::QuotaInfoUnavailable,
+                    "REQUIRED_TOS_AGREEMENT" => Self::RequiredTosAgreement,
+                    "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING" => {
+                        Self::ResourceInUseByOtherResourceWarning
+                    }
+                    "RESOURCE_NOT_DELETED" => Self::ResourceNotDeleted,
+                    "SCHEMA_VALIDATION_IGNORED" => Self::SchemaValidationIgnored,
+                    "SINGLE_INSTANCE_PROPERTY_TEMPLATE" => Self::SingleInstancePropertyTemplate,
+                    "UNDECLARED_PROPERTIES" => Self::UndeclaredProperties,
+                    "UNREACHABLE" => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                    ".google.cloud.compute.v1.OperationAggregatedList.warning.code",
+                ))
+            }
+        }
+    }
+}
+
 /// Contains a list of Operation resources.
-#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+#[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationList {
@@ -43513,7 +44432,12 @@ pub struct OperationList {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+#[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl OperationList {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -43621,14 +44545,24 @@ impl OperationList {
     }
 }
 
-#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+#[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 impl wkt::message::Message for OperationList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.OperationList"
     }
 }
 
-#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+#[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for OperationList {
     type PageItem = crate::model::Operation;
@@ -43644,7 +44578,12 @@ impl gax::paginator::internal::PageableResponse for OperationList {
 }
 
 /// Defines additional types related to [OperationList].
-#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+#[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 pub mod operation_list {
     #[allow(unused_imports)]
     use super::*;
@@ -43652,7 +44591,12 @@ pub mod operation_list {
     /// The message type for the [warning][google.cloud.compute.v1.OperationList.warning] field.
     ///
     /// [google.cloud.compute.v1.OperationList.warning]: crate::model::operation_list::Warning
-    #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+    #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
+        feature = "region-operations",
+        feature = "zone-operations",
+    ))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Warning {
@@ -43677,7 +44621,12 @@ pub mod operation_list {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+    #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
+        feature = "region-operations",
+        feature = "zone-operations",
+    ))]
     impl Warning {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -43731,7 +44680,12 @@ pub mod operation_list {
         }
     }
 
-    #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+    #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
+        feature = "region-operations",
+        feature = "zone-operations",
+    ))]
     impl wkt::message::Message for Warning {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.compute.v1.OperationList.warning"
@@ -43739,7 +44693,12 @@ pub mod operation_list {
     }
 
     /// Defines additional types related to [Warning].
-    #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+    #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
+        feature = "region-operations",
+        feature = "zone-operations",
+    ))]
     pub mod warning {
         #[allow(unused_imports)]
         use super::*;
@@ -43747,7 +44706,12 @@ pub mod operation_list {
         /// The message type for the [data][google.cloud.compute.v1.OperationList.warning.data] field.
         ///
         /// [google.cloud.compute.v1.OperationList.warning.data]: crate::model::operation_list::warning::Data
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Data {
@@ -43766,7 +44730,12 @@ pub mod operation_list {
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         impl Data {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -43809,7 +44778,12 @@ pub mod operation_list {
             }
         }
 
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         impl wkt::message::Message for Data {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.compute.v1.OperationList.warning.data"
@@ -43833,7 +44807,12 @@ pub mod operation_list {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Code {
@@ -43920,7 +44899,12 @@ pub mod operation_list {
         }
 
         #[doc(hidden)]
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         pub mod code {
             #[allow(unused_imports)]
             use super::*;
@@ -43928,7 +44912,12 @@ pub mod operation_list {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         impl Code {
             /// Gets the enum value.
             ///
@@ -44047,7 +45036,12 @@ pub mod operation_list {
             }
         }
 
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         impl std::default::Default for Code {
             fn default() -> Self {
                 use std::convert::From;
@@ -44055,7 +45049,12 @@ pub mod operation_list {
             }
         }
 
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         impl std::fmt::Display for Code {
             fn fmt(
                 &self,
@@ -44065,7 +45064,12 @@ pub mod operation_list {
             }
         }
 
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         impl std::convert::From<i32> for Code {
             fn from(value: i32) -> Self {
                 match value {
@@ -44105,7 +45109,12 @@ pub mod operation_list {
             }
         }
 
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         impl std::convert::From<&str> for Code {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -44152,7 +45161,12 @@ pub mod operation_list {
             }
         }
 
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         impl serde::ser::Serialize for Code {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -44229,7 +45243,12 @@ pub mod operation_list {
             }
         }
 
-        #[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+        #[cfg(any(
+            feature = "global-operations",
+            feature = "global-organization-operations",
+            feature = "region-operations",
+            feature = "zone-operations",
+        ))]
         impl<'de> serde::de::Deserialize<'de> for Code {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -44237,6 +45256,663 @@ pub mod operation_list {
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
                     ".google.cloud.compute.v1.OperationList.warning.code",
+                ))
+            }
+        }
+    }
+}
+
+#[cfg(feature = "global-operations")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OperationsScopedList {
+    /// [Output Only] A list of operations contained in this scope.
+    pub operations: std::vec::Vec<crate::model::Operation>,
+
+    /// [Output Only] Informational warning which replaces the list of operations
+    /// when the list is empty.
+    pub warning: std::option::Option<crate::model::operations_scoped_list::Warning>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "global-operations")]
+impl OperationsScopedList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [operations][crate::model::OperationsScopedList::operations].
+    pub fn set_operations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Operation>,
+    {
+        use std::iter::Iterator;
+        self.operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [warning][crate::model::OperationsScopedList::warning].
+    pub fn set_warning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::operations_scoped_list::Warning>,
+    {
+        self.warning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [warning][crate::model::OperationsScopedList::warning].
+    pub fn set_or_clear_warning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::operations_scoped_list::Warning>,
+    {
+        self.warning = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "global-operations")]
+impl wkt::message::Message for OperationsScopedList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.OperationsScopedList"
+    }
+}
+
+/// Defines additional types related to [OperationsScopedList].
+#[cfg(feature = "global-operations")]
+pub mod operations_scoped_list {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The message type for the [warning][google.cloud.compute.v1.OperationsScopedList.warning] field.
+    ///
+    /// [google.cloud.compute.v1.OperationsScopedList.warning]: crate::model::operations_scoped_list::Warning
+    #[cfg(feature = "global-operations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Warning {
+        /// [Output Only] A warning code, if applicable. For example, Compute
+        /// Engine returns NO_RESULTS_ON_PAGE if there
+        /// are no results in the response.
+        pub code: std::option::Option<crate::model::operations_scoped_list::warning::Code>,
+
+        /// [Output Only] Metadata about this warning in key:
+        /// value format. For example:
+        ///
+        /// "data": [
+        /// {
+        /// "key": "scope",
+        /// "value": "zones/us-east1-d"
+        /// }
+        pub data: std::vec::Vec<crate::model::operations_scoped_list::warning::Data>,
+
+        /// [Output Only] A human-readable description of the warning code.
+        pub message: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "global-operations")]
+    impl Warning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::operations_scoped_list::Warning::code].
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::operations_scoped_list::warning::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::operations_scoped_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::operations_scoped_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [data][crate::model::operations_scoped_list::Warning::data].
+        pub fn set_data<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::operations_scoped_list::warning::Data>,
+        {
+            use std::iter::Iterator;
+            self.data = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::operations_scoped_list::Warning::message].
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::operations_scoped_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "global-operations")]
+    impl wkt::message::Message for Warning {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.OperationsScopedList.warning"
+        }
+    }
+
+    /// Defines additional types related to [Warning].
+    #[cfg(feature = "global-operations")]
+    pub mod warning {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The message type for the [data][google.cloud.compute.v1.OperationsScopedList.warning.data] field.
+        ///
+        /// [google.cloud.compute.v1.OperationsScopedList.warning.data]: crate::model::operations_scoped_list::warning::Data
+        #[cfg(feature = "global-operations")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Data {
+            /// [Output Only] A key that provides more detail on the warning being
+            /// returned. For example, for warnings where there are no results in a list
+            /// request for a particular zone, this key might be scope and
+            /// the key value might be the zone name. Other examples might be a key
+            /// indicating a deprecated resource and a suggested replacement, or a
+            /// warning about invalid network settings (for example, if an instance
+            /// attempts to perform IP forwarding but is not enabled for IP forwarding).
+            pub key: std::option::Option<std::string::String>,
+
+            /// [Output Only] A warning data value corresponding to the key.
+            pub value: std::option::Option<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl Data {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::operations_scoped_list::warning::Data::key].
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::operations_scoped_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [value][crate::model::operations_scoped_list::warning::Data::value].
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::operations_scoped_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl wkt::message::Message for Data {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.compute.v1.OperationsScopedList.warning.data"
+            }
+        }
+
+        /// The enumerated type for the [code][google.cloud.compute.v1.OperationsScopedList.warning.code] field.
+        ///
+        /// [google.cloud.compute.v1.OperationsScopedList.warning.code]: crate::model::operations_scoped_list::warning::Code
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "global-operations")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Code {
+            /// Warning about failed cleanup of transient changes made by a failed
+            /// operation.
+            CleanupFailed,
+            /// A link to a deprecated resource was created.
+            DeprecatedResourceUsed,
+            /// When deploying and at least one of the resources has a type marked as
+            /// deprecated
+            DeprecatedTypeUsed,
+            /// The user created a boot disk that is larger than image size.
+            DiskSizeLargerThanImageSize,
+            /// When deploying and at least one of the resources has a type marked as
+            /// experimental
+            ExperimentalTypeUsed,
+            /// Warning that is present in an external api call
+            ExternalApiWarning,
+            /// Warning that value of a field has been overridden.
+            /// Deprecated unused field.
+            #[deprecated]
+            FieldValueOverriden,
+            /// The operation involved use of an injected kernel, which is deprecated.
+            InjectedKernelsDeprecated,
+            /// A WEIGHTED_MAGLEV backend service is associated with a health check that is
+            /// not of type HTTP/HTTPS/HTTP2.
+            InvalidHealthCheckForDynamicWieghtedLb,
+            /// When deploying a deployment with a exceedingly large number of resources
+            LargeDeploymentWarning,
+            /// Resource can't be retrieved due to list overhead quota exceed
+            /// which captures the amount of resources filtered out by
+            /// user-defined list filter.
+            ListOverheadQuotaExceed,
+            /// A resource depends on a missing type
+            MissingTypeDependency,
+            /// The route's nextHopIp address is not assigned to an instance on the
+            /// network.
+            NextHopAddressNotAssigned,
+            /// The route's next hop instance cannot ip forward.
+            NextHopCannotIpForward,
+            /// The route's nextHopInstance URL refers to an instance that does not have an
+            /// ipv6 interface on the same network as the route.
+            NextHopInstanceHasNoIpv6Interface,
+            /// The route's nextHopInstance URL refers to an instance that does not exist.
+            NextHopInstanceNotFound,
+            /// The route's nextHopInstance URL refers to an instance that is not on the
+            /// same network as the route.
+            NextHopInstanceNotOnNetwork,
+            /// The route's next hop instance does not have a status of RUNNING.
+            NextHopNotRunning,
+            /// Error which is not critical. We decided to continue the process despite
+            /// the mentioned error.
+            NotCriticalError,
+            /// No results are present on a particular list page.
+            NoResultsOnPage,
+            /// Success is reported, but some results may be missing due to errors
+            PartialSuccess,
+            /// Quota information is not available to client requests (e.g:
+            /// regions.list).
+            QuotaInfoUnavailable,
+            /// The user attempted to use a resource that requires a TOS they have not
+            /// accepted.
+            RequiredTosAgreement,
+            /// Warning that a resource is in use.
+            ResourceInUseByOtherResourceWarning,
+            /// One or more of the resources set to auto-delete could not be deleted
+            /// because they were in use.
+            ResourceNotDeleted,
+            /// When a resource schema validation is ignored.
+            SchemaValidationIgnored,
+            /// Instance template used in instance group manager is valid as such, but
+            /// its application does not make a lot of sense, because it allows only
+            /// single instance in instance group.
+            SingleInstancePropertyTemplate,
+            /// When undeclared properties in the schema are present
+            UndeclaredProperties,
+            /// A given scope cannot be reached.
+            Unreachable,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Code::value] or
+            /// [Code::name].
+            UnknownValue(code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "global-operations")]
+        pub mod code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl Code {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some(0),
+                    Self::DeprecatedResourceUsed => std::option::Option::Some(1),
+                    Self::DeprecatedTypeUsed => std::option::Option::Some(2),
+                    Self::DiskSizeLargerThanImageSize => std::option::Option::Some(3),
+                    Self::ExperimentalTypeUsed => std::option::Option::Some(4),
+                    Self::ExternalApiWarning => std::option::Option::Some(5),
+                    Self::FieldValueOverriden => std::option::Option::Some(6),
+                    Self::InjectedKernelsDeprecated => std::option::Option::Some(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => std::option::Option::Some(8),
+                    Self::LargeDeploymentWarning => std::option::Option::Some(9),
+                    Self::ListOverheadQuotaExceed => std::option::Option::Some(10),
+                    Self::MissingTypeDependency => std::option::Option::Some(11),
+                    Self::NextHopAddressNotAssigned => std::option::Option::Some(12),
+                    Self::NextHopCannotIpForward => std::option::Option::Some(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => std::option::Option::Some(14),
+                    Self::NextHopInstanceNotFound => std::option::Option::Some(15),
+                    Self::NextHopInstanceNotOnNetwork => std::option::Option::Some(16),
+                    Self::NextHopNotRunning => std::option::Option::Some(17),
+                    Self::NotCriticalError => std::option::Option::Some(18),
+                    Self::NoResultsOnPage => std::option::Option::Some(19),
+                    Self::PartialSuccess => std::option::Option::Some(20),
+                    Self::QuotaInfoUnavailable => std::option::Option::Some(21),
+                    Self::RequiredTosAgreement => std::option::Option::Some(22),
+                    Self::ResourceInUseByOtherResourceWarning => std::option::Option::Some(23),
+                    Self::ResourceNotDeleted => std::option::Option::Some(24),
+                    Self::SchemaValidationIgnored => std::option::Option::Some(25),
+                    Self::SingleInstancePropertyTemplate => std::option::Option::Some(26),
+                    Self::UndeclaredProperties => std::option::Option::Some(27),
+                    Self::Unreachable => std::option::Option::Some(28),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        std::option::Option::Some("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => std::option::Option::Some("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        std::option::Option::Some("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        std::option::Option::Some("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => std::option::Option::Some("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => std::option::Option::Some("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        std::option::Option::Some("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        std::option::Option::Some("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        std::option::Option::Some("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        std::option::Option::Some("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        std::option::Option::Some("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        std::option::Option::Some("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        std::option::Option::Some("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => std::option::Option::Some("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => std::option::Option::Some("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => std::option::Option::Some("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => std::option::Option::Some("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        std::option::Option::Some("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        std::option::Option::Some("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        std::option::Option::Some("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => std::option::Option::Some("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        std::option::Option::Some("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        std::option::Option::Some("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => {
+                        std::option::Option::Some("UNDECLARED_PROPERTIES")
+                    }
+                    Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl std::fmt::Display for Code {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::CleanupFailed,
+                    1 => Self::DeprecatedResourceUsed,
+                    2 => Self::DeprecatedTypeUsed,
+                    3 => Self::DiskSizeLargerThanImageSize,
+                    4 => Self::ExperimentalTypeUsed,
+                    5 => Self::ExternalApiWarning,
+                    6 => Self::FieldValueOverriden,
+                    7 => Self::InjectedKernelsDeprecated,
+                    8 => Self::InvalidHealthCheckForDynamicWieghtedLb,
+                    9 => Self::LargeDeploymentWarning,
+                    10 => Self::ListOverheadQuotaExceed,
+                    11 => Self::MissingTypeDependency,
+                    12 => Self::NextHopAddressNotAssigned,
+                    13 => Self::NextHopCannotIpForward,
+                    14 => Self::NextHopInstanceHasNoIpv6Interface,
+                    15 => Self::NextHopInstanceNotFound,
+                    16 => Self::NextHopInstanceNotOnNetwork,
+                    17 => Self::NextHopNotRunning,
+                    18 => Self::NotCriticalError,
+                    19 => Self::NoResultsOnPage,
+                    20 => Self::PartialSuccess,
+                    21 => Self::QuotaInfoUnavailable,
+                    22 => Self::RequiredTosAgreement,
+                    23 => Self::ResourceInUseByOtherResourceWarning,
+                    24 => Self::ResourceNotDeleted,
+                    25 => Self::SchemaValidationIgnored,
+                    26 => Self::SingleInstancePropertyTemplate,
+                    27 => Self::UndeclaredProperties,
+                    28 => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl std::convert::From<&str> for Code {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CLEANUP_FAILED" => Self::CleanupFailed,
+                    "DEPRECATED_RESOURCE_USED" => Self::DeprecatedResourceUsed,
+                    "DEPRECATED_TYPE_USED" => Self::DeprecatedTypeUsed,
+                    "DISK_SIZE_LARGER_THAN_IMAGE_SIZE" => Self::DiskSizeLargerThanImageSize,
+                    "EXPERIMENTAL_TYPE_USED" => Self::ExperimentalTypeUsed,
+                    "EXTERNAL_API_WARNING" => Self::ExternalApiWarning,
+                    "FIELD_VALUE_OVERRIDEN" => Self::FieldValueOverriden,
+                    "INJECTED_KERNELS_DEPRECATED" => Self::InjectedKernelsDeprecated,
+                    "INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB" => {
+                        Self::InvalidHealthCheckForDynamicWieghtedLb
+                    }
+                    "LARGE_DEPLOYMENT_WARNING" => Self::LargeDeploymentWarning,
+                    "LIST_OVERHEAD_QUOTA_EXCEED" => Self::ListOverheadQuotaExceed,
+                    "MISSING_TYPE_DEPENDENCY" => Self::MissingTypeDependency,
+                    "NEXT_HOP_ADDRESS_NOT_ASSIGNED" => Self::NextHopAddressNotAssigned,
+                    "NEXT_HOP_CANNOT_IP_FORWARD" => Self::NextHopCannotIpForward,
+                    "NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE" => {
+                        Self::NextHopInstanceHasNoIpv6Interface
+                    }
+                    "NEXT_HOP_INSTANCE_NOT_FOUND" => Self::NextHopInstanceNotFound,
+                    "NEXT_HOP_INSTANCE_NOT_ON_NETWORK" => Self::NextHopInstanceNotOnNetwork,
+                    "NEXT_HOP_NOT_RUNNING" => Self::NextHopNotRunning,
+                    "NOT_CRITICAL_ERROR" => Self::NotCriticalError,
+                    "NO_RESULTS_ON_PAGE" => Self::NoResultsOnPage,
+                    "PARTIAL_SUCCESS" => Self::PartialSuccess,
+                    "QUOTA_INFO_UNAVAILABLE" => Self::QuotaInfoUnavailable,
+                    "REQUIRED_TOS_AGREEMENT" => Self::RequiredTosAgreement,
+                    "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING" => {
+                        Self::ResourceInUseByOtherResourceWarning
+                    }
+                    "RESOURCE_NOT_DELETED" => Self::ResourceNotDeleted,
+                    "SCHEMA_VALIDATION_IGNORED" => Self::SchemaValidationIgnored,
+                    "SINGLE_INSTANCE_PROPERTY_TEMPLATE" => Self::SingleInstancePropertyTemplate,
+                    "UNDECLARED_PROPERTIES" => Self::UndeclaredProperties,
+                    "UNREACHABLE" => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "global-operations")]
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                    ".google.cloud.compute.v1.OperationsScopedList.warning.code",
                 ))
             }
         }
@@ -45648,6 +47324,8 @@ impl wkt::message::Message for PreservedStatePreservedNetworkIpIpAddress {
 
 /// Additional details for quota exceeded error for resource quota.
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -45687,6 +47365,8 @@ pub struct QuotaExceededInfo {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -45808,6 +47488,8 @@ impl QuotaExceededInfo {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -45828,6 +47510,8 @@ impl wkt::message::Message for QuotaExceededInfo {
 
 /// Defines additional types related to [QuotaExceededInfo].
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -45862,6 +47546,8 @@ pub mod quota_exceeded_info {
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -45892,6 +47578,8 @@ pub mod quota_exceeded_info {
 
     #[doc(hidden)]
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -45912,6 +47600,8 @@ pub mod quota_exceeded_info {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -45951,6 +47641,8 @@ pub mod quota_exceeded_info {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -45971,6 +47663,8 @@ pub mod quota_exceeded_info {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -45990,6 +47684,8 @@ pub mod quota_exceeded_info {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -46015,6 +47711,8 @@ pub mod quota_exceeded_info {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -46041,6 +47739,8 @@ pub mod quota_exceeded_info {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -46067,6 +47767,8 @@ pub mod quota_exceeded_info {
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -53051,6 +54753,8 @@ impl wkt::message::Message for ServiceAccount {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -53080,6 +54784,8 @@ pub struct SetCommonInstanceMetadataOperationMetadata {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -53131,6 +54837,8 @@ impl SetCommonInstanceMetadataOperationMetadata {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -53150,6 +54858,8 @@ impl wkt::message::Message for SetCommonInstanceMetadataOperationMetadata {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -53178,6 +54888,8 @@ pub struct SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -53231,6 +54943,8 @@ impl SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -53251,6 +54965,8 @@ impl wkt::message::Message for SetCommonInstanceMetadataOperationMetadataPerLoca
 
 /// Defines additional types related to [SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo].
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -53285,6 +55001,8 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -53320,6 +55038,8 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
 
     #[doc(hidden)]
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -53340,6 +55060,8 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -53387,6 +55109,8 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -53407,6 +55131,8 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -53426,6 +55152,8 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -53455,6 +55183,8 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -53485,6 +55215,8 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -53515,6 +55247,8 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
     }
 
     #[cfg(any(
+        feature = "global-operations",
+        feature = "global-organization-operations",
         feature = "images",
         feature = "instance-group-manager-resize-requests",
         feature = "instance-group-managers",
@@ -54490,6 +56224,8 @@ pub mod stateful_policy_preserved_state_network_ip {
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -54521,6 +56257,8 @@ pub struct Status {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -54587,6 +56325,8 @@ impl Status {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -56765,6 +58505,928 @@ impl ZoneSetPolicyRequest {
 impl wkt::message::Message for ZoneSetPolicyRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.ZoneSetPolicyRequest"
+    }
+}
+
+/// Synthetic messages for the [globalOperations][google.cloud.compute.v1.globalOperations] service
+///
+/// [google.cloud.compute.v1.globalOperations]: crate::model::GlobalOperations
+#[cfg(feature = "global-operations")]
+pub mod global_operations {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Synthetic request message for the [aggregatedList()][google.cloud.compute.v1.globalOperations.aggregatedList] method.
+    ///
+    /// [google.cloud.compute.v1.globalOperations.aggregatedList]: crate::client::GlobalOperations::aggregated_list
+    #[cfg(feature = "global-operations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AggregatedListRequest {
+        /// A filter expression that filters resources listed in the response. Most
+        /// Compute resources support two types of filter expressions:
+        /// expressions that support regular expressions and expressions that follow
+        /// API improvement proposal AIP-160.
+        /// These two types of filter expressions cannot be mixed in one request.
+        ///
+        /// If you want to use AIP-160, your expression must specify the field name, an
+        /// operator, and the value that you want to use for filtering. The value
+        /// must be a string, a number, or a boolean. The operator
+        /// must be either `=`, `!=`, `>`, `<`, `<=`, `>=` or `:`.
+        ///
+        /// For example, if you are filtering Compute Engine instances, you can
+        /// exclude instances named `example-instance` by specifying
+        /// `name != example-instance`.
+        ///
+        /// The `:*` comparison can be used to test whether a key has been defined.
+        /// For example, to find all objects with `owner` label use:
+        ///
+        /// ```norust
+        /// labels.owner:*
+        /// ```
+        ///
+        /// You can also filter nested fields. For example, you could specify
+        /// `scheduling.automaticRestart = false` to include instances only
+        /// if they are not scheduled for automatic restarts. You can use filtering
+        /// on nested fields to filter based onresource labels.
+        ///
+        /// To filter on multiple expressions, provide each separate expression within
+        /// parentheses. For example:
+        ///
+        /// ```norust
+        /// (scheduling.automaticRestart = true)
+        /// (cpuPlatform = "Intel Skylake")
+        /// ```
+        ///
+        /// By default, each expression is an `AND` expression. However, you
+        /// can include `AND` and `OR` expressions explicitly.
+        /// For example:
+        ///
+        /// ```norust
+        /// (cpuPlatform = "Intel Skylake") OR
+        /// (cpuPlatform = "Intel Broadwell") AND
+        /// (scheduling.automaticRestart = true)
+        /// ```
+        ///
+        /// If you want to use a regular expression, use the `eq` (equal) or `ne`
+        /// (not equal) operator against a single un-parenthesized expression with or
+        /// without quotes or against multiple parenthesized expressions. Examples:
+        ///
+        /// `fieldname eq unquoted literal`
+        /// `fieldname eq 'single quoted literal'`
+        /// `fieldname eq "double quoted literal"`
+        /// `(fieldname1 eq literal) (fieldname2 ne "literal")`
+        ///
+        /// The literal value is interpreted as a regular expression using GoogleRE2 library syntax.
+        /// The literal value must match the entire field.
+        ///
+        /// For example, to filter for instances that do not end with name "instance",
+        /// you would use `name ne .*instance`.
+        ///
+        /// You cannot combine constraints on multiple fields using regular
+        /// expressions.
+        pub filter: std::option::Option<std::string::String>,
+
+        /// Indicates whether every visible scope for each scope type (zone, region,
+        /// global) should be included in the response. For new resource types added
+        /// after this field, the flag has no effect as new resource types will always
+        /// include every visible scope for each scope type in response. For resource
+        /// types which predate this field, if this flag is omitted or false, only
+        /// scopes of the scope types where the resource type is expected to be found
+        /// will be included.
+        pub include_all_scopes: std::option::Option<bool>,
+
+        /// The maximum number of results per page that should be returned.
+        /// If the number of available results is larger than `maxResults`,
+        /// Compute Engine returns a `nextPageToken` that can be used to get
+        /// the next page of results in subsequent list requests. Acceptable values are
+        /// `0` to `500`, inclusive. (Default: `500`)
+        pub max_results: std::option::Option<u32>,
+
+        /// Sorts list results by a certain order. By default, results
+        /// are returned in alphanumerical order based on the resource name.
+        ///
+        /// You can also sort results in descending order based on the creation
+        /// timestamp using `orderBy="creationTimestamp desc"`. This sorts
+        /// results based on the `creationTimestamp` field in
+        /// reverse chronological order (newest result first). Use this to sort
+        /// resources like operations so that the newest operation is returned first.
+        ///
+        /// Currently, only sorting by `name` or
+        /// `creationTimestamp desc` is supported.
+        pub order_by: std::option::Option<std::string::String>,
+
+        /// Specifies a page token to use. Set `pageToken` to the
+        /// `nextPageToken` returned by a previous list request to get
+        /// the next page of results.
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Opt-in for partial success behavior which provides partial results in case
+        /// of failure. The default value is false.
+        ///
+        /// For example, when partial success behavior is enabled, aggregatedList for a
+        /// single zone scope either returns all resources in the zone or no resources,
+        /// with an error code.
+        pub return_partial_success: std::option::Option<bool>,
+
+        /// The Shared VPC service project id or service project number for which
+        /// aggregated list request is invoked for subnetworks list-usable api.
+        pub service_project_number: std::option::Option<i64>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "global-operations")]
+    impl AggregatedListRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filter][crate::model::global_operations::AggregatedListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::global_operations::AggregatedListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [include_all_scopes][crate::model::global_operations::AggregatedListRequest::include_all_scopes].
+        pub fn set_include_all_scopes<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.include_all_scopes = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [include_all_scopes][crate::model::global_operations::AggregatedListRequest::include_all_scopes].
+        pub fn set_or_clear_include_all_scopes<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.include_all_scopes = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::global_operations::AggregatedListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::global_operations::AggregatedListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::global_operations::AggregatedListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::global_operations::AggregatedListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::global_operations::AggregatedListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::global_operations::AggregatedListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::global_operations::AggregatedListRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::global_operations::AggregatedListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::global_operations::AggregatedListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [service_project_number][crate::model::global_operations::AggregatedListRequest::service_project_number].
+        pub fn set_service_project_number<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.service_project_number = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_project_number][crate::model::global_operations::AggregatedListRequest::service_project_number].
+        pub fn set_or_clear_service_project_number<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.service_project_number = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [delete()][google.cloud.compute.v1.globalOperations.delete] method.
+    ///
+    /// [google.cloud.compute.v1.globalOperations.delete]: crate::client::GlobalOperations::delete
+    #[cfg(feature = "global-operations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DeleteRequest {
+        /// Name of the Operations resource to delete, or its unique numeric
+        /// identifier.
+        pub operation: std::string::String,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "global-operations")]
+    impl DeleteRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [operation][crate::model::global_operations::DeleteRequest::operation].
+        pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.operation = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::global_operations::DeleteRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [get()][google.cloud.compute.v1.globalOperations.get] method.
+    ///
+    /// [google.cloud.compute.v1.globalOperations.get]: crate::client::GlobalOperations::get
+    #[cfg(feature = "global-operations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetRequest {
+        /// Name of the Operations resource to return, or its unique numeric
+        /// identifier.
+        pub operation: std::string::String,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "global-operations")]
+    impl GetRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [operation][crate::model::global_operations::GetRequest::operation].
+        pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.operation = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::global_operations::GetRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [list()][google.cloud.compute.v1.globalOperations.list] method.
+    ///
+    /// [google.cloud.compute.v1.globalOperations.list]: crate::client::GlobalOperations::list
+    #[cfg(feature = "global-operations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ListRequest {
+        /// A filter expression that filters resources listed in the response. Most
+        /// Compute resources support two types of filter expressions:
+        /// expressions that support regular expressions and expressions that follow
+        /// API improvement proposal AIP-160.
+        /// These two types of filter expressions cannot be mixed in one request.
+        ///
+        /// If you want to use AIP-160, your expression must specify the field name, an
+        /// operator, and the value that you want to use for filtering. The value
+        /// must be a string, a number, or a boolean. The operator
+        /// must be either `=`, `!=`, `>`, `<`, `<=`, `>=` or `:`.
+        ///
+        /// For example, if you are filtering Compute Engine instances, you can
+        /// exclude instances named `example-instance` by specifying
+        /// `name != example-instance`.
+        ///
+        /// The `:*` comparison can be used to test whether a key has been defined.
+        /// For example, to find all objects with `owner` label use:
+        ///
+        /// ```norust
+        /// labels.owner:*
+        /// ```
+        ///
+        /// You can also filter nested fields. For example, you could specify
+        /// `scheduling.automaticRestart = false` to include instances only
+        /// if they are not scheduled for automatic restarts. You can use filtering
+        /// on nested fields to filter based onresource labels.
+        ///
+        /// To filter on multiple expressions, provide each separate expression within
+        /// parentheses. For example:
+        ///
+        /// ```norust
+        /// (scheduling.automaticRestart = true)
+        /// (cpuPlatform = "Intel Skylake")
+        /// ```
+        ///
+        /// By default, each expression is an `AND` expression. However, you
+        /// can include `AND` and `OR` expressions explicitly.
+        /// For example:
+        ///
+        /// ```norust
+        /// (cpuPlatform = "Intel Skylake") OR
+        /// (cpuPlatform = "Intel Broadwell") AND
+        /// (scheduling.automaticRestart = true)
+        /// ```
+        ///
+        /// If you want to use a regular expression, use the `eq` (equal) or `ne`
+        /// (not equal) operator against a single un-parenthesized expression with or
+        /// without quotes or against multiple parenthesized expressions. Examples:
+        ///
+        /// `fieldname eq unquoted literal`
+        /// `fieldname eq 'single quoted literal'`
+        /// `fieldname eq "double quoted literal"`
+        /// `(fieldname1 eq literal) (fieldname2 ne "literal")`
+        ///
+        /// The literal value is interpreted as a regular expression using GoogleRE2 library syntax.
+        /// The literal value must match the entire field.
+        ///
+        /// For example, to filter for instances that do not end with name "instance",
+        /// you would use `name ne .*instance`.
+        ///
+        /// You cannot combine constraints on multiple fields using regular
+        /// expressions.
+        pub filter: std::option::Option<std::string::String>,
+
+        /// The maximum number of results per page that should be returned.
+        /// If the number of available results is larger than `maxResults`,
+        /// Compute Engine returns a `nextPageToken` that can be used to get
+        /// the next page of results in subsequent list requests. Acceptable values are
+        /// `0` to `500`, inclusive. (Default: `500`)
+        pub max_results: std::option::Option<u32>,
+
+        /// Sorts list results by a certain order. By default, results
+        /// are returned in alphanumerical order based on the resource name.
+        ///
+        /// You can also sort results in descending order based on the creation
+        /// timestamp using `orderBy="creationTimestamp desc"`. This sorts
+        /// results based on the `creationTimestamp` field in
+        /// reverse chronological order (newest result first). Use this to sort
+        /// resources like operations so that the newest operation is returned first.
+        ///
+        /// Currently, only sorting by `name` or
+        /// `creationTimestamp desc` is supported.
+        pub order_by: std::option::Option<std::string::String>,
+
+        /// Specifies a page token to use. Set `pageToken` to the
+        /// `nextPageToken` returned by a previous list request to get
+        /// the next page of results.
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Opt-in for partial success behavior which provides partial results in case
+        /// of failure. The default value is false.
+        ///
+        /// For example, when partial success behavior is enabled, aggregatedList for a
+        /// single zone scope either returns all resources in the zone or no resources,
+        /// with an error code.
+        pub return_partial_success: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "global-operations")]
+    impl ListRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filter][crate::model::global_operations::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::global_operations::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::global_operations::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::global_operations::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::global_operations::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::global_operations::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::global_operations::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::global_operations::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::global_operations::ListRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::global_operations::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::global_operations::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [wait()][google.cloud.compute.v1.globalOperations.wait] method.
+    ///
+    /// [google.cloud.compute.v1.globalOperations.wait]: crate::client::GlobalOperations::wait
+    #[cfg(feature = "global-operations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct WaitRequest {
+        /// Name of the Operations resource to return, or its unique numeric
+        /// identifier.
+        pub operation: std::string::String,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "global-operations")]
+    impl WaitRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [operation][crate::model::global_operations::WaitRequest::operation].
+        pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.operation = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::global_operations::WaitRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+    }
+}
+
+/// Synthetic messages for the [globalOrganizationOperations][google.cloud.compute.v1.globalOrganizationOperations] service
+///
+/// [google.cloud.compute.v1.globalOrganizationOperations]: crate::model::GlobalOrganizationOperations
+#[cfg(feature = "global-organization-operations")]
+pub mod global_organization_operations {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Synthetic request message for the [delete()][google.cloud.compute.v1.globalOrganizationOperations.delete] method.
+    ///
+    /// [google.cloud.compute.v1.globalOrganizationOperations.delete]: crate::client::GlobalOrganizationOperations::delete
+    #[cfg(feature = "global-organization-operations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DeleteRequest {
+        /// Name of the Operations resource to delete, or its unique numeric
+        /// identifier.
+        pub operation: std::string::String,
+
+        /// Parent ID for this request.
+        pub parent_id: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "global-organization-operations")]
+    impl DeleteRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [operation][crate::model::global_organization_operations::DeleteRequest::operation].
+        pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.operation = v.into();
+            self
+        }
+
+        /// Sets the value of [parent_id][crate::model::global_organization_operations::DeleteRequest::parent_id].
+        pub fn set_parent_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.parent_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parent_id][crate::model::global_organization_operations::DeleteRequest::parent_id].
+        pub fn set_or_clear_parent_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.parent_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [get()][google.cloud.compute.v1.globalOrganizationOperations.get] method.
+    ///
+    /// [google.cloud.compute.v1.globalOrganizationOperations.get]: crate::client::GlobalOrganizationOperations::get
+    #[cfg(feature = "global-organization-operations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetRequest {
+        /// Name of the Operations resource to return. Parent is derived from this
+        /// field.
+        pub operation: std::string::String,
+
+        /// Parent ID for this request. Not used. Parent is derived from resource_id.
+        pub parent_id: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "global-organization-operations")]
+    impl GetRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [operation][crate::model::global_organization_operations::GetRequest::operation].
+        pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.operation = v.into();
+            self
+        }
+
+        /// Sets the value of [parent_id][crate::model::global_organization_operations::GetRequest::parent_id].
+        pub fn set_parent_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.parent_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parent_id][crate::model::global_organization_operations::GetRequest::parent_id].
+        pub fn set_or_clear_parent_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.parent_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [list()][google.cloud.compute.v1.globalOrganizationOperations.list] method.
+    ///
+    /// [google.cloud.compute.v1.globalOrganizationOperations.list]: crate::client::GlobalOrganizationOperations::list
+    #[cfg(feature = "global-organization-operations")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ListRequest {
+        /// A filter expression that filters resources listed in the response. Most
+        /// Compute resources support two types of filter expressions:
+        /// expressions that support regular expressions and expressions that follow
+        /// API improvement proposal AIP-160.
+        /// These two types of filter expressions cannot be mixed in one request.
+        ///
+        /// If you want to use AIP-160, your expression must specify the field name, an
+        /// operator, and the value that you want to use for filtering. The value
+        /// must be a string, a number, or a boolean. The operator
+        /// must be either `=`, `!=`, `>`, `<`, `<=`, `>=` or `:`.
+        ///
+        /// For example, if you are filtering Compute Engine instances, you can
+        /// exclude instances named `example-instance` by specifying
+        /// `name != example-instance`.
+        ///
+        /// The `:*` comparison can be used to test whether a key has been defined.
+        /// For example, to find all objects with `owner` label use:
+        ///
+        /// ```norust
+        /// labels.owner:*
+        /// ```
+        ///
+        /// You can also filter nested fields. For example, you could specify
+        /// `scheduling.automaticRestart = false` to include instances only
+        /// if they are not scheduled for automatic restarts. You can use filtering
+        /// on nested fields to filter based onresource labels.
+        ///
+        /// To filter on multiple expressions, provide each separate expression within
+        /// parentheses. For example:
+        ///
+        /// ```norust
+        /// (scheduling.automaticRestart = true)
+        /// (cpuPlatform = "Intel Skylake")
+        /// ```
+        ///
+        /// By default, each expression is an `AND` expression. However, you
+        /// can include `AND` and `OR` expressions explicitly.
+        /// For example:
+        ///
+        /// ```norust
+        /// (cpuPlatform = "Intel Skylake") OR
+        /// (cpuPlatform = "Intel Broadwell") AND
+        /// (scheduling.automaticRestart = true)
+        /// ```
+        ///
+        /// If you want to use a regular expression, use the `eq` (equal) or `ne`
+        /// (not equal) operator against a single un-parenthesized expression with or
+        /// without quotes or against multiple parenthesized expressions. Examples:
+        ///
+        /// `fieldname eq unquoted literal`
+        /// `fieldname eq 'single quoted literal'`
+        /// `fieldname eq "double quoted literal"`
+        /// `(fieldname1 eq literal) (fieldname2 ne "literal")`
+        ///
+        /// The literal value is interpreted as a regular expression using GoogleRE2 library syntax.
+        /// The literal value must match the entire field.
+        ///
+        /// For example, to filter for instances that do not end with name "instance",
+        /// you would use `name ne .*instance`.
+        ///
+        /// You cannot combine constraints on multiple fields using regular
+        /// expressions.
+        pub filter: std::option::Option<std::string::String>,
+
+        /// The maximum number of results per page that should be returned.
+        /// If the number of available results is larger than `maxResults`,
+        /// Compute Engine returns a `nextPageToken` that can be used to get
+        /// the next page of results in subsequent list requests. Acceptable values are
+        /// `0` to `500`, inclusive. (Default: `500`)
+        pub max_results: std::option::Option<u32>,
+
+        /// Sorts list results by a certain order. By default, results
+        /// are returned in alphanumerical order based on the resource name.
+        ///
+        /// You can also sort results in descending order based on the creation
+        /// timestamp using `orderBy="creationTimestamp desc"`. This sorts
+        /// results based on the `creationTimestamp` field in
+        /// reverse chronological order (newest result first). Use this to sort
+        /// resources like operations so that the newest operation is returned first.
+        ///
+        /// Currently, only sorting by `name` or
+        /// `creationTimestamp desc` is supported.
+        pub order_by: std::option::Option<std::string::String>,
+
+        /// Specifies a page token to use. Set `pageToken` to the
+        /// `nextPageToken` returned by a previous list request to get
+        /// the next page of results.
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Parent ID for this request.
+        pub parent_id: std::option::Option<std::string::String>,
+
+        /// Opt-in for partial success behavior which provides partial results in case
+        /// of failure. The default value is false.
+        ///
+        /// For example, when partial success behavior is enabled, aggregatedList for a
+        /// single zone scope either returns all resources in the zone or no resources,
+        /// with an error code.
+        pub return_partial_success: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "global-organization-operations")]
+    impl ListRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filter][crate::model::global_organization_operations::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::global_organization_operations::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::global_organization_operations::ListRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::global_organization_operations::ListRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::global_organization_operations::ListRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::global_organization_operations::ListRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::global_organization_operations::ListRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::global_organization_operations::ListRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [parent_id][crate::model::global_organization_operations::ListRequest::parent_id].
+        pub fn set_parent_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.parent_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parent_id][crate::model::global_organization_operations::ListRequest::parent_id].
+        pub fn set_or_clear_parent_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.parent_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::global_organization_operations::ListRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::global_organization_operations::ListRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = v.map(|x| x.into());
+            self
+        }
     }
 }
 
