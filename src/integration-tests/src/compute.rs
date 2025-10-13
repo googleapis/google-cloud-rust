@@ -260,7 +260,7 @@ pub async fn images() -> Result<()> {
         .set_description("A test Image created by the Rust client library.")
         .set_family("cos-stable")
         .set_labels([("integration-test", "true")])
-        .set_source_image(format!("projects/debian-cloud/global/images/{found}"));
+        .set_source_image(format!("projects/cos-cloud/global/images/{found}"));
     let operation = client
         .insert()
         .set_project(&project_id)
