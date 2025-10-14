@@ -103,3 +103,150 @@ impl JwkClient {
         Ok(jwk_set)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use base64::Engine;
+    use httptest::matchers::{all_of, request};
+    use httptest::responders::json_encoded;
+    use httptest::{Expectation, Server};
+    use jsonwebtoken::Algorithm;
+    use rsa::traits::PublicKeyParts;
+    use serial_test::parallel;
+
+    type TestResult = anyhow::Result<()>;
+
+    const TEST_KEY_ID: &str = "test-key-id";
+
+    fn create_jwk_set_response() -> serde_json::Value {
+        let pub_cert = crate::credentials::tests::RSA_PRIVATE_KEY.to_public_key();
+        serde_json::json!({
+            "keys": [
+                {
+                    "e": base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(pub_cert.e().to_bytes_be()),
+                    "kid": TEST_KEY_ID,
+                    "use": "sig",
+                    "kty": "RSA",
+                    "n": base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(pub_cert.n().to_bytes_be()),
+                    "alg": "RS256"
+                }
+            ]
+        })
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_get_or_load_cert_success() -> TestResult {
+        let server = Server::run();
+        let response = create_jwk_set_response();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(response.clone())),
+        );
+
+        let client = JwkClient::new();
+        let jwks_url = format!("http://{}/certs", server.addr());
+
+        // First call, should fetch from URL
+        let _key = client
+            .get_or_load_cert(
+                TEST_KEY_ID.to_string(),
+                Algorithm::RS256,
+                Some(jwks_url.clone()),
+            )
+            .await?;
+
+        // Second call, should use cache
+        let _key = client
+            .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_get_or_load_cert_kid_not_found() -> TestResult {
+        let server = Server::run();
+        let response = create_jwk_set_response();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(response.clone())),
+        );
+
+        let client = JwkClient::new();
+        let jwks_url = format!("http://{}/certs", server.addr());
+
+        let result = client
+            .get_or_load_cert("unknown-kid".to_string(), Algorithm::RS256, Some(jwks_url))
+            .await;
+
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(err
+            .to_string()
+            .contains("JWKS did not contain a matching `kid`"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_get_or_load_cert_fetch_error() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(httptest::responders::status_code(500)),
+        );
+
+        let client = JwkClient::new();
+        let jwks_url = format!("http://{}/certs", server.addr());
+
+        let result = client
+            .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
+            .await;
+
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch JWK set"));
+
+        Ok(())
+    }
+
+    #[test]
+    #[parallel]
+    fn test_resolve_jwks_url() -> TestResult {
+        let client = JwkClient::new();
+
+        // Custom URL
+        let url = "https://example.com/jwks".to_string();
+        assert_eq!(
+            client
+                .resolve_jwks_url(Algorithm::RS256, Some(url.clone()))
+                .unwrap(),
+            url
+        );
+
+        // Default for RS256
+        assert_eq!(
+            client.resolve_jwks_url(Algorithm::RS256, None).unwrap(),
+            OAUTH2_JWK_URL
+        );
+
+        // Default for ES256
+        assert_eq!(
+            client.resolve_jwks_url(Algorithm::ES256, None).unwrap(),
+            IAP_JWK_URL
+        );
+
+        // Unsupported algorithm
+        let result = client.resolve_jwks_url(Algorithm::HS256, None);
+        assert!(result.is_err());
+
+        Ok(())
+    }
+}
