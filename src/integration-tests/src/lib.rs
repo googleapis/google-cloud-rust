@@ -93,6 +93,17 @@ pub(crate) fn random_vm_id() -> String {
     format!("{PREFIX}{vm_id}")
 }
 
+pub(crate) fn random_vm_prefix(len: usize) -> String {
+    const PREFIX: &str = "vm-";
+    const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
+    let vm_id: String = rand::rng()
+        .sample_iter(&RandomChars::new(CHARSET))
+        .take(len)
+        .map(char::from)
+        .collect();
+    format!("{PREFIX}{vm_id}")
+}
+
 pub fn enable_tracing() -> tracing::subscriber::DefaultGuard {
     use tracing_subscriber::fmt::format::FmtSpan;
     let builder = tracing_subscriber::fmt()
