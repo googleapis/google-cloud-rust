@@ -126,7 +126,7 @@ pub enum PollingResult<ResponseType, MetadataType> {
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod internal;
 
-mod sealed {
+pub(crate) mod sealed {
     pub trait Poller {}
 }
 

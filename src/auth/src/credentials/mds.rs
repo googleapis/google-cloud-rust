@@ -399,27 +399,29 @@ impl TokenProvider for MDSAccessTokenProvider {
 
 pub mod idtoken {
     //! Types for fetching ID tokens from the metadata service.
-    use std::sync::Arc;
-
     use super::{
         GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE,
         METADATA_ROOT,
     };
     use crate::Result;
+    use crate::credentials::CacheableResource;
     use crate::errors::CredentialsError;
-    use crate::token::{Token, TokenProvider};
+    use crate::token::{CachedTokenProvider, Token, TokenProvider};
+    use crate::token_cache::TokenCache;
     use crate::{
         BuildResult,
-        credentials::idtoken::{IDTokenCredentials, dynamic::IDTokenCredentialsProvider},
+        credentials::idtoken::dynamic::IDTokenCredentialsProvider,
+        credentials::idtoken::{IDTokenCredentials, parse_id_token_from_str},
     };
     use async_trait::async_trait;
-    use http::HeaderValue;
+    use http::{Extensions, HeaderValue};
     use reqwest::Client;
+    use std::sync::Arc;
 
     #[derive(Debug)]
     pub(crate) struct MDSCredentials<T>
     where
-        T: TokenProvider,
+        T: CachedTokenProvider,
     {
         token_provider: T,
     }
@@ -427,10 +429,16 @@ pub mod idtoken {
     #[async_trait]
     impl<T> IDTokenCredentialsProvider for MDSCredentials<T>
     where
-        T: TokenProvider,
+        T: CachedTokenProvider,
     {
-        async fn id_token(&self) -> Result<Token> {
-            self.token_provider.token().await
+        async fn id_token(&self) -> Result<String> {
+            let cached_token = self.token_provider.token(Extensions::new()).await?;
+            match cached_token {
+                CacheableResource::New { data, .. } => Ok(data.token),
+                CacheableResource::NotModified => {
+                    Err(CredentialsError::from_msg(false, "failed to fetch token"))
+                }
+            }
         }
     }
 
@@ -472,7 +480,7 @@ pub mod idtoken {
         ///
         /// Specifies whether or not the project and instance details are included in the payload.
         /// Specify `full` to include this information in the payload or `standard` to omit the information
-        /// from the payload. The default value is `standard``.
+        /// from the payload. The default value is `standard`.
         ///
         /// [format]: https://cloud.google.com/compute/docs/instances/verifying-instance-identity#token_format
         pub fn with_format<S: Into<String>>(mut self, format: S) -> Self {
@@ -522,7 +530,7 @@ pub mod idtoken {
         /// settings.
         pub fn build(self) -> BuildResult<IDTokenCredentials> {
             let creds = MDSCredentials {
-                token_provider: self.build_token_provider(),
+                token_provider: TokenCache::new(self.build_token_provider()),
             };
             Ok(IDTokenCredentials {
                 inner: Arc::new(creds),
@@ -573,13 +581,7 @@ pub mod idtoken {
                 .await
                 .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
 
-            Ok(Token {
-                token,
-                token_type: "Bearer".to_string(),
-                // ID tokens from MDS do not have an expiry.
-                expires_at: None,
-                metadata: None,
-            })
+            parse_id_token_from_str(token)
         }
     }
 }
@@ -590,6 +592,7 @@ mod tests {
     use super::*;
     use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
+    use crate::credentials::idtoken::tests::generate_test_id_token;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
         get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
@@ -1158,7 +1161,7 @@ mod tests {
         let server = Server::run();
         let audience = "test-audience";
         let format = "format";
-        let token_string = "test-id-token";
+        let token_string = generate_test_id_token(audience);
         server.expect(
             Expectation::matching(all_of![
                 request::path(format!("{MDS_DEFAULT_URI}/identity")),
@@ -1166,7 +1169,7 @@ mod tests {
                 request::query(url_decoded(contains(("format", format)))),
                 request::query(url_decoded(contains(("licenses", "TRUE"))))
             ])
-            .respond_with(status_code(200).body(token_string)),
+            .respond_with(status_code(200).body(token_string.clone())),
         );
 
         let creds = idtoken::Builder::new(audience)
@@ -1175,10 +1178,8 @@ mod tests {
             .with_licenses(true)
             .build()?;
 
-        let token = creds.id_token().await?;
-        assert_eq!(token.token, token_string);
-        assert_eq!(token.token_type, "Bearer");
-        assert!(token.expires_at.is_none());
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token_string);
         Ok(())
     }
 
@@ -1187,13 +1188,13 @@ mod tests {
     async fn test_idtoken_builder_build_with_env_var() -> TestResult {
         let server = Server::run();
         let audience = "test-audience";
-        let token_string = "test-id-token";
+        let token_string = generate_test_id_token(audience);
         server.expect(
             Expectation::matching(all_of![
                 request::path(format!("{MDS_DEFAULT_URI}/identity")),
                 request::query(url_decoded(contains(("audience", audience))))
             ])
-            .respond_with(status_code(200).body(token_string)),
+            .respond_with(status_code(200).body(token_string.clone())),
         );
 
         let addr = server.addr().to_string();
@@ -1201,8 +1202,8 @@ mod tests {
 
         let creds = idtoken::Builder::new(audience).build()?;
 
-        let token = creds.id_token().await?;
-        assert_eq!(token.token, token_string);
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token_string);
 
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
         Ok(())
@@ -1231,6 +1232,34 @@ mod tests {
             matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
             "{err:?}"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_idtoken_caching() -> TestResult {
+        let server = Server::run();
+        let audience = "test-audience";
+        let token_string = generate_test_id_token(audience);
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/identity")),
+                request::query(url_decoded(contains(("audience", audience))))
+            ])
+            .times(1)
+            .respond_with(status_code(200).body(token_string.clone())),
+        );
+
+        let creds = idtoken::Builder::new(audience)
+            .with_endpoint(format!("http://{}", server.addr()))
+            .build()?;
+
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token_string);
+
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token_string);
+
         Ok(())
     }
 }

@@ -626,11 +626,14 @@ impl serde::ser::Serialize for super::BulkInsertInstanceResourcePerInstancePrope
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -885,6 +888,32 @@ impl serde::ser::Serialize for super::DiskInstantiationConfig {
     }
 }
 
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DiskMoveRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.destination_zone.is_some() {
+            state.serialize_entry("destinationZone", &self.destination_zone)?;
+        }
+        if self.target_disk.is_some() {
+            state.serialize_entry("targetDisk", &self.target_disk)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "instances")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::DisplayDevice {
@@ -1017,11 +1046,14 @@ impl serde::ser::Serialize for super::Duration {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -1805,11 +1837,14 @@ impl serde::ser::Serialize for super::GuestOsFeature {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -1840,11 +1875,14 @@ impl serde::ser::Serialize for super::Help {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -1998,6 +2036,9 @@ impl serde::ser::Serialize for super::Image {
         }
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
         }
         if self.raw_disk.is_some() {
             state.serialize_entry("rawDisk", &self.raw_disk)?;
@@ -2180,6 +2221,29 @@ impl serde::ser::Serialize for super::image_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "images")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ImageParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -5396,6 +5460,32 @@ impl serde::ser::Serialize for super::InstanceManagedByIgmErrorManagedInstanceEr
     }
 }
 
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstanceMoveRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.destination_zone.is_some() {
+            state.serialize_entry("destinationZone", &self.destination_zone)?;
+        }
+        if self.target_instance.is_some() {
+            state.serialize_entry("targetInstance", &self.target_instance)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "instances")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::InstanceParams {
@@ -5771,11 +5861,14 @@ impl serde::ser::Serialize for super::InstancesAddResourcePoliciesRequest {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -6251,11 +6344,14 @@ impl serde::ser::Serialize for super::InstancesStartWithEncryptionKeyRequest {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -7108,6 +7204,7 @@ impl serde::ser::Serialize for super::ManagedInstanceVersion {
 
 #[cfg(any(
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -7154,6 +7251,7 @@ impl serde::ser::Serialize for super::Metadata {
 
 #[cfg(any(
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -7382,11 +7480,14 @@ impl serde::ser::Serialize for super::NetworkPerformanceConfig {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -7545,11 +7646,14 @@ impl serde::ser::Serialize for super::Operation {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -7580,11 +7684,14 @@ impl serde::ser::Serialize for super::operation::Error {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -7624,11 +7731,14 @@ impl serde::ser::Serialize for super::operation::error::Errors {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -7668,11 +7778,14 @@ impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -7709,11 +7822,14 @@ impl serde::ser::Serialize for super::operation::Warnings {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -7746,7 +7862,108 @@ impl serde::ser::Serialize for super::operation::warnings::Data {
     }
 }
 
-#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+#[cfg(feature = "global-operations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::OperationAggregatedList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self.unreachables.is_empty() {
+            state.serialize_entry("unreachables", &self.unreachables)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "global-operations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operation_aggregated_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "global-operations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operation_aggregated_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::OperationList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -7784,7 +8001,12 @@ impl serde::ser::Serialize for super::OperationList {
     }
 }
 
-#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+#[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation_list::Warning {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -7813,9 +8035,95 @@ impl serde::ser::Serialize for super::operation_list::Warning {
     }
 }
 
-#[cfg(any(feature = "region-operations", feature = "zone-operations",))]
+#[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "region-operations",
+    feature = "zone-operations",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "global-operations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::OperationsScopedList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.operations.is_empty() {
+            state.serialize_entry("operations", &self.operations)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "global-operations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operations_scoped_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "global-operations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::operations_scoped_list::warning::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -8068,12 +8376,289 @@ impl serde::ser::Serialize for super::PreservedStatePreservedNetworkIpIpAddress 
     }
 }
 
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Project {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.cloud_armor_tier.is_some() {
+            state.serialize_entry("cloudArmorTier", &self.cloud_armor_tier)?;
+        }
+        if self.common_instance_metadata.is_some() {
+            state.serialize_entry("commonInstanceMetadata", &self.common_instance_metadata)?;
+        }
+        if self.creation_timestamp.is_some() {
+            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if self.default_network_tier.is_some() {
+            state.serialize_entry("defaultNetworkTier", &self.default_network_tier)?;
+        }
+        if self.default_service_account.is_some() {
+            state.serialize_entry("defaultServiceAccount", &self.default_service_account)?;
+        }
+        if self.description.is_some() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.enabled_features.is_empty() {
+            state.serialize_entry("enabledFeatures", &self.enabled_features)?;
+        }
+        if self.id.is_some() {
+            struct __With<'a>(&'a std::option::Option<u64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("id", &__With(&self.id))?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.quotas.is_empty() {
+            state.serialize_entry("quotas", &self.quotas)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.usage_export_location.is_some() {
+            state.serialize_entry("usageExportLocation", &self.usage_export_location)?;
+        }
+        if self.vm_dns_setting.is_some() {
+            state.serialize_entry("vmDnsSetting", &self.vm_dns_setting)?;
+        }
+        if self.xpn_project_status.is_some() {
+            state.serialize_entry("xpnProjectStatus", &self.xpn_project_status)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ProjectsDisableXpnResourceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.xpn_resource.is_some() {
+            state.serialize_entry("xpnResource", &self.xpn_resource)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ProjectsEnableXpnResourceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.xpn_resource.is_some() {
+            state.serialize_entry("xpnResource", &self.xpn_resource)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ProjectsGetXpnResources {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.resources.is_empty() {
+            state.serialize_entry("resources", &self.resources)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ProjectsListXpnHostsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.organization.is_some() {
+            state.serialize_entry("organization", &self.organization)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ProjectsSetCloudArmorTierRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.cloud_armor_tier.is_some() {
+            state.serialize_entry("cloudArmorTier", &self.cloud_armor_tier)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ProjectsSetDefaultNetworkTierRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.network_tier.is_some() {
+            state.serialize_entry("networkTier", &self.network_tier)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Quota {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.limit.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("limit", &__With(&self.limit))?;
+        }
+        if self.metric.is_some() {
+            state.serialize_entry("metric", &self.metric)?;
+        }
+        if self.owner.is_some() {
+            state.serialize_entry("owner", &self.owner)?;
+        }
+        if self.usage.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("usage", &__With(&self.usage))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -9074,6 +9659,12 @@ impl serde::ser::Serialize for super::ResourceStatus {
         if self.physical_host_topology.is_some() {
             state.serialize_entry("physicalHostTopology", &self.physical_host_topology)?;
         }
+        if self.reservation_consumption_info.is_some() {
+            state.serialize_entry(
+                "reservationConsumptionInfo",
+                &self.reservation_consumption_info,
+            )?;
+        }
         if self.scheduling.is_some() {
             state.serialize_entry("scheduling", &self.scheduling)?;
         }
@@ -9179,6 +9770,29 @@ impl serde::ser::Serialize for super::ResourceStatusPhysicalHostTopology {
         }
         if self.subblock.is_some() {
             state.serialize_entry("subblock", &self.subblock)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ResourceStatusReservationConsumptionInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.consumed_reservation.is_some() {
+            state.serialize_entry("consumedReservation", &self.consumed_reservation)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9505,11 +10119,14 @@ impl serde::ser::Serialize for super::ServiceAccount {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -9543,11 +10160,14 @@ impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -9830,11 +10450,14 @@ impl serde::ser::Serialize for super::StatefulPolicyPreservedStateNetworkIp {
 }
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -10014,6 +10637,151 @@ impl serde::ser::Serialize for super::UpcomingMaintenance {
         }
         if self.window_start_time.is_some() {
             state.serialize_entry("windowStartTime", &self.window_start_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UsageExportLocation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.bucket_name.is_some() {
+            state.serialize_entry("bucketName", &self.bucket_name)?;
+        }
+        if self.report_name_prefix.is_some() {
+            state.serialize_entry("reportNamePrefix", &self.report_name_prefix)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::XpnHostList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::xpn_host_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::xpn_host_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::XpnResourceId {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if self.r#type.is_some() {
+            state.serialize_entry("type", &self.r#type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -25,6 +25,7 @@ run-byoid-integration-tests = []
 
 [dependencies]
 anyhow.workspace     = true
+bytes.workspace      = true
 scoped-env.workspace = true
 tempfile.workspace   = true
 serde_json.workspace = true

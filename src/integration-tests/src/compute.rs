@@ -13,13 +13,14 @@
 // limitations under the License.
 
 use crate::Result;
-use compute::client::{Images, Instances, MachineTypes, ZoneOperations, Zones};
+use compute::client::{Images, Instances, MachineTypes, Zones};
 use compute::model::{
     AttachedDisk, AttachedDiskInitializeParams, Duration as ComputeDuration, Instance,
-    NetworkInterface, Scheduling, ServiceAccount, operation::Status,
-    scheduling::InstanceTerminationAction, scheduling::ProvisioningModel,
+    NetworkInterface, Scheduling, ServiceAccount, scheduling::InstanceTerminationAction,
+    scheduling::ProvisioningModel,
 };
 use gax::paginator::ItemPaginator as _;
+use lro::Poller;
 
 pub async fn zones() -> Result<()> {
     let client = Zones::builder().with_tracing().build().await?;
@@ -48,6 +49,88 @@ pub async fn zones() -> Result<()> {
         "response={response:?}"
     );
     tracing::info!("Zones::get() = {response:?}");
+
+    Ok(())
+}
+
+pub async fn errors() -> Result<()> {
+    use gax::error::rpc::Code;
+    use gax::error::rpc::StatusDetails;
+
+    let project_id = crate::project_id()?;
+    let zone_id = crate::zone_id();
+
+    let credentials = auth::credentials::anonymous::Builder::new().build();
+    let client = Zones::builder()
+        .with_credentials(credentials)
+        .build()
+        .await?;
+
+    let err = client
+        .get()
+        .set_project(&project_id)
+        .set_zone(&zone_id)
+        .send()
+        .await
+        .expect_err("request should fail with anonymous credentials");
+
+    assert_eq!(
+        err.status().map(|s| s.code),
+        Some(Code::Unauthenticated),
+        "{err:?}"
+    );
+    assert!(
+        err.status()
+            .map(|s| &s.details)
+            .is_some_and(|d| !d.is_empty()),
+        "{err:?}"
+    );
+
+    let client = Zones::builder().build().await?;
+    let err = client
+        .get()
+        .set_project("google-not-a-valid-project-name-starts-with-google--")
+        .set_zone(&zone_id)
+        .send()
+        .await
+        .expect_err("request should fail with bad project id");
+    assert_eq!(
+        err.status().map(|s| s.code),
+        Some(Code::NotFound),
+        "{err:?}"
+    );
+
+    let err = client
+        .get()
+        .set_project("undefined")
+        .set_zone(&zone_id)
+        .send()
+        .await
+        .expect_err("request should fail with bad project id");
+    assert_eq!(
+        err.status().map(|s| s.code),
+        Some(Code::PermissionDenied),
+        "{err:?}"
+    );
+
+    let error_info = err.status().and_then(|s| {
+        s.details
+            .iter()
+            .find(|d| matches!(d, StatusDetails::ErrorInfo(_)))
+    });
+    assert!(
+        matches!(error_info, Some(StatusDetails::ErrorInfo(_))),
+        "{err:?}"
+    );
+    let msg = err.status().and_then(|s| {
+        s.details
+            .iter()
+            .find(|d| matches!(d, StatusDetails::LocalizedMessage(_)))
+    });
+    assert!(
+        matches!(msg, Some(StatusDetails::LocalizedMessage(_))),
+        "{err:?}"
+    );
 
     Ok(())
 }
@@ -109,26 +192,99 @@ pub async fn machine_types() -> Result<()> {
     Ok(())
 }
 
+pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<()> {
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
+    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
+    let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+
+    let mut items = client.list().set_project(project_id).by_item();
+    while let Some(item) = items.next().await.transpose()? {
+        if item
+            .labels
+            .get("integration-test")
+            .is_none_or(|v| v != "true")
+        {
+            continue;
+        }
+        if item
+            .creation_timestamp
+            .and_then(|v| wkt::Timestamp::try_from(&v).ok())
+            .is_none_or(|t| t > stale_deadline)
+        {
+            continue;
+        }
+        let Some(name) = item.name else {
+            continue;
+        };
+        let _ = client
+            .delete()
+            .set_project(project_id)
+            .set_image(name)
+            .poller()
+            .until_done()
+            .await?;
+    }
+    Ok(())
+}
+
 pub async fn images() -> Result<()> {
-    tracing::info!("Testing Images::list()");
+    use compute::model::Image;
+    let project_id = crate::project_id()?;
+
     let client = Images::builder().with_tracing().build().await?;
-    // Debian 13 is supported until 2030. When it is dropped, the test will not
-    // be as entertaining, but will still be useful.
+    if let Err(e) = cleanup_stale_images(&client, &project_id).await {
+        tracing::error!("Error cleaning up stale test images: {e:?}");
+    };
+
+    tracing::info!("Testing Images::list()");
+    // The test project cannot copy Debian or other "untrusted" images.
     let mut items = client
         .list()
-        .set_project("debian-cloud")
-        .set_filter("family=debian-13 AND architecture=X86_64")
+        .set_project("cos-cloud")
+        .set_filter("family=cos-stable AND architecture=X86_64")
         .by_item();
+    let mut found = None;
     while let Some(item) = items.next().await.transpose()? {
         tracing::info!("item = {item:?}");
+        found = item.name.or(found);
     }
     tracing::info!("DONE with Images::list()");
+
+    let found = found.expect("a COS image should be available");
+
+    tracing::info!("Testing Images::insert()");
+    let name = crate::random_image_name();
+    let body = Image::new()
+        .set_name(&name)
+        .set_description("A test Image created by the Rust client library.")
+        .set_family("cos-stable")
+        .set_labels([("integration-test", "true")])
+        .set_source_image(format!("projects/cos-cloud/global/images/{found}"));
+    let operation = client
+        .insert()
+        .set_project(&project_id)
+        .set_body(body)
+        .poller()
+        .until_done()
+        .await?;
+    tracing::info!("Images::insert() finished with {operation:?}");
+
+    tracing::info!("Testing Images::delete()");
+    let operation = client
+        .delete()
+        .set_project(&project_id)
+        .set_image(&name)
+        .poller()
+        .until_done()
+        .await;
+    tracing::info!("Images::delete() completed with {operation:?}");
+
     Ok(())
 }
 
 pub async fn instances() -> Result<()> {
     let client = Instances::builder().with_tracing().build().await?;
-    let operations = ZoneOperations::builder().with_tracing().build().await?;
     let project_id = crate::project_id()?;
     let service_account = crate::test_service_account()?;
     let zone_id = crate::zone_id();
@@ -158,36 +314,15 @@ pub async fn instances() -> Result<()> {
     );
 
     tracing::info!("Starting new instance.");
-    let mut operation = client
+    let operation = client
         .insert()
         .set_project(&project_id)
         .set_zone(&zone_id)
         .set_body(body)
-        .send()
+        .poller()
+        .until_done()
         .await?;
-
-    while operation.status.as_ref().is_none_or(|s| *s != Status::Done) {
-        if let Some(err) = operation.error {
-            return Err(anyhow::Error::msg(format!("{err:?}")));
-        }
-        tracing::info!("Waiting for new instance operation: {operation:?}");
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-        operation = operations
-            .get()
-            .set_project(&project_id)
-            .set_zone(&zone_id)
-            .set_operation(operation.name.unwrap_or_default())
-            .send()
-            .await?;
-    }
     tracing::info!("Operation completed with = {operation:?}");
-
-    if let Some(err) = operation.error {
-        tracing::error!("Operation failed: {err:?}");
-        return Err(anyhow::Error::msg(format!(
-            "instance creation failed - {err:?}"
-        )));
-    }
 
     tracing::info!("Getting instance details.");
     let instance = client
@@ -209,6 +344,57 @@ pub async fn instances() -> Result<()> {
         tracing::info!("instance = {instance:?}");
     }
     tracing::info!("DONE Instances::list()");
+
+    Ok(())
+}
+
+pub async fn region_instances() -> Result<()> {
+    use compute::client::RegionInstances;
+    use compute::model::{BulkInsertInstanceResource, InstanceProperties};
+
+    let client = RegionInstances::builder().with_tracing().build().await?;
+    let project_id = crate::project_id()?;
+    let service_account = crate::test_service_account()?;
+    let region_id = crate::region_id();
+
+    let instance_properties = InstanceProperties::new()
+        .set_description("A test VM created by the Rust client library.")
+        .set_machine_type("f1-micro")
+        .set_disks([AttachedDisk::new()
+            .set_initialize_params(
+                AttachedDiskInitializeParams::new()
+                    .set_source_image("projects/cos-cloud/global/images/family/cos-stable"),
+            )
+            .set_boot(true)
+            .set_auto_delete(true)])
+        .set_network_interfaces([NetworkInterface::new().set_network("global/networks/default")])
+        .set_service_accounts([ServiceAccount::new()
+            .set_email(&service_account)
+            .set_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])]);
+    // Automatically shutdown and delete the instance after 15m.
+    let instance_properties = instance_properties.set_scheduling(
+        Scheduling::new()
+            .set_provisioning_model(ProvisioningModel::Spot)
+            .set_instance_termination_action(InstanceTerminationAction::Delete)
+            .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
+    );
+
+    let id = crate::random_vm_prefix(16);
+    let body = BulkInsertInstanceResource::new()
+        .set_count(1)
+        .set_name_pattern(format!("{id}-####"))
+        .set_instance_properties(instance_properties);
+
+    tracing::info!("Starting new instance.");
+    let operation = client
+        .bulk_insert()
+        .set_project(&project_id)
+        .set_region(&region_id)
+        .set_body(body)
+        .poller()
+        .until_done()
+        .await?;
+    tracing::info!("Operation completed with = {operation:?}");
 
     Ok(())
 }
