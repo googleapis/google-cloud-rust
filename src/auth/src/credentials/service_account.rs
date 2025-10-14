@@ -353,9 +353,41 @@ fn token_expiry_time(current_time: OffsetDateTime) -> OffsetDateTime {
 #[async_trait]
 impl TokenProvider for ServiceAccountTokenProvider {
     async fn token(&self) -> Result<Token> {
+        let expires_at = Instant::now() + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
+        let tg = ServiceAccountTokenGenerator {
+            audience: self.access_specifier.audience().cloned(),
+            scopes: self
+                .access_specifier
+                .scopes()
+                .map(|scopes| scopes.join(" ")),
+            service_account_key: self.service_account_key.clone(),
+            target_audience: None,
+        };
+
+        let token = tg.generate()?;
+
+        let token = Token {
+            token,
+            token_type: "Bearer".to_string(),
+            expires_at: Some(expires_at),
+            metadata: None,
+        };
+        Ok(token)
+    }
+}
+
+#[derive(Default, Clone)]
+struct ServiceAccountTokenGenerator {
+    service_account_key: ServiceAccountKey,
+    audience: Option<String>,
+    scopes: Option<String>,
+    target_audience: Option<String>,
+}
+
+impl ServiceAccountTokenGenerator {
+    fn generate(&self) -> Result<String> {
         let signer = self.signer(&self.service_account_key.private_key)?;
 
-        let expires_at = Instant::now() + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
         // The claims encode a unix timestamp. `std::time::Instant` has no
         // epoch, so we use `time::OffsetDateTime`, which reads system time, in
         // the implementation.
@@ -363,11 +395,9 @@ impl TokenProvider for ServiceAccountTokenProvider {
 
         let claims = JwsClaims {
             iss: self.service_account_key.client_email.clone(),
-            scope: self
-                .access_specifier
-                .scopes()
-                .map(|scopes| scopes.join(" ")),
-            aud: self.access_specifier.audience().cloned(),
+            scope: self.scopes.clone(),
+            target_audience: self.target_audience.clone(),
+            aud: self.audience.clone(),
             exp: token_expiry_time(current_time),
             iat: token_issue_time(current_time),
             typ: None,
@@ -390,17 +420,9 @@ impl TokenProvider for ServiceAccountTokenProvider {
             &BASE64_URL_SAFE_NO_PAD.encode(sig)
         );
 
-        let token = Token {
-            token,
-            token_type: "Bearer".to_string(),
-            expires_at: Some(expires_at),
-            metadata: None,
-        };
         Ok(token)
     }
-}
 
-impl ServiceAccountTokenProvider {
     // Creates a signer using the private key stored in the service account file.
     fn signer(&self, private_key: &String) -> Result<Box<dyn Signer>> {
         let key_provider = CryptoProvider::get_default().map_or_else(
@@ -711,8 +733,12 @@ mod tests {
     #[test]
     fn signer_failure() -> TestResult {
         let tp = Builder::new(get_mock_service_key()).build_token_provider()?;
+        let tg = ServiceAccountTokenGenerator {
+            service_account_key: tp.service_account_key.clone(),
+            ..Default::default()
+        };
 
-        let signer = tp.signer(&tp.service_account_key.private_key);
+        let signer = tg.signer(&tg.service_account_key.private_key);
         let expected_error_message = "missing PEM section in service account key";
         assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
@@ -725,8 +751,9 @@ mod tests {
             Item::Crl(Vec::new().into()) // Example unsupported key type
         );
 
-        let error =
-            ServiceAccountTokenProvider::unexpected_private_key_error(Item::Crl(Vec::new().into()));
+        let error = ServiceAccountTokenGenerator::unexpected_private_key_error(Item::Crl(
+            Vec::new().into(),
+        ));
         assert!(error.to_string().contains(&expected_message));
         Ok(())
     }
