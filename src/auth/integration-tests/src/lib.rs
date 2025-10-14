@@ -419,7 +419,7 @@ pub async fn workload_identity_provider_programmatic_sourced() -> anyhow::Result
     Ok(())
 }
 
-async fn get_project_and_service_account() -> anyhow::Result<(String, SecretPayload)> {    
+async fn get_project_and_service_account() -> anyhow::Result<(String, SecretPayload)> {
     let project = get_project_id();
     let secret = get_secret_with_mds_creds(&project, "test-sa-creds-json").await?;
     Ok((project, secret))
@@ -427,7 +427,7 @@ async fn get_project_and_service_account() -> anyhow::Result<(String, SecretPayl
 
 async fn get_project_and_api_key() -> anyhow::Result<(String, SecretPayload)> {
     let project = get_project_id();
-    let secret = get_secret_with_mds_creds(&project,"test-api-key").await?;
+    let secret = get_secret_with_mds_creds(&project, "test-api-key").await?;
     Ok((project, secret))
 }
 
