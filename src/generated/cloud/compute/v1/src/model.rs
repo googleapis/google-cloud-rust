@@ -4249,6 +4249,7 @@ impl wkt::message::Message for BulkInsertInstanceResourcePerInstanceProperties {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -4287,6 +4288,7 @@ pub struct BulkInsertOperationStatus {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -4398,6 +4400,7 @@ impl BulkInsertOperationStatus {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -4420,6 +4423,7 @@ impl wkt::message::Message for BulkInsertOperationStatus {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -4456,6 +4460,7 @@ pub mod bulk_insert_operation_status {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -4489,6 +4494,7 @@ pub mod bulk_insert_operation_status {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -4511,6 +4517,7 @@ pub mod bulk_insert_operation_status {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -4556,6 +4563,7 @@ pub mod bulk_insert_operation_status {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -4578,6 +4586,7 @@ pub mod bulk_insert_operation_status {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -4599,6 +4608,7 @@ pub mod bulk_insert_operation_status {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -4628,6 +4638,7 @@ pub mod bulk_insert_operation_status {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -4658,6 +4669,7 @@ pub mod bulk_insert_operation_status {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -4688,6 +4700,7 @@ pub mod bulk_insert_operation_status {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -5856,6 +5869,79 @@ pub mod disk_instantiation_config {
     }
 }
 
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DiskMoveRequest {
+    /// The URL of the destination zone to move the disk. This can be a full or
+    /// partial URL. For example, the following are all valid URLs to a zone:
+    ///
+    /// - <https://www.googleapis.com/compute/v1/projects/project/zones/zone>
+    /// - projects/project/zones/zone
+    /// - zones/zone
+    pub destination_zone: std::option::Option<std::string::String>,
+
+    /// The URL of the target disk to move. This can be a full or partial URL.
+    /// For example, the following are all valid URLs to a disk:
+    ///
+    /// - <https://www.googleapis.com/compute/v1/projects/project/zones/zone/disks/disk>
+    /// - projects/project/zones/zone/disks/disk
+    /// - zones/zone/disks/disk
+    pub target_disk: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl DiskMoveRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [destination_zone][crate::model::DiskMoveRequest::destination_zone].
+    pub fn set_destination_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.destination_zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [destination_zone][crate::model::DiskMoveRequest::destination_zone].
+    pub fn set_or_clear_destination_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.destination_zone = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target_disk][crate::model::DiskMoveRequest::target_disk].
+    pub fn set_target_disk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target_disk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_disk][crate::model::DiskMoveRequest::target_disk].
+    pub fn set_or_clear_target_disk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target_disk = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for DiskMoveRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.DiskMoveRequest"
+    }
+}
+
 /// A set of Display Device options
 #[cfg(feature = "instances")]
 #[derive(Clone, Default, PartialEq)]
@@ -6342,6 +6428,7 @@ impl wkt::message::Message for Duration {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -6389,6 +6476,7 @@ pub struct ErrorInfo {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -6458,6 +6546,7 @@ impl ErrorInfo {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -10137,6 +10226,7 @@ pub mod guest_os_feature {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -10161,6 +10251,7 @@ pub struct Help {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -10193,6 +10284,7 @@ impl Help {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -10215,6 +10307,7 @@ impl wkt::message::Message for Help {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -10242,6 +10335,7 @@ pub struct HelpLink {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -10299,6 +10393,7 @@ impl HelpLink {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -30621,6 +30716,79 @@ impl wkt::message::Message for InstanceManagedByIgmErrorManagedInstanceError {
     }
 }
 
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InstanceMoveRequest {
+    /// The URL of the destination zone to move the instance. This can be a full or
+    /// partial URL. For example, the following are all valid URLs to a zone:
+    ///
+    /// - <https://www.googleapis.com/compute/v1/projects/project/zones/zone>
+    /// - projects/project/zones/zone
+    /// - zones/zone
+    pub destination_zone: std::option::Option<std::string::String>,
+
+    /// The URL of the target instance to move. This can be a full or partial URL.
+    /// For example, the following are all valid URLs to an instance:
+    ///
+    /// - <https://www.googleapis.com/compute/v1/projects/project/zones/zone/instances/instance>
+    /// - projects/project/zones/zone/instances/instance
+    /// - zones/zone/instances/instance
+    pub target_instance: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl InstanceMoveRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [destination_zone][crate::model::InstanceMoveRequest::destination_zone].
+    pub fn set_destination_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.destination_zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [destination_zone][crate::model::InstanceMoveRequest::destination_zone].
+    pub fn set_or_clear_destination_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.destination_zone = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target_instance][crate::model::InstanceMoveRequest::target_instance].
+    pub fn set_target_instance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target_instance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_instance][crate::model::InstanceMoveRequest::target_instance].
+    pub fn set_or_clear_target_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target_instance = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for InstanceMoveRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.InstanceMoveRequest"
+    }
+}
+
 /// Additional instance params.
 #[cfg(feature = "instances")]
 #[derive(Clone, Default, PartialEq)]
@@ -33007,6 +33175,7 @@ impl wkt::message::Message for InstancesAddResourcePoliciesRequest {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -33033,6 +33202,7 @@ pub struct InstancesBulkInsertOperationMetadata {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -33066,6 +33236,7 @@ impl InstancesBulkInsertOperationMetadata {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -34991,6 +35162,7 @@ impl wkt::message::Message for InstancesStartWithEncryptionKeyRequest {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -35020,6 +35192,7 @@ pub struct LocalizedMessage {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -35077,6 +35250,7 @@ impl LocalizedMessage {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -39906,6 +40080,7 @@ impl wkt::message::Message for ManagedInstanceVersion {
 /// A metadata key/value entry.
 #[cfg(any(
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -39936,6 +40111,7 @@ pub struct Metadata {
 
 #[cfg(any(
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -39994,6 +40170,7 @@ impl Metadata {
 
 #[cfg(any(
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -40006,6 +40183,7 @@ impl wkt::message::Message for Metadata {
 /// Defines additional types related to [Metadata].
 #[cfg(any(
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -40018,6 +40196,7 @@ pub mod metadata {
     /// [google.cloud.compute.v1.Metadata.items]: crate::model::metadata::Items
     #[cfg(any(
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-templates",
         feature = "region-instances",
     ))]
@@ -40042,6 +40221,7 @@ pub mod metadata {
 
     #[cfg(any(
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-templates",
         feature = "region-instances",
     ))]
@@ -40089,6 +40269,7 @@ pub mod metadata {
 
     #[cfg(any(
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-templates",
         feature = "region-instances",
     ))]
@@ -41459,6 +41640,7 @@ pub mod network_performance_config {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -41591,6 +41773,7 @@ pub struct Operation {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -42079,6 +42262,7 @@ impl Operation {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -42101,6 +42285,7 @@ impl wkt::message::Message for Operation {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -42123,6 +42308,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -42148,6 +42334,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -42180,6 +42367,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -42202,6 +42390,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -42224,6 +42413,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -42262,6 +42452,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -42348,6 +42539,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -42370,6 +42562,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -42392,6 +42585,7 @@ pub mod operation {
                 feature = "instance-group-managers",
                 feature = "instance-groups",
                 feature = "instances",
+                feature = "projects",
                 feature = "region-instance-group-managers",
                 feature = "region-instance-groups",
                 feature = "region-instance-templates",
@@ -42421,6 +42615,7 @@ pub mod operation {
                 feature = "instance-group-managers",
                 feature = "instance-groups",
                 feature = "instances",
+                feature = "projects",
                 feature = "region-instance-group-managers",
                 feature = "region-instance-groups",
                 feature = "region-instance-templates",
@@ -42517,6 +42712,7 @@ pub mod operation {
                 feature = "instance-group-managers",
                 feature = "instance-groups",
                 feature = "instances",
+                feature = "projects",
                 feature = "region-instance-group-managers",
                 feature = "region-instance-groups",
                 feature = "region-instance-templates",
@@ -42543,6 +42739,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -42582,6 +42779,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -42650,6 +42848,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -42672,6 +42871,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -42694,6 +42894,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -42727,6 +42928,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -42784,6 +42986,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -42822,6 +43025,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -42923,6 +43127,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -42945,6 +43150,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -43078,6 +43284,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -43100,6 +43307,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -43124,6 +43332,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -43178,6 +43387,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -43239,6 +43449,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -43330,6 +43541,7 @@ pub mod operation {
             feature = "instance-group-managers",
             feature = "instance-groups",
             feature = "instances",
+            feature = "projects",
             feature = "region-instance-group-managers",
             feature = "region-instance-groups",
             feature = "region-instance-templates",
@@ -43374,6 +43586,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -43403,6 +43616,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -43425,6 +43639,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -43468,6 +43683,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -43490,6 +43706,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -43511,6 +43728,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -43539,6 +43757,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -43568,6 +43787,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -43597,6 +43817,7 @@ pub mod operation {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -47322,6 +47543,3061 @@ impl wkt::message::Message for PreservedStatePreservedNetworkIpIpAddress {
     }
 }
 
+/// Represents a Project resource.
+///
+/// A project is used to organize resources in a Google Cloud Platform
+/// environment. For more information, read about the
+/// Resource Hierarchy.
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Project {
+    /// [Output Only] The Cloud Armor tier for this project. It can be one of the
+    /// following values: CA_STANDARD,CA_ENTERPRISE_PAYGO.
+    ///
+    /// If this field is not specified, it is assumed to beCA_STANDARD.
+    pub cloud_armor_tier: std::option::Option<crate::model::project::CloudArmorTier>,
+
+    /// Metadata key/value pairs available to all instances contained in this
+    /// project. See Custom
+    /// metadata for more information.
+    pub common_instance_metadata: std::option::Option<crate::model::Metadata>,
+
+    /// [Output Only] Creation timestamp inRFC3339
+    /// text format.
+    pub creation_timestamp: std::option::Option<std::string::String>,
+
+    /// This signifies the default network tier used for configuring resources of
+    /// the project and can only take the following values:PREMIUM, STANDARD. Initially the default network
+    /// tier is PREMIUM.
+    pub default_network_tier: std::option::Option<crate::model::project::DefaultNetworkTier>,
+
+    /// [Output Only] Default service account used by VMs running in this project.
+    pub default_service_account: std::option::Option<std::string::String>,
+
+    /// An optional textual description of the resource.
+    pub description: std::option::Option<std::string::String>,
+
+    /// An optional list of restricted features enabled for use on this project.
+    pub enabled_features: std::vec::Vec<std::string::String>,
+
+    /// [Output Only] The unique identifier for the resource. This identifier is
+    /// defined by the server. This is *not* the project ID, and is
+    /// just a unique ID used by Compute Engine to identify resources.
+    pub id: std::option::Option<u64>,
+
+    /// [Output Only] Type of the resource. Always compute#project for
+    /// projects.
+    pub kind: std::option::Option<std::string::String>,
+
+    /// The project ID. For example: my-example-project. Use the
+    /// project ID to make requests to Compute Engine.
+    pub name: std::option::Option<std::string::String>,
+
+    /// [Output Only] Quotas assigned to this project.
+    pub quotas: std::vec::Vec<crate::model::Quota>,
+
+    /// [Output Only] Server-defined URL for the resource.
+    pub self_link: std::option::Option<std::string::String>,
+
+    /// An optional naming prefix for daily usage reports and the Google Cloud
+    /// Storage bucket where they are stored.
+    pub usage_export_location: std::option::Option<crate::model::UsageExportLocation>,
+
+    /// [Output Only] Default internal DNS setting used by VMs running in
+    /// this project.
+    pub vm_dns_setting: std::option::Option<crate::model::project::VmDnsSetting>,
+
+    /// [Output Only] The role this project has in a shared VPC configuration.
+    /// Currently, only projects with the host role, which is specified by the
+    /// value HOST, are differentiated.
+    pub xpn_project_status: std::option::Option<crate::model::project::XpnProjectStatus>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl Project {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cloud_armor_tier][crate::model::Project::cloud_armor_tier].
+    pub fn set_cloud_armor_tier<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::project::CloudArmorTier>,
+    {
+        self.cloud_armor_tier = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cloud_armor_tier][crate::model::Project::cloud_armor_tier].
+    pub fn set_or_clear_cloud_armor_tier<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::project::CloudArmorTier>,
+    {
+        self.cloud_armor_tier = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [common_instance_metadata][crate::model::Project::common_instance_metadata].
+    pub fn set_common_instance_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Metadata>,
+    {
+        self.common_instance_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_instance_metadata][crate::model::Project::common_instance_metadata].
+    pub fn set_or_clear_common_instance_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Metadata>,
+    {
+        self.common_instance_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [creation_timestamp][crate::model::Project::creation_timestamp].
+    pub fn set_creation_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_timestamp][crate::model::Project::creation_timestamp].
+    pub fn set_or_clear_creation_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creation_timestamp = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [default_network_tier][crate::model::Project::default_network_tier].
+    pub fn set_default_network_tier<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::project::DefaultNetworkTier>,
+    {
+        self.default_network_tier = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [default_network_tier][crate::model::Project::default_network_tier].
+    pub fn set_or_clear_default_network_tier<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::project::DefaultNetworkTier>,
+    {
+        self.default_network_tier = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [default_service_account][crate::model::Project::default_service_account].
+    pub fn set_default_service_account<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.default_service_account = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [default_service_account][crate::model::Project::default_service_account].
+    pub fn set_or_clear_default_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.default_service_account = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Project::description].
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::Project::description].
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [enabled_features][crate::model::Project::enabled_features].
+    pub fn set_enabled_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.enabled_features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [id][crate::model::Project::id].
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::Project::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::Project::kind].
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::Project::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [name][crate::model::Project::name].
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::Project::name].
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [quotas][crate::model::Project::quotas].
+    pub fn set_quotas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Quota>,
+    {
+        use std::iter::Iterator;
+        self.quotas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::Project::self_link].
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::Project::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [usage_export_location][crate::model::Project::usage_export_location].
+    pub fn set_usage_export_location<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UsageExportLocation>,
+    {
+        self.usage_export_location = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [usage_export_location][crate::model::Project::usage_export_location].
+    pub fn set_or_clear_usage_export_location<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UsageExportLocation>,
+    {
+        self.usage_export_location = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [vm_dns_setting][crate::model::Project::vm_dns_setting].
+    pub fn set_vm_dns_setting<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::project::VmDnsSetting>,
+    {
+        self.vm_dns_setting = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vm_dns_setting][crate::model::Project::vm_dns_setting].
+    pub fn set_or_clear_vm_dns_setting<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::project::VmDnsSetting>,
+    {
+        self.vm_dns_setting = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [xpn_project_status][crate::model::Project::xpn_project_status].
+    pub fn set_xpn_project_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::project::XpnProjectStatus>,
+    {
+        self.xpn_project_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [xpn_project_status][crate::model::Project::xpn_project_status].
+    pub fn set_or_clear_xpn_project_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::project::XpnProjectStatus>,
+    {
+        self.xpn_project_status = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for Project {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.Project"
+    }
+}
+
+/// Defines additional types related to [Project].
+#[cfg(feature = "projects")]
+pub mod project {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [cloudArmorTier][google.cloud.compute.v1.Project.cloudArmorTier] field.
+    ///
+    /// [google.cloud.compute.v1.Project.cloudArmorTier]: crate::model::project::CloudArmorTier
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CloudArmorTier {
+        /// Enterprise tier protection billed annually.
+        CaEnterpriseAnnual,
+        /// Enterprise tier protection billed monthly.
+        CaEnterprisePaygo,
+        /// Standard protection.
+        CaStandard,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CloudArmorTier::value] or
+        /// [CloudArmorTier::name].
+        UnknownValue(cloud_armor_tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "projects")]
+    pub mod cloud_armor_tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "projects")]
+    impl CloudArmorTier {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::CaEnterpriseAnnual => std::option::Option::Some(0),
+                Self::CaEnterprisePaygo => std::option::Option::Some(1),
+                Self::CaStandard => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::CaEnterpriseAnnual => std::option::Option::Some("CA_ENTERPRISE_ANNUAL"),
+                Self::CaEnterprisePaygo => std::option::Option::Some("CA_ENTERPRISE_PAYGO"),
+                Self::CaStandard => std::option::Option::Some("CA_STANDARD"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::default::Default for CloudArmorTier {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::fmt::Display for CloudArmorTier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<i32> for CloudArmorTier {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::CaEnterpriseAnnual,
+                1 => Self::CaEnterprisePaygo,
+                2 => Self::CaStandard,
+                _ => Self::UnknownValue(cloud_armor_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<&str> for CloudArmorTier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CA_ENTERPRISE_ANNUAL" => Self::CaEnterpriseAnnual,
+                "CA_ENTERPRISE_PAYGO" => Self::CaEnterprisePaygo,
+                "CA_STANDARD" => Self::CaStandard,
+                _ => Self::UnknownValue(cloud_armor_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl serde::ser::Serialize for CloudArmorTier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::CaEnterpriseAnnual => serializer.serialize_str("CA_ENTERPRISE_ANNUAL"),
+                Self::CaEnterprisePaygo => serializer.serialize_str("CA_ENTERPRISE_PAYGO"),
+                Self::CaStandard => serializer.serialize_str("CA_STANDARD"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl<'de> serde::de::Deserialize<'de> for CloudArmorTier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloudArmorTier>::new(
+                ".google.cloud.compute.v1.Project.cloudArmorTier",
+            ))
+        }
+    }
+
+    /// The enumerated type for the [defaultNetworkTier][google.cloud.compute.v1.Project.defaultNetworkTier] field.
+    ///
+    /// [google.cloud.compute.v1.Project.defaultNetworkTier]: crate::model::project::DefaultNetworkTier
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DefaultNetworkTier {
+        /// Public internet quality with fixed bandwidth.
+        FixedStandard,
+        /// High quality, Google-grade network tier, support for all networking
+        /// products.
+        Premium,
+        /// Public internet quality, only limited support for other networking
+        /// products.
+        Standard,
+        /// (Output only) Temporary tier for FIXED_STANDARD when fixed standard tier
+        /// is expired or not configured.
+        StandardOverridesFixedStandard,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DefaultNetworkTier::value] or
+        /// [DefaultNetworkTier::name].
+        UnknownValue(default_network_tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "projects")]
+    pub mod default_network_tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "projects")]
+    impl DefaultNetworkTier {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::FixedStandard => std::option::Option::Some(0),
+                Self::Premium => std::option::Option::Some(1),
+                Self::Standard => std::option::Option::Some(2),
+                Self::StandardOverridesFixedStandard => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::FixedStandard => std::option::Option::Some("FIXED_STANDARD"),
+                Self::Premium => std::option::Option::Some("PREMIUM"),
+                Self::Standard => std::option::Option::Some("STANDARD"),
+                Self::StandardOverridesFixedStandard => {
+                    std::option::Option::Some("STANDARD_OVERRIDES_FIXED_STANDARD")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::default::Default for DefaultNetworkTier {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::fmt::Display for DefaultNetworkTier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<i32> for DefaultNetworkTier {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::FixedStandard,
+                1 => Self::Premium,
+                2 => Self::Standard,
+                3 => Self::StandardOverridesFixedStandard,
+                _ => Self::UnknownValue(default_network_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<&str> for DefaultNetworkTier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FIXED_STANDARD" => Self::FixedStandard,
+                "PREMIUM" => Self::Premium,
+                "STANDARD" => Self::Standard,
+                "STANDARD_OVERRIDES_FIXED_STANDARD" => Self::StandardOverridesFixedStandard,
+                _ => Self::UnknownValue(default_network_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl serde::ser::Serialize for DefaultNetworkTier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::FixedStandard => serializer.serialize_str("FIXED_STANDARD"),
+                Self::Premium => serializer.serialize_str("PREMIUM"),
+                Self::Standard => serializer.serialize_str("STANDARD"),
+                Self::StandardOverridesFixedStandard => {
+                    serializer.serialize_str("STANDARD_OVERRIDES_FIXED_STANDARD")
+                }
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl<'de> serde::de::Deserialize<'de> for DefaultNetworkTier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DefaultNetworkTier>::new(
+                ".google.cloud.compute.v1.Project.defaultNetworkTier",
+            ))
+        }
+    }
+
+    /// The enumerated type for the [vmDnsSetting][google.cloud.compute.v1.Project.vmDnsSetting] field.
+    ///
+    /// [google.cloud.compute.v1.Project.vmDnsSetting]: crate::model::project::VmDnsSetting
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VmDnsSetting {
+        GlobalDefault,
+        UnspecifiedVmDnsSetting,
+        ZonalDefault,
+        ZonalOnly,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [VmDnsSetting::value] or
+        /// [VmDnsSetting::name].
+        UnknownValue(vm_dns_setting::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "projects")]
+    pub mod vm_dns_setting {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "projects")]
+    impl VmDnsSetting {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::GlobalDefault => std::option::Option::Some(0),
+                Self::UnspecifiedVmDnsSetting => std::option::Option::Some(1),
+                Self::ZonalDefault => std::option::Option::Some(2),
+                Self::ZonalOnly => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::GlobalDefault => std::option::Option::Some("GLOBAL_DEFAULT"),
+                Self::UnspecifiedVmDnsSetting => {
+                    std::option::Option::Some("UNSPECIFIED_VM_DNS_SETTING")
+                }
+                Self::ZonalDefault => std::option::Option::Some("ZONAL_DEFAULT"),
+                Self::ZonalOnly => std::option::Option::Some("ZONAL_ONLY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::default::Default for VmDnsSetting {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::fmt::Display for VmDnsSetting {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<i32> for VmDnsSetting {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::GlobalDefault,
+                1 => Self::UnspecifiedVmDnsSetting,
+                2 => Self::ZonalDefault,
+                3 => Self::ZonalOnly,
+                _ => Self::UnknownValue(vm_dns_setting::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<&str> for VmDnsSetting {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "GLOBAL_DEFAULT" => Self::GlobalDefault,
+                "UNSPECIFIED_VM_DNS_SETTING" => Self::UnspecifiedVmDnsSetting,
+                "ZONAL_DEFAULT" => Self::ZonalDefault,
+                "ZONAL_ONLY" => Self::ZonalOnly,
+                _ => Self::UnknownValue(vm_dns_setting::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl serde::ser::Serialize for VmDnsSetting {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::GlobalDefault => serializer.serialize_str("GLOBAL_DEFAULT"),
+                Self::UnspecifiedVmDnsSetting => {
+                    serializer.serialize_str("UNSPECIFIED_VM_DNS_SETTING")
+                }
+                Self::ZonalDefault => serializer.serialize_str("ZONAL_DEFAULT"),
+                Self::ZonalOnly => serializer.serialize_str("ZONAL_ONLY"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl<'de> serde::de::Deserialize<'de> for VmDnsSetting {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VmDnsSetting>::new(
+                ".google.cloud.compute.v1.Project.vmDnsSetting",
+            ))
+        }
+    }
+
+    /// The enumerated type for the [xpnProjectStatus][google.cloud.compute.v1.Project.xpnProjectStatus] field.
+    ///
+    /// [google.cloud.compute.v1.Project.xpnProjectStatus]: crate::model::project::XpnProjectStatus
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum XpnProjectStatus {
+        Host,
+        UnspecifiedXpnProjectStatus,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [XpnProjectStatus::value] or
+        /// [XpnProjectStatus::name].
+        UnknownValue(xpn_project_status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "projects")]
+    pub mod xpn_project_status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "projects")]
+    impl XpnProjectStatus {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Host => std::option::Option::Some(0),
+                Self::UnspecifiedXpnProjectStatus => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Host => std::option::Option::Some("HOST"),
+                Self::UnspecifiedXpnProjectStatus => {
+                    std::option::Option::Some("UNSPECIFIED_XPN_PROJECT_STATUS")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::default::Default for XpnProjectStatus {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::fmt::Display for XpnProjectStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<i32> for XpnProjectStatus {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Host,
+                1 => Self::UnspecifiedXpnProjectStatus,
+                _ => Self::UnknownValue(xpn_project_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<&str> for XpnProjectStatus {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HOST" => Self::Host,
+                "UNSPECIFIED_XPN_PROJECT_STATUS" => Self::UnspecifiedXpnProjectStatus,
+                _ => Self::UnknownValue(xpn_project_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl serde::ser::Serialize for XpnProjectStatus {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Host => serializer.serialize_str("HOST"),
+                Self::UnspecifiedXpnProjectStatus => {
+                    serializer.serialize_str("UNSPECIFIED_XPN_PROJECT_STATUS")
+                }
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl<'de> serde::de::Deserialize<'de> for XpnProjectStatus {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<XpnProjectStatus>::new(
+                ".google.cloud.compute.v1.Project.xpnProjectStatus",
+            ))
+        }
+    }
+}
+
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProjectsDisableXpnResourceRequest {
+    /// Service resource (a.k.a service project) ID.
+    pub xpn_resource: std::option::Option<crate::model::XpnResourceId>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl ProjectsDisableXpnResourceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [xpn_resource][crate::model::ProjectsDisableXpnResourceRequest::xpn_resource].
+    pub fn set_xpn_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::XpnResourceId>,
+    {
+        self.xpn_resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [xpn_resource][crate::model::ProjectsDisableXpnResourceRequest::xpn_resource].
+    pub fn set_or_clear_xpn_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::XpnResourceId>,
+    {
+        self.xpn_resource = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for ProjectsDisableXpnResourceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.ProjectsDisableXpnResourceRequest"
+    }
+}
+
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProjectsEnableXpnResourceRequest {
+    /// Service resource (a.k.a service project) ID.
+    pub xpn_resource: std::option::Option<crate::model::XpnResourceId>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl ProjectsEnableXpnResourceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [xpn_resource][crate::model::ProjectsEnableXpnResourceRequest::xpn_resource].
+    pub fn set_xpn_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::XpnResourceId>,
+    {
+        self.xpn_resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [xpn_resource][crate::model::ProjectsEnableXpnResourceRequest::xpn_resource].
+    pub fn set_or_clear_xpn_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::XpnResourceId>,
+    {
+        self.xpn_resource = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for ProjectsEnableXpnResourceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.ProjectsEnableXpnResourceRequest"
+    }
+}
+
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProjectsGetXpnResources {
+    /// [Output Only] Type of resource. Alwayscompute#projectsGetXpnResources for lists of service resources
+    /// (a.k.a service projects)
+    pub kind: std::option::Option<std::string::String>,
+
+    /// [Output Only] This token allows you to get the next page of results for
+    /// list requests. If the number of results is larger thanmaxResults, use the nextPageToken as a value for
+    /// the query parameter pageToken in the next list request.
+    /// Subsequent list requests will have their own nextPageToken to
+    /// continue paging through the results.
+    pub next_page_token: std::option::Option<std::string::String>,
+
+    /// Service resources (a.k.a service projects) attached to this project as
+    /// their shared VPC host.
+    pub resources: std::vec::Vec<crate::model::XpnResourceId>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl ProjectsGetXpnResources {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [kind][crate::model::ProjectsGetXpnResources::kind].
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::ProjectsGetXpnResources::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ProjectsGetXpnResources::next_page_token].
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::ProjectsGetXpnResources::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [resources][crate::model::ProjectsGetXpnResources::resources].
+    pub fn set_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::XpnResourceId>,
+    {
+        use std::iter::Iterator;
+        self.resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for ProjectsGetXpnResources {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.ProjectsGetXpnResources"
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ProjectsGetXpnResources {
+    type PageItem = crate::model::XpnResourceId;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.resources
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone().unwrap_or_default()
+    }
+}
+
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProjectsListXpnHostsRequest {
+    /// Optional organization ID managed by Cloud Resource Manager, for which to
+    /// list shared VPC host projects. If not specified, the organization will be
+    /// inferred from the project.
+    pub organization: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl ProjectsListXpnHostsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [organization][crate::model::ProjectsListXpnHostsRequest::organization].
+    pub fn set_organization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.organization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [organization][crate::model::ProjectsListXpnHostsRequest::organization].
+    pub fn set_or_clear_organization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.organization = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for ProjectsListXpnHostsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.ProjectsListXpnHostsRequest"
+    }
+}
+
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProjectsSetCloudArmorTierRequest {
+    /// Managed protection tier to be set.
+    pub cloud_armor_tier:
+        std::option::Option<crate::model::projects_set_cloud_armor_tier_request::CloudArmorTier>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl ProjectsSetCloudArmorTierRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cloud_armor_tier][crate::model::ProjectsSetCloudArmorTierRequest::cloud_armor_tier].
+    pub fn set_cloud_armor_tier<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::projects_set_cloud_armor_tier_request::CloudArmorTier>,
+    {
+        self.cloud_armor_tier = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cloud_armor_tier][crate::model::ProjectsSetCloudArmorTierRequest::cloud_armor_tier].
+    pub fn set_or_clear_cloud_armor_tier<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::projects_set_cloud_armor_tier_request::CloudArmorTier>,
+    {
+        self.cloud_armor_tier = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for ProjectsSetCloudArmorTierRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.ProjectsSetCloudArmorTierRequest"
+    }
+}
+
+/// Defines additional types related to [ProjectsSetCloudArmorTierRequest].
+#[cfg(feature = "projects")]
+pub mod projects_set_cloud_armor_tier_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [cloudArmorTier][google.cloud.compute.v1.ProjectsSetCloudArmorTierRequest.cloudArmorTier] field.
+    ///
+    /// [google.cloud.compute.v1.ProjectsSetCloudArmorTierRequest.cloudArmorTier]: crate::model::projects_set_cloud_armor_tier_request::CloudArmorTier
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CloudArmorTier {
+        /// Enterprise tier protection billed annually.
+        CaEnterpriseAnnual,
+        /// Enterprise tier protection billed monthly.
+        CaEnterprisePaygo,
+        /// Standard protection.
+        CaStandard,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CloudArmorTier::value] or
+        /// [CloudArmorTier::name].
+        UnknownValue(cloud_armor_tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "projects")]
+    pub mod cloud_armor_tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "projects")]
+    impl CloudArmorTier {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::CaEnterpriseAnnual => std::option::Option::Some(0),
+                Self::CaEnterprisePaygo => std::option::Option::Some(1),
+                Self::CaStandard => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::CaEnterpriseAnnual => std::option::Option::Some("CA_ENTERPRISE_ANNUAL"),
+                Self::CaEnterprisePaygo => std::option::Option::Some("CA_ENTERPRISE_PAYGO"),
+                Self::CaStandard => std::option::Option::Some("CA_STANDARD"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::default::Default for CloudArmorTier {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::fmt::Display for CloudArmorTier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<i32> for CloudArmorTier {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::CaEnterpriseAnnual,
+                1 => Self::CaEnterprisePaygo,
+                2 => Self::CaStandard,
+                _ => Self::UnknownValue(cloud_armor_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<&str> for CloudArmorTier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CA_ENTERPRISE_ANNUAL" => Self::CaEnterpriseAnnual,
+                "CA_ENTERPRISE_PAYGO" => Self::CaEnterprisePaygo,
+                "CA_STANDARD" => Self::CaStandard,
+                _ => Self::UnknownValue(cloud_armor_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl serde::ser::Serialize for CloudArmorTier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::CaEnterpriseAnnual => serializer.serialize_str("CA_ENTERPRISE_ANNUAL"),
+                Self::CaEnterprisePaygo => serializer.serialize_str("CA_ENTERPRISE_PAYGO"),
+                Self::CaStandard => serializer.serialize_str("CA_STANDARD"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl<'de> serde::de::Deserialize<'de> for CloudArmorTier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloudArmorTier>::new(
+                ".google.cloud.compute.v1.ProjectsSetCloudArmorTierRequest.cloudArmorTier",
+            ))
+        }
+    }
+}
+
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProjectsSetDefaultNetworkTierRequest {
+    /// Default network tier to be set.
+    pub network_tier:
+        std::option::Option<crate::model::projects_set_default_network_tier_request::NetworkTier>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl ProjectsSetDefaultNetworkTierRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [network_tier][crate::model::ProjectsSetDefaultNetworkTierRequest::network_tier].
+    pub fn set_network_tier<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::projects_set_default_network_tier_request::NetworkTier>,
+    {
+        self.network_tier = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_tier][crate::model::ProjectsSetDefaultNetworkTierRequest::network_tier].
+    pub fn set_or_clear_network_tier<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::projects_set_default_network_tier_request::NetworkTier>,
+    {
+        self.network_tier = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for ProjectsSetDefaultNetworkTierRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.ProjectsSetDefaultNetworkTierRequest"
+    }
+}
+
+/// Defines additional types related to [ProjectsSetDefaultNetworkTierRequest].
+#[cfg(feature = "projects")]
+pub mod projects_set_default_network_tier_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [networkTier][google.cloud.compute.v1.ProjectsSetDefaultNetworkTierRequest.networkTier] field.
+    ///
+    /// [google.cloud.compute.v1.ProjectsSetDefaultNetworkTierRequest.networkTier]: crate::model::projects_set_default_network_tier_request::NetworkTier
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum NetworkTier {
+        /// Public internet quality with fixed bandwidth.
+        FixedStandard,
+        /// High quality, Google-grade network tier, support for all networking
+        /// products.
+        Premium,
+        /// Public internet quality, only limited support for other networking
+        /// products.
+        Standard,
+        /// (Output only) Temporary tier for FIXED_STANDARD when fixed standard tier
+        /// is expired or not configured.
+        StandardOverridesFixedStandard,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [NetworkTier::value] or
+        /// [NetworkTier::name].
+        UnknownValue(network_tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "projects")]
+    pub mod network_tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "projects")]
+    impl NetworkTier {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::FixedStandard => std::option::Option::Some(0),
+                Self::Premium => std::option::Option::Some(1),
+                Self::Standard => std::option::Option::Some(2),
+                Self::StandardOverridesFixedStandard => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::FixedStandard => std::option::Option::Some("FIXED_STANDARD"),
+                Self::Premium => std::option::Option::Some("PREMIUM"),
+                Self::Standard => std::option::Option::Some("STANDARD"),
+                Self::StandardOverridesFixedStandard => {
+                    std::option::Option::Some("STANDARD_OVERRIDES_FIXED_STANDARD")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::default::Default for NetworkTier {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::fmt::Display for NetworkTier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<i32> for NetworkTier {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::FixedStandard,
+                1 => Self::Premium,
+                2 => Self::Standard,
+                3 => Self::StandardOverridesFixedStandard,
+                _ => Self::UnknownValue(network_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<&str> for NetworkTier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FIXED_STANDARD" => Self::FixedStandard,
+                "PREMIUM" => Self::Premium,
+                "STANDARD" => Self::Standard,
+                "STANDARD_OVERRIDES_FIXED_STANDARD" => Self::StandardOverridesFixedStandard,
+                _ => Self::UnknownValue(network_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl serde::ser::Serialize for NetworkTier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::FixedStandard => serializer.serialize_str("FIXED_STANDARD"),
+                Self::Premium => serializer.serialize_str("PREMIUM"),
+                Self::Standard => serializer.serialize_str("STANDARD"),
+                Self::StandardOverridesFixedStandard => {
+                    serializer.serialize_str("STANDARD_OVERRIDES_FIXED_STANDARD")
+                }
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl<'de> serde::de::Deserialize<'de> for NetworkTier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<NetworkTier>::new(
+                ".google.cloud.compute.v1.ProjectsSetDefaultNetworkTierRequest.networkTier",
+            ))
+        }
+    }
+}
+
+/// A quotas entry.
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Quota {
+    /// [Output Only] Quota limit for this metric.
+    pub limit: std::option::Option<f64>,
+
+    /// [Output Only] Name of the quota metric.
+    pub metric: std::option::Option<crate::model::quota::Metric>,
+
+    /// [Output Only] Owning resource. This is the resource on which this quota
+    /// is applied.
+    pub owner: std::option::Option<std::string::String>,
+
+    /// [Output Only] Current usage of this metric.
+    pub usage: std::option::Option<f64>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl Quota {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [limit][crate::model::Quota::limit].
+    pub fn set_limit<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.limit = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [limit][crate::model::Quota::limit].
+    pub fn set_or_clear_limit<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.limit = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metric][crate::model::Quota::metric].
+    pub fn set_metric<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::quota::Metric>,
+    {
+        self.metric = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metric][crate::model::Quota::metric].
+    pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::quota::Metric>,
+    {
+        self.metric = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [owner][crate::model::Quota::owner].
+    pub fn set_owner<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.owner = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [owner][crate::model::Quota::owner].
+    pub fn set_or_clear_owner<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.owner = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [usage][crate::model::Quota::usage].
+    pub fn set_usage<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.usage = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [usage][crate::model::Quota::usage].
+    pub fn set_or_clear_usage<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f64>,
+    {
+        self.usage = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for Quota {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.Quota"
+    }
+}
+
+/// Defines additional types related to [Quota].
+#[cfg(feature = "projects")]
+pub mod quota {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [metric][google.cloud.compute.v1.Quota.metric] field.
+    ///
+    /// [google.cloud.compute.v1.Quota.metric]: crate::model::quota::Metric
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Metric {
+        A2Cpus,
+        AffinityGroups,
+        Autoscalers,
+        BackendBuckets,
+        BackendServices,
+        C2DCpus,
+        C2Cpus,
+        C3Cpus,
+        Commitments,
+        CommittedA2Cpus,
+        CommittedC2DCpus,
+        CommittedC2Cpus,
+        CommittedC3Cpus,
+        CommittedCpus,
+        CommittedE2Cpus,
+        CommittedLicenses,
+        CommittedLocalSsdTotalGb,
+        CommittedM3Cpus,
+        CommittedMemoryOptimizedCpus,
+        CommittedN2ACpus,
+        CommittedN2DCpus,
+        CommittedN2Cpus,
+        CommittedNvidiaA10080GbGpus,
+        CommittedNvidiaA100Gpus,
+        CommittedNvidiaH100Gpus,
+        CommittedNvidiaK80Gpus,
+        CommittedNvidiaL4Gpus,
+        CommittedNvidiaP100Gpus,
+        CommittedNvidiaP4Gpus,
+        CommittedNvidiaT4Gpus,
+        CommittedNvidiaV100Gpus,
+        CommittedT2ACpus,
+        CommittedT2DCpus,
+        CommittedZ3Cpus,
+        /// Guest CPUs
+        Cpus,
+        CpusAllRegions,
+        DisksTotalGb,
+        E2Cpus,
+        ExternalManagedForwardingRules,
+        ExternalNetworkLbForwardingRules,
+        ExternalProtocolForwardingRules,
+        ExternalVpnGateways,
+        Firewalls,
+        ForwardingRules,
+        GlobalExternalManagedBackendServices,
+        GlobalExternalManagedForwardingRules,
+        GlobalExternalProxyLbBackendServices,
+        GlobalInternalAddresses,
+        GlobalInternalManagedBackendServices,
+        GlobalInternalTrafficDirectorBackendServices,
+        GpusAllRegions,
+        HdbTotalGb,
+        HdbTotalIops,
+        HdbTotalThroughput,
+        HealthChecks,
+        Images,
+        Instances,
+        InstanceGroups,
+        InstanceGroupManagers,
+        InstanceTemplates,
+        Interconnects,
+        InterconnectAttachmentsPerRegion,
+        InterconnectAttachmentsTotalMbps,
+        InterconnectTotalGbps,
+        InternalAddresses,
+        InternalTrafficDirectorForwardingRules,
+        InPlaceSnapshots,
+        InUseAddresses,
+        InUseBackupSchedules,
+        InUseSnapshotSchedules,
+        LocalSsdTotalGb,
+        M1Cpus,
+        M2Cpus,
+        M3Cpus,
+        MachineImages,
+        N2ACpus,
+        N2DCpus,
+        N2Cpus,
+        Networks,
+        NetworkAttachments,
+        NetworkEndpointGroups,
+        NetworkFirewallPolicies,
+        NetLbSecurityPoliciesPerRegion,
+        NetLbSecurityPolicyRulesPerRegion,
+        NetLbSecurityPolicyRuleAttributesPerRegion,
+        NodeGroups,
+        NodeTemplates,
+        NvidiaA10080GbGpus,
+        NvidiaA100Gpus,
+        NvidiaK80Gpus,
+        NvidiaL4Gpus,
+        NvidiaP100Gpus,
+        NvidiaP100VwsGpus,
+        NvidiaP4Gpus,
+        NvidiaP4VwsGpus,
+        NvidiaT4Gpus,
+        NvidiaT4VwsGpus,
+        NvidiaV100Gpus,
+        PacketMirrorings,
+        PdExtremeTotalProvisionedIops,
+        PreemptibleCpus,
+        PreemptibleLocalSsdGb,
+        PreemptibleNvidiaA10080GbGpus,
+        PreemptibleNvidiaA100Gpus,
+        PreemptibleNvidiaH100Gpus,
+        PreemptibleNvidiaK80Gpus,
+        PreemptibleNvidiaL4Gpus,
+        PreemptibleNvidiaP100Gpus,
+        PreemptibleNvidiaP100VwsGpus,
+        PreemptibleNvidiaP4Gpus,
+        PreemptibleNvidiaP4VwsGpus,
+        PreemptibleNvidiaT4Gpus,
+        PreemptibleNvidiaT4VwsGpus,
+        PreemptibleNvidiaV100Gpus,
+        PreemptibleTpuLiteDeviceV5,
+        PreemptibleTpuLitePodsliceV5,
+        PreemptibleTpuPodsliceV4,
+        PscIlbConsumerForwardingRulesPerProducerNetwork,
+        PscInternalLbForwardingRules,
+        PublicAdvertisedPrefixes,
+        PublicDelegatedPrefixes,
+        RegionalAutoscalers,
+        RegionalExternalManagedBackendServices,
+        RegionalExternalNetworkLbBackendServices,
+        RegionalInstanceGroupManagers,
+        RegionalInternalLbBackendServices,
+        RegionalInternalManagedBackendServices,
+        RegionalInternalTrafficDirectorBackendServices,
+        Reservations,
+        ResourcePolicies,
+        Routers,
+        Routes,
+        SecurityPolicies,
+        SecurityPoliciesPerRegion,
+        SecurityPolicyAdvancedRulesPerRegion,
+        SecurityPolicyCevalRules,
+        SecurityPolicyRules,
+        SecurityPolicyRulesPerRegion,
+        ServiceAttachments,
+        /// The total number of snapshots allowed for a single project.
+        Snapshots,
+        SsdTotalGb,
+        SslCertificates,
+        SslPolicies,
+        StaticAddresses,
+        StaticByoipAddresses,
+        StaticExternalIpv6AddressRanges,
+        Subnetworks,
+        T2ACpus,
+        T2DCpus,
+        TargetHttpsProxies,
+        TargetHttpProxies,
+        TargetInstances,
+        TargetPools,
+        TargetSslProxies,
+        TargetTcpProxies,
+        TargetVpnGateways,
+        TpuLiteDeviceV5,
+        TpuLitePodsliceV5,
+        TpuPodsliceV4,
+        UrlMaps,
+        VariableIpv6PublicDelegatedPrefixes,
+        VpnGateways,
+        VpnTunnels,
+        XpnServiceProjects,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Metric::value] or
+        /// [Metric::name].
+        UnknownValue(metric::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "projects")]
+    pub mod metric {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "projects")]
+    impl Metric {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::A2Cpus => std::option::Option::Some(0),
+                Self::AffinityGroups => std::option::Option::Some(1),
+                Self::Autoscalers => std::option::Option::Some(2),
+                Self::BackendBuckets => std::option::Option::Some(3),
+                Self::BackendServices => std::option::Option::Some(4),
+                Self::C2DCpus => std::option::Option::Some(5),
+                Self::C2Cpus => std::option::Option::Some(6),
+                Self::C3Cpus => std::option::Option::Some(7),
+                Self::Commitments => std::option::Option::Some(8),
+                Self::CommittedA2Cpus => std::option::Option::Some(9),
+                Self::CommittedC2DCpus => std::option::Option::Some(10),
+                Self::CommittedC2Cpus => std::option::Option::Some(11),
+                Self::CommittedC3Cpus => std::option::Option::Some(12),
+                Self::CommittedCpus => std::option::Option::Some(13),
+                Self::CommittedE2Cpus => std::option::Option::Some(14),
+                Self::CommittedLicenses => std::option::Option::Some(15),
+                Self::CommittedLocalSsdTotalGb => std::option::Option::Some(16),
+                Self::CommittedM3Cpus => std::option::Option::Some(17),
+                Self::CommittedMemoryOptimizedCpus => std::option::Option::Some(18),
+                Self::CommittedN2ACpus => std::option::Option::Some(19),
+                Self::CommittedN2DCpus => std::option::Option::Some(20),
+                Self::CommittedN2Cpus => std::option::Option::Some(21),
+                Self::CommittedNvidiaA10080GbGpus => std::option::Option::Some(22),
+                Self::CommittedNvidiaA100Gpus => std::option::Option::Some(23),
+                Self::CommittedNvidiaH100Gpus => std::option::Option::Some(24),
+                Self::CommittedNvidiaK80Gpus => std::option::Option::Some(25),
+                Self::CommittedNvidiaL4Gpus => std::option::Option::Some(26),
+                Self::CommittedNvidiaP100Gpus => std::option::Option::Some(27),
+                Self::CommittedNvidiaP4Gpus => std::option::Option::Some(28),
+                Self::CommittedNvidiaT4Gpus => std::option::Option::Some(29),
+                Self::CommittedNvidiaV100Gpus => std::option::Option::Some(30),
+                Self::CommittedT2ACpus => std::option::Option::Some(31),
+                Self::CommittedT2DCpus => std::option::Option::Some(32),
+                Self::CommittedZ3Cpus => std::option::Option::Some(33),
+                Self::Cpus => std::option::Option::Some(34),
+                Self::CpusAllRegions => std::option::Option::Some(35),
+                Self::DisksTotalGb => std::option::Option::Some(36),
+                Self::E2Cpus => std::option::Option::Some(37),
+                Self::ExternalManagedForwardingRules => std::option::Option::Some(38),
+                Self::ExternalNetworkLbForwardingRules => std::option::Option::Some(39),
+                Self::ExternalProtocolForwardingRules => std::option::Option::Some(40),
+                Self::ExternalVpnGateways => std::option::Option::Some(41),
+                Self::Firewalls => std::option::Option::Some(42),
+                Self::ForwardingRules => std::option::Option::Some(43),
+                Self::GlobalExternalManagedBackendServices => std::option::Option::Some(44),
+                Self::GlobalExternalManagedForwardingRules => std::option::Option::Some(45),
+                Self::GlobalExternalProxyLbBackendServices => std::option::Option::Some(46),
+                Self::GlobalInternalAddresses => std::option::Option::Some(47),
+                Self::GlobalInternalManagedBackendServices => std::option::Option::Some(48),
+                Self::GlobalInternalTrafficDirectorBackendServices => std::option::Option::Some(49),
+                Self::GpusAllRegions => std::option::Option::Some(50),
+                Self::HdbTotalGb => std::option::Option::Some(51),
+                Self::HdbTotalIops => std::option::Option::Some(52),
+                Self::HdbTotalThroughput => std::option::Option::Some(53),
+                Self::HealthChecks => std::option::Option::Some(54),
+                Self::Images => std::option::Option::Some(55),
+                Self::Instances => std::option::Option::Some(56),
+                Self::InstanceGroups => std::option::Option::Some(57),
+                Self::InstanceGroupManagers => std::option::Option::Some(58),
+                Self::InstanceTemplates => std::option::Option::Some(59),
+                Self::Interconnects => std::option::Option::Some(60),
+                Self::InterconnectAttachmentsPerRegion => std::option::Option::Some(61),
+                Self::InterconnectAttachmentsTotalMbps => std::option::Option::Some(62),
+                Self::InterconnectTotalGbps => std::option::Option::Some(63),
+                Self::InternalAddresses => std::option::Option::Some(64),
+                Self::InternalTrafficDirectorForwardingRules => std::option::Option::Some(65),
+                Self::InPlaceSnapshots => std::option::Option::Some(66),
+                Self::InUseAddresses => std::option::Option::Some(67),
+                Self::InUseBackupSchedules => std::option::Option::Some(68),
+                Self::InUseSnapshotSchedules => std::option::Option::Some(69),
+                Self::LocalSsdTotalGb => std::option::Option::Some(70),
+                Self::M1Cpus => std::option::Option::Some(71),
+                Self::M2Cpus => std::option::Option::Some(72),
+                Self::M3Cpus => std::option::Option::Some(73),
+                Self::MachineImages => std::option::Option::Some(74),
+                Self::N2ACpus => std::option::Option::Some(75),
+                Self::N2DCpus => std::option::Option::Some(76),
+                Self::N2Cpus => std::option::Option::Some(77),
+                Self::Networks => std::option::Option::Some(78),
+                Self::NetworkAttachments => std::option::Option::Some(79),
+                Self::NetworkEndpointGroups => std::option::Option::Some(80),
+                Self::NetworkFirewallPolicies => std::option::Option::Some(81),
+                Self::NetLbSecurityPoliciesPerRegion => std::option::Option::Some(82),
+                Self::NetLbSecurityPolicyRulesPerRegion => std::option::Option::Some(83),
+                Self::NetLbSecurityPolicyRuleAttributesPerRegion => std::option::Option::Some(84),
+                Self::NodeGroups => std::option::Option::Some(85),
+                Self::NodeTemplates => std::option::Option::Some(86),
+                Self::NvidiaA10080GbGpus => std::option::Option::Some(87),
+                Self::NvidiaA100Gpus => std::option::Option::Some(88),
+                Self::NvidiaK80Gpus => std::option::Option::Some(89),
+                Self::NvidiaL4Gpus => std::option::Option::Some(90),
+                Self::NvidiaP100Gpus => std::option::Option::Some(91),
+                Self::NvidiaP100VwsGpus => std::option::Option::Some(92),
+                Self::NvidiaP4Gpus => std::option::Option::Some(93),
+                Self::NvidiaP4VwsGpus => std::option::Option::Some(94),
+                Self::NvidiaT4Gpus => std::option::Option::Some(95),
+                Self::NvidiaT4VwsGpus => std::option::Option::Some(96),
+                Self::NvidiaV100Gpus => std::option::Option::Some(97),
+                Self::PacketMirrorings => std::option::Option::Some(98),
+                Self::PdExtremeTotalProvisionedIops => std::option::Option::Some(99),
+                Self::PreemptibleCpus => std::option::Option::Some(100),
+                Self::PreemptibleLocalSsdGb => std::option::Option::Some(101),
+                Self::PreemptibleNvidiaA10080GbGpus => std::option::Option::Some(102),
+                Self::PreemptibleNvidiaA100Gpus => std::option::Option::Some(103),
+                Self::PreemptibleNvidiaH100Gpus => std::option::Option::Some(104),
+                Self::PreemptibleNvidiaK80Gpus => std::option::Option::Some(105),
+                Self::PreemptibleNvidiaL4Gpus => std::option::Option::Some(106),
+                Self::PreemptibleNvidiaP100Gpus => std::option::Option::Some(107),
+                Self::PreemptibleNvidiaP100VwsGpus => std::option::Option::Some(108),
+                Self::PreemptibleNvidiaP4Gpus => std::option::Option::Some(109),
+                Self::PreemptibleNvidiaP4VwsGpus => std::option::Option::Some(110),
+                Self::PreemptibleNvidiaT4Gpus => std::option::Option::Some(111),
+                Self::PreemptibleNvidiaT4VwsGpus => std::option::Option::Some(112),
+                Self::PreemptibleNvidiaV100Gpus => std::option::Option::Some(113),
+                Self::PreemptibleTpuLiteDeviceV5 => std::option::Option::Some(114),
+                Self::PreemptibleTpuLitePodsliceV5 => std::option::Option::Some(115),
+                Self::PreemptibleTpuPodsliceV4 => std::option::Option::Some(116),
+                Self::PscIlbConsumerForwardingRulesPerProducerNetwork => {
+                    std::option::Option::Some(117)
+                }
+                Self::PscInternalLbForwardingRules => std::option::Option::Some(118),
+                Self::PublicAdvertisedPrefixes => std::option::Option::Some(119),
+                Self::PublicDelegatedPrefixes => std::option::Option::Some(120),
+                Self::RegionalAutoscalers => std::option::Option::Some(121),
+                Self::RegionalExternalManagedBackendServices => std::option::Option::Some(122),
+                Self::RegionalExternalNetworkLbBackendServices => std::option::Option::Some(123),
+                Self::RegionalInstanceGroupManagers => std::option::Option::Some(124),
+                Self::RegionalInternalLbBackendServices => std::option::Option::Some(125),
+                Self::RegionalInternalManagedBackendServices => std::option::Option::Some(126),
+                Self::RegionalInternalTrafficDirectorBackendServices => {
+                    std::option::Option::Some(127)
+                }
+                Self::Reservations => std::option::Option::Some(128),
+                Self::ResourcePolicies => std::option::Option::Some(129),
+                Self::Routers => std::option::Option::Some(130),
+                Self::Routes => std::option::Option::Some(131),
+                Self::SecurityPolicies => std::option::Option::Some(132),
+                Self::SecurityPoliciesPerRegion => std::option::Option::Some(133),
+                Self::SecurityPolicyAdvancedRulesPerRegion => std::option::Option::Some(134),
+                Self::SecurityPolicyCevalRules => std::option::Option::Some(135),
+                Self::SecurityPolicyRules => std::option::Option::Some(136),
+                Self::SecurityPolicyRulesPerRegion => std::option::Option::Some(137),
+                Self::ServiceAttachments => std::option::Option::Some(138),
+                Self::Snapshots => std::option::Option::Some(139),
+                Self::SsdTotalGb => std::option::Option::Some(140),
+                Self::SslCertificates => std::option::Option::Some(141),
+                Self::SslPolicies => std::option::Option::Some(142),
+                Self::StaticAddresses => std::option::Option::Some(143),
+                Self::StaticByoipAddresses => std::option::Option::Some(144),
+                Self::StaticExternalIpv6AddressRanges => std::option::Option::Some(145),
+                Self::Subnetworks => std::option::Option::Some(146),
+                Self::T2ACpus => std::option::Option::Some(147),
+                Self::T2DCpus => std::option::Option::Some(148),
+                Self::TargetHttpsProxies => std::option::Option::Some(149),
+                Self::TargetHttpProxies => std::option::Option::Some(150),
+                Self::TargetInstances => std::option::Option::Some(151),
+                Self::TargetPools => std::option::Option::Some(152),
+                Self::TargetSslProxies => std::option::Option::Some(153),
+                Self::TargetTcpProxies => std::option::Option::Some(154),
+                Self::TargetVpnGateways => std::option::Option::Some(155),
+                Self::TpuLiteDeviceV5 => std::option::Option::Some(156),
+                Self::TpuLitePodsliceV5 => std::option::Option::Some(157),
+                Self::TpuPodsliceV4 => std::option::Option::Some(158),
+                Self::UrlMaps => std::option::Option::Some(159),
+                Self::VariableIpv6PublicDelegatedPrefixes => std::option::Option::Some(160),
+                Self::VpnGateways => std::option::Option::Some(161),
+                Self::VpnTunnels => std::option::Option::Some(162),
+                Self::XpnServiceProjects => std::option::Option::Some(163),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::A2Cpus => std::option::Option::Some("A2_CPUS"),
+                Self::AffinityGroups => std::option::Option::Some("AFFINITY_GROUPS"),
+                Self::Autoscalers => std::option::Option::Some("AUTOSCALERS"),
+                Self::BackendBuckets => std::option::Option::Some("BACKEND_BUCKETS"),
+                Self::BackendServices => std::option::Option::Some("BACKEND_SERVICES"),
+                Self::C2DCpus => std::option::Option::Some("C2D_CPUS"),
+                Self::C2Cpus => std::option::Option::Some("C2_CPUS"),
+                Self::C3Cpus => std::option::Option::Some("C3_CPUS"),
+                Self::Commitments => std::option::Option::Some("COMMITMENTS"),
+                Self::CommittedA2Cpus => std::option::Option::Some("COMMITTED_A2_CPUS"),
+                Self::CommittedC2DCpus => std::option::Option::Some("COMMITTED_C2D_CPUS"),
+                Self::CommittedC2Cpus => std::option::Option::Some("COMMITTED_C2_CPUS"),
+                Self::CommittedC3Cpus => std::option::Option::Some("COMMITTED_C3_CPUS"),
+                Self::CommittedCpus => std::option::Option::Some("COMMITTED_CPUS"),
+                Self::CommittedE2Cpus => std::option::Option::Some("COMMITTED_E2_CPUS"),
+                Self::CommittedLicenses => std::option::Option::Some("COMMITTED_LICENSES"),
+                Self::CommittedLocalSsdTotalGb => {
+                    std::option::Option::Some("COMMITTED_LOCAL_SSD_TOTAL_GB")
+                }
+                Self::CommittedM3Cpus => std::option::Option::Some("COMMITTED_M3_CPUS"),
+                Self::CommittedMemoryOptimizedCpus => {
+                    std::option::Option::Some("COMMITTED_MEMORY_OPTIMIZED_CPUS")
+                }
+                Self::CommittedN2ACpus => std::option::Option::Some("COMMITTED_N2A_CPUS"),
+                Self::CommittedN2DCpus => std::option::Option::Some("COMMITTED_N2D_CPUS"),
+                Self::CommittedN2Cpus => std::option::Option::Some("COMMITTED_N2_CPUS"),
+                Self::CommittedNvidiaA10080GbGpus => {
+                    std::option::Option::Some("COMMITTED_NVIDIA_A100_80GB_GPUS")
+                }
+                Self::CommittedNvidiaA100Gpus => {
+                    std::option::Option::Some("COMMITTED_NVIDIA_A100_GPUS")
+                }
+                Self::CommittedNvidiaH100Gpus => {
+                    std::option::Option::Some("COMMITTED_NVIDIA_H100_GPUS")
+                }
+                Self::CommittedNvidiaK80Gpus => {
+                    std::option::Option::Some("COMMITTED_NVIDIA_K80_GPUS")
+                }
+                Self::CommittedNvidiaL4Gpus => {
+                    std::option::Option::Some("COMMITTED_NVIDIA_L4_GPUS")
+                }
+                Self::CommittedNvidiaP100Gpus => {
+                    std::option::Option::Some("COMMITTED_NVIDIA_P100_GPUS")
+                }
+                Self::CommittedNvidiaP4Gpus => {
+                    std::option::Option::Some("COMMITTED_NVIDIA_P4_GPUS")
+                }
+                Self::CommittedNvidiaT4Gpus => {
+                    std::option::Option::Some("COMMITTED_NVIDIA_T4_GPUS")
+                }
+                Self::CommittedNvidiaV100Gpus => {
+                    std::option::Option::Some("COMMITTED_NVIDIA_V100_GPUS")
+                }
+                Self::CommittedT2ACpus => std::option::Option::Some("COMMITTED_T2A_CPUS"),
+                Self::CommittedT2DCpus => std::option::Option::Some("COMMITTED_T2D_CPUS"),
+                Self::CommittedZ3Cpus => std::option::Option::Some("COMMITTED_Z3_CPUS"),
+                Self::Cpus => std::option::Option::Some("CPUS"),
+                Self::CpusAllRegions => std::option::Option::Some("CPUS_ALL_REGIONS"),
+                Self::DisksTotalGb => std::option::Option::Some("DISKS_TOTAL_GB"),
+                Self::E2Cpus => std::option::Option::Some("E2_CPUS"),
+                Self::ExternalManagedForwardingRules => {
+                    std::option::Option::Some("EXTERNAL_MANAGED_FORWARDING_RULES")
+                }
+                Self::ExternalNetworkLbForwardingRules => {
+                    std::option::Option::Some("EXTERNAL_NETWORK_LB_FORWARDING_RULES")
+                }
+                Self::ExternalProtocolForwardingRules => {
+                    std::option::Option::Some("EXTERNAL_PROTOCOL_FORWARDING_RULES")
+                }
+                Self::ExternalVpnGateways => std::option::Option::Some("EXTERNAL_VPN_GATEWAYS"),
+                Self::Firewalls => std::option::Option::Some("FIREWALLS"),
+                Self::ForwardingRules => std::option::Option::Some("FORWARDING_RULES"),
+                Self::GlobalExternalManagedBackendServices => {
+                    std::option::Option::Some("GLOBAL_EXTERNAL_MANAGED_BACKEND_SERVICES")
+                }
+                Self::GlobalExternalManagedForwardingRules => {
+                    std::option::Option::Some("GLOBAL_EXTERNAL_MANAGED_FORWARDING_RULES")
+                }
+                Self::GlobalExternalProxyLbBackendServices => {
+                    std::option::Option::Some("GLOBAL_EXTERNAL_PROXY_LB_BACKEND_SERVICES")
+                }
+                Self::GlobalInternalAddresses => {
+                    std::option::Option::Some("GLOBAL_INTERNAL_ADDRESSES")
+                }
+                Self::GlobalInternalManagedBackendServices => {
+                    std::option::Option::Some("GLOBAL_INTERNAL_MANAGED_BACKEND_SERVICES")
+                }
+                Self::GlobalInternalTrafficDirectorBackendServices => {
+                    std::option::Option::Some("GLOBAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES")
+                }
+                Self::GpusAllRegions => std::option::Option::Some("GPUS_ALL_REGIONS"),
+                Self::HdbTotalGb => std::option::Option::Some("HDB_TOTAL_GB"),
+                Self::HdbTotalIops => std::option::Option::Some("HDB_TOTAL_IOPS"),
+                Self::HdbTotalThroughput => std::option::Option::Some("HDB_TOTAL_THROUGHPUT"),
+                Self::HealthChecks => std::option::Option::Some("HEALTH_CHECKS"),
+                Self::Images => std::option::Option::Some("IMAGES"),
+                Self::Instances => std::option::Option::Some("INSTANCES"),
+                Self::InstanceGroups => std::option::Option::Some("INSTANCE_GROUPS"),
+                Self::InstanceGroupManagers => std::option::Option::Some("INSTANCE_GROUP_MANAGERS"),
+                Self::InstanceTemplates => std::option::Option::Some("INSTANCE_TEMPLATES"),
+                Self::Interconnects => std::option::Option::Some("INTERCONNECTS"),
+                Self::InterconnectAttachmentsPerRegion => {
+                    std::option::Option::Some("INTERCONNECT_ATTACHMENTS_PER_REGION")
+                }
+                Self::InterconnectAttachmentsTotalMbps => {
+                    std::option::Option::Some("INTERCONNECT_ATTACHMENTS_TOTAL_MBPS")
+                }
+                Self::InterconnectTotalGbps => std::option::Option::Some("INTERCONNECT_TOTAL_GBPS"),
+                Self::InternalAddresses => std::option::Option::Some("INTERNAL_ADDRESSES"),
+                Self::InternalTrafficDirectorForwardingRules => {
+                    std::option::Option::Some("INTERNAL_TRAFFIC_DIRECTOR_FORWARDING_RULES")
+                }
+                Self::InPlaceSnapshots => std::option::Option::Some("IN_PLACE_SNAPSHOTS"),
+                Self::InUseAddresses => std::option::Option::Some("IN_USE_ADDRESSES"),
+                Self::InUseBackupSchedules => std::option::Option::Some("IN_USE_BACKUP_SCHEDULES"),
+                Self::InUseSnapshotSchedules => {
+                    std::option::Option::Some("IN_USE_SNAPSHOT_SCHEDULES")
+                }
+                Self::LocalSsdTotalGb => std::option::Option::Some("LOCAL_SSD_TOTAL_GB"),
+                Self::M1Cpus => std::option::Option::Some("M1_CPUS"),
+                Self::M2Cpus => std::option::Option::Some("M2_CPUS"),
+                Self::M3Cpus => std::option::Option::Some("M3_CPUS"),
+                Self::MachineImages => std::option::Option::Some("MACHINE_IMAGES"),
+                Self::N2ACpus => std::option::Option::Some("N2A_CPUS"),
+                Self::N2DCpus => std::option::Option::Some("N2D_CPUS"),
+                Self::N2Cpus => std::option::Option::Some("N2_CPUS"),
+                Self::Networks => std::option::Option::Some("NETWORKS"),
+                Self::NetworkAttachments => std::option::Option::Some("NETWORK_ATTACHMENTS"),
+                Self::NetworkEndpointGroups => std::option::Option::Some("NETWORK_ENDPOINT_GROUPS"),
+                Self::NetworkFirewallPolicies => {
+                    std::option::Option::Some("NETWORK_FIREWALL_POLICIES")
+                }
+                Self::NetLbSecurityPoliciesPerRegion => {
+                    std::option::Option::Some("NET_LB_SECURITY_POLICIES_PER_REGION")
+                }
+                Self::NetLbSecurityPolicyRulesPerRegion => {
+                    std::option::Option::Some("NET_LB_SECURITY_POLICY_RULES_PER_REGION")
+                }
+                Self::NetLbSecurityPolicyRuleAttributesPerRegion => {
+                    std::option::Option::Some("NET_LB_SECURITY_POLICY_RULE_ATTRIBUTES_PER_REGION")
+                }
+                Self::NodeGroups => std::option::Option::Some("NODE_GROUPS"),
+                Self::NodeTemplates => std::option::Option::Some("NODE_TEMPLATES"),
+                Self::NvidiaA10080GbGpus => std::option::Option::Some("NVIDIA_A100_80GB_GPUS"),
+                Self::NvidiaA100Gpus => std::option::Option::Some("NVIDIA_A100_GPUS"),
+                Self::NvidiaK80Gpus => std::option::Option::Some("NVIDIA_K80_GPUS"),
+                Self::NvidiaL4Gpus => std::option::Option::Some("NVIDIA_L4_GPUS"),
+                Self::NvidiaP100Gpus => std::option::Option::Some("NVIDIA_P100_GPUS"),
+                Self::NvidiaP100VwsGpus => std::option::Option::Some("NVIDIA_P100_VWS_GPUS"),
+                Self::NvidiaP4Gpus => std::option::Option::Some("NVIDIA_P4_GPUS"),
+                Self::NvidiaP4VwsGpus => std::option::Option::Some("NVIDIA_P4_VWS_GPUS"),
+                Self::NvidiaT4Gpus => std::option::Option::Some("NVIDIA_T4_GPUS"),
+                Self::NvidiaT4VwsGpus => std::option::Option::Some("NVIDIA_T4_VWS_GPUS"),
+                Self::NvidiaV100Gpus => std::option::Option::Some("NVIDIA_V100_GPUS"),
+                Self::PacketMirrorings => std::option::Option::Some("PACKET_MIRRORINGS"),
+                Self::PdExtremeTotalProvisionedIops => {
+                    std::option::Option::Some("PD_EXTREME_TOTAL_PROVISIONED_IOPS")
+                }
+                Self::PreemptibleCpus => std::option::Option::Some("PREEMPTIBLE_CPUS"),
+                Self::PreemptibleLocalSsdGb => {
+                    std::option::Option::Some("PREEMPTIBLE_LOCAL_SSD_GB")
+                }
+                Self::PreemptibleNvidiaA10080GbGpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_A100_80GB_GPUS")
+                }
+                Self::PreemptibleNvidiaA100Gpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_A100_GPUS")
+                }
+                Self::PreemptibleNvidiaH100Gpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_H100_GPUS")
+                }
+                Self::PreemptibleNvidiaK80Gpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_K80_GPUS")
+                }
+                Self::PreemptibleNvidiaL4Gpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_L4_GPUS")
+                }
+                Self::PreemptibleNvidiaP100Gpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_P100_GPUS")
+                }
+                Self::PreemptibleNvidiaP100VwsGpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_P100_VWS_GPUS")
+                }
+                Self::PreemptibleNvidiaP4Gpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_P4_GPUS")
+                }
+                Self::PreemptibleNvidiaP4VwsGpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_P4_VWS_GPUS")
+                }
+                Self::PreemptibleNvidiaT4Gpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_T4_GPUS")
+                }
+                Self::PreemptibleNvidiaT4VwsGpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_T4_VWS_GPUS")
+                }
+                Self::PreemptibleNvidiaV100Gpus => {
+                    std::option::Option::Some("PREEMPTIBLE_NVIDIA_V100_GPUS")
+                }
+                Self::PreemptibleTpuLiteDeviceV5 => {
+                    std::option::Option::Some("PREEMPTIBLE_TPU_LITE_DEVICE_V5")
+                }
+                Self::PreemptibleTpuLitePodsliceV5 => {
+                    std::option::Option::Some("PREEMPTIBLE_TPU_LITE_PODSLICE_V5")
+                }
+                Self::PreemptibleTpuPodsliceV4 => {
+                    std::option::Option::Some("PREEMPTIBLE_TPU_PODSLICE_V4")
+                }
+                Self::PscIlbConsumerForwardingRulesPerProducerNetwork => std::option::Option::Some(
+                    "PSC_ILB_CONSUMER_FORWARDING_RULES_PER_PRODUCER_NETWORK",
+                ),
+                Self::PscInternalLbForwardingRules => {
+                    std::option::Option::Some("PSC_INTERNAL_LB_FORWARDING_RULES")
+                }
+                Self::PublicAdvertisedPrefixes => {
+                    std::option::Option::Some("PUBLIC_ADVERTISED_PREFIXES")
+                }
+                Self::PublicDelegatedPrefixes => {
+                    std::option::Option::Some("PUBLIC_DELEGATED_PREFIXES")
+                }
+                Self::RegionalAutoscalers => std::option::Option::Some("REGIONAL_AUTOSCALERS"),
+                Self::RegionalExternalManagedBackendServices => {
+                    std::option::Option::Some("REGIONAL_EXTERNAL_MANAGED_BACKEND_SERVICES")
+                }
+                Self::RegionalExternalNetworkLbBackendServices => {
+                    std::option::Option::Some("REGIONAL_EXTERNAL_NETWORK_LB_BACKEND_SERVICES")
+                }
+                Self::RegionalInstanceGroupManagers => {
+                    std::option::Option::Some("REGIONAL_INSTANCE_GROUP_MANAGERS")
+                }
+                Self::RegionalInternalLbBackendServices => {
+                    std::option::Option::Some("REGIONAL_INTERNAL_LB_BACKEND_SERVICES")
+                }
+                Self::RegionalInternalManagedBackendServices => {
+                    std::option::Option::Some("REGIONAL_INTERNAL_MANAGED_BACKEND_SERVICES")
+                }
+                Self::RegionalInternalTrafficDirectorBackendServices => {
+                    std::option::Option::Some("REGIONAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES")
+                }
+                Self::Reservations => std::option::Option::Some("RESERVATIONS"),
+                Self::ResourcePolicies => std::option::Option::Some("RESOURCE_POLICIES"),
+                Self::Routers => std::option::Option::Some("ROUTERS"),
+                Self::Routes => std::option::Option::Some("ROUTES"),
+                Self::SecurityPolicies => std::option::Option::Some("SECURITY_POLICIES"),
+                Self::SecurityPoliciesPerRegion => {
+                    std::option::Option::Some("SECURITY_POLICIES_PER_REGION")
+                }
+                Self::SecurityPolicyAdvancedRulesPerRegion => {
+                    std::option::Option::Some("SECURITY_POLICY_ADVANCED_RULES_PER_REGION")
+                }
+                Self::SecurityPolicyCevalRules => {
+                    std::option::Option::Some("SECURITY_POLICY_CEVAL_RULES")
+                }
+                Self::SecurityPolicyRules => std::option::Option::Some("SECURITY_POLICY_RULES"),
+                Self::SecurityPolicyRulesPerRegion => {
+                    std::option::Option::Some("SECURITY_POLICY_RULES_PER_REGION")
+                }
+                Self::ServiceAttachments => std::option::Option::Some("SERVICE_ATTACHMENTS"),
+                Self::Snapshots => std::option::Option::Some("SNAPSHOTS"),
+                Self::SsdTotalGb => std::option::Option::Some("SSD_TOTAL_GB"),
+                Self::SslCertificates => std::option::Option::Some("SSL_CERTIFICATES"),
+                Self::SslPolicies => std::option::Option::Some("SSL_POLICIES"),
+                Self::StaticAddresses => std::option::Option::Some("STATIC_ADDRESSES"),
+                Self::StaticByoipAddresses => std::option::Option::Some("STATIC_BYOIP_ADDRESSES"),
+                Self::StaticExternalIpv6AddressRanges => {
+                    std::option::Option::Some("STATIC_EXTERNAL_IPV6_ADDRESS_RANGES")
+                }
+                Self::Subnetworks => std::option::Option::Some("SUBNETWORKS"),
+                Self::T2ACpus => std::option::Option::Some("T2A_CPUS"),
+                Self::T2DCpus => std::option::Option::Some("T2D_CPUS"),
+                Self::TargetHttpsProxies => std::option::Option::Some("TARGET_HTTPS_PROXIES"),
+                Self::TargetHttpProxies => std::option::Option::Some("TARGET_HTTP_PROXIES"),
+                Self::TargetInstances => std::option::Option::Some("TARGET_INSTANCES"),
+                Self::TargetPools => std::option::Option::Some("TARGET_POOLS"),
+                Self::TargetSslProxies => std::option::Option::Some("TARGET_SSL_PROXIES"),
+                Self::TargetTcpProxies => std::option::Option::Some("TARGET_TCP_PROXIES"),
+                Self::TargetVpnGateways => std::option::Option::Some("TARGET_VPN_GATEWAYS"),
+                Self::TpuLiteDeviceV5 => std::option::Option::Some("TPU_LITE_DEVICE_V5"),
+                Self::TpuLitePodsliceV5 => std::option::Option::Some("TPU_LITE_PODSLICE_V5"),
+                Self::TpuPodsliceV4 => std::option::Option::Some("TPU_PODSLICE_V4"),
+                Self::UrlMaps => std::option::Option::Some("URL_MAPS"),
+                Self::VariableIpv6PublicDelegatedPrefixes => {
+                    std::option::Option::Some("VARIABLE_IPV6_PUBLIC_DELEGATED_PREFIXES")
+                }
+                Self::VpnGateways => std::option::Option::Some("VPN_GATEWAYS"),
+                Self::VpnTunnels => std::option::Option::Some("VPN_TUNNELS"),
+                Self::XpnServiceProjects => std::option::Option::Some("XPN_SERVICE_PROJECTS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::default::Default for Metric {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::fmt::Display for Metric {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<i32> for Metric {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::A2Cpus,
+                1 => Self::AffinityGroups,
+                2 => Self::Autoscalers,
+                3 => Self::BackendBuckets,
+                4 => Self::BackendServices,
+                5 => Self::C2DCpus,
+                6 => Self::C2Cpus,
+                7 => Self::C3Cpus,
+                8 => Self::Commitments,
+                9 => Self::CommittedA2Cpus,
+                10 => Self::CommittedC2DCpus,
+                11 => Self::CommittedC2Cpus,
+                12 => Self::CommittedC3Cpus,
+                13 => Self::CommittedCpus,
+                14 => Self::CommittedE2Cpus,
+                15 => Self::CommittedLicenses,
+                16 => Self::CommittedLocalSsdTotalGb,
+                17 => Self::CommittedM3Cpus,
+                18 => Self::CommittedMemoryOptimizedCpus,
+                19 => Self::CommittedN2ACpus,
+                20 => Self::CommittedN2DCpus,
+                21 => Self::CommittedN2Cpus,
+                22 => Self::CommittedNvidiaA10080GbGpus,
+                23 => Self::CommittedNvidiaA100Gpus,
+                24 => Self::CommittedNvidiaH100Gpus,
+                25 => Self::CommittedNvidiaK80Gpus,
+                26 => Self::CommittedNvidiaL4Gpus,
+                27 => Self::CommittedNvidiaP100Gpus,
+                28 => Self::CommittedNvidiaP4Gpus,
+                29 => Self::CommittedNvidiaT4Gpus,
+                30 => Self::CommittedNvidiaV100Gpus,
+                31 => Self::CommittedT2ACpus,
+                32 => Self::CommittedT2DCpus,
+                33 => Self::CommittedZ3Cpus,
+                34 => Self::Cpus,
+                35 => Self::CpusAllRegions,
+                36 => Self::DisksTotalGb,
+                37 => Self::E2Cpus,
+                38 => Self::ExternalManagedForwardingRules,
+                39 => Self::ExternalNetworkLbForwardingRules,
+                40 => Self::ExternalProtocolForwardingRules,
+                41 => Self::ExternalVpnGateways,
+                42 => Self::Firewalls,
+                43 => Self::ForwardingRules,
+                44 => Self::GlobalExternalManagedBackendServices,
+                45 => Self::GlobalExternalManagedForwardingRules,
+                46 => Self::GlobalExternalProxyLbBackendServices,
+                47 => Self::GlobalInternalAddresses,
+                48 => Self::GlobalInternalManagedBackendServices,
+                49 => Self::GlobalInternalTrafficDirectorBackendServices,
+                50 => Self::GpusAllRegions,
+                51 => Self::HdbTotalGb,
+                52 => Self::HdbTotalIops,
+                53 => Self::HdbTotalThroughput,
+                54 => Self::HealthChecks,
+                55 => Self::Images,
+                56 => Self::Instances,
+                57 => Self::InstanceGroups,
+                58 => Self::InstanceGroupManagers,
+                59 => Self::InstanceTemplates,
+                60 => Self::Interconnects,
+                61 => Self::InterconnectAttachmentsPerRegion,
+                62 => Self::InterconnectAttachmentsTotalMbps,
+                63 => Self::InterconnectTotalGbps,
+                64 => Self::InternalAddresses,
+                65 => Self::InternalTrafficDirectorForwardingRules,
+                66 => Self::InPlaceSnapshots,
+                67 => Self::InUseAddresses,
+                68 => Self::InUseBackupSchedules,
+                69 => Self::InUseSnapshotSchedules,
+                70 => Self::LocalSsdTotalGb,
+                71 => Self::M1Cpus,
+                72 => Self::M2Cpus,
+                73 => Self::M3Cpus,
+                74 => Self::MachineImages,
+                75 => Self::N2ACpus,
+                76 => Self::N2DCpus,
+                77 => Self::N2Cpus,
+                78 => Self::Networks,
+                79 => Self::NetworkAttachments,
+                80 => Self::NetworkEndpointGroups,
+                81 => Self::NetworkFirewallPolicies,
+                82 => Self::NetLbSecurityPoliciesPerRegion,
+                83 => Self::NetLbSecurityPolicyRulesPerRegion,
+                84 => Self::NetLbSecurityPolicyRuleAttributesPerRegion,
+                85 => Self::NodeGroups,
+                86 => Self::NodeTemplates,
+                87 => Self::NvidiaA10080GbGpus,
+                88 => Self::NvidiaA100Gpus,
+                89 => Self::NvidiaK80Gpus,
+                90 => Self::NvidiaL4Gpus,
+                91 => Self::NvidiaP100Gpus,
+                92 => Self::NvidiaP100VwsGpus,
+                93 => Self::NvidiaP4Gpus,
+                94 => Self::NvidiaP4VwsGpus,
+                95 => Self::NvidiaT4Gpus,
+                96 => Self::NvidiaT4VwsGpus,
+                97 => Self::NvidiaV100Gpus,
+                98 => Self::PacketMirrorings,
+                99 => Self::PdExtremeTotalProvisionedIops,
+                100 => Self::PreemptibleCpus,
+                101 => Self::PreemptibleLocalSsdGb,
+                102 => Self::PreemptibleNvidiaA10080GbGpus,
+                103 => Self::PreemptibleNvidiaA100Gpus,
+                104 => Self::PreemptibleNvidiaH100Gpus,
+                105 => Self::PreemptibleNvidiaK80Gpus,
+                106 => Self::PreemptibleNvidiaL4Gpus,
+                107 => Self::PreemptibleNvidiaP100Gpus,
+                108 => Self::PreemptibleNvidiaP100VwsGpus,
+                109 => Self::PreemptibleNvidiaP4Gpus,
+                110 => Self::PreemptibleNvidiaP4VwsGpus,
+                111 => Self::PreemptibleNvidiaT4Gpus,
+                112 => Self::PreemptibleNvidiaT4VwsGpus,
+                113 => Self::PreemptibleNvidiaV100Gpus,
+                114 => Self::PreemptibleTpuLiteDeviceV5,
+                115 => Self::PreemptibleTpuLitePodsliceV5,
+                116 => Self::PreemptibleTpuPodsliceV4,
+                117 => Self::PscIlbConsumerForwardingRulesPerProducerNetwork,
+                118 => Self::PscInternalLbForwardingRules,
+                119 => Self::PublicAdvertisedPrefixes,
+                120 => Self::PublicDelegatedPrefixes,
+                121 => Self::RegionalAutoscalers,
+                122 => Self::RegionalExternalManagedBackendServices,
+                123 => Self::RegionalExternalNetworkLbBackendServices,
+                124 => Self::RegionalInstanceGroupManagers,
+                125 => Self::RegionalInternalLbBackendServices,
+                126 => Self::RegionalInternalManagedBackendServices,
+                127 => Self::RegionalInternalTrafficDirectorBackendServices,
+                128 => Self::Reservations,
+                129 => Self::ResourcePolicies,
+                130 => Self::Routers,
+                131 => Self::Routes,
+                132 => Self::SecurityPolicies,
+                133 => Self::SecurityPoliciesPerRegion,
+                134 => Self::SecurityPolicyAdvancedRulesPerRegion,
+                135 => Self::SecurityPolicyCevalRules,
+                136 => Self::SecurityPolicyRules,
+                137 => Self::SecurityPolicyRulesPerRegion,
+                138 => Self::ServiceAttachments,
+                139 => Self::Snapshots,
+                140 => Self::SsdTotalGb,
+                141 => Self::SslCertificates,
+                142 => Self::SslPolicies,
+                143 => Self::StaticAddresses,
+                144 => Self::StaticByoipAddresses,
+                145 => Self::StaticExternalIpv6AddressRanges,
+                146 => Self::Subnetworks,
+                147 => Self::T2ACpus,
+                148 => Self::T2DCpus,
+                149 => Self::TargetHttpsProxies,
+                150 => Self::TargetHttpProxies,
+                151 => Self::TargetInstances,
+                152 => Self::TargetPools,
+                153 => Self::TargetSslProxies,
+                154 => Self::TargetTcpProxies,
+                155 => Self::TargetVpnGateways,
+                156 => Self::TpuLiteDeviceV5,
+                157 => Self::TpuLitePodsliceV5,
+                158 => Self::TpuPodsliceV4,
+                159 => Self::UrlMaps,
+                160 => Self::VariableIpv6PublicDelegatedPrefixes,
+                161 => Self::VpnGateways,
+                162 => Self::VpnTunnels,
+                163 => Self::XpnServiceProjects,
+                _ => Self::UnknownValue(metric::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<&str> for Metric {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "A2_CPUS" => Self::A2Cpus,
+                "AFFINITY_GROUPS" => Self::AffinityGroups,
+                "AUTOSCALERS" => Self::Autoscalers,
+                "BACKEND_BUCKETS" => Self::BackendBuckets,
+                "BACKEND_SERVICES" => Self::BackendServices,
+                "C2D_CPUS" => Self::C2DCpus,
+                "C2_CPUS" => Self::C2Cpus,
+                "C3_CPUS" => Self::C3Cpus,
+                "COMMITMENTS" => Self::Commitments,
+                "COMMITTED_A2_CPUS" => Self::CommittedA2Cpus,
+                "COMMITTED_C2D_CPUS" => Self::CommittedC2DCpus,
+                "COMMITTED_C2_CPUS" => Self::CommittedC2Cpus,
+                "COMMITTED_C3_CPUS" => Self::CommittedC3Cpus,
+                "COMMITTED_CPUS" => Self::CommittedCpus,
+                "COMMITTED_E2_CPUS" => Self::CommittedE2Cpus,
+                "COMMITTED_LICENSES" => Self::CommittedLicenses,
+                "COMMITTED_LOCAL_SSD_TOTAL_GB" => Self::CommittedLocalSsdTotalGb,
+                "COMMITTED_M3_CPUS" => Self::CommittedM3Cpus,
+                "COMMITTED_MEMORY_OPTIMIZED_CPUS" => Self::CommittedMemoryOptimizedCpus,
+                "COMMITTED_N2A_CPUS" => Self::CommittedN2ACpus,
+                "COMMITTED_N2D_CPUS" => Self::CommittedN2DCpus,
+                "COMMITTED_N2_CPUS" => Self::CommittedN2Cpus,
+                "COMMITTED_NVIDIA_A100_80GB_GPUS" => Self::CommittedNvidiaA10080GbGpus,
+                "COMMITTED_NVIDIA_A100_GPUS" => Self::CommittedNvidiaA100Gpus,
+                "COMMITTED_NVIDIA_H100_GPUS" => Self::CommittedNvidiaH100Gpus,
+                "COMMITTED_NVIDIA_K80_GPUS" => Self::CommittedNvidiaK80Gpus,
+                "COMMITTED_NVIDIA_L4_GPUS" => Self::CommittedNvidiaL4Gpus,
+                "COMMITTED_NVIDIA_P100_GPUS" => Self::CommittedNvidiaP100Gpus,
+                "COMMITTED_NVIDIA_P4_GPUS" => Self::CommittedNvidiaP4Gpus,
+                "COMMITTED_NVIDIA_T4_GPUS" => Self::CommittedNvidiaT4Gpus,
+                "COMMITTED_NVIDIA_V100_GPUS" => Self::CommittedNvidiaV100Gpus,
+                "COMMITTED_T2A_CPUS" => Self::CommittedT2ACpus,
+                "COMMITTED_T2D_CPUS" => Self::CommittedT2DCpus,
+                "COMMITTED_Z3_CPUS" => Self::CommittedZ3Cpus,
+                "CPUS" => Self::Cpus,
+                "CPUS_ALL_REGIONS" => Self::CpusAllRegions,
+                "DISKS_TOTAL_GB" => Self::DisksTotalGb,
+                "E2_CPUS" => Self::E2Cpus,
+                "EXTERNAL_MANAGED_FORWARDING_RULES" => Self::ExternalManagedForwardingRules,
+                "EXTERNAL_NETWORK_LB_FORWARDING_RULES" => Self::ExternalNetworkLbForwardingRules,
+                "EXTERNAL_PROTOCOL_FORWARDING_RULES" => Self::ExternalProtocolForwardingRules,
+                "EXTERNAL_VPN_GATEWAYS" => Self::ExternalVpnGateways,
+                "FIREWALLS" => Self::Firewalls,
+                "FORWARDING_RULES" => Self::ForwardingRules,
+                "GLOBAL_EXTERNAL_MANAGED_BACKEND_SERVICES" => {
+                    Self::GlobalExternalManagedBackendServices
+                }
+                "GLOBAL_EXTERNAL_MANAGED_FORWARDING_RULES" => {
+                    Self::GlobalExternalManagedForwardingRules
+                }
+                "GLOBAL_EXTERNAL_PROXY_LB_BACKEND_SERVICES" => {
+                    Self::GlobalExternalProxyLbBackendServices
+                }
+                "GLOBAL_INTERNAL_ADDRESSES" => Self::GlobalInternalAddresses,
+                "GLOBAL_INTERNAL_MANAGED_BACKEND_SERVICES" => {
+                    Self::GlobalInternalManagedBackendServices
+                }
+                "GLOBAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES" => {
+                    Self::GlobalInternalTrafficDirectorBackendServices
+                }
+                "GPUS_ALL_REGIONS" => Self::GpusAllRegions,
+                "HDB_TOTAL_GB" => Self::HdbTotalGb,
+                "HDB_TOTAL_IOPS" => Self::HdbTotalIops,
+                "HDB_TOTAL_THROUGHPUT" => Self::HdbTotalThroughput,
+                "HEALTH_CHECKS" => Self::HealthChecks,
+                "IMAGES" => Self::Images,
+                "INSTANCES" => Self::Instances,
+                "INSTANCE_GROUPS" => Self::InstanceGroups,
+                "INSTANCE_GROUP_MANAGERS" => Self::InstanceGroupManagers,
+                "INSTANCE_TEMPLATES" => Self::InstanceTemplates,
+                "INTERCONNECTS" => Self::Interconnects,
+                "INTERCONNECT_ATTACHMENTS_PER_REGION" => Self::InterconnectAttachmentsPerRegion,
+                "INTERCONNECT_ATTACHMENTS_TOTAL_MBPS" => Self::InterconnectAttachmentsTotalMbps,
+                "INTERCONNECT_TOTAL_GBPS" => Self::InterconnectTotalGbps,
+                "INTERNAL_ADDRESSES" => Self::InternalAddresses,
+                "INTERNAL_TRAFFIC_DIRECTOR_FORWARDING_RULES" => {
+                    Self::InternalTrafficDirectorForwardingRules
+                }
+                "IN_PLACE_SNAPSHOTS" => Self::InPlaceSnapshots,
+                "IN_USE_ADDRESSES" => Self::InUseAddresses,
+                "IN_USE_BACKUP_SCHEDULES" => Self::InUseBackupSchedules,
+                "IN_USE_SNAPSHOT_SCHEDULES" => Self::InUseSnapshotSchedules,
+                "LOCAL_SSD_TOTAL_GB" => Self::LocalSsdTotalGb,
+                "M1_CPUS" => Self::M1Cpus,
+                "M2_CPUS" => Self::M2Cpus,
+                "M3_CPUS" => Self::M3Cpus,
+                "MACHINE_IMAGES" => Self::MachineImages,
+                "N2A_CPUS" => Self::N2ACpus,
+                "N2D_CPUS" => Self::N2DCpus,
+                "N2_CPUS" => Self::N2Cpus,
+                "NETWORKS" => Self::Networks,
+                "NETWORK_ATTACHMENTS" => Self::NetworkAttachments,
+                "NETWORK_ENDPOINT_GROUPS" => Self::NetworkEndpointGroups,
+                "NETWORK_FIREWALL_POLICIES" => Self::NetworkFirewallPolicies,
+                "NET_LB_SECURITY_POLICIES_PER_REGION" => Self::NetLbSecurityPoliciesPerRegion,
+                "NET_LB_SECURITY_POLICY_RULES_PER_REGION" => {
+                    Self::NetLbSecurityPolicyRulesPerRegion
+                }
+                "NET_LB_SECURITY_POLICY_RULE_ATTRIBUTES_PER_REGION" => {
+                    Self::NetLbSecurityPolicyRuleAttributesPerRegion
+                }
+                "NODE_GROUPS" => Self::NodeGroups,
+                "NODE_TEMPLATES" => Self::NodeTemplates,
+                "NVIDIA_A100_80GB_GPUS" => Self::NvidiaA10080GbGpus,
+                "NVIDIA_A100_GPUS" => Self::NvidiaA100Gpus,
+                "NVIDIA_K80_GPUS" => Self::NvidiaK80Gpus,
+                "NVIDIA_L4_GPUS" => Self::NvidiaL4Gpus,
+                "NVIDIA_P100_GPUS" => Self::NvidiaP100Gpus,
+                "NVIDIA_P100_VWS_GPUS" => Self::NvidiaP100VwsGpus,
+                "NVIDIA_P4_GPUS" => Self::NvidiaP4Gpus,
+                "NVIDIA_P4_VWS_GPUS" => Self::NvidiaP4VwsGpus,
+                "NVIDIA_T4_GPUS" => Self::NvidiaT4Gpus,
+                "NVIDIA_T4_VWS_GPUS" => Self::NvidiaT4VwsGpus,
+                "NVIDIA_V100_GPUS" => Self::NvidiaV100Gpus,
+                "PACKET_MIRRORINGS" => Self::PacketMirrorings,
+                "PD_EXTREME_TOTAL_PROVISIONED_IOPS" => Self::PdExtremeTotalProvisionedIops,
+                "PREEMPTIBLE_CPUS" => Self::PreemptibleCpus,
+                "PREEMPTIBLE_LOCAL_SSD_GB" => Self::PreemptibleLocalSsdGb,
+                "PREEMPTIBLE_NVIDIA_A100_80GB_GPUS" => Self::PreemptibleNvidiaA10080GbGpus,
+                "PREEMPTIBLE_NVIDIA_A100_GPUS" => Self::PreemptibleNvidiaA100Gpus,
+                "PREEMPTIBLE_NVIDIA_H100_GPUS" => Self::PreemptibleNvidiaH100Gpus,
+                "PREEMPTIBLE_NVIDIA_K80_GPUS" => Self::PreemptibleNvidiaK80Gpus,
+                "PREEMPTIBLE_NVIDIA_L4_GPUS" => Self::PreemptibleNvidiaL4Gpus,
+                "PREEMPTIBLE_NVIDIA_P100_GPUS" => Self::PreemptibleNvidiaP100Gpus,
+                "PREEMPTIBLE_NVIDIA_P100_VWS_GPUS" => Self::PreemptibleNvidiaP100VwsGpus,
+                "PREEMPTIBLE_NVIDIA_P4_GPUS" => Self::PreemptibleNvidiaP4Gpus,
+                "PREEMPTIBLE_NVIDIA_P4_VWS_GPUS" => Self::PreemptibleNvidiaP4VwsGpus,
+                "PREEMPTIBLE_NVIDIA_T4_GPUS" => Self::PreemptibleNvidiaT4Gpus,
+                "PREEMPTIBLE_NVIDIA_T4_VWS_GPUS" => Self::PreemptibleNvidiaT4VwsGpus,
+                "PREEMPTIBLE_NVIDIA_V100_GPUS" => Self::PreemptibleNvidiaV100Gpus,
+                "PREEMPTIBLE_TPU_LITE_DEVICE_V5" => Self::PreemptibleTpuLiteDeviceV5,
+                "PREEMPTIBLE_TPU_LITE_PODSLICE_V5" => Self::PreemptibleTpuLitePodsliceV5,
+                "PREEMPTIBLE_TPU_PODSLICE_V4" => Self::PreemptibleTpuPodsliceV4,
+                "PSC_ILB_CONSUMER_FORWARDING_RULES_PER_PRODUCER_NETWORK" => {
+                    Self::PscIlbConsumerForwardingRulesPerProducerNetwork
+                }
+                "PSC_INTERNAL_LB_FORWARDING_RULES" => Self::PscInternalLbForwardingRules,
+                "PUBLIC_ADVERTISED_PREFIXES" => Self::PublicAdvertisedPrefixes,
+                "PUBLIC_DELEGATED_PREFIXES" => Self::PublicDelegatedPrefixes,
+                "REGIONAL_AUTOSCALERS" => Self::RegionalAutoscalers,
+                "REGIONAL_EXTERNAL_MANAGED_BACKEND_SERVICES" => {
+                    Self::RegionalExternalManagedBackendServices
+                }
+                "REGIONAL_EXTERNAL_NETWORK_LB_BACKEND_SERVICES" => {
+                    Self::RegionalExternalNetworkLbBackendServices
+                }
+                "REGIONAL_INSTANCE_GROUP_MANAGERS" => Self::RegionalInstanceGroupManagers,
+                "REGIONAL_INTERNAL_LB_BACKEND_SERVICES" => Self::RegionalInternalLbBackendServices,
+                "REGIONAL_INTERNAL_MANAGED_BACKEND_SERVICES" => {
+                    Self::RegionalInternalManagedBackendServices
+                }
+                "REGIONAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES" => {
+                    Self::RegionalInternalTrafficDirectorBackendServices
+                }
+                "RESERVATIONS" => Self::Reservations,
+                "RESOURCE_POLICIES" => Self::ResourcePolicies,
+                "ROUTERS" => Self::Routers,
+                "ROUTES" => Self::Routes,
+                "SECURITY_POLICIES" => Self::SecurityPolicies,
+                "SECURITY_POLICIES_PER_REGION" => Self::SecurityPoliciesPerRegion,
+                "SECURITY_POLICY_ADVANCED_RULES_PER_REGION" => {
+                    Self::SecurityPolicyAdvancedRulesPerRegion
+                }
+                "SECURITY_POLICY_CEVAL_RULES" => Self::SecurityPolicyCevalRules,
+                "SECURITY_POLICY_RULES" => Self::SecurityPolicyRules,
+                "SECURITY_POLICY_RULES_PER_REGION" => Self::SecurityPolicyRulesPerRegion,
+                "SERVICE_ATTACHMENTS" => Self::ServiceAttachments,
+                "SNAPSHOTS" => Self::Snapshots,
+                "SSD_TOTAL_GB" => Self::SsdTotalGb,
+                "SSL_CERTIFICATES" => Self::SslCertificates,
+                "SSL_POLICIES" => Self::SslPolicies,
+                "STATIC_ADDRESSES" => Self::StaticAddresses,
+                "STATIC_BYOIP_ADDRESSES" => Self::StaticByoipAddresses,
+                "STATIC_EXTERNAL_IPV6_ADDRESS_RANGES" => Self::StaticExternalIpv6AddressRanges,
+                "SUBNETWORKS" => Self::Subnetworks,
+                "T2A_CPUS" => Self::T2ACpus,
+                "T2D_CPUS" => Self::T2DCpus,
+                "TARGET_HTTPS_PROXIES" => Self::TargetHttpsProxies,
+                "TARGET_HTTP_PROXIES" => Self::TargetHttpProxies,
+                "TARGET_INSTANCES" => Self::TargetInstances,
+                "TARGET_POOLS" => Self::TargetPools,
+                "TARGET_SSL_PROXIES" => Self::TargetSslProxies,
+                "TARGET_TCP_PROXIES" => Self::TargetTcpProxies,
+                "TARGET_VPN_GATEWAYS" => Self::TargetVpnGateways,
+                "TPU_LITE_DEVICE_V5" => Self::TpuLiteDeviceV5,
+                "TPU_LITE_PODSLICE_V5" => Self::TpuLitePodsliceV5,
+                "TPU_PODSLICE_V4" => Self::TpuPodsliceV4,
+                "URL_MAPS" => Self::UrlMaps,
+                "VARIABLE_IPV6_PUBLIC_DELEGATED_PREFIXES" => {
+                    Self::VariableIpv6PublicDelegatedPrefixes
+                }
+                "VPN_GATEWAYS" => Self::VpnGateways,
+                "VPN_TUNNELS" => Self::VpnTunnels,
+                "XPN_SERVICE_PROJECTS" => Self::XpnServiceProjects,
+                _ => Self::UnknownValue(metric::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl serde::ser::Serialize for Metric {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::A2Cpus => serializer.serialize_str("A2_CPUS"),
+                Self::AffinityGroups => serializer.serialize_str("AFFINITY_GROUPS"),
+                Self::Autoscalers => serializer.serialize_str("AUTOSCALERS"),
+                Self::BackendBuckets => serializer.serialize_str("BACKEND_BUCKETS"),
+                Self::BackendServices => serializer.serialize_str("BACKEND_SERVICES"),
+                Self::C2DCpus => serializer.serialize_str("C2D_CPUS"),
+                Self::C2Cpus => serializer.serialize_str("C2_CPUS"),
+                Self::C3Cpus => serializer.serialize_str("C3_CPUS"),
+                Self::Commitments => serializer.serialize_str("COMMITMENTS"),
+                Self::CommittedA2Cpus => serializer.serialize_str("COMMITTED_A2_CPUS"),
+                Self::CommittedC2DCpus => serializer.serialize_str("COMMITTED_C2D_CPUS"),
+                Self::CommittedC2Cpus => serializer.serialize_str("COMMITTED_C2_CPUS"),
+                Self::CommittedC3Cpus => serializer.serialize_str("COMMITTED_C3_CPUS"),
+                Self::CommittedCpus => serializer.serialize_str("COMMITTED_CPUS"),
+                Self::CommittedE2Cpus => serializer.serialize_str("COMMITTED_E2_CPUS"),
+                Self::CommittedLicenses => serializer.serialize_str("COMMITTED_LICENSES"),
+                Self::CommittedLocalSsdTotalGb => {
+                    serializer.serialize_str("COMMITTED_LOCAL_SSD_TOTAL_GB")
+                }
+                Self::CommittedM3Cpus => serializer.serialize_str("COMMITTED_M3_CPUS"),
+                Self::CommittedMemoryOptimizedCpus => {
+                    serializer.serialize_str("COMMITTED_MEMORY_OPTIMIZED_CPUS")
+                }
+                Self::CommittedN2ACpus => serializer.serialize_str("COMMITTED_N2A_CPUS"),
+                Self::CommittedN2DCpus => serializer.serialize_str("COMMITTED_N2D_CPUS"),
+                Self::CommittedN2Cpus => serializer.serialize_str("COMMITTED_N2_CPUS"),
+                Self::CommittedNvidiaA10080GbGpus => {
+                    serializer.serialize_str("COMMITTED_NVIDIA_A100_80GB_GPUS")
+                }
+                Self::CommittedNvidiaA100Gpus => {
+                    serializer.serialize_str("COMMITTED_NVIDIA_A100_GPUS")
+                }
+                Self::CommittedNvidiaH100Gpus => {
+                    serializer.serialize_str("COMMITTED_NVIDIA_H100_GPUS")
+                }
+                Self::CommittedNvidiaK80Gpus => {
+                    serializer.serialize_str("COMMITTED_NVIDIA_K80_GPUS")
+                }
+                Self::CommittedNvidiaL4Gpus => serializer.serialize_str("COMMITTED_NVIDIA_L4_GPUS"),
+                Self::CommittedNvidiaP100Gpus => {
+                    serializer.serialize_str("COMMITTED_NVIDIA_P100_GPUS")
+                }
+                Self::CommittedNvidiaP4Gpus => serializer.serialize_str("COMMITTED_NVIDIA_P4_GPUS"),
+                Self::CommittedNvidiaT4Gpus => serializer.serialize_str("COMMITTED_NVIDIA_T4_GPUS"),
+                Self::CommittedNvidiaV100Gpus => {
+                    serializer.serialize_str("COMMITTED_NVIDIA_V100_GPUS")
+                }
+                Self::CommittedT2ACpus => serializer.serialize_str("COMMITTED_T2A_CPUS"),
+                Self::CommittedT2DCpus => serializer.serialize_str("COMMITTED_T2D_CPUS"),
+                Self::CommittedZ3Cpus => serializer.serialize_str("COMMITTED_Z3_CPUS"),
+                Self::Cpus => serializer.serialize_str("CPUS"),
+                Self::CpusAllRegions => serializer.serialize_str("CPUS_ALL_REGIONS"),
+                Self::DisksTotalGb => serializer.serialize_str("DISKS_TOTAL_GB"),
+                Self::E2Cpus => serializer.serialize_str("E2_CPUS"),
+                Self::ExternalManagedForwardingRules => {
+                    serializer.serialize_str("EXTERNAL_MANAGED_FORWARDING_RULES")
+                }
+                Self::ExternalNetworkLbForwardingRules => {
+                    serializer.serialize_str("EXTERNAL_NETWORK_LB_FORWARDING_RULES")
+                }
+                Self::ExternalProtocolForwardingRules => {
+                    serializer.serialize_str("EXTERNAL_PROTOCOL_FORWARDING_RULES")
+                }
+                Self::ExternalVpnGateways => serializer.serialize_str("EXTERNAL_VPN_GATEWAYS"),
+                Self::Firewalls => serializer.serialize_str("FIREWALLS"),
+                Self::ForwardingRules => serializer.serialize_str("FORWARDING_RULES"),
+                Self::GlobalExternalManagedBackendServices => {
+                    serializer.serialize_str("GLOBAL_EXTERNAL_MANAGED_BACKEND_SERVICES")
+                }
+                Self::GlobalExternalManagedForwardingRules => {
+                    serializer.serialize_str("GLOBAL_EXTERNAL_MANAGED_FORWARDING_RULES")
+                }
+                Self::GlobalExternalProxyLbBackendServices => {
+                    serializer.serialize_str("GLOBAL_EXTERNAL_PROXY_LB_BACKEND_SERVICES")
+                }
+                Self::GlobalInternalAddresses => {
+                    serializer.serialize_str("GLOBAL_INTERNAL_ADDRESSES")
+                }
+                Self::GlobalInternalManagedBackendServices => {
+                    serializer.serialize_str("GLOBAL_INTERNAL_MANAGED_BACKEND_SERVICES")
+                }
+                Self::GlobalInternalTrafficDirectorBackendServices => {
+                    serializer.serialize_str("GLOBAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES")
+                }
+                Self::GpusAllRegions => serializer.serialize_str("GPUS_ALL_REGIONS"),
+                Self::HdbTotalGb => serializer.serialize_str("HDB_TOTAL_GB"),
+                Self::HdbTotalIops => serializer.serialize_str("HDB_TOTAL_IOPS"),
+                Self::HdbTotalThroughput => serializer.serialize_str("HDB_TOTAL_THROUGHPUT"),
+                Self::HealthChecks => serializer.serialize_str("HEALTH_CHECKS"),
+                Self::Images => serializer.serialize_str("IMAGES"),
+                Self::Instances => serializer.serialize_str("INSTANCES"),
+                Self::InstanceGroups => serializer.serialize_str("INSTANCE_GROUPS"),
+                Self::InstanceGroupManagers => serializer.serialize_str("INSTANCE_GROUP_MANAGERS"),
+                Self::InstanceTemplates => serializer.serialize_str("INSTANCE_TEMPLATES"),
+                Self::Interconnects => serializer.serialize_str("INTERCONNECTS"),
+                Self::InterconnectAttachmentsPerRegion => {
+                    serializer.serialize_str("INTERCONNECT_ATTACHMENTS_PER_REGION")
+                }
+                Self::InterconnectAttachmentsTotalMbps => {
+                    serializer.serialize_str("INTERCONNECT_ATTACHMENTS_TOTAL_MBPS")
+                }
+                Self::InterconnectTotalGbps => serializer.serialize_str("INTERCONNECT_TOTAL_GBPS"),
+                Self::InternalAddresses => serializer.serialize_str("INTERNAL_ADDRESSES"),
+                Self::InternalTrafficDirectorForwardingRules => {
+                    serializer.serialize_str("INTERNAL_TRAFFIC_DIRECTOR_FORWARDING_RULES")
+                }
+                Self::InPlaceSnapshots => serializer.serialize_str("IN_PLACE_SNAPSHOTS"),
+                Self::InUseAddresses => serializer.serialize_str("IN_USE_ADDRESSES"),
+                Self::InUseBackupSchedules => serializer.serialize_str("IN_USE_BACKUP_SCHEDULES"),
+                Self::InUseSnapshotSchedules => {
+                    serializer.serialize_str("IN_USE_SNAPSHOT_SCHEDULES")
+                }
+                Self::LocalSsdTotalGb => serializer.serialize_str("LOCAL_SSD_TOTAL_GB"),
+                Self::M1Cpus => serializer.serialize_str("M1_CPUS"),
+                Self::M2Cpus => serializer.serialize_str("M2_CPUS"),
+                Self::M3Cpus => serializer.serialize_str("M3_CPUS"),
+                Self::MachineImages => serializer.serialize_str("MACHINE_IMAGES"),
+                Self::N2ACpus => serializer.serialize_str("N2A_CPUS"),
+                Self::N2DCpus => serializer.serialize_str("N2D_CPUS"),
+                Self::N2Cpus => serializer.serialize_str("N2_CPUS"),
+                Self::Networks => serializer.serialize_str("NETWORKS"),
+                Self::NetworkAttachments => serializer.serialize_str("NETWORK_ATTACHMENTS"),
+                Self::NetworkEndpointGroups => serializer.serialize_str("NETWORK_ENDPOINT_GROUPS"),
+                Self::NetworkFirewallPolicies => {
+                    serializer.serialize_str("NETWORK_FIREWALL_POLICIES")
+                }
+                Self::NetLbSecurityPoliciesPerRegion => {
+                    serializer.serialize_str("NET_LB_SECURITY_POLICIES_PER_REGION")
+                }
+                Self::NetLbSecurityPolicyRulesPerRegion => {
+                    serializer.serialize_str("NET_LB_SECURITY_POLICY_RULES_PER_REGION")
+                }
+                Self::NetLbSecurityPolicyRuleAttributesPerRegion => {
+                    serializer.serialize_str("NET_LB_SECURITY_POLICY_RULE_ATTRIBUTES_PER_REGION")
+                }
+                Self::NodeGroups => serializer.serialize_str("NODE_GROUPS"),
+                Self::NodeTemplates => serializer.serialize_str("NODE_TEMPLATES"),
+                Self::NvidiaA10080GbGpus => serializer.serialize_str("NVIDIA_A100_80GB_GPUS"),
+                Self::NvidiaA100Gpus => serializer.serialize_str("NVIDIA_A100_GPUS"),
+                Self::NvidiaK80Gpus => serializer.serialize_str("NVIDIA_K80_GPUS"),
+                Self::NvidiaL4Gpus => serializer.serialize_str("NVIDIA_L4_GPUS"),
+                Self::NvidiaP100Gpus => serializer.serialize_str("NVIDIA_P100_GPUS"),
+                Self::NvidiaP100VwsGpus => serializer.serialize_str("NVIDIA_P100_VWS_GPUS"),
+                Self::NvidiaP4Gpus => serializer.serialize_str("NVIDIA_P4_GPUS"),
+                Self::NvidiaP4VwsGpus => serializer.serialize_str("NVIDIA_P4_VWS_GPUS"),
+                Self::NvidiaT4Gpus => serializer.serialize_str("NVIDIA_T4_GPUS"),
+                Self::NvidiaT4VwsGpus => serializer.serialize_str("NVIDIA_T4_VWS_GPUS"),
+                Self::NvidiaV100Gpus => serializer.serialize_str("NVIDIA_V100_GPUS"),
+                Self::PacketMirrorings => serializer.serialize_str("PACKET_MIRRORINGS"),
+                Self::PdExtremeTotalProvisionedIops => {
+                    serializer.serialize_str("PD_EXTREME_TOTAL_PROVISIONED_IOPS")
+                }
+                Self::PreemptibleCpus => serializer.serialize_str("PREEMPTIBLE_CPUS"),
+                Self::PreemptibleLocalSsdGb => serializer.serialize_str("PREEMPTIBLE_LOCAL_SSD_GB"),
+                Self::PreemptibleNvidiaA10080GbGpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_A100_80GB_GPUS")
+                }
+                Self::PreemptibleNvidiaA100Gpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_A100_GPUS")
+                }
+                Self::PreemptibleNvidiaH100Gpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_H100_GPUS")
+                }
+                Self::PreemptibleNvidiaK80Gpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_K80_GPUS")
+                }
+                Self::PreemptibleNvidiaL4Gpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_L4_GPUS")
+                }
+                Self::PreemptibleNvidiaP100Gpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_P100_GPUS")
+                }
+                Self::PreemptibleNvidiaP100VwsGpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_P100_VWS_GPUS")
+                }
+                Self::PreemptibleNvidiaP4Gpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_P4_GPUS")
+                }
+                Self::PreemptibleNvidiaP4VwsGpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_P4_VWS_GPUS")
+                }
+                Self::PreemptibleNvidiaT4Gpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_T4_GPUS")
+                }
+                Self::PreemptibleNvidiaT4VwsGpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_T4_VWS_GPUS")
+                }
+                Self::PreemptibleNvidiaV100Gpus => {
+                    serializer.serialize_str("PREEMPTIBLE_NVIDIA_V100_GPUS")
+                }
+                Self::PreemptibleTpuLiteDeviceV5 => {
+                    serializer.serialize_str("PREEMPTIBLE_TPU_LITE_DEVICE_V5")
+                }
+                Self::PreemptibleTpuLitePodsliceV5 => {
+                    serializer.serialize_str("PREEMPTIBLE_TPU_LITE_PODSLICE_V5")
+                }
+                Self::PreemptibleTpuPodsliceV4 => {
+                    serializer.serialize_str("PREEMPTIBLE_TPU_PODSLICE_V4")
+                }
+                Self::PscIlbConsumerForwardingRulesPerProducerNetwork => serializer
+                    .serialize_str("PSC_ILB_CONSUMER_FORWARDING_RULES_PER_PRODUCER_NETWORK"),
+                Self::PscInternalLbForwardingRules => {
+                    serializer.serialize_str("PSC_INTERNAL_LB_FORWARDING_RULES")
+                }
+                Self::PublicAdvertisedPrefixes => {
+                    serializer.serialize_str("PUBLIC_ADVERTISED_PREFIXES")
+                }
+                Self::PublicDelegatedPrefixes => {
+                    serializer.serialize_str("PUBLIC_DELEGATED_PREFIXES")
+                }
+                Self::RegionalAutoscalers => serializer.serialize_str("REGIONAL_AUTOSCALERS"),
+                Self::RegionalExternalManagedBackendServices => {
+                    serializer.serialize_str("REGIONAL_EXTERNAL_MANAGED_BACKEND_SERVICES")
+                }
+                Self::RegionalExternalNetworkLbBackendServices => {
+                    serializer.serialize_str("REGIONAL_EXTERNAL_NETWORK_LB_BACKEND_SERVICES")
+                }
+                Self::RegionalInstanceGroupManagers => {
+                    serializer.serialize_str("REGIONAL_INSTANCE_GROUP_MANAGERS")
+                }
+                Self::RegionalInternalLbBackendServices => {
+                    serializer.serialize_str("REGIONAL_INTERNAL_LB_BACKEND_SERVICES")
+                }
+                Self::RegionalInternalManagedBackendServices => {
+                    serializer.serialize_str("REGIONAL_INTERNAL_MANAGED_BACKEND_SERVICES")
+                }
+                Self::RegionalInternalTrafficDirectorBackendServices => {
+                    serializer.serialize_str("REGIONAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES")
+                }
+                Self::Reservations => serializer.serialize_str("RESERVATIONS"),
+                Self::ResourcePolicies => serializer.serialize_str("RESOURCE_POLICIES"),
+                Self::Routers => serializer.serialize_str("ROUTERS"),
+                Self::Routes => serializer.serialize_str("ROUTES"),
+                Self::SecurityPolicies => serializer.serialize_str("SECURITY_POLICIES"),
+                Self::SecurityPoliciesPerRegion => {
+                    serializer.serialize_str("SECURITY_POLICIES_PER_REGION")
+                }
+                Self::SecurityPolicyAdvancedRulesPerRegion => {
+                    serializer.serialize_str("SECURITY_POLICY_ADVANCED_RULES_PER_REGION")
+                }
+                Self::SecurityPolicyCevalRules => {
+                    serializer.serialize_str("SECURITY_POLICY_CEVAL_RULES")
+                }
+                Self::SecurityPolicyRules => serializer.serialize_str("SECURITY_POLICY_RULES"),
+                Self::SecurityPolicyRulesPerRegion => {
+                    serializer.serialize_str("SECURITY_POLICY_RULES_PER_REGION")
+                }
+                Self::ServiceAttachments => serializer.serialize_str("SERVICE_ATTACHMENTS"),
+                Self::Snapshots => serializer.serialize_str("SNAPSHOTS"),
+                Self::SsdTotalGb => serializer.serialize_str("SSD_TOTAL_GB"),
+                Self::SslCertificates => serializer.serialize_str("SSL_CERTIFICATES"),
+                Self::SslPolicies => serializer.serialize_str("SSL_POLICIES"),
+                Self::StaticAddresses => serializer.serialize_str("STATIC_ADDRESSES"),
+                Self::StaticByoipAddresses => serializer.serialize_str("STATIC_BYOIP_ADDRESSES"),
+                Self::StaticExternalIpv6AddressRanges => {
+                    serializer.serialize_str("STATIC_EXTERNAL_IPV6_ADDRESS_RANGES")
+                }
+                Self::Subnetworks => serializer.serialize_str("SUBNETWORKS"),
+                Self::T2ACpus => serializer.serialize_str("T2A_CPUS"),
+                Self::T2DCpus => serializer.serialize_str("T2D_CPUS"),
+                Self::TargetHttpsProxies => serializer.serialize_str("TARGET_HTTPS_PROXIES"),
+                Self::TargetHttpProxies => serializer.serialize_str("TARGET_HTTP_PROXIES"),
+                Self::TargetInstances => serializer.serialize_str("TARGET_INSTANCES"),
+                Self::TargetPools => serializer.serialize_str("TARGET_POOLS"),
+                Self::TargetSslProxies => serializer.serialize_str("TARGET_SSL_PROXIES"),
+                Self::TargetTcpProxies => serializer.serialize_str("TARGET_TCP_PROXIES"),
+                Self::TargetVpnGateways => serializer.serialize_str("TARGET_VPN_GATEWAYS"),
+                Self::TpuLiteDeviceV5 => serializer.serialize_str("TPU_LITE_DEVICE_V5"),
+                Self::TpuLitePodsliceV5 => serializer.serialize_str("TPU_LITE_PODSLICE_V5"),
+                Self::TpuPodsliceV4 => serializer.serialize_str("TPU_PODSLICE_V4"),
+                Self::UrlMaps => serializer.serialize_str("URL_MAPS"),
+                Self::VariableIpv6PublicDelegatedPrefixes => {
+                    serializer.serialize_str("VARIABLE_IPV6_PUBLIC_DELEGATED_PREFIXES")
+                }
+                Self::VpnGateways => serializer.serialize_str("VPN_GATEWAYS"),
+                Self::VpnTunnels => serializer.serialize_str("VPN_TUNNELS"),
+                Self::XpnServiceProjects => serializer.serialize_str("XPN_SERVICE_PROJECTS"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl<'de> serde::de::Deserialize<'de> for Metric {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Metric>::new(
+                ".google.cloud.compute.v1.Quota.metric",
+            ))
+        }
+    }
+}
+
 /// Additional details for quota exceeded error for resource quota.
 #[cfg(any(
     feature = "global-operations",
@@ -47331,6 +50607,7 @@ impl wkt::message::Message for PreservedStatePreservedNetworkIpIpAddress {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -47372,6 +50649,7 @@ pub struct QuotaExceededInfo {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -47495,6 +50773,7 @@ impl QuotaExceededInfo {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -47517,6 +50796,7 @@ impl wkt::message::Message for QuotaExceededInfo {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -47553,6 +50833,7 @@ pub mod quota_exceeded_info {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -47585,6 +50866,7 @@ pub mod quota_exceeded_info {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -47607,6 +50889,7 @@ pub mod quota_exceeded_info {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -47648,6 +50931,7 @@ pub mod quota_exceeded_info {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -47670,6 +50954,7 @@ pub mod quota_exceeded_info {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -47691,6 +50976,7 @@ pub mod quota_exceeded_info {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -47718,6 +51004,7 @@ pub mod quota_exceeded_info {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -47746,6 +51033,7 @@ pub mod quota_exceeded_info {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -47774,6 +51062,7 @@ pub mod quota_exceeded_info {
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -54760,6 +58049,7 @@ impl wkt::message::Message for ServiceAccount {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -54791,6 +58081,7 @@ pub struct SetCommonInstanceMetadataOperationMetadata {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -54844,6 +58135,7 @@ impl SetCommonInstanceMetadataOperationMetadata {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -54865,6 +58157,7 @@ impl wkt::message::Message for SetCommonInstanceMetadataOperationMetadata {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -54895,6 +58188,7 @@ pub struct SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -54950,6 +58244,7 @@ impl SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -54972,6 +58267,7 @@ impl wkt::message::Message for SetCommonInstanceMetadataOperationMetadataPerLoca
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -55008,6 +58304,7 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -55045,6 +58342,7 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -55067,6 +58365,7 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -55116,6 +58415,7 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -55138,6 +58438,7 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -55159,6 +58460,7 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -55190,6 +58492,7 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -55222,6 +58525,7 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -55254,6 +58558,7 @@ pub mod set_common_instance_metadata_operation_metadata_per_location_operation_i
         feature = "instance-group-managers",
         feature = "instance-groups",
         feature = "instances",
+        feature = "projects",
         feature = "region-instance-group-managers",
         feature = "region-instance-groups",
         feature = "region-instance-templates",
@@ -56231,6 +59536,7 @@ pub mod stateful_policy_preserved_state_network_ip {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -56264,6 +59570,7 @@ pub struct Status {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -56332,6 +59639,7 @@ impl Status {
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -57268,6 +60576,1048 @@ pub mod upcoming_maintenance {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
                 ".google.cloud.compute.v1.UpcomingMaintenance.type",
+            ))
+        }
+    }
+}
+
+/// The location in Cloud Storage and naming method of the daily usage
+/// report. Contains bucket_name and report_name prefix.
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UsageExportLocation {
+    /// The name of an existing bucket in Cloud Storage where the usage report
+    /// object is stored. The Google Service Account is granted write access to
+    /// this bucket. This can either be the bucket name by itself, such asexample-bucket, or the bucket name with gs://
+    /// or <https://storage.googleapis.com/> in front of it, such
+    /// as gs://example-bucket.
+    pub bucket_name: std::option::Option<std::string::String>,
+
+    /// An optional prefix for the name of the usage report object stored inbucketName. If not supplied, defaults tousage_gce. The report is stored as a CSV file namedreport_name_prefix_gce_YYYYMMDD.csv whereYYYYMMDD is the day of the usage according to Pacific Time.
+    /// If you supply a prefix, it should conform to Cloud Storageobject naming
+    /// conventions.
+    pub report_name_prefix: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl UsageExportLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [bucket_name][crate::model::UsageExportLocation::bucket_name].
+    pub fn set_bucket_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.bucket_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bucket_name][crate::model::UsageExportLocation::bucket_name].
+    pub fn set_or_clear_bucket_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.bucket_name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [report_name_prefix][crate::model::UsageExportLocation::report_name_prefix].
+    pub fn set_report_name_prefix<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.report_name_prefix = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [report_name_prefix][crate::model::UsageExportLocation::report_name_prefix].
+    pub fn set_or_clear_report_name_prefix<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.report_name_prefix = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for UsageExportLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.UsageExportLocation"
+    }
+}
+
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct XpnHostList {
+    /// [Output Only] Unique identifier for the resource; defined by the server.
+    pub id: std::option::Option<std::string::String>,
+
+    /// [Output Only] A list of shared VPC host project URLs.
+    pub items: std::vec::Vec<crate::model::Project>,
+
+    /// [Output Only] Type of resource. Always compute#xpnHostList for
+    /// lists of shared VPC hosts.
+    pub kind: std::option::Option<std::string::String>,
+
+    /// [Output Only] This token allows you to get the next page of results for
+    /// list requests. If the number of results is larger thanmaxResults, use the nextPageToken as a value for
+    /// the query parameter pageToken in the next list request.
+    /// Subsequent list requests will have their own nextPageToken to
+    /// continue paging through the results.
+    pub next_page_token: std::option::Option<std::string::String>,
+
+    /// [Output Only] Server-defined URL for this resource.
+    pub self_link: std::option::Option<std::string::String>,
+
+    /// [Output Only] Informational warning message.
+    pub warning: std::option::Option<crate::model::xpn_host_list::Warning>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl XpnHostList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::XpnHostList::id].
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::XpnHostList::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [items][crate::model::XpnHostList::items].
+    pub fn set_items<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Project>,
+    {
+        use std::iter::Iterator;
+        self.items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::XpnHostList::kind].
+    pub fn set_kind<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind][crate::model::XpnHostList::kind].
+    pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::XpnHostList::next_page_token].
+    pub fn set_next_page_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_page_token][crate::model::XpnHostList::next_page_token].
+    pub fn set_or_clear_next_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.next_page_token = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [self_link][crate::model::XpnHostList::self_link].
+    pub fn set_self_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [self_link][crate::model::XpnHostList::self_link].
+    pub fn set_or_clear_self_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.self_link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [warning][crate::model::XpnHostList::warning].
+    pub fn set_warning<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::xpn_host_list::Warning>,
+    {
+        self.warning = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [warning][crate::model::XpnHostList::warning].
+    pub fn set_or_clear_warning<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::xpn_host_list::Warning>,
+    {
+        self.warning = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for XpnHostList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.XpnHostList"
+    }
+}
+
+#[cfg(feature = "projects")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for XpnHostList {
+    type PageItem = crate::model::Project;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.items
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone().unwrap_or_default()
+    }
+}
+
+/// Defines additional types related to [XpnHostList].
+#[cfg(feature = "projects")]
+pub mod xpn_host_list {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The message type for the [warning][google.cloud.compute.v1.XpnHostList.warning] field.
+    ///
+    /// [google.cloud.compute.v1.XpnHostList.warning]: crate::model::xpn_host_list::Warning
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Warning {
+        /// [Output Only] A warning code, if applicable. For example, Compute
+        /// Engine returns NO_RESULTS_ON_PAGE if there
+        /// are no results in the response.
+        pub code: std::option::Option<crate::model::xpn_host_list::warning::Code>,
+
+        /// [Output Only] Metadata about this warning in key:
+        /// value format. For example:
+        ///
+        /// "data": [
+        /// {
+        /// "key": "scope",
+        /// "value": "zones/us-east1-d"
+        /// }
+        pub data: std::vec::Vec<crate::model::xpn_host_list::warning::Data>,
+
+        /// [Output Only] A human-readable description of the warning code.
+        pub message: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl Warning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::xpn_host_list::Warning::code].
+        pub fn set_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::xpn_host_list::warning::Code>,
+        {
+            self.code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [code][crate::model::xpn_host_list::Warning::code].
+        pub fn set_or_clear_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::xpn_host_list::warning::Code>,
+        {
+            self.code = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [data][crate::model::xpn_host_list::Warning::data].
+        pub fn set_data<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::xpn_host_list::warning::Data>,
+        {
+            use std::iter::Iterator;
+            self.data = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::xpn_host_list::Warning::message].
+        pub fn set_message<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message][crate::model::xpn_host_list::Warning::message].
+        pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.message = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl wkt::message::Message for Warning {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.compute.v1.XpnHostList.warning"
+        }
+    }
+
+    /// Defines additional types related to [Warning].
+    #[cfg(feature = "projects")]
+    pub mod warning {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The message type for the [data][google.cloud.compute.v1.XpnHostList.warning.data] field.
+        ///
+        /// [google.cloud.compute.v1.XpnHostList.warning.data]: crate::model::xpn_host_list::warning::Data
+        #[cfg(feature = "projects")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Data {
+            /// [Output Only] A key that provides more detail on the warning being
+            /// returned. For example, for warnings where there are no results in a list
+            /// request for a particular zone, this key might be scope and
+            /// the key value might be the zone name. Other examples might be a key
+            /// indicating a deprecated resource and a suggested replacement, or a
+            /// warning about invalid network settings (for example, if an instance
+            /// attempts to perform IP forwarding but is not enabled for IP forwarding).
+            pub key: std::option::Option<std::string::String>,
+
+            /// [Output Only] A warning data value corresponding to the key.
+            pub value: std::option::Option<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "projects")]
+        impl Data {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::xpn_host_list::warning::Data::key].
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::xpn_host_list::warning::Data::key].
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.key = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [value][crate::model::xpn_host_list::warning::Data::value].
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::xpn_host_list::warning::Data::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        #[cfg(feature = "projects")]
+        impl wkt::message::Message for Data {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.compute.v1.XpnHostList.warning.data"
+            }
+        }
+
+        /// The enumerated type for the [code][google.cloud.compute.v1.XpnHostList.warning.code] field.
+        ///
+        /// [google.cloud.compute.v1.XpnHostList.warning.code]: crate::model::xpn_host_list::warning::Code
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "projects")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Code {
+            /// Warning about failed cleanup of transient changes made by a failed
+            /// operation.
+            CleanupFailed,
+            /// A link to a deprecated resource was created.
+            DeprecatedResourceUsed,
+            /// When deploying and at least one of the resources has a type marked as
+            /// deprecated
+            DeprecatedTypeUsed,
+            /// The user created a boot disk that is larger than image size.
+            DiskSizeLargerThanImageSize,
+            /// When deploying and at least one of the resources has a type marked as
+            /// experimental
+            ExperimentalTypeUsed,
+            /// Warning that is present in an external api call
+            ExternalApiWarning,
+            /// Warning that value of a field has been overridden.
+            /// Deprecated unused field.
+            #[deprecated]
+            FieldValueOverriden,
+            /// The operation involved use of an injected kernel, which is deprecated.
+            InjectedKernelsDeprecated,
+            /// A WEIGHTED_MAGLEV backend service is associated with a health check that is
+            /// not of type HTTP/HTTPS/HTTP2.
+            InvalidHealthCheckForDynamicWieghtedLb,
+            /// When deploying a deployment with a exceedingly large number of resources
+            LargeDeploymentWarning,
+            /// Resource can't be retrieved due to list overhead quota exceed
+            /// which captures the amount of resources filtered out by
+            /// user-defined list filter.
+            ListOverheadQuotaExceed,
+            /// A resource depends on a missing type
+            MissingTypeDependency,
+            /// The route's nextHopIp address is not assigned to an instance on the
+            /// network.
+            NextHopAddressNotAssigned,
+            /// The route's next hop instance cannot ip forward.
+            NextHopCannotIpForward,
+            /// The route's nextHopInstance URL refers to an instance that does not have an
+            /// ipv6 interface on the same network as the route.
+            NextHopInstanceHasNoIpv6Interface,
+            /// The route's nextHopInstance URL refers to an instance that does not exist.
+            NextHopInstanceNotFound,
+            /// The route's nextHopInstance URL refers to an instance that is not on the
+            /// same network as the route.
+            NextHopInstanceNotOnNetwork,
+            /// The route's next hop instance does not have a status of RUNNING.
+            NextHopNotRunning,
+            /// Error which is not critical. We decided to continue the process despite
+            /// the mentioned error.
+            NotCriticalError,
+            /// No results are present on a particular list page.
+            NoResultsOnPage,
+            /// Success is reported, but some results may be missing due to errors
+            PartialSuccess,
+            /// Quota information is not available to client requests (e.g:
+            /// regions.list).
+            QuotaInfoUnavailable,
+            /// The user attempted to use a resource that requires a TOS they have not
+            /// accepted.
+            RequiredTosAgreement,
+            /// Warning that a resource is in use.
+            ResourceInUseByOtherResourceWarning,
+            /// One or more of the resources set to auto-delete could not be deleted
+            /// because they were in use.
+            ResourceNotDeleted,
+            /// When a resource schema validation is ignored.
+            SchemaValidationIgnored,
+            /// Instance template used in instance group manager is valid as such, but
+            /// its application does not make a lot of sense, because it allows only
+            /// single instance in instance group.
+            SingleInstancePropertyTemplate,
+            /// When undeclared properties in the schema are present
+            UndeclaredProperties,
+            /// A given scope cannot be reached.
+            Unreachable,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Code::value] or
+            /// [Code::name].
+            UnknownValue(code::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "projects")]
+        pub mod code {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "projects")]
+        impl Code {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some(0),
+                    Self::DeprecatedResourceUsed => std::option::Option::Some(1),
+                    Self::DeprecatedTypeUsed => std::option::Option::Some(2),
+                    Self::DiskSizeLargerThanImageSize => std::option::Option::Some(3),
+                    Self::ExperimentalTypeUsed => std::option::Option::Some(4),
+                    Self::ExternalApiWarning => std::option::Option::Some(5),
+                    Self::FieldValueOverriden => std::option::Option::Some(6),
+                    Self::InjectedKernelsDeprecated => std::option::Option::Some(7),
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => std::option::Option::Some(8),
+                    Self::LargeDeploymentWarning => std::option::Option::Some(9),
+                    Self::ListOverheadQuotaExceed => std::option::Option::Some(10),
+                    Self::MissingTypeDependency => std::option::Option::Some(11),
+                    Self::NextHopAddressNotAssigned => std::option::Option::Some(12),
+                    Self::NextHopCannotIpForward => std::option::Option::Some(13),
+                    Self::NextHopInstanceHasNoIpv6Interface => std::option::Option::Some(14),
+                    Self::NextHopInstanceNotFound => std::option::Option::Some(15),
+                    Self::NextHopInstanceNotOnNetwork => std::option::Option::Some(16),
+                    Self::NextHopNotRunning => std::option::Option::Some(17),
+                    Self::NotCriticalError => std::option::Option::Some(18),
+                    Self::NoResultsOnPage => std::option::Option::Some(19),
+                    Self::PartialSuccess => std::option::Option::Some(20),
+                    Self::QuotaInfoUnavailable => std::option::Option::Some(21),
+                    Self::RequiredTosAgreement => std::option::Option::Some(22),
+                    Self::ResourceInUseByOtherResourceWarning => std::option::Option::Some(23),
+                    Self::ResourceNotDeleted => std::option::Option::Some(24),
+                    Self::SchemaValidationIgnored => std::option::Option::Some(25),
+                    Self::SingleInstancePropertyTemplate => std::option::Option::Some(26),
+                    Self::UndeclaredProperties => std::option::Option::Some(27),
+                    Self::Unreachable => std::option::Option::Some(28),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::CleanupFailed => std::option::Option::Some("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        std::option::Option::Some("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => std::option::Option::Some("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        std::option::Option::Some("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        std::option::Option::Some("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => std::option::Option::Some("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => std::option::Option::Some("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        std::option::Option::Some("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        std::option::Option::Some("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        std::option::Option::Some("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        std::option::Option::Some("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        std::option::Option::Some("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        std::option::Option::Some("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        std::option::Option::Some("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        std::option::Option::Some("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => std::option::Option::Some("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => std::option::Option::Some("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => std::option::Option::Some("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => std::option::Option::Some("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        std::option::Option::Some("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        std::option::Option::Some("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        std::option::Option::Some("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => std::option::Option::Some("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        std::option::Option::Some("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        std::option::Option::Some("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => {
+                        std::option::Option::Some("UNDECLARED_PROPERTIES")
+                    }
+                    Self::Unreachable => std::option::Option::Some("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "projects")]
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "projects")]
+        impl std::fmt::Display for Code {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "projects")]
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::CleanupFailed,
+                    1 => Self::DeprecatedResourceUsed,
+                    2 => Self::DeprecatedTypeUsed,
+                    3 => Self::DiskSizeLargerThanImageSize,
+                    4 => Self::ExperimentalTypeUsed,
+                    5 => Self::ExternalApiWarning,
+                    6 => Self::FieldValueOverriden,
+                    7 => Self::InjectedKernelsDeprecated,
+                    8 => Self::InvalidHealthCheckForDynamicWieghtedLb,
+                    9 => Self::LargeDeploymentWarning,
+                    10 => Self::ListOverheadQuotaExceed,
+                    11 => Self::MissingTypeDependency,
+                    12 => Self::NextHopAddressNotAssigned,
+                    13 => Self::NextHopCannotIpForward,
+                    14 => Self::NextHopInstanceHasNoIpv6Interface,
+                    15 => Self::NextHopInstanceNotFound,
+                    16 => Self::NextHopInstanceNotOnNetwork,
+                    17 => Self::NextHopNotRunning,
+                    18 => Self::NotCriticalError,
+                    19 => Self::NoResultsOnPage,
+                    20 => Self::PartialSuccess,
+                    21 => Self::QuotaInfoUnavailable,
+                    22 => Self::RequiredTosAgreement,
+                    23 => Self::ResourceInUseByOtherResourceWarning,
+                    24 => Self::ResourceNotDeleted,
+                    25 => Self::SchemaValidationIgnored,
+                    26 => Self::SingleInstancePropertyTemplate,
+                    27 => Self::UndeclaredProperties,
+                    28 => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "projects")]
+        impl std::convert::From<&str> for Code {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CLEANUP_FAILED" => Self::CleanupFailed,
+                    "DEPRECATED_RESOURCE_USED" => Self::DeprecatedResourceUsed,
+                    "DEPRECATED_TYPE_USED" => Self::DeprecatedTypeUsed,
+                    "DISK_SIZE_LARGER_THAN_IMAGE_SIZE" => Self::DiskSizeLargerThanImageSize,
+                    "EXPERIMENTAL_TYPE_USED" => Self::ExperimentalTypeUsed,
+                    "EXTERNAL_API_WARNING" => Self::ExternalApiWarning,
+                    "FIELD_VALUE_OVERRIDEN" => Self::FieldValueOverriden,
+                    "INJECTED_KERNELS_DEPRECATED" => Self::InjectedKernelsDeprecated,
+                    "INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB" => {
+                        Self::InvalidHealthCheckForDynamicWieghtedLb
+                    }
+                    "LARGE_DEPLOYMENT_WARNING" => Self::LargeDeploymentWarning,
+                    "LIST_OVERHEAD_QUOTA_EXCEED" => Self::ListOverheadQuotaExceed,
+                    "MISSING_TYPE_DEPENDENCY" => Self::MissingTypeDependency,
+                    "NEXT_HOP_ADDRESS_NOT_ASSIGNED" => Self::NextHopAddressNotAssigned,
+                    "NEXT_HOP_CANNOT_IP_FORWARD" => Self::NextHopCannotIpForward,
+                    "NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE" => {
+                        Self::NextHopInstanceHasNoIpv6Interface
+                    }
+                    "NEXT_HOP_INSTANCE_NOT_FOUND" => Self::NextHopInstanceNotFound,
+                    "NEXT_HOP_INSTANCE_NOT_ON_NETWORK" => Self::NextHopInstanceNotOnNetwork,
+                    "NEXT_HOP_NOT_RUNNING" => Self::NextHopNotRunning,
+                    "NOT_CRITICAL_ERROR" => Self::NotCriticalError,
+                    "NO_RESULTS_ON_PAGE" => Self::NoResultsOnPage,
+                    "PARTIAL_SUCCESS" => Self::PartialSuccess,
+                    "QUOTA_INFO_UNAVAILABLE" => Self::QuotaInfoUnavailable,
+                    "REQUIRED_TOS_AGREEMENT" => Self::RequiredTosAgreement,
+                    "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING" => {
+                        Self::ResourceInUseByOtherResourceWarning
+                    }
+                    "RESOURCE_NOT_DELETED" => Self::ResourceNotDeleted,
+                    "SCHEMA_VALIDATION_IGNORED" => Self::SchemaValidationIgnored,
+                    "SINGLE_INSTANCE_PROPERTY_TEMPLATE" => Self::SingleInstancePropertyTemplate,
+                    "UNDECLARED_PROPERTIES" => Self::UndeclaredProperties,
+                    "UNREACHABLE" => Self::Unreachable,
+                    _ => Self::UnknownValue(code::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "projects")]
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::CleanupFailed => serializer.serialize_str("CLEANUP_FAILED"),
+                    Self::DeprecatedResourceUsed => {
+                        serializer.serialize_str("DEPRECATED_RESOURCE_USED")
+                    }
+                    Self::DeprecatedTypeUsed => serializer.serialize_str("DEPRECATED_TYPE_USED"),
+                    Self::DiskSizeLargerThanImageSize => {
+                        serializer.serialize_str("DISK_SIZE_LARGER_THAN_IMAGE_SIZE")
+                    }
+                    Self::ExperimentalTypeUsed => {
+                        serializer.serialize_str("EXPERIMENTAL_TYPE_USED")
+                    }
+                    Self::ExternalApiWarning => serializer.serialize_str("EXTERNAL_API_WARNING"),
+                    Self::FieldValueOverriden => serializer.serialize_str("FIELD_VALUE_OVERRIDEN"),
+                    Self::InjectedKernelsDeprecated => {
+                        serializer.serialize_str("INJECTED_KERNELS_DEPRECATED")
+                    }
+                    Self::InvalidHealthCheckForDynamicWieghtedLb => {
+                        serializer.serialize_str("INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB")
+                    }
+                    Self::LargeDeploymentWarning => {
+                        serializer.serialize_str("LARGE_DEPLOYMENT_WARNING")
+                    }
+                    Self::ListOverheadQuotaExceed => {
+                        serializer.serialize_str("LIST_OVERHEAD_QUOTA_EXCEED")
+                    }
+                    Self::MissingTypeDependency => {
+                        serializer.serialize_str("MISSING_TYPE_DEPENDENCY")
+                    }
+                    Self::NextHopAddressNotAssigned => {
+                        serializer.serialize_str("NEXT_HOP_ADDRESS_NOT_ASSIGNED")
+                    }
+                    Self::NextHopCannotIpForward => {
+                        serializer.serialize_str("NEXT_HOP_CANNOT_IP_FORWARD")
+                    }
+                    Self::NextHopInstanceHasNoIpv6Interface => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE")
+                    }
+                    Self::NextHopInstanceNotFound => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_FOUND")
+                    }
+                    Self::NextHopInstanceNotOnNetwork => {
+                        serializer.serialize_str("NEXT_HOP_INSTANCE_NOT_ON_NETWORK")
+                    }
+                    Self::NextHopNotRunning => serializer.serialize_str("NEXT_HOP_NOT_RUNNING"),
+                    Self::NotCriticalError => serializer.serialize_str("NOT_CRITICAL_ERROR"),
+                    Self::NoResultsOnPage => serializer.serialize_str("NO_RESULTS_ON_PAGE"),
+                    Self::PartialSuccess => serializer.serialize_str("PARTIAL_SUCCESS"),
+                    Self::QuotaInfoUnavailable => {
+                        serializer.serialize_str("QUOTA_INFO_UNAVAILABLE")
+                    }
+                    Self::RequiredTosAgreement => {
+                        serializer.serialize_str("REQUIRED_TOS_AGREEMENT")
+                    }
+                    Self::ResourceInUseByOtherResourceWarning => {
+                        serializer.serialize_str("RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING")
+                    }
+                    Self::ResourceNotDeleted => serializer.serialize_str("RESOURCE_NOT_DELETED"),
+                    Self::SchemaValidationIgnored => {
+                        serializer.serialize_str("SCHEMA_VALIDATION_IGNORED")
+                    }
+                    Self::SingleInstancePropertyTemplate => {
+                        serializer.serialize_str("SINGLE_INSTANCE_PROPERTY_TEMPLATE")
+                    }
+                    Self::UndeclaredProperties => serializer.serialize_str("UNDECLARED_PROPERTIES"),
+                    Self::Unreachable => serializer.serialize_str("UNREACHABLE"),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "projects")]
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                    ".google.cloud.compute.v1.XpnHostList.warning.code",
+                ))
+            }
+        }
+    }
+}
+
+/// Service resource (a.k.a service project) ID.
+#[cfg(feature = "projects")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct XpnResourceId {
+    /// The ID of the service resource. In the case of projects, this field
+    /// supports project id (e.g., my-project-123) and project number
+    /// (e.g. 12345678).
+    pub id: std::option::Option<std::string::String>,
+
+    /// The type of the service resource.
+    pub r#type: std::option::Option<crate::model::xpn_resource_id::Type>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "projects")]
+impl XpnResourceId {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::XpnResourceId::id].
+    pub fn set_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [id][crate::model::XpnResourceId::id].
+    pub fn set_or_clear_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::XpnResourceId::type].
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::xpn_resource_id::Type>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::XpnResourceId::type].
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::xpn_resource_id::Type>,
+    {
+        self.r#type = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "projects")]
+impl wkt::message::Message for XpnResourceId {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.XpnResourceId"
+    }
+}
+
+/// Defines additional types related to [XpnResourceId].
+#[cfg(feature = "projects")]
+pub mod xpn_resource_id {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [type][google.cloud.compute.v1.XpnResourceId.type] field.
+    ///
+    /// [google.cloud.compute.v1.XpnResourceId.type]: crate::model::xpn_resource_id::Type
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        Project,
+        XpnResourceTypeUnspecified,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "projects")]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "projects")]
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Project => std::option::Option::Some(0),
+                Self::XpnResourceTypeUnspecified => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Project => std::option::Option::Some("PROJECT"),
+                Self::XpnResourceTypeUnspecified => {
+                    std::option::Option::Some("XPN_RESOURCE_TYPE_UNSPECIFIED")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Project,
+                1 => Self::XpnResourceTypeUnspecified,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROJECT" => Self::Project,
+                "XPN_RESOURCE_TYPE_UNSPECIFIED" => Self::XpnResourceTypeUnspecified,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Project => serializer.serialize_str("PROJECT"),
+                Self::XpnResourceTypeUnspecified => {
+                    serializer.serialize_str("XPN_RESOURCE_TYPE_UNSPECIFIED")
+                }
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "projects")]
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.compute.v1.XpnResourceId.type",
             ))
         }
     }
@@ -58511,7 +62861,11 @@ impl wkt::message::Message for ZoneSetPolicyRequest {
 /// Synthetic messages for the [globalOperations][google.cloud.compute.v1.globalOperations] service
 ///
 /// [google.cloud.compute.v1.globalOperations]: crate::model::GlobalOperations
-#[cfg(any(feature = "global-operations", feature = "images",))]
+#[cfg(any(
+    feature = "global-operations",
+    feature = "images",
+    feature = "projects",
+))]
 pub mod global_operations {
     #[allow(unused_imports)]
     use super::*;
@@ -58817,7 +63171,11 @@ pub mod global_operations {
     /// Synthetic request message for the [get()][google.cloud.compute.v1.globalOperations.get] method.
     ///
     /// [google.cloud.compute.v1.globalOperations.get]: crate::client::GlobalOperations::get
-    #[cfg(any(feature = "global-operations", feature = "images",))]
+    #[cfg(any(
+        feature = "global-operations",
+        feature = "images",
+        feature = "projects",
+    ))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetRequest {
@@ -58831,7 +63189,11 @@ pub mod global_operations {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(any(feature = "global-operations", feature = "images",))]
+    #[cfg(any(
+        feature = "global-operations",
+        feature = "images",
+        feature = "projects",
+    ))]
     impl GetRequest {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -71305,6 +75667,1292 @@ pub mod machine_types {
         /// Sets the value of [zone][crate::model::machine_types::ListRequest::zone].
         pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.zone = v.into();
+            self
+        }
+    }
+}
+
+/// Synthetic messages for the [projects][google.cloud.compute.v1.projects] service
+///
+/// [google.cloud.compute.v1.projects]: crate::model::Projects
+#[cfg(feature = "projects")]
+pub mod projects {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Synthetic request message for the [disableXpnHost()][google.cloud.compute.v1.projects.disableXpnHost] method.
+    ///
+    /// [google.cloud.compute.v1.projects.disableXpnHost]: crate::client::Projects::disable_xpn_host
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DisableXpnHostRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so
+        /// that if you must retry your request, the server will know to ignore the
+        /// request if it has already been completed.
+        ///
+        /// For example, consider a situation where you make an initial request and
+        /// the request times out. If you make the request again with the same
+        /// request ID, the server can check if original operation with the same
+        /// request ID was received, and if so, will ignore the second request. This
+        /// prevents clients from accidentally creating duplicate commitments.
+        ///
+        /// The request ID must be
+        /// a valid UUID with the exception that zero UUID is not supported
+        /// (00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl DisableXpnHostRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::DisableXpnHostRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::DisableXpnHostRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::DisableXpnHostRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [disableXpnResource()][google.cloud.compute.v1.projects.disableXpnResource] method.
+    ///
+    /// [google.cloud.compute.v1.projects.disableXpnResource]: crate::client::Projects::disable_xpn_resource
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DisableXpnResourceRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so
+        /// that if you must retry your request, the server will know to ignore the
+        /// request if it has already been completed.
+        ///
+        /// For example, consider a situation where you make an initial request and
+        /// the request times out. If you make the request again with the same
+        /// request ID, the server can check if original operation with the same
+        /// request ID was received, and if so, will ignore the second request. This
+        /// prevents clients from accidentally creating duplicate commitments.
+        ///
+        /// The request ID must be
+        /// a valid UUID with the exception that zero UUID is not supported
+        /// (00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [disableXpnResource()][google.cloud.compute.v1.projects.disableXpnResource] method.
+        ///
+        /// [google.cloud.compute.v1.projects.disableXpnResource]: crate::client::Projects::disable_xpn_resource
+        pub body: std::option::Option<crate::model::ProjectsDisableXpnResourceRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl DisableXpnResourceRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::DisableXpnResourceRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::DisableXpnResourceRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::DisableXpnResourceRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::DisableXpnResourceRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsDisableXpnResourceRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::DisableXpnResourceRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsDisableXpnResourceRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [enableXpnHost()][google.cloud.compute.v1.projects.enableXpnHost] method.
+    ///
+    /// [google.cloud.compute.v1.projects.enableXpnHost]: crate::client::Projects::enable_xpn_host
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EnableXpnHostRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so
+        /// that if you must retry your request, the server will know to ignore the
+        /// request if it has already been completed.
+        ///
+        /// For example, consider a situation where you make an initial request and
+        /// the request times out. If you make the request again with the same
+        /// request ID, the server can check if original operation with the same
+        /// request ID was received, and if so, will ignore the second request. This
+        /// prevents clients from accidentally creating duplicate commitments.
+        ///
+        /// The request ID must be
+        /// a valid UUID with the exception that zero UUID is not supported
+        /// (00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl EnableXpnHostRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::EnableXpnHostRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::EnableXpnHostRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::EnableXpnHostRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [enableXpnResource()][google.cloud.compute.v1.projects.enableXpnResource] method.
+    ///
+    /// [google.cloud.compute.v1.projects.enableXpnResource]: crate::client::Projects::enable_xpn_resource
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EnableXpnResourceRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so
+        /// that if you must retry your request, the server will know to ignore the
+        /// request if it has already been completed.
+        ///
+        /// For example, consider a situation where you make an initial request and
+        /// the request times out. If you make the request again with the same
+        /// request ID, the server can check if original operation with the same
+        /// request ID was received, and if so, will ignore the second request. This
+        /// prevents clients from accidentally creating duplicate commitments.
+        ///
+        /// The request ID must be
+        /// a valid UUID with the exception that zero UUID is not supported
+        /// (00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [enableXpnResource()][google.cloud.compute.v1.projects.enableXpnResource] method.
+        ///
+        /// [google.cloud.compute.v1.projects.enableXpnResource]: crate::client::Projects::enable_xpn_resource
+        pub body: std::option::Option<crate::model::ProjectsEnableXpnResourceRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl EnableXpnResourceRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::EnableXpnResourceRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::EnableXpnResourceRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::EnableXpnResourceRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::EnableXpnResourceRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsEnableXpnResourceRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::EnableXpnResourceRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsEnableXpnResourceRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [get()][google.cloud.compute.v1.projects.get] method.
+    ///
+    /// [google.cloud.compute.v1.projects.get]: crate::client::Projects::get
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl GetRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::GetRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [getXpnHost()][google.cloud.compute.v1.projects.getXpnHost] method.
+    ///
+    /// [google.cloud.compute.v1.projects.getXpnHost]: crate::client::Projects::get_xpn_host
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetXpnHostRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl GetXpnHostRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::GetXpnHostRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+    }
+
+    /// Synthetic request message for the [getXpnResources()][google.cloud.compute.v1.projects.getXpnResources] method.
+    ///
+    /// [google.cloud.compute.v1.projects.getXpnResources]: crate::client::Projects::get_xpn_resources
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetXpnResourcesRequest {
+        /// A filter expression that filters resources listed in the response. Most
+        /// Compute resources support two types of filter expressions:
+        /// expressions that support regular expressions and expressions that follow
+        /// API improvement proposal AIP-160.
+        /// These two types of filter expressions cannot be mixed in one request.
+        ///
+        /// If you want to use AIP-160, your expression must specify the field name, an
+        /// operator, and the value that you want to use for filtering. The value
+        /// must be a string, a number, or a boolean. The operator
+        /// must be either `=`, `!=`, `>`, `<`, `<=`, `>=` or `:`.
+        ///
+        /// For example, if you are filtering Compute Engine instances, you can
+        /// exclude instances named `example-instance` by specifying
+        /// `name != example-instance`.
+        ///
+        /// The `:*` comparison can be used to test whether a key has been defined.
+        /// For example, to find all objects with `owner` label use:
+        ///
+        /// ```norust
+        /// labels.owner:*
+        /// ```
+        ///
+        /// You can also filter nested fields. For example, you could specify
+        /// `scheduling.automaticRestart = false` to include instances only
+        /// if they are not scheduled for automatic restarts. You can use filtering
+        /// on nested fields to filter based onresource labels.
+        ///
+        /// To filter on multiple expressions, provide each separate expression within
+        /// parentheses. For example:
+        ///
+        /// ```norust
+        /// (scheduling.automaticRestart = true)
+        /// (cpuPlatform = "Intel Skylake")
+        /// ```
+        ///
+        /// By default, each expression is an `AND` expression. However, you
+        /// can include `AND` and `OR` expressions explicitly.
+        /// For example:
+        ///
+        /// ```norust
+        /// (cpuPlatform = "Intel Skylake") OR
+        /// (cpuPlatform = "Intel Broadwell") AND
+        /// (scheduling.automaticRestart = true)
+        /// ```
+        ///
+        /// If you want to use a regular expression, use the `eq` (equal) or `ne`
+        /// (not equal) operator against a single un-parenthesized expression with or
+        /// without quotes or against multiple parenthesized expressions. Examples:
+        ///
+        /// `fieldname eq unquoted literal`
+        /// `fieldname eq 'single quoted literal'`
+        /// `fieldname eq "double quoted literal"`
+        /// `(fieldname1 eq literal) (fieldname2 ne "literal")`
+        ///
+        /// The literal value is interpreted as a regular expression using GoogleRE2 library syntax.
+        /// The literal value must match the entire field.
+        ///
+        /// For example, to filter for instances that do not end with name "instance",
+        /// you would use `name ne .*instance`.
+        ///
+        /// You cannot combine constraints on multiple fields using regular
+        /// expressions.
+        pub filter: std::option::Option<std::string::String>,
+
+        /// The maximum number of results per page that should be returned.
+        /// If the number of available results is larger than `maxResults`,
+        /// Compute Engine returns a `nextPageToken` that can be used to get
+        /// the next page of results in subsequent list requests. Acceptable values are
+        /// `0` to `500`, inclusive. (Default: `500`)
+        pub max_results: std::option::Option<u32>,
+
+        /// Sorts list results by a certain order. By default, results
+        /// are returned in alphanumerical order based on the resource name.
+        ///
+        /// You can also sort results in descending order based on the creation
+        /// timestamp using `orderBy="creationTimestamp desc"`. This sorts
+        /// results based on the `creationTimestamp` field in
+        /// reverse chronological order (newest result first). Use this to sort
+        /// resources like operations so that the newest operation is returned first.
+        ///
+        /// Currently, only sorting by `name` or
+        /// `creationTimestamp desc` is supported.
+        pub order_by: std::option::Option<std::string::String>,
+
+        /// Specifies a page token to use. Set `pageToken` to the
+        /// `nextPageToken` returned by a previous list request to get
+        /// the next page of results.
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Opt-in for partial success behavior which provides partial results in case
+        /// of failure. The default value is false.
+        ///
+        /// For example, when partial success behavior is enabled, aggregatedList for a
+        /// single zone scope either returns all resources in the zone or no resources,
+        /// with an error code.
+        pub return_partial_success: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl GetXpnResourcesRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filter][crate::model::projects::GetXpnResourcesRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::projects::GetXpnResourcesRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::projects::GetXpnResourcesRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::projects::GetXpnResourcesRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::projects::GetXpnResourcesRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::projects::GetXpnResourcesRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::projects::GetXpnResourcesRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::projects::GetXpnResourcesRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::projects::GetXpnResourcesRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::projects::GetXpnResourcesRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::projects::GetXpnResourcesRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [listXpnHosts()][google.cloud.compute.v1.projects.listXpnHosts] method.
+    ///
+    /// [google.cloud.compute.v1.projects.listXpnHosts]: crate::client::Projects::list_xpn_hosts
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ListXpnHostsRequest {
+        /// A filter expression that filters resources listed in the response. Most
+        /// Compute resources support two types of filter expressions:
+        /// expressions that support regular expressions and expressions that follow
+        /// API improvement proposal AIP-160.
+        /// These two types of filter expressions cannot be mixed in one request.
+        ///
+        /// If you want to use AIP-160, your expression must specify the field name, an
+        /// operator, and the value that you want to use for filtering. The value
+        /// must be a string, a number, or a boolean. The operator
+        /// must be either `=`, `!=`, `>`, `<`, `<=`, `>=` or `:`.
+        ///
+        /// For example, if you are filtering Compute Engine instances, you can
+        /// exclude instances named `example-instance` by specifying
+        /// `name != example-instance`.
+        ///
+        /// The `:*` comparison can be used to test whether a key has been defined.
+        /// For example, to find all objects with `owner` label use:
+        ///
+        /// ```norust
+        /// labels.owner:*
+        /// ```
+        ///
+        /// You can also filter nested fields. For example, you could specify
+        /// `scheduling.automaticRestart = false` to include instances only
+        /// if they are not scheduled for automatic restarts. You can use filtering
+        /// on nested fields to filter based onresource labels.
+        ///
+        /// To filter on multiple expressions, provide each separate expression within
+        /// parentheses. For example:
+        ///
+        /// ```norust
+        /// (scheduling.automaticRestart = true)
+        /// (cpuPlatform = "Intel Skylake")
+        /// ```
+        ///
+        /// By default, each expression is an `AND` expression. However, you
+        /// can include `AND` and `OR` expressions explicitly.
+        /// For example:
+        ///
+        /// ```norust
+        /// (cpuPlatform = "Intel Skylake") OR
+        /// (cpuPlatform = "Intel Broadwell") AND
+        /// (scheduling.automaticRestart = true)
+        /// ```
+        ///
+        /// If you want to use a regular expression, use the `eq` (equal) or `ne`
+        /// (not equal) operator against a single un-parenthesized expression with or
+        /// without quotes or against multiple parenthesized expressions. Examples:
+        ///
+        /// `fieldname eq unquoted literal`
+        /// `fieldname eq 'single quoted literal'`
+        /// `fieldname eq "double quoted literal"`
+        /// `(fieldname1 eq literal) (fieldname2 ne "literal")`
+        ///
+        /// The literal value is interpreted as a regular expression using GoogleRE2 library syntax.
+        /// The literal value must match the entire field.
+        ///
+        /// For example, to filter for instances that do not end with name "instance",
+        /// you would use `name ne .*instance`.
+        ///
+        /// You cannot combine constraints on multiple fields using regular
+        /// expressions.
+        pub filter: std::option::Option<std::string::String>,
+
+        /// The maximum number of results per page that should be returned.
+        /// If the number of available results is larger than `maxResults`,
+        /// Compute Engine returns a `nextPageToken` that can be used to get
+        /// the next page of results in subsequent list requests. Acceptable values are
+        /// `0` to `500`, inclusive. (Default: `500`)
+        pub max_results: std::option::Option<u32>,
+
+        /// Sorts list results by a certain order. By default, results
+        /// are returned in alphanumerical order based on the resource name.
+        ///
+        /// You can also sort results in descending order based on the creation
+        /// timestamp using `orderBy="creationTimestamp desc"`. This sorts
+        /// results based on the `creationTimestamp` field in
+        /// reverse chronological order (newest result first). Use this to sort
+        /// resources like operations so that the newest operation is returned first.
+        ///
+        /// Currently, only sorting by `name` or
+        /// `creationTimestamp desc` is supported.
+        pub order_by: std::option::Option<std::string::String>,
+
+        /// Specifies a page token to use. Set `pageToken` to the
+        /// `nextPageToken` returned by a previous list request to get
+        /// the next page of results.
+        pub page_token: std::option::Option<std::string::String>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Opt-in for partial success behavior which provides partial results in case
+        /// of failure. The default value is false.
+        ///
+        /// For example, when partial success behavior is enabled, aggregatedList for a
+        /// single zone scope either returns all resources in the zone or no resources,
+        /// with an error code.
+        pub return_partial_success: std::option::Option<bool>,
+
+        /// Synthetic request body field for the [listXpnHosts()][google.cloud.compute.v1.projects.listXpnHosts] method.
+        ///
+        /// [google.cloud.compute.v1.projects.listXpnHosts]: crate::client::Projects::list_xpn_hosts
+        pub body: std::option::Option<crate::model::ProjectsListXpnHostsRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl ListXpnHostsRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filter][crate::model::projects::ListXpnHostsRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::projects::ListXpnHostsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::projects::ListXpnHostsRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::projects::ListXpnHostsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<u32>,
+        {
+            self.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::projects::ListXpnHostsRequest::order_by].
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::projects::ListXpnHostsRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.order_by = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::projects::ListXpnHostsRequest::page_token].
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::projects::ListXpnHostsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.page_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::projects::ListXpnHostsRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::projects::ListXpnHostsRequest::return_partial_success].
+        pub fn set_return_partial_success<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [return_partial_success][crate::model::projects::ListXpnHostsRequest::return_partial_success].
+        pub fn set_or_clear_return_partial_success<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.return_partial_success = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::ListXpnHostsRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsListXpnHostsRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::ListXpnHostsRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsListXpnHostsRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [moveDisk()][google.cloud.compute.v1.projects.moveDisk] method.
+    ///
+    /// [google.cloud.compute.v1.projects.moveDisk]: crate::client::Projects::move_disk
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    #[deprecated]
+    pub struct MoveDiskRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so
+        /// that if you must retry your request, the server will know to ignore the
+        /// request if it has already been completed.
+        ///
+        /// For example, consider a situation where you make an initial request and
+        /// the request times out. If you make the request again with the same
+        /// request ID, the server can check if original operation with the same
+        /// request ID was received, and if so, will ignore the second request. This
+        /// prevents clients from accidentally creating duplicate commitments.
+        ///
+        /// The request ID must be
+        /// a valid UUID with the exception that zero UUID is not supported
+        /// (00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [moveDisk()][google.cloud.compute.v1.projects.moveDisk] method.
+        ///
+        /// [google.cloud.compute.v1.projects.moveDisk]: crate::client::Projects::move_disk
+        pub body: std::option::Option<crate::model::DiskMoveRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl MoveDiskRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::MoveDiskRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::MoveDiskRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::MoveDiskRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::MoveDiskRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DiskMoveRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::MoveDiskRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DiskMoveRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [moveInstance()][google.cloud.compute.v1.projects.moveInstance] method.
+    ///
+    /// [google.cloud.compute.v1.projects.moveInstance]: crate::client::Projects::move_instance
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    #[deprecated]
+    pub struct MoveInstanceRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so
+        /// that if you must retry your request, the server will know to ignore the
+        /// request if it has already been completed.
+        ///
+        /// For example, consider a situation where you make an initial request and
+        /// the request times out. If you make the request again with the same
+        /// request ID, the server can check if original operation with the same
+        /// request ID was received, and if so, will ignore the second request. This
+        /// prevents clients from accidentally creating duplicate commitments.
+        ///
+        /// The request ID must be
+        /// a valid UUID with the exception that zero UUID is not supported
+        /// (00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [moveInstance()][google.cloud.compute.v1.projects.moveInstance] method.
+        ///
+        /// [google.cloud.compute.v1.projects.moveInstance]: crate::client::Projects::move_instance
+        pub body: std::option::Option<crate::model::InstanceMoveRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl MoveInstanceRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::MoveInstanceRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::MoveInstanceRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::MoveInstanceRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::MoveInstanceRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceMoveRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::MoveInstanceRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceMoveRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [setCloudArmorTier()][google.cloud.compute.v1.projects.setCloudArmorTier] method.
+    ///
+    /// [google.cloud.compute.v1.projects.setCloudArmorTier]: crate::client::Projects::set_cloud_armor_tier
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SetCloudArmorTierRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so
+        /// that if you must retry your request, the server will know to ignore the
+        /// request if it has already been completed.
+        ///
+        /// For example, consider a situation where you make an initial request and
+        /// the request times out. If you make the request again with the same
+        /// request ID, the server can check if original operation with the same
+        /// request ID was received, and if so, will ignore the second request. This
+        /// prevents clients from accidentally creating duplicate commitments.
+        ///
+        /// The request ID must be
+        /// a valid UUID with the exception that zero UUID is not supported
+        /// (00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [setCloudArmorTier()][google.cloud.compute.v1.projects.setCloudArmorTier] method.
+        ///
+        /// [google.cloud.compute.v1.projects.setCloudArmorTier]: crate::client::Projects::set_cloud_armor_tier
+        pub body: std::option::Option<crate::model::ProjectsSetCloudArmorTierRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl SetCloudArmorTierRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::SetCloudArmorTierRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::SetCloudArmorTierRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::SetCloudArmorTierRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::SetCloudArmorTierRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsSetCloudArmorTierRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::SetCloudArmorTierRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsSetCloudArmorTierRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [setCommonInstanceMetadata()][google.cloud.compute.v1.projects.setCommonInstanceMetadata] method.
+    ///
+    /// [google.cloud.compute.v1.projects.setCommonInstanceMetadata]: crate::client::Projects::set_common_instance_metadata
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SetCommonInstanceMetadataRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so
+        /// that if you must retry your request, the server will know to ignore the
+        /// request if it has already been completed.
+        ///
+        /// For example, consider a situation where you make an initial request and
+        /// the request times out. If you make the request again with the same
+        /// request ID, the server can check if original operation with the same
+        /// request ID was received, and if so, will ignore the second request. This
+        /// prevents clients from accidentally creating duplicate commitments.
+        ///
+        /// The request ID must be
+        /// a valid UUID with the exception that zero UUID is not supported
+        /// (00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [setCommonInstanceMetadata()][google.cloud.compute.v1.projects.setCommonInstanceMetadata] method.
+        ///
+        /// [google.cloud.compute.v1.projects.setCommonInstanceMetadata]: crate::client::Projects::set_common_instance_metadata
+        pub body: std::option::Option<crate::model::Metadata>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl SetCommonInstanceMetadataRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::SetCommonInstanceMetadataRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::SetCommonInstanceMetadataRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::SetCommonInstanceMetadataRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::SetCommonInstanceMetadataRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Metadata>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::SetCommonInstanceMetadataRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Metadata>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [setDefaultNetworkTier()][google.cloud.compute.v1.projects.setDefaultNetworkTier] method.
+    ///
+    /// [google.cloud.compute.v1.projects.setDefaultNetworkTier]: crate::client::Projects::set_default_network_tier
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SetDefaultNetworkTierRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so
+        /// that if you must retry your request, the server will know to ignore the
+        /// request if it has already been completed.
+        ///
+        /// For example, consider a situation where you make an initial request and
+        /// the request times out. If you make the request again with the same
+        /// request ID, the server can check if original operation with the same
+        /// request ID was received, and if so, will ignore the second request. This
+        /// prevents clients from accidentally creating duplicate commitments.
+        ///
+        /// The request ID must be
+        /// a valid UUID with the exception that zero UUID is not supported
+        /// (00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [setDefaultNetworkTier()][google.cloud.compute.v1.projects.setDefaultNetworkTier] method.
+        ///
+        /// [google.cloud.compute.v1.projects.setDefaultNetworkTier]: crate::client::Projects::set_default_network_tier
+        pub body: std::option::Option<crate::model::ProjectsSetDefaultNetworkTierRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl SetDefaultNetworkTierRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::SetDefaultNetworkTierRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::SetDefaultNetworkTierRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::SetDefaultNetworkTierRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::SetDefaultNetworkTierRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsSetDefaultNetworkTierRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::SetDefaultNetworkTierRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectsSetDefaultNetworkTierRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [setUsageExportBucket()][google.cloud.compute.v1.projects.setUsageExportBucket] method.
+    ///
+    /// [google.cloud.compute.v1.projects.setUsageExportBucket]: crate::client::Projects::set_usage_export_bucket
+    #[cfg(feature = "projects")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SetUsageExportBucketRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// An optional request ID to identify requests. Specify a unique request ID so
+        /// that if you must retry your request, the server will know to ignore the
+        /// request if it has already been completed.
+        ///
+        /// For example, consider a situation where you make an initial request and
+        /// the request times out. If you make the request again with the same
+        /// request ID, the server can check if original operation with the same
+        /// request ID was received, and if so, will ignore the second request. This
+        /// prevents clients from accidentally creating duplicate commitments.
+        ///
+        /// The request ID must be
+        /// a valid UUID with the exception that zero UUID is not supported
+        /// (00000000-0000-0000-0000-000000000000).
+        pub request_id: std::option::Option<std::string::String>,
+
+        /// Synthetic request body field for the [setUsageExportBucket()][google.cloud.compute.v1.projects.setUsageExportBucket] method.
+        ///
+        /// [google.cloud.compute.v1.projects.setUsageExportBucket]: crate::client::Projects::set_usage_export_bucket
+        pub body: std::option::Option<crate::model::UsageExportLocation>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "projects")]
+    impl SetUsageExportBucketRequest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::projects::SetUsageExportBucketRequest::project].
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::projects::SetUsageExportBucketRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::projects::SetUsageExportBucketRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [body][crate::model::projects::SetUsageExportBucketRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UsageExportLocation>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::projects::SetUsageExportBucketRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UsageExportLocation>,
+        {
+            self.body = v.map(|x| x.into());
             self
         }
     }

@@ -1985,6 +1985,265 @@ impl<T: super::MachineTypes> MachineTypes for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::Projects].
+#[cfg(feature = "projects")]
+#[async_trait::async_trait]
+pub trait Projects: std::fmt::Debug + Send + Sync {
+    async fn disable_xpn_host(
+        &self,
+        req: crate::model::projects::DisableXpnHostRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn disable_xpn_resource(
+        &self,
+        req: crate::model::projects::DisableXpnResourceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn enable_xpn_host(
+        &self,
+        req: crate::model::projects::EnableXpnHostRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn enable_xpn_resource(
+        &self,
+        req: crate::model::projects::EnableXpnResourceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::projects::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Project>>;
+
+    async fn get_xpn_host(
+        &self,
+        req: crate::model::projects::GetXpnHostRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Project>>;
+
+    async fn get_xpn_resources(
+        &self,
+        req: crate::model::projects::GetXpnResourcesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ProjectsGetXpnResources>>;
+
+    async fn list_xpn_hosts(
+        &self,
+        req: crate::model::projects::ListXpnHostsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::XpnHostList>>;
+
+    async fn move_disk(
+        &self,
+        req: crate::model::projects::MoveDiskRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn move_instance(
+        &self,
+        req: crate::model::projects::MoveInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_cloud_armor_tier(
+        &self,
+        req: crate::model::projects::SetCloudArmorTierRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_common_instance_metadata(
+        &self,
+        req: crate::model::projects::SetCommonInstanceMetadataRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_default_network_tier(
+        &self,
+        req: crate::model::projects::SetDefaultNetworkTierRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_usage_export_bucket(
+        &self,
+        req: crate::model::projects::SetUsageExportBucketRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::Projects] also implement [Projects].
+#[cfg(feature = "projects")]
+#[async_trait::async_trait]
+impl<T: super::Projects> Projects for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn disable_xpn_host(
+        &self,
+        req: crate::model::projects::DisableXpnHostRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::disable_xpn_host(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn disable_xpn_resource(
+        &self,
+        req: crate::model::projects::DisableXpnResourceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::disable_xpn_resource(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn enable_xpn_host(
+        &self,
+        req: crate::model::projects::EnableXpnHostRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::enable_xpn_host(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn enable_xpn_resource(
+        &self,
+        req: crate::model::projects::EnableXpnResourceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::enable_xpn_resource(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::projects::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Project>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_xpn_host(
+        &self,
+        req: crate::model::projects::GetXpnHostRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Project>> {
+        T::get_xpn_host(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_xpn_resources(
+        &self,
+        req: crate::model::projects::GetXpnResourcesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ProjectsGetXpnResources>> {
+        T::get_xpn_resources(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_xpn_hosts(
+        &self,
+        req: crate::model::projects::ListXpnHostsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::XpnHostList>> {
+        T::list_xpn_hosts(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn move_disk(
+        &self,
+        req: crate::model::projects::MoveDiskRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::move_disk(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn move_instance(
+        &self,
+        req: crate::model::projects::MoveInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::move_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_cloud_armor_tier(
+        &self,
+        req: crate::model::projects::SetCloudArmorTierRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_cloud_armor_tier(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_common_instance_metadata(
+        &self,
+        req: crate::model::projects::SetCommonInstanceMetadataRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_common_instance_metadata(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_default_network_tier(
+        &self,
+        req: crate::model::projects::SetDefaultNetworkTierRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_default_network_tier(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_usage_export_bucket(
+        &self,
+        req: crate::model::projects::SetUsageExportBucketRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::set_usage_export_bucket(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::global_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::RegionInstanceGroupManagers].
 #[cfg(feature = "region-instance-group-managers")]
 #[async_trait::async_trait]

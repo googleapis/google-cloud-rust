@@ -36,6 +36,7 @@ default = [
     "instance-groups",
     "instances",
     "machine-types",
+    "projects",
     "region-instance-group-managers",
     "region-instance-groups",
     "region-instance-templates",
@@ -60,6 +61,8 @@ instance-groups = []
 instances = []
 # Enables `client::MachineTypes` and all the types it depends on.
 machine-types = []
+# Enables `client::Projects` and all the types it depends on.
+projects = []
 # Enables `client::RegionInstanceGroupManagers` and all the types it depends on.
 region-instance-group-managers = []
 # Enables `client::RegionInstanceGroups` and all the types it depends on.

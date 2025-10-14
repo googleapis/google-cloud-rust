@@ -1855,6 +1855,228 @@ impl MachineTypes {
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_compute_v1::client::Projects;
+/// let client = Projects::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `projects` resource.
+///
+/// # Configuration
+///
+/// To configure `Projects` use the `with_*` methods in the type returned
+/// by [builder()][Projects::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::projects::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::projects::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Projects` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Projects` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "projects")]
+#[cfg_attr(docsrs, doc(cfg(feature = "projects")))]
+#[derive(Clone, Debug)]
+pub struct Projects {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Projects>,
+}
+
+#[cfg(feature = "projects")]
+impl Projects {
+    /// Returns a builder for [Projects].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_compute_v1::client::Projects;
+    /// let client = Projects::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::projects::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::projects::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Projects + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Projects> {
+        super::transport::Projects::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Projects> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Projects::new)
+    }
+
+    /// Disable this project as a shared VPC host project.
+    pub fn disable_xpn_host(&self) -> super::builder::projects::DisableXpnHost {
+        super::builder::projects::DisableXpnHost::new(self.inner.clone())
+    }
+
+    /// Disable a service resource (also known as service project) associated with
+    /// this host project.
+    pub fn disable_xpn_resource(&self) -> super::builder::projects::DisableXpnResource {
+        super::builder::projects::DisableXpnResource::new(self.inner.clone())
+    }
+
+    /// Enable this project as a shared VPC host project.
+    pub fn enable_xpn_host(&self) -> super::builder::projects::EnableXpnHost {
+        super::builder::projects::EnableXpnHost::new(self.inner.clone())
+    }
+
+    /// Enable service resource (a.k.a service project) for a host project, so that
+    /// subnets in the host project can be used by instances in the service
+    /// project.
+    pub fn enable_xpn_resource(&self) -> super::builder::projects::EnableXpnResource {
+        super::builder::projects::EnableXpnResource::new(self.inner.clone())
+    }
+
+    /// Returns the specified Project resource.
+    ///
+    /// To decrease latency for this method, you can optionally omit any unneeded
+    /// information from the response by using a field mask. This practice is
+    /// especially recommended for unused quota information (the `quotas` field).
+    /// To exclude one or more fields, set your request's `fields` query parameter
+    /// to only include the fields you need. For example, to only include the `id`
+    /// and `selfLink` fields, add the query parameter `?fields=id,selfLink` to
+    /// your request.
+    pub fn get(&self) -> super::builder::projects::Get {
+        super::builder::projects::Get::new(self.inner.clone())
+    }
+
+    /// Gets the shared VPC host project that this project links to. May be empty
+    /// if no link exists.
+    pub fn get_xpn_host(&self) -> super::builder::projects::GetXpnHost {
+        super::builder::projects::GetXpnHost::new(self.inner.clone())
+    }
+
+    /// Gets service resources (a.k.a service project) associated with this host
+    /// project.
+    pub fn get_xpn_resources(&self) -> super::builder::projects::GetXpnResources {
+        super::builder::projects::GetXpnResources::new(self.inner.clone())
+    }
+
+    /// Lists all shared VPC host projects visible to the user in an organization.
+    pub fn list_xpn_hosts(&self) -> super::builder::projects::ListXpnHosts {
+        super::builder::projects::ListXpnHosts::new(self.inner.clone())
+    }
+
+    /// Starting September 29, 2025, you can't use the moveDisk API on new
+    /// projects. To move a disk to a different region or zone, follow the steps in
+    /// [Change the location of a
+    /// disk](https://{$universe.dns_names.final_documentation_domain}/compute/docs/disks/migrate-to-hyperdisk#migrate-to-hd).
+    ///
+    /// Projects that already use the moveDisk API can continue usage until
+    /// September 29, 2026.
+    ///
+    /// Starting November 1, 2025, API responses will include a warning message in
+    /// the response body about the upcoming deprecation. You can skip the message
+    /// to continue using the service without interruption.
+    #[deprecated]
+    pub fn move_disk(&self) -> super::builder::projects::MoveDisk {
+        super::builder::projects::MoveDisk::new(self.inner.clone())
+    }
+
+    /// Moves an instance and its attached persistent disks from one zone to
+    /// another.
+    /// *Note*: Moving VMs or disks by using this method might
+    /// cause unexpected behavior. For more information, see the [known
+    /// issue](/compute/docs/troubleshooting/known-issues#moving_vms_or_disks_using_the_moveinstance_api_or_the_causes_unexpected_behavior).
+    /// [Deprecated] This method is deprecated. See [moving instance across
+    /// zones](/compute/docs/instances/moving-instance-across-zones) instead.
+    #[deprecated]
+    pub fn move_instance(&self) -> super::builder::projects::MoveInstance {
+        super::builder::projects::MoveInstance::new(self.inner.clone())
+    }
+
+    /// Sets the Cloud Armor tier of the project. To set ENTERPRISE or above the
+    /// billing account of the project must be subscribed to Cloud Armor
+    /// Enterprise. See Subscribing
+    /// to Cloud Armor Enterprise for more information.
+    pub fn set_cloud_armor_tier(&self) -> super::builder::projects::SetCloudArmorTier {
+        super::builder::projects::SetCloudArmorTier::new(self.inner.clone())
+    }
+
+    /// Sets metadata common to all instances within the specified project using
+    /// the data included in the request.
+    pub fn set_common_instance_metadata(
+        &self,
+    ) -> super::builder::projects::SetCommonInstanceMetadata {
+        super::builder::projects::SetCommonInstanceMetadata::new(self.inner.clone())
+    }
+
+    /// Sets the default network tier of the project. The default network tier is
+    /// used when an address/forwardingRule/instance is created without specifying
+    /// the network tier field.
+    pub fn set_default_network_tier(&self) -> super::builder::projects::SetDefaultNetworkTier {
+        super::builder::projects::SetDefaultNetworkTier::new(self.inner.clone())
+    }
+
+    /// Enables the usage export feature and sets theusage export bucket
+    /// where reports are stored. If you provide an empty request body using this
+    /// method, the usage export feature will be disabled.
+    pub fn set_usage_export_bucket(&self) -> super::builder::projects::SetUsageExportBucket {
+        super::builder::projects::SetUsageExportBucket::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified Operations resource.
+    pub fn get_operation(&self) -> super::builder::projects::GetOperation {
+        super::builder::projects::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
 /// let client = RegionInstanceGroupManagers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.

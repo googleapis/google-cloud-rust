@@ -28,6 +28,7 @@ included-ids = """\
     .google.cloud.compute.v1.instanceGroups,\
     .google.cloud.compute.v1.instances,\
     .google.cloud.compute.v1.machineTypes,\
+    .google.cloud.compute.v1.projects,\
     .google.cloud.compute.v1.regionInstanceGroupManagers,\
     .google.cloud.compute.v1.regionInstanceGroups,\
     .google.cloud.compute.v1.regionInstanceTemplates,\

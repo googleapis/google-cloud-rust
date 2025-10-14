@@ -23,6 +23,7 @@ The main types to work with this crate are the clients:
 - [InstanceGroups]: enabled by the `instance-groups` feature.
 - [Instances]: enabled by the `instances` feature.
 - [MachineTypes]: enabled by the `machine-types` feature.
+- [Projects]: enabled by the `projects` feature.
 - [RegionInstanceGroupManagers]: enabled by the `region-instance-group-managers` feature.
 - [RegionInstanceGroups]: enabled by the `region-instance-groups` feature.
 - [RegionInstanceTemplates]: enabled by the `region-instance-templates` feature.
@@ -43,6 +44,7 @@ The main types to work with this crate are the clients:
 [InstanceGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceGroups.html
 [Instances]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Instances.html
 [MachineTypes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.MachineTypes.html
+[Projects]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Projects.html
 [RegionInstanceGroupManagers]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstanceGroupManagers.html
 [RegionInstanceGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstanceGroups.html
 [RegionInstanceTemplates]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstanceTemplates.html

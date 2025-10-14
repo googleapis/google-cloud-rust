@@ -39,6 +39,7 @@
 //! * [InstanceGroups](client/struct.InstanceGroups.html)
 //! * [Instances](client/struct.Instances.html)
 //! * [MachineTypes](client/struct.MachineTypes.html)
+//! * [Projects](client/struct.Projects.html)
 //! * [RegionInstanceGroupManagers](client/struct.RegionInstanceGroupManagers.html)
 //! * [RegionInstanceGroups](client/struct.RegionInstanceGroups.html)
 //! * [RegionInstanceTemplates](client/struct.RegionInstanceTemplates.html)
@@ -83,6 +84,7 @@ pub(crate) mod transport;
     feature = "instance-groups",
     feature = "instances",
     feature = "machine-types",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -102,6 +104,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "instance-groups",
     feature = "instances",
     feature = "machine-types",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
