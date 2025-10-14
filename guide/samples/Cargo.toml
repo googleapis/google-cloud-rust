@@ -28,23 +28,28 @@ categories.workspace = true
 name = "getting_started"
 
 [dependencies]
-anyhow.workspace                        = true
-crc32c.workspace                        = true
-futures.workspace                       = true
-google-cloud-aiplatform-v1              = { workspace = true, default-features = false, features = ["prediction-service"] }
-google-cloud-compute-v1                 = { workspace = true, default-features = false, features = ["images", "instances", "projects", "zone-operations"] }
-google-cloud-gax                        = { workspace = true, features = ["unstable-stream"] }
-google-cloud-iam-v1                     = { workspace = true }
-google-cloud-language-v2.workspace      = true
-google-cloud-longrunning.workspace      = true
-google-cloud-lro                        = { workspace = true, features = ["unstable-stream"] }
-google-cloud-rpc.workspace              = true
+anyhow.workspace = true
+crc32c.workspace = true
+futures.workspace = true
+google-cloud-aiplatform-v1 = { workspace = true, default-features = false, features = ["prediction-service"] }
+google-cloud-compute-v1 = { workspace = true, default-features = false, features = [
+  "images",
+  "instances",
+  "projects",
+  "zone-operations",
+] }
+google-cloud-gax = { workspace = true, features = ["unstable-stream"] }
+google-cloud-iam-v1 = { workspace = true }
+google-cloud-language-v2.workspace = true
+google-cloud-longrunning.workspace = true
+google-cloud-lro = { workspace = true, features = ["unstable-stream"] }
+google-cloud-rpc.workspace = true
 google-cloud-secretmanager-v1.workspace = true
-google-cloud-speech-v2.workspace        = true
-google-cloud-storage.workspace          = true
-google-cloud-wkt.workspace              = true
-serde_json.workspace                    = true
-tokio                                   = { workspace = true, features = ["full", "macros"] }
+google-cloud-speech-v2.workspace = true
+google-cloud-storage.workspace = true
+google-cloud-wkt.workspace = true
+serde_json.workspace = true
+tokio = { workspace = true, features = ["full", "macros"] }
 
 [dev-dependencies]
 anyhow.workspace            = true
