@@ -79,7 +79,7 @@ async fn start_instance_insert(
         .set_network_interfaces([NetworkInterface::new().set_network("global/networks/default")]);
 
     // Start the operation without waiting for it to complete. This will require
-    // manually waiting for the operaiton. In most cases we recommend you use
+    // manually waiting for the operation. In most cases we recommend you use
     // `.poller().until_done()` instead of `.send()`:
     let op = client
         .insert()
