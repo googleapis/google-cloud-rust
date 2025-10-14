@@ -113,7 +113,7 @@
 ///     Ok(Response::from(body))
 /// }
 /// ```
-///   
+///
 #[derive(Clone, Debug)]
 pub struct Response<T> {
     parts: Parts,
@@ -235,7 +235,7 @@ impl<T> Response<T> {
 ///     Some(&http::HeaderValue::from_static("application/json"))
 /// );
 /// ```
-///  
+///
 /// [tower]: https://github.com/tower-rs/tower
 #[derive(Clone, Debug, Default)]
 #[non_exhaustive]
@@ -243,7 +243,8 @@ pub struct Parts {
     /// The HTTP headers or the gRPC metadata converted to HTTP headers.
     pub headers: http::HeaderMap<http::HeaderValue>,
     // Internal field for transport-specific observability data.
-    pub(crate) client_request_span_info: Option<internal::ClientRequestSpanInfo>,
+    #[cfg(google_cloud_unstable_tracing)]
+    pub(crate) transport_span_info: Option<internal::TransportSpanInfo>,
 }
 
 impl Parts {
@@ -281,6 +282,7 @@ impl Parts {
     }
 }
 
+#[cfg(google_cloud_unstable_tracing)]
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod internal {
     //! This module contains implementation details. It is not part of the
@@ -288,25 +290,17 @@ pub mod internal {
     //! without warnings. Applications should not use any types contained
     //! within.
 
+    /// Holds information about the final outcome of a transport-level request.
+    ///
+    /// This struct is populated by the transport layer (e.g., HTTP or gRPC)
+    /// after a logical client request operation (Client Request Span) is complete.
+    /// It contains details derived from the *final* network interaction,
+    /// including status, any errors, the endpoint contacted, and retry/redirect
+    /// counts. This information is used to enrich the Client Request Span with
+    /// attributes that are only known after the response is received.
     #[derive(Debug, Clone, Default)]
-    pub struct ClientRequestSpanInfo {
-        // OpenTelemetry Semantic Conventions
-        /// The RPC system used.
-        ///
-        /// Examples: "grpc", "http"
-        pub rpc_system: Option<String>,
-        /// The full name of the service.
-        ///
-        /// Examples: "google.cloud.secretmanager.v1.SecretManagerService", "secretmanager.googleapis.com"
-        pub rpc_service: Option<String>,
-        /// The name of the method.
-        ///
-        /// Examples: "AccessSecretVersion", "GET"
-        pub rpc_method: Option<String>,
-        /// The HTTP request method.
-        ///
-        /// Examples: GET, POST, HEAD
-        pub http_request_method: Option<String>,
+    pub struct TransportSpanInfo {
+        // Response status
         /// The numeric HTTP response status code.
         ///
         /// Examples: 200, 404, 500
@@ -316,10 +310,11 @@ pub mod internal {
         /// See <https://github.com/grpc/grpc/blob/master/doc/statuscodes.md>
         /// Examples: 0, 4, 14
         pub rpc_grpc_status_code: Option<i32>,
-        /// The string representation of the gRPC status code.
+        /// A low-cardinality classification of the error.
         ///
-        /// Examples: "OK", "DEADLINE_EXCEEDED", "UNAVAILABLE"
-        pub grpc_status: Option<String>,
+        /// Examples: "404", "RATE_LIMIT_EXCEEDED", "CLIENT_TIMEOUT"
+        pub error_type: Option<String>, // Derived from status or transport error
+
         /// The destination host name or IP address.
         ///
         /// Examples: myservice.googleapis.com, 10.0.0.1
@@ -328,39 +323,26 @@ pub mod internal {
         ///
         /// Examples: 443, 8080
         pub server_port: Option<i32>,
-        /// The low-cardinality template of the absolute path.
+        /// The full URL of the *final* request.
         ///
-        /// Example: /v2/locations/{location}/projects/{project}/
-        pub url_template: Option<String>,
-        /// The nominal domain from the original URL.
-        ///
-        /// Example: myservice.googleapis.com
-        pub url_domain: Option<String>,
-        /// A low-cardinality classification of the error.
-        ///
-        /// Examples: "404", "RATE_LIMIT_EXCEEDED", "CLIENT_TIMEOUT"
-        pub error_type: Option<String>,
+        /// Example: https://myservice.googleapis.com/v1/projects/my-project/data
+        pub url_full: Option<String>, // The URL of the *final* request
 
-        // Custom GCP Attributes
-        /// The primary GCP resource being targeted.
-        ///
-        /// Example: //storage.googleapis.com/b/my-bucket
-        pub gcp_resource_name: Option<String>,
+        /// The total number of underlying requests sent.
+        pub request_resend_count: Option<i64>, // Total underlying requests
     }
 
-    /// Gets a reference to the ClientRequestSpanInfo from the response.
-    pub fn get_client_request_span_info<T>(
-        response: &super::Response<T>,
-    ) -> Option<&ClientRequestSpanInfo> {
-        response.parts.client_request_span_info.as_ref()
+    /// Gets a reference to the TransportSpanInfo from the response.
+    pub fn transport_span_info<T>(response: &super::Response<T>) -> Option<&TransportSpanInfo> {
+        response.parts.transport_span_info.as_ref()
     }
 
-    /// Sets the ClientRequestSpanInfo on the response.
-    pub fn set_client_request_span_info<T>(
+    /// Sets the TransportSpanInfo on the response.
+    pub fn set_transport_span_info<T>(
         response: &mut super::Response<T>,
-        info: Option<ClientRequestSpanInfo>,
+        info: Option<TransportSpanInfo>,
     ) {
-        response.parts.client_request_span_info = info;
+        response.parts.transport_span_info = info;
     }
 }
 
@@ -416,26 +398,26 @@ mod tests {
     }
 
     #[test]
-    fn client_request_span_info_accessors() {
+    #[cfg(google_cloud_unstable_tracing)]
+    fn transport_span_info_accessors() {
         let mut response = Response::from("test".to_string());
 
-        // Initially None
-        assert!(internal::get_client_request_span_info(&response).is_none());
+        assert!(internal::transport_span_info(&response).is_none());
 
         // Set a value
-        let info = internal::ClientRequestSpanInfo {
-            rpc_system: Some("http".to_string()),
+        let info = internal::TransportSpanInfo {
+            http_status_code: Some(200),
             ..Default::default()
         };
-        internal::set_client_request_span_info(&mut response, Some(info.clone()));
+        internal::set_transport_span_info(&mut response, Some(info.clone()));
 
         // Get the value
-        let retrieved = internal::get_client_request_span_info(&response);
+        let retrieved = internal::transport_span_info(&response);
         assert!(retrieved.is_some());
-        assert_eq!(retrieved.unwrap().rpc_system, Some("http".to_string()));
+        assert_eq!(retrieved.unwrap().http_status_code, Some(200));
 
         // Set to None
-        internal::set_client_request_span_info(&mut response, None);
-        assert!(internal::get_client_request_span_info(&response).is_none());
+        internal::set_transport_span_info(&mut response, None);
+        assert!(internal::transport_span_info(&response).is_none());
     }
 }
