@@ -35,12 +35,12 @@ use secretmanager::{client::SecretManagerService, model::SecretPayload};
 use std::sync::Arc;
 
 pub async fn service_account() -> anyhow::Result<()> {
-    let (project, secret) = get_project_and_service_account().await?;
+    let (project, adc_json) = get_project_and_service_account().await?;
 
     // Write the ADC to a temporary file
     let file = tempfile::NamedTempFile::new().unwrap();
     let path = file.into_temp_path();
-    std::fs::write(&path, secret.data).expect("Unable to write to temporary file.");
+    std::fs::write(&path, adc_json).expect("Unable to write to temporary file.");
 
     // Create credentials for the principal under test.
     let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
@@ -70,9 +70,9 @@ pub async fn service_account() -> anyhow::Result<()> {
 }
 
 pub async fn service_account_with_audience() -> anyhow::Result<()> {
-    let (project, secret) = get_project_and_service_account().await?;
+    let (project, adc_json) = get_project_and_service_account().await?;
 
-    let sa_json: serde_json::Value = serde_json::from_slice(&secret.data)?;
+    let sa_json: serde_json::Value = serde_json::from_slice(&adc_json)?;
 
     // Create credentials for the principal under test, but with an audience.
     let creds = ServiceAccountCredentialsBuilder::new(sa_json)
@@ -107,9 +107,9 @@ pub async fn service_account_with_audience() -> anyhow::Result<()> {
 }
 
 pub async fn impersonated() -> anyhow::Result<()> {
-    let (project, secret) = get_project_and_service_account().await?;
+    let (project, adc_json) = get_project_and_service_account().await?;
 
-    let source_sa_json: serde_json::Value = serde_json::from_slice(&secret.data)?;
+    let source_sa_json: serde_json::Value = serde_json::from_slice(&adc_json)?;
 
     let source_sa_creds = ServiceAccountCredentialsBuilder::new(source_sa_json).build()?;
 
@@ -176,8 +176,7 @@ pub async fn impersonated() -> anyhow::Result<()> {
 }
 
 pub async fn api_key() -> anyhow::Result<()> {
-    let (_, secret) = get_project_and_api_key().await?;
-    let api_key = std::str::from_utf8(&secret.data).unwrap();
+    let api_key = get_api_key().await?;
 
     // Create credentials using the API key.
     let creds = ApiKeyCredentialsBuilder::new(api_key).build();
@@ -419,16 +418,17 @@ pub async fn workload_identity_provider_programmatic_sourced() -> anyhow::Result
     Ok(())
 }
 
-async fn get_project_and_service_account() -> anyhow::Result<(String, SecretPayload)> {
+async fn get_project_and_service_account() -> anyhow::Result<(String, bytes::Bytes)> {
     let project = get_project_id();
     let secret = get_secret_with_mds_creds(&project, "test-sa-creds-json").await?;
-    Ok((project, secret))
+    Ok((project, secret.data))
 }
 
-async fn get_project_and_api_key() -> anyhow::Result<(String, SecretPayload)> {
+async fn get_api_key() -> anyhow::Result<String> {
     let project = get_project_id();
     let secret = get_secret_with_mds_creds(&project, "test-api-key").await?;
-    Ok((project, secret))
+    let api_key = std::str::from_utf8(&secret.data).unwrap();
+    Ok(api_key.to_string())
 }
 
 fn get_project_id() -> String {
