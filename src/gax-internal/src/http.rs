@@ -26,7 +26,7 @@ use gax::retry_throttler::SharedRetryThrottler;
 use http::{Extensions, Method};
 use std::sync::Arc;
 use std::time::Duration;
-#[cfg(google_cloud_unstable_tracing)]
+#[cfg(feature = "_unstable-o12y")]
 use tracing::Instrument;
 
 #[derive(Clone, Debug)]
@@ -177,7 +177,7 @@ impl ReqwestClient {
 
         let request = builder.build().map_err(Self::map_send_error)?;
 
-        #[cfg(google_cloud_unstable_tracing)]
+        #[cfg(feature = "_unstable-o12y")]
         let response_result = if self._tracing_enabled {
             let mut span_info = crate::observability::HttpSpanInfo::from_request(
                 &request,
@@ -196,7 +196,7 @@ impl ReqwestClient {
         } else {
             self.inner.execute(request).await
         };
-        #[cfg(not(google_cloud_unstable_tracing))]
+        #[cfg(not(feature = "_unstable-o12y"))]
         let response_result = self.inner.execute(request).await;
 
         let response = response_result.map_err(Self::map_send_error)?;

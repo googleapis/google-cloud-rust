@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(dead_code)] // TODO(#3239): Remove once used in http.rs
+
 use crate::observability::attributes::*;
 use crate::options::InstrumentationClientInfo;
 use gax::options::RequestOptions;

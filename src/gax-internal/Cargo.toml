@@ -31,10 +31,9 @@ rust-version.workspace = true
 # are implementation details, and subject to change without notice.
 features = []
 
-[lints]
-workspace = true
-
 [features]
+# unstable feature flag for a new observability feature
+_unstable-o12y = []
 _internal-http-client = [
   "_internal-common",
   "dep:auth",
