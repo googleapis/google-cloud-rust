@@ -262,6 +262,7 @@ resource "google_cloud_scheduler_job" "job" {
   }
 }
 
+
 resource "google_cloudbuild_trigger" "pubsub-trigger" {
   location = var.region
   name     = "gcb-pubsub-terraform"
