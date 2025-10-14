@@ -33,7 +33,6 @@ use iamcredentials::client::IAMCredentials;
 use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
-use secretmanager::client::SecretManagerService;
 use secretmanager::{client::SecretManagerService, model::SecretPayload};
 use serde_json::Value;
 use std::sync::Arc;
