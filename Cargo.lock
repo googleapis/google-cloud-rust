@@ -91,6 +91,7 @@ name = "auth-integration-tests"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "bytes",
  "google-cloud-auth",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
@@ -1963,7 +1964,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-compute-v1"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",

@@ -127,14 +127,6 @@ resource "google_secret_manager_secret_iam_member" "test-api-key-secret-member" 
   member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
-# The default Cloud Build service account needs permission to act as the
-# integration test runner service account.
-resource "google_service_account_iam_member" "cloudbuild_can_act_as_runner" {
-  service_account_id = data.google_service_account.integration-test-runner.name
-  role               = "roles/iam.serviceAccountUser"
-  member             = "serviceAccount:${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
-}
-
 locals {
   # Google Cloud Build installs an application on the GitHub organization or
   # repository. This id is hard-coded here because there is no easy way [^1] to
@@ -259,5 +251,24 @@ resource "google_cloud_scheduler_job" "job" {
   pubsub_target {
     topic_name = google_pubsub_topic.terraform_runner_topic.id
     data       = base64encode("sync")
+  }
+}
+
+resource "google_cloudbuild_trigger" "pubsub-trigger" {
+  location = var.region
+  name     = "gcb-pubsub-terraform"
+  filename = "src/auth/.gcb/terraform.yaml"
+  tags     = ["scheduler", "name:terraform"]
+
+  service_account = data.google_service_account.terraform-runner.id
+
+  pubsub_config {
+    topic = google_pubsub_topic.terraform_runner_topic.id
+  }
+
+  source_to_build {
+    repository = google_cloudbuildv2_repository.main.id
+    ref        = "refs/heads/main"
+    repo_type  = "GITHUB"
   }
 }
