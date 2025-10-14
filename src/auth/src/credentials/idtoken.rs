@@ -222,7 +222,6 @@ impl Verifier {
 pub(crate) mod tests {
     use super::parse_id_token_from_str;
     use super::*;
-    use crate::credentials::mds;
     use base64::Engine;
     use httptest::matchers::{all_of, request};
     use httptest::responders::json_encoded;
@@ -354,10 +353,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result
-            .unwrap_err()
-            .to_string()
-            .contains("invalid id token"));
+        assert!(result.unwrap_err().to_string().contains("invalid id token"));
 
         Ok(())
     }
@@ -408,10 +404,7 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result
-            .unwrap_err()
-            .to_string()
-            .contains("invalid id token"));
+        assert!(result.unwrap_err().to_string().contains("invalid id token"));
 
         Ok(())
     }
@@ -439,10 +432,12 @@ pub(crate) mod tests {
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
-        assert!(result
-            .unwrap_err()
-            .to_string()
-            .contains("email not verified"));
+        assert!(
+            result
+                .unwrap_err()
+                .to_string()
+                .contains("email not verified")
+        );
 
         Ok(())
     }
@@ -500,39 +495,6 @@ pub(crate) mod tests {
         assert!(result.is_ok());
         let claims = result.unwrap();
         assert_eq!(claims["email"].as_str().unwrap(), email);
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn test_mds_verify_success() -> TestResult {
-        // TODO: move to integration tests
-
-        // Get the service account email from the metadata server directly
-        let client = reqwest::Client::new();
-        let expected_email = client
-            .get("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email")
-            .header("Metadata-Flavor", "Google")
-            .send()
-            .await
-            .expect("failed to get service account email from metadata server")
-            .text()
-            .await
-            .expect("failed to read service account email from metadata server response");
-
-        let audience = "https://example.com/";
-        let id_token_creds = mds::idtoken::Builder::new(audience)
-            .with_format("full")
-            .build()?;
-
-        let verifier = Verifier::default()
-            .with_email(expected_email.clone())
-            .with_audience(audience);
-
-        let claims = verifier.verify(id_token_creds.id_token().await?).await?;
-        assert!(!claims.is_empty());
-        assert_eq!(claims["aud"].as_str().unwrap(), audience);
-        assert_eq!(claims["email"].as_str().unwrap(), expected_email);
 
         Ok(())
     }

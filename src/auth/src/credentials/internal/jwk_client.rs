@@ -186,9 +186,10 @@ mod tests {
 
         assert!(result.is_err());
         let err = result.unwrap_err();
-        assert!(err
-            .to_string()
-            .contains("JWKS did not contain a matching `kid`"));
+        assert!(
+            err.to_string()
+                .contains("JWKS did not contain a matching `kid`")
+        );
 
         Ok(())
     }
