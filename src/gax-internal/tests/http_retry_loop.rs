@@ -34,9 +34,9 @@ mod tests {
     use serde_json::json;
     use std::time::Duration;
 
-    #[cfg(google_cloud_unstable_tracing)]
+    #[cfg(feature = "_unstable-o12y")]
     use google_cloud_test_utils::test_layer::TestLayer;
-    #[cfg(google_cloud_unstable_tracing)]
+    #[cfg(feature = "_unstable-o12y")]
     use opentelemetry_semantic_conventions::trace::HTTP_REQUEST_RESEND_COUNT;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -111,7 +111,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
+    #[cfg(feature = "_unstable-o12y")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn retry_loop_retry_success_with_tracing_on() -> Result<()> {
         let guard = TestLayer::initialize();
