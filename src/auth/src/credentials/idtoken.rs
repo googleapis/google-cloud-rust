@@ -131,6 +131,7 @@ fn instant_from_epoch_seconds(secs: u64) -> Option<Instant> {
     }
 }
 
+/// Verifier is used to verify OIDC ID Tokens.
 #[derive(Debug)]
 pub(crate) struct Verifier {
     jwk_client: JwkClient,
@@ -153,26 +154,31 @@ impl Default for Verifier {
 }
 
 impl Verifier {
+    /// Sets the audience for the token verification.
     pub fn with_audience<S: Into<String>>(mut self, audience: S) -> Self {
         self.audience = Some(audience.into());
         self
     }
 
+    /// Sets the email for the token verification.
     pub fn with_email<S: Into<String>>(mut self, email: S) -> Self {
         self.email = Some(email.into());
         self
     }
 
+    /// Sets the JWKS URL for the token verification.
     pub fn with_jwks_url<S: Into<String>>(mut self, jwks_url: S) -> Self {
         self.jwks_url = Some(jwks_url.into());
         self
     }
 
+    /// Sets the clock skew for the token verification.
     pub fn with_clock_skew(mut self, clock_skew: Duration) -> Self {
         self.clock_skew = clock_skew;
         self
     }
 
+    /// Verifies the ID token and returns the claims.
     pub async fn verify<S: Into<String>>(&self, token: S) -> Result<HashMap<String, Value>> {
         let token = token.into();
 
