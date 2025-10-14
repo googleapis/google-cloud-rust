@@ -328,7 +328,7 @@ uuid               = { default-features = false, version = "1", features = ["v4"
 clap               = { default-features = false, version = "4" }
 parse-size         = { default-features = false, version = "1" }
 humantime          = { default-features = false, version = "2" }
-
+jsonwebtoken       = { default-features = false, version = "10", features = ["rust_crypto"] }
 opentelemetry-semantic-conventions = { default-features = false, version = "0.30.0", features = [
   "semconv_experimental",
 ] }
