@@ -58,6 +58,14 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_errors() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::errors()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_machine_types() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
         integration_tests::compute::machine_types()
@@ -77,6 +85,14 @@ mod driver {
     async fn run_compute_instances() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
         integration_tests::compute::instances()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_region_instances() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::region_instances()
             .await
             .map_err(integration_tests::report_error)
     }

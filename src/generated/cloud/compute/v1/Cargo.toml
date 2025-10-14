@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-compute-v1"
-version                = "0.1.0"
+version                = "0.2.0"
 description            = "Google Cloud Client Libraries for Rust - Google Compute Engine API"
 edition.workspace      = true
 authors.workspace      = true
@@ -28,12 +28,15 @@ rust-version.workspace = true
 
 [features]
 default = [
+    "global-operations",
+    "global-organization-operations",
     "images",
     "instance-group-manager-resize-requests",
     "instance-group-managers",
     "instance-groups",
     "instances",
     "machine-types",
+    "projects",
     "region-instance-group-managers",
     "region-instance-groups",
     "region-instance-templates",
@@ -42,6 +45,10 @@ default = [
     "zone-operations",
     "zones",
 ]
+# Enables `client::GlobalOperations` and all the types it depends on.
+global-operations = []
+# Enables `client::GlobalOrganizationOperations` and all the types it depends on.
+global-organization-operations = []
 # Enables `client::Images` and all the types it depends on.
 images = []
 # Enables `client::InstanceGroupManagerResizeRequests` and all the types it depends on.
@@ -54,6 +61,8 @@ instance-groups = []
 instances = []
 # Enables `client::MachineTypes` and all the types it depends on.
 machine-types = []
+# Enables `client::Projects` and all the types it depends on.
+projects = []
 # Enables `client::RegionInstanceGroupManagers` and all the types it depends on.
 region-instance-group-managers = []
 # Enables `client::RegionInstanceGroups` and all the types it depends on.

@@ -31,12 +31,15 @@
 //!
 //! # Available Clients
 //!
+//! * [GlobalOperations](client/struct.GlobalOperations.html)
+//! * [GlobalOrganizationOperations](client/struct.GlobalOrganizationOperations.html)
 //! * [Images](client/struct.Images.html)
 //! * [InstanceGroupManagerResizeRequests](client/struct.InstanceGroupManagerResizeRequests.html)
 //! * [InstanceGroupManagers](client/struct.InstanceGroupManagers.html)
 //! * [InstanceGroups](client/struct.InstanceGroups.html)
 //! * [Instances](client/struct.Instances.html)
 //! * [MachineTypes](client/struct.MachineTypes.html)
+//! * [Projects](client/struct.Projects.html)
 //! * [RegionInstanceGroupManagers](client/struct.RegionInstanceGroupManagers.html)
 //! * [RegionInstanceGroups](client/struct.RegionInstanceGroups.html)
 //! * [RegionInstanceTemplates](client/struct.RegionInstanceTemplates.html)
@@ -73,12 +76,15 @@ pub(crate) mod transport;
 
 /// The default host used by the service.
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
     feature = "machine-types",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -90,12 +96,15 @@ pub(crate) mod transport;
 const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
 
 #[cfg(any(
+    feature = "global-operations",
+    feature = "global-organization-operations",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
     feature = "instances",
     feature = "machine-types",
+    feature = "projects",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",

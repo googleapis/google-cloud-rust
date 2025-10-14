@@ -62,7 +62,7 @@ path    = "../../src/generated/cloud/bigquery/v2"
 package          = "google-cloud-compute-v1"
 path             = "../../src/generated/cloud/compute/v1"
 default-features = false
-features         = ["images", "instances", "machine-types", "zone-operations", "zones"]
+features         = ["images", "instances", "machine-types", "region-instances", "zone-operations", "zones"]
 
 [dependencies.firestore]
 package = "google-cloud-firestore"

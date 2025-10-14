@@ -20,12 +20,15 @@ service-config       = 'google/cloud/compute/v1/compute_v1.yaml'
 [source]
 roots = 'discovery,googleapis'
 included-ids = """\
+    .google.cloud.compute.v1.globalOperations,\
+    .google.cloud.compute.v1.globalOrganizationOperations,\
     .google.cloud.compute.v1.images,\
     .google.cloud.compute.v1.instanceGroupManagerResizeRequests,\
     .google.cloud.compute.v1.instanceGroupManagers,\
     .google.cloud.compute.v1.instanceGroups,\
     .google.cloud.compute.v1.instances,\
     .google.cloud.compute.v1.machineTypes,\
+    .google.cloud.compute.v1.projects,\
     .google.cloud.compute.v1.regionInstanceGroupManagers,\
     .google.cloud.compute.v1.regionInstanceGroups,\
     .google.cloud.compute.v1.regionInstanceTemplates,\
@@ -35,8 +38,27 @@ included-ids = """\
     .google.cloud.compute.v1.zones\
     """
 
+[discovery]
+operation-id = '.google.cloud.compute.v1.Operation'
+
+[[discovery.pollers]]
+prefix    = 'compute/v1/projects/{project}/zones/{zone}'
+method-id = '.google.cloud.compute.v1.zoneOperations.get'
+
+[[discovery.pollers]]
+prefix    = 'compute/v1/projects/{project}/regions/{region}'
+method-id = '.google.cloud.compute.v1.regionOperations.get'
+
+[[discovery.pollers]]
+prefix    = 'compute/v1/projects/{project}'
+method-id = '.google.cloud.compute.v1.globalOperations.get'
+
+[[discovery.pollers]]
+prefix    = 'compute/v1/'
+method-id = '.google.cloud.compute.v1.globalOrganizationOperations.get'
+
 [codec]
-version               = '0.1.0'
+version               = '0.2.0'
 copyright-year        = '2025'
 package-name-override = 'google-cloud-compute-v1'
 per-service-features  = 'true'
