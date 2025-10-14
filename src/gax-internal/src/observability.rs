@@ -20,4 +20,5 @@
 mod attributes;
 mod http_tracing;
 
+#[cfg(google_cloud_unstable_tracing)]
 pub(crate) use http_tracing::HttpSpanInfo;

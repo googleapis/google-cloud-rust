@@ -36,7 +36,7 @@ pub mod query_parameter;
 #[cfg(feature = "_internal-http-client")]
 pub mod http;
 
-#[cfg(all(feature = "_internal-http-client", feature = "_unstable-o12y"))]
+#[cfg(feature = "_internal-http-client")]
 pub mod observability;
 
 #[cfg(feature = "_internal-grpc-client")]
