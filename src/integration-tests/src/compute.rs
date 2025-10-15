@@ -229,7 +229,6 @@ pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<(
 }
 
 pub async fn images() -> Result<()> {
-    use google_cloud_compute_v1::model::Image;
     let project_id = crate::project_id()?;
 
     let client = Images::builder().with_tracing().build().await?;
@@ -250,39 +249,7 @@ pub async fn images() -> Result<()> {
         found = item.name.or(found);
     }
     tracing::info!("DONE with Images::list()");
-
-    let found = found.expect("a COS image should be available");
-
-    // TODO(#3533) - disabled because it runs out of quota.
-    #[cfg(false)]
-    {
-        tracing::info!("Testing Images::insert()");
-        let name = crate::random_image_name();
-        let body = Image::new()
-            .set_name(&name)
-            .set_description("A test Image created by the Rust client library.")
-            .set_family("cos-stable")
-            .set_labels([("integration-test", "true")])
-            .set_source_image(format!("projects/cos-cloud/global/images/{found}"));
-        let operation = client
-            .insert()
-            .set_project(&project_id)
-            .set_body(body)
-            .poller()
-            .until_done()
-            .await?;
-        tracing::info!("Images::insert() finished with {operation:?}");
-    }
-
-    tracing::info!("Testing Images::delete()");
-    let operation = client
-        .delete()
-        .set_project(&project_id)
-        .set_image(&name)
-        .poller()
-        .until_done()
-        .await;
-    tracing::info!("Images::delete() completed with {operation:?}");
+    let _found = found.expect("a COS image should be available");
 
     Ok(())
 }
