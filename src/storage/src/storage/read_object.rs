@@ -22,7 +22,6 @@ use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::Md5;
 use crate::storage::request_options::RequestOptions;
-pub(crate) use resumable::ReadObjectResponseImpl;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -486,6 +485,13 @@ impl Reader {
         };
 
         self.inner.apply_auth_headers(builder).await
+    }
+
+    pub(crate) async fn response(self) -> Result<ReadObjectResponse> {
+        let response = self.clone().read().await?;
+        Ok(ReadObjectResponse::new(Box::new(
+            resumable::ReadObjectResponseImpl::new(self, response)?,
+        )))
     }
 }
 
