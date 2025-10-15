@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod read_gzip;
+
 use crate::{Error, Result};
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;

@@ -5395,6 +5395,7 @@ dependencies = [
  "bytes",
  "chrono",
  "crc32c",
+ "flate2",
  "futures",
  "google-cloud-aiplatform-v1",
  "google-cloud-auth",

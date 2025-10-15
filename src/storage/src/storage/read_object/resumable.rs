@@ -149,10 +149,8 @@ struct ReadRange {
 fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange, ReadError> {
     match response.status() {
         reqwest::StatusCode::OK => {
-            let header = parse_http_response::required_header(response, "content-length")?;
-            let limit = header
-                .parse::<u64>()
-                .map_err(|e| ReadError::BadHeaderFormat("content-length", e.into()))?;
+            let limit = read_limit("content-length", response)
+                .or_else(|_| read_limit("x-goog-stored-content-length", response))?;
             Ok(ReadRange { start: 0, limit })
         }
         reqwest::StatusCode::PARTIAL_CONTENT => {
@@ -182,6 +180,16 @@ fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange
         }
         s => Err(ReadError::UnexpectedSuccessCode(s.as_u16())),
     }
+}
+
+fn read_limit(
+    name: &'static str,
+    response: &reqwest::Response,
+) -> std::result::Result<u64, ReadError> {
+    let header = parse_http_response::required_header(response, name)?;
+    header
+        .parse::<u64>()
+        .map_err(|e| ReadError::BadHeaderFormat(name, e.into()))
 }
 
 /// Returns the object checksums to validate against.

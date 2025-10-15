@@ -32,6 +32,7 @@ anyhow.workspace                  = true
 bytes.workspace                   = true
 chrono                            = { workspace = true, features = ["now"] }
 crc32c.workspace                  = true
+flate2                            = { workspace = true, features = ["zlib-rs"] }
 futures.workspace                 = true
 auth.workspace                    = true
 gax                               = { workspace = true, features = ["unstable-stream"] }

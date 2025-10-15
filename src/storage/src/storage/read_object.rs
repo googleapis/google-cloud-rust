@@ -428,6 +428,10 @@ impl Reader {
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+            )
+            .header(
+                "accept-encoding",
+                reqwest::header::HeaderValue::from_static("gzip"),
             );
 
         // Add the optional query parameters.
@@ -487,8 +491,27 @@ impl Reader {
         self.inner.apply_auth_headers(builder).await
     }
 
+    fn is_gunzipped(response: &reqwest::Response) -> bool {
+        const TRANSFORMATION: &str = "x-guploader-response-body-transformations";
+        use http::header::WARNING;
+        if response
+            .headers()
+            .get(TRANSFORMATION)
+            .is_some_and(|h| h.as_bytes() == "gunzipped".as_bytes())
+        {
+            return true;
+        }
+        response
+            .headers()
+            .get(WARNING)
+            .is_some_and(|h| h.as_bytes() == "214 UploadServer gunzipped".as_bytes())
+    }
+
     pub(crate) async fn response(self) -> Result<ReadObjectResponse> {
         let response = self.clone().read().await?;
+        if Self::is_gunzipped(&response) {
+            unimplemented!("gunzipped reads are not implemented, and disabled, this is unexpected");
+        }
         Ok(ReadObjectResponse::new(Box::new(
             resumable::ReadObjectResponseImpl::new(self, response)?,
         )))
@@ -559,6 +582,7 @@ mod tests {
         server.expect(
             Expectation::matching(all_of![
                 request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+                request::headers(contains(("accept-encoding", "gzip"))),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
             .respond_with(
@@ -935,7 +959,38 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn read_object_headers() -> Result {
+    async fn read_object_default_headers() -> Result {
+        // The API takes the unencoded byte array.
+        let inner = test_inner_client(test_builder());
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        );
+        let request = http_request_builder(inner, builder).await?.build()?;
+
+        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(
+            request.url().as_str(),
+            "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+
+        let want = [("accept-encoding", "gzip")];
+        let headers = request.headers();
+        for (name, value) in want {
+            assert_eq!(
+                headers.get(name).and_then(|h| h.to_str().ok()),
+                Some(value),
+                "{request:?}"
+            );
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_encryption_headers() -> Result {
         // Make a 32-byte key.
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
@@ -957,16 +1012,17 @@ mod tests {
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
         );
 
-        let want = vec![
+        let want = [
             ("x-goog-encryption-algorithm", "AES256".to_string()),
             ("x-goog-encryption-key", key_base64),
             ("x-goog-encryption-key-sha256", key_sha256_base64),
         ];
 
+        let headers = request.headers();
         for (name, value) in want {
             assert_eq!(
-                request.headers().get(name).unwrap().as_bytes(),
-                bytes::Bytes::from(value)
+                headers.get(name).and_then(|h| h.to_str().ok()),
+                Some(value.as_str())
             );
         }
         Ok(())
