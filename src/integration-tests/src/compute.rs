@@ -253,22 +253,26 @@ pub async fn images() -> Result<()> {
 
     let found = found.expect("a COS image should be available");
 
-    tracing::info!("Testing Images::insert()");
-    let name = crate::random_image_name();
-    let body = Image::new()
-        .set_name(&name)
-        .set_description("A test Image created by the Rust client library.")
-        .set_family("cos-stable")
-        .set_labels([("integration-test", "true")])
-        .set_source_image(format!("projects/cos-cloud/global/images/{found}"));
-    let operation = client
-        .insert()
-        .set_project(&project_id)
-        .set_body(body)
-        .poller()
-        .until_done()
-        .await?;
-    tracing::info!("Images::insert() finished with {operation:?}");
+    // TODO(#3533) - disabled because it runs out of quota.
+    #[cfg(false)]
+    {
+        tracing::info!("Testing Images::insert()");
+        let name = crate::random_image_name();
+        let body = Image::new()
+            .set_name(&name)
+            .set_description("A test Image created by the Rust client library.")
+            .set_family("cos-stable")
+            .set_labels([("integration-test", "true")])
+            .set_source_image(format!("projects/cos-cloud/global/images/{found}"));
+        let operation = client
+            .insert()
+            .set_project(&project_id)
+            .set_body(body)
+            .poller()
+            .until_done()
+            .await?;
+        tracing::info!("Images::insert() finished with {operation:?}");
+    }
 
     tracing::info!("Testing Images::delete()");
     let operation = client
