@@ -18,7 +18,7 @@ use crate::errors::CredentialsError;
 use crate::token::Token;
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
 use jsonwebtoken::Validation;
-use serde_json::Value;
+pub use serde_json::{Map, Value};
 use std::collections::HashMap;
 use std::future::Future;
 use std::sync::Arc;
@@ -179,7 +179,7 @@ impl Verifier {
     }
 
     /// Verifies the ID token and returns the claims.
-    pub async fn verify<S: Into<String>>(&self, token: S) -> Result<HashMap<String, Value>> {
+    pub async fn verify<S: Into<String>>(&self, token: S) -> Result<Map<String, Value>> {
         let token = token.into();
 
         let header = jsonwebtoken::decode_header(token.clone())
@@ -203,7 +203,7 @@ impl Verifier {
             .get_or_load_cert(key_id, header.alg, jwks_url)
             .await?;
 
-        let token = jsonwebtoken::decode::<HashMap<String, Value>>(&token, &cert, &validation)
+        let token = jsonwebtoken::decode::<Map<String, Value>>(&token, &cert, &validation)
             .map_err(|e| CredentialsError::new(false, "invalid id token", e))?;
 
         let claims = token.claims;

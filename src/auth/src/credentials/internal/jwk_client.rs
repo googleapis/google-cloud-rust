@@ -14,8 +14,12 @@
 
 use crate::Result;
 use crate::errors::CredentialsError;
-use jsonwebtoken::{jwk::JwkSet, Algorithm, DecodingKey};
-use std::{collections::HashMap, sync::Arc, time::{Duration, Instant}};
+use jsonwebtoken::{Algorithm, DecodingKey, jwk::JwkSet};
+use std::{
+    collections::HashMap,
+    sync::Arc,
+    time::{Duration, Instant},
+};
 use tokio::sync::RwLock;
 
 const IAP_JWK_URL: &str = "https://www.gstatic.com/iap/verify/public_key-jwk";
