@@ -31,9 +31,10 @@ rust-version.workspace = true
 # are implementation details, and subject to change without notice.
 features = []
 
+[lints]
+workspace = true
+
 [features]
-# unstable feature flag for a new observability feature
-_unstable-o12y = []
 _internal-http-client = [
   "_internal-common",
   "dep:auth",
@@ -68,7 +69,7 @@ _internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserro
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
-http                               = { workspace = true, optional = true, features = ["std"] }
+http                               = { workspace = true, optional = true }
 http-body-util                     = { workspace = true, optional = true }
 opentelemetry-semantic-conventions = { workspace = true, optional = true }
 percent-encoding                   = { workspace = true, optional = true }

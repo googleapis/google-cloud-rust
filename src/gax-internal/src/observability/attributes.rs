@@ -29,6 +29,9 @@ pub(crate) const KEY_OTEL_NAME: &str = "otel.name";
 /// Otherwise, leave "Unset" (including for 4xx codes on CLIENT spans).
 pub(crate) const KEY_OTEL_STATUS: &str = "otel.status";
 
+/// The string representation of the gRPC status code.
+pub(crate) const KEY_GRPC_STATUS: &str = "grpc.status";
+
 // Custom GCP Attributes
 /// The Google Cloud service name.
 ///

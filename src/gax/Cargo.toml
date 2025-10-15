@@ -33,6 +33,9 @@ rust-version.workspace = true
 # We want to generate documentation for streaming APIs, gated by this feature.
 features = ["unstable-stream"]
 
+[lints]
+workspace = true
+
 [dependencies]
 base64.workspace      = true
 bytes.workspace       = true

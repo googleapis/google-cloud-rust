@@ -12,18 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! This crate contains a number of guides showing how to use the
-//! Google Cloud Client Libraries for Rust.
+// [START compute_instances_delete]
+use google_cloud_compute_v1::client::Instances;
+use google_cloud_lro::Poller;
 
-pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+pub async fn sample(client: &Instances, project_id: &str, name: &str) -> anyhow::Result<()> {
+    const ZONE: &str = "us-central1-a";
 
-pub mod binding_errors;
-pub mod compute;
-pub mod error_handling;
-pub mod examine_error_details;
-pub mod gemini;
-pub mod lro;
-pub mod pagination;
-pub mod polling_policies;
-pub mod retry_policies;
-pub mod update_resource;
+    let operation = client
+        .delete()
+        .set_project(project_id)
+        .set_zone(ZONE)
+        .set_instance(name)
+        .poller()
+        .until_done()
+        .await?;
+    println!("Instance successfully deleted: {operation:?}");
+
+    Ok(())
+}
+// [END compute_instances_delete]
