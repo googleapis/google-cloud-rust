@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START compute_instances_delete]
+// [START compute_instances_list_all]
 use google_cloud_compute_v1::client::Instances;
 use google_cloud_gax::paginator::ItemPaginator;
 
@@ -29,4 +29,4 @@ pub async fn sample(client: &Instances, project_id: &str) -> anyhow::Result<()> 
 
     Ok(())
 }
-// [END compute_instances_delete]
+// [END compute_instances_list_all]
