@@ -60,19 +60,29 @@ mod tests {
 
     #[tokio::test]
     async fn usage_report_samples() -> anyhow::Result<()> {
-        use google_cloud_compute_v1::model::UsageExportLocation;
         use google_cloud_storage::client::StorageControl;
 
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-
-        let client = Projects::builder().build().await?;
 
         let control = StorageControl::builder().build().await?;
         let bucket_id = storage_samples::random_bucket_id();
         create_reports_bucket(&control, &project_id, &bucket_id).await?;
 
-        compute_usage_report_set::sample(&client, &project_id, &bucket_id).await?;
-        compute_usage_report_get::sample(&client, &project_id).await?;
+        let result = usage_report_samples_impl(&project_id, &bucket_id).await;
+        if let Err(err) =
+            storage_samples::cleanup_bucket(control, format!("projects/_/buckets/{bucket_id}"))
+                .await
+        {
+            eprintln!("Error cleaning up reports bucket {bucket_id}: {err:?}");
+        };
+        result
+    }
+
+    async fn usage_report_samples_impl(project_id: &str, bucket_id: &str) -> anyhow::Result<()> {
+        use google_cloud_compute_v1::model::UsageExportLocation;
+        let client = Projects::builder().build().await?;
+        compute_usage_report_set::sample(&client, project_id, bucket_id).await?;
+        compute_usage_report_get::sample(&client, project_id).await?;
         // Disable the reports.
         let _operation = client
             .set_usage_export_bucket()
@@ -81,9 +91,6 @@ mod tests {
             .poller()
             .until_done()
             .await?;
-
-        storage_samples::cleanup_bucket(control, format!("projects/_/buckets/{bucket_id}")).await?;
-
         Ok(())
     }
 }
