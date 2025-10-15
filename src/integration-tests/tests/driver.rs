@@ -76,9 +76,15 @@ mod driver {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_images() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
-        integration_tests::compute::images()
+        let concurrent: Vec<_> = (0..10)
+            .into_iter()
+            .map(|_| integration_tests::compute::images())
+            .collect();
+        let _result = futures::future::join_all(concurrent)
             .await
-            .map_err(integration_tests::report_error)
+            .into_iter()
+            .collect::<anyhow::Result<Vec<_>>>()?;
+        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]

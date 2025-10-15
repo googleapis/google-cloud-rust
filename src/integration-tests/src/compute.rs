@@ -229,8 +229,10 @@ pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<(
 }
 
 pub async fn images() -> Result<()> {
-    let project_id = crate::project_id()?;
+    use google_cloud_compute_v1::model::Image;
+    use rand::seq::IndexedRandom;
 
+    let project_id = crate::project_id()?;
     let client = Images::builder().with_tracing().build().await?;
     if let Err(e) = cleanup_stale_images(&client, &project_id).await {
         tracing::error!("Error cleaning up stale test images: {e:?}");
@@ -243,13 +245,46 @@ pub async fn images() -> Result<()> {
         .set_project("cos-cloud")
         .set_filter("family=cos-stable AND architecture=X86_64")
         .by_item();
-    let mut found = None;
+    // Pick an image at random. The quota limit for copying
+    // images is too low for testing.
+    let mut candidates = Vec::new();
     while let Some(item) = items.next().await.transpose()? {
         tracing::info!("item = {item:?}");
-        found = item.name.or(found);
+        if let Some(name) = item.name {
+            candidates.push(name);
+        }
     }
     tracing::info!("DONE with Images::list()");
-    let _found = found.expect("a COS image should be available");
+    let found = candidates
+        .choose(&mut rand::rng())
+        .expect("at least one COS image should be available");
+
+    tracing::info!("Testing Images::insert()");
+    let name = crate::random_image_name();
+    let body = Image::new()
+        .set_name(&name)
+        .set_description("A test Image created by the Rust client library.")
+        .set_family("cos-stable")
+        .set_labels([("integration-test", "true")])
+        .set_source_image(format!("projects/cos-cloud/global/images/{found}"));
+    let operation = client
+        .insert()
+        .set_project(&project_id)
+        .set_body(body)
+        .poller()
+        .until_done()
+        .await?;
+    tracing::info!("Images::insert() finished with {operation:?}");
+
+    tracing::info!("Testing Images::delete()");
+    let operation = client
+        .delete()
+        .set_project(&project_id)
+        .set_image(&name)
+        .poller()
+        .until_done()
+        .await;
+    tracing::info!("Images::delete() completed with {operation:?}");
 
     Ok(())
 }
