@@ -24,7 +24,6 @@ options:
     - SCCACHE_GCS_RW_MODE=READ_WRITE
     - SCCACHE_GCS_KEY_PREFIX=sccache/integration
     - RUSTC_WRAPPER=/workspace/.bin/sccache
-    - UNSTABLE_CFGS=--cfg google_cloud_unstable_tracing
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
   - name: 'gcr.io/cloud-builders/curl'
@@ -40,20 +39,7 @@ steps:
       #!/usr/bin/env bash
       set -e
       cargo build
-
-      # Run integration tests with stable features
-      echo "=== Running integration-tests (Stable) ==="
       cargo test --package integration-tests --features run-integration-tests
-
-      # Run integration tests with UNSTABLE features
-      if [[ -n "${UNSTABLE_CFGS}" ]]; then
-        echo "=== Running integration-tests (Unstable: ${UNSTABLE_CFGS}) ==="
-        env RUSTFLAGS="${UNSTABLE_CFGS}" cargo test --package integration-tests --features run-integration-tests
-      fi
-
-      echo "=== Running user-guide-samples (Stable) ==="
       cargo test --package user-guide-samples --features run-integration-tests
-      echo "=== Running storage-samples (Stable) ==="
       cargo test --package storage-samples --features run-integration-tests
       cargo build --package storage-samples --profile=test --all-features
-
