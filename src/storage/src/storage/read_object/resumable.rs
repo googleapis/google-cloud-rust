@@ -34,9 +34,7 @@ pub(crate) struct ReadObjectResponseImpl {
 }
 
 impl ReadObjectResponseImpl {
-    pub(crate) async fn new(reader: Reader) -> Result<Self> {
-        let response = reader.clone().read().await?;
-
+    pub(crate) fn new(reader: Reader, response: reqwest::Response) -> Result<Self> {
         let full = reader.request.read_offset == 0 && reader.request.read_limit == 0;
         let headers = response.headers();
         let response_checksums = checksums_from_response(full, response.status(), headers);
