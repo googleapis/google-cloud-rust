@@ -43,6 +43,7 @@ pub struct Client {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    #[cfg(google_cloud_unstable_tracing)]
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
 }
 
@@ -75,11 +76,13 @@ impl Client {
             polling_backoff_policy: config
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
+            #[cfg(google_cloud_unstable_tracing)]
             instrumentation: None,
         })
     }
 
     /// Sets the instrumentation client info.
+    #[cfg(google_cloud_unstable_tracing)]
     pub fn with_instrumentation(
         mut self,
         instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
@@ -317,8 +320,9 @@ where
 }
 
 #[cfg(test)]
+#[cfg(google_cloud_unstable_tracing)]
 mod tests {
-    use super::*;
+    use super::Client;
     use crate::options::InstrumentationClientInfo;
 
     #[tokio::test]
