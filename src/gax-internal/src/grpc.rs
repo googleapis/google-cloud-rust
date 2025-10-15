@@ -85,9 +85,9 @@ impl Client {
     #[cfg(google_cloud_unstable_tracing)]
     pub fn with_instrumentation(
         mut self,
-        instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
+        instrumentation: &'static crate::options::InstrumentationClientInfo,
     ) -> Self {
-        self.instrumentation = instrumentation;
+        self.instrumentation = Some(instrumentation);
         self
     }
 
@@ -336,7 +336,7 @@ mod tests {
             client_artifact: "test-artifact",
             default_host: "example.com",
         };
-        let client = client.with_instrumentation(Some(&TEST_INFO));
+        let client = client.with_instrumentation(&TEST_INFO);
         assert!(client.instrumentation.is_some());
         assert_eq!(client.instrumentation.unwrap().service_name, "test-service");
     }
