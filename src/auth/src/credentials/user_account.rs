@@ -403,7 +403,7 @@ impl TokenProvider for UserTokenProvider {
             let retryable = !e.is_decode();
             CredentialsError::from_source(retryable, e)
         })?;
-        
+
         let token = match self.source {
             UserTokenSource::AccessToken => Ok(response.access_token),
             UserTokenSource::IdToken => response
@@ -726,6 +726,7 @@ mod tests {
         let mut server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
+            id_token: None,
             expires_in: Some(3600),
             refresh_token: Some("test-refresh-token".to_string()),
             scope: Some("scope1 scope2".to_string()),
@@ -763,14 +764,15 @@ mod tests {
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
-            endpoint: OAUTH2_ENDPOINT.to_string(),
+            endpoint: OAUTH2_TOKEN_SERVER_URL.to_string(),
             scopes: Some("https://www.googleapis.com/auth/pubsub".to_string()),
+            source: UserTokenSource::AccessToken,
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("test-client-id"), "{fmt}");
         assert!(!fmt.contains("test-client-secret"), "{fmt}");
         assert!(!fmt.contains("test-refresh-token"), "{fmt}");
-        assert!(fmt.contains(OAUTH2_ENDPOINT), "{fmt}");
+        assert!(fmt.contains(OAUTH2_TOKEN_SERVER_URL), "{fmt}");
         assert!(
             fmt.contains("https://www.googleapis.com/auth/pubsub"),
             "{fmt}"
@@ -967,6 +969,7 @@ mod tests {
     fn oauth2_response_serde_full() {
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
+            id_token: None,
             scope: Some("scope1 scope2".to_string()),
             expires_in: Some(3600),
             token_type: "test-token-type".to_string(),
@@ -990,6 +993,7 @@ mod tests {
     fn oauth2_response_serde_partial() {
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
+            id_token: None,
             scope: None,
             expires_in: None,
             token_type: "test-token-type".to_string(),
@@ -1019,6 +1023,7 @@ mod tests {
         let server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
+            id_token: None,
             expires_in: Some(3600),
             refresh_token: Some("test-refresh-token".to_string()),
             scope: Some("scope1 scope2".to_string()),
@@ -1040,6 +1045,7 @@ mod tests {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: server.url("/token").to_string(),
             scopes: Some("scope1 scope2".to_string()),
+            source: UserTokenSource::AccessToken,
         };
         let now = Instant::now();
         let token = tp.token().await?;
@@ -1062,6 +1068,7 @@ mod tests {
         let server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
+            id_token: None,
             expires_in: Some(3600),
             refresh_token: Some("test-refresh-token".to_string()),
             scope: None,
@@ -1112,6 +1119,7 @@ mod tests {
         let mut server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
+            id_token: None,
             expires_in: Some(3600),
             refresh_token: Some("test-refresh-token".to_string()),
             scope: Some("scope1 scope2".to_string()),
@@ -1158,6 +1166,7 @@ mod tests {
         let server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
+            id_token: None,
             expires_in: None,
             refresh_token: None,
             scope: None,
@@ -1200,6 +1209,7 @@ mod tests {
         let server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
+            id_token: None,
             expires_in: None,
             refresh_token: None,
             scope: None,
@@ -1244,6 +1254,7 @@ mod tests {
         let server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
+            id_token: None,
             expires_in: None,
             refresh_token: None,
             scope: Some("scope1 scope2".to_string()),
@@ -1374,6 +1385,116 @@ mod tests {
         let e = Builder::new(authorized_user).build().unwrap_err();
         assert!(e.is_parsing(), "{e}");
 
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn id_token_success() -> TestResult {
+        let server = Server::run();
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            id_token: Some("test-id-token".to_string()),
+            expires_in: Some(3600),
+            refresh_token: Some("test-refresh-token".to_string()),
+            scope: None,
+            token_type: "Bearer".to_string(),
+        };
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req, None)
+                }))
+            ])
+            .respond_with(json_encoded(response)),
+        );
+
+        let authorized_user = authorized_user_json(server.url("/token").to_string());
+        let creds = super::idtoken::Builder::new(authorized_user).build()?;
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, "test-id-token");
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn id_token_missing_id_token_in_response() -> TestResult {
+        let server = Server::run();
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            id_token: None, // Missing ID token
+            expires_in: Some(3600),
+            refresh_token: Some("test-refresh-token".to_string()),
+            scope: None,
+            token_type: "Bearer".to_string(),
+        };
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req, None)
+                }))
+            ])
+            .respond_with(json_encoded(response)),
+        );
+
+        let authorized_user = authorized_user_json(server.url("/token").to_string());
+        let creds = super::idtoken::Builder::new(authorized_user).build()?;
+        let err = creds.id_token().await.unwrap_err();
+        assert!(!err.is_transient());
+        assert!(err.to_string().contains(MISSING_ID_TOKEN_MSG));
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn id_token_builder_malformed_authorized_json_nonretryable() -> TestResult {
+        let authorized_user = serde_json::json!({
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+        });
+
+        let e = super::idtoken::Builder::new(authorized_user)
+            .build()
+            .unwrap_err();
+        assert!(e.is_parsing(), "{e}");
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn id_token_retryable_error() -> TestResult {
+        let server = Server::run();
+        server
+            .expect(Expectation::matching(request::path("/token")).respond_with(status_code(503)));
+
+        let authorized_user = authorized_user_json(server.url("/token").to_string());
+        let creds = super::idtoken::Builder::new(authorized_user).build()?;
+        let err = creds.id_token().await.unwrap_err();
+        assert!(err.is_transient());
+
+        let source = find_source_error::<reqwest::Error>(&err);
+        assert!(
+            matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn id_token_nonretryable_error() -> TestResult {
+        let server = Server::run();
+        server
+            .expect(Expectation::matching(request::path("/token")).respond_with(status_code(401)));
+
+        let authorized_user = authorized_user_json(server.url("/token").to_string());
+        let creds = super::idtoken::Builder::new(authorized_user).build()?;
+        let err = creds.id_token().await.unwrap_err();
+        assert!(!err.is_transient());
+
+        let source = find_source_error::<reqwest::Error>(&err);
+        assert!(
+            matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
+            "{err:?}"
+        );
         Ok(())
     }
 }
