@@ -45,6 +45,12 @@ mod driver {
         auth_integration_tests::id_token_adc().await
     }
 
+    //TODO: remove, just for local testing with user account
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_id_token_user_account() -> anyhow::Result<()> {
+        auth_integration_tests::id_token_user_account().await
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_id_token_service_account() -> anyhow::Result<()> {
         auth_integration_tests::id_token_service_account().await

@@ -233,6 +233,29 @@ pub async fn id_token_adc() -> anyhow::Result<()> {
     Ok(())
 }
 
+//TODO: remove, just for local testing with user account
+pub async fn id_token_user_account() -> anyhow::Result<()> {
+    let expected_email = "aviebrantz@google.com";
+    let target_audience = "https://example.com";
+    
+    let id_token_creds = IDTokenCredentialBuilder::new(target_audience)
+        .build()
+        .expect("failed to create id token credentials");
+
+    let token = id_token_creds
+        .id_token()
+        .await
+        .expect("failed to get id token");
+
+    let claims = parse_id_token(token)?;
+
+    assert!(claims["aud"].to_string().contains(".apps.googleusercontent.com"));
+    assert_eq!(claims["email"], expected_email);
+    assert_eq!(claims["email_verified"], true);
+
+    Ok(())
+}
+
 pub async fn id_token_service_account() -> anyhow::Result<()> {
     let (_, adc_json) = get_project_and_service_account().await?;
 

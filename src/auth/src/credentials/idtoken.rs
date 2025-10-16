@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use crate::build_errors::Error as BuilderError;
-use crate::credentials::{AdcContents, extract_credential_type, load_adc, mds, service_account};
+use crate::credentials::{
+    AdcContents, extract_credential_type, load_adc, mds, service_account, user_account,
+};
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
@@ -158,16 +160,16 @@ fn build_id_token_credentials(
             match cred_type {
                 "authorized_user" => {
                     // TODO(#3449): need to guide user to use user_account::idtoken::Builder directly
-                    Err(BuilderError::not_supported(cred_type))
+                    // Err(BuilderError::not_supported(cred_type))
+                    user_account::idtoken::Builder::new(json).build()
                 }
                 "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
                 "impersonated_service_account" => {
                     // TODO(#3449): to be implemented
                     Err(BuilderError::not_supported(cred_type))
                 }
-                "external_account" =>
-                // never gonna be supported for id tokens
-                {
+                "external_account" => {
+                    // never gonna be supported for id tokens
                     Err(BuilderError::not_supported(cred_type))
                 }
                 _ => Err(BuilderError::unknown_type(cred_type)),
