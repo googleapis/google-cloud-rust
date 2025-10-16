@@ -325,6 +325,20 @@ mod tests {
         Ok(())
     }
 
+    #[test]
+    fn response_range_format_both() -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header("content-length", "not-a-number")
+            .header("x-goog-stored-content-length", "not-a-number")
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err = response_range(&response).expect_err("header value should result in an error");
+        assert!(matches!(err, ReadError::BadHeaderFormat(_, _)), "{err:?}");
+        assert!(err.source().is_some(), "{err:?}");
+        Ok(())
+    }
+
     #[test_case(0, 123)]
     #[test_case(123, 456)]
     fn response_range_partial_success(start: u64, end: u64) -> Result {

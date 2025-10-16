@@ -1083,4 +1083,20 @@ mod tests {
         assert_eq!(got, want);
         Ok(())
     }
+
+    #[test_case("x-guploader-response-body-transformations", "gunzipped", true)]
+    #[test_case("x-guploader-response-body-transformations", "no match", false)]
+    #[test_case("warning", "214 UploadServer gunzipped", true)]
+    #[test_case("warning", "no match", false)]
+    #[test_case("unused", "unused", false)]
+    fn test_is_gunzipped(name: &'static str, value: &'static str, want: bool) -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header(name, value)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let got = Reader::is_gunzipped(&response);
+        assert_eq!(got, want, "{response:?}");
+        Ok(())
+    }
 }
