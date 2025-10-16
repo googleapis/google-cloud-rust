@@ -152,7 +152,7 @@ impl HttpSpanInfo {
             // as per OpenTelemetry spec for server.address.
             server_address: url
                 .host_str()
-                .map(|h| h.replace("[", "").replace("]", ""))
+                .map(|h| h.trim_start_matches('[').trim_end_matches(']').to_string())
                 .unwrap_or_default(),
             server_port: url.port_or_known_default().map(|p| p as i64).unwrap_or(0),
             url_full: url.to_string(),
