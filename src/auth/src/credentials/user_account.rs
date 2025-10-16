@@ -494,17 +494,17 @@ struct Oauth2RefreshResponse {
 }
 
 pub mod idtoken {
-    //! Credentials for authenticating with [ID tokens] from a [user account].
-    //!
-    //! This module provides a builder for creating [`IDTokenCredentials`] from
-    //! authorized user credentials, which are typically obtained by running
-    //! `gcloud auth application-default login`.
-    //!
-    //! These credentials can be used to authenticate with Google Cloud services
-    //! that require ID tokens for authentication, such as Cloud Run or Cloud Functions.
-    //!
-    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
-    //! [user account]: https://cloud.google.com/docs/authentication#user-accounts
+    /// Credentials for authenticating with [ID tokens] from a [user account].
+    ///
+    /// This module provides a builder for creating [`IDTokenCredentials`] from
+    /// authorized user credentials, which are typically obtained by running
+    /// `gcloud auth application-default login`.
+    ///
+    /// These credentials can be used to authenticate with Google Cloud services
+    /// that require ID tokens for authentication, such as Cloud Run or Cloud Functions.
+    ///
+    /// [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+    /// [user account]: https://cloud.google.com/docs/authentication#user-accounts
     use crate::build_errors::Error as BuilderError;
     use crate::constants::OAUTH2_TOKEN_SERVER_URL;
     use crate::{
