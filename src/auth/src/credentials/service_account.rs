@@ -464,6 +464,165 @@ where
     }
 }
 
+pub mod idtoken {
+    //! Credentials for authenticating with [ID tokens] from a [service account].
+    //!
+    //! This module provides a builder for creating [`IDTokenCredentials`] from
+    //! service account credentials, which are typically obtained from a JSON key
+    //! file.
+    //!
+    //! These credentials can be used to authenticate with Google Cloud services
+    //! that require ID tokens for authentication, such as Cloud Run or Cloud
+    //! Functions. The `target_audience` field is required, and specifies the
+    //! intended recipient of the token.
+    //!
+    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+    //! [service account]: https://cloud.google.com/docs/authentication#service-accounts
+
+    use crate::build_errors::Error as BuilderError;
+    use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
+    use crate::credentials::idtoken::IDTokenCredentials;
+    use crate::credentials::idtoken::dynamic::IDTokenCredentialsProvider;
+    use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
+    use crate::token::{Token, TokenProvider};
+    use crate::{BuildResult, Result};
+    use async_trait::async_trait;
+    use gax::error::CredentialsError;
+    use reqwest::Client;
+    use serde_json::Value;
+    use std::sync::Arc;
+
+    #[derive(Debug)]
+    struct ServiceAccountCredentials<T>
+    where
+        T: TokenProvider,
+    {
+        token_provider: T,
+    }
+
+    #[async_trait]
+    impl<T> IDTokenCredentialsProvider for ServiceAccountCredentials<T>
+    where
+        T: TokenProvider,
+    {
+        async fn id_token(&self) -> Result<String> {
+            self.token_provider.token().await.map(|token| token.token)
+        }
+    }
+
+    #[derive(Debug)]
+    struct ServiceAccountTokenProvider {
+        service_account_key: ServiceAccountKey,
+        audience: Option<String>,
+        target_audience: String,
+    }
+
+    #[async_trait]
+    impl TokenProvider for ServiceAccountTokenProvider {
+        async fn token(&self) -> Result<Token> {
+            let audience = self.audience.clone();
+            let target_audience = Some(self.target_audience.clone());
+            let service_account_key = self.service_account_key.clone();
+            let tg = ServiceAccountTokenGenerator {
+                audience: audience.or(Some(OAUTH2_TOKEN_SERVER_URL.to_string())),
+                service_account_key,
+                target_audience,
+                scopes: None,
+            };
+            let assertion = tg.generate()?;
+
+            let client = Client::new();
+            let request = client.post(OAUTH2_TOKEN_SERVER_URL.to_string()).form(&[
+                ("grant_type", JWT_BEARER_GRANT_TYPE.to_string()),
+                ("assertion", assertion),
+            ]);
+
+            let response = request
+                .send()
+                .await
+                .map_err(|e| crate::errors::from_http_error(e, "failed to exchange id token"))?;
+
+            if !response.status().is_success() {
+                let err =
+                    crate::errors::from_http_response(response, "failed to fetch id token").await;
+                return Err(err);
+            }
+
+            let token = response
+                .text()
+                .await
+                .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+
+            Ok(Token {
+                token,
+                token_type: "Bearer".to_string(),
+                expires_at: None,
+                metadata: None,
+            })
+        }
+    }
+
+    /// A builder for constructing [`IDTokenCredentials`] instances that fetch ID
+    /// tokens using service accounts.
+    pub struct Builder {
+        service_account_key: Value,
+        target_audience: String,
+    }
+
+    impl Builder {
+        /// Creates a new builder for `IDTokenCredentials` from a
+        /// `serde_json::Value` representing the service account key.
+        ///
+        /// The `target_audience` is a required parameter that specifies the
+        /// intended audience of the ID token. This is typically the URL of the
+        /// service that will be receiving the token.
+        pub fn new<S: Into<String>>(target_audience: S, service_account_key: Value) -> Self {
+            Self {
+                service_account_key,
+                target_audience: target_audience.into(),
+            }
+        }
+
+        fn build_token_provider(
+            self,
+            target_audience: String,
+        ) -> BuildResult<ServiceAccountTokenProvider> {
+            let service_account_key =
+                serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
+                    .map_err(BuilderError::parsing)?;
+            Ok(ServiceAccountTokenProvider {
+                service_account_key,
+                audience: Some(OAUTH2_TOKEN_SERVER_URL.to_string()),
+                target_audience,
+            })
+        }
+
+        /// Returns an [`IDTokenCredentials`] instance with the configured
+        /// settings.
+        ///
+        /// # Errors
+        ///
+        /// Returns a `BuildError` if the `service_account_key`
+        /// provided to [`Builder::new`] cannot be successfully deserialized into the
+        /// expected format. This typically happens if the JSON value is malformed or
+        /// missing required fields. For more information on how to generate
+        /// `service_account_key` json, consult the relevant section in the
+        /// [service account keys] guide.
+        ///
+        /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete
+
+        pub fn build(self) -> BuildResult<IDTokenCredentials> {
+            let target_audience = self.target_audience.clone();
+            let creds = ServiceAccountCredentials {
+                token_provider: self.build_token_provider(target_audience)?,
+            };
+            Ok(IDTokenCredentials {
+                inner: Arc::new(creds),
+            })
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
