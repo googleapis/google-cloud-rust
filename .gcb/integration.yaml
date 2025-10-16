@@ -39,5 +39,8 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -e
-      cargo test --features run-integration-tests
+      cargo test --features run-integration-tests \
+        --package integration-tests \
+        --package user-guide-samples \
+        --package storage-samples
       cargo build --package storage-samples --profile=test --all-features
