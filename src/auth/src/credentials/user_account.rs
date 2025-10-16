@@ -540,25 +540,6 @@ pub mod idtoken {
 
     /// A builder for constructing [`IDTokenCredentials`] instances that fetch ID tokens using
     /// user accounts.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use google_cloud_auth::credentials::user_account::idtoken::Builder;
-    /// # use google_cloud_auth::credentials::idtoken::{IDTokenCredentials, dynamic::IDTokenCredentialsProvider};
-    /// # tokio_test::block_on(async {
-    /// let authorized_user = serde_json::json!({
-    ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
-    ///     "client_secret": "YOUR_CLIENT_SECRET",
-    ///     "refresh_token": "YOUR_REFRESH_TOKEN",
-    ///     "type": "authorized_user"
-    /// });
-    /// let credentials = Builder::new(authorized_user).build()?;
-    /// let id_token = credentials.id_token().await?;
-    /// println!("ID Token: {}", id_token);
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
-    /// ```
     pub struct Builder {
         authorized_user: Value,
         token_uri: Option<String>,
@@ -585,24 +566,6 @@ pub mod idtoken {
         ///
         /// Any value provided here overrides a `token_uri` value from the input `authorized_user` JSON.
         /// Defaults to `https://oauth2.googleapis.com/token` if not specified here or in the `authorized_user` JSON.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_auth::credentials::user_account::idtoken::Builder;
-        /// # use google_cloud_auth::credentials::idtoken::{IDTokenCredentials, dynamic::IDTokenCredentialsProvider};
-        /// # tokio_test::block_on(async {
-        /// let authorized_user = serde_json::json!({
-        ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
-        ///     "client_secret": "YOUR_CLIENT_SECRET",
-        ///     "refresh_token": "YOUR_REFRESH_TOKEN",
-        ///     "type": "authorized_user"
-        /// });
-        /// let credentials = Builder::new(authorized_user)
-        ///     .with_token_uri("https://oauth2.example.com/token")
-        ///     .build()?;
-        /// # Ok::<(), anyhow::Error>(())
-        /// # });
-        /// ```
         pub fn with_token_uri<S: Into<String>>(mut self, token_uri: S) -> Self {
             self.token_uri = Some(token_uri.into());
             self
