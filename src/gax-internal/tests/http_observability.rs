@@ -140,6 +140,6 @@ mod tests {
             .await;
 
         let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 0, "Should capture no spans");
+        assert_eq!(captured.len(), 0, "Should capture no spans: {captured:?}");
     }
 }

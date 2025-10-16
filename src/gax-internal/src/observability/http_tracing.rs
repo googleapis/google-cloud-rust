@@ -148,6 +148,8 @@ impl HttpSpanInfo {
             otel_name,
             otel_status: OtelStatus::Unset,
             http_request_method: method.to_string(),
+            // Remove brackets from IPv6 addresses (e.g., "[::1]" -> "::1")
+            // as per OpenTelemetry spec for server.address.
             server_address: url
                 .host_str()
                 .map(|h| h.replace("[", "").replace("]", ""))
