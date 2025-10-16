@@ -465,20 +465,32 @@ where
 }
 
 pub mod idtoken {
-    use std::sync::Arc;
+    //! Credentials for authenticating with [ID tokens] from a [service account].
+    //!
+    //! This module provides a builder for creating [`IDTokenCredentials`] from
+    //! service account credentials, which are typically obtained from a JSON key
+    //! file.
+    //!
+    //! These credentials can be used to authenticate with Google Cloud services
+    //! that require ID tokens for authentication, such as Cloud Run or Cloud
+    //! Functions. The `target_audience` field is required, and specifies the
+    //! intended recipient of the token.
+    //!
+    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+    //! [service account]: https://cloud.google.com/docs/authentication#service-accounts
 
+    use crate::build_errors::Error as BuilderError;
+    use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
+    use crate::credentials::idtoken::IDTokenCredentials;
+    use crate::credentials::idtoken::dynamic::IDTokenCredentialsProvider;
+    use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
+    use crate::token::{Token, TokenProvider};
+    use crate::{BuildResult, Result};
     use async_trait::async_trait;
     use gax::error::CredentialsError;
     use reqwest::Client;
     use serde_json::Value;
-
-    use crate::Result;
-    use crate::build_errors::Error as BuilderError;
-    use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
-    use crate::credentials::idtoken::dynamic::IDTokenCredentialsProvider;
-    use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
-    use crate::token::{Token, TokenProvider};
-    use crate::{BuildResult, credentials::idtoken::IDTokenCredentials};
+    use std::sync::Arc;
 
     #[derive(Debug)]
     struct ServiceAccountCredentials<T>
@@ -550,14 +562,17 @@ pub mod idtoken {
         }
     }
 
+    /// A builder for constructing [`IDTokenCredentials`] instances that fetch ID
+    /// tokens using service accounts.
     pub struct Builder {
         service_account_key: Value,
         target_audience: String,
     }
 
-    /// Creates [`IDTokenCredentials`] instances that fetch ID tokens using
-    /// service accounts.
     impl Builder {
+        /// Creates a new builder for `IDTokenCredentials` from a
+        /// `serde_json::Value` representing the service account key.
+        ///
         /// The `target_audience` is a required parameter that specifies the
         /// intended audience of the ID token. This is typically the URL of the
         /// service that will be receiving the token.
@@ -584,6 +599,18 @@ pub mod idtoken {
 
         /// Returns an [`IDTokenCredentials`] instance with the configured
         /// settings.
+        ///
+        /// # Errors
+        ///
+        /// Returns a `BuildError` if the `service_account_key`
+        /// provided to [`Builder::new`] cannot be successfully deserialized into the
+        /// expected format. This typically happens if the JSON value is malformed or
+        /// missing required fields. For more information on how to generate
+        /// `service_account_key` json, consult the relevant section in the
+        /// [service account keys] guide.
+        ///
+        /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete
+
         pub fn build(self) -> BuildResult<IDTokenCredentials> {
             let target_audience = self.target_audience.clone();
             let creds = ServiceAccountCredentials {
