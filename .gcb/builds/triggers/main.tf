@@ -41,7 +41,7 @@ locals {
     }
     integration-unstable = {
       config = "integration.yaml"
-      flags  = "--cfg google_cloud_unstable_tracing"
+      flags  = "--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token"
     }
   }
 
@@ -51,7 +51,7 @@ locals {
     }
     integration-unstable = {
       config = "integration.yaml"
-      flags  = "--cfg google_cloud_unstable_tracing"
+      flags  = "--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token"
     }
     referenceupload = {
       config = "referenceupload.yaml"

@@ -64,3 +64,6 @@ tokio-test.workspace     = true
 url.workspace            = true
 mutants.workspace        = true
 num-bigint-dig.workspace = true
+
+[lints]
+workspace = true
