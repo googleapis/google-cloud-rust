@@ -149,9 +149,16 @@ struct ReadRange {
 fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange, ReadError> {
     match response.status() {
         reqwest::StatusCode::OK => {
-            let limit = read_limit("content-length", response)
-                .or_else(|_| read_limit("x-goog-stored-content-length", response))?;
-            Ok(ReadRange { start: 0, limit })
+            match (
+                read_limit("content-length", response),
+                read_limit("x-goog-stored-content-length", response),
+            ) {
+                (Ok(limit), _) => Ok(ReadRange { start: 0, limit }),
+                (Err(_), Ok(limit)) => Ok(ReadRange { start: 0, limit }),
+                (Err(e), Err(ReadError::MissingHeader(_))) => Err(e),
+                (Err(ReadError::MissingHeader(_)), Err(e)) => Err(e),
+                (Err(e), Err(_)) => Err(e),
+            }
         }
         reqwest::StatusCode::PARTIAL_CONTENT => {
             let header = parse_http_response::required_header(response, "content-range")?;
@@ -270,12 +277,14 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(0)]
-    #[test_case(1024)]
-    fn response_range_success(limit: u64) -> Result {
+    #[test_case("content-length", 0)]
+    #[test_case("content-length", 1024)]
+    #[test_case("x-goog-stored-content-length", 0)]
+    #[test_case("x-goog-stored-content-length", 1024)]
+    fn response_range_success(name: &'static str, limit: u64) -> Result {
         let response = http::Response::builder()
             .status(200)
-            .header("content-length", limit)
+            .header(name, limit)
             .body(Vec::new())?;
         let response = reqwest::Response::from(response);
         let range = response_range(&response)?;
@@ -295,18 +304,21 @@ mod tests {
         Ok(())
     }
 
-    #[test_case("")]
-    #[test_case("abc")]
-    #[test_case("-123")]
-    fn response_range_format(value: &'static str) -> Result {
+    #[test_case("content-length", "")]
+    #[test_case("content-length", "abc")]
+    #[test_case("content-length", "-123")]
+    #[test_case("x-goog-stored-content-length", "")]
+    #[test_case("x-goog-stored-content-length", "abc")]
+    #[test_case("x-goog-stored-content-length", "-123")]
+    fn response_range_format(name: &'static str, value: &'static str) -> Result {
         let response = http::Response::builder()
             .status(200)
-            .header("content-length", value)
+            .header(name, value)
             .body(Vec::new())?;
         let response = reqwest::Response::from(response);
         let err = response_range(&response).expect_err("header value should result in an error");
         assert!(
-            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-length"),
+            matches!(err, ReadError::BadHeaderFormat(h, _) if h == name),
             "{err:?}"
         );
         assert!(err.source().is_some(), "{err:?}");
