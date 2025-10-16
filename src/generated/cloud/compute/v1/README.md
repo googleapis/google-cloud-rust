@@ -15,20 +15,114 @@ should not introduce breaking changes to the client libraries.
 
 The main types to work with this crate are the clients:
 
+- [AcceleratorTypes]: enabled by the `accelerator-types` feature.
+- [Addresses]: enabled by the `addresses` feature.
+- [Autoscalers]: enabled by the `autoscalers` feature.
+- [BackendBuckets]: enabled by the `backend-buckets` feature.
+- [BackendServices]: enabled by the `backend-services` feature.
+- [CrossSiteNetworks]: enabled by the `cross-site-networks` feature.
+- [DiskTypes]: enabled by the `disk-types` feature.
+- [Disks]: enabled by the `disks` feature.
+- [ExternalVpnGateways]: enabled by the `external-vpn-gateways` feature.
+- [FirewallPolicies]: enabled by the `firewall-policies` feature.
+- [Firewalls]: enabled by the `firewalls` feature.
+- [ForwardingRules]: enabled by the `forwarding-rules` feature.
+- [FutureReservations]: enabled by the `future-reservations` feature.
+- [GlobalAddresses]: enabled by the `global-addresses` feature.
+- [GlobalForwardingRules]: enabled by the `global-forwarding-rules` feature.
+- [GlobalNetworkEndpointGroups]: enabled by the `global-network-endpoint-groups` feature.
 - [GlobalOperations]: enabled by the `global-operations` feature.
 - [GlobalOrganizationOperations]: enabled by the `global-organization-operations` feature.
+- [GlobalPublicDelegatedPrefixes]: enabled by the `global-public-delegated-prefixes` feature.
+- [HealthChecks]: enabled by the `health-checks` feature.
+- [HttpHealthChecks]: enabled by the `http-health-checks` feature.
+- [HttpsHealthChecks]: enabled by the `https-health-checks` feature.
+- [ImageFamilyViews]: enabled by the `image-family-views` feature.
 - [Images]: enabled by the `images` feature.
 - [InstanceGroupManagerResizeRequests]: enabled by the `instance-group-manager-resize-requests` feature.
 - [InstanceGroupManagers]: enabled by the `instance-group-managers` feature.
 - [InstanceGroups]: enabled by the `instance-groups` feature.
+- [InstanceSettings]: enabled by the `instance-settings` feature.
+- [InstanceTemplates]: enabled by the `instance-templates` feature.
 - [Instances]: enabled by the `instances` feature.
+- [InstantSnapshots]: enabled by the `instant-snapshots` feature.
+- [InterconnectAttachmentGroups]: enabled by the `interconnect-attachment-groups` feature.
+- [InterconnectAttachments]: enabled by the `interconnect-attachments` feature.
+- [InterconnectGroups]: enabled by the `interconnect-groups` feature.
+- [InterconnectLocations]: enabled by the `interconnect-locations` feature.
+- [InterconnectRemoteLocations]: enabled by the `interconnect-remote-locations` feature.
+- [Interconnects]: enabled by the `interconnects` feature.
+- [LicenseCodes]: enabled by the `license-codes` feature.
+- [Licenses]: enabled by the `licenses` feature.
+- [MachineImages]: enabled by the `machine-images` feature.
 - [MachineTypes]: enabled by the `machine-types` feature.
+- [NetworkAttachments]: enabled by the `network-attachments` feature.
+- [NetworkEdgeSecurityServices]: enabled by the `network-edge-security-services` feature.
+- [NetworkEndpointGroups]: enabled by the `network-endpoint-groups` feature.
+- [NetworkFirewallPolicies]: enabled by the `network-firewall-policies` feature.
+- [NetworkProfiles]: enabled by the `network-profiles` feature.
+- [Networks]: enabled by the `networks` feature.
+- [NodeGroups]: enabled by the `node-groups` feature.
+- [NodeTemplates]: enabled by the `node-templates` feature.
+- [NodeTypes]: enabled by the `node-types` feature.
+- [OrganizationSecurityPolicies]: enabled by the `organization-security-policies` feature.
+- [PacketMirrorings]: enabled by the `packet-mirrorings` feature.
+- [PreviewFeatures]: enabled by the `preview-features` feature.
 - [Projects]: enabled by the `projects` feature.
+- [PublicAdvertisedPrefixes]: enabled by the `public-advertised-prefixes` feature.
+- [PublicDelegatedPrefixes]: enabled by the `public-delegated-prefixes` feature.
+- [RegionAutoscalers]: enabled by the `region-autoscalers` feature.
+- [RegionBackendServices]: enabled by the `region-backend-services` feature.
+- [RegionCommitments]: enabled by the `region-commitments` feature.
+- [RegionDiskTypes]: enabled by the `region-disk-types` feature.
+- [RegionDisks]: enabled by the `region-disks` feature.
+- [RegionHealthCheckServices]: enabled by the `region-health-check-services` feature.
+- [RegionHealthChecks]: enabled by the `region-health-checks` feature.
 - [RegionInstanceGroupManagers]: enabled by the `region-instance-group-managers` feature.
 - [RegionInstanceGroups]: enabled by the `region-instance-groups` feature.
 - [RegionInstanceTemplates]: enabled by the `region-instance-templates` feature.
 - [RegionInstances]: enabled by the `region-instances` feature.
+- [RegionInstantSnapshots]: enabled by the `region-instant-snapshots` feature.
+- [RegionNetworkEndpointGroups]: enabled by the `region-network-endpoint-groups` feature.
+- [RegionNetworkFirewallPolicies]: enabled by the `region-network-firewall-policies` feature.
+- [RegionNotificationEndpoints]: enabled by the `region-notification-endpoints` feature.
 - [RegionOperations]: enabled by the `region-operations` feature.
+- [RegionSecurityPolicies]: enabled by the `region-security-policies` feature.
+- [RegionSslCertificates]: enabled by the `region-ssl-certificates` feature.
+- [RegionSslPolicies]: enabled by the `region-ssl-policies` feature.
+- [RegionTargetHttpProxies]: enabled by the `region-target-http-proxies` feature.
+- [RegionTargetHttpsProxies]: enabled by the `region-target-https-proxies` feature.
+- [RegionTargetTcpProxies]: enabled by the `region-target-tcp-proxies` feature.
+- [RegionUrlMaps]: enabled by the `region-url-maps` feature.
+- [RegionZones]: enabled by the `region-zones` feature.
+- [Regions]: enabled by the `regions` feature.
+- [ReservationBlocks]: enabled by the `reservation-blocks` feature.
+- [ReservationSubBlocks]: enabled by the `reservation-sub-blocks` feature.
+- [Reservations]: enabled by the `reservations` feature.
+- [ResourcePolicies]: enabled by the `resource-policies` feature.
+- [Routers]: enabled by the `routers` feature.
+- [Routes]: enabled by the `routes` feature.
+- [SecurityPolicies]: enabled by the `security-policies` feature.
+- [ServiceAttachments]: enabled by the `service-attachments` feature.
+- [SnapshotSettings]: enabled by the `snapshot-settings` feature.
+- [Snapshots]: enabled by the `snapshots` feature.
+- [SslCertificates]: enabled by the `ssl-certificates` feature.
+- [SslPolicies]: enabled by the `ssl-policies` feature.
+- [StoragePoolTypes]: enabled by the `storage-pool-types` feature.
+- [StoragePools]: enabled by the `storage-pools` feature.
+- [Subnetworks]: enabled by the `subnetworks` feature.
+- [TargetGrpcProxies]: enabled by the `target-grpc-proxies` feature.
+- [TargetHttpProxies]: enabled by the `target-http-proxies` feature.
+- [TargetHttpsProxies]: enabled by the `target-https-proxies` feature.
+- [TargetInstances]: enabled by the `target-instances` feature.
+- [TargetPools]: enabled by the `target-pools` feature.
+- [TargetSslProxies]: enabled by the `target-ssl-proxies` feature.
+- [TargetTcpProxies]: enabled by the `target-tcp-proxies` feature.
+- [TargetVpnGateways]: enabled by the `target-vpn-gateways` feature.
+- [UrlMaps]: enabled by the `url-maps` feature.
+- [VpnGateways]: enabled by the `vpn-gateways` feature.
+- [VpnTunnels]: enabled by the `vpn-tunnels` feature.
+- [WireGroups]: enabled by the `wire-groups` feature.
 - [ZoneOperations]: enabled by the `zone-operations` feature.
 - [Zones]: enabled by the `zones` feature.
 
@@ -36,19 +130,113 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-compute-v1/latest/google-cloud-compute-v1)
 
+[AcceleratorTypes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.AcceleratorTypes.html
+[Addresses]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Addresses.html
+[Autoscalers]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Autoscalers.html
+[BackendBuckets]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.BackendBuckets.html
+[BackendServices]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.BackendServices.html
+[CrossSiteNetworks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.CrossSiteNetworks.html
+[DiskTypes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.DiskTypes.html
+[Disks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Disks.html
+[ExternalVpnGateways]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.ExternalVpnGateways.html
+[FirewallPolicies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.FirewallPolicies.html
+[Firewalls]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Firewalls.html
+[ForwardingRules]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.ForwardingRules.html
+[FutureReservations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.FutureReservations.html
+[GlobalAddresses]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.GlobalAddresses.html
+[GlobalForwardingRules]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.GlobalForwardingRules.html
+[GlobalNetworkEndpointGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.GlobalNetworkEndpointGroups.html
 [GlobalOperations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.GlobalOperations.html
 [GlobalOrganizationOperations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.GlobalOrganizationOperations.html
+[GlobalPublicDelegatedPrefixes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.GlobalPublicDelegatedPrefixes.html
+[HealthChecks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.HealthChecks.html
+[HttpHealthChecks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.HttpHealthChecks.html
+[HttpsHealthChecks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.HttpsHealthChecks.html
+[ImageFamilyViews]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.ImageFamilyViews.html
 [Images]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Images.html
 [InstanceGroupManagerResizeRequests]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceGroupManagerResizeRequests.html
 [InstanceGroupManagers]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceGroupManagers.html
 [InstanceGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceGroups.html
+[InstanceSettings]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceSettings.html
+[InstanceTemplates]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstanceTemplates.html
 [Instances]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Instances.html
+[InstantSnapshots]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InstantSnapshots.html
+[InterconnectAttachmentGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InterconnectAttachmentGroups.html
+[InterconnectAttachments]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InterconnectAttachments.html
+[InterconnectGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InterconnectGroups.html
+[InterconnectLocations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InterconnectLocations.html
+[InterconnectRemoteLocations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.InterconnectRemoteLocations.html
+[Interconnects]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Interconnects.html
+[LicenseCodes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.LicenseCodes.html
+[Licenses]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Licenses.html
+[MachineImages]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.MachineImages.html
 [MachineTypes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.MachineTypes.html
+[NetworkAttachments]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.NetworkAttachments.html
+[NetworkEdgeSecurityServices]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.NetworkEdgeSecurityServices.html
+[NetworkEndpointGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.NetworkEndpointGroups.html
+[NetworkFirewallPolicies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.NetworkFirewallPolicies.html
+[NetworkProfiles]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.NetworkProfiles.html
+[Networks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Networks.html
+[NodeGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.NodeGroups.html
+[NodeTemplates]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.NodeTemplates.html
+[NodeTypes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.NodeTypes.html
+[OrganizationSecurityPolicies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.OrganizationSecurityPolicies.html
+[PacketMirrorings]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.PacketMirrorings.html
+[PreviewFeatures]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.PreviewFeatures.html
 [Projects]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Projects.html
+[PublicAdvertisedPrefixes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.PublicAdvertisedPrefixes.html
+[PublicDelegatedPrefixes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.PublicDelegatedPrefixes.html
+[RegionAutoscalers]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionAutoscalers.html
+[RegionBackendServices]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionBackendServices.html
+[RegionCommitments]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionCommitments.html
+[RegionDiskTypes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionDiskTypes.html
+[RegionDisks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionDisks.html
+[RegionHealthCheckServices]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionHealthCheckServices.html
+[RegionHealthChecks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionHealthChecks.html
 [RegionInstanceGroupManagers]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstanceGroupManagers.html
 [RegionInstanceGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstanceGroups.html
 [RegionInstanceTemplates]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstanceTemplates.html
 [RegionInstances]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstances.html
+[RegionInstantSnapshots]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionInstantSnapshots.html
+[RegionNetworkEndpointGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionNetworkEndpointGroups.html
+[RegionNetworkFirewallPolicies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionNetworkFirewallPolicies.html
+[RegionNotificationEndpoints]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionNotificationEndpoints.html
 [RegionOperations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionOperations.html
+[RegionSecurityPolicies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionSecurityPolicies.html
+[RegionSslCertificates]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionSslCertificates.html
+[RegionSslPolicies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionSslPolicies.html
+[RegionTargetHttpProxies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionTargetHttpProxies.html
+[RegionTargetHttpsProxies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionTargetHttpsProxies.html
+[RegionTargetTcpProxies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionTargetTcpProxies.html
+[RegionUrlMaps]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionUrlMaps.html
+[RegionZones]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.RegionZones.html
+[Regions]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Regions.html
+[ReservationBlocks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.ReservationBlocks.html
+[ReservationSubBlocks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.ReservationSubBlocks.html
+[Reservations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Reservations.html
+[ResourcePolicies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.ResourcePolicies.html
+[Routers]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Routers.html
+[Routes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Routes.html
+[SecurityPolicies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.SecurityPolicies.html
+[ServiceAttachments]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.ServiceAttachments.html
+[SnapshotSettings]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.SnapshotSettings.html
+[Snapshots]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Snapshots.html
+[SslCertificates]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.SslCertificates.html
+[SslPolicies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.SslPolicies.html
+[StoragePoolTypes]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.StoragePoolTypes.html
+[StoragePools]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.StoragePools.html
+[Subnetworks]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Subnetworks.html
+[TargetGrpcProxies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.TargetGrpcProxies.html
+[TargetHttpProxies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.TargetHttpProxies.html
+[TargetHttpsProxies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.TargetHttpsProxies.html
+[TargetInstances]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.TargetInstances.html
+[TargetPools]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.TargetPools.html
+[TargetSslProxies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.TargetSslProxies.html
+[TargetTcpProxies]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.TargetTcpProxies.html
+[TargetVpnGateways]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.TargetVpnGateways.html
+[UrlMaps]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.UrlMaps.html
+[VpnGateways]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.VpnGateways.html
+[VpnTunnels]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.VpnTunnels.html
+[WireGroups]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.WireGroups.html
 [ZoneOperations]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.ZoneOperations.html
 [Zones]: https://docs.rs/google-cloud-compute-v1/latest/google_cloud_compute_v1/client/struct.Zones.html
