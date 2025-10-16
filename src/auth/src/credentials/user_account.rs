@@ -95,6 +95,7 @@
 //! [Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-identity-federation
 
 use crate::build_errors::Error as BuilderError;
+use crate::constants::OAUTH2_TOKEN_SERVER_URL;
 use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
@@ -112,8 +113,6 @@ use reqwest::{Client, Method};
 use serde_json::Value;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
-
-const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
 /// A builder for constructing `user_account` [Credentials] instance.
 ///
@@ -321,7 +320,7 @@ impl Builder {
         let endpoint = self
             .token_uri
             .or(authorized_user.token_uri)
-            .unwrap_or(OAUTH2_ENDPOINT.to_string());
+            .unwrap_or(OAUTH2_TOKEN_SERVER_URL.to_string());
         let quota_project_id = self.quota_project_id.or(authorized_user.quota_project_id);
 
         let token_provider = UserTokenProvider {
@@ -330,6 +329,7 @@ impl Builder {
             refresh_token: authorized_user.refresh_token,
             endpoint,
             scopes: self.scopes.map(|scopes| scopes.join(" ")),
+            source: UserTokenSource::AccessToken,
         };
 
         let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
@@ -350,6 +350,13 @@ struct UserTokenProvider {
     refresh_token: String,
     endpoint: String,
     scopes: Option<String>,
+    source: UserTokenSource,
+}
+
+#[derive(PartialEq)]
+enum UserTokenSource {
+    IdToken,
+    AccessToken,
 }
 
 impl std::fmt::Debug for UserTokenProvider {
@@ -396,8 +403,15 @@ impl TokenProvider for UserTokenProvider {
             let retryable = !e.is_decode();
             CredentialsError::from_source(retryable, e)
         })?;
+        
+        let token = match self.source {
+            UserTokenSource::AccessToken => Ok(response.access_token),
+            UserTokenSource::IdToken => response
+                .id_token
+                .ok_or_else(|| CredentialsError::from_msg(false, MISSING_ID_TOKEN_MSG)),
+        }?;
         let token = Token {
-            token: response.access_token,
+            token,
             token_type: response.token_type,
             expires_at: response
                 .expires_in
@@ -409,6 +423,10 @@ impl TokenProvider for UserTokenProvider {
 }
 
 const MSG: &str = "failed to refresh user access token";
+const MISSING_ID_TOKEN_MSG: &str = "UserCredentials can obtain an id token only when authenticated through \
+gcloud running 'gcloud auth login --update-adc' or 'gcloud auth application-default \
+login'. The latter form would not work for Cloud Run, but would still generate an \
+id token.";
 
 /// Data model for a UserCredentials
 ///
@@ -465,12 +483,170 @@ struct Oauth2RefreshRequest {
 struct Oauth2RefreshResponse {
     access_token: String,
     #[serde(skip_serializing_if = "Option::is_none")]
+    id_token: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     scope: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     expires_in: Option<u64>,
     token_type: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     refresh_token: Option<String>,
+}
+
+pub mod idtoken {
+    //! Credentials for authenticating with [ID tokens] from a [user account].
+    //!
+    //! This module provides a builder for creating [`IDTokenCredentials`] from
+    //! authorized user credentials, which are typically obtained by running
+    //! `gcloud auth application-default login`.
+    //!
+    //! These credentials can be used to authenticate with Google Cloud services
+    //! that require ID tokens for authentication, such as Cloud Run or Cloud Functions.
+    //!
+    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+    //! [user account]: https://cloud.google.com/docs/authentication#user-accounts
+    use crate::build_errors::Error as BuilderError;
+    use crate::constants::OAUTH2_TOKEN_SERVER_URL;
+    use crate::{
+        BuildResult, Result,
+        credentials::{
+            idtoken::{IDTokenCredentials, dynamic::IDTokenCredentialsProvider},
+            user_account::AuthorizedUser,
+        },
+        token::TokenProvider,
+    };
+
+    use async_trait::async_trait;
+    use serde_json::Value;
+    use std::sync::Arc;
+
+    #[derive(Debug)]
+    struct UserAccountCredentials<T>
+    where
+        T: TokenProvider,
+    {
+        token_provider: T,
+    }
+
+    #[async_trait]
+    impl<T> IDTokenCredentialsProvider for UserAccountCredentials<T>
+    where
+        T: TokenProvider,
+    {
+        async fn id_token(&self) -> Result<String> {
+            self.token_provider.token().await.map(|token| token.token)
+        }
+    }
+
+    /// A builder for constructing [`IDTokenCredentials`] instances that fetch ID tokens using
+    /// user accounts.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::user_account::idtoken::Builder;
+    /// # use google_cloud_auth::credentials::idtoken::{IDTokenCredentials, dynamic::IDTokenCredentialsProvider};
+    /// # tokio_test::block_on(async {
+    /// let authorized_user = serde_json::json!({
+    ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    ///     "client_secret": "YOUR_CLIENT_SECRET",
+    ///     "refresh_token": "YOUR_REFRESH_TOKEN",
+    ///     "type": "authorized_user"
+    /// });
+    /// let credentials = Builder::new(authorized_user).build()?;
+    /// let id_token = credentials.id_token().await?;
+    /// println!("ID Token: {}", id_token);
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    pub struct Builder {
+        authorized_user: Value,
+        token_uri: Option<String>,
+    }
+
+    impl Builder {
+        /// Creates a new builder for `IDTokenCredentials` from a `serde_json::Value`
+        /// representing the authorized user credentials.
+        ///
+        /// The `authorized_user` JSON is typically generated when a user
+        /// authenticates using the [application-default login] process.
+        ///
+        /// The `target_audience` is not supported for user credentials.
+        ///
+        /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
+        pub fn new(authorized_user: Value) -> Self {
+            Self {
+                authorized_user,
+                token_uri: None,
+            }
+        }
+
+        /// Sets the URI for the token endpoint used to fetch access tokens.
+        ///
+        /// Any value provided here overrides a `token_uri` value from the input `authorized_user` JSON.
+        /// Defaults to `https://oauth2.googleapis.com/token` if not specified here or in the `authorized_user` JSON.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_auth::credentials::user_account::idtoken::Builder;
+        /// # use google_cloud_auth::credentials::idtoken::{IDTokenCredentials, dynamic::IDTokenCredentialsProvider};
+        /// # tokio_test::block_on(async {
+        /// let authorized_user = serde_json::json!({
+        ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+        ///     "client_secret": "YOUR_CLIENT_SECRET",
+        ///     "refresh_token": "YOUR_REFRESH_TOKEN",
+        ///     "type": "authorized_user"
+        /// });
+        /// let credentials = Builder::new(authorized_user)
+        ///     .with_token_uri("https://oauth2.example.com/token")
+        ///     .build()?;
+        /// # Ok::<(), anyhow::Error>(())
+        /// # });
+        /// ```
+        pub fn with_token_uri<S: Into<String>>(mut self, token_uri: S) -> Self {
+            self.token_uri = Some(token_uri.into());
+            self
+        }
+
+        fn build_token_provider(self) -> BuildResult<super::UserTokenProvider> {
+            let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
+                .map_err(BuilderError::parsing)?;
+            let endpoint = self
+                .token_uri
+                .or(authorized_user.token_uri)
+                .unwrap_or(OAUTH2_TOKEN_SERVER_URL.to_string());
+            Ok(super::UserTokenProvider {
+                client_id: authorized_user.client_id,
+                client_secret: authorized_user.client_secret,
+                refresh_token: authorized_user.refresh_token,
+                endpoint,
+                source: super::UserTokenSource::IdToken,
+                scopes: None,
+            })
+        }
+
+        /// Returns an [`IDTokenCredentials`] instance with the configured
+        /// settings.
+        ///
+        /// # Errors
+        ///
+        /// Returns a `BuildError` if the `authorized_user`
+        /// provided to [`Builder::new`] cannot be successfully deserialized into the
+        /// expected format. This typically happens if the JSON value is malformed or
+        /// missing required fields. For more information on how to generate
+        /// `authorized_user` json, consult the relevant section in the
+        /// [application-default credentials] guide.
+        ///
+        /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+        pub fn build(self) -> BuildResult<IDTokenCredentials> {
+            let creds = UserAccountCredentials {
+                token_provider: self.build_token_provider()?,
+            };
+            Ok(IDTokenCredentials {
+                inner: Arc::new(creds),
+            })
+        }
+    }
 }
 
 #[cfg(test)]
