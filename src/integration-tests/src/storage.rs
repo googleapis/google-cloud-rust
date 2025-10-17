@@ -307,14 +307,25 @@ pub async fn objects_large_file(builder: storage::builder::storage::ClientBuilde
     Ok(())
 }
 
-pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) -> Result<()> {
-    // Create a temporary bucket for the test.
-    let (control, bucket) = create_test_bucket().await?;
+pub async fn uploads(
+    builder: storage::builder::storage::ClientBuilder,
+    bucket_name: &str,
+) -> Result<()> {
     let client = builder.build().await?;
+    upload_buffered(&client, bucket_name).await?;
+    upload_buffered_resumable_known_size(&client, bucket_name).await?;
+    upload_buffered_resumable_unknown_size(&client, bucket_name).await?;
+    upload_unbuffered_resumable_known_size(&client, bucket_name).await?;
+    upload_unbuffered_resumable_unknown_size(&client, bucket_name).await?;
+    abort_upload_unbuffered(&client, bucket_name).await?;
+    abort_upload_buffered(&client, bucket_name).await?;
+    Ok(())
+}
 
+async fn upload_buffered(client: &storage::client::Storage, bucket_name: &str) -> Result<()> {
     tracing::info!("testing upload_object_buffered() [1]");
     let insert = client
-        .write_object(&bucket.name, "empty.txt", "")
+        .write_object(bucket_name, "upload_buffered/empty.txt", "")
         .set_if_generation_match(0)
         .send_buffered()
         .await?;
@@ -324,7 +335,7 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     let payload = bytes::Bytes::from_owner(Vec::from_iter((0..128 * 1024).map(|_| 0_u8)));
     tracing::info!("testing upload_object_buffered() [2]");
     let insert = client
-        .write_object(&bucket.name, "128K.txt", payload)
+        .write_object(bucket_name, "upload_buffered/128K.txt", payload)
         .set_if_generation_match(0)
         .send_buffered()
         .await?;
@@ -334,29 +345,28 @@ pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) 
     let payload = bytes::Bytes::from_owner(Vec::from_iter((0..512 * 1024).map(|_| 0_u8)));
     tracing::info!("testing upload_object_buffered() [3]");
     let insert = client
-        .write_object(&bucket.name, "512K.txt", payload)
+        .write_object(bucket_name, "upload_buffered/512K.txt", payload)
         .set_if_generation_match(0)
         .send_buffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 512 * 1024_i64);
 
-    cleanup_bucket(control, bucket.name).await?;
-
     Ok(())
 }
 
-pub async fn upload_buffered_resumable_known_size(
-    builder: storage::builder::storage::ClientBuilder,
+async fn upload_buffered_resumable_known_size(
+    client: &storage::client::Storage,
+    bucket_name: &str,
 ) -> Result<()> {
-    // Create a temporary bucket for the test.
-    let (control, bucket) = create_test_bucket().await?;
-    let client = builder.build().await?;
-
     tracing::info!("testing send_unbuffered() [1]");
     let payload = TestDataSource::new(0_u64);
     let insert = client
-        .write_object(&bucket.name, "empty.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_buffered_resumable_known_size/empty.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
@@ -367,7 +377,11 @@ pub async fn upload_buffered_resumable_known_size(
     let payload = TestDataSource::new(128 * 1024_u64);
     tracing::info!("testing upload_object_buffered() [2]");
     let insert = client
-        .write_object(&bucket.name, "128K.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_buffered_resumable_known_size/128K.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
@@ -378,7 +392,11 @@ pub async fn upload_buffered_resumable_known_size(
     let payload = TestDataSource::new(512 * 1024_u64);
     tracing::info!("testing upload_object_buffered() [3]");
     let insert = client
-        .write_object(&bucket.name, "512K.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_buffered_resumable_known_size/512K.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
@@ -386,22 +404,21 @@ pub async fn upload_buffered_resumable_known_size(
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 512 * 1024_i64);
 
-    cleanup_bucket(control, bucket.name).await?;
-
     Ok(())
 }
 
-pub async fn upload_buffered_resumable_unknown_size(
-    builder: storage::builder::storage::ClientBuilder,
+async fn upload_buffered_resumable_unknown_size(
+    client: &storage::client::Storage,
+    bucket_name: &str,
 ) -> Result<()> {
-    // Create a temporary bucket for the test.
-    let (control, bucket) = create_test_bucket().await?;
-    let client = builder.build().await?;
-
     tracing::info!("testing send_unbuffered() [1]");
     let payload = TestDataSource::new(0_u64).without_size_hint();
     let insert = client
-        .write_object(&bucket.name, "empty.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_buffered_resumable_unknown_size/empty.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
@@ -412,7 +429,11 @@ pub async fn upload_buffered_resumable_unknown_size(
     let payload = TestDataSource::new(128 * 1024_u64).without_size_hint();
     tracing::info!("testing upload_object_buffered() [2]");
     let insert = client
-        .write_object(&bucket.name, "128K.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_buffered_resumable_unknown_size/128K.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
@@ -423,7 +444,11 @@ pub async fn upload_buffered_resumable_unknown_size(
     let payload = TestDataSource::new(512 * 1024_u64).without_size_hint();
     tracing::info!("testing upload_object_buffered() [3]");
     let insert = client
-        .write_object(&bucket.name, "512K.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_buffered_resumable_unknown_size/512K.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
@@ -434,7 +459,11 @@ pub async fn upload_buffered_resumable_unknown_size(
     let payload = TestDataSource::new(500 * 1024_u64).without_size_hint();
     tracing::info!("testing upload_object_buffered() [4]");
     let insert = client
-        .write_object(&bucket.name, "500K.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_buffered_resumable_unknown_size/500K.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_buffered()
@@ -442,22 +471,21 @@ pub async fn upload_buffered_resumable_unknown_size(
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 500 * 1024_i64);
 
-    cleanup_bucket(control, bucket.name).await?;
-
     Ok(())
 }
 
-pub async fn upload_unbuffered_resumable_known_size(
-    builder: storage::builder::storage::ClientBuilder,
+async fn upload_unbuffered_resumable_known_size(
+    client: &storage::client::Storage,
+    bucket_name: &str,
 ) -> Result<()> {
-    // Create a temporary bucket for the test.
-    let (control, bucket) = create_test_bucket().await?;
-    let client = builder.build().await?;
-
     tracing::info!("testing send_unbuffered() [1]");
     let payload = TestDataSource::new(0_u64);
     let insert = client
-        .write_object(&bucket.name, "empty.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_unbuffered_resumable_known_size/empty.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
@@ -468,7 +496,11 @@ pub async fn upload_unbuffered_resumable_known_size(
     let payload = TestDataSource::new(128 * 1024_u64);
     tracing::info!("testing upload_object_buffered() [2]");
     let insert = client
-        .write_object(&bucket.name, "128K.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_unbuffered_resumable_known_size/128K.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
@@ -479,7 +511,11 @@ pub async fn upload_unbuffered_resumable_known_size(
     let payload = TestDataSource::new(512 * 1024_u64);
     tracing::info!("testing upload_object_buffered() [3]");
     let insert = client
-        .write_object(&bucket.name, "512K.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_unbuffered_resumable_known_size/512K.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
@@ -487,22 +523,21 @@ pub async fn upload_unbuffered_resumable_known_size(
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 512 * 1024_i64);
 
-    cleanup_bucket(control, bucket.name).await?;
-
     Ok(())
 }
 
-pub async fn upload_unbuffered_resumable_unknown_size(
-    builder: storage::builder::storage::ClientBuilder,
+async fn upload_unbuffered_resumable_unknown_size(
+    client: &storage::client::Storage,
+    bucket_name: &str,
 ) -> Result<()> {
-    // Create a temporary bucket for the test.
-    let (control, bucket) = create_test_bucket().await?;
-    let client = builder.build().await?;
-
     tracing::info!("testing send_unbuffered() [1]");
     let payload = TestDataSource::new(0_u64).without_size_hint();
     let insert = client
-        .write_object(&bucket.name, "empty.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_unbuffered_resumable_unknown_size/empty.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
@@ -513,7 +548,11 @@ pub async fn upload_unbuffered_resumable_unknown_size(
     let payload = TestDataSource::new(128 * 1024_u64).without_size_hint();
     tracing::info!("testing upload_object_buffered() [2]");
     let insert = client
-        .write_object(&bucket.name, "128K.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_unbuffered_resumable_unknown_size/128K.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
@@ -524,7 +563,11 @@ pub async fn upload_unbuffered_resumable_unknown_size(
     let payload = TestDataSource::new(512 * 1024_u64).without_size_hint();
     tracing::info!("testing upload_object_buffered() [3]");
     let insert = client
-        .write_object(&bucket.name, "512K.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_unbuffered_resumable_unknown_size/512K.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
@@ -535,35 +578,23 @@ pub async fn upload_unbuffered_resumable_unknown_size(
     let payload = TestDataSource::new(500 * 1024_u64).without_size_hint();
     tracing::info!("testing upload_object_buffered() [4]");
     let insert = client
-        .write_object(&bucket.name, "500K.txt", payload)
+        .write_object(
+            bucket_name,
+            "upload_unbuffered_resumable_unknown_size/500K.txt",
+            payload,
+        )
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 500 * 1024_i64);
-
-    cleanup_bucket(control, bucket.name).await?;
 
     Ok(())
 }
 
 const ABORT_TEST_STOP: u64 = 512 * 1024;
 const ABORT_TEST_SIZE: u64 = 1024 * 1024;
-
-pub async fn abort_upload(
-    builder: storage::builder::storage::ClientBuilder,
-    bucket_name: &str,
-) -> Result<()> {
-    tracing::info!("abort_upload test, using bucket {}", bucket_name);
-
-    // Create a temporary bucket for the test.
-    let client = builder.build().await?;
-
-    abort_upload_unbuffered(client.clone(), bucket_name).await?;
-    abort_upload_buffered(client.clone(), bucket_name).await?;
-    Ok(())
-}
 
 struct AbortUploadTestCase {
     name: String,
@@ -594,7 +625,7 @@ fn abort_upload_test_cases(
     let mut uploads = Vec::new();
     for s in sources.into_iter() {
         for t in thresholds {
-            let name = format!("{prefix}-{}-{}.txt", s.0, t.0);
+            let name = format!("abort-upload/{prefix}/{}-{}.txt", s.0, t.0);
             let upload = client
                 .write_object(bucket_name, &name, s.1.clone())
                 .set_if_generation_match(0)
@@ -606,7 +637,7 @@ fn abort_upload_test_cases(
 }
 
 async fn abort_upload_unbuffered(
-    client: storage::client::Storage,
+    client: &storage::client::Storage,
     bucket_name: &str,
 ) -> Result<()> {
     let test_cases = abort_upload_test_cases(&client, bucket_name, "unbuffered");
@@ -632,7 +663,7 @@ async fn abort_upload_unbuffered(
     Ok(())
 }
 
-async fn abort_upload_buffered(client: storage::client::Storage, bucket_name: &str) -> Result<()> {
+async fn abort_upload_buffered(client: &storage::client::Storage, bucket_name: &str) -> Result<()> {
     let test_cases = abort_upload_test_cases(&client, bucket_name, "buffered");
 
     for (number, AbortUploadTestCase { name, upload }) in test_cases.into_iter().enumerate() {
@@ -896,8 +927,8 @@ pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
         )
         .with_retry_policy(
             gax::retry_policy::AlwaysRetry
-                .with_attempt_limit(5)
-                .with_time_limit(Duration::from_secs(16)),
+                .with_attempt_limit(16)
+                .with_time_limit(Duration::from_secs(32)),
         )
         .build()
         .await?;
