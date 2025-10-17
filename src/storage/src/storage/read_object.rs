@@ -429,6 +429,11 @@ impl Reader {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             )
+            // Disable decompressive transcoding: https://cloud.google.com/storage/docs/transcoding
+            //
+            // The default is to decompress objects that have `contentEncoding == "gzip"`. This header
+            // tells Cloud Storage to disable automatic decompression. It has no effect on objects
+            // with a different `contentEncoding` value.
             .header(
                 "accept-encoding",
                 reqwest::header::HeaderValue::from_static("gzip"),

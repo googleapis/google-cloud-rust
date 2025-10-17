@@ -71,8 +71,6 @@ pub async fn test(bucket: &storage::model::Bucket) -> anyhow::Result<()> {
         .await?;
     let highlights = response.object();
     tracing::info!("Compressed object read: {:?}", highlights);
-    println!("highlights = {highlights:?}");
-    println!("object = {object:?}");
     assert_eq!(highlights.content_encoding, "gzip", "{highlights:?}");
     assert_eq!(highlights.content_type, "text/plain", "{highlights:?}");
     assert_eq!(highlights.size as usize, compressed.len(), "{highlights:?}");
