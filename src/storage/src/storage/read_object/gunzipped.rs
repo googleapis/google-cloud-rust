@@ -42,32 +42,7 @@ impl GunzippedResponse {
             parse_http_response::response_generation(&response).map_err(Error::deser)?;
 
         let headers = response.headers();
-        let get_as_i64 = |header_name: &str| -> i64 {
-            headers
-                .get(header_name)
-                .and_then(|s| s.to_str().ok())
-                .and_then(|s| s.parse::<i64>().ok())
-                .unwrap_or_default()
-        };
-        let get_as_string = |header_name: &str| -> String {
-            headers
-                .get(header_name)
-                .and_then(|sc| sc.to_str().ok())
-                .map(|sc| sc.to_string())
-                .unwrap_or_default()
-        };
-        let highlights = ObjectHighlights {
-            generation,
-            metageneration: get_as_i64("x-goog-metageneration"),
-            size: get_as_i64("x-goog-stored-content-length"),
-            content_encoding: get_as_string("x-goog-stored-content-encoding"),
-            storage_class: get_as_string("x-goog-storage-class"),
-            content_type: get_as_string("content-type"),
-            content_language: get_as_string("content-language"),
-            content_disposition: get_as_string("content-disposition"),
-            etag: get_as_string("etag"),
-            checksums: None,
-        };
+        let highlights = super::parse_http_response::object_highlights(generation, headers)?;
 
         Ok(Self {
             response: Some(response),
@@ -101,8 +76,12 @@ impl crate::read_object::dynamic::ReadObjectResponse for GunzippedResponse {
 
 #[cfg(test)]
 mod tests {
-    use crate::{client::Storage, model_ext::ObjectHighlights};
+    use super::*;
+    use crate::{
+        client::Storage, model_ext::ObjectHighlights, read_object::dynamic::ReadObjectResponse,
+    };
     use auth::credentials::anonymous::Builder as Anonymous;
+    use bytes::Bytes;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
 
     type Result = anyhow::Result<()>;
@@ -161,6 +140,28 @@ mod tests {
         };
         assert_eq!(got, want);
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn gunzipped_io_error() -> Result {
+        let stream = futures::stream::iter(vec![
+            Ok(Bytes::from_static(b"hello")),
+            Err(anyhow::Error::msg("bad stuff")),
+        ]);
+        let body = reqwest::Body::wrap_stream(stream);
+        let response = http::Response::builder()
+            .status(200)
+            .header("x-goog-generation", 123456)
+            .body(body)?;
+        let mut response = GunzippedResponse::new(reqwest::Response::from(response))?;
+
+        let chunk = response.next().await;
+        assert!(matches!(&chunk, Some(Ok(b)) if b == "hello"), "{chunk:?}");
+        let chunk = response.next().await;
+        assert!(matches!(&chunk, Some(Err(_))), "{chunk:?}");
+        let chunk = response.next().await;
+        assert!(matches!(&chunk, None), "{chunk:?}");
         Ok(())
     }
 }
