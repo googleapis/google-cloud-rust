@@ -88,6 +88,31 @@ pub async fn test(bucket: &storage::model::Bucket) -> anyhow::Result<()> {
     let got = super::read_all(response).await?;
     assert_eq!(got, compressed);
 
+    tracing::info!("Reading decompressed object");
+    let response = client
+        .read_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .with_automatic_decompression(true)
+        .send()
+        .await?;
+    let highlights = response.object();
+    tracing::info!("Decompressed object read: {:?}", highlights);
+    assert_eq!(highlights.content_encoding, "gzip", "{highlights:?}");
+    assert_eq!(highlights.content_type, "text/plain", "{highlights:?}");
+    assert_eq!(highlights.size as usize, compressed.len(), "{highlights:?}");
+    assert_eq!(highlights.generation, object.generation, "{highlights:?}");
+    assert_eq!(
+        highlights.metageneration, object.metageneration,
+        "{highlights:?}"
+    );
+    assert_eq!(highlights.checksums, object.checksums, "{highlights:?}");
+    assert_eq!(
+        highlights.storage_class, object.storage_class,
+        "{highlights:?}"
+    );
+    let got = super::read_all(response).await?;
+    assert_eq!(String::from_utf8(got), Ok(CONTENT.to_string()));
+
     tracing::info!("Reading compressed object head");
     let response = client
         .read_object(&object.bucket, &object.name)
