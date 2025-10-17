@@ -28,7 +28,8 @@ More specifically, the functionality offered by these libraries include:
 - Serialize and deserialize requests and responses: our customers should spend
   more time writing application code and less time dealing with message
   formatting.
-- All RPCs are asynchronous and work well with [Tokio].
+- All RPCs are asynchronous and work well with [Tokio]. The clients do not own
+  any threads and rely on the runtime for scheduling.
 - It is not possible to start a RPC without providing the parameters needed to
   format the request (with [some limitations](#what-these-libraries-do-not-do)).
 - Optional parameters can be provided as needed, there is no need to initialize
