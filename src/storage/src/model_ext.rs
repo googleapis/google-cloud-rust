@@ -125,6 +125,7 @@ impl KeyAes256 {
 
 impl std::convert::From<KeyAes256> for crate::model::CommonObjectRequestParams {
     fn from(value: KeyAes256) -> Self {
+        #[allow(deprecated)]
         crate::model::CommonObjectRequestParams::new()
             .set_encryption_algorithm("AES256")
             .set_encryption_key_bytes(value.key.to_vec())
