@@ -1816,6 +1816,16 @@ impl FeatureOnlineStoreService {
         super::builder::feature_online_store_service::SearchNearestEntities::new(self.inner.clone())
     }
 
+    /// RPC to generate an access token for the given feature view. FeatureViews
+    /// under the same FeatureOnlineStore share the same access token.
+    pub fn generate_fetch_access_token(
+        &self,
+    ) -> super::builder::feature_online_store_service::GenerateFetchAccessToken {
+        super::builder::feature_online_store_service::GenerateFetchAccessToken::new(
+            self.inner.clone(),
+        )
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(&self) -> super::builder::feature_online_store_service::ListLocations {
         super::builder::feature_online_store_service::ListLocations::new(self.inner.clone())

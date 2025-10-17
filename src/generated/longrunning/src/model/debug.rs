@@ -49,6 +49,7 @@ impl std::fmt::Debug for super::ListOperationsRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -61,6 +62,7 @@ impl std::fmt::Debug for super::ListOperationsResponse {
         let mut debug_struct = f.debug_struct("ListOperationsResponse");
         debug_struct.field("operations", &self.operations);
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
