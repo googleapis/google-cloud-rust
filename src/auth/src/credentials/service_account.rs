@@ -502,7 +502,7 @@ pub(crate) mod idtoken {
     #[derive(Debug)]
     struct ServiceAccountTokenProvider {
         service_account_key: ServiceAccountKey,
-        audience: Option<String>,
+        audience: String,
         target_audience: String,
         token_server_url: String,
     }
@@ -514,7 +514,7 @@ pub(crate) mod idtoken {
             let target_audience = Some(self.target_audience.clone());
             let service_account_key = self.service_account_key.clone();
             let tg = ServiceAccountTokenGenerator {
-                audience: audience.or(Some(OAUTH2_TOKEN_SERVER_URL.to_string())),
+                audience: Some(audience),
                 service_account_key,
                 target_audience,
                 scopes: None,
@@ -587,7 +587,7 @@ pub(crate) mod idtoken {
                     .map_err(BuilderError::parsing)?;
             Ok(ServiceAccountTokenProvider {
                 service_account_key,
-                audience: Some(OAUTH2_TOKEN_SERVER_URL.to_string()),
+                audience: OAUTH2_TOKEN_SERVER_URL.to_string(),
                 target_audience,
                 token_server_url: self.token_server_url,
             })
