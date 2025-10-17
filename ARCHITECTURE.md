@@ -128,12 +128,6 @@ additional complexity in the implementation, and some fields that are
 incorrectly documented discouraged us from pursuing the setters for these
 fields.
 
-### No automatic retries
-
-The client libraries do not automatically enable retries. The application can
-provide a default retry policy that applies to all requests in a client, but
-must provide this policy as part of the client initialization.
-
 ### Localize error messages
 
 The error messages (if any) are delivered without change from the service. If
