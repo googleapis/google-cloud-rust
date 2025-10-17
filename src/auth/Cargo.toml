@@ -34,19 +34,19 @@ rust-version.workspace = true
 rustc_version.workspace = true
 
 [dependencies]
-async-trait.workspace  = true
-base64.workspace       = true
-http.workspace         = true
-reqwest                = { workspace = true, features = ["json", "rustls-tls"] }
-rustls                 = { workspace = true, features = ["logging", "ring", "std", "tls12"] }
-rustls-pemfile         = { workspace = true, features = ["std"] }
-serde.workspace        = true
-serde_json.workspace   = true
-thiserror.workspace    = true
-time                   = { workspace = true, features = ["serde"] }
-tokio                  = { workspace = true, features = ["fs", "process"] }
-bon.workspace          = true
-jsonwebtoken.workspace = true
+async-trait.workspace = true
+base64.workspace      = true
+http.workspace        = true
+reqwest               = { workspace = true, features = ["json", "rustls-tls"] }
+rustls                = { workspace = true, features = ["logging", "ring", "std", "tls12"] }
+rustls-pemfile        = { workspace = true, features = ["std"] }
+serde.workspace       = true
+serde_json.workspace  = true
+thiserror.workspace   = true
+time                  = { workspace = true, features = ["serde"] }
+tokio                 = { workspace = true, features = ["fs", "process"] }
+bon.workspace         = true
+jsonwebtoken          = { workspace = true, features = ["rust_crypto"] }
 # Local dependencies
 gax.workspace = true
 

@@ -135,29 +135,23 @@ fn instant_from_epoch_seconds(secs: u64) -> Option<Instant> {
 #[derive(Debug)]
 pub(crate) struct Verifier {
     jwk_client: JwkClient,
-    audience: Option<String>,
+    audience: String,
     email: Option<String>,
     jwks_url: Option<String>,
     clock_skew: Duration,
 }
 
-impl Default for Verifier {
-    fn default() -> Self {
+impl Verifier {
+    /// Create a [`Verifier`] for ID Tokens with a tartget audience
+    /// for the token verification.
+    pub fn new<S: Into<String>>(audience: S) -> Self {
         Self {
             jwk_client: JwkClient::new(),
-            audience: None,
+            audience: audience.into(),
             email: None,
             jwks_url: None,
             clock_skew: Duration::from_secs(10),
         }
-    }
-}
-
-impl Verifier {
-    /// Sets the audience for the token verification.
-    pub fn with_audience<S: Into<String>>(mut self, audience: S) -> Self {
-        self.audience = Some(audience.into());
-        self
     }
 
     /// Sets the email for the token verification.
@@ -179,10 +173,8 @@ impl Verifier {
     }
 
     /// Verifies the ID token and returns the claims.
-    pub async fn verify<S: Into<String>>(&self, token: S) -> Result<Map<String, Value>> {
-        let token = token.into();
-
-        let header = jsonwebtoken::decode_header(token.clone())
+    pub async fn verify(&self, token: &str) -> Result<Map<String, Value>> {
+        let header = jsonwebtoken::decode_header(token)
             .map_err(|e| CredentialsError::new(false, "failed to decode JWT header", e))?;
 
         let key_id = header
@@ -192,9 +184,8 @@ impl Verifier {
         let mut validation = Validation::new(header.alg);
         validation.leeway = self.clock_skew.as_secs();
         validation.set_issuer(&["https://accounts.google.com", "accounts.google.com"]);
-        if let Some(audience) = self.audience.clone() {
-            validation.set_audience(&[audience]);
-        }
+        validation.set_audience(std::slice::from_ref(&self.audience));
+
         let expected_email = self.email.clone();
         let jwks_url = self.jwks_url.clone();
 
@@ -327,12 +318,12 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let token = generate_test_id_token(audience);
+        let token = token.as_str();
 
-        let verifier = Verifier::default()
-            .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_audience(audience);
+        let verifier =
+            Verifier::new(audience).with_jwks_url(format!("http://{}/certs", server.addr()));
 
-        let claims = verifier.verify(token.clone()).await?;
+        let claims = verifier.verify(token).await?;
         assert!(!claims.is_empty());
 
         let claims = verifier.verify(token).await?;
@@ -352,10 +343,10 @@ pub(crate) mod tests {
 
         let audience = "https://example.com";
         let token = generate_test_id_token(audience);
+        let token = token.as_str();
 
-        let verifier = Verifier::default()
-            .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_audience("https://wrong-audience.com");
+        let verifier = Verifier::new("https://wrong-audience.com")
+            .with_jwks_url(format!("http://{}/certs", server.addr()));
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
@@ -377,10 +368,10 @@ pub(crate) mod tests {
         let mut claims = HashMap::new();
         claims.insert("iss", "https://wrong-issuer.com".into());
         let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
 
-        let verifier = Verifier::default()
-            .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_audience(audience);
+        let verifier =
+            Verifier::new(audience).with_jwks_url(format!("http://{}/certs", server.addr()));
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
@@ -403,10 +394,10 @@ pub(crate) mod tests {
         let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
         claims.insert("exp", (now.as_secs() - 3600).into()); // expired 1 hour ago
         let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
 
-        let verifier = Verifier::default()
-            .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_audience(audience);
+        let verifier =
+            Verifier::new(audience).with_jwks_url(format!("http://{}/certs", server.addr()));
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
@@ -430,10 +421,10 @@ pub(crate) mod tests {
         claims.insert("email", email.into());
         claims.insert("email_verified", false.into());
         let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
 
-        let verifier = Verifier::default()
+        let verifier = Verifier::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_audience(audience)
             .with_email(email);
 
         let result = verifier.verify(token).await;
@@ -463,10 +454,10 @@ pub(crate) mod tests {
         claims.insert("email", email.into());
         claims.insert("email_verified", true.into());
         let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
 
-        let verifier = Verifier::default()
+        let verifier = Verifier::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_audience(audience)
             .with_email("wrong@example.com");
 
         let result = verifier.verify(token).await;
@@ -491,10 +482,10 @@ pub(crate) mod tests {
         claims.insert("email", email.into());
         claims.insert("email_verified", true.into());
         let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
 
-        let verifier = Verifier::default()
+        let verifier = Verifier::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_audience(audience)
             .with_email(email);
 
         let result = verifier.verify(token).await;
