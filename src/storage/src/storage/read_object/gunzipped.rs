@@ -161,7 +161,7 @@ mod tests {
         let chunk = response.next().await;
         assert!(matches!(&chunk, Some(Err(_))), "{chunk:?}");
         let chunk = response.next().await;
-        assert!(matches!(&chunk, None), "{chunk:?}");
+        assert!(&chunk.is_none(), "{chunk:?}");
         Ok(())
     }
 }
