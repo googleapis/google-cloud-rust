@@ -34,8 +34,10 @@ impl std::fmt::Debug for Compliance {
 
 impl Compliance {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -53,7 +55,7 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/repeat:body".to_string();
                 let path_template = "/v1beta1/repeat:body";
@@ -70,7 +72,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -90,7 +93,7 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/repeat:bodyinfo".to_string();
                 let path_template = "/v1beta1/repeat:bodyinfo";
@@ -127,7 +130,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -147,7 +151,7 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/repeat:query".to_string();
                 let path_template = "/v1beta1/repeat:query";
@@ -196,7 +200,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -218,7 +223,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
         .or_else(|| {
             let path = format!(
                 "/v1beta1/repeat/{}/{}/{}/{}/{}:simplepath",
@@ -281,7 +286,8 @@ impl super::stub::Compliance for Compliance {
             }
             gax::error::Error::binding(BindingError { paths })
         })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -303,7 +309,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
         .or_else(|| {
             let path = format!(
                 "/v1beta1/repeat/{}/{}/bool/{}:pathresource",
@@ -400,7 +406,8 @@ impl super::stub::Compliance for Compliance {
             }
             gax::error::Error::binding(BindingError { paths })
         })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -422,7 +429,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/repeat/{}/{}:pathtrailingresource",
@@ -508,7 +515,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -528,7 +536,7 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/repeat:bodyput".to_string();
                 let path_template = "/v1beta1/repeat:bodyput";
@@ -545,7 +553,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -565,7 +574,7 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/repeat:bodypatch".to_string();
                 let path_template = "/v1beta1/repeat:bodypatch";
@@ -582,7 +591,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -602,7 +612,7 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::EnumResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/compliance/enum".to_string();
                 let path_template = "/v1beta1/compliance/enum";
@@ -620,7 +630,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -640,7 +651,7 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::EnumResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/compliance/enum".to_string();
                 let path_template = "/v1beta1/compliance/enum";
@@ -670,7 +681,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -692,7 +704,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -724,7 +736,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -746,7 +759,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -785,7 +798,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -807,7 +821,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -918,7 +932,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -940,7 +955,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -1099,7 +1114,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1121,7 +1137,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -1232,7 +1248,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1252,7 +1269,7 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
                 let path_template = "/v1beta1/operations";
@@ -1273,7 +1290,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1295,7 +1313,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -1330,7 +1348,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1352,7 +1371,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -1387,7 +1406,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1414,7 +1434,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -1449,7 +1469,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1482,8 +1503,10 @@ impl std::fmt::Debug for Echo {
 
 impl Echo {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -1502,7 +1525,7 @@ impl super::stub::Echo for Echo {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:echo".to_string();
                 let path_template = "/v1beta1/echo:echo";
@@ -1519,7 +1542,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1539,7 +1563,7 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::EchoErrorDetailsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:error-details".to_string();
                 let path_template = "/v1beta1/echo:error-details";
@@ -1556,7 +1580,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1576,7 +1601,7 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:failWithDetails".to_string();
                 let path_template = "/v1beta1/echo:failWithDetails";
@@ -1593,7 +1618,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1613,7 +1639,7 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::PagedExpandResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:pagedExpand".to_string();
                 let path_template = "/v1beta1/echo:pagedExpand";
@@ -1630,7 +1656,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1650,7 +1677,7 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::PagedExpandResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:pagedExpandLegacy".to_string();
                 let path_template = "/v1beta1/echo:pagedExpandLegacy";
@@ -1667,7 +1694,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1687,7 +1715,7 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::PagedExpandLegacyMappedResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:pagedExpandLegacyMapped".to_string();
                 let path_template = "/v1beta1/echo:pagedExpandLegacyMapped";
@@ -1704,7 +1732,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1724,7 +1753,7 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:wait".to_string();
                 let path_template = "/v1beta1/echo:wait";
@@ -1741,7 +1770,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1761,7 +1791,7 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::BlockResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:block".to_string();
                 let path_template = "/v1beta1/echo:block";
@@ -1778,7 +1808,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1800,7 +1831,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -1832,7 +1863,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1854,7 +1886,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -1893,7 +1925,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1915,7 +1948,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -2026,7 +2059,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2048,7 +2082,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -2207,7 +2241,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2229,7 +2264,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -2340,7 +2375,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2360,7 +2396,7 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
                 let path_template = "/v1beta1/operations";
@@ -2381,7 +2417,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2403,7 +2440,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2438,7 +2475,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2460,7 +2498,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2495,7 +2533,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2522,7 +2561,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -2557,7 +2596,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2606,8 +2646,10 @@ impl std::fmt::Debug for Identity {
 
 impl Identity {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -2625,7 +2667,7 @@ impl super::stub::Identity for Identity {
     ) -> Result<gax::response::Response<crate::model::User>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/users".to_string();
                 let path_template = "/v1beta1/users";
@@ -2642,7 +2684,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2664,7 +2707,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2693,7 +2736,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2715,7 +2759,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2762,7 +2806,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2784,7 +2829,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2813,7 +2858,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2838,7 +2884,7 @@ impl super::stub::Identity for Identity {
     ) -> Result<gax::response::Response<crate::model::ListUsersResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/users".to_string();
                 let path_template = "/v1beta1/users";
@@ -2857,7 +2903,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2879,7 +2926,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -2911,7 +2958,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2933,7 +2981,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2972,7 +3020,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2994,7 +3043,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -3105,7 +3154,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3127,7 +3177,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -3286,7 +3336,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3308,7 +3359,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -3419,7 +3470,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3439,7 +3491,7 @@ impl super::stub::Identity for Identity {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
                 let path_template = "/v1beta1/operations";
@@ -3460,7 +3512,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3482,7 +3535,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -3517,7 +3570,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3539,7 +3593,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -3574,7 +3628,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3601,7 +3656,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -3636,7 +3691,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3671,8 +3727,10 @@ impl std::fmt::Debug for Messaging {
 
 impl Messaging {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -3690,7 +3748,7 @@ impl super::stub::Messaging for Messaging {
     ) -> Result<gax::response::Response<crate::model::Room>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/rooms".to_string();
                 let path_template = "/v1beta1/rooms";
@@ -3707,7 +3765,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3729,7 +3788,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -3758,7 +3817,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3780,7 +3840,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -3827,7 +3887,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3849,7 +3910,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -3878,7 +3939,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3903,7 +3965,7 @@ impl super::stub::Messaging for Messaging {
     ) -> Result<gax::response::Response<crate::model::ListRoomsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/rooms".to_string();
                 let path_template = "/v1beta1/rooms";
@@ -3922,7 +3984,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3944,7 +4007,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/blurbs",
@@ -4005,7 +4068,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4027,7 +4091,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -4100,7 +4164,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4122,7 +4187,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -4231,7 +4296,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4253,7 +4319,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -4326,7 +4392,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4353,7 +4420,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/blurbs",
@@ -4418,7 +4485,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4440,7 +4508,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/blurbs:search",
@@ -4504,7 +4572,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4526,7 +4595,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -4558,7 +4627,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4580,7 +4650,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -4619,7 +4689,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4641,7 +4712,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -4752,7 +4823,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4774,7 +4846,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -4933,7 +5005,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4955,7 +5028,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -5066,7 +5139,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5086,7 +5160,7 @@ impl super::stub::Messaging for Messaging {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
                 let path_template = "/v1beta1/operations";
@@ -5107,7 +5181,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5129,7 +5204,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5164,7 +5239,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5186,7 +5262,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5221,7 +5297,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5248,7 +5325,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -5283,7 +5360,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5332,8 +5410,10 @@ impl std::fmt::Debug for SequenceService {
 
 impl SequenceService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -5351,7 +5431,7 @@ impl super::stub::SequenceService for SequenceService {
     ) -> Result<gax::response::Response<crate::model::Sequence>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/sequences".to_string();
                 let path_template = "/v1beta1/sequences";
@@ -5368,7 +5448,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5388,7 +5469,7 @@ impl super::stub::SequenceService for SequenceService {
     ) -> Result<gax::response::Response<crate::model::StreamingSequence>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/streamingSequences".to_string();
                 let path_template = "/v1beta1/streamingSequences";
@@ -5405,7 +5486,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5427,7 +5509,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5464,7 +5546,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5486,7 +5569,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5523,7 +5606,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5545,7 +5629,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5574,7 +5658,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5601,7 +5686,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -5633,7 +5718,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5655,7 +5741,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5694,7 +5780,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5716,7 +5803,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -5827,7 +5914,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5849,7 +5937,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -6008,7 +6096,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6030,7 +6119,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -6141,7 +6230,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6161,7 +6251,7 @@ impl super::stub::SequenceService for SequenceService {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
                 let path_template = "/v1beta1/operations";
@@ -6182,7 +6272,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6204,7 +6295,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6239,7 +6330,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6261,7 +6353,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6296,7 +6388,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6323,7 +6416,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -6358,7 +6451,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6393,8 +6487,10 @@ impl std::fmt::Debug for Testing {
 
 impl Testing {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -6412,7 +6508,7 @@ impl super::stub::Testing for Testing {
     ) -> Result<gax::response::Response<crate::model::Session>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/sessions".to_string();
                 let path_template = "/v1beta1/sessions";
@@ -6429,7 +6525,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6451,7 +6548,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6480,7 +6577,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6500,7 +6598,7 @@ impl super::stub::Testing for Testing {
     ) -> Result<gax::response::Response<crate::model::ListSessionsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/sessions".to_string();
                 let path_template = "/v1beta1/sessions";
@@ -6519,7 +6617,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6541,7 +6640,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6570,7 +6669,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6597,7 +6697,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:report",
@@ -6626,7 +6726,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6648,7 +6749,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/tests",
@@ -6679,7 +6780,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6701,7 +6803,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6740,7 +6842,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6767,7 +6870,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:check",
@@ -6811,7 +6914,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6833,7 +6937,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -6865,7 +6969,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6887,7 +6992,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6926,7 +7031,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6948,7 +7054,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -7059,7 +7165,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7081,7 +7188,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -7240,7 +7347,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7262,7 +7370,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -7373,7 +7481,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7393,7 +7502,7 @@ impl super::stub::Testing for Testing {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
                 let path_template = "/v1beta1/operations";
@@ -7414,7 +7523,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7436,7 +7546,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -7471,7 +7581,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7493,7 +7604,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -7528,7 +7639,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7555,7 +7667,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method, path_template) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -7590,7 +7702,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
-        let options = gax::options::internal::set_path_template(options, path_template);
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
