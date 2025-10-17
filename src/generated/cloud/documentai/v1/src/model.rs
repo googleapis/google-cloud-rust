@@ -183,6 +183,23 @@ pub struct Document {
     /// Document chunked based on chunking config.
     pub chunked_document: std::option::Option<crate::model::document::ChunkedDocument>,
 
+    /// The entity validation output for the document. This is the validation
+    /// output for `document.entities` field.
+    pub entity_validation_output:
+        std::option::Option<crate::model::document::EntityValidationOutput>,
+
+    /// A list of entity revisions. The entity revisions are appended to the
+    /// document in the processing order. This field can be used for comparing the
+    /// entity extraction results at different stages of the processing.
+    pub entities_revisions: std::vec::Vec<crate::model::document::EntitiesRevision>,
+
+    /// The entity revision id that `document.entities` field is based on.
+    /// If this field is set and `entities_revisions` is not empty, the entities in
+    /// `document.entities` field are the entities in the entity revision with this
+    /// id and `document.entity_validation_output` field is the
+    /// `entity_validation_output` field in this entity revision.
+    pub entities_revision_id: std::string::String,
+
     /// Original source document from the user.
     pub source: std::option::Option<crate::model::document::Source>,
 
@@ -348,6 +365,44 @@ impl Document {
         T: std::convert::Into<crate::model::document::ChunkedDocument>,
     {
         self.chunked_document = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [entity_validation_output][crate::model::Document::entity_validation_output].
+    pub fn set_entity_validation_output<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::document::EntityValidationOutput>,
+    {
+        self.entity_validation_output = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [entity_validation_output][crate::model::Document::entity_validation_output].
+    pub fn set_or_clear_entity_validation_output<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::document::EntityValidationOutput>,
+    {
+        self.entity_validation_output = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [entities_revisions][crate::model::Document::entities_revisions].
+    pub fn set_entities_revisions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::document::EntitiesRevision>,
+    {
+        use std::iter::Iterator;
+        self.entities_revisions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [entities_revision_id][crate::model::Document::entities_revision_id].
+    pub fn set_entities_revision_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.entities_revision_id = v.into();
         self
     }
 
@@ -5567,6 +5622,350 @@ pub mod document {
         }
     }
 
+    /// The output of the validation given the document and the validation rules.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EntityValidationOutput {
+        /// The result of each validation rule.
+        pub validation_results:
+            std::vec::Vec<crate::model::document::entity_validation_output::ValidationResult>,
+
+        /// The overall result of the validation, true if all applicable rules are
+        /// valid.
+        pub pass_all_rules: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EntityValidationOutput {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [validation_results][crate::model::document::EntityValidationOutput::validation_results].
+        pub fn set_validation_results<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::document::entity_validation_output::ValidationResult,
+                >,
+        {
+            use std::iter::Iterator;
+            self.validation_results = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [pass_all_rules][crate::model::document::EntityValidationOutput::pass_all_rules].
+        pub fn set_pass_all_rules<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.pass_all_rules = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for EntityValidationOutput {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.documentai.v1.Document.EntityValidationOutput"
+        }
+    }
+
+    /// Defines additional types related to [EntityValidationOutput].
+    pub mod entity_validation_output {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Validation result for a single validation rule.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ValidationResult {
+
+            /// The name of the validation rule.
+            pub rule_name: std::string::String,
+
+            /// The description of the validation rule.
+            pub rule_description: std::string::String,
+
+            /// The result of the validation rule.
+            pub validation_result_type: crate::model::document::entity_validation_output::validation_result::ValidationResultType,
+
+            /// The detailed information of the running the validation process using
+            /// the entity from the document based on the validation rule.
+            pub validation_details: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ValidationResult {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [rule_name][crate::model::document::entity_validation_output::ValidationResult::rule_name].
+            pub fn set_rule_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.rule_name = v.into();
+                self
+            }
+
+            /// Sets the value of [rule_description][crate::model::document::entity_validation_output::ValidationResult::rule_description].
+            pub fn set_rule_description<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.rule_description = v.into();
+                self
+            }
+
+            /// Sets the value of [validation_result_type][crate::model::document::entity_validation_output::ValidationResult::validation_result_type].
+            pub fn set_validation_result_type<T: std::convert::Into<crate::model::document::entity_validation_output::validation_result::ValidationResultType>>(mut self, v: T) -> Self{
+                self.validation_result_type = v.into();
+                self
+            }
+
+            /// Sets the value of [validation_details][crate::model::document::entity_validation_output::ValidationResult::validation_details].
+            pub fn set_validation_details<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.validation_details = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ValidationResult {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.documentai.v1.Document.EntityValidationOutput.ValidationResult"
+            }
+        }
+
+        /// Defines additional types related to [ValidationResult].
+        pub mod validation_result {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// The result of the validation rule.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum ValidationResultType {
+                /// The validation result type is unspecified.
+                Unspecified,
+                /// The validation is valid.
+                Valid,
+                /// The validation is invalid.
+                Invalid,
+                /// The validation is skipped.
+                Skipped,
+                /// The validation is not applicable.
+                NotApplicable,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [ValidationResultType::value] or
+                /// [ValidationResultType::name].
+                UnknownValue(validation_result_type::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod validation_result_type {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl ValidationResultType {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Valid => std::option::Option::Some(1),
+                        Self::Invalid => std::option::Option::Some(2),
+                        Self::Skipped => std::option::Option::Some(3),
+                        Self::NotApplicable => std::option::Option::Some(4),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("VALIDATION_RESULT_TYPE_UNSPECIFIED")
+                        }
+                        Self::Valid => std::option::Option::Some("VALIDATION_RESULT_TYPE_VALID"),
+                        Self::Invalid => {
+                            std::option::Option::Some("VALIDATION_RESULT_TYPE_INVALID")
+                        }
+                        Self::Skipped => {
+                            std::option::Option::Some("VALIDATION_RESULT_TYPE_SKIPPED")
+                        }
+                        Self::NotApplicable => {
+                            std::option::Option::Some("VALIDATION_RESULT_TYPE_NOT_APPLICABLE")
+                        }
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for ValidationResultType {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for ValidationResultType {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for ValidationResultType {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Valid,
+                        2 => Self::Invalid,
+                        3 => Self::Skipped,
+                        4 => Self::NotApplicable,
+                        _ => Self::UnknownValue(validation_result_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for ValidationResultType {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "VALIDATION_RESULT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                        "VALIDATION_RESULT_TYPE_VALID" => Self::Valid,
+                        "VALIDATION_RESULT_TYPE_INVALID" => Self::Invalid,
+                        "VALIDATION_RESULT_TYPE_SKIPPED" => Self::Skipped,
+                        "VALIDATION_RESULT_TYPE_NOT_APPLICABLE" => Self::NotApplicable,
+                        _ => Self::UnknownValue(validation_result_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for ValidationResultType {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Valid => serializer.serialize_i32(1),
+                        Self::Invalid => serializer.serialize_i32(2),
+                        Self::Skipped => serializer.serialize_i32(3),
+                        Self::NotApplicable => serializer.serialize_i32(4),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for ValidationResultType {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<ValidationResultType>::new(
+                        ".google.cloud.documentai.v1.Document.EntityValidationOutput.ValidationResult.ValidationResultType"))
+                }
+            }
+        }
+    }
+
+    /// Entity revision.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EntitiesRevision {
+        /// The revision id.
+        pub revision_id: std::string::String,
+
+        /// The entities in this revision.
+        pub entities: std::vec::Vec<crate::model::document::Entity>,
+
+        /// The entity validation output for this revision.
+        pub entity_validation_output:
+            std::option::Option<crate::model::document::EntityValidationOutput>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EntitiesRevision {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [revision_id][crate::model::document::EntitiesRevision::revision_id].
+        pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.revision_id = v.into();
+            self
+        }
+
+        /// Sets the value of [entities][crate::model::document::EntitiesRevision::entities].
+        pub fn set_entities<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::document::Entity>,
+        {
+            use std::iter::Iterator;
+            self.entities = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [entity_validation_output][crate::model::document::EntitiesRevision::entity_validation_output].
+        pub fn set_entity_validation_output<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::document::EntityValidationOutput>,
+        {
+            self.entity_validation_output = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entity_validation_output][crate::model::document::EntitiesRevision::entity_validation_output].
+        pub fn set_or_clear_entity_validation_output<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::document::EntityValidationOutput>,
+        {
+            self.entity_validation_output = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for EntitiesRevision {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.documentai.v1.Document.EntitiesRevision"
+        }
+    }
+
     /// Original source document from the user.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -9223,7 +9622,7 @@ pub mod train_processor_version_request {
     #[non_exhaustive]
     pub struct CustomDocumentExtractionOptions {
 
-        /// Training method to use for CDE training.
+        /// Optional. Training method to use for CDE training.
         pub training_method: crate::model::train_processor_version_request::custom_document_extraction_options::TrainingMethod,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
