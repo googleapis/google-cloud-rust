@@ -311,14 +311,27 @@ pub async fn uploads(
     builder: storage::builder::storage::ClientBuilder,
     bucket_name: &str,
 ) -> Result<()> {
+    // Run all the upload tests in parallel, using the same bucket.
+    // Creating a new bucket is rate-limited, and slow. Creating objects
+    // is relatively cheap.
     let client = builder.build().await?;
-    upload_buffered(&client, bucket_name).await?;
-    upload_buffered_resumable_known_size(&client, bucket_name).await?;
-    upload_buffered_resumable_unknown_size(&client, bucket_name).await?;
-    upload_unbuffered_resumable_known_size(&client, bucket_name).await?;
-    upload_unbuffered_resumable_unknown_size(&client, bucket_name).await?;
-    abort_upload_unbuffered(&client, bucket_name).await?;
-    abort_upload_buffered(&client, bucket_name).await?;
+    let pending: Vec<std::pin::Pin<Box<dyn Future<Output = Result<()>>>>> = vec![
+        Box::pin(upload_buffered(&client, bucket_name)),
+        Box::pin(upload_buffered_resumable_known_size(&client, bucket_name)),
+        Box::pin(upload_buffered_resumable_unknown_size(&client, bucket_name)),
+        Box::pin(upload_unbuffered_resumable_known_size(&client, bucket_name)),
+        Box::pin(upload_unbuffered_resumable_unknown_size(
+            &client,
+            bucket_name,
+        )),
+        Box::pin(abort_upload_unbuffered(&client, bucket_name)),
+        Box::pin(abort_upload_buffered(&client, bucket_name)),
+    ];
+    let result: Result<Vec<_>> = futures::future::join_all(pending.into_iter())
+        .await
+        .into_iter()
+        .collect();
+    let _ = result?;
     Ok(())
 }
 
