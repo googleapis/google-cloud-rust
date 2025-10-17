@@ -653,7 +653,7 @@ async fn abort_upload_unbuffered(
     client: &storage::client::Storage,
     bucket_name: &str,
 ) -> Result<()> {
-    let test_cases = abort_upload_test_cases(&client, bucket_name, "unbuffered");
+    let test_cases = abort_upload_test_cases(client, bucket_name, "unbuffered");
 
     for (number, AbortUploadTestCase { name, upload }) in test_cases.into_iter().enumerate() {
         tracing::info!("[{number}] {name}");
@@ -677,7 +677,7 @@ async fn abort_upload_unbuffered(
 }
 
 async fn abort_upload_buffered(client: &storage::client::Storage, bucket_name: &str) -> Result<()> {
-    let test_cases = abort_upload_test_cases(&client, bucket_name, "buffered");
+    let test_cases = abort_upload_test_cases(client, bucket_name, "buffered");
 
     for (number, AbortUploadTestCase { name, upload }) in test_cases.into_iter().enumerate() {
         tracing::info!("[{number}] {name}");
