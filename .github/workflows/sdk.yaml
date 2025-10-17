@@ -16,9 +16,9 @@ name: Rust SDK
 permissions: read-all
 on:
   push:
-    branches: [main]
+    branches: [main, 'release-*']
   pull_request:
-    branches: [main]
+    branches: [main, 'release-*']
   release:
     types: [published]
 env:
@@ -66,7 +66,7 @@ jobs:
         rust-version: ['rust:current']
     runs-on: ${{ matrix.os }}
     env:
-      RUSTDOCFLAGS: "-D warnings"
+      RUSTDOCFLAGS: '-D warnings'
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
@@ -410,13 +410,13 @@ jobs:
       - run: cargo doc --workspace
         if: matrix.rust-version == 'rust:current'
         env:
-          RUSTDOCFLAGS: "-D warnings"
+          RUSTDOCFLAGS: '-D warnings'
       - run: cargo doc
         # The nightly builds are slow for some reason, so we run a smaller set
         # of documents for them. We expect these will catch most problems.
         if: matrix.rust-version == 'rust:nightly'
         env:
-          RUSTDOCFLAGS: "-D warnings"
+          RUSTDOCFLAGS: '-D warnings'
       - run: mdbook build guide
       - run: mdbook test guide
       - name: Upload user guide
