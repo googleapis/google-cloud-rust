@@ -327,6 +327,17 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_storage_objects_compressed() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
+        let result = integration_tests::storage::read_gzip::test(&bucket).await;
+        if let Err(err) = storage_samples::cleanup_bucket(control, bucket.name).await {
+            tracing::error!("error cleaning up temporary bucket: {err:?}");
+        };
+        result
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_error_details_http() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
         integration_tests::error_details::error_details_http()
