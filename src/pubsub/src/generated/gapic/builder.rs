@@ -243,6 +243,17 @@ pub mod topic_admin {
             self.0.request.message_transforms = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [tags][crate::model::Topic::tags].
+        pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1157,6 +1168,17 @@ pub mod subscription_admin {
             self.0.request.message_transforms = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [tags][crate::model::Subscription::tags].
+        pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1828,6 +1850,17 @@ pub mod subscription_admin {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [tags][crate::model::CreateSnapshotRequest::tags].
+        pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }

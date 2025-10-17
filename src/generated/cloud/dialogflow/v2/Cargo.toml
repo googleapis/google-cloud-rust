@@ -31,10 +31,10 @@ default = [
     "agents",
     "answer-records",
     "contexts",
-    "conversations",
     "conversation-datasets",
     "conversation-models",
     "conversation-profiles",
+    "conversations",
     "documents",
     "encryption-spec-service",
     "entity-types",
@@ -44,8 +44,8 @@ default = [
     "intents",
     "knowledge-bases",
     "participants",
-    "sessions",
     "session-entity-types",
+    "sessions",
     "versions",
 ]
 # Enables `client::Agents` and all the types it depends on.

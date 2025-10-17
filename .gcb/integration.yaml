@@ -13,6 +13,7 @@
 # limitations under the License.
 
 options:
+  machineType: E2_HIGHCPU_8
   dynamic_substitutions: true
   substitutionOption: 'ALLOW_LOOSE'
   logging: CLOUD_LOGGING_ONLY
@@ -24,6 +25,7 @@ options:
     - SCCACHE_GCS_RW_MODE=READ_WRITE
     - SCCACHE_GCS_KEY_PREFIX=sccache/integration
     - RUSTC_WRAPPER=/workspace/.bin/sccache
+    - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
   - name: 'gcr.io/cloud-builders/curl'
@@ -38,8 +40,8 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -e
-      cargo build
-      cargo test --package integration-tests --features run-integration-tests
-      cargo test --package user-guide-samples --features run-integration-tests
-      cargo test --package storage-samples --features run-integration-tests
+      cargo test --features run-integration-tests \
+        --package integration-tests \
+        --package user-guide-samples \
+        --package storage-samples
       cargo build --package storage-samples --profile=test --all-features

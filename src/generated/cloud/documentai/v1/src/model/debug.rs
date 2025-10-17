@@ -46,6 +46,9 @@ impl std::fmt::Debug for super::Document {
         debug_struct.field("revisions", &self.revisions);
         debug_struct.field("document_layout", &self.document_layout);
         debug_struct.field("chunked_document", &self.chunked_document);
+        debug_struct.field("entity_validation_output", &self.entity_validation_output);
+        debug_struct.field("entities_revisions", &self.entities_revisions);
+        debug_struct.field("entities_revision_id", &self.entities_revision_id);
         debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -731,6 +734,45 @@ impl std::fmt::Debug for super::document::chunked_document::chunk::ChunkPageFoot
         let mut debug_struct = f.debug_struct("ChunkPageFooter");
         debug_struct.field("text", &self.text);
         debug_struct.field("page_span", &self.page_span);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::document::EntityValidationOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityValidationOutput");
+        debug_struct.field("validation_results", &self.validation_results);
+        debug_struct.field("pass_all_rules", &self.pass_all_rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::document::entity_validation_output::ValidationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValidationResult");
+        debug_struct.field("rule_name", &self.rule_name);
+        debug_struct.field("rule_description", &self.rule_description);
+        debug_struct.field("validation_result_type", &self.validation_result_type);
+        debug_struct.field("validation_details", &self.validation_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::document::EntitiesRevision {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntitiesRevision");
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field("entities", &self.entities);
+        debug_struct.field("entity_validation_output", &self.entity_validation_output);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -25,7 +25,7 @@ env:
   GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.90", "rust:nightly": "nightly" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.25.0" }'
   # Define the unstable flags once
-  UNSTABLE_CFGS: &unstable_cfgs "--cfg google_cloud_unstable_tracing"
+  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing'
 
 jobs:
   build:
@@ -71,7 +71,7 @@ jobs:
         rust-version: ['rust:current']
     runs-on: ${{ matrix.os }}
     env:
-      RUSTDOCFLAGS: "-D warnings"
+      RUSTDOCFLAGS: '-D warnings'
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
@@ -471,13 +471,13 @@ jobs:
       - run: cargo doc --workspace
         if: matrix.rust-version == 'rust:current'
         env:
-          RUSTDOCFLAGS: "-D warnings"
+          RUSTDOCFLAGS: '-D warnings'
       - run: cargo doc
         # The nightly builds are slow for some reason, so we run a smaller set
         # of documents for them. We expect these will catch most problems.
         if: matrix.rust-version == 'rust:nightly'
         env:
-          RUSTDOCFLAGS: "-D warnings"
+          RUSTDOCFLAGS: '-D warnings'
       - run: mdbook build guide
       - run: mdbook test guide
       - name: Upload user guide
@@ -503,6 +503,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
   lint:
     runs-on: ubuntu-24.04
     strategy:
@@ -594,9 +595,42 @@ jobs:
           sudo unzip -x /tmp/protoc.zip
           protoc --version
       - name: Regenerate all the code
-        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.3.1-0.20251013192847-e236c7d29736 refreshall
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.4.1-0.20251017142006-14a148302470 refreshall
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,
         # including the generator version and the googleapis SHA.
       - run: git diff --exit-code
+
+  compute-all-features:
+    strategy:
+      matrix:
+        os: ['ubuntu-24.04']
+        rust-version: ['rust:current']
+    runs-on: ${{ matrix.os }}
+    env:
+      RUSTDOCFLAGS: '-D warnings'
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup component add clippy
+      - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - name: lint
+        run: cargo clippy --all-features --all-targets --profile=test -p google-cloud-compute-v1
+      - name: docs
+        run: cargo doc --all-features -p google-cloud-compute-v1
+      - name: tests
+        run: cargo test --all-features -p google-cloud-compute-v1

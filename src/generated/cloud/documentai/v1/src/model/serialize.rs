@@ -109,6 +109,15 @@ impl serde::ser::Serialize for super::Document {
         if self.chunked_document.is_some() {
             state.serialize_entry("chunkedDocument", &self.chunked_document)?;
         }
+        if self.entity_validation_output.is_some() {
+            state.serialize_entry("entityValidationOutput", &self.entity_validation_output)?;
+        }
+        if !self.entities_revisions.is_empty() {
+            state.serialize_entry("entitiesRevisions", &self.entities_revisions)?;
+        }
+        if !self.entities_revision_id.is_empty() {
+            state.serialize_entry("entitiesRevisionId", &self.entities_revision_id)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2043,6 +2052,90 @@ impl serde::ser::Serialize for super::document::chunked_document::chunk::ChunkPa
         }
         if self.page_span.is_some() {
             state.serialize_entry("pageSpan", &self.page_span)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::document::EntityValidationOutput {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.validation_results.is_empty() {
+            state.serialize_entry("validationResults", &self.validation_results)?;
+        }
+        if !wkt::internal::is_default(&self.pass_all_rules) {
+            state.serialize_entry("passAllRules", &self.pass_all_rules)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::document::entity_validation_output::ValidationResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.rule_name.is_empty() {
+            state.serialize_entry("ruleName", &self.rule_name)?;
+        }
+        if !self.rule_description.is_empty() {
+            state.serialize_entry("ruleDescription", &self.rule_description)?;
+        }
+        if !wkt::internal::is_default(&self.validation_result_type) {
+            state.serialize_entry("validationResultType", &self.validation_result_type)?;
+        }
+        if !self.validation_details.is_empty() {
+            state.serialize_entry("validationDetails", &self.validation_details)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::document::EntitiesRevision {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.revision_id.is_empty() {
+            state.serialize_entry("revisionId", &self.revision_id)?;
+        }
+        if !self.entities.is_empty() {
+            state.serialize_entry("entities", &self.entities)?;
+        }
+        if self.entity_validation_output.is_some() {
+            state.serialize_entry("entityValidationOutput", &self.entity_validation_output)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

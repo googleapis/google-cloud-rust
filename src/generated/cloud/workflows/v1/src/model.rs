@@ -529,6 +529,13 @@ impl Workflow {
     ///
     /// Note that all the setters affecting `source_code` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use google_cloud_workflows_v1::model::workflow;
+    /// let x = Workflow::new().set_source_code(Some(workflow::SourceCode::SourceContents("example".to_string())));
+    /// ```
     pub fn set_source_code<
         T: std::convert::Into<std::option::Option<crate::model::workflow::SourceCode>>,
     >(
@@ -555,6 +562,13 @@ impl Workflow {
     ///
     /// Note that all the setters affecting `source_code` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_source_contents("example");
+    /// assert!(x.source_contents().is_some());
+    /// ```
     pub fn set_source_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_code =
             std::option::Option::Some(crate::model::workflow::SourceCode::SourceContents(v.into()));

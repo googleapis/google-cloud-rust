@@ -16,6 +16,8 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
+//! This client library was generated from the "20250930" revision of the API.
+//!
 //!
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
@@ -31,20 +33,114 @@
 //!
 //! # Available Clients
 //!
+//! * [AcceleratorTypes](client/struct.AcceleratorTypes.html)
+//! * [Addresses](client/struct.Addresses.html)
+//! * [Autoscalers](client/struct.Autoscalers.html)
+//! * [BackendBuckets](client/struct.BackendBuckets.html)
+//! * [BackendServices](client/struct.BackendServices.html)
+//! * [CrossSiteNetworks](client/struct.CrossSiteNetworks.html)
+//! * [DiskTypes](client/struct.DiskTypes.html)
+//! * [Disks](client/struct.Disks.html)
+//! * [ExternalVpnGateways](client/struct.ExternalVpnGateways.html)
+//! * [FirewallPolicies](client/struct.FirewallPolicies.html)
+//! * [Firewalls](client/struct.Firewalls.html)
+//! * [ForwardingRules](client/struct.ForwardingRules.html)
+//! * [FutureReservations](client/struct.FutureReservations.html)
+//! * [GlobalAddresses](client/struct.GlobalAddresses.html)
+//! * [GlobalForwardingRules](client/struct.GlobalForwardingRules.html)
+//! * [GlobalNetworkEndpointGroups](client/struct.GlobalNetworkEndpointGroups.html)
 //! * [GlobalOperations](client/struct.GlobalOperations.html)
 //! * [GlobalOrganizationOperations](client/struct.GlobalOrganizationOperations.html)
+//! * [GlobalPublicDelegatedPrefixes](client/struct.GlobalPublicDelegatedPrefixes.html)
+//! * [HealthChecks](client/struct.HealthChecks.html)
+//! * [HttpHealthChecks](client/struct.HttpHealthChecks.html)
+//! * [HttpsHealthChecks](client/struct.HttpsHealthChecks.html)
+//! * [ImageFamilyViews](client/struct.ImageFamilyViews.html)
 //! * [Images](client/struct.Images.html)
 //! * [InstanceGroupManagerResizeRequests](client/struct.InstanceGroupManagerResizeRequests.html)
 //! * [InstanceGroupManagers](client/struct.InstanceGroupManagers.html)
 //! * [InstanceGroups](client/struct.InstanceGroups.html)
+//! * [InstanceSettings](client/struct.InstanceSettings.html)
+//! * [InstanceTemplates](client/struct.InstanceTemplates.html)
 //! * [Instances](client/struct.Instances.html)
+//! * [InstantSnapshots](client/struct.InstantSnapshots.html)
+//! * [InterconnectAttachmentGroups](client/struct.InterconnectAttachmentGroups.html)
+//! * [InterconnectAttachments](client/struct.InterconnectAttachments.html)
+//! * [InterconnectGroups](client/struct.InterconnectGroups.html)
+//! * [InterconnectLocations](client/struct.InterconnectLocations.html)
+//! * [InterconnectRemoteLocations](client/struct.InterconnectRemoteLocations.html)
+//! * [Interconnects](client/struct.Interconnects.html)
+//! * [LicenseCodes](client/struct.LicenseCodes.html)
+//! * [Licenses](client/struct.Licenses.html)
+//! * [MachineImages](client/struct.MachineImages.html)
 //! * [MachineTypes](client/struct.MachineTypes.html)
+//! * [NetworkAttachments](client/struct.NetworkAttachments.html)
+//! * [NetworkEdgeSecurityServices](client/struct.NetworkEdgeSecurityServices.html)
+//! * [NetworkEndpointGroups](client/struct.NetworkEndpointGroups.html)
+//! * [NetworkFirewallPolicies](client/struct.NetworkFirewallPolicies.html)
+//! * [NetworkProfiles](client/struct.NetworkProfiles.html)
+//! * [Networks](client/struct.Networks.html)
+//! * [NodeGroups](client/struct.NodeGroups.html)
+//! * [NodeTemplates](client/struct.NodeTemplates.html)
+//! * [NodeTypes](client/struct.NodeTypes.html)
+//! * [OrganizationSecurityPolicies](client/struct.OrganizationSecurityPolicies.html)
+//! * [PacketMirrorings](client/struct.PacketMirrorings.html)
+//! * [PreviewFeatures](client/struct.PreviewFeatures.html)
 //! * [Projects](client/struct.Projects.html)
+//! * [PublicAdvertisedPrefixes](client/struct.PublicAdvertisedPrefixes.html)
+//! * [PublicDelegatedPrefixes](client/struct.PublicDelegatedPrefixes.html)
+//! * [RegionAutoscalers](client/struct.RegionAutoscalers.html)
+//! * [RegionBackendServices](client/struct.RegionBackendServices.html)
+//! * [RegionCommitments](client/struct.RegionCommitments.html)
+//! * [RegionDiskTypes](client/struct.RegionDiskTypes.html)
+//! * [RegionDisks](client/struct.RegionDisks.html)
+//! * [RegionHealthCheckServices](client/struct.RegionHealthCheckServices.html)
+//! * [RegionHealthChecks](client/struct.RegionHealthChecks.html)
 //! * [RegionInstanceGroupManagers](client/struct.RegionInstanceGroupManagers.html)
 //! * [RegionInstanceGroups](client/struct.RegionInstanceGroups.html)
 //! * [RegionInstanceTemplates](client/struct.RegionInstanceTemplates.html)
 //! * [RegionInstances](client/struct.RegionInstances.html)
+//! * [RegionInstantSnapshots](client/struct.RegionInstantSnapshots.html)
+//! * [RegionNetworkEndpointGroups](client/struct.RegionNetworkEndpointGroups.html)
+//! * [RegionNetworkFirewallPolicies](client/struct.RegionNetworkFirewallPolicies.html)
+//! * [RegionNotificationEndpoints](client/struct.RegionNotificationEndpoints.html)
 //! * [RegionOperations](client/struct.RegionOperations.html)
+//! * [RegionSecurityPolicies](client/struct.RegionSecurityPolicies.html)
+//! * [RegionSslCertificates](client/struct.RegionSslCertificates.html)
+//! * [RegionSslPolicies](client/struct.RegionSslPolicies.html)
+//! * [RegionTargetHttpProxies](client/struct.RegionTargetHttpProxies.html)
+//! * [RegionTargetHttpsProxies](client/struct.RegionTargetHttpsProxies.html)
+//! * [RegionTargetTcpProxies](client/struct.RegionTargetTcpProxies.html)
+//! * [RegionUrlMaps](client/struct.RegionUrlMaps.html)
+//! * [RegionZones](client/struct.RegionZones.html)
+//! * [Regions](client/struct.Regions.html)
+//! * [ReservationBlocks](client/struct.ReservationBlocks.html)
+//! * [ReservationSubBlocks](client/struct.ReservationSubBlocks.html)
+//! * [Reservations](client/struct.Reservations.html)
+//! * [ResourcePolicies](client/struct.ResourcePolicies.html)
+//! * [Routers](client/struct.Routers.html)
+//! * [Routes](client/struct.Routes.html)
+//! * [SecurityPolicies](client/struct.SecurityPolicies.html)
+//! * [ServiceAttachments](client/struct.ServiceAttachments.html)
+//! * [SnapshotSettings](client/struct.SnapshotSettings.html)
+//! * [Snapshots](client/struct.Snapshots.html)
+//! * [SslCertificates](client/struct.SslCertificates.html)
+//! * [SslPolicies](client/struct.SslPolicies.html)
+//! * [StoragePoolTypes](client/struct.StoragePoolTypes.html)
+//! * [StoragePools](client/struct.StoragePools.html)
+//! * [Subnetworks](client/struct.Subnetworks.html)
+//! * [TargetGrpcProxies](client/struct.TargetGrpcProxies.html)
+//! * [TargetHttpProxies](client/struct.TargetHttpProxies.html)
+//! * [TargetHttpsProxies](client/struct.TargetHttpsProxies.html)
+//! * [TargetInstances](client/struct.TargetInstances.html)
+//! * [TargetPools](client/struct.TargetPools.html)
+//! * [TargetSslProxies](client/struct.TargetSslProxies.html)
+//! * [TargetTcpProxies](client/struct.TargetTcpProxies.html)
+//! * [TargetVpnGateways](client/struct.TargetVpnGateways.html)
+//! * [UrlMaps](client/struct.UrlMaps.html)
+//! * [VpnGateways](client/struct.VpnGateways.html)
+//! * [VpnTunnels](client/struct.VpnTunnels.html)
+//! * [WireGroups](client/struct.WireGroups.html)
 //! * [ZoneOperations](client/struct.ZoneOperations.html)
 //! * [Zones](client/struct.Zones.html)
 
@@ -76,40 +172,228 @@ pub(crate) mod transport;
 
 /// The default host used by the service.
 #[cfg(any(
+    feature = "accelerator-types",
+    feature = "addresses",
+    feature = "autoscalers",
+    feature = "backend-buckets",
+    feature = "backend-services",
+    feature = "cross-site-networks",
+    feature = "disk-types",
+    feature = "disks",
+    feature = "external-vpn-gateways",
+    feature = "firewall-policies",
+    feature = "firewalls",
+    feature = "forwarding-rules",
+    feature = "future-reservations",
+    feature = "global-addresses",
+    feature = "global-forwarding-rules",
+    feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
+    feature = "global-public-delegated-prefixes",
+    feature = "health-checks",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
+    feature = "image-family-views",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
+    feature = "instance-settings",
+    feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshots",
+    feature = "interconnect-attachment-groups",
+    feature = "interconnect-attachments",
+    feature = "interconnect-groups",
+    feature = "interconnect-locations",
+    feature = "interconnect-remote-locations",
+    feature = "interconnects",
+    feature = "license-codes",
+    feature = "licenses",
+    feature = "machine-images",
     feature = "machine-types",
+    feature = "network-attachments",
+    feature = "network-edge-security-services",
+    feature = "network-endpoint-groups",
+    feature = "network-firewall-policies",
+    feature = "network-profiles",
+    feature = "networks",
+    feature = "node-groups",
+    feature = "node-templates",
+    feature = "node-types",
+    feature = "organization-security-policies",
+    feature = "packet-mirrorings",
+    feature = "preview-features",
     feature = "projects",
+    feature = "public-advertised-prefixes",
+    feature = "public-delegated-prefixes",
+    feature = "region-autoscalers",
+    feature = "region-backend-services",
+    feature = "region-commitments",
+    feature = "region-disk-types",
+    feature = "region-disks",
+    feature = "region-health-check-services",
+    feature = "region-health-checks",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshots",
+    feature = "region-network-endpoint-groups",
+    feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
     feature = "region-operations",
+    feature = "region-security-policies",
+    feature = "region-ssl-certificates",
+    feature = "region-ssl-policies",
+    feature = "region-target-http-proxies",
+    feature = "region-target-https-proxies",
+    feature = "region-target-tcp-proxies",
+    feature = "region-url-maps",
+    feature = "region-zones",
+    feature = "regions",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
+    feature = "reservations",
+    feature = "resource-policies",
+    feature = "routers",
+    feature = "routes",
+    feature = "security-policies",
+    feature = "service-attachments",
+    feature = "snapshot-settings",
+    feature = "snapshots",
+    feature = "ssl-certificates",
+    feature = "ssl-policies",
+    feature = "storage-pool-types",
+    feature = "storage-pools",
+    feature = "subnetworks",
+    feature = "target-grpc-proxies",
+    feature = "target-http-proxies",
+    feature = "target-https-proxies",
+    feature = "target-instances",
+    feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "target-vpn-gateways",
+    feature = "url-maps",
+    feature = "vpn-gateways",
+    feature = "vpn-tunnels",
+    feature = "wire-groups",
     feature = "zone-operations",
     feature = "zones",
 ))]
 const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
 
 #[cfg(any(
+    feature = "accelerator-types",
+    feature = "addresses",
+    feature = "autoscalers",
+    feature = "backend-buckets",
+    feature = "backend-services",
+    feature = "cross-site-networks",
+    feature = "disk-types",
+    feature = "disks",
+    feature = "external-vpn-gateways",
+    feature = "firewall-policies",
+    feature = "firewalls",
+    feature = "forwarding-rules",
+    feature = "future-reservations",
+    feature = "global-addresses",
+    feature = "global-forwarding-rules",
+    feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
+    feature = "global-public-delegated-prefixes",
+    feature = "health-checks",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
+    feature = "image-family-views",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
     feature = "instance-groups",
+    feature = "instance-settings",
+    feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshots",
+    feature = "interconnect-attachment-groups",
+    feature = "interconnect-attachments",
+    feature = "interconnect-groups",
+    feature = "interconnect-locations",
+    feature = "interconnect-remote-locations",
+    feature = "interconnects",
+    feature = "license-codes",
+    feature = "licenses",
+    feature = "machine-images",
     feature = "machine-types",
+    feature = "network-attachments",
+    feature = "network-edge-security-services",
+    feature = "network-endpoint-groups",
+    feature = "network-firewall-policies",
+    feature = "network-profiles",
+    feature = "networks",
+    feature = "node-groups",
+    feature = "node-templates",
+    feature = "node-types",
+    feature = "organization-security-policies",
+    feature = "packet-mirrorings",
+    feature = "preview-features",
     feature = "projects",
+    feature = "public-advertised-prefixes",
+    feature = "public-delegated-prefixes",
+    feature = "region-autoscalers",
+    feature = "region-backend-services",
+    feature = "region-commitments",
+    feature = "region-disk-types",
+    feature = "region-disks",
+    feature = "region-health-check-services",
+    feature = "region-health-checks",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshots",
+    feature = "region-network-endpoint-groups",
+    feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
     feature = "region-operations",
+    feature = "region-security-policies",
+    feature = "region-ssl-certificates",
+    feature = "region-ssl-policies",
+    feature = "region-target-http-proxies",
+    feature = "region-target-https-proxies",
+    feature = "region-target-tcp-proxies",
+    feature = "region-url-maps",
+    feature = "region-zones",
+    feature = "regions",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
+    feature = "reservations",
+    feature = "resource-policies",
+    feature = "routers",
+    feature = "routes",
+    feature = "security-policies",
+    feature = "service-attachments",
+    feature = "snapshot-settings",
+    feature = "snapshots",
+    feature = "ssl-certificates",
+    feature = "ssl-policies",
+    feature = "storage-pool-types",
+    feature = "storage-pools",
+    feature = "subnetworks",
+    feature = "target-grpc-proxies",
+    feature = "target-http-proxies",
+    feature = "target-https-proxies",
+    feature = "target-instances",
+    feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "target-vpn-gateways",
+    feature = "url-maps",
+    feature = "vpn-gateways",
+    feature = "vpn-tunnels",
+    feature = "wire-groups",
     feature = "zone-operations",
     feature = "zones",
 ))]

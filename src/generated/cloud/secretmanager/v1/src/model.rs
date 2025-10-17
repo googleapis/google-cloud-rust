@@ -481,6 +481,14 @@ impl Secret {
     ///
     /// Note that all the setters affecting `expiration` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_secretmanager_v1::model::secret;
+    /// use wkt::Timestamp;
+    /// let x = Secret::new().set_expiration(Some(secret::Expiration::ExpireTime(Timestamp::default().into())));
+    /// ```
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::secret::Expiration>>,
     >(
@@ -507,6 +515,15 @@ impl Secret {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use wkt::Timestamp;
+    /// let x = Secret::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// assert!(x.expire_time().is_some());
+    /// assert!(x.ttl().is_none());
+    /// ```
     pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -532,6 +549,15 @@ impl Secret {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use wkt::Duration;
+    /// let x = Secret::new().set_ttl(Duration::default()/* use setters */);
+    /// assert!(x.ttl().is_some());
+    /// assert!(x.expire_time().is_none());
+    /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
         self.expiration =
             std::option::Option::Some(crate::model::secret::Expiration::Ttl(v.into()));
@@ -1080,6 +1106,14 @@ impl Replication {
     ///
     /// Note that all the setters affecting `replication` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Replication;
+    /// use google_cloud_secretmanager_v1::model::replication;
+    /// use google_cloud_secretmanager_v1::model::replication::Automatic;
+    /// let x = Replication::new().set_replication(Some(replication::Replication::Automatic(Automatic::default().into())));
+    /// ```
     pub fn set_replication<
         T: std::convert::Into<std::option::Option<crate::model::replication::Replication>>,
     >(
@@ -1108,6 +1142,15 @@ impl Replication {
     ///
     /// Note that all the setters affecting `replication` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Replication;
+    /// use google_cloud_secretmanager_v1::model::replication::Automatic;
+    /// let x = Replication::new().set_automatic(Automatic::default()/* use setters */);
+    /// assert!(x.automatic().is_some());
+    /// assert!(x.user_managed().is_none());
+    /// ```
     pub fn set_automatic<
         T: std::convert::Into<std::boxed::Box<crate::model::replication::Automatic>>,
     >(
@@ -1137,6 +1180,15 @@ impl Replication {
     ///
     /// Note that all the setters affecting `replication` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Replication;
+    /// use google_cloud_secretmanager_v1::model::replication::UserManaged;
+    /// let x = Replication::new().set_user_managed(UserManaged::default()/* use setters */);
+    /// assert!(x.user_managed().is_some());
+    /// assert!(x.automatic().is_none());
+    /// ```
     pub fn set_user_managed<
         T: std::convert::Into<std::boxed::Box<crate::model::replication::UserManaged>>,
     >(
@@ -1482,6 +1534,14 @@ impl ReplicationStatus {
     ///
     /// Note that all the setters affecting `replication_status` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
+    /// use google_cloud_secretmanager_v1::model::replication_status;
+    /// use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
+    /// let x = ReplicationStatus::new().set_replication_status(Some(replication_status::ReplicationStatus::Automatic(AutomaticStatus::default().into())));
+    /// ```
     pub fn set_replication_status<
         T: std::convert::Into<
                 std::option::Option<crate::model::replication_status::ReplicationStatus>,
@@ -1515,6 +1575,15 @@ impl ReplicationStatus {
     ///
     /// Note that all the setters affecting `replication_status` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
+    /// use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
+    /// let x = ReplicationStatus::new().set_automatic(AutomaticStatus::default()/* use setters */);
+    /// assert!(x.automatic().is_some());
+    /// assert!(x.user_managed().is_none());
+    /// ```
     pub fn set_automatic<
         T: std::convert::Into<std::boxed::Box<crate::model::replication_status::AutomaticStatus>>,
     >(
@@ -1548,6 +1617,15 @@ impl ReplicationStatus {
     ///
     /// Note that all the setters affecting `replication_status` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
+    /// use google_cloud_secretmanager_v1::model::replication_status::UserManagedStatus;
+    /// let x = ReplicationStatus::new().set_user_managed(UserManagedStatus::default()/* use setters */);
+    /// assert!(x.user_managed().is_some());
+    /// assert!(x.automatic().is_none());
+    /// ```
     pub fn set_user_managed<
         T: std::convert::Into<std::boxed::Box<crate::model::replication_status::UserManagedStatus>>,
     >(
