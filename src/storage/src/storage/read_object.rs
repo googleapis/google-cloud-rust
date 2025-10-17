@@ -360,6 +360,33 @@ where
         self
     }
 
+    /// Enables automatic decompression.
+    ///
+    /// The Cloud Storage service [automatically decompresses] objects
+    /// with `content_encoding == "gzip"` during reads. The client library
+    /// disables this behavior by default, as it is not possible to
+    /// perform ranged reads or to resume interrupted downloads if automatic
+    /// decompression is enabled.
+    ///
+    /// Use this option to enable automatic decompression.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_automatic_decompression(true)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_automatic_decompression(mut self, v: bool) -> Self {
+        self.options.automatic_decompression = v;
+        self
+    }
+
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
         self.stub.read_object(self.request, self.options).await
@@ -429,16 +456,21 @@ impl Reader {
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
-            )
+            );
+
+        let builder = if self.options.automatic_decompression {
+            builder
+        } else {
             // Disable decompressive transcoding: https://cloud.google.com/storage/docs/transcoding
             //
             // The default is to decompress objects that have `contentEncoding == "gzip"`. This header
             // tells Cloud Storage to disable automatic decompression. It has no effect on objects
             // with a different `contentEncoding` value.
-            .header(
+            builder.header(
                 "accept-encoding",
                 reqwest::header::HeaderValue::from_static("gzip"),
-            );
+            )
+        };
 
         // Add the optional query parameters.
         let builder = if self.request.generation != 0 {
@@ -994,6 +1026,31 @@ mod tests {
                 "{request:?}"
             );
         }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_automatic_decompression_headers() -> Result {
+        // The API takes the unencoded byte array.
+        let inner = test_inner_client(test_builder());
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .with_automatic_decompression(true);
+        let request = http_request_builder(inner, builder).await?.build()?;
+
+        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(
+            request.url().as_str(),
+            "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+
+        let headers = request.headers();
+        assert!(headers.get("accept-encoding").is_none(), "{request:?}");
         Ok(())
     }
 
