@@ -33,6 +33,17 @@ mod info {
             ac.grpc_header_value()
         };
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "storage";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "storage";
+            info
+        };
+    }
 }
 
 /// Implements [StorageControl](super::stub::StorageControl) using a Tonic-generated client.
@@ -51,7 +62,15 @@ impl std::fmt::Debug for StorageControl {
 
 impl StorageControl {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_enabled {
+            inner.with_instrumentation(&info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
