@@ -26,8 +26,8 @@ pub mod anonymous;
 pub mod api_key_credentials;
 pub mod external_account;
 pub(crate) mod external_account_sources;
-#[allow(dead_code)]
-pub(crate) mod idtoken;
+#[cfg(google_cloud_unstable_id_token)]
+pub mod idtoken;
 pub mod impersonated;
 pub(crate) mod internal;
 pub mod mds;
