@@ -95,6 +95,20 @@ Cloud Shell.
    [create a secret] and rerun the program, and you should see the secret
    printed in the output.
 
+   You might see a "no space left on device" error. Run the following to remove
+   build artifacts:
+
+   ```shell
+   cargo clean
+   ```
+
+   Alternatively, you can build in release mode, which should also use less disk
+   space:
+
+   ```shell
+   cargo build --release
+   ```
+
 <!-- markdownlint-enable MD029 -->
 
 [authorize cloud shell]: https://cloud.google.com/shell/docs/auth
