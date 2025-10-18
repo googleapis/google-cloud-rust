@@ -40,6 +40,11 @@ mod driver {
         auth_integration_tests::api_key().await
     }
 
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_mds_id_token() -> anyhow::Result<()> {
+        auth_integration_tests::mds_id_token().await
+    }
+
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
     #[test_case(false; "without impersonation")]
     #[test_case(true; "with impersonation")]
