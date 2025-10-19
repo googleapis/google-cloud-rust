@@ -29,6 +29,7 @@ rust-version.workspace = true
 [features]
 default = [
     "instances",
+    "projects",
 ]
 # Enables `client::AcceleratorTypes` and all the types it depends on.
 accelerator-types = []
