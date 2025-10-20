@@ -412,5 +412,5 @@ pub(crate) mod info {
     }
 }
 
-mod errors;
-mod operation;
+pub mod errors;
+pub mod operation;
