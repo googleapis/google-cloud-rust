@@ -353,6 +353,7 @@ struct UserTokenProvider {
     source: UserTokenSource,
 }
 
+#[allow(dead_code)]
 #[derive(PartialEq)]
 enum UserTokenSource {
     IdToken,
@@ -493,6 +494,7 @@ struct Oauth2RefreshResponse {
     refresh_token: Option<String>,
 }
 
+#[allow(dead_code)]
 pub(crate) mod idtoken {
     /// Credentials for authenticating with [ID tokens] from a [user account].
     ///
