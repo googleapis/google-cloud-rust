@@ -23,8 +23,7 @@
 //! we can name directly.
 //!
 
-use crate::{Error, Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result};
-use gax::error::rpc::Status;
+use crate::{Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result};
 use gax::polling_state::PollingState;
 use gax::retry_result::RetryResult;
 use std::sync::Arc;
@@ -49,13 +48,6 @@ pub trait DiscoveryOperation {
     ///
     /// It may be `None` in which case the polling loop stops.
     fn name(&self) -> Option<&String>;
-
-    /// Determines if the operation completed with an error.
-    ///
-    /// If the operation completed successfully this returns `None`. On an error
-    /// the trait must convert the error details to `gax::error::rpc::Status` as
-    /// it always indicates a service error.
-    fn status(&self) -> Option<Status>;
 }
 
 pub fn new_discovery_poller<S, SF, Q, QF, O>(
@@ -170,7 +162,7 @@ where
 {
     match result {
         Err(ref _e) => (None, PollingResult::Completed(result)),
-        Ok(o) if o.done() => (None, handle_polling_done(o)),
+        Ok(o) if o.done() => (None, PollingResult::Completed(Ok(o))),
         Ok(o) => handle_polling_success(o),
     }
 }
@@ -189,7 +181,7 @@ where
             let state = error_policy.on_error(state, e);
             self::handle_polling_error(state, operation_name)
         }
-        Ok(o) if o.done() => (None, handle_polling_done(o)),
+        Ok(o) if o.done() => (None, PollingResult::Completed(Ok(o))),
         Ok(o) => handle_polling_success(o),
     }
 }
@@ -209,34 +201,22 @@ where
     }
 }
 
-fn handle_polling_done<O>(o: O) -> PollingResult<O, O>
-where
-    O: DiscoveryOperation,
-{
-    match o.status() {
-        None => PollingResult::Completed(Ok(o)),
-        Some(s) => PollingResult::Completed(Err(Error::service(s))),
-    }
-}
-
 fn handle_polling_success<O>(o: O) -> (Option<String>, PollingResult<O, O>)
 where
     O: DiscoveryOperation,
 {
-    match o.status() {
-        Some(s) => (None, PollingResult::Completed(Err(Error::service(s)))),
-        None => (o.name().cloned(), PollingResult::InProgress(Some(o))),
-    }
+    (o.name().cloned(), PollingResult::InProgress(Some(o)))
 }
 
 #[cfg(test)]
 mod tests {
-    use std::time::Duration;
-
     use super::*;
+    use crate::Error;
     use gax::error::rpc::Code;
+    use gax::error::rpc::Status;
     use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
     use gax::polling_error_policy::{Aip194Strict, AlwaysContinue};
+    use std::time::Duration;
 
     #[tokio::test]
     async fn poller_until_done_success() {
@@ -317,40 +297,6 @@ mod tests {
                     value: Some(42),
                     ..
                 })
-            ),
-            "{got:?}"
-        );
-    }
-
-    #[tokio::test]
-    async fn poller_until_done_error_on_done() {
-        let start = || async move {
-            let op = TestOperation {
-                name: Some("start-name".into()),
-                ..TestOperation::default()
-            };
-            Ok(op)
-        };
-        let query = |_name| async move {
-            let op = TestOperation {
-                done: true,
-                status: Some(permanent_status()),
-                ..TestOperation::default()
-            };
-            Ok(op)
-        };
-        let got = new_discovery_poller(
-            Arc::new(AlwaysContinue),
-            Arc::new(test_backoff()),
-            start,
-            query,
-        )
-        .until_done()
-        .await;
-        assert!(
-            matches!(
-                got,
-                Err(ref e) if e.status() == Some(&permanent_status())
             ),
             "{got:?}"
         );
@@ -447,21 +393,6 @@ mod tests {
     }
 
     #[test]
-    fn start_done_with_error() {
-        let input = TestOperation {
-            done: true,
-            status: Some(permanent_status()),
-            ..TestOperation::default()
-        };
-        let got = handle_start(Ok(input));
-        assert!(got.0.is_none(), "{got:?}");
-        assert!(
-            matches!(&got.1, PollingResult::Completed(Err(_))),
-            "{got:?}"
-        );
-    }
-
-    #[test]
     fn start_in_progress() {
         let input = TestOperation {
             done: false,
@@ -497,27 +428,11 @@ mod tests {
         let input = TestOperation {
             done: true,
             name: Some("in-progress".into()),
-            status: None,
             ..TestOperation::default()
         };
         let got = handle_poll(Arc::new(policy), &state, "started".to_string(), Ok(input));
         assert!(got.0.is_none(), "{got:?}");
         assert!(matches!(got.1, PollingResult::Completed(Ok(_))), "{got:?}");
-    }
-
-    #[test]
-    fn poll_done_error() {
-        let policy = Aip194Strict;
-        let state = PollingState::default();
-        let input = TestOperation {
-            done: true,
-            name: Some("in-progress".into()),
-            status: Some(permanent_status()),
-            ..TestOperation::default()
-        };
-        let got = handle_poll(Arc::new(policy), &state, "started".to_string(), Ok(input));
-        assert!(got.0.is_none(), "{got:?}");
-        assert!(matches!(got.1, PollingResult::Completed(Err(_))), "{got:?}");
     }
 
     #[test]
@@ -527,7 +442,6 @@ mod tests {
         let input = TestOperation {
             done: false,
             name: Some("in-progress".into()),
-            status: None,
             ..TestOperation::default()
         };
         let got = handle_poll(Arc::new(policy), &state, "started".to_string(), Ok(input));
@@ -569,38 +483,7 @@ mod tests {
     }
 
     #[test]
-    fn polling_done() {
-        let input = TestOperation {
-            status: Some(transient_status()),
-            ..TestOperation::default()
-        };
-        let got = handle_polling_done(input);
-        assert!(
-            matches!(&got, PollingResult::Completed(Err(e)) if e.status() == Some(&transient_status())),
-            "{got:?}"
-        );
-
-        let input = TestOperation {
-            status: None,
-            ..TestOperation::default()
-        };
-        let got = handle_polling_done(input);
-        assert!(matches!(&got, PollingResult::Completed(Ok(_))), "{got:?}");
-    }
-
-    #[test]
     fn polling_success() {
-        let input = TestOperation {
-            status: Some(transient_status()),
-            ..TestOperation::default()
-        };
-        let got = handle_polling_success(input);
-        assert!(got.0.is_none(), "{got:?}");
-        assert!(
-            matches!(&got.1, PollingResult::Completed(Err(e)) if e.status() == Some(&transient_status())),
-            "{got:?}"
-        );
-
         let input = TestOperation {
             name: Some("in-progress".to_string()),
             ..TestOperation::default()
@@ -645,7 +528,6 @@ mod tests {
     struct TestOperation {
         done: bool,
         name: Option<String>,
-        status: Option<gax::error::rpc::Status>,
         value: Option<i32>,
     }
 
@@ -655,9 +537,6 @@ mod tests {
         }
         fn name(&self) -> Option<&String> {
             self.name.as_ref()
-        }
-        fn status(&self) -> Option<Status> {
-            self.status.clone()
         }
     }
 }
