@@ -425,9 +425,7 @@ impl TokenProvider for UserTokenProvider {
 
 const MSG: &str = "failed to refresh user access token";
 const MISSING_ID_TOKEN_MSG: &str = "UserCredentials can obtain an id token only when authenticated through \
-gcloud running 'gcloud auth login --update-adc' or 'gcloud auth application-default \
-login'. The latter form would not work for Cloud Run, but would still generate an \
-id token.";
+gcloud running 'gcloud auth application-default`";
 
 /// Data model for a UserCredentials
 ///
@@ -502,11 +500,14 @@ pub(crate) mod idtoken {
     /// authorized user credentials, which are typically obtained by running
     /// `gcloud auth application-default login`.
     ///
-    /// These credentials can be used to authenticate with Google Cloud services
-    /// that require ID tokens for authentication, such as Cloud Run or Cloud Functions.
+    /// These credentials, which are commonly used for [service to service authentication],
+    /// like when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+    /// Unlike access tokens, ID tokens are not used to authorize access to
+    /// Google Cloud APIs but to verify the identity of a principal.    
     ///
     /// [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
     /// [user account]: https://cloud.google.com/docs/authentication#user-accounts
+    /// [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
     use crate::build_errors::Error as BuilderError;
     use crate::constants::OAUTH2_TOKEN_SERVER_URL;
     use crate::{
