@@ -610,6 +610,7 @@ pub mod idtoken {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(google_cloud_unstable_id_token)]
     use crate::constants::JWT_BEARER_GRANT_TYPE;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
@@ -618,6 +619,7 @@ mod tests {
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
+    #[cfg(google_cloud_unstable_id_token)]
     use httptest::{
         Expectation, Server,
         matchers::{all_of, any, contains, request, url_decoded},
