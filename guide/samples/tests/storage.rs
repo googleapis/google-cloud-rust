@@ -13,7 +13,9 @@
 // limitations under the License.
 
 pub mod storage {
+    pub mod lros;
     pub mod mocking;
+    pub mod polling_policies;
     pub mod queue;
     pub mod quickstart;
     pub mod rewrite_object;
@@ -84,6 +86,31 @@ pub mod storage {
             // Ignore cleanup errors.
             let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
             response
+        }
+
+        #[tokio::test]
+        async fn lros() -> anyhow::Result<()> {
+            let (control, bucket) = integration_tests::storage::create_test_hns_bucket().await?;
+            println!("running LRO examples, bucket {}", bucket.name);
+            let result = super::lros::test(&control, &bucket.name).await;
+            if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
+                eprintln!("error cleaning up LRO bucket {}: {e:?}", bucket.name);
+            };
+            result
+        }
+
+        #[tokio::test]
+        async fn polling_policies() -> anyhow::Result<()> {
+            let (control, bucket) = integration_tests::storage::create_test_hns_bucket().await?;
+            println!("running polling policy examples, bucket {}", bucket.name);
+            let result = super::polling_policies::test(&control, &bucket.name).await;
+            if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
+                eprintln!(
+                    "error cleaning up polling policies bucket {}: {e:?}",
+                    bucket.name
+                );
+            };
+            result
         }
     }
 
