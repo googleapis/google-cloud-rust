@@ -148,6 +148,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Document {
             __revisions,
             __document_layout,
             __chunked_document,
+            __entity_validation_output,
+            __entities_revisions,
+            __entities_revision_id,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -190,6 +193,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Document {
                             "document_layout" => Ok(__FieldTag::__document_layout),
                             "chunkedDocument" => Ok(__FieldTag::__chunked_document),
                             "chunked_document" => Ok(__FieldTag::__chunked_document),
+                            "entityValidationOutput" => Ok(__FieldTag::__entity_validation_output),
+                            "entity_validation_output" => {
+                                Ok(__FieldTag::__entity_validation_output)
+                            }
+                            "entitiesRevisions" => Ok(__FieldTag::__entities_revisions),
+                            "entities_revisions" => Ok(__FieldTag::__entities_revisions),
+                            "entitiesRevisionId" => Ok(__FieldTag::__entities_revision_id),
+                            "entities_revision_id" => Ok(__FieldTag::__entities_revision_id),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -396,6 +407,39 @@ impl<'de> serde::de::Deserialize<'de> for super::Document {
                             }
                             result.chunked_document = map.next_value::<std::option::Option<crate::model::document::ChunkedDocument>>()?
                                 ;
+                        }
+                        __FieldTag::__entity_validation_output => {
+                            if !fields.insert(__FieldTag::__entity_validation_output) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entity_validation_output",
+                                ));
+                            }
+                            result.entity_validation_output = map
+                                .next_value::<std::option::Option<
+                                    crate::model::document::EntityValidationOutput,
+                                >>()?;
+                        }
+                        __FieldTag::__entities_revisions => {
+                            if !fields.insert(__FieldTag::__entities_revisions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entities_revisions",
+                                ));
+                            }
+                            result.entities_revisions = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::document::EntitiesRevision>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entities_revision_id => {
+                            if !fields.insert(__FieldTag::__entities_revision_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entities_revision_id",
+                                ));
+                            }
+                            result.entities_revision_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6738,6 +6782,329 @@ impl<'de> serde::de::Deserialize<'de>
                             result.page_span = map.next_value::<std::option::Option<
                                 crate::model::document::chunked_document::chunk::ChunkPageSpan,
                             >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::document::EntityValidationOutput {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __validation_results,
+            __pass_all_rules,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EntityValidationOutput")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "validationResults" => Ok(__FieldTag::__validation_results),
+                            "validation_results" => Ok(__FieldTag::__validation_results),
+                            "passAllRules" => Ok(__FieldTag::__pass_all_rules),
+                            "pass_all_rules" => Ok(__FieldTag::__pass_all_rules),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::document::EntityValidationOutput;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EntityValidationOutput")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__validation_results => {
+                            if !fields.insert(__FieldTag::__validation_results) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validation_results",
+                                ));
+                            }
+                            result.validation_results = map.next_value::<std::option::Option<std::vec::Vec<crate::model::document::entity_validation_output::ValidationResult>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__pass_all_rules => {
+                            if !fields.insert(__FieldTag::__pass_all_rules) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pass_all_rules",
+                                ));
+                            }
+                            result.pass_all_rules = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::document::entity_validation_output::ValidationResult
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __rule_name,
+            __rule_description,
+            __validation_result_type,
+            __validation_details,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ValidationResult")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ruleName" => Ok(__FieldTag::__rule_name),
+                            "rule_name" => Ok(__FieldTag::__rule_name),
+                            "ruleDescription" => Ok(__FieldTag::__rule_description),
+                            "rule_description" => Ok(__FieldTag::__rule_description),
+                            "validationResultType" => Ok(__FieldTag::__validation_result_type),
+                            "validation_result_type" => Ok(__FieldTag::__validation_result_type),
+                            "validationDetails" => Ok(__FieldTag::__validation_details),
+                            "validation_details" => Ok(__FieldTag::__validation_details),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::document::entity_validation_output::ValidationResult;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ValidationResult")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__rule_name => {
+                            if !fields.insert(__FieldTag::__rule_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rule_name",
+                                ));
+                            }
+                            result.rule_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__rule_description => {
+                            if !fields.insert(__FieldTag::__rule_description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rule_description",
+                                ));
+                            }
+                            result.rule_description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__validation_result_type => {
+                            if !fields.insert(__FieldTag::__validation_result_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validation_result_type",
+                                ));
+                            }
+                            result.validation_result_type = map.next_value::<std::option::Option<crate::model::document::entity_validation_output::validation_result::ValidationResultType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__validation_details => {
+                            if !fields.insert(__FieldTag::__validation_details) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validation_details",
+                                ));
+                            }
+                            result.validation_details = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::document::EntitiesRevision {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __revision_id,
+            __entities,
+            __entity_validation_output,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EntitiesRevision")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "revisionId" => Ok(__FieldTag::__revision_id),
+                            "revision_id" => Ok(__FieldTag::__revision_id),
+                            "entities" => Ok(__FieldTag::__entities),
+                            "entityValidationOutput" => Ok(__FieldTag::__entity_validation_output),
+                            "entity_validation_output" => {
+                                Ok(__FieldTag::__entity_validation_output)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::document::EntitiesRevision;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EntitiesRevision")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__revision_id => {
+                            if !fields.insert(__FieldTag::__revision_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for revision_id",
+                                ));
+                            }
+                            result.revision_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entities => {
+                            if !fields.insert(__FieldTag::__entities) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entities",
+                                ));
+                            }
+                            result.entities =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::document::Entity>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__entity_validation_output => {
+                            if !fields.insert(__FieldTag::__entity_validation_output) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entity_validation_output",
+                                ));
+                            }
+                            result.entity_validation_output = map
+                                .next_value::<std::option::Option<
+                                    crate::model::document::EntityValidationOutput,
+                                >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

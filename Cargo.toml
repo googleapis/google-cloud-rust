@@ -306,7 +306,7 @@ prost              = { default-features = false, version = "0.14", features = ["
 prost-build        = { default-features = false, version = "0.14" }
 prost-types        = { default-features = false, version = "0.14" }
 rand               = { default-features = false, version = "0.9.2" }
-reqwest            = { default-features = false, version = "0.12.23", features = ["json"] }
+reqwest            = { default-features = false, version = "0.12.24", features = ["json"] }
 rustls             = { default-features = false, version = "0.23" }
 rustls-pemfile     = { default-features = false, version = "2" }
 serde              = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
@@ -359,16 +359,16 @@ tokio-test        = { default-features = false, version = "0.4" }
 # Local packages used as dependencies
 auth                          = { version = "1", path = "src/auth", package = "google-cloud-auth" }
 google-cloud-auth             = { version = "1", path = "src/auth" }
-gax                           = { version = "1", path = "src/gax", package = "google-cloud-gax" }
-google-cloud-gax              = { version = "1", path = "src/gax" }
-gaxi                          = { version = "0.7.1", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+gax                           = { version = "1.1", path = "src/gax", package = "google-cloud-gax" }
+google-cloud-gax              = { version = "1.1", path = "src/gax" }
+gaxi                          = { version = "0.7.2", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "1", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 google-cloud-iam-v1           = { version = "1", path = "src/generated/iam/v1" }
 location                      = { version = "1", path = "src/generated/cloud/location", package = "google-cloud-location" }
 longrunning                   = { version = "1", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
 google-cloud-longrunning      = { version = "1", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
-lro                           = { version = "1", path = "src/lro", package = "google-cloud-lro" }
-google-cloud-lro              = { version = "1", path = "src/lro", package = "google-cloud-lro" }
+lro                           = { version = "1.1", path = "src/lro", package = "google-cloud-lro" }
+google-cloud-lro              = { version = "1.1", path = "src/lro", package = "google-cloud-lro" }
 wkt                           = { version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt              = { version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 api                           = { version = "1", path = "src/generated/api/types", package = "google-cloud-api" }

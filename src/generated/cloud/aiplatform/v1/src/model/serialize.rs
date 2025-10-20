@@ -856,6 +856,29 @@ impl serde::ser::Serialize for super::VideoMetadata {
 
 #[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
 #[doc(hidden)]
+impl serde::ser::Serialize for super::ImageConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.aspect_ratio.is_some() {
+            state.serialize_entry("aspectRatio", &self.aspect_ratio)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[doc(hidden)]
 impl serde::ser::Serialize for super::GenerationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1011,6 +1034,9 @@ impl serde::ser::Serialize for super::GenerationConfig {
         }
         if self.thinking_config.is_some() {
             state.serialize_entry("thinkingConfig", &self.thinking_config)?;
+        }
+        if self.image_config.is_some() {
+            state.serialize_entry("imageConfig", &self.image_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -10882,6 +10908,15 @@ impl serde::ser::Serialize for super::feature_online_store::Bigtable {
         if self.auto_scaling.is_some() {
             state.serialize_entry("autoScaling", &self.auto_scaling)?;
         }
+        if !wkt::internal::is_default(&self.enable_direct_bigtable_access) {
+            state.serialize_entry(
+                "enableDirectBigtableAccess",
+                &self.enable_direct_bigtable_access,
+            )?;
+        }
+        if self.bigtable_metadata.is_some() {
+            state.serialize_entry("bigtableMetadata", &self.bigtable_metadata)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -10940,6 +10975,35 @@ impl serde::ser::Serialize for super::feature_online_store::bigtable::AutoScalin
                 "cpuUtilizationTarget",
                 &__With(&self.cpu_utilization_target),
             )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "feature-online-store-admin-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::feature_online_store::bigtable::BigtableMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.tenant_project_id.is_empty() {
+            state.serialize_entry("tenantProjectId", &self.tenant_project_id)?;
+        }
+        if !self.instance_id.is_empty() {
+            state.serialize_entry("instanceId", &self.instance_id)?;
+        }
+        if !self.table_id.is_empty() {
+            state.serialize_entry("tableId", &self.table_id)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -12224,6 +12288,55 @@ impl serde::ser::Serialize for super::feature_view_direct_write_response::WriteR
     }
 }
 
+#[cfg(feature = "feature-online-store-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GenerateFetchAccessTokenRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.feature_view.is_empty() {
+            state.serialize_entry("featureView", &self.feature_view)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "feature-online-store-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GenerateFetchAccessTokenResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.access_token.is_empty() {
+            state.serialize_entry("accessToken", &self.access_token)?;
+        }
+        if self.expire_time.is_some() {
+            state.serialize_entry("expireTime", &self.expire_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "feature-registry-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CreateFeatureGroupRequest {
@@ -12632,6 +12745,9 @@ impl serde::ser::Serialize for super::FeatureView {
         if !wkt::internal::is_default(&self.satisfies_pzi) {
             state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
         }
+        if self.bigtable_metadata.is_some() {
+            state.serialize_entry("bigtableMetadata", &self.bigtable_metadata)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -12913,6 +13029,29 @@ impl serde::ser::Serialize for super::feature_view::OptimizedConfig {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.automatic_resources.is_some() {
             state.serialize_entry("automaticResources", &self.automatic_resources)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "feature-online-store-admin-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::feature_view::BigtableMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.read_app_profile.is_empty() {
+            state.serialize_entry("readAppProfile", &self.read_app_profile)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -28684,6 +28823,9 @@ impl serde::ser::Serialize for super::PredictRequest {
         if self.parameters.is_some() {
             state.serialize_entry("parameters", &self.parameters)?;
         }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -29912,6 +30054,9 @@ impl serde::ser::Serialize for super::ReasoningEngineSpec {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.source_code_spec() {
+            state.serialize_entry("sourceCodeSpec", value)?;
+        }
         if self.service_account.is_some() {
             state.serialize_entry("serviceAccount", &self.service_account)?;
         }
@@ -30044,6 +30189,96 @@ impl serde::ser::Serialize for super::reasoning_engine_spec::DeploymentSpec {
 
 #[cfg(feature = "reasoning-engine-service")]
 #[doc(hidden)]
+impl serde::ser::Serialize for super::reasoning_engine_spec::SourceCodeSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.inline_source() {
+            state.serialize_entry("inlineSource", value)?;
+        }
+        if let Some(value) = self.python_spec() {
+            state.serialize_entry("pythonSpec", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::reasoning_engine_spec::source_code_spec::InlineSource {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.source_archive.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("sourceArchive", &__With(&self.source_archive))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::reasoning_engine_spec::source_code_spec::PythonSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if !self.entrypoint_module.is_empty() {
+            state.serialize_entry("entrypointModule", &self.entrypoint_module)?;
+        }
+        if !self.entrypoint_object.is_empty() {
+            state.serialize_entry("entrypointObject", &self.entrypoint_object)?;
+        }
+        if !self.requirements_file.is_empty() {
+            state.serialize_entry("requirementsFile", &self.requirements_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ReasoningEngine {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -30076,6 +30311,9 @@ impl serde::ser::Serialize for super::ReasoningEngine {
         }
         if self.encryption_spec.is_some() {
             state.serialize_entry("encryptionSpec", &self.encryption_spec)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

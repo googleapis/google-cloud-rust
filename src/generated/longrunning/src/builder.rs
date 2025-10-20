@@ -169,6 +169,12 @@ pub mod operations {
             self.0.request.page_token = v.into();
             self
         }
+
+        /// Sets the value of [return_partial_success][crate::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
