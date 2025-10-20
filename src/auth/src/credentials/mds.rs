@@ -397,8 +397,7 @@ impl TokenProvider for MDSAccessTokenProvider {
     }
 }
 
-#[allow(dead_code)]
-pub(crate) mod idtoken {
+pub mod idtoken {
     //! Types for fetching ID tokens from the metadata service.
     use super::{
         GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE,
