@@ -43,7 +43,8 @@ pub async fn sample(client: &Instances, project_id: &str, name: &str) -> anyhow:
         .set_body(instance)
         .poller()
         .until_done()
-        .await?;
+        .await?
+        .to_result()?;
     println!("Instance successfully created: {operation:?}");
 
     Ok(())
