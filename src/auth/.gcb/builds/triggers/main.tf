@@ -158,11 +158,6 @@ locals {
   #
   gcb_secret_name = "projects/${var.project}/secrets/github-github-oauthtoken-319d75/versions/latest"
 
-  # Add to this list if you want to have more triggers.
-  builds = {
-    integration = {}
-  }
-
   # Add to these lists of you want to have more triggers.
   builds = {
     integration = {
