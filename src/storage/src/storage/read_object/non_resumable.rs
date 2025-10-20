@@ -12,19 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Support for gunzipped downloads.
-//!
-//! Cloud Storage automatically [decompresses gzip-compressed][transcoding]
-//! objects. Reading such objects comes with a number of restrictions:
-//! - Ranged reads do not work.
-//! - Consequently, it is impossible to resume an interrupted read.
-//! - The size of the decompressed data is not known.
-//! - Checksums do not work because the object checksums correspond to the
-//!   compressed data and the client library receives the decompressed data.
-//!
-//! Consequently, the implementation is substantially different.
-//!
-//! [transcoding]: https://cloud.google.com/storage/docs/transcoding
+//! Support for non-resumable (e.g. gunzipped) downloads.
 
 use super::parse_http_response;
 use super::{Error, Result};
