@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod gunzipped;
+mod non_resumable;
 mod parse_http_response;
 mod resumable;
 
@@ -530,6 +530,18 @@ impl Reader {
     }
 
     fn is_gunzipped(response: &reqwest::Response) -> bool {
+        // Cloud Storage automatically [decompresses gzip-compressed][transcoding]
+        // objects. Reading such objects comes with a number of restrictions:
+        // - Ranged reads do not work.
+        // - The size of the decompressed data is not known.
+        // - Checksums do not work because the object checksums correspond to the
+        //   compressed data and the client library receives the decompressed data.
+        //
+        // Because ranged reads do not work, resuming a read does not work. Consequently,
+        // the implementation of `ReadObjectResponse` is substantially different for
+        // objects that are gunzipped.
+        //
+        // [transcoding]: https://cloud.google.com/storage/docs/transcoding
         const TRANSFORMATION: &str = "x-guploader-response-body-transformations";
         use http::header::WARNING;
         if response
@@ -549,11 +561,11 @@ impl Reader {
         let response = self.clone().read().await?;
         if Self::is_gunzipped(&response) {
             return Ok(ReadObjectResponse::new(Box::new(
-                gunzipped::GunzippedResponse::new(response)?,
+                non_resumable::NonResumableResponse::new(response)?,
             )));
         }
         Ok(ReadObjectResponse::new(Box::new(
-            resumable::ReadObjectResponseImpl::new(self, response)?,
+            resumable::ResumableResponse::new(self, response)?,
         )))
     }
 }
