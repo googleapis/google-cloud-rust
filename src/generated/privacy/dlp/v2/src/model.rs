@@ -2557,6 +2557,25 @@ pub struct RedactImageRequest {
     /// The content must be PNG, JPEG, SVG or BMP.
     pub byte_item: std::option::Option<crate::model::ByteContentItem>,
 
+    /// The full resource name of the inspection template to use. Settings in the
+    /// main `inspect_config` field override the corresponding settings in this
+    /// inspection template.
+    ///
+    /// The merge behavior is as follows:
+    ///
+    /// - Singular field: The main field's value replaces the value of the
+    ///   corresponding field in the template.
+    /// - Repeated fields: The field values are appended to the list defined in
+    ///   the template.
+    /// - Sub-messages and groups: The fields are recursively merged.
+    pub inspect_template: std::string::String,
+
+    /// The full resource name of the de-identification template to use. Settings
+    /// in the main `image_redaction_configs` field override the corresponding
+    /// settings in this de-identification template. The request fails if the
+    /// type of the template's deidentify_config is not image_transformations.
+    pub deidentify_template: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2627,6 +2646,24 @@ impl RedactImageRequest {
         T: std::convert::Into<crate::model::ByteContentItem>,
     {
         self.byte_item = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [inspect_template][crate::model::RedactImageRequest::inspect_template].
+    pub fn set_inspect_template<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.inspect_template = v.into();
+        self
+    }
+
+    /// Sets the value of [deidentify_template][crate::model::RedactImageRequest::deidentify_template].
+    pub fn set_deidentify_template<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deidentify_template = v.into();
         self
     }
 }
@@ -3562,6 +3599,38 @@ impl OutputStorageConfig {
             std::option::Option::Some(crate::model::output_storage_config::Type::Table(v.into()));
         self
     }
+
+    /// The value of [r#type][crate::model::OutputStorageConfig::r#type]
+    /// if it holds a `StoragePath`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn storage_path(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudStoragePath>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::output_storage_config::Type::StoragePath(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::OutputStorageConfig::r#type]
+    /// to hold a `StoragePath`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    pub fn set_storage_path<
+        T: std::convert::Into<std::boxed::Box<crate::model::CloudStoragePath>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::output_storage_config::Type::StoragePath(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for OutputStorageConfig {
@@ -3749,6 +3818,21 @@ pub mod output_storage_config {
         /// compute a different privacy metric, or use different sets of
         /// quasi-identifiers, cannot store their results in the same table.
         Table(std::boxed::Box<crate::model::BigQueryTable>),
+        /// Store findings in an existing Cloud Storage bucket. Files will be
+        /// generated with the job ID and file part number as the filename and will
+        /// contain findings in textproto format as
+        /// [SaveToGcsFindingsOutput][google.privacy.dlp.v2.SaveToGcsFindingsOutput].
+        /// The filename will follow the naming convention `<job_id>-<shard_number>`.
+        /// Example: `my-job-id-2`.
+        ///
+        /// Supported for [Inspect jobs][google.privacy.dlp.v2.InspectJobConfig]. The
+        /// bucket must not be the same as the bucket being inspected. If storing
+        /// findings to Cloud Storage, the output schema field should not be set. If
+        /// set, it will be ignored.
+        ///
+        /// [google.privacy.dlp.v2.InspectJobConfig]: crate::model::InspectJobConfig
+        /// [google.privacy.dlp.v2.SaveToGcsFindingsOutput]: crate::model::SaveToGcsFindingsOutput
+        StoragePath(std::boxed::Box<crate::model::CloudStoragePath>),
     }
 }
 
@@ -14973,6 +15057,39 @@ impl Action {
     }
 
     /// The value of [action][crate::model::Action::action]
+    /// if it holds a `PublishFindingsToDataplexCatalog`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn publish_findings_to_dataplex_catalog(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::action::PublishFindingsToDataplexCatalog>>
+    {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::action::Action::PublishFindingsToDataplexCatalog(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::Action::action]
+    /// to hold a `PublishFindingsToDataplexCatalog`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    pub fn set_publish_findings_to_dataplex_catalog<
+        T: std::convert::Into<std::boxed::Box<crate::model::action::PublishFindingsToDataplexCatalog>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::action::Action::PublishFindingsToDataplexCatalog(v.into()),
+        );
+        self
+    }
+
+    /// The value of [action][crate::model::Action::action]
     /// if it holds a `Deidentify`, `None` if the field is not set or
     /// holds a different branch.
     pub fn deidentify(
@@ -15210,6 +15327,37 @@ pub mod action {
     impl wkt::message::Message for PublishFindingsToCloudDataCatalog {
         fn typename() -> &'static str {
             "type.googleapis.com/google.privacy.dlp.v2.Action.PublishFindingsToCloudDataCatalog"
+        }
+    }
+
+    /// Publish findings of a DlpJob to Dataplex Universal Catalog as a
+    /// `sensitive-data-protection-job-result` aspect. For more information,
+    /// see [Send inspection results to Dataplex Universal Catalog as
+    /// aspects](https://cloud.google.com/sensitive-data-protection/docs/add-aspects-inspection-job).
+    ///
+    /// Aspects are stored in Dataplex Universal Catalog storage and are
+    /// governed by service-specific policies for Dataplex Universal Catalog. For
+    /// more information, see [Service Specific
+    /// Terms](https://cloud.google.com/terms/service-terms).
+    ///
+    /// Only a single instance of this action can be specified. This action is
+    /// allowed only if all resources being scanned are BigQuery tables.
+    /// Compatible with: Inspect
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PublishFindingsToDataplexCatalog {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PublishFindingsToDataplexCatalog {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for PublishFindingsToDataplexCatalog {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.Action.PublishFindingsToDataplexCatalog"
         }
     }
 
@@ -15486,6 +15634,10 @@ pub mod action {
         /// Publish findings to Cloud Datahub.
         PublishFindingsToCloudDataCatalog(
             std::boxed::Box<crate::model::action::PublishFindingsToCloudDataCatalog>,
+        ),
+        /// Publish findings as an aspect to Dataplex Universal Catalog.
+        PublishFindingsToDataplexCatalog(
+            std::boxed::Box<crate::model::action::PublishFindingsToDataplexCatalog>,
         ),
         /// Create a de-identified copy of the input data.
         Deidentify(std::boxed::Box<crate::model::action::Deidentify>),
@@ -16734,6 +16886,8 @@ pub struct ListJobTriggersRequest {
     ///   - 'error_count' - Number of errors that have occurred while running.
     /// * The operator must be `=` or `!=` for status and inspected_storage.
     ///
+    /// The syntax is based on <https://google.aip.dev/160>.
+    ///
     /// Examples:
     ///
     /// * inspected_storage = cloud_storage AND status = HEALTHY
@@ -17592,17 +17746,18 @@ pub mod data_profile_action {
         }
     }
 
-    /// Create Dataplex Catalog aspects for profiled resources with the aspect type
-    /// Sensitive Data Protection Profile. To learn more about aspects, see
-    /// <https://cloud.google.com/sensitive-data-protection/docs/add-aspects>.
+    /// Create Dataplex Universal Catalog aspects for profiled resources with the
+    /// aspect type Sensitive Data Protection Profile. To learn more about aspects,
+    /// see <https://cloud.google.com/sensitive-data-protection/docs/add-aspects>.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PublishToDataplexCatalog {
-        /// Whether creating a Dataplex Catalog aspect for a profiled resource should
-        /// lower the risk of the profile for that resource. This also lowers the
-        /// data risk of resources at the lower levels of the resource hierarchy. For
-        /// example, reducing the data risk of a table data profile also reduces the
-        /// data risk of the constituent column data profiles.
+        /// Whether creating a Dataplex Universal Catalog aspect for a profiled
+        /// resource should lower the risk of the profile for that resource. This
+        /// also lowers the data risk of resources at the lower levels of the
+        /// resource hierarchy. For example, reducing the data risk of a table data
+        /// profile also reduces the data risk of the constituent column data
+        /// profiles.
         pub lower_data_risk_to_low: bool,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -17898,7 +18053,8 @@ pub mod data_profile_action {
             pub enum Format {
                 /// The namespaced name for the tag value to attach to resources. Must be
                 /// in the format `{parent_id}/{tag_key_short_name}/{short_name}`, for
-                /// example, "123456/environment/prod".
+                /// example, "123456/environment/prod" for an organization parent, or
+                /// "my-project/environment/prod" for a project parent.
                 NamespacedValue(std::string::String),
             }
         }
@@ -18071,8 +18227,8 @@ pub mod data_profile_action {
         ),
         /// Tags the profiled resources with the specified tag values.
         TagResources(std::boxed::Box<crate::model::data_profile_action::TagResources>),
-        /// Publishes a portion of each profile to Dataplex Catalog with the aspect
-        /// type Sensitive Data Protection Profile.
+        /// Publishes a portion of each profile to Dataplex Universal Catalog with
+        /// the aspect type Sensitive Data Protection Profile.
         PublishToDataplexCatalog(
             std::boxed::Box<crate::model::data_profile_action::PublishToDataplexCatalog>,
         ),
@@ -21970,6 +22126,18 @@ pub mod discovery_cloud_storage_filter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileStoreCollection {
+    /// Optional. To be included in the collection, a resource must meet all of the
+    /// following requirements:
+    ///
+    /// - If tag filters are provided, match all provided tag filters.
+    /// - If one or more patterns are specified, match at least one pattern.
+    ///
+    /// For a resource to match the tag filters, the resource must have all of the
+    /// provided tags attached. Tags refer to Resource Manager tags bound to the
+    /// resource or its ancestors. For more information, see [Manage
+    /// schedules](https://cloud.google.com/sensitive-data-protection/docs/profile-project-cloud-storage#manage-schedules).
+    pub include_tags: std::option::Option<crate::model::TagFilters>,
+
     /// The first filter containing a pattern that matches a file store will be
     /// used.
     pub pattern: std::option::Option<crate::model::file_store_collection::Pattern>,
@@ -21980,6 +22148,24 @@ pub struct FileStoreCollection {
 impl FileStoreCollection {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [include_tags][crate::model::FileStoreCollection::include_tags].
+    pub fn set_include_tags<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TagFilters>,
+    {
+        self.include_tags = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [include_tags][crate::model::FileStoreCollection::include_tags].
+    pub fn set_or_clear_include_tags<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TagFilters>,
+    {
+        self.include_tags = v.map(|x| x.into());
+        self
     }
 
     /// Sets the value of [pattern][crate::model::FileStoreCollection::pattern].
@@ -25619,6 +25805,8 @@ pub struct ListDlpJobsRequest {
     ///   - 'start_time` - Corresponds to the time the job finished.
     /// * The operator must be `=` or `!=`.
     ///
+    /// The syntax is based on <https://google.aip.dev/160>.
+    ///
     /// Examples:
     ///
     /// * inspected_storage = cloud_storage AND state = done
@@ -27552,13 +27740,13 @@ pub struct ListProjectDataProfilesRequest {
     /// * `project_id`
     /// * `sensitivity_level desc`
     ///
-    /// Supported fields are:
+    /// Supported fields:
     ///
     /// - `project_id`: Google Cloud project ID
-    /// - `sensitivity_level`: How sensitive the data in a project is, at most.
-    /// - `data_risk_level`: How much risk is associated with this data.
-    /// - `profile_last_generated`: When the profile was last updated in epoch
-    ///   seconds.
+    /// - `sensitivity_level`: How sensitive the data in a project is, at most
+    /// - `data_risk_level`: How much risk is associated with this data
+    /// - `profile_last_generated`: Date and time (in epoch seconds) the profile
+    ///   was last generated
     pub order_by: std::string::String,
 
     /// Allows filtering.
@@ -27569,17 +27757,24 @@ pub struct ListProjectDataProfilesRequest {
     /// * Restrictions can be combined by `AND` or `OR` logical operators. A
     ///   sequence of restrictions implicitly uses `AND`.
     /// * A restriction has the form of `{field} {operator} {value}`.
-    /// * Supported fields/values:
-    ///   - `sensitivity_level` - HIGH|MODERATE|LOW
-    ///   - `data_risk_level` - HIGH|MODERATE|LOW
-    ///   - `status_code` - an RPC status code as defined in
+    /// * Supported fields:
+    ///   - `project_id`: the Google Cloud project ID
+    ///   - `sensitivity_level`: HIGH|MODERATE|LOW
+    ///   - `data_risk_level`: HIGH|MODERATE|LOW
+    ///   - `status_code`: an RPC status code as defined in
     ///     <https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto>
-    /// * The operator must be `=` or `!=`.
+    ///   - `profile_last_generated`: Date and time the profile was last
+    ///     generated
+    /// * The operator must be `=` or `!=`. The `profile_last_generated` filter
+    ///   also supports `<` and `>`.
+    ///
+    /// The syntax is based on <https://google.aip.dev/160>.
     ///
     /// Examples:
     ///
     /// * `project_id = 12345 AND status_code = 1`
     /// * `project_id = 12345 AND sensitivity_level = HIGH`
+    /// * `profile_last_generated < "2025-01-01T00:00:00.000Z"`
     ///
     /// The length of this field should be no more than 500 characters.
     pub filter: std::string::String,
@@ -27737,24 +27932,30 @@ pub struct ListTableDataProfilesRequest {
     ///
     /// * A restriction has the form of `{field} {operator} {value}`.
     ///
-    /// * Supported fields/values:
+    /// * Supported fields:
     ///
-    ///   - `project_id` - The Google Cloud project ID.
-    ///   - `dataset_id` - The BigQuery dataset ID.
-    ///   - `table_id` - The ID of the BigQuery table.
-    ///   - `sensitivity_level` - HIGH|MODERATE|LOW
-    ///   - `data_risk_level` - HIGH|MODERATE|LOW
+    ///   - `project_id`: The Google Cloud project ID
+    ///   - `dataset_id`: The BigQuery dataset ID
+    ///   - `table_id`: The ID of the BigQuery table
+    ///   - `sensitivity_level`: HIGH|MODERATE|LOW
+    ///   - `data_risk_level`: HIGH|MODERATE|LOW
     ///   - `resource_visibility`: PUBLIC|RESTRICTED
-    ///   - `status_code` - an RPC status code as defined in
+    ///   - `status_code`: an RPC status code as defined in
     ///     <https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto>
-    /// * The operator must be `=` or `!=`.
+    ///   - `profile_last_generated`: Date and time the profile was last
+    ///     generated
+    /// * The operator must be `=` or `!=`. The `profile_last_generated` filter
+    ///   also supports `<` and `>`.
     ///
+    ///
+    /// The syntax is based on <https://google.aip.dev/160>.
     ///
     /// Examples:
     ///
     /// * `project_id = 12345 AND status_code = 1`
     /// * `project_id = 12345 AND sensitivity_level = HIGH`
     /// * `project_id = 12345 AND resource_visibility = PUBLIC`
+    /// * `profile_last_generated < "2025-01-01T00:00:00.000Z"`
     ///
     /// The length of this field should be no more than 500 characters.
     pub filter: std::string::String,
@@ -27906,26 +28107,32 @@ pub struct ListColumnDataProfilesRequest {
     /// * Restrictions can be combined by `AND` or `OR` logical operators. A
     ///   sequence of restrictions implicitly uses `AND`.
     /// * A restriction has the form of `{field} {operator} {value}`.
-    /// * Supported fields/values:
-    ///   - `table_data_profile_name` - The name of the related table data
-    ///     profile.
-    ///   - `project_id` - The Google Cloud project ID. (REQUIRED)
-    ///   - `dataset_id` - The BigQuery dataset ID. (REQUIRED)
-    ///   - `table_id` - The BigQuery table ID. (REQUIRED)
-    ///   - `field_id` - The ID of the BigQuery field.
-    ///   - `info_type` - The infotype detected in the resource.
-    ///   - `sensitivity_level` - HIGH|MEDIUM|LOW
-    ///   - `data_risk_level`: How much risk is associated with this data.
-    ///   - `status_code` - an RPC status code as defined in
+    /// * Supported fields:
+    ///   - `table_data_profile_name`: The name of the related table data
+    ///     profile
+    ///   - `project_id`: The Google Cloud project ID (REQUIRED)
+    ///   - `dataset_id`: The BigQuery dataset ID (REQUIRED)
+    ///   - `table_id`: The BigQuery table ID (REQUIRED)
+    ///   - `field_id`: The ID of the BigQuery field
+    ///   - `info_type`: The infotype detected in the resource
+    ///   - `sensitivity_level`: HIGH|MEDIUM|LOW
+    ///   - `data_risk_level`: How much risk is associated with this data
+    ///   - `status_code`: An RPC status code as defined in
     ///     <https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto>
+    ///   - `profile_last_generated`: Date and time the profile was last
+    ///     generated
     /// * The operator must be `=` for project_id, dataset_id, and table_id. Other
-    ///   filters also support `!=`.
+    ///   filters also support `!=`. The `profile_last_generated` filter also
+    ///   supports `<` and `>`.
+    ///
+    /// The syntax is based on <https://google.aip.dev/160>.
     ///
     /// Examples:
     ///
     /// * project_id = 12345 AND status_code = 1
     /// * project_id = 12345 AND sensitivity_level = HIGH
     /// * project_id = 12345 AND info_type = STREET_ADDRESS
+    /// * profile_last_generated < "2025-01-01T00:00:00.000Z"
     ///
     /// The length of this field should be no more than 500 characters.
     pub filter: std::string::String,
@@ -30689,8 +30896,9 @@ pub mod file_store_data_profile {
 pub struct Tag {
     /// The namespaced name for the tag value to attach to Google Cloud resources.
     /// Must be in the format `{parent_id}/{tag_key_short_name}/{short_name}`, for
-    /// example, "123456/environment/prod". This is only set for Google Cloud
-    /// resources.
+    /// example, "123456/environment/prod" for an organization parent, or
+    /// "my-project/environment/prod" for a project parent. This is only set for
+    /// Google Cloud resources.
     pub namespaced_tag_value: std::string::String,
 
     /// The key of a tag key-value pair. For Google Cloud resources, this is the
@@ -30734,6 +30942,150 @@ impl Tag {
 impl wkt::message::Message for Tag {
     fn typename() -> &'static str {
         "type.googleapis.com/google.privacy.dlp.v2.Tag"
+    }
+}
+
+/// Tags to match against for filtering.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TagFilters {
+    /// Required. A resource must match ALL of the specified tag filters to be
+    /// included in the collection.
+    pub tag_filters: std::vec::Vec<crate::model::TagFilter>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TagFilters {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tag_filters][crate::model::TagFilters::tag_filters].
+    pub fn set_tag_filters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TagFilter>,
+    {
+        use std::iter::Iterator;
+        self.tag_filters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for TagFilters {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.TagFilters"
+    }
+}
+
+/// A single tag to filter against.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TagFilter {
+    /// Tag filter formats. Tags refer to Resource Manager tags bound to the
+    /// resource or its ancestors.
+    pub format: std::option::Option<crate::model::tag_filter::Format>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TagFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [format][crate::model::TagFilter::format].
+    ///
+    /// Note that all the setters affecting `format` are mutually
+    /// exclusive.
+    pub fn set_format<
+        T: std::convert::Into<std::option::Option<crate::model::tag_filter::Format>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.format = v.into();
+        self
+    }
+
+    /// The value of [format][crate::model::TagFilter::format]
+    /// if it holds a `NamespacedTagValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn namespaced_tag_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.format.as_ref().and_then(|v| match v {
+            crate::model::tag_filter::Format::NamespacedTagValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [format][crate::model::TagFilter::format]
+    /// to hold a `NamespacedTagValue`.
+    ///
+    /// Note that all the setters affecting `format` are
+    /// mutually exclusive.
+    pub fn set_namespaced_tag_value<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.format = std::option::Option::Some(
+            crate::model::tag_filter::Format::NamespacedTagValue(v.into()),
+        );
+        self
+    }
+
+    /// The value of [format][crate::model::TagFilter::format]
+    /// if it holds a `NamespacedTagKey`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn namespaced_tag_key(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.format.as_ref().and_then(|v| match v {
+            crate::model::tag_filter::Format::NamespacedTagKey(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [format][crate::model::TagFilter::format]
+    /// to hold a `NamespacedTagKey`.
+    ///
+    /// Note that all the setters affecting `format` are
+    /// mutually exclusive.
+    pub fn set_namespaced_tag_key<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.format =
+            std::option::Option::Some(crate::model::tag_filter::Format::NamespacedTagKey(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for TagFilter {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.TagFilter"
+    }
+}
+
+/// Defines additional types related to [TagFilter].
+pub mod tag_filter {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Tag filter formats. Tags refer to Resource Manager tags bound to the
+    /// resource or its ancestors.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Format {
+        /// The namespaced name for the tag value. Must be in the format
+        /// `{parent_id}/{tag_key_short_name}/{short_name}`, for example,
+        /// "123456/environment/prod" for an organization parent, or
+        /// "my-project/environment/prod" for a project parent.
+        NamespacedTagValue(std::string::String),
+        /// The namespaced name for the tag key. Must be in the format
+        /// `{parent_id}/{tag_key_short_name}`, for example, "123456/sensitive" for
+        /// an organization parent, or "my-project/sensitive" for a project parent.
+        NamespacedTagKey(std::string::String),
     }
 }
 
@@ -31102,22 +31454,27 @@ pub struct ListFileStoreDataProfilesRequest {
     ///
     /// * A restriction has the form of `{field} {operator} {value}`.
     ///
-    /// * Supported fields/values:
+    /// * Supported fields:
     ///
-    ///   - `project_id` - The Google Cloud project ID.
-    ///   - `account_id` - The AWS account ID.
-    ///   - `file_store_path` - The path like "gs://bucket".
-    ///   - `data_source_type` - The profile's data source type, like
-    ///     "google/storage/bucket".
-    ///   - `data_storage_location` - The location where the file store's data is
-    ///     stored, like "us-central1".
-    ///   - `sensitivity_level` - HIGH|MODERATE|LOW
-    ///   - `data_risk_level` - HIGH|MODERATE|LOW
+    ///   - `project_id`: The Google Cloud project ID
+    ///   - `account_id`: The AWS account ID
+    ///   - `file_store_path`: The path like "gs://bucket"
+    ///   - `data_source_type`: The profile's data source type, like
+    ///     "google/storage/bucket"
+    ///   - `data_storage_location`: The location where the file store's data is
+    ///     stored, like "us-central1"
+    ///   - `sensitivity_level`: HIGH|MODERATE|LOW
+    ///   - `data_risk_level`: HIGH|MODERATE|LOW
     ///   - `resource_visibility`: PUBLIC|RESTRICTED
-    ///   - `status_code` - an RPC status code as defined in
+    ///   - `status_code`: an RPC status code as defined in
     ///     <https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto>
-    /// * The operator must be `=` or `!=`.
+    ///   - `profile_last_generated`: Date and time the profile was last
+    ///     generated
+    /// * The operator must be `=` or `!=`. The `profile_last_generated` filter
+    ///   also supports `<` and `>`.
     ///
+    ///
+    /// The syntax is based on <https://google.aip.dev/160>.
     ///
     /// Examples:
     ///
@@ -31125,6 +31482,7 @@ pub struct ListFileStoreDataProfilesRequest {
     /// * `project_id = 12345 AND sensitivity_level = HIGH`
     /// * `project_id = 12345 AND resource_visibility = PUBLIC`
     /// * `file_store_path = "gs://mybucket"`
+    /// * `profile_last_generated < "2025-01-01T00:00:00.000Z"`
     ///
     /// The length of this field should be no more than 500 characters.
     pub filter: std::string::String,
@@ -31989,6 +32347,8 @@ pub struct ListConnectionsRequest {
     pub page_token: std::string::String,
 
     /// Optional. Supported field/value: `state` - MISSING|AVAILABLE|ERROR
+    ///
+    /// The syntax is based on <https://google.aip.dev/160>.
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -32047,6 +32407,8 @@ pub struct SearchConnectionsRequest {
     pub page_token: std::string::String,
 
     /// Optional. Supported field/value: - `state` - MISSING|AVAILABLE|ERROR
+    ///
+    /// The syntax is based on <https://google.aip.dev/160>.
     pub filter: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

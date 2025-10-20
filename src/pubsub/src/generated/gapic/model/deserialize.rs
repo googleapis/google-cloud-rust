@@ -1693,6 +1693,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Topic {
             __state,
             __ingestion_data_source_settings,
             __message_transforms,
+            __tags,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1738,6 +1739,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Topic {
                             }
                             "messageTransforms" => Ok(__FieldTag::__message_transforms),
                             "message_transforms" => Ok(__FieldTag::__message_transforms),
+                            "tags" => Ok(__FieldTag::__tags),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1864,6 +1866,21 @@ impl<'de> serde::de::Deserialize<'de> for super::Topic {
                             result.message_transforms =
                                 map.next_value::<std::option::Option<
                                     std::vec::Vec<crate::model::MessageTransform>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__tags => {
+                            if !fields.insert(__FieldTag::__tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tags",
+                                ));
+                            }
+                            result.tags = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -2924,6 +2941,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Subscription {
             __state,
             __analytics_hub_subscription_info,
             __message_transforms,
+            __tags,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2994,6 +3012,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Subscription {
                             }
                             "messageTransforms" => Ok(__FieldTag::__message_transforms),
                             "message_transforms" => Ok(__FieldTag::__message_transforms),
+                            "tags" => Ok(__FieldTag::__tags),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3227,6 +3246,21 @@ impl<'de> serde::de::Deserialize<'de> for super::Subscription {
                             result.message_transforms =
                                 map.next_value::<std::option::Option<
                                     std::vec::Vec<crate::model::MessageTransform>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__tags => {
+                            if !fields.insert(__FieldTag::__tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tags",
+                                ));
+                            }
+                            result.tags = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -5141,6 +5175,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateSnapshotRequest {
             __name,
             __subscription,
             __labels,
+            __tags,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5164,6 +5199,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateSnapshotRequest {
                             "name" => Ok(__FieldTag::__name),
                             "subscription" => Ok(__FieldTag::__subscription),
                             "labels" => Ok(__FieldTag::__labels),
+                            "tags" => Ok(__FieldTag::__tags),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5216,6 +5252,21 @@ impl<'de> serde::de::Deserialize<'de> for super::CreateSnapshotRequest {
                                 ));
                             }
                             result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__tags => {
+                            if !fields.insert(__FieldTag::__tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tags",
+                                ));
+                            }
+                            result.tags = map
                                 .next_value::<std::option::Option<
                                     std::collections::HashMap<
                                         std::string::String,

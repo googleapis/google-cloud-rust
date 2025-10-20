@@ -16,9 +16,9 @@ name: Rust SDK
 permissions: read-all
 on:
   push:
-    branches: [main]
+    branches: [main, 'release-*']
   pull_request:
-    branches: [main]
+    branches: [main, 'release-*']
   release:
     types: [published]
 env:
@@ -590,7 +590,7 @@ jobs:
           sudo unzip -x /tmp/protoc.zip
           protoc --version
       - name: Regenerate all the code
-        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.4.1-0.20251016043303-e4958d008ebc refreshall
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.4.1-0.20251017142006-14a148302470 refreshall
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,
