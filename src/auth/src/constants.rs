@@ -21,7 +21,6 @@ pub(crate) const TOKEN_EXCHANGE_GRANT_TYPE: &str =
 pub(crate) const JWT_BEARER_GRANT_TYPE: &str = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 pub(crate) const STS_TOKEN_URL: &str = "https://sts.googleapis.com/v1/token";
 pub(crate) const OAUTH2_TOKEN_SERVER_URL: &str = "https://oauth2.googleapis.com/token";
-
 /// Access Token Oauth Token Type
 pub(crate) const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
 /// JWT OAuth Token Type
