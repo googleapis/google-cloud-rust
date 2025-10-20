@@ -425,7 +425,7 @@ impl TokenProvider for UserTokenProvider {
 
 const MSG: &str = "failed to refresh user access token";
 const MISSING_ID_TOKEN_MSG: &str = "UserCredentials can obtain an id token only when authenticated through \
-gcloud running 'gcloud auth application-default`";
+gcloud running 'gcloud auth application-default login`";
 
 /// Data model for a UserCredentials
 ///
@@ -496,14 +496,14 @@ struct Oauth2RefreshResponse {
 pub(crate) mod idtoken {
     /// Credentials for authenticating with [ID tokens] from a [user account].
     ///
-    /// This module provides a builder for creating [`IDTokenCredentials`] from
+    /// This module provides a builder for [`IDTokenCredentials`] from
     /// authorized user credentials, which are typically obtained by running
     /// `gcloud auth application-default login`.
     ///
-    /// These credentials, which are commonly used for [service to service authentication],
-    /// like when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
-    /// Unlike access tokens, ID tokens are not used to authorize access to
-    /// Google Cloud APIs but to verify the identity of a principal.    
+    /// These credentials are commonly used for [service to service authentication].
+    /// For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+    /// ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
+    /// for authorization, and therefore cannot be used to access Google Cloud APIs.
     ///
     /// [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
     /// [user account]: https://cloud.google.com/docs/authentication#user-accounts
@@ -518,7 +518,6 @@ pub(crate) mod idtoken {
         },
         token::TokenProvider,
     };
-
     use async_trait::async_trait;
     use serde_json::Value;
     use std::sync::Arc;
@@ -541,8 +540,7 @@ pub(crate) mod idtoken {
         }
     }
 
-    /// A builder for constructing [`IDTokenCredentials`] instances that fetch ID tokens using
-    /// user accounts.
+    /// A builder for [`IDTokenCredentials`] instances backed by user account credentials.
     pub struct Builder {
         authorized_user: Value,
         token_uri: Option<String>,
@@ -554,8 +552,6 @@ pub(crate) mod idtoken {
         ///
         /// The `authorized_user` JSON is typically generated when a user
         /// authenticates using the [application-default login] process.
-        ///
-        /// The `target_audience` is not supported for user credentials.
         ///
         /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
         pub fn new(authorized_user: Value) -> Self {
