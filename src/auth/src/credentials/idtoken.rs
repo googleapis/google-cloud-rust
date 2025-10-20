@@ -13,10 +13,12 @@
 // limitations under the License.
 
 use crate::Result;
+use crate::credentials::internal::jwk_client::JwkClient;
+use crate::errors::CredentialsError;
 use crate::token::Token;
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
-use gax::error::CredentialsError;
-use serde_json::Value;
+use jsonwebtoken::Validation;
+pub use serde_json::{Map, Value};
 use std::collections::HashMap;
 use std::future::Future;
 use std::sync::Arc;
@@ -129,33 +131,158 @@ fn instant_from_epoch_seconds(secs: u64) -> Option<Instant> {
     }
 }
 
+/// Verifier is used to verify OIDC ID Tokens.
+#[derive(Debug)]
+pub(crate) struct Verifier {
+    jwk_client: JwkClient,
+    audience: String,
+    email: Option<String>,
+    jwks_url: Option<String>,
+    clock_skew: Duration,
+}
+
+impl Verifier {
+    /// Create a [`Verifier`] for ID Tokens with a tartget audience
+    /// for the token verification.
+    pub fn new<S: Into<String>>(audience: S) -> Self {
+        Self {
+            jwk_client: JwkClient::new(),
+            audience: audience.into(),
+            email: None,
+            jwks_url: None,
+            clock_skew: Duration::from_secs(10),
+        }
+    }
+
+    /// Sets the email for the token verification.
+    pub fn with_email<S: Into<String>>(mut self, email: S) -> Self {
+        self.email = Some(email.into());
+        self
+    }
+
+    /// Sets the JWKS URL for the token verification.
+    pub fn with_jwks_url<S: Into<String>>(mut self, jwks_url: S) -> Self {
+        self.jwks_url = Some(jwks_url.into());
+        self
+    }
+
+    /// Sets the clock skew for the token verification.
+    pub fn with_clock_skew(mut self, clock_skew: Duration) -> Self {
+        self.clock_skew = clock_skew;
+        self
+    }
+
+    /// Verifies the ID token and returns the claims.
+    pub async fn verify(&self, token: &str) -> Result<Map<String, Value>> {
+        let header = jsonwebtoken::decode_header(token)
+            .map_err(|e| CredentialsError::new(false, "failed to decode JWT header", e))?;
+
+        let key_id = header
+            .kid
+            .ok_or_else(|| CredentialsError::from_msg(false, "JWT token missing `kid` field"))?;
+
+        let mut validation = Validation::new(header.alg);
+        validation.leeway = self.clock_skew.as_secs();
+        validation.set_issuer(&["https://accounts.google.com", "accounts.google.com"]);
+        validation.set_audience(std::slice::from_ref(&self.audience));
+
+        let expected_email = self.email.clone();
+        let jwks_url = self.jwks_url.clone();
+
+        let cert = self
+            .jwk_client
+            .get_or_load_cert(key_id, header.alg, jwks_url)
+            .await?;
+
+        let token = jsonwebtoken::decode::<Map<String, Value>>(&token, &cert, &validation)
+            .map_err(|e| CredentialsError::new(false, "invalid id token", e))?;
+
+        let claims = token.claims;
+        if let Some(email) = expected_email {
+            let email_verified = claims["email_verified"].as_bool().unwrap_or(false);
+            if !email_verified {
+                return Err(CredentialsError::from_msg(false, "email not verified"));
+            }
+            let token_email = claims["email"]
+                .as_str()
+                .ok_or_else(|| CredentialsError::from_msg(false, "missing `email` field in JWT"))?;
+            if !email.eq(token_email) {
+                return Err(CredentialsError::from_msg(false, "invalid email"));
+            }
+        }
+
+        Ok(claims)
+    }
+}
+
 #[cfg(test)]
 pub(crate) mod tests {
     use super::parse_id_token_from_str;
     use super::*;
-    use base64::prelude::BASE64_URL_SAFE_NO_PAD;
+    use base64::Engine;
+    use httptest::matchers::{all_of, request};
+    use httptest::responders::json_encoded;
+    use httptest::{Expectation, Server};
+    use jsonwebtoken::{Algorithm, EncodingKey, Header};
+    use rsa::pkcs1::EncodeRsaPrivateKey;
+    use rsa::traits::PublicKeyParts;
     use serial_test::parallel;
+    use std::collections::HashMap;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
     type TestResult = anyhow::Result<()>;
 
     const DEFAULT_TEST_TOKEN_EXPIRATION: Duration = Duration::from_secs(3600);
+    const TEST_KEY_ID: &str = "test-key-id";
 
     /// Function to be used in tests to generate a fake, but valid enough, id token.
     pub(crate) fn generate_test_id_token<S: Into<String>>(audience: S) -> String {
+        generate_test_id_token_with_claims(audience, HashMap::new())
+    }
+
+    fn generate_test_id_token_with_claims<S: Into<String>>(
+        audience: S,
+        claims_to_add: HashMap<&str, Value>,
+    ) -> String {
         let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
         let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
-        let claims = serde_json::json!({
-            "iss": "test_iss".to_string(),
-            "aud": Some(audience.into()),
-            "exp": then.as_secs(),
-            "iat": now.as_secs(),
-        });
 
-        let json = serde_json::to_string(&claims).expect("failed to encode jwt claims");
-        let payload = BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes());
+        let mut header = Header::new(Algorithm::RS256);
+        header.kid = Some(TEST_KEY_ID.to_string());
 
-        format!("test_header.{}.test_signature", payload)
+        let mut claims: HashMap<&str, Value> = HashMap::new();
+        claims.insert("aud", Value::String(audience.into()));
+        claims.insert("iss", "accounts.google.com".into());
+        claims.insert("exp", then.as_secs().into());
+        claims.insert("iat", now.as_secs().into());
+
+        for (k, v) in claims_to_add {
+            claims.insert(k, v);
+        }
+
+        let private_cert = crate::credentials::tests::RSA_PRIVATE_KEY
+            .to_pkcs1_der()
+            .expect("Failed to encode private key to PKCS#1 DER");
+
+        let private_key = EncodingKey::from_rsa_der(private_cert.as_bytes());
+
+        jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt")
+    }
+
+    fn create_jwk_set_response() -> serde_json::Value {
+        let pub_cert = crate::credentials::tests::RSA_PRIVATE_KEY.to_public_key();
+        serde_json::json!({
+            "keys": [
+                {
+                    "e": base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(pub_cert.e().to_bytes_be()),
+                    "kid": TEST_KEY_ID,
+                    "use": "sig",
+                    "kty": "RSA",
+                    "n": base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(pub_cert.n().to_bytes_be()),
+                    "alg": "RS256"
+                }
+            ]
+        })
     }
 
     #[tokio::test]
@@ -175,6 +302,196 @@ pub(crate) mod tests {
         let duration = expires_at.duration_since(now);
         assert!(duration > DEFAULT_TEST_TOKEN_EXPIRATION - skew);
         assert!(duration < DEFAULT_TEST_TOKEN_EXPIRATION + skew);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_success() -> TestResult {
+        let server = Server::run();
+        let response = create_jwk_set_response();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(response.clone())),
+        );
+
+        let audience = "https://example.com";
+        let token = generate_test_id_token(audience);
+        let token = token.as_str();
+
+        let verifier =
+            Verifier::new(audience).with_jwks_url(format!("http://{}/certs", server.addr()));
+
+        let claims = verifier.verify(token).await?;
+        assert!(!claims.is_empty());
+
+        let claims = verifier.verify(token).await?;
+        assert!(!claims.is_empty());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_invalid_audience() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(create_jwk_set_response())),
+        );
+
+        let audience = "https://example.com";
+        let token = generate_test_id_token(audience);
+        let token = token.as_str();
+
+        let verifier = Verifier::new("https://wrong-audience.com")
+            .with_jwks_url(format!("http://{}/certs", server.addr()));
+
+        let result = verifier.verify(token).await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("invalid id token"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_invalid_issuer() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(create_jwk_set_response())),
+        );
+
+        let audience = "https://example.com";
+        let mut claims = HashMap::new();
+        claims.insert("iss", "https://wrong-issuer.com".into());
+        let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
+
+        let verifier =
+            Verifier::new(audience).with_jwks_url(format!("http://{}/certs", server.addr()));
+
+        let result = verifier.verify(token).await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("invalid id token"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_expired_token() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(create_jwk_set_response())),
+        );
+
+        let audience = "https://example.com";
+        let mut claims = HashMap::new();
+        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+        claims.insert("exp", (now.as_secs() - 3600).into()); // expired 1 hour ago
+        let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
+
+        let verifier =
+            Verifier::new(audience).with_jwks_url(format!("http://{}/certs", server.addr()));
+
+        let result = verifier.verify(token).await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("invalid id token"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_email_not_verified() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(create_jwk_set_response())),
+        );
+
+        let audience = "https://example.com";
+        let email = "test@example.com";
+        let mut claims = HashMap::new();
+        claims.insert("email", email.into());
+        claims.insert("email_verified", false.into());
+        let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
+
+        let verifier = Verifier::new(audience)
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .with_email(email);
+
+        let result = verifier.verify(token).await;
+        assert!(result.is_err());
+        assert!(
+            result
+                .unwrap_err()
+                .to_string()
+                .contains("email not verified")
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_email_mismatch() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(create_jwk_set_response())),
+        );
+
+        let audience = "https://example.com";
+        let email = "test@example.com";
+        let mut claims = HashMap::new();
+        claims.insert("email", email.into());
+        claims.insert("email_verified", true.into());
+        let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
+
+        let verifier = Verifier::new(audience)
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .with_email("wrong@example.com");
+
+        let result = verifier.verify(token).await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("invalid email"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_email_success() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(create_jwk_set_response())),
+        );
+
+        let audience = "https://example.com";
+        let email = "test@example.com";
+        let mut claims = HashMap::new();
+        claims.insert("email", email.into());
+        claims.insert("email_verified", true.into());
+        let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
+
+        let verifier = Verifier::new(audience)
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .with_email(email);
+
+        let result = verifier.verify(token).await;
+        assert!(result.is_ok());
+        let claims = result.unwrap();
+        assert_eq!(claims["email"].as_str().unwrap(), email);
 
         Ok(())
     }
