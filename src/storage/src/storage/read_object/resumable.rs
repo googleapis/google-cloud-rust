@@ -21,7 +21,7 @@ use crate::{Error, Result, error::ReadError};
 
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
-pub(crate) struct ReadObjectResponseImpl {
+pub(crate) struct ResumableResponse {
     reader: Reader,
     response: Option<reqwest::Response>,
     highlights: ObjectHighlights,
@@ -33,7 +33,7 @@ pub(crate) struct ReadObjectResponseImpl {
     resume_count: u32,
 }
 
-impl ReadObjectResponseImpl {
+impl ResumableResponse {
     pub(crate) fn new(reader: Reader, response: reqwest::Response) -> Result<Self> {
         let full = reader.request.read_offset == 0 && reader.request.read_limit == 0;
         let headers = response.headers();
@@ -59,7 +59,7 @@ impl ReadObjectResponseImpl {
 }
 
 #[async_trait::async_trait]
-impl crate::read_object::dynamic::ReadObjectResponse for ReadObjectResponseImpl {
+impl crate::read_object::dynamic::ReadObjectResponse for ResumableResponse {
     fn object(&self) -> ObjectHighlights {
         self.highlights.clone()
     }
@@ -75,7 +75,7 @@ impl crate::read_object::dynamic::ReadObjectResponse for ReadObjectResponseImpl 
     }
 }
 
-impl ReadObjectResponseImpl {
+impl ResumableResponse {
     async fn next_attempt(&mut self) -> Option<Result<bytes::Bytes>> {
         let response = self.response.as_mut()?;
         let res = response.chunk().await.map_err(Error::io);

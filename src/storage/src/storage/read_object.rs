@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod gunzipped;
+mod non_resumable;
 mod parse_http_response;
 mod resumable;
 
@@ -549,11 +549,11 @@ impl Reader {
         let response = self.clone().read().await?;
         if Self::is_gunzipped(&response) {
             return Ok(ReadObjectResponse::new(Box::new(
-                gunzipped::GunzippedResponse::new(response)?,
+                non_resumable::NonResumableResponse::new(response)?,
             )));
         }
         Ok(ReadObjectResponse::new(Box::new(
-            resumable::ReadObjectResponseImpl::new(self, response)?,
+            resumable::ResumableResponse::new(self, response)?,
         )))
     }
 }

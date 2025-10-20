@@ -31,12 +31,12 @@ use super::{Error, Result};
 use crate::model_ext::ObjectHighlights;
 
 #[derive(Debug)]
-pub struct GunzippedResponse {
+pub struct NonResumableResponse {
     response: Option<reqwest::Response>,
     highlights: ObjectHighlights,
 }
 
-impl GunzippedResponse {
+impl NonResumableResponse {
     pub(crate) fn new(response: reqwest::Response) -> Result<Self> {
         let generation =
             parse_http_response::response_generation(&response).map_err(Error::deser)?;
@@ -57,7 +57,7 @@ impl GunzippedResponse {
 }
 
 #[async_trait::async_trait]
-impl crate::read_object::dynamic::ReadObjectResponse for GunzippedResponse {
+impl crate::read_object::dynamic::ReadObjectResponse for NonResumableResponse {
     fn object(&self) -> ObjectHighlights {
         self.highlights.clone()
     }
@@ -154,7 +154,7 @@ mod tests {
             .status(200)
             .header("x-goog-generation", 123456)
             .body(body)?;
-        let mut response = GunzippedResponse::new(reqwest::Response::from(response))?;
+        let mut response = NonResumableResponse::new(reqwest::Response::from(response))?;
 
         let chunk = response.next().await;
         assert!(matches!(&chunk, Some(Ok(b)) if b == "hello"), "{chunk:?}");
