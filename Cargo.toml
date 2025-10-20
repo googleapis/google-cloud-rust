@@ -329,7 +329,7 @@ clap               = { default-features = false, version = "4" }
 parse-size         = { default-features = false, version = "1" }
 humantime          = { default-features = false, version = "2" }
 
-opentelemetry-semantic-conventions = { default-features = false, version = "0.30.0", features = [
+opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0", features = [
   "semconv_experimental",
 ] }
 
