@@ -493,7 +493,7 @@ struct Oauth2RefreshResponse {
     refresh_token: Option<String>,
 }
 
-pub mod idtoken {
+pub(crate) mod idtoken {
     /// Credentials for authenticating with [ID tokens] from a [user account].
     ///
     /// This module provides a builder for creating [`IDTokenCredentials`] from
