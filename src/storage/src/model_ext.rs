@@ -125,7 +125,10 @@ impl KeyAes256 {
 
 impl std::convert::From<KeyAes256> for crate::model::CommonObjectRequestParams {
     fn from(value: KeyAes256) -> Self {
-        #[allow(deprecated)]
+        // sha2::digest::generic_array::GenericArray::<T, N>::as_slice is deprecated.
+        // Our dependencies need to update to generic_array 1.x.
+        // See https://github.com/RustCrypto/traits/issues/2036 for more info.
+        // #[allow(deprecated)]
         crate::model::CommonObjectRequestParams::new()
             .set_encryption_algorithm("AES256")
             .set_encryption_key_bytes(value.key.to_vec())
