@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod gunzipped;
 mod parse_http_response;
 mod resumable;
 
@@ -515,7 +516,9 @@ impl Reader {
     pub(crate) async fn response(self) -> Result<ReadObjectResponse> {
         let response = self.clone().read().await?;
         if Self::is_gunzipped(&response) {
-            unimplemented!("gunzipped reads are not implemented, and disabled, this is unexpected");
+            return Ok(ReadObjectResponse::new(Box::new(
+                gunzipped::GunzippedResponse::new(response)?,
+            )));
         }
         Ok(ReadObjectResponse::new(Box::new(
             resumable::ReadObjectResponseImpl::new(self, response)?,
