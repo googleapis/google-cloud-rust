@@ -203,7 +203,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
     _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
     _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
     _WORKLOAD_IDENTITY_AUDIENCE             = var.workload_identity_audience
-    _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+    _UNSTABLE_CFG_FLAGS                     = lookup(each.value, "flags", "")
   }
 
   repository_event_config {
@@ -229,7 +229,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
     _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
     _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
     _WORKLOAD_IDENTITY_AUDIENCE             = var.workload_identity_audience
-    _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+    _UNSTABLE_CFG_FLAGS                     = lookup(each.value, "flags", "")
   }
 
   repository_event_config {
