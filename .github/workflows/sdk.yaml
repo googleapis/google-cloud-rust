@@ -25,7 +25,7 @@ env:
   GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.90", "rust:nightly": "nightly" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.25.0" }'
   # Define the unstable flags once
-  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing'
+  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token'
 
 jobs:
   build:
