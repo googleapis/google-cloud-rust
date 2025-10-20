@@ -176,7 +176,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running define_bucket_website_configuration example");
     buckets::define_bucket_website_configuration::sample(&client, &id, "index.html", "404.html")
         .await?;
-    tracing::info!("running cors_configuiration example");
+    tracing::info!("running cors_configuration example");
     buckets::cors_configuration::sample(&client, &id).await?;
     tracing::info!("running remove_cors_configuration example");
     buckets::remove_cors_configuration::sample(&client, &id).await?;
