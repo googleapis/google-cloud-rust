@@ -66,7 +66,8 @@ pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::R
                 .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
                 .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
                     UniformBucketLevelAccess::new().set_enabled(true),
-                )),
+                ))
+                .set_labels([("integration-tests", "true")]),
         )
         .send()
         .await?;
@@ -543,7 +544,9 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
                 .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
                     UniformBucketLevelAccess::new().set_enabled(false),
                 ))
-                .set_object_retention(ObjectRetention::new().set_enabled(true)),
+                .set_object_retention(ObjectRetention::new().set_enabled(true))
+                // Enable garbage collection.
+                .set_labels([("integration-tests", "true")]),
         )
         .send()
         .await?;
@@ -645,7 +648,8 @@ async fn create_bucket_kms_key(
         .set_bucket(
             google_cloud_storage::model::Bucket::new()
                 .set_project(format!("projects/{project_id}"))
-                .set_location("US-CENTRAL1"),
+                .set_location("US-CENTRAL1")
+                .set_labels([("integration-tests", "true")]),
         )
         .send()
         .await?;
@@ -657,6 +661,33 @@ async fn create_bucket_kms_key(
 
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
     use google_cloud_gax::paginator::ItemPaginator;
+    use google_cloud_wkt::FieldMask;
+
+    // Configure the bucket to be garbage collected. Some buckets are created by
+    // sample code, which does not (and should not) include setting labels to
+    // automatically garbage collect the bucket.
+    let current = client.get_bucket().set_name(&name).send().await?;
+    if current
+        .labels
+        .get("integration-tests")
+        .is_none_or(|v| v != "true")
+    {
+        let mut current = current;
+        current
+            .labels
+            .insert("integration-tests".to_string(), "true".to_string());
+        if let Err(e) = client
+            .update_bucket()
+            .set_bucket(current)
+            .set_update_mask(FieldMask::default().set_paths(["labels"]))
+            .send()
+            .await
+        {
+            tracing::error!(
+                "error configuring bucket {name} for automatic garbage collection: {e:?}"
+            );
+        }
+    }
 
     let mut objects = client
         .list_objects()
