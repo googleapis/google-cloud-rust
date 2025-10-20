@@ -14,7 +14,7 @@
 
 use crate::Result;
 use futures::stream::StreamExt;
-use gax::paginator::ItemPaginator;
+use gax::{error::rpc::Code, paginator::ItemPaginator};
 use rand::{Rng, distr::Alphanumeric};
 
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
@@ -114,16 +114,26 @@ async fn cleanup_stale_datasets(
         .await
         .into_iter()
         .filter_map(|r| {
-            let dataset = r.unwrap();
-            if dataset
-                .labels
-                .get(INSTANCE_LABEL)
-                .is_some_and(|v| v == "true")
-                && dataset.creation_time < stale_deadline
-            {
-                return Some(dataset);
+            match r {
+                Ok(dataset) => {
+                    if dataset
+                        .labels
+                        .get(INSTANCE_LABEL)
+                        .is_some_and(|v| v == "true")
+                        && dataset.creation_time < stale_deadline
+                    {
+                        return Some(dataset);
+                    }
+                    Ok(None)
+                }
+                Err(e) => {
+                    if e.status().is_some_and(|s| s.code == Code::NotFound) {
+                        return None;
+                    }
+                    Err(e)
+                }
             }
-            None
+            .expect("failed to fetch dataset")
         })
         .collect::<Vec<_>>();
 
