@@ -464,8 +464,8 @@ where
     }
 }
 
-#[allow(dead_code)]
-pub(crate) mod idtoken {
+#[cfg(google_cloud_unstable_id_token)]
+pub mod idtoken {
     use std::sync::Arc;
 
     use async_trait::async_trait;
@@ -987,6 +987,7 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(google_cloud_unstable_id_token)]
     #[tokio::test]
     async fn idtoken_success() -> TestResult {
         let server = Server::run();
@@ -1012,6 +1013,7 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(google_cloud_unstable_id_token)]
     #[tokio::test]
     async fn idtoken_http_error() -> TestResult {
         let server = Server::run();
