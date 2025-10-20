@@ -27,6 +27,4 @@ mod errors;
 mod http_tracing;
 
 #[cfg(google_cloud_unstable_tracing)]
-pub use attributes::ERROR_TYPE_CLIENT_TIMEOUT;
-#[cfg(google_cloud_unstable_tracing)]
 pub(crate) use http_tracing::HttpSpanInfo;

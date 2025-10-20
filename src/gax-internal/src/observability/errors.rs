@@ -15,7 +15,7 @@
 use gax::error::rpc::Code;
 use http::StatusCode;
 
-use super::attributes as attr;
+use super::attributes::error_type_values;
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum ErrorType {
@@ -85,19 +85,19 @@ impl ErrorType {
                 reason: Some(r), ..
             } => r.clone(),
             ErrorType::HttpError { code, .. } => code.as_str().to_string(),
-            ErrorType::ClientTimeout => attr::ERROR_TYPE_CLIENT_TIMEOUT.to_string(),
+            ErrorType::ClientTimeout => error_type_values::CLIENT_TIMEOUT.to_string(),
             ErrorType::ClientConnectionError => {
-                attr::ERROR_TYPE_CLIENT_CONNECTION_ERROR.to_string()
+                error_type_values::CLIENT_CONNECTION_ERROR.to_string()
             }
-            ErrorType::ClientRequestError => attr::ERROR_TYPE_CLIENT_REQUEST_ERROR.to_string(),
+            ErrorType::ClientRequestError => error_type_values::CLIENT_REQUEST_ERROR.to_string(),
             ErrorType::ClientRequestBodyError => {
-                attr::ERROR_TYPE_CLIENT_REQUEST_BODY_ERROR.to_string()
+                error_type_values::CLIENT_REQUEST_BODY_ERROR.to_string()
             }
             ErrorType::ClientResponseDecodeError => {
-                attr::ERROR_TYPE_CLIENT_RESPONSE_DECODE_ERROR.to_string()
+                error_type_values::CLIENT_RESPONSE_DECODE_ERROR.to_string()
             }
-            ErrorType::ClientRedirectError => attr::ERROR_TYPE_CLIENT_REDIRECT_ERROR.to_string(),
-            ErrorType::Internal => attr::ERROR_TYPE_INTERNAL.to_string(),
+            ErrorType::ClientRedirectError => error_type_values::CLIENT_REDIRECT_ERROR.to_string(),
+            ErrorType::Internal => error_type_values::INTERNAL.to_string(),
         }
     }
 
@@ -189,13 +189,13 @@ pub(crate) mod tests {
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_GATEWAY, reason: None }, "502", Code::Internal; "Bad Gateway")]
     #[test_case(ErrorType::HttpError { code: StatusCode::from_u16(499).unwrap(), reason: None }, "499", Code::Cancelled; "Client Closed Request")]
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: Some("REASON".to_string()) }, "REASON", Code::InvalidArgument; "Bad Request with Reason")]
-    #[test_case(ErrorType::ClientTimeout, attr::ERROR_TYPE_CLIENT_TIMEOUT, Code::DeadlineExceeded; "Client Timeout")]
-    #[test_case(ErrorType::ClientConnectionError, attr::ERROR_TYPE_CLIENT_CONNECTION_ERROR, Code::Unavailable; "Client Connection Error")]
-    #[test_case(ErrorType::ClientRequestError, attr::ERROR_TYPE_CLIENT_REQUEST_ERROR, Code::InvalidArgument; "Client Request Error")]
-    #[test_case(ErrorType::ClientRequestBodyError, attr::ERROR_TYPE_CLIENT_REQUEST_BODY_ERROR, Code::InvalidArgument; "Client Request Body Error")]
-    #[test_case(ErrorType::ClientResponseDecodeError, attr::ERROR_TYPE_CLIENT_RESPONSE_DECODE_ERROR, Code::Internal; "Client Response Decode Error")]
-    #[test_case(ErrorType::ClientRedirectError, attr::ERROR_TYPE_CLIENT_REDIRECT_ERROR, Code::Aborted; "Client Redirect Error")]
-    #[test_case(ErrorType::Internal, attr::ERROR_TYPE_INTERNAL, Code::Internal; "Internal")]
+    #[test_case(ErrorType::ClientTimeout, error_type_values::CLIENT_TIMEOUT, Code::DeadlineExceeded; "Client Timeout")]
+    #[test_case(ErrorType::ClientConnectionError, error_type_values::CLIENT_CONNECTION_ERROR, Code::Unavailable; "Client Connection Error")]
+    #[test_case(ErrorType::ClientRequestError, error_type_values::CLIENT_REQUEST_ERROR, Code::InvalidArgument; "Client Request Error")]
+    #[test_case(ErrorType::ClientRequestBodyError, error_type_values::CLIENT_REQUEST_BODY_ERROR, Code::InvalidArgument; "Client Request Body Error")]
+    #[test_case(ErrorType::ClientResponseDecodeError, error_type_values::CLIENT_RESPONSE_DECODE_ERROR, Code::Internal; "Client Response Decode Error")]
+    #[test_case(ErrorType::ClientRedirectError, error_type_values::CLIENT_REDIRECT_ERROR, Code::Aborted; "Client Redirect Error")]
+    #[test_case(ErrorType::Internal, error_type_values::INTERNAL, Code::Internal; "Internal")]
     fn test_error_type_conversions(
         error_type: ErrorType,
         expected_as_str: &str,

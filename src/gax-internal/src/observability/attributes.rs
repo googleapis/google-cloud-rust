@@ -50,21 +50,24 @@ pub const KEY_GCP_CLIENT_REPO: &str = "gcp.client.repo";
 /// Example: google-cloud-storage
 pub const KEY_GCP_CLIENT_ARTIFACT: &str = "gcp.client.artifact";
 
-// Error Type Constants
-/// A client-configured timeout was reached.
-pub const ERROR_TYPE_CLIENT_TIMEOUT: &str = "CLIENT_TIMEOUT";
-/// Failure to establish the network connection (DNS, TCP, TLS).
-pub const ERROR_TYPE_CLIENT_CONNECTION_ERROR: &str = "CLIENT_CONNECTION_ERROR";
-/// Client-side issue forming or sending the request.
-pub const ERROR_TYPE_CLIENT_REQUEST_ERROR: &str = "CLIENT_REQUEST_ERROR";
-/// Error streaming the request body.
-pub const ERROR_TYPE_CLIENT_REQUEST_BODY_ERROR: &str = "CLIENT_REQUEST_BODY_ERROR";
-/// Client-side error decoding the response body.
-pub const ERROR_TYPE_CLIENT_RESPONSE_DECODE_ERROR: &str = "CLIENT_RESPONSE_DECODE_ERROR";
-/// Problem handling HTTP redirects.
-pub const ERROR_TYPE_CLIENT_REDIRECT_ERROR: &str = "CLIENT_REDIRECT_ERROR";
-/// Unexpected issue within the client library's own logic.
-pub const ERROR_TYPE_INTERNAL: &str = "INTERNAL";
+/// Values for the OpenTelemetry `error.type` attribute.
+/// See [https://opentelemetry.io/docs/specs/semconv/attributes-registry/error/]
+pub mod error_type_values {
+    /// A client-configured timeout was reached.
+    pub const CLIENT_TIMEOUT: &str = "CLIENT_TIMEOUT";
+    /// Failure to establish the network connection (DNS, TCP, TLS).
+    pub const CLIENT_CONNECTION_ERROR: &str = "CLIENT_CONNECTION_ERROR";
+    /// Client-side issue forming or sending the request.
+    pub const CLIENT_REQUEST_ERROR: &str = "CLIENT_REQUEST_ERROR";
+    /// Error streaming the request body.
+    pub const CLIENT_REQUEST_BODY_ERROR: &str = "CLIENT_REQUEST_BODY_ERROR";
+    /// Client-side error decoding the response body.
+    pub const CLIENT_RESPONSE_DECODE_ERROR: &str = "CLIENT_RESPONSE_DECODE_ERROR";
+    /// Problem handling HTTP redirects.
+    pub const CLIENT_REDIRECT_ERROR: &str = "CLIENT_REDIRECT_ERROR";
+    /// Unexpected issue within the client library's own logic.
+    pub const INTERNAL: &str = "INTERNAL";
+}
 
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) enum OtelStatus {

@@ -24,13 +24,6 @@ mod tests {
     use std::sync::{Arc, Mutex};
     use std::time::Duration;
 
-    #[cfg(google_cloud_unstable_tracing)]
-    use google_cloud_gax_internal::observability::ERROR_TYPE_CLIENT_TIMEOUT;
-    #[cfg(google_cloud_unstable_tracing)]
-    use google_cloud_test_utils::test_layer::TestLayer;
-    #[cfg(google_cloud_unstable_tracing)]
-    use opentelemetry_semantic_conventions::trace as semconv;
-
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
     #[tokio::test(start_paused = true)]
@@ -151,60 +144,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
-    #[tokio::test(start_paused = true)]
-    async fn test_timeout_expires_with_tracing_on() -> Result<()> {
-        let (endpoint, _server) = echo_server::start().await?;
-        let mut config = test_config();
-        config.tracing = true;
-        let guard = TestLayer::initialize();
-        let client = ReqwestClient::new(config, &endpoint).await?;
-
-        let delay = Duration::from_millis(200);
-        let timeout = Duration::from_millis(150);
-        let builder = client
-            .builder(reqwest::Method::GET, "/echo".into())
-            .query(&[("delay_ms", format!("{}", delay.as_millis()))]);
-        let _response = client
-            .execute::<serde_json::Value, serde_json::Value>(
-                builder,
-                Some(json!({})),
-                test_options(&timeout),
-            )
-            .await;
-
-        let spans = TestLayer::capture(&guard);
-        assert_eq!(
-            spans.len(),
-            1,
-            "Expected 1 span for a timeout, got: {:?}",
-            spans
-        );
-        let span = &spans[0];
-        assert_eq!(span.name, "http_request", "Span name mismatch: {:?}", span);
-        let attributes = &span.attributes;
-
-        assert!(
-            !attributes.contains_key(semconv::HTTP_RESPONSE_STATUS_CODE),
-            "Span 0: '{}' should not be present on timeout, all attributes: {:?}",
-            semconv::HTTP_RESPONSE_STATUS_CODE,
-            attributes
-        );
-
-        let expected_error_type = ERROR_TYPE_CLIENT_TIMEOUT.to_string();
-        assert_eq!(
-            attributes.get(semconv::ERROR_TYPE),
-            Some(&expected_error_type),
-            "Span 0: '{}' mismatch, expected: {:?}, got: {:?}, all attributes: {:?}",
-            semconv::ERROR_TYPE,
-            Some(&expected_error_type),
-            attributes.get(semconv::ERROR_TYPE),
-            attributes
-        );
-
-        Ok(())
-    }
-
     #[tokio::test(start_paused = true)]
     async fn test_effective_timeout() -> Result<()> {
         let (endpoint, server) = echo_server::start().await?;
@@ -284,6 +223,67 @@ mod tests {
         assert_eq!(elapsed, overall_timeout);
 
         Ok(())
+    }
+
+    #[cfg(all(test, google_cloud_unstable_tracing, feature = "_internal-http-client"))]
+    mod tracing_tests {
+        use super::*;
+        use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_TIMEOUT;
+        use google_cloud_test_utils::test_layer::TestLayer;
+        use opentelemetry_semantic_conventions::trace as semconv;
+
+        #[tokio::test(start_paused = true)]
+        async fn test_timeout_expires_with_tracing_on() -> Result<()> {
+            let (endpoint, _server) = echo_server::start().await?;
+            let mut config = test_config();
+            config.tracing = true;
+            let guard = TestLayer::initialize();
+            let client = ReqwestClient::new(config, &endpoint).await?;
+
+            let delay = Duration::from_millis(200);
+            let timeout = Duration::from_millis(150);
+            let builder = client
+                .builder(reqwest::Method::GET, "/echo".into())
+                .query(&[("delay_ms", format!("{}", delay.as_millis()))]);
+            let _response = client
+                .execute::<serde_json::Value, serde_json::Value>(
+                    builder,
+                    Some(json!({})),
+                    test_options(&timeout),
+                )
+                .await;
+
+            let spans = TestLayer::capture(&guard);
+            assert_eq!(
+                spans.len(),
+                1,
+                "Expected 1 span for a timeout, got: {:?}",
+                spans
+            );
+            let span = &spans[0];
+            assert_eq!(span.name, "http_request", "Span name mismatch: {:?}", span);
+            let attributes = &span.attributes;
+
+            assert!(
+                !attributes.contains_key(semconv::HTTP_RESPONSE_STATUS_CODE),
+                "Span 0: '{}' should not be present on timeout, all attributes: {:?}",
+                semconv::HTTP_RESPONSE_STATUS_CODE,
+                attributes
+            );
+
+            let expected_error_type = CLIENT_TIMEOUT.to_string();
+            assert_eq!(
+                attributes.get(semconv::ERROR_TYPE),
+                Some(&expected_error_type),
+                "Span 0: '{}' mismatch, expected: {:?}, got: {:?}, all attributes: {:?}",
+                semconv::ERROR_TYPE,
+                Some(&expected_error_type),
+                attributes.get(semconv::ERROR_TYPE),
+                attributes
+            );
+
+            Ok(())
+        }
     }
 
     fn test_options(timeout: &Duration) -> RequestOptions {
