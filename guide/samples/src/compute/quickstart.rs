@@ -17,9 +17,15 @@ pub async fn quickstart(project_id: &str) -> anyhow::Result<()> {
     use google_cloud_compute_v1::client::Instances;
     use google_cloud_gax::paginator::ItemPaginator;
 
+    const ZONE: &str = "us-central1-a";
+
     let client = Instances::builder().build().await?;
     println!("Listing instances for project {project_id}");
-    let mut instances = client.list().set_project(project_id).by_item();
+    let mut instances = client
+        .list()
+        .set_project(project_id)
+        .set_zone(ZONE)
+        .by_item();
     while let Some(item) = instances.next().await.transpose()? {
         println!("  {:?}", item.name);
     }
