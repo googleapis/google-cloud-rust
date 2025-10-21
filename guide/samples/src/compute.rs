@@ -25,6 +25,7 @@ pub mod compute_instances_list_all;
 pub mod compute_instances_operation_check;
 pub mod compute_usage_report_get;
 pub mod compute_usage_report_set;
+pub mod quickstart;
 
 pub async fn cleanup_stale_instances(client: &Instances, project_id: &str) -> anyhow::Result<()> {
     use google_cloud_wkt::Timestamp;
@@ -60,14 +61,18 @@ pub async fn cleanup_stale_instances(client: &Instances, project_id: &str) -> an
             }
             if let (Some(name), Some(zone)) = (instance.name, instance.zone) {
                 println!("Deleting VM {name} in zone {zone}");
-                let _ = client
+                let result = client
                     .delete()
                     .set_project(project_id)
                     .set_zone(zone)
                     .set_instance(name)
                     .poller()
                     .until_done()
-                    .await?;
+                    .await;
+                match result {
+                    Err(e) => println!("operation did not complete, error={e:?}"),
+                    Ok(op) => println!("operation completed with {:?}", op.to_result()),
+                };
             }
         }
     }

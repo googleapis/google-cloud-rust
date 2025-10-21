@@ -48,7 +48,7 @@ pub async fn sample(client: &Instances, project_id: &str, name: &str) -> anyhow:
 
     println!("Instance creation finished: {operation:?}");
     // Check if there was an error.
-    if let Some(error) = &operation.error {
+    if let Err(error) = operation.to_result() {
         println!("Instance creation failed: {error:?}");
         return Err(anyhow::Error::msg(format!(
             "instance creation failed with: {error:?}"

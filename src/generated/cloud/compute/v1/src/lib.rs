@@ -412,4 +412,5 @@ pub(crate) mod info {
     }
 }
 
-mod operation;
+pub mod errors;
+pub mod operation;

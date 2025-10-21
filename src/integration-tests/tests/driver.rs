@@ -66,6 +66,14 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_lro_errors() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::lro_errors()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_machine_types() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
         integration_tests::compute::machine_types()
@@ -179,38 +187,24 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder(); "default")]
-    #[test_case(Storage::builder().with_endpoint("https://www.googleapis.com"); "with global endpoint")]
-    #[test_case(Storage::builder().with_endpoint("https://us-central1-storage.googleapis.com"); "with locational endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_objects(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
-        integration_tests::storage::objects(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_objects_large_file(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
-        integration_tests::storage::objects_large_file(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_uploads(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
+    async fn run_storage_objects() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-        let result = integration_tests::storage::uploads(builder, &bucket.name).await;
+        let variants = || async {
+            tracing::info!("default builder");
+            let builder = Storage::builder();
+            integration_tests::storage::objects(builder).await?;
+            tracing::info!("with global endpoint");
+            let builder = Storage::builder().with_endpoint("https://www.googleapis.com");
+            integration_tests::storage::objects(builder).await?;
+            tracing::info!("with locational endpoint");
+            let builder =
+                Storage::builder().with_endpoint("https://us-central1-storage.googleapis.com");
+            integration_tests::storage::objects(builder).await?;
+            Ok(())
+        };
+        let result = variants().await;
         if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
             tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
         };
@@ -218,15 +212,13 @@ mod driver {
     }
 
     #[test_case(Storage::builder(); "default")]
-    #[tokio::test]
-    async fn run_storage_checksums(
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_storage_read_object(
         builder: storage::builder::storage::ClientBuilder,
     ) -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-        let result = integration_tests::storage::checksums(builder, &bucket.name)
-            .await
-            .map_err(integration_tests::report_error);
+        let result = integration_tests::storage::read_object::run(builder, &bucket.name).await;
         if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
             tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
         };
@@ -234,16 +226,16 @@ mod driver {
     }
 
     #[test_case(Storage::builder(); "default")]
-    #[tokio::test]
-    async fn run_storage_ranged_reads(
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_storage_write_object(
         builder: storage::builder::storage::ClientBuilder,
     ) -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-        let result = integration_tests::storage::ranged_reads(builder, &bucket.name)
-            .await
-            .map_err(integration_tests::report_error);
-        let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
+        let result = integration_tests::storage::write_object::run(builder, &bucket.name).await;
+        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
+            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
+        };
         result
     }
 
@@ -259,28 +251,6 @@ mod driver {
                 .await
                 .map_err(integration_tests::report_error);
         let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
-        result
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_objects_with_key(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
-        integration_tests::storage::objects_customer_supplied_encryption(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_objects_compressed() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
-        let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-        let result = integration_tests::storage::read_gzip::test(&bucket).await;
-        if let Err(err) = storage_samples::cleanup_bucket(control, bucket.name).await {
-            tracing::error!("error cleaning up temporary bucket: {err:?}");
-        };
         result
     }
 

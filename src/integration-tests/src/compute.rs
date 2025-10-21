@@ -223,7 +223,8 @@ pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<(
             .set_image(name)
             .poller()
             .until_done()
-            .await?;
+            .await?
+            .to_result()?;
     }
     Ok(())
 }
@@ -273,7 +274,8 @@ pub async fn images() -> Result<()> {
         .set_body(body)
         .poller()
         .until_done()
-        .await?;
+        .await?
+        .to_result()?;
     tracing::info!("Images::insert() finished with {operation:?}");
 
     tracing::info!("Testing Images::delete()");
@@ -283,7 +285,8 @@ pub async fn images() -> Result<()> {
         .set_image(&name)
         .poller()
         .until_done()
-        .await;
+        .await?
+        .to_result()?;
     tracing::info!("Images::delete() completed with {operation:?}");
 
     Ok(())
@@ -327,7 +330,8 @@ pub async fn instances() -> Result<()> {
         .set_body(body)
         .poller()
         .until_done()
-        .await?;
+        .await?
+        .to_result()?;
     tracing::info!("Operation completed with = {operation:?}");
 
     tracing::info!("Getting instance details.");
@@ -350,6 +354,59 @@ pub async fn instances() -> Result<()> {
         tracing::info!("instance = {instance:?}");
     }
     tracing::info!("DONE Instances::list()");
+
+    Ok(())
+}
+
+pub async fn lro_errors() -> Result<()> {
+    let client = Instances::builder().with_tracing().build().await?;
+    let project_id = crate::project_id()?;
+    let service_account = crate::test_service_account()?;
+    let zone_id = crate::zone_id();
+    // A machine type for which the project does not have enough quota.
+    const MACHINE_TYPE: &str = "c4d-standard-384";
+
+    let id = crate::random_vm_id();
+    let body = Instance::new()
+        .set_machine_type(format!("zones/{zone_id}/machineTypes/{MACHINE_TYPE}"))
+        .set_name(&id)
+        .set_description("A test VM created by the Rust client library.")
+        .set_labels([("integration-tests", "true")])
+        .set_disks([AttachedDisk::new()
+            .set_initialize_params(
+                AttachedDiskInitializeParams::new()
+                    .set_source_image("projects/cos-cloud/global/images/family/cos-stable"),
+            )
+            .set_boot(true)
+            .set_auto_delete(true)])
+        .set_network_interfaces([NetworkInterface::new().set_network("global/networks/default")])
+        .set_service_accounts([ServiceAccount::new()
+            .set_email(&service_account)
+            .set_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])]);
+
+    tracing::info!("Starting new instance.");
+    let operation = client
+        .insert()
+        .set_project(&project_id)
+        .set_zone(&zone_id)
+        .set_body(body)
+        .poller()
+        .until_done()
+        .await?;
+    tracing::info!("Operation completed with = {operation:?}");
+    let err = operation
+        .to_result()
+        .expect_err("the VM creation request should fail due to lack of quota");
+    tracing::info!("Expected error: {err:?}");
+    use google_cloud_compute_v1::errors::OperationError;
+    let OperationError::Generic(generic) = err else {
+        panic!("expected a OperationError::Generic(_) {err:?}")
+    };
+    let Some(detail) = generic.details.as_ref().and_then(|e| e.errors.first()) else {
+        panic!("expected at least one error details in {generic:?}");
+    };
+    assert!(detail.code.is_some(), "{detail:?}");
+    assert!(!detail.error_details.is_empty(), "{detail:?}");
 
     Ok(())
 }
@@ -399,7 +456,8 @@ pub async fn region_instances() -> Result<()> {
         .set_body(body)
         .poller()
         .until_done()
-        .await?;
+        .await?
+        .to_result()?;
     tracing::info!("Operation completed with = {operation:?}");
 
     Ok(())
