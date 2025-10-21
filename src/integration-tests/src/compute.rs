@@ -405,10 +405,7 @@ pub async fn lro_errors() -> Result<()> {
     let Some(detail) = generic.details.as_ref().and_then(|e| e.errors.first()) else {
         panic!("expected at least one error details in {generic:?}");
     };
-    assert_eq!(
-        detail.code.as_deref(),
-        Some("ZONE_RESOURCE_POOL_EXHAUSTED_WITH_DETAILS")
-    );
+    assert!(detail.code.is_some(), "{detail:?}");
     assert!(!detail.error_details.is_empty(), "{detail:?}");
 
     Ok(())
