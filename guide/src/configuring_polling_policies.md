@@ -28,7 +28,7 @@ policies in one request.
 
 There are two different policies controlling the behavior of the LRO loops:
 
-- The polling backoff policy controls how long the loop waits before polling the
+- The polling backoff policy controls how long the loops wait before polling the
   status of a LRO that is still in progress.
 - The polling error policy controls what to do on an polling error. Some polling
   errors are unrecoverable, and indicate that the operation was aborted or the
@@ -69,13 +69,13 @@ To configure the polling frequency you use a type implementing the
 [PollingBackoffPolicy] trait. The client libraries provide [ExponentialBackoff]:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:client-backoff-use}}
+{{#include ../samples/tests/storage/polling_policies.rs:client-backoff-use}}
 ```
 
 Then initialize the client with the configuration you want:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:client-backoff-client}}
+{{#include ../samples/tests/storage/polling_policies.rs:client-backoff-client}}
 ```
 
 Unless you override the policy with a [per-request setting] this policy will be
@@ -105,31 +105,31 @@ As described in the previous section. We need a type implementing the
 use [ExponentialBackoff] in this example:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:rpc-backoff-use}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff-use}}
 ```
 
 The configuration of the request will require bringing a trait within scope:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:rpc-backoff-builder-trait}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff-builder-trait}}
 ```
 
 Create the request builder:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:rpc-backoff-builder}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff-builder}}
 ```
 
 And then configure the polling backoff policy:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:rpc-backoff-rpc-polling-backoff}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff-rpc-polling-backoff}}
 ```
 
 You can issue this request as usual. For example:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:rpc-backoff-print}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff-print}}
 ```
 
 See
@@ -143,7 +143,7 @@ To configure the retryable errors we need to use a type implementing the
 conservative choice is [Aip194Strict]:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:client-errors-use}}
+{{#include ../samples/tests/storage/polling_policies.rs:client-errors-use}}
 ```
 
 If you are planning to use the same polling policy for all (or even most)
@@ -152,13 +152,13 @@ requests with the same client then consider setting this as a client option.
 Add the polling policies that you will use for all long running operations:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:client-errors-client}}
+{{#include ../samples/tests/storage/polling_policies.rs:client-errors-client}}
 ```
 
 You can also add retry policies to handle errors in the initial request:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:client-errors-client-retry}}
+{{#include ../samples/tests/storage/polling_policies.rs:client-errors-client-retry}}
 ```
 
 Unless you override the policy with a [per-request setting] this policy will be
@@ -188,38 +188,38 @@ To configure the retryable errors we need to use a type implementing the
 conservative choice is [Aip194Strict]:
 
 ```rust,ignore
-{{#include ../samples/src/storage/polling_policies.rs:rpc-errors-use}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-errors-use}}
 ```
 
 The configuration of the request will require bringing a trait within scope:
 
 ```rust,ignore
-{{#include ../samples/src/polling_policies.rs:rpc-errors-builder-trait}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-errors-builder-trait}}
 ```
 
 You create the request builder as usual:
 
 ```rust,ignore
-{{#include ../samples/src/polling_policies.rs:rpc-errors-builder}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-errors-builder}}
 ```
 
 And then configure the polling backoff policy:
 
 ```rust,ignore
-{{#include ../samples/src/polling_policies.rs:rpc-errors-rpc-polling-errors}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-errors-rpc-polling-errors}}
 ```
 
 You can issue this request as usual. For example:
 
 ```rust,ignore
-{{#include ../samples/src/polling_policies.rs:rpc-errors-print}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-errors-print}}
 ```
 
 Consider adding a retry policy in case the initial request to start the LRO
 fails:
 
 ```rust,ignore
-{{#include ../samples/src/polling_policies.rs:rpc-errors-client}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-errors-client}}
 ```
 
 See
@@ -229,25 +229,25 @@ for the complete code.
 ## Configuring the polling frequency for all requests in a client: complete code
 
 ```rust,ignore
-{{#include ../samples/src/polling_policies.rs:client-backoff}}
+{{#include ../samples/tests/storage/polling_policies.rs:client-backoff}}
 ```
 
 ## Configuring the polling frequency for a specific request: complete code
 
 ```rust,ignore
-{{#include ../samples/src/polling_policies.rs:rpc-backoff}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff}}
 ```
 
 ## Configuring the retryable polling errors for all requests in a client: complete code
 
 ```rust,ignore
-{{#include ../samples/src/polling_policies.rs:client-backoff}}
+{{#include ../samples/tests/storage/polling_policies.rs:client-backoff}}
 ```
 
 ## Configuring the retryable polling errors for a specific request: complete code
 
 ```rust,ignore
-{{#include ../samples/src/polling_policies.rs:rpc-backoff}}
+{{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff}}
 ```
 
 [aip-194]: https://google.aip.dev/194
