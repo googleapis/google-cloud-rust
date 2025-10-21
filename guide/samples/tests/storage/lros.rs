@@ -19,11 +19,13 @@ use google_cloud_storage::client::StorageControl;
 // ANCHOR_END: use
 
 // ANCHOR: manual
-// ANCHOR: client
+// ANCHOR: manual-arguments
 pub async fn manual(bucket: &str, folder: &str, dest: &str) -> anyhow::Result<()> {
+    // ANCHOR_END: manual-arguments
     use google_cloud_storage::model::Folder;
     use google_cloud_storage::model::RenameFolderMetadata;
 
+    // ANCHOR: client
     let client = StorageControl::builder().build().await?;
     // ANCHOR_END: client
 

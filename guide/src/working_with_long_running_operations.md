@@ -71,11 +71,16 @@ when using large folders, but it is relatively fast with smaller folders.
 
 In the Rust client libraries, each request is represented by a method that
 returns a request builder. First, call the right method on the client to create
-the request builder. The sample functions accept the bucket and folder names as
-arguments:
+the request builder:
 
 ```rust,ignore
 {{#include ../samples/tests/storage/lros.rs:request-builder}}
+```
+
+The sample functions accept the bucket and folder names as arguments:
+
+```rust,ignore
+{{#include ../samples/tests/storage/lros.rs:manual-arguments}}
 ```
 
 Make the request and wait for an [Operation][longrunning::model::operation] to
@@ -83,6 +88,8 @@ be returned. This `Operation` acts as a promise for the result of the
 long-running request:
 
 ```rust,ignore
+    let operation =
+        // ... ...
 {{#include ../samples/tests/storage/lros.rs:send}}
 ```
 
@@ -97,23 +104,17 @@ below.
 
 ## Automatically polling a long-running operation
 
-To configure automatic polling, you prepare the request just like you did to
-start a long-running operation. The difference comes at the end, where instead
-of sending the request to get the `Operation` promise:
-
-```rust,ignore
-{{#include ../samples/tests/storage/lros.rs:send}}
-```
-
-... you create a `Poller` and wait until it is done:
+To configure automatic polling, prepare the request as you did to start a
+long-running operation. The difference comes at the end, where instead of
+sending the request using `.send().await` you create a `Poller` and wait until
+it is done:
 
 ```rust,ignore
 {{#include ../samples/tests/storage/lros.rs:automatic-poller-until-done}}
 ```
 
-Let's review the code step-by-step.
-
-First, introduce the trait in scope via a `use` declaration:
+Let's review the code step-by-step. First, introduce the `Poller` trait in scope
+via a `use` declaration:
 
 ```rust,ignore
 {{#include ../samples/tests/storage/lros.rs:automatic-use}}
@@ -135,11 +136,11 @@ You can find the
 [full function](#automatically-polling-a-long-running-operation-complete-code)
 below.
 
-## Polling a long-running operation
+## Polling a long-running operation with intermediate results
 
 While `.until_done()` is convenient, it omits some information: long-running
 operations may report partial progress via a "metadata" attribute. If your
-application requires such information, you need to use the poller directly:
+application requires such information, use the poller directly:
 
 ```rust,ignore
     let mut poller = client
@@ -193,10 +194,11 @@ the `done` field:
 {{#rustdoc_include ../samples/tests/storage/lros.rs:manual-if-done}}
 ```
 
-In most cases, if the operation is done it contains a result. However, the field
-is optional because the service could return `done` as true and no result: maybe
-the operation deletes resources and a successful completion has no return value.
-In this example using the Storage service, you can ignore this nuance:
+In most cases, when the operation is completed it contains a result. However,
+the field is optional because the service could return `done` as true and no
+result. For example, if the operation deletes resources and a successful
+completion has no return value. In this example, using the Storage service, you
+can ignore this nuance and assume a value will be present:
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/storage/lros.rs:manual-match-none}}
@@ -252,7 +254,7 @@ Consider adjusting the polling period, maybe using a form of truncated
 {{#rustdoc_include ../samples/tests/storage/lros.rs:manual-backoff}}
 ```
 
-Then you can poll the operation to get its new status:
+If the operation has not completed, you need to query its status:
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/storage/lros.rs:manual-poll-again}}
