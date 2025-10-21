@@ -25,6 +25,7 @@ pub mod compute_instances_list_all;
 pub mod compute_instances_operation_check;
 pub mod compute_usage_report_get;
 pub mod compute_usage_report_set;
+pub mod quickstart;
 
 pub async fn cleanup_stale_instances(client: &Instances, project_id: &str) -> anyhow::Result<()> {
     use google_cloud_wkt::Timestamp;
