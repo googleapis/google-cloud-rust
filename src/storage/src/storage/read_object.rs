@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod non_resumable;
 mod parse_http_response;
 mod resumable;
 
@@ -359,6 +360,33 @@ where
         self
     }
 
+    /// Enables automatic decompression.
+    ///
+    /// The Cloud Storage service [automatically decompresses] objects
+    /// with `content_encoding == "gzip"` during reads. The client library
+    /// disables this behavior by default, as it is not possible to
+    /// perform ranged reads or to resume interrupted downloads if automatic
+    /// decompression is enabled.
+    ///
+    /// Use this option to enable automatic decompression.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_automatic_decompression(true)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_automatic_decompression(mut self, v: bool) -> Self {
+        self.options.automatic_decompression = v;
+        self
+    }
+
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
         self.stub.read_object(self.request, self.options).await
@@ -430,6 +458,20 @@ impl Reader {
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
+        let builder = if self.options.automatic_decompression {
+            builder
+        } else {
+            // Disable decompressive transcoding: https://cloud.google.com/storage/docs/transcoding
+            //
+            // The default is to decompress objects that have `contentEncoding == "gzip"`. This header
+            // tells Cloud Storage to disable automatic decompression. It has no effect on objects
+            // with a different `contentEncoding` value.
+            builder.header(
+                "accept-encoding",
+                reqwest::header::HeaderValue::from_static("gzip"),
+            )
+        };
+
         // Add the optional query parameters.
         let builder = if self.request.generation != 0 {
             builder.query(&[("generation", self.request.generation)])
@@ -487,10 +529,43 @@ impl Reader {
         self.inner.apply_auth_headers(builder).await
     }
 
+    fn is_gunzipped(response: &reqwest::Response) -> bool {
+        // Cloud Storage automatically [decompresses gzip-compressed][transcoding]
+        // objects. Reading such objects comes with a number of restrictions:
+        // - Ranged reads do not work.
+        // - The size of the decompressed data is not known.
+        // - Checksums do not work because the object checksums correspond to the
+        //   compressed data and the client library receives the decompressed data.
+        //
+        // Because ranged reads do not work, resuming a read does not work. Consequently,
+        // the implementation of `ReadObjectResponse` is substantially different for
+        // objects that are gunzipped.
+        //
+        // [transcoding]: https://cloud.google.com/storage/docs/transcoding
+        const TRANSFORMATION: &str = "x-guploader-response-body-transformations";
+        use http::header::WARNING;
+        if response
+            .headers()
+            .get(TRANSFORMATION)
+            .is_some_and(|h| h.as_bytes() == "gunzipped".as_bytes())
+        {
+            return true;
+        }
+        response
+            .headers()
+            .get(WARNING)
+            .is_some_and(|h| h.as_bytes() == "214 UploadServer gunzipped".as_bytes())
+    }
+
     pub(crate) async fn response(self) -> Result<ReadObjectResponse> {
         let response = self.clone().read().await?;
+        if Self::is_gunzipped(&response) {
+            return Ok(ReadObjectResponse::new(Box::new(
+                non_resumable::NonResumableResponse::new(response)?,
+            )));
+        }
         Ok(ReadObjectResponse::new(Box::new(
-            resumable::ReadObjectResponseImpl::new(self, response)?,
+            resumable::ResumableResponse::new(self, response)?,
         )))
     }
 }
@@ -559,6 +634,7 @@ mod tests {
         server.expect(
             Expectation::matching(all_of![
                 request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+                request::headers(contains(("accept-encoding", "gzip"))),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
             .respond_with(
@@ -935,7 +1011,63 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn read_object_headers() -> Result {
+    async fn read_object_default_headers() -> Result {
+        // The API takes the unencoded byte array.
+        let inner = test_inner_client(test_builder());
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        );
+        let request = http_request_builder(inner, builder).await?.build()?;
+
+        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(
+            request.url().as_str(),
+            "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+
+        let want = [("accept-encoding", "gzip")];
+        let headers = request.headers();
+        for (name, value) in want {
+            assert_eq!(
+                headers.get(name).and_then(|h| h.to_str().ok()),
+                Some(value),
+                "{request:?}"
+            );
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_automatic_decompression_headers() -> Result {
+        // The API takes the unencoded byte array.
+        let inner = test_inner_client(test_builder());
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .with_automatic_decompression(true);
+        let request = http_request_builder(inner, builder).await?.build()?;
+
+        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(
+            request.url().as_str(),
+            "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+
+        let headers = request.headers();
+        assert!(headers.get("accept-encoding").is_none(), "{request:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_encryption_headers() -> Result {
         // Make a 32-byte key.
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
@@ -957,16 +1089,17 @@ mod tests {
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
         );
 
-        let want = vec![
+        let want = [
             ("x-goog-encryption-algorithm", "AES256".to_string()),
             ("x-goog-encryption-key", key_base64),
             ("x-goog-encryption-key-sha256", key_sha256_base64),
         ];
 
+        let headers = request.headers();
         for (name, value) in want {
             assert_eq!(
-                request.headers().get(name).unwrap().as_bytes(),
-                bytes::Bytes::from(value)
+                headers.get(name).and_then(|h| h.to_str().ok()),
+                Some(value.as_str())
             );
         }
         Ok(())
@@ -1025,6 +1158,22 @@ mod tests {
         let request = http_request_builder(inner, builder).await?.build()?;
         let got = request.url().path_segments().unwrap().next_back().unwrap();
         assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case("x-guploader-response-body-transformations", "gunzipped", true)]
+    #[test_case("x-guploader-response-body-transformations", "no match", false)]
+    #[test_case("warning", "214 UploadServer gunzipped", true)]
+    #[test_case("warning", "no match", false)]
+    #[test_case("unused", "unused", false)]
+    fn test_is_gunzipped(name: &'static str, value: &'static str, want: bool) -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header(name, value)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let got = Reader::is_gunzipped(&response);
+        assert_eq!(got, want, "{response:?}");
         Ok(())
     }
 }

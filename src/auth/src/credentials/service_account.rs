@@ -464,33 +464,20 @@ where
     }
 }
 
-pub mod idtoken {
-    //! Credentials for authenticating with [ID tokens] from a [service account].
-    //!
-    //! This module provides a builder for creating [`IDTokenCredentials`] from
-    //! service account credentials, which are typically obtained from a JSON key
-    //! file.
-    //!
-    //! These credentials can be used to authenticate with Google Cloud services
-    //! that require ID tokens for authentication, such as Cloud Run or Cloud
-    //! Functions. The `target_audience` field is required, and specifies the
-    //! intended recipient of the token.
-    //!
-    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
-    //! [service account]: https://cloud.google.com/docs/authentication#service-accounts
-
-    use crate::build_errors::Error as BuilderError;
-    use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
-    use crate::credentials::idtoken::IDTokenCredentials;
-    use crate::credentials::idtoken::dynamic::IDTokenCredentialsProvider;
-    use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
-    use crate::token::{Token, TokenProvider};
-    use crate::{BuildResult, Result};
+#[allow(dead_code)]
+pub(crate) mod idtoken {
+    use std::sync::Arc;
     use async_trait::async_trait;
     use gax::error::CredentialsError;
     use reqwest::Client;
     use serde_json::Value;
-    use std::sync::Arc;
+    use crate::Result;
+    use crate::build_errors::Error as BuilderError;
+    use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
+    use crate::credentials::idtoken::dynamic::IDTokenCredentialsProvider;
+    use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
+    use crate::token::{Token, TokenProvider};
+    use crate::{BuildResult, credentials::idtoken::IDTokenCredentials};
 
     #[derive(Debug)]
     struct ServiceAccountCredentials<T>
@@ -513,8 +500,9 @@ pub mod idtoken {
     #[derive(Debug)]
     struct ServiceAccountTokenProvider {
         service_account_key: ServiceAccountKey,
-        audience: Option<String>,
+        audience: String,
         target_audience: String,
+        token_server_url: String,
     }
 
     #[async_trait]
@@ -524,7 +512,7 @@ pub mod idtoken {
             let target_audience = Some(self.target_audience.clone());
             let service_account_key = self.service_account_key.clone();
             let tg = ServiceAccountTokenGenerator {
-                audience: audience.or(Some(OAUTH2_TOKEN_SERVER_URL.to_string())),
+                audience: Some(audience),
                 service_account_key,
                 target_audience,
                 scopes: None,
@@ -532,7 +520,7 @@ pub mod idtoken {
             let assertion = tg.generate()?;
 
             let client = Client::new();
-            let request = client.post(OAUTH2_TOKEN_SERVER_URL.to_string()).form(&[
+            let request = client.post(&self.token_server_url).form(&[
                 ("grant_type", JWT_BEARER_GRANT_TYPE.to_string()),
                 ("assertion", assertion),
             ]);
@@ -562,17 +550,15 @@ pub mod idtoken {
         }
     }
 
-    /// A builder for constructing [`IDTokenCredentials`] instances that fetch ID
-    /// tokens using service accounts.
     pub struct Builder {
         service_account_key: Value,
         target_audience: String,
+        token_server_url: String,
     }
 
+    /// Creates [`IDTokenCredentials`] instances that fetch ID tokens using
+    /// service accounts.
     impl Builder {
-        /// Creates a new builder for `IDTokenCredentials` from a
-        /// `serde_json::Value` representing the service account key.
-        ///
         /// The `target_audience` is a required parameter that specifies the
         /// intended audience of the ID token. This is typically the URL of the
         /// service that will be receiving the token.
@@ -580,7 +566,14 @@ pub mod idtoken {
             Self {
                 service_account_key,
                 target_audience: target_audience.into(),
+                token_server_url: OAUTH2_TOKEN_SERVER_URL.to_string(),
             }
+        }
+
+        #[cfg(test)]
+        pub(crate) fn with_token_server_url<S: Into<String>>(mut self, url: S) -> Self {
+            self.token_server_url = url.into();
+            self
         }
 
         fn build_token_provider(
@@ -592,25 +585,14 @@ pub mod idtoken {
                     .map_err(BuilderError::parsing)?;
             Ok(ServiceAccountTokenProvider {
                 service_account_key,
-                audience: Some(OAUTH2_TOKEN_SERVER_URL.to_string()),
+                audience: OAUTH2_TOKEN_SERVER_URL.to_string(),
                 target_audience,
+                token_server_url: self.token_server_url,
             })
         }
 
         /// Returns an [`IDTokenCredentials`] instance with the configured
         /// settings.
-        ///
-        /// # Errors
-        ///
-        /// Returns a `BuildError` if the `service_account_key`
-        /// provided to [`Builder::new`] cannot be successfully deserialized into the
-        /// expected format. This typically happens if the JSON value is malformed or
-        /// missing required fields. For more information on how to generate
-        /// `service_account_key` json, consult the relevant section in the
-        /// [service account keys] guide.
-        ///
-        /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete
-
         pub fn build(self) -> BuildResult<IDTokenCredentials> {
             let target_audience = self.target_audience.clone();
             let creds = ServiceAccountCredentials {
@@ -626,6 +608,7 @@ pub mod idtoken {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::constants::JWT_BEARER_GRANT_TYPE;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         PKCS8_PK, b64_decode_to_json, get_headers_from_cache, get_token_from_headers,
@@ -633,9 +616,15 @@ mod tests {
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
+    use httptest::{
+        Expectation, Server,
+        matchers::{all_of, any, contains, request, url_decoded},
+        responders::*,
+    };
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::LineEnding;
     use rustls_pemfile::Item;
+    use serde_json::Value;
     use serde_json::json;
     use std::error::Error as _;
     use std::time::Duration;
@@ -993,6 +982,51 @@ mod tests {
         assert!(claims["iat"].is_number());
         assert!(claims["exp"].is_number());
         assert_eq!(claims["sub"], service_account_key["client_email"]);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn idtoken_success() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("POST"),
+                request::path("/"),
+                request::body(url_decoded(contains(("grant_type", JWT_BEARER_GRANT_TYPE)))),
+                request::body(url_decoded(contains(("assertion", any())))),
+            ])
+            .respond_with(status_code(200).body("test-id-token")),
+        );
+
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
+
+        let creds = idtoken::Builder::new("test-audience", service_account_key)
+            .with_token_server_url(server.url("/").to_string())
+            .build()?;
+
+        let token = creds.id_token().await?;
+        assert_eq!(token, "test-id-token");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn idtoken_http_error() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::method("POST"), request::path("/"),])
+                .respond_with(status_code(501)),
+        );
+
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
+
+        let creds = idtoken::Builder::new("test-audience", service_account_key)
+            .with_token_server_url(server.url("/").to_string())
+            .build()?;
+
+        let err = creds.id_token().await.unwrap_err();
+        assert!(!err.is_transient());
         Ok(())
     }
 }

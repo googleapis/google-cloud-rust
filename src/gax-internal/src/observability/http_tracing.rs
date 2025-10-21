@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#![allow(dead_code)] // TODO(#3239): Remove once used in http.rs
-
 use crate::observability::attributes::*;
 use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
@@ -150,7 +148,12 @@ impl HttpSpanInfo {
             otel_name,
             otel_status: OtelStatus::Unset,
             http_request_method: method.to_string(),
-            server_address: url.host_str().map(String::from).unwrap_or_default(),
+            // Remove brackets from IPv6 addresses (e.g., "[::1]" -> "::1")
+            // as per OpenTelemetry spec for server.address.
+            server_address: url
+                .host_str()
+                .map(|h| h.trim_start_matches('[').trim_end_matches(']').to_string())
+                .unwrap_or_default(),
             server_port: url.port_or_known_default().map(|p| p as i64).unwrap_or(0),
             url_full: url.to_string(),
             url_scheme: Some(url.scheme().to_string()),

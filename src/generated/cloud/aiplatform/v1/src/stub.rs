@@ -1423,6 +1423,19 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::FeatureOnlineStoreService::generate_fetch_access_token].
+    fn generate_fetch_access_token(
+        &self,
+        _req: crate::model::GenerateFetchAccessTokenRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateFetchAccessTokenResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::FeatureOnlineStoreService::list_locations].
     fn list_locations(
         &self,

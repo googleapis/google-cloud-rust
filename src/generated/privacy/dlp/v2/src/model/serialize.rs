@@ -905,6 +905,12 @@ impl serde::ser::Serialize for super::RedactImageRequest {
         if self.byte_item.is_some() {
             state.serialize_entry("byteItem", &self.byte_item)?;
         }
+        if !self.inspect_template.is_empty() {
+            state.serialize_entry("inspectTemplate", &self.inspect_template)?;
+        }
+        if !self.deidentify_template.is_empty() {
+            state.serialize_entry("deidentifyTemplate", &self.deidentify_template)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1232,6 +1238,9 @@ impl serde::ser::Serialize for super::OutputStorageConfig {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.table() {
             state.serialize_entry("table", value)?;
+        }
+        if let Some(value) = self.storage_path() {
+            state.serialize_entry("storagePath", value)?;
         }
         if !wkt::internal::is_default(&self.output_schema) {
             state.serialize_entry("outputSchema", &self.output_schema)?;
@@ -4655,6 +4664,9 @@ impl serde::ser::Serialize for super::Action {
         if let Some(value) = self.publish_findings_to_cloud_data_catalog() {
             state.serialize_entry("publishFindingsToCloudDataCatalog", value)?;
         }
+        if let Some(value) = self.publish_findings_to_dataplex_catalog() {
+            state.serialize_entry("publishFindingsToDataplexCatalog", value)?;
+        }
         if let Some(value) = self.deidentify() {
             state.serialize_entry("deidentify", value)?;
         }
@@ -4738,6 +4750,25 @@ impl serde::ser::Serialize for super::action::PublishSummaryToCscc {
 
 #[doc(hidden)]
 impl serde::ser::Serialize for super::action::PublishFindingsToCloudDataCatalog {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::action::PublishFindingsToDataplexCatalog {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6707,6 +6738,9 @@ impl serde::ser::Serialize for super::FileStoreCollection {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.include_regexes() {
             state.serialize_entry("includeRegexes", value)?;
+        }
+        if self.include_tags.is_some() {
+            state.serialize_entry("includeTags", &self.include_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9187,6 +9221,53 @@ impl serde::ser::Serialize for super::Tag {
         }
         if !self.value.is_empty() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TagFilters {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.tag_filters.is_empty() {
+            state.serialize_entry("tagFilters", &self.tag_filters)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TagFilter {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.namespaced_tag_value() {
+            state.serialize_entry("namespacedTagValue", value)?;
+        }
+        if let Some(value) = self.namespaced_tag_key() {
+            state.serialize_entry("namespacedTagKey", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

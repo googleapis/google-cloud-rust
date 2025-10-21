@@ -226,6 +226,7 @@ impl std::fmt::Debug for super::Topic {
             &self.ingestion_data_source_settings,
         );
         debug_struct.field("message_transforms", &self.message_transforms);
+        debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -398,6 +399,7 @@ impl std::fmt::Debug for super::Subscription {
             &self.analytics_hub_subscription_info,
         );
         debug_struct.field("message_transforms", &self.message_transforms);
+        debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -635,6 +637,7 @@ impl std::fmt::Debug for super::CreateSnapshotRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("subscription", &self.subscription);
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("tags", &self.tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

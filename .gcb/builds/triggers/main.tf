@@ -36,12 +36,26 @@ locals {
 
   # Add to these lists of you want to have more triggers.
   pr_builds = {
-    integration = {}
+    integration = {
+      config = "integration.yaml"
+    }
+    integration-unstable = {
+      config = "integration.yaml"
+      flags  = "--cfg google_cloud_unstable_tracing"
+    }
   }
 
   pm_builds = {
-    integration     = {}
-    referenceupload = {}
+    integration = {
+      config = "integration.yaml"
+    }
+    integration-unstable = {
+      config = "integration.yaml"
+      flags  = "--cfg google_cloud_unstable_tracing"
+    }
+    referenceupload = {
+      config = "referenceupload.yaml"
+    }
   }
 }
 
@@ -75,7 +89,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
   for_each = tomap(local.pr_builds)
   location = var.region
   name     = "gcb-pr-${each.key}"
-  filename = ".gcb/${each.key}.yaml"
+  filename = ".gcb/${each.value.config}"
   tags     = ["pull-request", "name:${each.key}"]
 
   service_account = var.service_account
@@ -89,13 +103,17 @@ resource "google_cloudbuild_trigger" "pull-request" {
   }
 
   include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
+
+  substitutions = {
+    _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+  }
 }
 
 resource "google_cloudbuild_trigger" "post-merge" {
   for_each = tomap(local.pm_builds)
   location = var.region
   name     = "gcb-pm-${each.key}"
-  filename = ".gcb/${each.key}.yaml"
+  filename = ".gcb/${each.value.config}"
   tags     = ["post-merge", "push", "name:${each.key}"]
 
   service_account = var.service_account
@@ -108,4 +126,8 @@ resource "google_cloudbuild_trigger" "post-merge" {
   }
 
   include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
+
+  substitutions = {
+    _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+  }
 }

@@ -353,6 +353,7 @@ struct UserTokenProvider {
     source: UserTokenSource,
 }
 
+#[allow(dead_code)]
 #[derive(PartialEq)]
 enum UserTokenSource {
     IdToken,
@@ -424,9 +425,7 @@ impl TokenProvider for UserTokenProvider {
 
 const MSG: &str = "failed to refresh user access token";
 const MISSING_ID_TOKEN_MSG: &str = "UserCredentials can obtain an id token only when authenticated through \
-gcloud running 'gcloud auth login --update-adc' or 'gcloud auth application-default \
-login'. The latter form would not work for Cloud Run, but would still generate an \
-id token.";
+gcloud running 'gcloud auth application-default login`";
 
 /// Data model for a UserCredentials
 ///
@@ -493,18 +492,22 @@ struct Oauth2RefreshResponse {
     refresh_token: Option<String>,
 }
 
-pub mod idtoken {
-    //! Credentials for authenticating with [ID tokens] from a [user account].
-    //!
-    //! This module provides a builder for creating [`IDTokenCredentials`] from
-    //! authorized user credentials, which are typically obtained by running
-    //! `gcloud auth application-default login`.
-    //!
-    //! These credentials can be used to authenticate with Google Cloud services
-    //! that require ID tokens for authentication, such as Cloud Run or Cloud Functions.
-    //!
-    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
-    //! [user account]: https://cloud.google.com/docs/authentication#user-accounts
+#[allow(dead_code)]
+pub(crate) mod idtoken {
+    /// Credentials for authenticating with [ID tokens] from a [user account].
+    ///
+    /// This module provides a builder for [`IDTokenCredentials`] from
+    /// authorized user credentials, which are typically obtained by running
+    /// `gcloud auth application-default login`.
+    ///
+    /// These credentials are commonly used for [service to service authentication].
+    /// For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+    /// ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
+    /// for authorization, and therefore cannot be used to access Google Cloud APIs.
+    ///
+    /// [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+    /// [user account]: https://cloud.google.com/docs/authentication#user-accounts
+    /// [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
     use crate::build_errors::Error as BuilderError;
     use crate::constants::OAUTH2_TOKEN_SERVER_URL;
     use crate::{
@@ -515,7 +518,6 @@ pub mod idtoken {
         },
         token::TokenProvider,
     };
-
     use async_trait::async_trait;
     use serde_json::Value;
     use std::sync::Arc;
@@ -538,27 +540,7 @@ pub mod idtoken {
         }
     }
 
-    /// A builder for constructing [`IDTokenCredentials`] instances that fetch ID tokens using
-    /// user accounts.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use google_cloud_auth::credentials::user_account::idtoken::Builder;
-    /// # use google_cloud_auth::credentials::idtoken::{IDTokenCredentials, dynamic::IDTokenCredentialsProvider};
-    /// # tokio_test::block_on(async {
-    /// let authorized_user = serde_json::json!({
-    ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
-    ///     "client_secret": "YOUR_CLIENT_SECRET",
-    ///     "refresh_token": "YOUR_REFRESH_TOKEN",
-    ///     "type": "authorized_user"
-    /// });
-    /// let credentials = Builder::new(authorized_user).build()?;
-    /// let id_token = credentials.id_token().await?;
-    /// println!("ID Token: {}", id_token);
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
-    /// ```
+    /// A builder for [`IDTokenCredentials`] instances backed by user account credentials.
     pub struct Builder {
         authorized_user: Value,
         token_uri: Option<String>,
@@ -570,8 +552,6 @@ pub mod idtoken {
         ///
         /// The `authorized_user` JSON is typically generated when a user
         /// authenticates using the [application-default login] process.
-        ///
-        /// The `target_audience` is not supported for user credentials.
         ///
         /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
         pub fn new(authorized_user: Value) -> Self {
@@ -585,24 +565,6 @@ pub mod idtoken {
         ///
         /// Any value provided here overrides a `token_uri` value from the input `authorized_user` JSON.
         /// Defaults to `https://oauth2.googleapis.com/token` if not specified here or in the `authorized_user` JSON.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_auth::credentials::user_account::idtoken::Builder;
-        /// # use google_cloud_auth::credentials::idtoken::{IDTokenCredentials, dynamic::IDTokenCredentialsProvider};
-        /// # tokio_test::block_on(async {
-        /// let authorized_user = serde_json::json!({
-        ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
-        ///     "client_secret": "YOUR_CLIENT_SECRET",
-        ///     "refresh_token": "YOUR_REFRESH_TOKEN",
-        ///     "type": "authorized_user"
-        /// });
-        /// let credentials = Builder::new(authorized_user)
-        ///     .with_token_uri("https://oauth2.example.com/token")
-        ///     .build()?;
-        /// # Ok::<(), anyhow::Error>(())
-        /// # });
-        /// ```
         pub fn with_token_uri<S: Into<String>>(mut self, token_uri: S) -> Self {
             self.token_uri = Some(token_uri.into());
             self

@@ -15,6 +15,8 @@
 use gax::error::rpc::Code;
 use http::StatusCode;
 
+use super::attributes::error_type_values::*;
+
 #[derive(Debug, Clone, PartialEq)]
 pub enum ErrorType {
     HttpError {
@@ -83,13 +85,13 @@ impl ErrorType {
                 reason: Some(r), ..
             } => r.clone(),
             ErrorType::HttpError { code, .. } => code.as_str().to_string(),
-            ErrorType::ClientTimeout => "CLIENT_TIMEOUT".to_string(),
-            ErrorType::ClientConnectionError => "CLIENT_CONNECTION_ERROR".to_string(),
-            ErrorType::ClientRequestError => "CLIENT_REQUEST_ERROR".to_string(),
-            ErrorType::ClientRequestBodyError => "CLIENT_REQUEST_BODY_ERROR".to_string(),
-            ErrorType::ClientResponseDecodeError => "CLIENT_RESPONSE_DECODE_ERROR".to_string(),
-            ErrorType::ClientRedirectError => "CLIENT_REDIRECT_ERROR".to_string(),
-            ErrorType::Internal => "INTERNAL".to_string(),
+            ErrorType::ClientTimeout => CLIENT_TIMEOUT.to_string(),
+            ErrorType::ClientConnectionError => CLIENT_CONNECTION_ERROR.to_string(),
+            ErrorType::ClientRequestError => CLIENT_REQUEST_ERROR.to_string(),
+            ErrorType::ClientRequestBodyError => CLIENT_REQUEST_BODY_ERROR.to_string(),
+            ErrorType::ClientResponseDecodeError => CLIENT_RESPONSE_DECODE_ERROR.to_string(),
+            ErrorType::ClientRedirectError => CLIENT_REDIRECT_ERROR.to_string(),
+            ErrorType::Internal => INTERNAL.to_string(),
         }
     }
 
@@ -181,13 +183,13 @@ pub(crate) mod tests {
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_GATEWAY, reason: None }, "502", Code::Internal; "Bad Gateway")]
     #[test_case(ErrorType::HttpError { code: StatusCode::from_u16(499).unwrap(), reason: None }, "499", Code::Cancelled; "Client Closed Request")]
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: Some("REASON".to_string()) }, "REASON", Code::InvalidArgument; "Bad Request with Reason")]
-    #[test_case(ErrorType::ClientTimeout, "CLIENT_TIMEOUT", Code::DeadlineExceeded; "Client Timeout")]
-    #[test_case(ErrorType::ClientConnectionError, "CLIENT_CONNECTION_ERROR", Code::Unavailable; "Client Connection Error")]
-    #[test_case(ErrorType::ClientRequestError, "CLIENT_REQUEST_ERROR", Code::InvalidArgument; "Client Request Error")]
-    #[test_case(ErrorType::ClientRequestBodyError, "CLIENT_REQUEST_BODY_ERROR", Code::InvalidArgument; "Client Request Body Error")]
-    #[test_case(ErrorType::ClientResponseDecodeError, "CLIENT_RESPONSE_DECODE_ERROR", Code::Internal; "Client Response Decode Error")]
-    #[test_case(ErrorType::ClientRedirectError, "CLIENT_REDIRECT_ERROR", Code::Aborted; "Client Redirect Error")]
-    #[test_case(ErrorType::Internal, "INTERNAL", Code::Internal; "Internal")]
+    #[test_case(ErrorType::ClientTimeout, CLIENT_TIMEOUT, Code::DeadlineExceeded; "Client Timeout")]
+    #[test_case(ErrorType::ClientConnectionError, CLIENT_CONNECTION_ERROR, Code::Unavailable; "Client Connection Error")]
+    #[test_case(ErrorType::ClientRequestError, CLIENT_REQUEST_ERROR, Code::InvalidArgument; "Client Request Error")]
+    #[test_case(ErrorType::ClientRequestBodyError, CLIENT_REQUEST_BODY_ERROR, Code::InvalidArgument; "Client Request Body Error")]
+    #[test_case(ErrorType::ClientResponseDecodeError, CLIENT_RESPONSE_DECODE_ERROR, Code::Internal; "Client Response Decode Error")]
+    #[test_case(ErrorType::ClientRedirectError, CLIENT_REDIRECT_ERROR, Code::Aborted; "Client Redirect Error")]
+    #[test_case(ErrorType::Internal, INTERNAL, Code::Internal; "Internal")]
     fn test_error_type_conversions(
         error_type: ErrorType,
         expected_as_str: &str,

@@ -40,6 +40,7 @@ pub mod disable_uniform_bucket_level_access;
 pub mod disable_versioning;
 pub mod enable_bucket_lifecycle_management;
 pub mod enable_default_event_based_hold;
+#[allow(dead_code)]
 pub mod enable_requester_pays;
 pub mod enable_uniform_bucket_level_access;
 pub mod enable_versioning;
