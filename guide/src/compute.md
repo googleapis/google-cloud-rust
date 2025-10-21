@@ -35,39 +35,21 @@ Use `cargo` to add the necessary dependency:
 cargo add google-cloud-compute-v1
 ```
 
-## Create a virtual machine
+## List all the virtual machines
 
-The client to create, and manipulate virtual machines is called `Instances`:
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../samples/src/compute/quickstart.rs:client}}
-```
-
-The client has several methods. For example `insert()` creates a new virtual
-machine:
+The client to create and manipulate virtual machines is called `Instances`. You
+can list all the VMs in a project using the `list()` function of this type:
 
 ```rust,ignore,noplayground
-{{#rustdoc_include ../samples/src/compute/compute_instances_create.rs:all}}
-```
-
-Note that this is a [long-running operation], you need to wait for its outcome,
-and verify if there are any errors.
-
-## Cleanup
-
-Delete the virtual machine using the console, or the `delete()` method:
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../samples/src/compute/compute_instances_delete.rs:all}}
+{{#rustdoc_include ../samples/src/compute/quickstart.rs:all}}
 ```
 
 ## Next Steps
 
+- [Compute Engine client libraries](https://cloud.google.com/compute/docs/api/libraries)
 - [Working with long-running operations](/working_with_long_running_operations.md)
 - [Configuring polling policies](/configuring_polling_policies.md)
-- [Compute Engine client libraries](https://cloud.google.com/compute/docs/api/libraries)
 
 [billing enabled]: https://cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project
 [compute engine]: https://cloud.google.com/compute
 [google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
-[long-running operation]: /working_with_long_running_operations.md
