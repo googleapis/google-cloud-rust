@@ -352,7 +352,7 @@ fn token_expiry_time(current_time: OffsetDateTime) -> OffsetDateTime {
 
 #[async_trait]
 impl TokenProvider for ServiceAccountTokenProvider {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<Arc<Token>> {
         let expires_at = Instant::now() + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
         let tg = ServiceAccountTokenGenerator {
             audience: self.access_specifier.audience().cloned(),
@@ -372,7 +372,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
             expires_at: Some(expires_at),
             metadata: None,
         };
-        Ok(token)
+        Ok(Arc::new(token))
     }
 }
 
@@ -498,7 +498,7 @@ pub(crate) mod idtoken {
         async fn id_token(&self) -> Result<String> {
             let cached_token = self.token_provider.token(Extensions::new()).await?;
             match cached_token {
-                CacheableResource::New { data, .. } => Ok(data.token),
+                CacheableResource::New { data, .. } => Ok(data.token.clone()),
                 CacheableResource::NotModified => {
                     Err(CredentialsError::from_msg(false, "failed to fetch token"))
                 }
@@ -516,7 +516,7 @@ pub(crate) mod idtoken {
 
     #[async_trait]
     impl TokenProvider for ServiceAccountTokenProvider {
-        async fn token(&self) -> Result<Token> {
+        async fn token(&self) -> Result<Arc<Token>> {
             let audience = self.audience.clone();
             let target_audience = Some(self.target_audience.clone());
             let service_account_key = self.service_account_key.clone();
@@ -550,12 +550,12 @@ pub(crate) mod idtoken {
                 .await
                 .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
 
-            Ok(Token {
+            Ok(Arc::new(Token {
                 token,
                 token_type: "Bearer".to_string(),
                 expires_at: None,
                 metadata: None,
-            })
+            }))
         }
     }
 
@@ -683,7 +683,9 @@ mod tests {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token().times(1).return_once(|| Ok(token));
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(Arc::new(token)));
 
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),
@@ -725,7 +727,9 @@ mod tests {
         let quota_project = "test-quota-project";
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token().times(1).return_once(|| Ok(token));
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(Arc::new(token)));
 
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),

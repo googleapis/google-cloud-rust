@@ -374,7 +374,7 @@ impl std::fmt::Debug for UserTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for UserTokenProvider {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<Arc<Token>> {
         let client = Client::new();
 
         // Make the request
@@ -419,7 +419,7 @@ impl TokenProvider for UserTokenProvider {
                 .map(|d| Instant::now() + Duration::from_secs(d)),
             metadata: None,
         };
-        Ok(token)
+        Ok(Arc::new(token))
     }
 }
 
@@ -536,7 +536,10 @@ pub(crate) mod idtoken {
         T: TokenProvider,
     {
         async fn id_token(&self) -> Result<String> {
-            self.token_provider.token().await.map(|token| token.token)
+            self.token_provider
+                .token()
+                .await
+                .map(|token| token.token.clone())
         }
     }
 
@@ -828,7 +831,9 @@ mod tests {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token().times(1).return_once(|| Ok(token));
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(Arc::new(token)));
 
         let uc = UserCredentials {
             token_provider: TokenCache::new(mock),
@@ -882,7 +887,9 @@ mod tests {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token().times(1).return_once(|| Ok(token));
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(Arc::new(token)));
 
         let uc = UserCredentials {
             token_provider: TokenCache::new(mock),

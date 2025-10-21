@@ -351,7 +351,7 @@ impl MDSAccessTokenProvider {
 
 #[async_trait]
 impl TokenProvider for MDSAccessTokenProvider {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<Arc<Token>> {
         let client = Client::new();
         let request = client
             .get(format!("{}{}/token", self.endpoint, MDS_DEFAULT_URI))
@@ -393,7 +393,7 @@ impl TokenProvider for MDSAccessTokenProvider {
                 .map(|d| Instant::now() + Duration::from_secs(d)),
             metadata: None,
         };
-        Ok(token)
+        Ok(Arc::new(token))
     }
 }
 
@@ -435,7 +435,7 @@ pub(crate) mod idtoken {
         async fn id_token(&self) -> Result<String> {
             let cached_token = self.token_provider.token(Extensions::new()).await?;
             match cached_token {
-                CacheableResource::New { data, .. } => Ok(data.token),
+                CacheableResource::New { data, .. } => Ok(data.token.clone()),
                 CacheableResource::NotModified => {
                     Err(CredentialsError::from_msg(false, "failed to fetch token"))
                 }
@@ -549,7 +549,7 @@ pub(crate) mod idtoken {
 
     #[async_trait]
     impl TokenProvider for MDSTokenProvider {
-        async fn token(&self) -> Result<Token> {
+        async fn token(&self) -> Result<Arc<Token>> {
             let client = Client::new();
             let audience = self.target_audience.clone();
             let request = client
@@ -582,7 +582,7 @@ pub(crate) mod idtoken {
                 .await
                 .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
 
-            parse_id_token_from_str(token)
+            parse_id_token_from_str(token).map(Arc::new)
         }
     }
 }
@@ -718,7 +718,9 @@ mod tests {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token().times(1).return_once(|| Ok(token));
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(Arc::new(token)));
 
         let mdsc = MDSCredentials {
             quota_project_id: None,

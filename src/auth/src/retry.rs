@@ -81,7 +81,7 @@ impl Builder {
 
 #[async_trait::async_trait]
 impl<T: TokenProvider + 'static> TokenProvider for TokenProviderWithRetry<T> {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<Arc<Token>> {
         self.execute_retry_loop(self.retry_policy.clone()).await
     }
 }
@@ -90,7 +90,7 @@ impl<T> TokenProviderWithRetry<T>
 where
     T: TokenProvider,
 {
-    async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Token> {
+    async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Arc<Token>> {
         let inner = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
         let fetch_token = move |_| {
@@ -218,7 +218,7 @@ mod tests {
         mock_provider
             .expect_token()
             .times(1)
-            .return_once(|| Ok(token));
+            .return_once(|| Ok(Arc::new(token)));
 
         let provider = Builder::default()
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
@@ -243,12 +243,12 @@ mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .return_once(|| {
-                Ok(Token {
+                Ok(Arc::new(Token {
                     token: "test_token".to_string(),
                     token_type: "Bearer".to_string(),
                     expires_at: None,
                     metadata: Default::default(),
-                })
+                }))
             });
 
         let provider = Builder::default()
@@ -315,7 +315,7 @@ mod tests {
         mock_provider
             .expect_token()
             .times(1)
-            .return_once(|| Ok(token));
+            .return_once(|| Ok(Arc::new(token)));
 
         let provider = Builder::default().build(mock_provider);
 
@@ -417,12 +417,12 @@ mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .return_once(|| {
-                Ok(Token {
+                Ok(Arc::new(Token {
                     token: "final_token".to_string(),
                     token_type: "Bearer".to_string(),
                     expires_at: None,
                     metadata: Default::default(),
-                })
+                }))
             });
 
         // 2. Setup Throttler Expectations
