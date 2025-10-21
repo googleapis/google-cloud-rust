@@ -53,6 +53,8 @@ tokio                      = { workspace = true, features = ["io-util"] }
 tonic.workspace            = true
 tracing.workspace          = true
 uuid.workspace             = true
+# Transitive dependencies. Used for minimal version selection.
+mime.workspace = true
 # Local crates
 auth.workspace        = true
 gax.workspace         = true
