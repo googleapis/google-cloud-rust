@@ -115,25 +115,21 @@ async fn cleanup_stale_datasets(
         .into_iter()
         .filter_map(|r| {
             match r {
-                Ok(dataset) => {
-                    if dataset
-                        .labels
-                        .get(INSTANCE_LABEL)
-                        .is_some_and(|v| v == "true")
-                        && dataset.creation_time < stale_deadline
-                    {
-                        return Some(dataset);
-                    }
-                    Ok(None)
-                }
-                Err(e) => {
-                    if e.status().is_some_and(|s| s.code == Code::NotFound) {
-                        return None;
-                    }
-                    Err(e)
-                }
+                Ok(dataset) => Some(dataset),
+                Err(e) if e.status().is_some_and(|s| s.code == Code::NotFound) => None,
+                Err(e) => panic!("expected a successful get_dataset()"),
             }
-            .expect("failed to fetch dataset")
+        })
+        .filter_map(|dataset|{
+            if dataset
+                .labels
+                .get(INSTANCE_LABEL)
+                .is_some_and(|v| v == "true")
+                && dataset.creation_time < stale_deadline
+            {
+                return Some(dataset);
+            }
+            None
         })
         .collect::<Vec<_>>();
 
