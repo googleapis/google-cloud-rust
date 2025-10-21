@@ -22,8 +22,6 @@ pub mod compute;
 pub mod error_handling;
 pub mod examine_error_details;
 pub mod gemini;
-pub mod lro;
 pub mod pagination;
-pub mod polling_policies;
 pub mod retry_policies;
 pub mod update_resource;
