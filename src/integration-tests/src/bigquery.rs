@@ -113,14 +113,12 @@ async fn cleanup_stale_datasets(
     let stale_datasets = futures::future::join_all(pending_all_datasets)
         .await
         .into_iter()
-        .filter_map(|r| {
-            match r {
-                Ok(dataset) => Some(dataset),
-                Err(e) if e.status().is_some_and(|s| s.code == Code::NotFound) => None,
-                Err(e) => panic!("expected a successful get_dataset()"),
-            }
+        .filter_map(|r| match r {
+            Ok(dataset) => Some(dataset),
+            Err(e) if e.status().is_some_and(|s| s.code == Code::NotFound) => None,
+            Err(e) => panic!("expected a successful get_dataset()"),
         })
-        .filter_map(|dataset|{
+        .filter_map(|dataset| {
             if dataset
                 .labels
                 .get(INSTANCE_LABEL)
