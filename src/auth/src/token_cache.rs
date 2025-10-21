@@ -110,10 +110,8 @@ async fn wait_for_next_token(
     token_result.expect("There should always be a token or error in the channel after changed()")
 }
 
-async fn refresh_task<T>(
-    token_provider: Arc<T>,
-    tx_token: watch::Sender<Option<TokenResult>>,
-) where
+async fn refresh_task<T>(token_provider: Arc<T>, tx_token: watch::Sender<Option<TokenResult>>)
+where
     T: TokenProvider + Send + Sync + 'static,
 {
     loop {
@@ -337,7 +335,9 @@ mod tests {
         let token_clone = token.clone();
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token().times(1).return_once(|| Ok(Arc::new(token_clone)));
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(Arc::new(token_clone)));
 
         // fetch an initial token
         let cache = TokenCache::new(mock);
