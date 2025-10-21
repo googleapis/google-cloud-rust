@@ -14,13 +14,13 @@
 
 //! Examples showing how to configure the polling policies.
 
+use anyhow::{Result, anyhow};
 // ANCHOR: use
-use anyhow::anyhow;
 use google_cloud_storage::client::StorageControl;
 // ANCHOR_END: use
 
 // ANCHOR: client-backoff
-pub async fn client_backoff(bucket: &str, folder: &str, destination: &str) -> anyhow::Result<()> {
+pub async fn client_backoff(bucket: &str, folder: &str, dest: &str) -> Result<()> {
     // ANCHOR: client-backoff-use
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     // ANCHOR_END: client-backoff-use
@@ -45,7 +45,7 @@ pub async fn client_backoff(bucket: &str, folder: &str, destination: &str) -> an
         // ANCHOR_END: client-backoff-builder
         // ANCHOR: client-backoff-prepare
         .set_name(format!("projects/_/buckets/{bucket}/folders/{folder}"))
-        .set_destination_folder_id(destination)
+        .set_destination_folder_id(dest)
         // ANCHOR_END: client-backoff-prepare
         // ANCHOR: client-backoff-print
         .poller()
@@ -60,7 +60,7 @@ pub async fn client_backoff(bucket: &str, folder: &str, destination: &str) -> an
 // ANCHOR_END: client-backoff
 
 // ANCHOR: rpc-backoff
-pub async fn rpc_backoff(bucket: &str, folder: &str, destination: &str) -> anyhow::Result<()> {
+pub async fn rpc_backoff(bucket: &str, folder: &str, dest: &str) -> Result<()> {
     // ANCHOR: rpc-backoff-use
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use std::time::Duration;
@@ -88,7 +88,7 @@ pub async fn rpc_backoff(bucket: &str, folder: &str, destination: &str) -> anyho
         // ANCHOR_END: rpc-backoff-rpc-polling-backoff
         // ANCHOR: rpc-backoff-prepare
         .set_name(format!("projects/_/buckets/{bucket}/folders/{folder}"))
-        .set_destination_folder_id(destination)
+        .set_destination_folder_id(dest)
         // ANCHOR_END: rpc-backoff-prepare
         // ANCHOR: rpc-backoff-print
         .poller()
@@ -103,7 +103,7 @@ pub async fn rpc_backoff(bucket: &str, folder: &str, destination: &str) -> anyho
 // ANCHOR_END: rpc-backoff
 
 // ANCHOR: client-errors
-pub async fn client_errors(bucket: &str, folder: &str, destination: &str) -> anyhow::Result<()> {
+pub async fn client_errors(bucket: &str, folder: &str, dest: &str) -> Result<()> {
     // ANCHOR: client-errors-use
     use google_cloud_gax::polling_error_policy::Aip194Strict;
     use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
@@ -138,7 +138,7 @@ pub async fn client_errors(bucket: &str, folder: &str, destination: &str) -> any
         // ANCHOR_END: client-errors-builder
         // ANCHOR: client-errors-prepare
         .set_name(format!("projects/_/buckets/{bucket}/folders/{folder}"))
-        .set_destination_folder_id(destination)
+        .set_destination_folder_id(dest)
         // ANCHOR_END: client-errors-prepare
         // ANCHOR: client-errors-print
         .poller()
@@ -153,7 +153,7 @@ pub async fn client_errors(bucket: &str, folder: &str, destination: &str) -> any
 // ANCHOR_END: client-errors
 
 // ANCHOR: rpc-errors
-pub async fn rpc_errors(bucket: &str, folder: &str, destination: &str) -> anyhow::Result<()> {
+pub async fn rpc_errors(bucket: &str, folder: &str, dest: &str) -> Result<()> {
     // ANCHOR: rpc-errors-use
     use google_cloud_gax::polling_error_policy::Aip194Strict;
     use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
@@ -187,10 +187,10 @@ pub async fn rpc_errors(bucket: &str, folder: &str, destination: &str) -> anyhow
                 .with_attempt_limit(100)
                 .with_time_limit(Duration::from_secs(300)),
         )
-        // ANCHOR_END: rpc-errors-rpc-polling-backoff
+        // ANCHOR_END: rpc-errors-rpc-polling-errors
         // ANCHOR: rpc-errors-prepare
         .set_name(format!("projects/_/buckets/{bucket}/folders/{folder}"))
-        .set_destination_folder_id(destination)
+        .set_destination_folder_id(dest)
         // ANCHOR_END: rpc-errors-prepare
         // ANCHOR: rpc-errors-print
         .poller()
@@ -204,7 +204,7 @@ pub async fn rpc_errors(bucket: &str, folder: &str, destination: &str) -> anyhow
 }
 // ANCHOR_END: rpc-errors
 
-pub async fn test(control: &StorageControl, bucket: &str) -> anyhow::Result<()> {
+pub async fn test(control: &StorageControl, bucket: &str) -> Result<()> {
     for id in [
         "client-backoff/",
         "rpc-backoff/",
