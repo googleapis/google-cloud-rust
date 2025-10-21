@@ -37,7 +37,7 @@ cargo add google-cloud-compute-v1
 
 ## List all the virtual machines
 
-The client to create, and manipulate virtual machines is called `Instances`. You
+The client to create and manipulate virtual machines is called `Instances`. You
 can list all the VMs in a project using the `list()` function of this type:
 
 ```rust,ignore,noplayground
