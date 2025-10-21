@@ -22,6 +22,7 @@ pub mod storage {
     pub mod striped;
     pub mod terminate_uploads;
 
+    use google_cloud_storage::client::StorageControl;
     pub use storage_samples::random_bucket_id;
 
     #[cfg(all(test, feature = "run-integration-tests"))]
@@ -32,92 +33,46 @@ pub mod storage {
         async fn quickstart() -> anyhow::Result<()> {
             let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
             let bucket_id = random_bucket_id();
-            let response = super::quickstart::quickstart(&project_id, &bucket_id).await;
-            // Ignore cleanup errors.
-            let _ = super::cleanup_bucket(&bucket_id).await;
-            response
+            let result = super::quickstart::quickstart(&project_id, &bucket_id).await;
+            if let Err(e) = super::cleanup_bucket(&bucket_id).await {
+                eprintln!("error cleaning up quickstart bucket {bucket_id}: {e:?}");
+            }
+            result
         }
 
         #[tokio::test(flavor = "multi_thread")]
-        async fn queue() -> anyhow::Result<()> {
-            let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-            let response = super::queue::queue(&bucket.name, "test-only").await;
-            // Ignore cleanup errors.
-            let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
-            response
+        async fn run() -> anyhow::Result<()> {
+            let (control, bucket) = integration_tests::storage::create_test_hns_bucket().await?;
+            let result = super::run(&control, &bucket.name).await;
+            if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
+                eprintln!("error cleaning up run() bucket {}: {e:?}", bucket.name);
+            }
+            result
         }
+    }
 
-        #[tokio::test(flavor = "multi_thread")]
-        async fn rewrite_object() -> anyhow::Result<()> {
-            let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-            let response = super::rewrite_object::rewrite_object(&bucket.name).await;
-            // Ignore cleanup errors.
-            let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
-            response
-        }
-
-        #[tokio::test(flavor = "multi_thread")]
-        async fn rewrite_object_until_done() -> anyhow::Result<()> {
-            let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-            let response = super::rewrite_object::rewrite_object_until_done(&bucket.name).await;
-            // Ignore cleanup errors.
-            let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
-            response
-        }
-
-        #[tokio::test(flavor = "multi_thread")]
-        async fn striped() -> anyhow::Result<()> {
+    pub async fn run(client: &StorageControl, bucket_name: &str) -> anyhow::Result<()> {
+        queue::queue(bucket_name, "test-only").await?;
+        rewrite_object::rewrite_object(bucket_name).await?;
+        rewrite_object::rewrite_object_until_done(bucket_name).await?;
+        {
             let destination = tempfile::NamedTempFile::new()?;
             let path = destination
                 .path()
                 .to_str()
                 .ok_or(anyhow::Error::msg("cannot open temporary file"))?;
-            let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-            let response = super::striped::test(&bucket.name, path).await;
-            // Ignore cleanup errors.
-            let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
-            response
+            striped::test(bucket_name, path).await?;
         }
-
-        #[tokio::test(flavor = "multi_thread")]
-        async fn terminated_uploads() -> anyhow::Result<()> {
-            let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-            let response = super::terminate_uploads::attempt_upload(&bucket.name).await;
-            // Ignore cleanup errors.
-            let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
-            response
-        }
-
-        #[tokio::test]
-        async fn lros() -> anyhow::Result<()> {
-            let (control, bucket) = integration_tests::storage::create_test_hns_bucket().await?;
-            println!("running LRO examples, bucket {}", bucket.name);
-            let result = super::lros::test(&control, &bucket.name).await;
-            if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
-                eprintln!("error cleaning up LRO bucket {}: {e:?}", bucket.name);
-            };
-            result
-        }
-
-        #[tokio::test]
-        async fn polling_policies() -> anyhow::Result<()> {
-            let (control, bucket) = integration_tests::storage::create_test_hns_bucket().await?;
-            println!("running polling policy examples, bucket {}", bucket.name);
-            let result = super::polling_policies::test(&control, &bucket.name).await;
-            if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
-                eprintln!(
-                    "error cleaning up polling policies bucket {}: {e:?}",
-                    bucket.name
-                );
-            };
-            result
-        }
+        terminate_uploads::attempt_upload(bucket_name).await?;
+        lros::test(client, bucket_name).await?;
+        polling_policies::test(client, bucket_name).await?;
+        Ok(())
     }
 
     pub async fn cleanup_bucket(bucket_id: &str) -> anyhow::Result<()> {
         let control = google_cloud_storage::client::StorageControl::builder()
             .build()
             .await?;
-        storage_samples::cleanup_bucket(control, format!("projects/_/{bucket_id}")).await
+        storage_samples::cleanup_bucket(control, format!("projects/_/buckets/{bucket_id}")).await
     }
 }
