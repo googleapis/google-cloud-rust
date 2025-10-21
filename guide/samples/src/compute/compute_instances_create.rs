@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START compute_instances_create]
+// [START compute_instances_create] ANCHOR: all
 use google_cloud_compute_v1::client::Instances;
 use google_cloud_compute_v1::model::{
     AttachedDisk, AttachedDiskInitializeParams, Instance, NetworkInterface,
@@ -49,4 +49,4 @@ pub async fn sample(client: &Instances, project_id: &str, name: &str) -> anyhow:
 
     Ok(())
 }
-// [END compute_instances_create]
+// [END compute_instances_create] ANCHOR_END: all

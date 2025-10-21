@@ -12,24 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START compute_instances_delete] ANCHOR: all
-use google_cloud_compute_v1::client::Instances;
-use google_cloud_lro::Poller;
-
-pub async fn sample(client: &Instances, project_id: &str, name: &str) -> anyhow::Result<()> {
-    const ZONE: &str = "us-central1-a";
-
-    let operation = client
-        .delete()
-        .set_project(project_id)
-        .set_zone(ZONE)
-        .set_instance(name)
-        .poller()
-        .until_done()
-        .await?
-        .to_result()?;
-    println!("Instance successfully deleted: {operation:?}");
-
+pub async fn quickstart() -> anyhow::Result<()> {
+    // [START rust_compute_instances_client] ANCHOR: client
+    use google_cloud_compute_v1::client::Instances;
+    let client = Instances::builder().build().await?;
+    // [END rust_compute_instances_client] ANCHOR_END: client
+    let _ = client;
     Ok(())
 }
-// [END compute_instances_delete] ANCHOR_END: all
