@@ -41,8 +41,8 @@ all the LROs started on a client or changed for just one request.
 
 ## Prerequisites
 
-The guide uses the [Storage] service to keep the code snippets concrete. The
-same ideas work for any other service using LROs.
+The guide uses the [Cloud Storage] service to keep the code snippets concrete.
+The same ideas work for any other service using LROs.
 
 The guide assumes you have an existing [Google Cloud project] with
 [billing enabled].
@@ -252,9 +252,11 @@ for the complete code.
 
 [aip-194]: https://google.aip.dev/194
 [aip194strict]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_error_policy/struct.Aip194Strict.html
+[billing enabled]: https://cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project
+[cloud storage]: https://cloud.google.com/storage
 [exponentialbackoff]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/exponential_backoff/struct.ExponentialBackoff.html
+[google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
 [per-request setting]: #configuring-the-polling-frequency-for-a-specific-request
 [pollingbackoffpolicy]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_backoff_policy/trait.PollingBackoffPolicy.html
 [pollingerrorpolicy]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_error_policy/trait.PollingErrorPolicy.html
-[cloud storage]: https://cloud.google.com/storage
 [setting up your development environment]: setting_up_your_development_environment.md

@@ -186,8 +186,8 @@ Recall that you started the long-running operation using the client:
         .await?;
 ```
 
-Start a loop to poll the `operation`, and check if the operation completed
-using the `done` field:
+Start a loop to poll the `operation`, and check if the operation completed using
+the `done` field:
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/storage/lros.rs:manual-if-done}}
@@ -296,12 +296,13 @@ You can find the
 {{#rustdoc_include ../samples/tests/storage/lros.rs:manual}}
 ```
 
-[rename folder]: https://cloud.google.com/storage/docs/rename-hns-folders
+[billing enabled]: https://cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project
+[cloud storage]: https://cloud.google.com/storage
 [configuring polling policies]: ./configuring_polling_policies.md
 [error::service]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/struct.Error.html
 [exponential backoff]: https://en.wikipedia.org/wiki/Exponential_backoff
+[google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
 [longrunning::model::operation]: https://docs.rs/google-cloud-longrunning/latest/google_cloud_longrunning/model/struct.Operation.html
-[manually polling a long-running operation]: #manually-polling-a-long-running-operation
+[rename folder]: https://cloud.google.com/storage/docs/rename-hns-folders
 [rpc::model::status]: https://docs.rs/google-cloud-rpc/latest/google_cloud_rpc/model/struct.Status.html
 [setting up your development environment]: setting_up_your_development_environment.md
-[cloud storage]: https://cloud.google.com/storage
