@@ -209,9 +209,9 @@ impl Client {
             })?;
         let endpoint =
             Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
-                .map_err(BuilderError::transport)?
+                .map_err(|e| BuilderError::transport(e))?
                 .tls_config(ClientTlsConfig::new().with_enabled_roots())
-                .map_err(BuilderError::transport)?
+                .map_err(|e| BuilderError::transport(e))?
                 .origin(origin);
         Ok(InnerClient::new(endpoint.connect_lazy()))
     }
