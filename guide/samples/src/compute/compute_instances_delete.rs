@@ -26,7 +26,8 @@ pub async fn sample(client: &Instances, project_id: &str, name: &str) -> anyhow:
         .set_instance(name)
         .poller()
         .until_done()
-        .await?;
+        .await?
+        .to_result()?;
     println!("Instance successfully deleted: {operation:?}");
 
     Ok(())

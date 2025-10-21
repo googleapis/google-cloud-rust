@@ -39,7 +39,8 @@ pub async fn sample(client: &Projects, project_id: &str, bucket_name: &str) -> a
         )
         .poller()
         .until_done()
-        .await?;
+        .await?
+        .to_result()?;
     println!("Setting the usage export bucket completed successfully: {operation:?}");
 
     Ok(())

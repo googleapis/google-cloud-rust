@@ -223,7 +223,8 @@ pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<(
             .set_image(name)
             .poller()
             .until_done()
-            .await?;
+            .await?
+            .to_result()?;
     }
     Ok(())
 }
@@ -273,7 +274,8 @@ pub async fn images() -> Result<()> {
         .set_body(body)
         .poller()
         .until_done()
-        .await?;
+        .await?
+        .to_result()?;
     tracing::info!("Images::insert() finished with {operation:?}");
 
     tracing::info!("Testing Images::delete()");
@@ -283,7 +285,8 @@ pub async fn images() -> Result<()> {
         .set_image(&name)
         .poller()
         .until_done()
-        .await;
+        .await?
+        .to_result()?;
     tracing::info!("Images::delete() completed with {operation:?}");
 
     Ok(())
@@ -327,7 +330,8 @@ pub async fn instances() -> Result<()> {
         .set_body(body)
         .poller()
         .until_done()
-        .await?;
+        .await?
+        .to_result()?;
     tracing::info!("Operation completed with = {operation:?}");
 
     tracing::info!("Getting instance details.");
@@ -399,7 +403,8 @@ pub async fn region_instances() -> Result<()> {
         .set_body(body)
         .poller()
         .until_done()
-        .await?;
+        .await?
+        .to_result()?;
     tracing::info!("Operation completed with = {operation:?}");
 
     Ok(())
