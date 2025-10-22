@@ -82,7 +82,7 @@ mod tests {
             assert!(result.is_err(), "Expected connection error");
 
             let spans = TestLayer::capture(&guard);
-            assert_eq!(spans.len(), 1, "Expected 1 span, got: {:?}", spans);
+            assert_eq!(spans.len(), 1, "Should capture one span: {:?}", spans);
 
             let span = &spans[0];
             let attributes = &span.attributes;
@@ -96,10 +96,8 @@ mod tests {
             assert_eq!(
                 attributes.get(semconv::ERROR_TYPE),
                 Some(&expected_error_type),
-                "Span 0: '{}' mismatch, expected: {:?}, got: {:?}, all attributes: {:?}",
+                "Span 0: '{}' mismatch, all attributes: {:?}",
                 semconv::ERROR_TYPE,
-                Some(&expected_error_type),
-                attributes.get(semconv::ERROR_TYPE),
                 attributes
             );
             assert!(
@@ -146,7 +144,7 @@ mod tests {
             assert!(result.is_err(), "Expected redirect error");
 
             let spans = TestLayer::capture(&guard);
-            assert_eq!(spans.len(), 1, "Expected 1 span, got: {:?}", spans);
+            assert_eq!(spans.len(), 1, "Should capture one span: {:?}", spans);
 
             let span = &spans[0];
             let attributes = &span.attributes;
@@ -160,10 +158,8 @@ mod tests {
             assert_eq!(
                 attributes.get(semconv::ERROR_TYPE),
                 Some(&expected_error_type),
-                "Span 0: {} mismatch, expected: {:?}, got: {:?}, all attributes: {:?}",
+                "Span 0: {} mismatch, all attributes: {:?}",
                 semconv::ERROR_TYPE,
-                Some(&expected_error_type),
-                attributes.get(semconv::ERROR_TYPE),
                 attributes
             );
             assert!(
