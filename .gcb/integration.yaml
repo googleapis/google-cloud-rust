@@ -18,6 +18,7 @@ options:
   substitutionOption: 'ALLOW_LOOSE'
   logging: CLOUD_LOGGING_ONLY
   env:
+    - GOOGLE_CLOUD_RUST_TEST_RUNNING_ON_GCB=1
     - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
     - GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=rust-sdk-test@${PROJECT_ID}.iam.gserviceaccount.com
     - GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING=us-central1
