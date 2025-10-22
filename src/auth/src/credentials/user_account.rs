@@ -631,7 +631,7 @@ mod tests {
 
     type TestResult = anyhow::Result<()>;
 
-    fn authorized_user_json(token_uri: String) -> Value {
+    pub(crate) fn authorized_user_json(token_uri: String) -> Value {
         serde_json::json!({
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
@@ -972,7 +972,10 @@ mod tests {
         assert_eq!(response, roundtrip);
     }
 
-    fn check_request(request: &Oauth2RefreshRequest, expected_scopes: Option<String>) -> bool {
+    pub(crate) fn check_request(
+        request: &Oauth2RefreshRequest,
+        expected_scopes: Option<String>,
+    ) -> bool {
         request.client_id == "test-client-id"
             && request.client_secret == "test-client-secret"
             && request.refresh_token == "test-refresh-token"
@@ -1349,9 +1352,20 @@ mod tests {
 
         Ok(())
     }
+}
+
+#[cfg(all(test, google_cloud_unstable_id_token))]
+mod unstable_tests {
+    use super::*;
+    use crate::credentials::tests::find_source_error;
+    use http::StatusCode;
+    use httptest::matchers::{all_of, json_decoded, request};
+    use httptest::responders::{json_encoded, status_code};
+    use httptest::{Expectation, Server};
+
+    type TestResult = anyhow::Result<()>;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[cfg(google_cloud_unstable_id_token)]
     async fn id_token_success() -> TestResult {
         let server = Server::run();
         let response = Oauth2RefreshResponse {
@@ -1366,13 +1380,13 @@ mod tests {
             Expectation::matching(all_of![
                 request::path("/token"),
                 request::body(json_decoded(|req: &Oauth2RefreshRequest| {
-                    check_request(req, None)
+                    super::tests::check_request(req, None)
                 }))
             ])
             .respond_with(json_encoded(response)),
         );
 
-        let authorized_user = authorized_user_json(server.url("/token").to_string());
+        let authorized_user = super::tests::authorized_user_json(server.url("/token").to_string());
         let creds = super::idtoken::Builder::new(authorized_user).build()?;
         let id_token = creds.id_token().await?;
         assert_eq!(id_token, "test-id-token");
@@ -1380,7 +1394,6 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[cfg(google_cloud_unstable_id_token)]
     async fn id_token_missing_id_token_in_response() -> TestResult {
         let server = Server::run();
         let response = Oauth2RefreshResponse {
@@ -1395,13 +1408,13 @@ mod tests {
             Expectation::matching(all_of![
                 request::path("/token"),
                 request::body(json_decoded(|req: &Oauth2RefreshRequest| {
-                    check_request(req, None)
+                    super::tests::check_request(req, None)
                 }))
             ])
             .respond_with(json_encoded(response)),
         );
 
-        let authorized_user = authorized_user_json(server.url("/token").to_string());
+        let authorized_user = super::tests::authorized_user_json(server.url("/token").to_string());
         let creds = super::idtoken::Builder::new(authorized_user).build()?;
         let err = creds.id_token().await.unwrap_err();
         assert!(!err.is_transient());
@@ -1410,7 +1423,6 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[cfg(google_cloud_unstable_id_token)]
     async fn id_token_builder_malformed_authorized_json_nonretryable() -> TestResult {
         let authorized_user = serde_json::json!({
             "client_secret": "test-client-secret",
@@ -1426,13 +1438,12 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[cfg(google_cloud_unstable_id_token)]
     async fn id_token_retryable_error() -> TestResult {
         let server = Server::run();
         server
             .expect(Expectation::matching(request::path("/token")).respond_with(status_code(503)));
 
-        let authorized_user = authorized_user_json(server.url("/token").to_string());
+        let authorized_user = super::tests::authorized_user_json(server.url("/token").to_string());
         let creds = super::idtoken::Builder::new(authorized_user).build()?;
         let err = creds.id_token().await.unwrap_err();
         assert!(err.is_transient());
@@ -1446,13 +1457,12 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[cfg(google_cloud_unstable_id_token)]
     async fn id_token_nonretryable_error() -> TestResult {
         let server = Server::run();
         server
             .expect(Expectation::matching(request::path("/token")).respond_with(status_code(401)));
 
-        let authorized_user = authorized_user_json(server.url("/token").to_string());
+        let authorized_user = super::tests::authorized_user_json(server.url("/token").to_string());
         let creds = super::idtoken::Builder::new(authorized_user).build()?;
         let err = creds.id_token().await.unwrap_err();
         assert!(!err.is_transient());

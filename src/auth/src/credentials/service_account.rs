@@ -466,13 +466,6 @@ where
 
 #[cfg(google_cloud_unstable_id_token)]
 pub mod idtoken {
-    use std::sync::Arc;
-
-    use async_trait::async_trait;
-    use gax::error::CredentialsError;
-    use reqwest::Client;
-    use serde_json::Value;
-
     use crate::Result;
     use crate::build_errors::Error as BuilderError;
     use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
@@ -480,6 +473,11 @@ pub mod idtoken {
     use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
     use crate::token::{Token, TokenProvider};
     use crate::{BuildResult, credentials::idtoken::IDTokenCredentials};
+    use async_trait::async_trait;
+    use gax::error::CredentialsError;
+    use reqwest::Client;
+    use serde_json::Value;
+    use std::sync::Arc;
 
     #[derive(Debug)]
     struct ServiceAccountCredentials<T>
@@ -610,8 +608,6 @@ pub mod idtoken {
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[cfg(google_cloud_unstable_id_token)]
-    use crate::constants::JWT_BEARER_GRANT_TYPE;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         PKCS8_PK, b64_decode_to_json, get_headers_from_cache, get_token_from_headers,
@@ -619,12 +615,6 @@ mod tests {
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
-    #[cfg(google_cloud_unstable_id_token)]
-    use httptest::{
-        Expectation, Server,
-        matchers::{all_of, any, contains, request, url_decoded},
-        responders::*,
-    };
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::LineEnding;
     use rustls_pemfile::Item;
@@ -756,7 +746,7 @@ mod tests {
         assert!(sac.headers(Extensions::new()).await.is_err());
     }
 
-    fn get_mock_service_key() -> Value {
+    pub(crate) fn get_mock_service_key() -> Value {
         json!({
             "client_email": "test-client-email",
             "private_key_id": "test-private-key-id",
@@ -988,8 +978,22 @@ mod tests {
         assert_eq!(claims["sub"], service_account_key["client_email"]);
         Ok(())
     }
+}
 
-    #[cfg(google_cloud_unstable_id_token)]
+#[cfg(all(test, google_cloud_unstable_id_token))]
+mod unstable_tests {
+    use super::*;
+    use crate::constants::JWT_BEARER_GRANT_TYPE;
+    use crate::credentials::tests::PKCS8_PK;
+    use httptest::{
+        Expectation, Server,
+        matchers::{all_of, any, contains, request, url_decoded},
+        responders::*,
+    };
+    use serde_json::Value;
+
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
     #[tokio::test]
     async fn idtoken_success() -> TestResult {
         let server = Server::run();
@@ -1003,7 +1007,7 @@ mod tests {
             .respond_with(status_code(200).body("test-id-token")),
         );
 
-        let mut service_account_key = get_mock_service_key();
+        let mut service_account_key = super::tests::get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
 
         let creds = idtoken::Builder::new("test-audience", service_account_key)
@@ -1015,7 +1019,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_id_token)]
     #[tokio::test]
     async fn idtoken_http_error() -> TestResult {
         let server = Server::run();
@@ -1024,7 +1027,7 @@ mod tests {
                 .respond_with(status_code(501)),
         );
 
-        let mut service_account_key = get_mock_service_key();
+        let mut service_account_key = super::tests::get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
 
         let creds = idtoken::Builder::new("test-audience", service_account_key)
