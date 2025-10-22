@@ -200,7 +200,7 @@ mod driver {
             let builder = Storage::builder().with_endpoint("https://www.googleapis.com");
             integration_tests::storage::objects(builder, &bucket.name, "global endpoint").await?;
 
-            if std::env::var("GOOGLE_CLOUD_RUST_TEST_RUNNING_ON_GCB").is_ok_and(|s| s == "Y") {
+            if std::env::var("GOOGLE_CLOUD_RUST_TEST_RUNNING_ON_GCB").is_ok_and(|s| s == "1") {
                 tracing::info!("with locational endpoint");
                 let builder =
                     Storage::builder().with_endpoint("https://us-central1-storage.googleapis.com");
