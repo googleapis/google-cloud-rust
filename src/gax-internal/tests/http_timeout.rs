@@ -257,7 +257,7 @@ mod tests {
             assert_eq!(
                 spans.len(),
                 1,
-                "Expected 1 span for a timeout, got: {:?}",
+                "Should capture one span for a timeout: {:?}",
                 spans
             );
             let span = &spans[0];
@@ -275,10 +275,8 @@ mod tests {
             assert_eq!(
                 attributes.get(semconv::ERROR_TYPE),
                 Some(&expected_error_type),
-                "Span 0: '{}' mismatch, expected: {:?}, got: {:?}, all attributes: {:?}",
+                "Span 0: '{}' mismatch, all attributes: {:?}",
                 semconv::ERROR_TYPE,
-                Some(&expected_error_type),
-                attributes.get(semconv::ERROR_TYPE),
                 attributes
             );
 
