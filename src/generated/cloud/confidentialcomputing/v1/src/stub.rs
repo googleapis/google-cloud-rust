@@ -60,6 +60,32 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ConfidentialComputing::verify_confidential_space].
+    fn verify_confidential_space(
+        &self,
+        _req: crate::model::VerifyConfidentialSpaceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::VerifyConfidentialSpaceResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ConfidentialComputing::verify_confidential_gke].
+    fn verify_confidential_gke(
+        &self,
+        _req: crate::model::VerifyConfidentialGkeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::VerifyConfidentialGkeResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ConfidentialComputing::list_locations].
     fn list_locations(
         &self,

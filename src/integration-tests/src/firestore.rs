@@ -30,25 +30,11 @@ fn new_collection_id() -> String {
     format!("{prefix}{collection_id}")
 }
 
-pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
-    cleanup_stale_documents().await?;
+pub async fn basic() -> Result<()> {
+    let client = Firestore::builder().with_tracing().build().await?;
+    cleanup_stale_documents(&client).await?;
 
     let project_id = crate::project_id()?;
-    let client = builder.build().await?;
     let collection_id = new_collection_id();
     let response = client
         .create_document()
@@ -113,18 +99,14 @@ pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Res
     Ok(())
 }
 
-async fn cleanup_stale_documents() -> Result<()> {
+async fn cleanup_stale_documents(client: &Firestore) -> Result<()> {
+    use gax::options::RequestOptionsBuilder;
     use gax::retry_policy::RetryPolicyExt;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
-
-    let client = Firestore::builder()
-        .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(3))
-        .build()
-        .await?;
 
     let mut stale_documents = Vec::new();
 
@@ -152,7 +134,13 @@ async fn cleanup_stale_documents() -> Result<()> {
     let stale_documents = stale_documents;
     let pending = stale_documents
         .iter()
-        .map(|name| client.delete_document().set_name(name).send())
+        .map(|name| {
+            client
+                .delete_document()
+                .set_name(name)
+                .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(3))
+                .send()
+        })
         .collect::<Vec<_>>();
 
     futures::future::join_all(pending)

@@ -412,4 +412,81 @@ impl ReservationService {
     ) -> super::builder::reservation_service::UpdateBiReservation {
         super::builder::reservation_service::UpdateBiReservation::new(self.inner.clone())
     }
+
+    /// Gets the access control policy for a resource.
+    /// May return:
+    ///
+    /// * A`NOT_FOUND` error if the resource doesn't exist or you don't have the
+    ///   permission to view it.
+    /// * An empty policy if the resource exists but doesn't have a set policy.
+    ///
+    /// Supported resources are:
+    ///
+    /// - Reservations
+    /// - ReservationAssignments
+    ///
+    /// To call this method, you must have the following Google IAM permissions:
+    ///
+    /// - `bigqueryreservation.reservations.getIamPolicy` to get policies on
+    ///   reservations.
+    pub fn get_iam_policy(&self) -> super::builder::reservation_service::GetIamPolicy {
+        super::builder::reservation_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets an access control policy for a resource. Replaces any existing
+    /// policy.
+    ///
+    /// Supported resources are:
+    ///
+    /// - Reservations
+    ///
+    /// To call this method, you must have the following Google IAM permissions:
+    ///
+    /// - `bigqueryreservation.reservations.setIamPolicy` to set policies on
+    ///   reservations.
+    pub fn set_iam_policy(&self) -> super::builder::reservation_service::SetIamPolicy {
+        super::builder::reservation_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets your permissions on a resource. Returns an empty set of permissions if
+    /// the resource doesn't exist.
+    ///
+    /// Supported resources are:
+    ///
+    /// - Reservations
+    ///
+    /// No Google IAM permissions are required to call this method.
+    pub fn test_iam_permissions(&self) -> super::builder::reservation_service::TestIamPermissions {
+        super::builder::reservation_service::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Creates a new reservation group.
+    pub fn create_reservation_group(
+        &self,
+    ) -> super::builder::reservation_service::CreateReservationGroup {
+        super::builder::reservation_service::CreateReservationGroup::new(self.inner.clone())
+    }
+
+    /// Returns information about the reservation group.
+    pub fn get_reservation_group(
+        &self,
+    ) -> super::builder::reservation_service::GetReservationGroup {
+        super::builder::reservation_service::GetReservationGroup::new(self.inner.clone())
+    }
+
+    /// Deletes a reservation.
+    /// Returns `google.rpc.Code.FAILED_PRECONDITION` when reservation has
+    /// assignments.
+    pub fn delete_reservation_group(
+        &self,
+    ) -> super::builder::reservation_service::DeleteReservationGroup {
+        super::builder::reservation_service::DeleteReservationGroup::new(self.inner.clone())
+    }
+
+    /// Lists all the reservation groups for the project in the specified location.
+    pub fn list_reservation_groups(
+        &self,
+    ) -> super::builder::reservation_service::ListReservationGroups {
+        super::builder::reservation_service::ListReservationGroups::new(self.inner.clone())
+    }
 }

@@ -17,4 +17,5 @@ specification-source = 'google/cloud/edgenetwork/v1'
 service-config = 'google/cloud/edgenetwork/v1/edgenetwork_v1.yaml'
 
 [codec]
+version        = '1.1.0'
 copyright-year = '2025'

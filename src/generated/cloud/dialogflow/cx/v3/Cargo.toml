@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-dialogflow-cx-v3"
-version                = "0.4.5"
+version                = "1.2.0"
 description            = "Google Cloud Client Libraries for Rust - Dialogflow API"
 edition.workspace      = true
 authors.workspace      = true
@@ -39,8 +39,8 @@ default = [
     "intents",
     "pages",
     "security-settings-service",
-    "sessions",
     "session-entity-types",
+    "sessions",
     "test-cases",
     "transition-route-groups",
     "versions",

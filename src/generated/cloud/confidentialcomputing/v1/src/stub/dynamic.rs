@@ -29,6 +29,18 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::VerifyAttestationResponse>>;
 
+    async fn verify_confidential_space(
+        &self,
+        req: crate::model::VerifyConfidentialSpaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::VerifyConfidentialSpaceResponse>>;
+
+    async fn verify_confidential_gke(
+        &self,
+        req: crate::model::VerifyConfidentialGkeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::VerifyConfidentialGkeResponse>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -61,6 +73,24 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::VerifyAttestationResponse>> {
         T::verify_attestation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn verify_confidential_space(
+        &self,
+        req: crate::model::VerifyConfidentialSpaceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::VerifyConfidentialSpaceResponse>> {
+        T::verify_confidential_space(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn verify_confidential_gke(
+        &self,
+        req: crate::model::VerifyConfidentialGkeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::VerifyConfidentialGkeResponse>> {
+        T::verify_confidential_gke(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

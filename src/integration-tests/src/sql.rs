@@ -19,26 +19,13 @@ use rand::Rng;
 use sql::model;
 use storage_samples::RandomChars;
 
-pub async fn run_sql_instances_service(
-    builder: sql::builder::sql_instances_service::ClientBuilder,
-) -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
+pub async fn run_sql_instances_service() -> Result<()> {
     let project_id = crate::project_id()?;
     let name = random_sql_instance_name(&project_id);
-    let client: sql::client::SqlInstancesService = builder.build().await?;
+    let client = sql::client::SqlInstancesService::builder()
+        .with_tracing()
+        .build()
+        .await?;
 
     cleanup_stale_sql_instances(&client, &project_id).await?;
 
@@ -168,25 +155,12 @@ async fn cleanup_stale_sql_instances(
     Ok(())
 }
 
-pub async fn run_sql_tiers_service(
-    builder: sql::builder::sql_tiers_service::ClientBuilder,
-) -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
+pub async fn run_sql_tiers_service() -> Result<()> {
     let project_id = crate::project_id()?;
-    let client: sql::client::SqlTiersService = builder.build().await?;
+    let client = sql::client::SqlTiersService::builder()
+        .with_tracing()
+        .build()
+        .await?;
 
     let list = client.list().set_project(&project_id).send().await?;
 

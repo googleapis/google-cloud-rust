@@ -16,6 +16,7 @@
 mod tests {
     use gax::options::*;
     use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    use gax::retry_state::RetryState;
     use gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
@@ -140,7 +141,6 @@ mod tests {
 
         let elapsed = tokio::time::Instant::now() - start;
         assert_eq!(elapsed, timeout);
-
         Ok(())
     }
 
@@ -167,14 +167,10 @@ mod tests {
         }
 
         impl gax::backoff_policy::BackoffPolicy for TestBackoffPolicy {
-            fn on_failure(
-                &self,
-                loop_start: std::time::Instant,
-                attempt_count: u32,
-            ) -> std::time::Duration {
-                if attempt_count == 1 {
+            fn on_failure(&self, state: &RetryState) -> std::time::Duration {
+                if state.attempt_count == 1 {
                     *self.elapsed_on_failure.lock().unwrap() =
-                        Some(tokio::time::Instant::now().into_std() - loop_start);
+                        Some(tokio::time::Instant::now().into_std() - state.start);
                 }
 
                 std::time::Duration::ZERO
@@ -229,6 +225,65 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(all(test, google_cloud_unstable_tracing, feature = "_internal-http-client"))]
+    mod tracing_tests {
+        use super::*;
+        use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_TIMEOUT;
+        use google_cloud_test_utils::test_layer::TestLayer;
+        use opentelemetry_semantic_conventions::trace as semconv;
+
+        #[tokio::test(start_paused = true)]
+        async fn test_timeout_expires_with_tracing_on() -> Result<()> {
+            let (endpoint, _server) = echo_server::start().await?;
+            let mut config = test_config();
+            config.tracing = true;
+            let guard = TestLayer::initialize();
+            let client = ReqwestClient::new(config, &endpoint).await?;
+
+            let delay = Duration::from_millis(200);
+            let timeout = Duration::from_millis(150);
+            let builder = client
+                .builder(reqwest::Method::GET, "/echo".into())
+                .query(&[("delay_ms", format!("{}", delay.as_millis()))]);
+            let _response = client
+                .execute::<serde_json::Value, serde_json::Value>(
+                    builder,
+                    Some(json!({})),
+                    test_options(&timeout),
+                )
+                .await;
+
+            let spans = TestLayer::capture(&guard);
+            assert_eq!(
+                spans.len(),
+                1,
+                "Should capture one span for a timeout: {:?}",
+                spans
+            );
+            let span = &spans[0];
+            assert_eq!(span.name, "http_request", "Span name mismatch: {:?}", span);
+            let attributes = &span.attributes;
+
+            assert!(
+                !attributes.contains_key(semconv::HTTP_RESPONSE_STATUS_CODE),
+                "Span 0: '{}' should not be present on timeout, all attributes: {:?}",
+                semconv::HTTP_RESPONSE_STATUS_CODE,
+                attributes
+            );
+
+            let expected_error_type = CLIENT_TIMEOUT.to_string();
+            assert_eq!(
+                attributes.get(semconv::ERROR_TYPE),
+                Some(&expected_error_type),
+                "Span 0: '{}' mismatch, all attributes: {:?}",
+                semconv::ERROR_TYPE,
+                attributes
+            );
+
+            Ok(())
+        }
+    }
+
     fn test_options(timeout: &Duration) -> RequestOptions {
         let mut options = RequestOptions::default();
         options.set_attempt_timeout(*timeout);
@@ -251,9 +306,8 @@ mod tests {
     }
 
     fn test_config() -> ClientConfig {
-        ClientConfig {
-            cred: auth::credentials::testing::test_credentials().into(),
-            ..Default::default()
-        }
+        let mut config = ClientConfig::default();
+        config.cred = auth::credentials::anonymous::Builder::new().build().into();
+        config
     }
 }

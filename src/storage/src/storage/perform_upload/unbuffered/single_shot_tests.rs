@@ -25,6 +25,7 @@ use crate::storage::client::{
 use crate::storage::perform_upload::tests::perform_upload;
 use crate::streaming_source::IterSource;
 use crate::streaming_source::SizeHint;
+use auth::credentials::anonymous::Builder as Anonymous;
 use gax::retry_policy::RetryPolicyExt;
 use http_body_util::BodyExt;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -46,7 +47,7 @@ async fn http_error() -> Result {
 
     let client = Storage::builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let err = client
@@ -73,7 +74,7 @@ async fn http_308_error() -> Result {
 
     let client = Storage::builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let err = client
@@ -100,7 +101,7 @@ async fn deserialization() -> Result {
 
     let client = Storage::builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let err = client
@@ -119,7 +120,7 @@ async fn source_error() -> Result {
 
     let client = Storage::builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     use crate::streaming_source::tests::MockSeekSource;
@@ -159,7 +160,7 @@ async fn seek_error() -> Result {
 
     let client = Storage::builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     use crate::streaming_source::tests::MockSeekSource;
@@ -410,7 +411,7 @@ async fn send_unbuffered() -> Result {
 
     let client = Storage::builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let response = client

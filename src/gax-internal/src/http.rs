@@ -23,10 +23,11 @@ use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErro
 use gax::response::{Parts, Response};
 use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
-use http::{Extensions, Method, Uri};
-use std::str::FromStr;
+use http::{Extensions, Method};
 use std::sync::Arc;
 use std::time::Duration;
+#[cfg(google_cloud_unstable_tracing)]
+use tracing::Instrument;
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
@@ -39,6 +40,8 @@ pub struct ReqwestClient {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
+    _tracing_enabled: bool,
 }
 
 impl ReqwestClient {
@@ -48,12 +51,12 @@ impl ReqwestClient {
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
         let inner = reqwest::Client::new();
-        let uri = Uri::from_str(default_endpoint).map_err(BuilderError::transport)?;
-        let host = uri
-            .authority()
-            .ok_or_else(|| BuilderError::transport("missing authority in default endpoint"))?
-            .host()
-            .to_string();
+        let host = crate::host::from_endpoint(
+            config.endpoint.as_deref(),
+            default_endpoint,
+            |_origin, host| host,
+        )?;
+        let tracing_enabled = crate::options::tracing_enabled(&config);
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
@@ -79,7 +82,17 @@ impl ReqwestClient {
             polling_backoff_policy: config
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
+            instrumentation: None,
+            _tracing_enabled: tracing_enabled,
         })
+    }
+
+    pub fn with_instrumentation(
+        mut self,
+        instrumentation: &'static crate::options::InstrumentationClientInfo,
+    ) -> Self {
+        self.instrumentation = Some(instrumentation);
+        self
     }
 
     pub fn builder(&self, method: Method, path: String) -> reqwest::RequestBuilder {
@@ -127,11 +140,19 @@ impl ReqwestClient {
         let retry = self.get_retry_policy(&options);
         let backoff = self.get_backoff_policy(&options);
         let this = self.clone();
+
+        let mut attempt_count = 0u32;
+
         let inner = async move |d| {
             let builder = builder
                 .try_clone()
                 .expect("client libraries only create builders where `try_clone()` succeeds");
-            this.request_attempt(builder, &options, d).await
+
+            let current_attempt = attempt_count;
+            attempt_count += 1;
+
+            this.request_attempt(builder, &options, d, current_attempt)
+                .await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
         gax::retry_loop_internal::retry_loop(inner, sleep, idempotent, throttler, retry, backoff)
@@ -143,6 +164,7 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
+        _attempt_count: u32,
     ) -> Result<Response<O>> {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
@@ -152,11 +174,35 @@ impl ReqwestClient {
             Ok(CacheableResource::New { data, .. }) => builder.headers(data),
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
-        let response = builder.send().await.map_err(Self::map_send_error)?;
+
+        let request = builder.build().map_err(Self::map_send_error)?;
+
+        #[cfg(google_cloud_unstable_tracing)]
+        let response_result = if self._tracing_enabled {
+            let mut span_info = crate::observability::HttpSpanInfo::from_request(
+                &request,
+                options,
+                self.instrumentation,
+                _attempt_count,
+            );
+            let span = span_info.create_span();
+            // The instrument call ensures the span is entered/exited as the execute future is polled.
+            let result = self.inner.execute(request).instrument(span.clone()).await;
+            // Re-enter the span's context to record response attributes after the future has completed.
+            let _enter = span.enter();
+            span_info.update_from_response(&result);
+            span_info.record_response_attributes(&span);
+            result
+        } else {
+            self.inner.execute(request).await
+        };
+        #[cfg(not(google_cloud_unstable_tracing))]
+        let response_result = self.inner.execute(request).await;
+
+        let response = response_result.map_err(Self::map_send_error)?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;
         }
-
         self::to_http_response(response).await
     }
 
@@ -280,6 +326,9 @@ mod tests {
     use http::{HeaderMap, HeaderValue, Method};
     use test_case::test_case;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    use super::*;
+    use crate::options::ClientConfig;
+    use crate::options::InstrumentationClientInfo;
 
     #[tokio::test]
     async fn client_http_error_bytes() -> TestResult {
@@ -404,5 +453,79 @@ mod tests {
     #[test_case(Method::PATCH, false)]
     fn default_idempotency(input: Method, expected: bool) {
         assert!(super::default_idempotency(&input) == expected);
+    }
+
+    static TEST_INSTRUMENTATION_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
+        service_name: "test-service",
+        client_version: "1.2.3",
+        client_artifact: "test-artifact",
+        default_host: "test.googleapis.com",
+    };
+
+    #[tokio::test]
+    async fn reqwest_client_new() {
+        let config = ClientConfig::default();
+        let client = ReqwestClient::new(config, "https://test.googleapis.com")
+            .await
+            .unwrap();
+        assert!(client.instrumentation.is_none());
+    }
+
+    #[tokio::test]
+    async fn reqwest_client_with_instrumentation() {
+        let config = ClientConfig::default();
+        let client = ReqwestClient::new(config, "https://test.googleapis.com")
+            .await
+            .unwrap();
+        assert!(client.instrumentation.is_none());
+
+        let client = client.with_instrumentation(&TEST_INSTRUMENTATION_INFO);
+        assert!(client.instrumentation.is_some());
+        let info = client.instrumentation.unwrap();
+        assert_eq!(info.service_name, "test-service");
+        assert_eq!(info.client_version, "1.2.3");
+        assert_eq!(info.client_artifact, "test-artifact");
+        assert_eq!(info.default_host, "test.googleapis.com");
+    }
+
+    #[test_case(None, "test.googleapis.com"; "default")]
+    #[test_case(Some("http://www.googleapis.com"), "test.googleapis.com"; "global")]
+    #[test_case(Some("http://private.googleapis.com"), "test.googleapis.com"; "VPC-SC private")]
+    #[test_case(Some("http://restricted.googleapis.com"), "test.googleapis.com"; "VPC-SC restricted")]
+    #[test_case(Some("http://test-my-private-ep.p.googleapis.com"), "test.googleapis.com"; "PSC custom endpoint")]
+    #[test_case(Some("https://us-central1-test.googleapis.com"), "us-central1-test.googleapis.com"; "locational endpoint")]
+    #[test_case(Some("https://test.us-central1.rep.googleapis.com"), "test.us-central1.rep.googleapis.com"; "regional endpoint")]
+    #[test_case(Some("https://test.my-universe-domain.com"), "test.googleapis.com"; "universe domain")]
+    #[test_case(Some("localhost:5678"), "test.googleapis.com"; "emulator")]
+    #[tokio::test]
+    async fn host_from_endpoint(
+        custom_endpoint: Option<&str>,
+        expected_host: &str,
+    ) -> anyhow::Result<()> {
+        let mut config = ClientConfig::default();
+        config.endpoint = custom_endpoint.map(String::from);
+        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        let client = ReqwestClient::new(config.clone(), "https://test.googleapis.com/").await?;
+        assert_eq!(client.host, expected_host);
+
+        // Rarely, (I think only in GCS), does the default endpoint end without
+        // a `/`. Make sure everything still works.
+        let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        assert_eq!(client.host, expected_host);
+
+        Ok(())
+    }
+
+    #[test_case(None; "default")]
+    #[test_case(Some("localhost:5678"); "custom")]
+    #[tokio::test]
+    async fn host_from_endpoint_showcase(custom_endpoint: Option<&str>) -> anyhow::Result<()> {
+        let mut config = ClientConfig::default();
+        config.endpoint = custom_endpoint.map(String::from);
+        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        let client = ReqwestClient::new(config.clone(), "https://localhost:7469/").await?;
+        assert_eq!(client.host, "localhost");
+
+        Ok(())
     }
 }

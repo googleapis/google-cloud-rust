@@ -31,29 +31,11 @@ use iamcredentials::client::IAMCredentials;
 use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
-use secretmanager::client::SecretManagerService;
+use secretmanager::{client::SecretManagerService, model::SecretPayload};
 use std::sync::Arc;
 
 pub async fn service_account() -> anyhow::Result<()> {
-    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
-
-    // Create a SecretManager client. When running on GCB, this loads MDS
-    // credentials for our `integration-test-runner` service account.
-    let client = SecretManagerService::builder().build().await?;
-
-    // Load the ADC json for the principal under test, in this case, a
-    // service account.
-    let response = client
-        .access_secret_version()
-        .set_name(format!(
-            "projects/{project}/secrets/test-sa-creds-json/versions/latest"
-        ))
-        .send()
-        .await?;
-    let adc_json = response
-        .payload
-        .expect("missing payload in test-sa-creds-json response")
-        .data;
+    let (project, adc_json) = get_project_and_service_account().await?;
 
     // Write the ADC to a temporary file
     let file = tempfile::NamedTempFile::new().unwrap();
@@ -87,27 +69,47 @@ pub async fn service_account() -> anyhow::Result<()> {
     Ok(())
 }
 
-pub async fn impersonated() -> anyhow::Result<()> {
-    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+pub async fn service_account_with_audience() -> anyhow::Result<()> {
+    let (project, adc_json) = get_project_and_service_account().await?;
 
-    // Create a SecretManager client. When running on GCB, this loads MDS
-    // credentials for our `integration-test-runner` service account.
-    let client = SecretManagerService::builder().build().await?;
+    let sa_json: serde_json::Value = serde_json::from_slice(&adc_json)?;
 
-    // Load the service account json that will be the source credential
+    // Create credentials for the principal under test, but with an audience.
+    let creds = ServiceAccountCredentialsBuilder::new(sa_json)
+        .with_access_specifier(
+            auth::credentials::service_account::AccessSpecifier::from_audience(
+                "https://secretmanager.googleapis.com/",
+            ),
+        )
+        .build()?;
+
+    // Construct a new SecretManager client using the credentials.
+    let client = SecretManagerService::builder()
+        .with_credentials(creds)
+        .build()
+        .await?;
+
+    // Access a secret, which only this principal has permissions to do.
     let response = client
         .access_secret_version()
         .set_name(format!(
-            "projects/{project}/secrets/test-sa-creds-json/versions/latest"
+            "projects/{project}/secrets/test-sa-creds-secret/versions/latest"
         ))
         .send()
         .await?;
-    let source_sa_json = response
+    let secret = response
         .payload
-        .expect("missing payload in test-sa-creds-json response")
+        .expect("missing payload in test-sa-creds-secret response")
         .data;
+    assert_eq!(secret, "service_account");
 
-    let source_sa_json: serde_json::Value = serde_json::from_slice(&source_sa_json)?;
+    Ok(())
+}
+
+pub async fn impersonated() -> anyhow::Result<()> {
+    let (project, adc_json) = get_project_and_service_account().await?;
+
+    let source_sa_json: serde_json::Value = serde_json::from_slice(&adc_json)?;
 
     let source_sa_creds = ServiceAccountCredentialsBuilder::new(source_sa_json).build()?;
 
@@ -174,25 +176,7 @@ pub async fn impersonated() -> anyhow::Result<()> {
 }
 
 pub async fn api_key() -> anyhow::Result<()> {
-    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
-
-    // Create a SecretManager client. When running on GCB, this loads MDS
-    // credentials for our `integration-test-runner` service account.
-    let client = SecretManagerService::builder().build().await?;
-
-    // Load the API key under test.
-    let response = client
-        .access_secret_version()
-        .set_name(format!(
-            "projects/{project}/secrets/test-api-key/versions/latest",
-        ))
-        .send()
-        .await?;
-    let api_key = response
-        .payload
-        .expect("missing payload in test-api-key response")
-        .data;
-    let api_key = std::str::from_utf8(&api_key).unwrap();
+    let api_key = get_api_key().await?;
 
     // Create credentials using the API key.
     let creds = ApiKeyCredentialsBuilder::new(api_key).build();
@@ -215,7 +199,7 @@ pub async fn api_key() -> anyhow::Result<()> {
 pub async fn workload_identity_provider_url_sourced(
     with_impersonation: bool,
 ) -> anyhow::Result<()> {
-    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+    let project = get_project_id();
     let audience = get_oidc_audience();
     let target_principal_email = get_external_account_service_account_email();
 
@@ -285,7 +269,7 @@ pub async fn workload_identity_provider_executable_sourced(
 ) -> anyhow::Result<()> {
     // allow command execution
     let _e = ScopedEnv::set("GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES", "1");
-    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+    let project = get_project_id();
     let audience = get_oidc_audience();
     let target_principal_email = get_external_account_service_account_email();
 
@@ -349,7 +333,7 @@ pub async fn workload_identity_provider_executable_sourced(
 pub async fn workload_identity_provider_file_sourced(
     with_impersonation: bool,
 ) -> anyhow::Result<()> {
-    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+    let project = get_project_id();
     let audience = get_oidc_audience();
     let target_principal_email = get_external_account_service_account_email();
 
@@ -400,7 +384,7 @@ pub async fn workload_identity_provider_file_sourced(
 }
 
 pub async fn workload_identity_provider_programmatic_sourced() -> anyhow::Result<()> {
-    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+    let project = get_project_id();
     let audience = get_oidc_audience();
     let target_principal_email = get_external_account_service_account_email();
 
@@ -434,6 +418,45 @@ pub async fn workload_identity_provider_programmatic_sourced() -> anyhow::Result
     Ok(())
 }
 
+async fn get_project_and_service_account() -> anyhow::Result<(String, bytes::Bytes)> {
+    let project = get_project_id();
+    let secret = get_secret_with_mds_creds(&project, "test-sa-creds-json").await?;
+    Ok((project, secret.data))
+}
+
+async fn get_api_key() -> anyhow::Result<String> {
+    let project = get_project_id();
+    let secret = get_secret_with_mds_creds(&project, "test-api-key").await?;
+    let api_key = std::str::from_utf8(&secret.data).unwrap();
+    Ok(api_key.to_string())
+}
+
+fn get_project_id() -> String {
+    std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set")
+}
+
+async fn get_secret_with_mds_creds(
+    project: &String,
+    secret_name: &str,
+) -> anyhow::Result<SecretPayload> {
+    // Create a SecretManager client. When running on GCB, this loads MDS
+    // credentials for our `integration-test-runner` service account.
+    let client = SecretManagerService::builder().build().await?;
+
+    // Load the ADC json for the principal under test, which can be a Service Account or API Key
+    let response = client
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/{secret_name}/versions/latest"
+        ))
+        .send()
+        .await?;
+    let err_msg = format!("missing payload in {secret_name} response");
+    let payload = response.payload.expect(err_msg.as_str());
+
+    Ok(payload)
+}
+
 /// Generates a Google ID token using the iamcredentials generateIdToken API.
 /// https://cloud.google.com/iam/docs/creating-short-lived-service-account-credentials#sa-credentials-oidc
 async fn generate_id_token(
@@ -461,7 +484,8 @@ async fn generate_id_token(
             "projects/-/serviceAccounts/{target_principal_email}"
         )])
         .send()
-        .await?;
+        .await
+        .expect("failed to generate id token");
 
     Ok(res.token)
 }

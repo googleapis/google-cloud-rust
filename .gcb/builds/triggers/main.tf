@@ -34,9 +34,28 @@ locals {
   # connection and just record it here.
   gcb_secret_name = "projects/${var.project}/secrets/github-github-oauthtoken-319d75/versions/latest"
 
-  # Add to this list of you want to have more triggers.
-  builds = {
-    integration = {}
+  # Add to these lists of you want to have more triggers.
+  pr_builds = {
+    integration = {
+      config = "integration.yaml"
+    }
+    integration-unstable = {
+      config = "integration.yaml"
+      flags  = "--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token"
+    }
+  }
+
+  pm_builds = {
+    integration = {
+      config = "integration.yaml"
+    }
+    integration-unstable = {
+      config = "integration.yaml"
+      flags  = "--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token"
+    }
+    referenceupload = {
+      config = "referenceupload.yaml"
+    }
   }
 }
 
@@ -67,10 +86,10 @@ resource "google_cloudbuildv2_repository" "main" {
 }
 
 resource "google_cloudbuild_trigger" "pull-request" {
-  for_each = tomap(local.builds)
+  for_each = tomap(local.pr_builds)
   location = var.region
   name     = "gcb-pr-${each.key}"
-  filename = ".gcb/${each.key}.yaml"
+  filename = ".gcb/${each.value.config}"
   tags     = ["pull-request", "name:${each.key}"]
 
   service_account = var.service_account
@@ -84,13 +103,17 @@ resource "google_cloudbuild_trigger" "pull-request" {
   }
 
   include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
+
+  substitutions = {
+    _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+  }
 }
 
 resource "google_cloudbuild_trigger" "post-merge" {
-  for_each = tomap(local.builds)
+  for_each = tomap(local.pm_builds)
   location = var.region
   name     = "gcb-pm-${each.key}"
-  filename = ".gcb/${each.key}.yaml"
+  filename = ".gcb/${each.value.config}"
   tags     = ["post-merge", "push", "name:${each.key}"]
 
   service_account = var.service_account
@@ -103,4 +126,8 @@ resource "google_cloudbuild_trigger" "post-merge" {
   }
 
   include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
+
+  substitutions = {
+    _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+  }
 }

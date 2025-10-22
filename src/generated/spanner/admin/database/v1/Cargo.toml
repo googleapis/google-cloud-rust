@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-spanner-admin-database-v1"
-version                = "0.4.5"
+version                = "1.1.0"
 description            = "Google Cloud Client Libraries for Rust - Cloud Spanner API"
 edition.workspace      = true
 authors.workspace      = true

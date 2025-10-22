@@ -40,7 +40,7 @@ where
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
-        req: crate::model::ListLocationsRequest,
+        req: crate::model::secret_manager_service::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
@@ -49,7 +49,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
-        req: crate::model::GetLocationRequest,
+        req: crate::model::secret_manager_service::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Location>> {
         self.inner.get_location(req, options).await
@@ -58,7 +58,7 @@ where
     #[tracing::instrument(ret)]
     async fn list_secrets(
         &self,
-        req: crate::model::ListSecretsRequest,
+        req: crate::model::secret_manager_service::ListSecretsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         self.inner.list_secrets(req, options).await
@@ -67,7 +67,7 @@ where
     #[tracing::instrument(ret)]
     async fn create_secret(
         &self,
-        req: crate::model::CreateSecretRequest,
+        req: crate::model::secret_manager_service::CreateSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         self.inner.create_secret(req, options).await
@@ -76,7 +76,7 @@ where
     #[tracing::instrument(ret)]
     async fn list_secrets_by_project_and_location(
         &self,
-        req: crate::model::ListSecretsByProjectAndLocationRequest,
+        req: crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         self.inner
@@ -87,7 +87,7 @@ where
     #[tracing::instrument(ret)]
     async fn create_secret_by_project_and_location(
         &self,
-        req: crate::model::CreateSecretByProjectAndLocationRequest,
+        req: crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         self.inner
@@ -98,7 +98,7 @@ where
     #[tracing::instrument(ret)]
     async fn add_secret_version(
         &self,
-        req: crate::model::AddSecretVersionRequest,
+        req: crate::model::secret_manager_service::AddSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         self.inner.add_secret_version(req, options).await
@@ -107,7 +107,7 @@ where
     #[tracing::instrument(ret)]
     async fn add_secret_version_by_project_and_location_and_secret(
         &self,
-        req: crate::model::AddSecretVersionRequest,
+        req: crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         self.inner
@@ -118,7 +118,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_secret(
         &self,
-        req: crate::model::GetSecretRequest,
+        req: crate::model::secret_manager_service::GetSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         self.inner.get_secret(req, options).await
@@ -127,7 +127,7 @@ where
     #[tracing::instrument(ret)]
     async fn delete_secret(
         &self,
-        req: crate::model::DeleteSecretRequest,
+        req: crate::model::secret_manager_service::DeleteSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         self.inner.delete_secret(req, options).await
@@ -136,7 +136,7 @@ where
     #[tracing::instrument(ret)]
     async fn update_secret(
         &self,
-        req: crate::model::UpdateSecretRequest,
+        req: crate::model::secret_manager_service::UpdateSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         self.inner.update_secret(req, options).await
@@ -145,7 +145,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_secret_by_project_and_location_and_secret(
         &self,
-        req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
+        req: crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         self.inner
@@ -156,7 +156,7 @@ where
     #[tracing::instrument(ret)]
     async fn delete_secret_by_project_and_location_and_secret(
         &self,
-        req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
+        req: crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         self.inner
@@ -167,7 +167,7 @@ where
     #[tracing::instrument(ret)]
     async fn update_secret_by_project_and_location_and_secret(
         &self,
-        req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
+        req: crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         self.inner
@@ -178,7 +178,7 @@ where
     #[tracing::instrument(ret)]
     async fn list_secret_versions(
         &self,
-        req: crate::model::ListSecretVersionsRequest,
+        req: crate::model::secret_manager_service::ListSecretVersionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         self.inner.list_secret_versions(req, options).await
@@ -187,7 +187,7 @@ where
     #[tracing::instrument(ret)]
     async fn list_secret_versions_by_project_and_location_and_secret(
         &self,
-        req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
+        req: crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         self.inner
@@ -198,7 +198,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_secret_version(
         &self,
-        req: crate::model::GetSecretVersionRequest,
+        req: crate::model::secret_manager_service::GetSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         self.inner.get_secret_version(req, options).await
@@ -207,7 +207,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        req: crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         self.inner
@@ -218,7 +218,7 @@ where
     #[tracing::instrument(ret)]
     async fn access_secret_version(
         &self,
-        req: crate::model::AccessSecretVersionRequest,
+        req: crate::model::secret_manager_service::AccessSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         self.inner.access_secret_version(req, options).await
@@ -227,7 +227,7 @@ where
     #[tracing::instrument(ret)]
     async fn access_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        req: crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         self.inner
@@ -238,7 +238,7 @@ where
     #[tracing::instrument(ret)]
     async fn disable_secret_version(
         &self,
-        req: crate::model::DisableSecretVersionRequest,
+        req: crate::model::secret_manager_service::DisableSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         self.inner.disable_secret_version(req, options).await
@@ -247,7 +247,7 @@ where
     #[tracing::instrument(ret)]
     async fn disable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        req: crate::model::DisableSecretVersionRequest,
+        req: crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         self.inner
@@ -258,7 +258,7 @@ where
     #[tracing::instrument(ret)]
     async fn enable_secret_version(
         &self,
-        req: crate::model::EnableSecretVersionRequest,
+        req: crate::model::secret_manager_service::EnableSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         self.inner.enable_secret_version(req, options).await
@@ -267,7 +267,7 @@ where
     #[tracing::instrument(ret)]
     async fn enable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        req: crate::model::EnableSecretVersionRequest,
+        req: crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         self.inner
@@ -278,7 +278,7 @@ where
     #[tracing::instrument(ret)]
     async fn destroy_secret_version(
         &self,
-        req: crate::model::DestroySecretVersionRequest,
+        req: crate::model::secret_manager_service::DestroySecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         self.inner.destroy_secret_version(req, options).await
@@ -287,7 +287,7 @@ where
     #[tracing::instrument(ret)]
     async fn destroy_secret_version_by_project_and_location_and_secret_and_version(
         &self,
-        req: crate::model::DestroySecretVersionRequest,
+        req: crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         self.inner
@@ -298,7 +298,7 @@ where
     #[tracing::instrument(ret)]
     async fn set_iam_policy(
         &self,
-        req: crate::model::SetIamPolicyRequest,
+        req: crate::model::secret_manager_service::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
@@ -307,7 +307,7 @@ where
     #[tracing::instrument(ret)]
     async fn set_iam_policy_by_project_and_location_and_secret(
         &self,
-        req: crate::model::SetIamPolicyRequest,
+        req: crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner
@@ -318,7 +318,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_iam_policy(
         &self,
-        req: crate::model::GetIamPolicyRequest,
+        req: crate::model::secret_manager_service::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
@@ -327,7 +327,7 @@ where
     #[tracing::instrument(ret)]
     async fn get_iam_policy_by_project_and_location_and_secret(
         &self,
-        req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
+        req: crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner
@@ -338,7 +338,7 @@ where
     #[tracing::instrument(ret)]
     async fn test_iam_permissions(
         &self,
-        req: crate::model::TestIamPermissionsRequest,
+        req: crate::model::secret_manager_service::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
@@ -347,7 +347,7 @@ where
     #[tracing::instrument(ret)]
     async fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
-        req: crate::model::TestIamPermissionsRequest,
+        req: crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         self.inner

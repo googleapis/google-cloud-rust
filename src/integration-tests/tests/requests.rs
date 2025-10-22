@@ -26,7 +26,7 @@ mod requests {
 
         let client = aiplatform::client::PredictionService::builder()
             .with_endpoint(&endpoint)
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(auth::credentials::anonymous::Builder::new().build())
             .build()
             .await?;
 

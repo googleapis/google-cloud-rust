@@ -248,7 +248,6 @@ running the integration tests. The default is to only run unit tests:
 GOOGLE_CLOUD_PROJECT="$(gcloud config get project)"
 env \
     GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
-    GOOGLE_CLOUD_RUST_TEST_WORKFLOWS_RUNNER=rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
     GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING=us-central1 \
     GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
   cargo test --features run-integration-tests --package integration-tests --package user-guide-samples

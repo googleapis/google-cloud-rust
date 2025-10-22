@@ -19,26 +19,15 @@ use gax::paginator::ItemPaginator as _;
 use lro::Poller;
 use std::time::Duration;
 
-pub async fn until_done(builder: wf::builder::workflows::ClientBuilder) -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
+pub async fn until_done() -> Result<()> {
     let project_id = crate::project_id()?;
     let location_id = crate::region_id();
-    let workflows_runner = crate::workflows_runner()?;
+    let workflows_runner = crate::test_service_account()?;
 
-    let client = builder.build().await?;
+    let client = wf::client::Workflows::builder()
+        .with_tracing()
+        .build()
+        .await?;
     cleanup_stale_workflows(&client, &project_id, &location_id).await?;
 
     let source_contents = r###"# Test only workflow
@@ -81,26 +70,15 @@ main:
     Ok(())
 }
 
-pub async fn explicit_loop(builder: wf::builder::workflows::ClientBuilder) -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
+pub async fn explicit_loop() -> Result<()> {
     let project_id = crate::project_id()?;
     let location_id = crate::region_id();
-    let workflows_runner = crate::workflows_runner()?;
+    let workflows_runner = crate::test_service_account()?;
 
-    let client = builder.build().await?;
+    let client = wf::client::Workflows::builder()
+        .with_tracing()
+        .build()
+        .await?;
     cleanup_stale_workflows(&client, &project_id, &location_id).await?;
 
     let source_contents = r###"# Test only workflow
@@ -238,7 +216,10 @@ pub async fn manual(
     workflow_id: String,
     workflow: wf::model::Workflow,
 ) -> Result<()> {
-    let client = wf::client::Workflows::builder().build().await?;
+    let client = wf::client::Workflows::builder()
+        .with_tracing()
+        .build()
+        .await?;
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let create = client

@@ -1,0 +1,48 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+options:
+  dynamic_substitutions: true
+  substitutionOption: 'ALLOW_LOOSE'
+  logging: CLOUD_LOGGING_ONLY
+  env:
+    - STAGING_BUCKET=docs-staging-v2-dev
+    - SCCACHE_GCS_BUCKET=${PROJECT_ID}-build-cache
+    - SCCACHE_GCS_RW_MODE=READ_WRITE
+    - SCCACHE_GCS_KEY_PREFIX=sccache/referenceupload
+    - RUSTC_WRAPPER=/workspace/.bin/sccache
+serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
+steps:
+  - name: 'gcr.io/cloud-builders/curl'
+    script: |
+      #!/usr/bin/env bash
+      set -e
+      mkdir -p .bin
+      curl -fsSL https://github.com/mozilla/sccache/releases/download/v0.9.1/sccache-v0.9.1-x86_64-unknown-linux-musl.tar.gz |
+        tar -C /workspace/.bin -zxf - --strip-components=1
+      chmod 755 /workspace/.bin/sccache
+  - name: 'rust:1.85-bookworm'
+    script: |
+      #!/usr/bin/env bash
+      set -e
+      apt-get update
+      apt-get install -y python3-pip virtualenv python3-venv
+      python3 -m venv .venv
+      source .venv/bin/activate
+      pip install gcp-docuploader
+      wget https://go.dev/dl/go1.25.1.linux-amd64.tar.gz
+      tar -C /usr/local -xzf ./go1.25.1.linux-amd64.tar.gz
+      export PATH=$PATH:/usr/local/go/bin
+      cargo install --locked cargo-workspaces
+      go run ./tools/cmd/docfx -project-root . -staging-bucket ${STAGING_BUCKET}

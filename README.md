@@ -6,9 +6,6 @@
 Idiomatic Rust client libraries for
 [Google Cloud Platform](https://cloud.google.com/) services.
 
-> **NOTE:** this project is under development, all APIs are subject to change
-> without notice. Some documentation is aspirational.
-
 ## Getting Started
 
 The [User Guide] includes basic tutorials to get started with the Google Cloud

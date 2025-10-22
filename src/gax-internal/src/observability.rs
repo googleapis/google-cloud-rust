@@ -1,0 +1,30 @@
+// Copyright 2025 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+//! Observability-related components for HTTP and gRPC clients.
+//!
+//! This module and its sub-modules contain types and functions for emitting
+//! tracing spans and metrics.
+
+#[cfg(google_cloud_unstable_tracing)]
+pub mod attributes;
+
+#[cfg(google_cloud_unstable_tracing)]
+mod errors;
+
+#[cfg(google_cloud_unstable_tracing)]
+mod http_tracing;
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) use http_tracing::HttpSpanInfo;

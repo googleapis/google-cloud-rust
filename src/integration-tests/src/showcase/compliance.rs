@@ -21,7 +21,7 @@ use std::error::Error as _;
 pub async fn run() -> Result<()> {
     let client = showcase::client::Compliance::builder()
         .with_endpoint("http://localhost:7469")
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(auth::credentials::anonymous::Builder::new().build())
         .with_retry_policy(gax::retry_policy::NeverRetry)
         .with_tracing()
         .build()

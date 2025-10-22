@@ -1,0 +1,52 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[general]
+specification-format = 'disco'
+specification-source = 'discoveries/compute.v1.json'
+service-config       = 'google/cloud/compute/v1/compute_v1.yaml'
+
+[source]
+roots = 'discovery,googleapis'
+
+[discovery]
+operation-id = '.google.cloud.compute.v1.Operation'
+
+[[discovery.pollers]]
+prefix    = 'compute/v1/projects/{project}/zones/{zone}'
+method-id = '.google.cloud.compute.v1.zoneOperations.get'
+
+[[discovery.pollers]]
+prefix    = 'compute/v1/projects/{project}/regions/{region}'
+method-id = '.google.cloud.compute.v1.regionOperations.get'
+
+[[discovery.pollers]]
+prefix    = 'compute/v1/projects/{project}'
+method-id = '.google.cloud.compute.v1.globalOperations.get'
+
+[[discovery.pollers]]
+prefix    = 'compute/v1/'
+method-id = '.google.cloud.compute.v1.globalOrganizationOperations.get'
+
+[codec]
+version                   = '0.2.0'
+copyright-year            = '2025'
+package-name-override     = 'google-cloud-compute-v1'
+per-service-features      = 'true'
+default-features          = 'instances,projects'
+extra-modules             = 'errors,operation'
+'package:lro'             = 'force-used=true,package=google-cloud-lro'
+'package:rpc'             = 'force-used=true,package=google-cloud-rpc'
+disabled-rustdoc-warnings = "bare_urls,broken_intra_doc_links,redundant_explicit_links"
+disabled-clippy-warnings  = "doc_lazy_continuation"

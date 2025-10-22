@@ -16,20 +16,7 @@ use crate::Result;
 use gax::paginator::Paginator;
 use rand::{Rng, distr::Alphanumeric};
 
-pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+pub async fn run() -> Result<()> {
     let project_id = crate::project_id()?;
     let secret_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
@@ -37,14 +24,17 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
         .map(char::from)
         .collect();
 
-    let client = builder.build().await?;
+    let client = smo::client::SecretManagerService::builder()
+        .with_tracing()
+        .build()
+        .await?;
 
     println!("\nTesting create_secret()");
     let create = client
         .create_secret()
         .set_project(&project_id)
         .set_secret_id(&secret_id)
-        .set_request_body(
+        .set_body(
             smo::model::Secret::new()
                 .set_replication(
                     smo::model::Replication::new().set_automatic(smo::model::Automatic::new()),
@@ -82,7 +72,7 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
         .set_project(&project_id)
         .set_secret(&secret_id)
         .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
-        .set_request_body(smo::model::Secret::new().set_labels(new_labels))
+        .set_body(smo::model::Secret::new().set_labels(new_labels))
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -148,7 +138,7 @@ async fn run_iam(
     project_id: &str,
     secret_id: &str,
 ) -> Result<()> {
-    let service_account = crate::service_account_for_iam_tests()?;
+    let service_account = crate::test_service_account()?;
 
     println!("\nTesting get_iam_policy()");
     let policy = client
@@ -164,7 +154,10 @@ async fn run_iam(
         .test_iam_permissions()
         .set_project(project_id)
         .set_secret(secret_id)
-        .set_permissions(["secretmanager.versions.access"])
+        .set_body(
+            smo::model::TestIamPermissionsRequest::new()
+                .set_permissions(["secretmanager.versions.access"]),
+        )
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -194,8 +187,11 @@ async fn run_iam(
         .set_iam_policy()
         .set_project(project_id)
         .set_secret(secret_id)
-        .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
-        .set_policy(new_policy)
+        .set_body(
+            smo::model::SetIamPolicyRequest::new()
+                .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+                .set_policy(new_policy),
+        )
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -215,10 +211,12 @@ async fn run_secret_versions(
         .add_secret_version()
         .set_project(project_id)
         .set_secret(secret_id)
-        .set_payload(
-            smo::model::SecretPayload::new()
-                .set_data(bytes::Bytes::from(data))
-                .set_data_crc_32_c(checksum as i64),
+        .set_body(
+            smo::model::AddSecretVersionRequest::new().set_payload(
+                smo::model::SecretPayload::new()
+                    .set_data(bytes::Bytes::from(data))
+                    .set_data_crc_32_c(checksum as i64),
+            ),
         )
         .send()
         .await?;

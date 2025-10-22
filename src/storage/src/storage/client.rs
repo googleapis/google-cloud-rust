@@ -647,7 +647,7 @@ pub(crate) mod tests {
 
     pub(crate) fn test_builder() -> ClientBuilder {
         ClientBuilder::new()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(auth::credentials::anonymous::Builder::new().build())
             .with_endpoint("http://private.googleapis.com")
             .with_backoff_policy(
                 gax::exponential_backoff::ExponentialBackoffBuilder::new()
@@ -689,7 +689,7 @@ pub(crate) mod tests {
         pub BackoffPolicy {}
 
         impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
-            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
+            fn on_failure(&self, state: &RetryState) -> std::time::Duration;
         }
     }
 

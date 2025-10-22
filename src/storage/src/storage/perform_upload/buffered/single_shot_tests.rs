@@ -48,7 +48,7 @@ async fn upload_object_buffered() -> Result {
 
     let client = Storage::builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(auth::credentials::anonymous::Builder::new().build())
         .with_resumable_upload_threshold(4 * RESUMABLE_UPLOAD_QUANTUM)
         .build()
         .await?;
@@ -72,7 +72,7 @@ async fn single_shot_source_error() -> Result {
 
     let client = Storage::builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(auth::credentials::anonymous::Builder::new().build())
         .build()
         .await?;
     use crate::streaming_source::tests::MockSimpleSource;

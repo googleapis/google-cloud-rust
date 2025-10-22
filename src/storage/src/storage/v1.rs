@@ -63,6 +63,7 @@ pub struct Object {
     self_link: String,
     // ObjectRetention cannot be configured or reported through the gRPC API.
     retention: Retention,
+    contexts: Option<ObjectContexts>,
 }
 
 #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
@@ -202,6 +203,8 @@ impl From<CustomerEncryption> for crate::model::CustomerEncryption {
     }
 }
 
+pub use crate::model::ObjectContexts;
+
 impl From<Object> for crate::model::Object {
     fn from(value: Object) -> Self {
         Self::new()
@@ -236,6 +239,7 @@ impl From<Object> for crate::model::Object {
             .set_metadata(value.metadata)
             .set_or_clear_customer_encryption(value.customer_encryption)
             .set_or_clear_checksums(new_object_checksums(value.crc32c, value.md5_hash))
+            .set_or_clear_contexts(value.contexts)
     }
 }
 
@@ -335,6 +339,17 @@ pub(crate) fn insert_body(resource: &crate::model::Object) -> serde_json::Value 
         fields.push(("retention", Value::Object(value)));
     }
 
+    if let Some(c) = resource.contexts.as_ref() {
+        let mut map = Map::new();
+        for (name, payload) in c.custom.iter() {
+            map.insert(
+                name.to_string(),
+                json!({"value": Value::String(payload.value.clone())}),
+            );
+        }
+        fields.push(("contexts", json!({"custom": Value::Object(map)})));
+    }
+
     serde_json::Value::Object(
         fields
             .into_iter()
@@ -346,6 +361,7 @@ pub(crate) fn insert_body(resource: &crate::model::Object) -> serde_json::Value 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::ObjectCustomContextPayload;
     use serde_json::{Value, json};
     use serde_with::DeserializeAs;
     use test_case::test_case;
@@ -623,7 +639,8 @@ mod tests {
         // unused in crate::model
         media_link: "my-media-link".to_string(),
         self_link: "my-self-link".to_string(),
-        retention: Retention { retain_until_time: wkt::Timestamp::clamp(1747132200, 10), mode: "mode".to_string() }
+        retention: Retention { retain_until_time: wkt::Timestamp::clamp(1747132200, 10), mode: "mode".to_string() },
+        contexts: Some(ObjectContexts::new().set_custom([("test-context-name", ObjectCustomContextPayload::new().set_value("test-context-value"))])),
     }; "all fields set")]
     // Tests for acl values.
     #[test_case(Object { acl: Vec::new(), ..Default::default()}; "empty acl")]
@@ -705,6 +722,7 @@ mod tests {
                 assert!(object.crc32c.is_none());
             }
         }
+        assert_eq!(got.contexts, object.contexts);
     }
 
     fn object_acl_with_all_fields() -> ObjectAccessControl {
@@ -870,6 +888,15 @@ mod tests {
     #[test_case(
         crate::model::Object::new().set_temporary_hold(true),
         json!({"temporaryHold": true})
+    )]
+    #[test_case(
+        crate::model::Object::new().set_contexts(
+            ObjectContexts::new().set_custom([
+                ("test-context-key1", ObjectCustomContextPayload::new().set_value("value-1")),
+                ("test-context-key2", ObjectCustomContextPayload::new().set_value("value-2")),
+            ])
+        ),
+        json!({"contexts": {"custom": {"test-context-key1": {"value": "value-1"}, "test-context-key2": {"value": "value-2"}}}})
     )]
     fn insert_body(input: crate::model::Object, want: serde_json::Value) {
         let got = super::insert_body(&input);

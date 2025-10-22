@@ -558,9 +558,13 @@ pub mod dataset_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::dataset_service::ListDatasets;
     /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListDatasets {
@@ -596,6 +600,29 @@ pub mod dataset_service {
                 .list_datasets(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::DatasetList, gax::error::Error> {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::DatasetList, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project_id][crate::model::ListDatasetsRequest::project_id].
@@ -1114,9 +1141,13 @@ pub mod job_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::job_service::ListJobs;
     /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListJobs {
@@ -1152,6 +1183,28 @@ pub mod job_service {
                 .list_jobs(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::JobList, gax::error::Error> {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::JobList, gax::error::Error> {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project_id][crate::model::ListJobsRequest::project_id].
@@ -1628,9 +1681,13 @@ pub mod model_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::model_service::ListModels;
     /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListModels {
@@ -1666,6 +1723,30 @@ pub mod model_service {
                 .list_models(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListModelsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListModelsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project_id][crate::model::ListModelsRequest::project_id].
@@ -2437,9 +2518,13 @@ pub mod routine_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::routine_service::ListRoutines;
     /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListRoutines {
@@ -2475,6 +2560,30 @@ pub mod routine_service {
                 .list_routines(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListRoutinesResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRoutinesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project_id][crate::model::ListRoutinesRequest::project_id].
@@ -3793,9 +3902,13 @@ pub mod table_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::table_service::ListTables;
     /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> ListTables {
@@ -3831,6 +3944,29 @@ pub mod table_service {
                 .list_tables(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::TableList, gax::error::Error> {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::TableList, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project_id][crate::model::ListTablesRequest::project_id].

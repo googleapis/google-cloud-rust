@@ -18,16 +18,14 @@ package google.test.v1;
 
 import "google/protobuf/empty.proto";
 
-service EchoService {
-    rpc Echo(EchoRequest) returns (EchoResponse);
-}
+service EchoService { rpc Echo(EchoRequest) returns (EchoResponse); }
 
 message EchoRequest {
-    string message = 1;
-    optional uint64 delay_ms = 2;
+  string message = 1;
+  optional uint64 delay_ms = 2;
 }
 
 message EchoResponse {
-    string message = 1;
-    map<string, string> metadata = 2;
+  string message = 1;
+  map<string, string> metadata = 2;
 }

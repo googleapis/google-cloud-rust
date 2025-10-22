@@ -21,8 +21,8 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_pubsub::client::Publisher;
-/// let client = Publisher::builder().build().await?;
+/// # use google_cloud_pubsub::client::TopicAdmin;
+/// let client = TopicAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Pub/Sub API.
 /// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
@@ -34,8 +34,8 @@
 ///
 /// # Configuration
 ///
-/// To configure `Publisher` use the `with_*` methods in the type returned
-/// by [builder()][Publisher::builder]. The default configuration should
+/// To configure `TopicAdmin` use the `with_*` methods in the type returned
+/// by [builder()][TopicAdmin::builder]. The default configuration should
 /// work for most applications. Common configuration changes include
 ///
 /// * [with_endpoint()]: by default this client uses the global default endpoint
@@ -47,33 +47,33 @@
 ///   [Application Default Credentials]. Applications using custom
 ///   authentication may need to override this default.
 ///
-/// [with_endpoint()]: super::builder::publisher::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::publisher::ClientBuilder::credentials
+/// [with_endpoint()]: super::builder::topic_admin::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::topic_admin::ClientBuilder::credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
-/// `Publisher` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Publisher` in
+/// `TopicAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `TopicAdmin` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
-pub struct Publisher {
-    inner: std::sync::Arc<dyn super::stub::dynamic::Publisher>,
+pub struct TopicAdmin {
+    inner: std::sync::Arc<dyn super::stub::dynamic::TopicAdmin>,
 }
 
-impl Publisher {
-    /// Returns a builder for [Publisher].
+impl TopicAdmin {
+    /// Returns a builder for [TopicAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub::client::Publisher;
-    /// let client = Publisher::builder().build().await?;
+    /// # use google_cloud_pubsub::client::TopicAdmin;
+    /// let client = TopicAdmin::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub fn builder() -> super::builder::publisher::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::publisher::client::Factory)
+    pub fn builder() -> super::builder::topic_admin::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::topic_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,7 +82,7 @@ impl Publisher {
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stub::Publisher + 'static,
+        T: super::stub::TopicAdmin + 'static,
     {
         Self {
             inner: std::sync::Arc::new(stub),
@@ -98,7 +98,7 @@ impl Publisher {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Publisher>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TopicAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -107,43 +107,43 @@ impl Publisher {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Publisher> {
-        super::transport::Publisher::new(conf).await
+    ) -> gax::client_builder::Result<impl super::stub::TopicAdmin> {
+        super::transport::TopicAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Publisher> {
+    ) -> gax::client_builder::Result<impl super::stub::TopicAdmin> {
         Self::build_transport(conf)
             .await
-            .map(super::tracing::Publisher::new)
+            .map(super::tracing::TopicAdmin::new)
     }
 
     /// Creates the given topic with the given name. See the [resource name rules]
     /// (<https://cloud.google.com/pubsub/docs/pubsub-basics#resource_names>).
-    pub fn create_topic(&self) -> super::builder::publisher::CreateTopic {
-        super::builder::publisher::CreateTopic::new(self.inner.clone())
+    pub fn create_topic(&self) -> super::builder::topic_admin::CreateTopic {
+        super::builder::topic_admin::CreateTopic::new(self.inner.clone())
     }
 
     /// Updates an existing topic by updating the fields specified in the update
     /// mask. Note that certain properties of a topic are not modifiable.
-    pub fn update_topic(&self) -> super::builder::publisher::UpdateTopic {
-        super::builder::publisher::UpdateTopic::new(self.inner.clone())
+    pub fn update_topic(&self) -> super::builder::topic_admin::UpdateTopic {
+        super::builder::topic_admin::UpdateTopic::new(self.inner.clone())
     }
 
     /// Gets the configuration of a topic.
-    pub fn get_topic(&self) -> super::builder::publisher::GetTopic {
-        super::builder::publisher::GetTopic::new(self.inner.clone())
+    pub fn get_topic(&self) -> super::builder::topic_admin::GetTopic {
+        super::builder::topic_admin::GetTopic::new(self.inner.clone())
     }
 
     /// Lists matching topics.
-    pub fn list_topics(&self) -> super::builder::publisher::ListTopics {
-        super::builder::publisher::ListTopics::new(self.inner.clone())
+    pub fn list_topics(&self) -> super::builder::topic_admin::ListTopics {
+        super::builder::topic_admin::ListTopics::new(self.inner.clone())
     }
 
     /// Lists the names of the attached subscriptions on this topic.
-    pub fn list_topic_subscriptions(&self) -> super::builder::publisher::ListTopicSubscriptions {
-        super::builder::publisher::ListTopicSubscriptions::new(self.inner.clone())
+    pub fn list_topic_subscriptions(&self) -> super::builder::topic_admin::ListTopicSubscriptions {
+        super::builder::topic_admin::ListTopicSubscriptions::new(self.inner.clone())
     }
 
     /// Lists the names of the snapshots on this topic. Snapshots are used in
@@ -151,8 +151,8 @@ impl Publisher {
     /// which allow you to manage message acknowledgments in bulk. That is, you can
     /// set the acknowledgment state of messages in an existing subscription to the
     /// state captured by a snapshot.
-    pub fn list_topic_snapshots(&self) -> super::builder::publisher::ListTopicSnapshots {
-        super::builder::publisher::ListTopicSnapshots::new(self.inner.clone())
+    pub fn list_topic_snapshots(&self) -> super::builder::topic_admin::ListTopicSnapshots {
+        super::builder::topic_admin::ListTopicSnapshots::new(self.inner.clone())
     }
 
     /// Deletes the topic with the given name. Returns `NOT_FOUND` if the topic
@@ -160,16 +160,16 @@ impl Publisher {
     /// the same name; this is an entirely new topic with none of the old
     /// configuration or subscriptions. Existing subscriptions to this topic are
     /// not deleted, but their `topic` field is set to `_deleted-topic_`.
-    pub fn delete_topic(&self) -> super::builder::publisher::DeleteTopic {
-        super::builder::publisher::DeleteTopic::new(self.inner.clone())
+    pub fn delete_topic(&self) -> super::builder::topic_admin::DeleteTopic {
+        super::builder::topic_admin::DeleteTopic::new(self.inner.clone())
     }
 
     /// Detaches a subscription from this topic. All messages retained in the
     /// subscription are dropped. Subsequent `Pull` and `StreamingPull` requests
     /// will return FAILED_PRECONDITION. If the subscription is a push
     /// subscription, pushes to the endpoint will stop.
-    pub fn detach_subscription(&self) -> super::builder::publisher::DetachSubscription {
-        super::builder::publisher::DetachSubscription::new(self.inner.clone())
+    pub fn detach_subscription(&self) -> super::builder::topic_admin::DetachSubscription {
+        super::builder::topic_admin::DetachSubscription::new(self.inner.clone())
     }
 }
 
@@ -178,8 +178,8 @@ impl Publisher {
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_pubsub::client::Subscriber;
-/// let client = Subscriber::builder().build().await?;
+/// # use google_cloud_pubsub::client::SubscriptionAdmin;
+/// let client = SubscriptionAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Pub/Sub API.
 /// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
@@ -192,8 +192,8 @@ impl Publisher {
 ///
 /// # Configuration
 ///
-/// To configure `Subscriber` use the `with_*` methods in the type returned
-/// by [builder()][Subscriber::builder]. The default configuration should
+/// To configure `SubscriptionAdmin` use the `with_*` methods in the type returned
+/// by [builder()][SubscriptionAdmin::builder]. The default configuration should
 /// work for most applications. Common configuration changes include
 ///
 /// * [with_endpoint()]: by default this client uses the global default endpoint
@@ -205,33 +205,35 @@ impl Publisher {
 ///   [Application Default Credentials]. Applications using custom
 ///   authentication may need to override this default.
 ///
-/// [with_endpoint()]: super::builder::subscriber::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::subscriber::ClientBuilder::credentials
+/// [with_endpoint()]: super::builder::subscription_admin::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::subscription_admin::ClientBuilder::credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
-/// `Subscriber` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Subscriber` in
+/// `SubscriptionAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `SubscriptionAdmin` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
-pub struct Subscriber {
-    inner: std::sync::Arc<dyn super::stub::dynamic::Subscriber>,
+pub struct SubscriptionAdmin {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SubscriptionAdmin>,
 }
 
-impl Subscriber {
-    /// Returns a builder for [Subscriber].
+impl SubscriptionAdmin {
+    /// Returns a builder for [SubscriptionAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub::client::Subscriber;
-    /// let client = Subscriber::builder().build().await?;
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// let client = SubscriptionAdmin::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub fn builder() -> super::builder::subscriber::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::subscriber::client::Factory)
+    pub fn builder() -> super::builder::subscription_admin::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::subscription_admin::client::Factory,
+        )
     }
 
     /// Creates a new client from the provided stub.
@@ -240,7 +242,7 @@ impl Subscriber {
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stub::Subscriber + 'static,
+        T: super::stub::SubscriptionAdmin + 'static,
     {
         Self {
             inner: std::sync::Arc::new(stub),
@@ -256,7 +258,8 @@ impl Subscriber {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Subscriber>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SubscriptionAdmin>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -265,16 +268,16 @@ impl Subscriber {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Subscriber> {
-        super::transport::Subscriber::new(conf).await
+    ) -> gax::client_builder::Result<impl super::stub::SubscriptionAdmin> {
+        super::transport::SubscriptionAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Subscriber> {
+    ) -> gax::client_builder::Result<impl super::stub::SubscriptionAdmin> {
         Self::build_transport(conf)
             .await
-            .map(super::tracing::Subscriber::new)
+            .map(super::tracing::SubscriptionAdmin::new)
     }
 
     /// Creates a subscription to a given topic. See the [resource name rules]
@@ -288,25 +291,25 @@ impl Subscriber {
     /// (<https://cloud.google.com/pubsub/docs/pubsub-basics#resource_names>). The
     /// generated name is populated in the returned Subscription object. Note that
     /// for REST API requests, you must specify a name in the request.
-    pub fn create_subscription(&self) -> super::builder::subscriber::CreateSubscription {
-        super::builder::subscriber::CreateSubscription::new(self.inner.clone())
+    pub fn create_subscription(&self) -> super::builder::subscription_admin::CreateSubscription {
+        super::builder::subscription_admin::CreateSubscription::new(self.inner.clone())
     }
 
     /// Gets the configuration details of a subscription.
-    pub fn get_subscription(&self) -> super::builder::subscriber::GetSubscription {
-        super::builder::subscriber::GetSubscription::new(self.inner.clone())
+    pub fn get_subscription(&self) -> super::builder::subscription_admin::GetSubscription {
+        super::builder::subscription_admin::GetSubscription::new(self.inner.clone())
     }
 
     /// Updates an existing subscription by updating the fields specified in the
     /// update mask. Note that certain properties of a subscription, such as its
     /// topic, are not modifiable.
-    pub fn update_subscription(&self) -> super::builder::subscriber::UpdateSubscription {
-        super::builder::subscriber::UpdateSubscription::new(self.inner.clone())
+    pub fn update_subscription(&self) -> super::builder::subscription_admin::UpdateSubscription {
+        super::builder::subscription_admin::UpdateSubscription::new(self.inner.clone())
     }
 
     /// Lists matching subscriptions.
-    pub fn list_subscriptions(&self) -> super::builder::subscriber::ListSubscriptions {
-        super::builder::subscriber::ListSubscriptions::new(self.inner.clone())
+    pub fn list_subscriptions(&self) -> super::builder::subscription_admin::ListSubscriptions {
+        super::builder::subscription_admin::ListSubscriptions::new(self.inner.clone())
     }
 
     /// Deletes an existing subscription. All messages retained in the subscription
@@ -314,8 +317,8 @@ impl Subscriber {
     /// `NOT_FOUND`. After a subscription is deleted, a new one may be created with
     /// the same name, but the new one has no association with the old
     /// subscription or its topic unless the same topic is specified.
-    pub fn delete_subscription(&self) -> super::builder::subscriber::DeleteSubscription {
-        super::builder::subscriber::DeleteSubscription::new(self.inner.clone())
+    pub fn delete_subscription(&self) -> super::builder::subscription_admin::DeleteSubscription {
+        super::builder::subscription_admin::DeleteSubscription::new(self.inner.clone())
     }
 
     /// Modifies the `PushConfig` for a specified subscription.
@@ -324,8 +327,8 @@ impl Subscriber {
     /// an empty `PushConfig`) or vice versa, or change the endpoint URL and other
     /// attributes of a push subscription. Messages will accumulate for delivery
     /// continuously through the call regardless of changes to the `PushConfig`.
-    pub fn modify_push_config(&self) -> super::builder::subscriber::ModifyPushConfig {
-        super::builder::subscriber::ModifyPushConfig::new(self.inner.clone())
+    pub fn modify_push_config(&self) -> super::builder::subscription_admin::ModifyPushConfig {
+        super::builder::subscription_admin::ModifyPushConfig::new(self.inner.clone())
     }
 
     /// Gets the configuration details of a snapshot. Snapshots are used in
@@ -333,8 +336,8 @@ impl Subscriber {
     /// which allow you to manage message acknowledgments in bulk. That is, you can
     /// set the acknowledgment state of messages in an existing subscription to the
     /// state captured by a snapshot.
-    pub fn get_snapshot(&self) -> super::builder::subscriber::GetSnapshot {
-        super::builder::subscriber::GetSnapshot::new(self.inner.clone())
+    pub fn get_snapshot(&self) -> super::builder::subscription_admin::GetSnapshot {
+        super::builder::subscription_admin::GetSnapshot::new(self.inner.clone())
     }
 
     /// Lists the existing snapshots. Snapshots are used in [Seek](
@@ -342,8 +345,8 @@ impl Subscriber {
     /// allow you to manage message acknowledgments in bulk. That is, you can set
     /// the acknowledgment state of messages in an existing subscription to the
     /// state captured by a snapshot.
-    pub fn list_snapshots(&self) -> super::builder::subscriber::ListSnapshots {
-        super::builder::subscriber::ListSnapshots::new(self.inner.clone())
+    pub fn list_snapshots(&self) -> super::builder::subscription_admin::ListSnapshots {
+        super::builder::subscription_admin::ListSnapshots::new(self.inner.clone())
     }
 
     /// Creates a snapshot from the requested subscription. Snapshots are used in
@@ -362,8 +365,8 @@ impl Subscriber {
     /// (<https://cloud.google.com/pubsub/docs/pubsub-basics#resource_names>). The
     /// generated name is populated in the returned Snapshot object. Note that for
     /// REST API requests, you must specify a name in the request.
-    pub fn create_snapshot(&self) -> super::builder::subscriber::CreateSnapshot {
-        super::builder::subscriber::CreateSnapshot::new(self.inner.clone())
+    pub fn create_snapshot(&self) -> super::builder::subscription_admin::CreateSnapshot {
+        super::builder::subscription_admin::CreateSnapshot::new(self.inner.clone())
     }
 
     /// Updates an existing snapshot by updating the fields specified in the update
@@ -372,8 +375,8 @@ impl Subscriber {
     /// which allow you to manage message acknowledgments in bulk. That is, you can
     /// set the acknowledgment state of messages in an existing subscription to the
     /// state captured by a snapshot.
-    pub fn update_snapshot(&self) -> super::builder::subscriber::UpdateSnapshot {
-        super::builder::subscriber::UpdateSnapshot::new(self.inner.clone())
+    pub fn update_snapshot(&self) -> super::builder::subscription_admin::UpdateSnapshot {
+        super::builder::subscription_admin::UpdateSnapshot::new(self.inner.clone())
     }
 
     /// Removes an existing snapshot. Snapshots are used in [Seek]
@@ -385,8 +388,8 @@ impl Subscriber {
     /// are immediately dropped. After a snapshot is deleted, a new one may be
     /// created with the same name, but the new one has no association with the old
     /// snapshot or its subscription, unless the same subscription is specified.
-    pub fn delete_snapshot(&self) -> super::builder::subscriber::DeleteSnapshot {
-        super::builder::subscriber::DeleteSnapshot::new(self.inner.clone())
+    pub fn delete_snapshot(&self) -> super::builder::subscription_admin::DeleteSnapshot {
+        super::builder::subscription_admin::DeleteSnapshot::new(self.inner.clone())
     }
 
     /// Seeks an existing subscription to a point in time or to a given snapshot,
@@ -396,8 +399,8 @@ impl Subscriber {
     /// the acknowledgment state of messages in an existing subscription to the
     /// state captured by a snapshot. Note that both the subscription and the
     /// snapshot must be on the same topic.
-    pub fn seek(&self) -> super::builder::subscriber::Seek {
-        super::builder::subscriber::Seek::new(self.inner.clone())
+    pub fn seek(&self) -> super::builder::subscription_admin::Seek {
+        super::builder::subscription_admin::Seek::new(self.inner.clone())
     }
 }
 

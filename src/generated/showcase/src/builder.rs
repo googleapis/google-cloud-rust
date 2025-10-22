@@ -2896,9 +2896,13 @@ pub mod echo {
     /// # use google_cloud_showcase_v1beta1::builder;
     /// use builder::echo::PagedExpandLegacyMapped;
     /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
     /// # gax::Result::<()>::Ok(()) });
     ///
     /// fn prepare_request_builder() -> PagedExpandLegacyMapped {
@@ -2932,6 +2936,34 @@ pub mod echo {
                 .paged_expand_legacy_mapped(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::PagedExpandLegacyMappedResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::PagedExpandLegacyMappedResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [content][crate::model::PagedExpandRequest::content].

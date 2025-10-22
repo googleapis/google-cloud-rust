@@ -26,13 +26,29 @@
 
 pub(crate) mod generated;
 
+pub mod publisher;
+
 pub use gax::Result;
 pub use gax::error::Error;
 
-pub use generated::gapic::builder;
-pub use generated::gapic::client;
-pub use generated::gapic::model;
-pub use generated::gapic::stub;
+pub mod builder {
+    pub use crate::generated::gapic::builder::*;
+    pub mod publisher {
+        pub use crate::generated::gapic_dataplane::builder::publisher::*;
+        pub use crate::publisher::client::ClientBuilder;
+    }
+}
+pub mod model {
+    pub use crate::generated::gapic::model::*;
+    pub use crate::generated::gapic_dataplane::model::*;
+}
+pub mod client {
+    pub use crate::generated::gapic::client::*;
+    pub use crate::publisher::client::*;
+}
+pub mod stub {
+    pub use crate::generated::gapic::stub::*;
+}
 
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";
 
@@ -48,5 +64,16 @@ mod info {
             };
             ac.grpc_header_value()
         };
+    }
+}
+
+#[allow(dead_code)]
+pub(crate) mod google {
+    pub mod pubsub {
+        #[allow(clippy::enum_variant_names)]
+        pub mod v1 {
+            include!("generated/protos/pubsub/google.pubsub.v1.rs");
+            include!("generated/convert/pubsub/convert.rs");
+        }
     }
 }

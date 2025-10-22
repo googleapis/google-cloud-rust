@@ -34,7 +34,15 @@ impl std::fmt::Debug for Compliance {
 
 impl Compliance {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -47,13 +55,14 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/repeat:body".to_string();
+                let path_template = "/v1beta1/repeat:body";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -63,6 +72,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -82,9 +93,10 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/repeat:bodyinfo".to_string();
+                let path_template = "/v1beta1/repeat:bodyinfo";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("name", &req.name)]);
@@ -108,7 +120,7 @@ impl super::stub::Compliance for Compliance {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -118,6 +130,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -137,9 +151,10 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/repeat:query".to_string();
+                let path_template = "/v1beta1/repeat:query";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -175,7 +190,7 @@ impl super::stub::Compliance for Compliance {
                         .fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -185,6 +200,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -206,120 +223,71 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1beta1/repeat/{}/{}/{}/{}/{}:simplepath",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_int32),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_double),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_kingdom),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/v1beta1/repeat/{}/{}/{}/{}/{}:simplepath",
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_int32), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_double), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool), &[Segment::SingleWildcard])?,
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_kingdom), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/v1beta1/repeat/{info.f_string}/{info.f_int32}/{info.f_double}/{info.f_bool}/{info.f_kingdom}:simplepath";
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = (|| {
-                    let builder = builder.query(&[("name", &req.name)]);
-                    let builder = req
-                        .info
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "info")
-                        });
-                    let builder = builder.query(&[("serverVerify", &req.server_verify)]);
-                    let builder = req.intended_binding_uri.iter().fold(builder, |builder, p| {
-                        builder.query(&[("intendedBindingUri", p)])
-                    });
-                    let builder = builder.query(&[("fInt32", &req.f_int32)]);
-                    let builder = builder.query(&[("fInt64", &req.f_int64)]);
-                    let builder = builder.query(&[("fDouble", &req.f_double)]);
-                    let builder = req
-                        .p_int32
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pInt32", p)]));
-                    let builder = req
-                        .p_int64
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pInt64", p)]));
-                    let builder = req
-                        .p_double
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "info.f_string",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_int32),
-                        &[Segment::SingleWildcard],
-                        "info.f_int32",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_double),
-                        &[Segment::SingleWildcard],
-                        "info.f_double",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
-                        &[Segment::SingleWildcard],
-                        "info.f_bool",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_kingdom),
-                        &[Segment::SingleWildcard],
-                        "info.f_kingdom",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = (|| {
+                let builder = builder.query(&[("name", &req.name)]);
+                let builder = req.info.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "info") });
+                let builder = builder.query(&[("serverVerify", &req.server_verify)]);
+                let builder = req.intended_binding_uri.iter().fold(builder, |builder, p| builder.query(&[("intendedBindingUri", p)]));
+                let builder = builder.query(&[("fInt32", &req.f_int32)]);
+                let builder = builder.query(&[("fInt64", &req.f_int64)]);
+                let builder = builder.query(&[("fDouble", &req.f_double)]);
+                let builder = req.p_int32.iter().fold(builder, |builder, p| builder.query(&[("pInt32", p)]));
+                let builder = req.p_int64.iter().fold(builder, |builder, p| builder.query(&[("pInt64", p)]));
+                let builder = req.p_double.iter().fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
+                Ok(builder)
+            })();
+            Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "info.f_string",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_int32),
+                    &[Segment::SingleWildcard],
+                    "info.f_int32",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_double),
+                    &[Segment::SingleWildcard],
+                    "info.f_double",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
+                    &[Segment::SingleWildcard],
+                    "info.f_bool",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_kingdom),
+                    &[Segment::SingleWildcard],
+                    "info.f_kingdom",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -341,189 +309,105 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
-            .or_else(|| {
-                let path = format!(
-                    "/v1beta1/repeat/{}/{}/bool/{}:pathresource",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("first/"), Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .and_then(|m| m.f_child.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("second/"), Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let path = format!(
+                "/v1beta1/repeat/{}/{}/bool/{}:pathresource",
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("first/"), Segment::SingleWildcard])?,
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).and_then(|m| m.f_child.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("second/"), Segment::SingleWildcard])?,
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/v1beta1/repeat/{info.f_string}/{info.f_child.f_string}/bool/{info.f_bool}:pathresource";
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = (|| {
-                    let builder = builder.query(&[("name", &req.name)]);
-                    let builder = req
-                        .info
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "info")
-                        });
-                    let builder = builder.query(&[("serverVerify", &req.server_verify)]);
-                    let builder = req.intended_binding_uri.iter().fold(builder, |builder, p| {
-                        builder.query(&[("intendedBindingUri", p)])
-                    });
-                    let builder = builder.query(&[("fInt32", &req.f_int32)]);
-                    let builder = builder.query(&[("fInt64", &req.f_int64)]);
-                    let builder = builder.query(&[("fDouble", &req.f_double)]);
-                    let builder = req
-                        .p_int32
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pInt32", p)]));
-                    let builder = req
-                        .p_int64
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pInt64", p)]));
-                    let builder = req
-                        .p_double
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .or_else(|| {
-                let path = format!(
-                    "/v1beta1/repeat/{}/{}/bool/{}:childfirstpathresource",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .and_then(|m| m.f_child.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("first/"), Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("second/"), Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = (|| {
+                let builder = builder.query(&[("name", &req.name)]);
+                let builder = req.info.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "info") });
+                let builder = builder.query(&[("serverVerify", &req.server_verify)]);
+                let builder = req.intended_binding_uri.iter().fold(builder, |builder, p| builder.query(&[("intendedBindingUri", p)]));
+                let builder = builder.query(&[("fInt32", &req.f_int32)]);
+                let builder = builder.query(&[("fInt64", &req.f_int64)]);
+                let builder = builder.query(&[("fDouble", &req.f_double)]);
+                let builder = req.p_int32.iter().fold(builder, |builder, p| builder.query(&[("pInt32", p)]));
+                let builder = req.p_int64.iter().fold(builder, |builder, p| builder.query(&[("pInt64", p)]));
+                let builder = req.p_double.iter().fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
+                Ok(builder)
+            })();
+            Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
+        })
+        .or_else(|| {
+            let path = format!(
+                "/v1beta1/repeat/{}/{}/bool/{}:childfirstpathresource",
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).and_then(|m| m.f_child.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("first/"), Segment::SingleWildcard])?,
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("second/"), Segment::SingleWildcard])?,
+                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool), &[Segment::SingleWildcard])?,
+            );
+            let path_template = "/v1beta1/repeat/{info.f_child.f_string}/{info.f_string}/bool/{info.f_bool}:childfirstpathresource";
 
-                let builder = self.inner.builder(reqwest::Method::GET, path);
-                let builder = (|| {
-                    let builder = builder.query(&[("name", &req.name)]);
-                    let builder = req
-                        .info
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "info")
-                        });
-                    let builder = builder.query(&[("serverVerify", &req.server_verify)]);
-                    let builder = req.intended_binding_uri.iter().fold(builder, |builder, p| {
-                        builder.query(&[("intendedBindingUri", p)])
-                    });
-                    let builder = builder.query(&[("fInt32", &req.f_int32)]);
-                    let builder = builder.query(&[("fInt64", &req.f_int64)]);
-                    let builder = builder.query(&[("fDouble", &req.f_double)]);
-                    let builder = req
-                        .p_int32
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pInt32", p)]));
-                    let builder = req
-                        .p_int64
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pInt64", p)]));
-                    let builder = req
-                        .p_double
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("first/"), Segment::SingleWildcard],
-                        "info.f_string",
-                        "first/*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .and_then(|m| m.f_child.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("second/"), Segment::SingleWildcard],
-                        "info.f_child.f_string",
-                        "second/*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
-                        &[Segment::SingleWildcard],
-                        "info.f_bool",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .and_then(|m| m.f_child.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("first/"), Segment::SingleWildcard],
-                        "info.f_child.f_string",
-                        "first/*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("second/"), Segment::SingleWildcard],
-                        "info.f_string",
-                        "second/*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
-                        &[Segment::SingleWildcard],
-                        "info.f_bool",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                gax::error::Error::binding(BindingError { paths })
-            })??;
+            let builder = self
+                .inner
+                .builder(reqwest::Method::GET, path);
+            let builder = (|| {
+                let builder = builder.query(&[("name", &req.name)]);
+                let builder = req.info.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "info") });
+                let builder = builder.query(&[("serverVerify", &req.server_verify)]);
+                let builder = req.intended_binding_uri.iter().fold(builder, |builder, p| builder.query(&[("intendedBindingUri", p)]));
+                let builder = builder.query(&[("fInt32", &req.f_int32)]);
+                let builder = builder.query(&[("fInt64", &req.f_int64)]);
+                let builder = builder.query(&[("fDouble", &req.f_double)]);
+                let builder = req.p_int32.iter().fold(builder, |builder, p| builder.query(&[("pInt32", p)]));
+                let builder = req.p_int64.iter().fold(builder, |builder, p| builder.query(&[("pInt64", p)]));
+                let builder = req.p_double.iter().fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
+                Ok(builder)
+            })();
+            Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()),
+                    &[Segment::Literal("first/"), Segment::SingleWildcard],
+                    "info.f_string",
+                    "first/*");
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).and_then(|m| m.f_child.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()),
+                    &[Segment::Literal("second/"), Segment::SingleWildcard],
+                    "info.f_child.f_string",
+                    "second/*");
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
+                    &[Segment::SingleWildcard],
+                    "info.f_bool",
+                    "*");
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).and_then(|m| m.f_child.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()),
+                    &[Segment::Literal("first/"), Segment::SingleWildcard],
+                    "info.f_child.f_string",
+                    "first/*");
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()),
+                    &[Segment::Literal("second/"), Segment::SingleWildcard],
+                    "info.f_string",
+                    "second/*");
+                let builder = builder.maybe_add(
+                    Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool),
+                    &[Segment::SingleWildcard],
+                    "info.f_bool",
+                    "*");
+                paths.push(builder.build());
+            }
+            gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -545,7 +429,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/repeat/{}/{}:pathtrailingresource",
@@ -565,6 +449,8 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("second"), Segment::TrailingMultiWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1beta1/repeat/{info.f_string}/{info.f_child.f_string}:pathtrailingresource";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -600,7 +486,7 @@ impl super::stub::Compliance for Compliance {
                         .fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -629,6 +515,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -648,13 +536,14 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/repeat:bodyput".to_string();
+                let path_template = "/v1beta1/repeat:bodyput";
 
                 let builder = self.inner.builder(reqwest::Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
+                Some(builder.map(|b| (b, reqwest::Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -664,6 +553,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -683,13 +574,14 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/repeat:bodypatch".to_string();
+                let path_template = "/v1beta1/repeat:bodypatch";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -699,6 +591,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -718,14 +612,15 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::EnumResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/compliance/enum".to_string();
+                let path_template = "/v1beta1/compliance/enum";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("unknownEnum", &req.unknown_enum)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -735,6 +630,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -754,9 +651,10 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<crate::model::EnumResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/compliance/enum".to_string();
+                let path_template = "/v1beta1/compliance/enum";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = (|| {
@@ -773,7 +671,7 @@ impl super::stub::Compliance for Compliance {
                     let builder = builder.query(&[("continent", &req.continent)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -783,6 +681,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -804,7 +704,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -813,13 +713,14 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -835,6 +736,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -856,7 +759,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -870,10 +773,11 @@ impl super::stub::Compliance for Compliance {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -894,6 +798,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -915,7 +821,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -924,10 +830,11 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -937,10 +844,11 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -955,10 +863,11 @@ impl super::stub::Compliance for Compliance {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -968,10 +877,11 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1022,6 +932,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1043,7 +955,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -1052,6 +964,7 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -1067,7 +980,7 @@ impl super::stub::Compliance for Compliance {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1077,6 +990,7 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -1092,7 +1006,7 @@ impl super::stub::Compliance for Compliance {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1107,6 +1021,7 @@ impl super::stub::Compliance for Compliance {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -1122,7 +1037,7 @@ impl super::stub::Compliance for Compliance {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1132,6 +1047,7 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -1147,7 +1063,7 @@ impl super::stub::Compliance for Compliance {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1198,6 +1114,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1219,7 +1137,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -1228,10 +1146,11 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1241,10 +1160,11 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1259,10 +1179,11 @@ impl super::stub::Compliance for Compliance {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1272,10 +1193,11 @@ impl super::stub::Compliance for Compliance {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1326,6 +1248,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1345,9 +1269,10 @@ impl super::stub::Compliance for Compliance {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
+                let path_template = "/v1beta1/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
@@ -1355,7 +1280,7 @@ impl super::stub::Compliance for Compliance {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1365,6 +1290,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1386,7 +1313,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -1398,10 +1325,11 @@ impl super::stub::Compliance for Compliance {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1420,6 +1348,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1441,7 +1371,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -1453,10 +1383,11 @@ impl super::stub::Compliance for Compliance {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1475,6 +1406,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1501,7 +1434,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -1513,10 +1446,11 @@ impl super::stub::Compliance for Compliance {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1535,6 +1469,8 @@ impl super::stub::Compliance for Compliance {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1567,7 +1503,15 @@ impl std::fmt::Debug for Echo {
 
 impl Echo {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1581,13 +1525,14 @@ impl super::stub::Echo for Echo {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         let options = gax::options::internal::set_default_idempotency(options, true);
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:echo".to_string();
+                let path_template = "/v1beta1/echo:echo";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1597,6 +1542,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1616,13 +1563,14 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::EchoErrorDetailsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:error-details".to_string();
+                let path_template = "/v1beta1/echo:error-details";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1632,6 +1580,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1651,13 +1601,14 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:failWithDetails".to_string();
+                let path_template = "/v1beta1/echo:failWithDetails";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1667,6 +1618,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1686,13 +1639,14 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::PagedExpandResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:pagedExpand".to_string();
+                let path_template = "/v1beta1/echo:pagedExpand";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1702,6 +1656,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1721,13 +1677,14 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::PagedExpandResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:pagedExpandLegacy".to_string();
+                let path_template = "/v1beta1/echo:pagedExpandLegacy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1737,6 +1694,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1756,13 +1715,14 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::PagedExpandLegacyMappedResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:pagedExpandLegacyMapped".to_string();
+                let path_template = "/v1beta1/echo:pagedExpandLegacyMapped";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1772,6 +1732,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1791,13 +1753,14 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:wait".to_string();
+                let path_template = "/v1beta1/echo:wait";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1807,6 +1770,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1826,13 +1791,14 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::BlockResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:block".to_string();
+                let path_template = "/v1beta1/echo:block";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1842,6 +1808,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1863,7 +1831,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -1872,13 +1840,14 @@ impl super::stub::Echo for Echo {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1894,6 +1863,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1915,7 +1886,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -1929,10 +1900,11 @@ impl super::stub::Echo for Echo {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1953,6 +1925,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1974,7 +1948,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -1983,10 +1957,11 @@ impl super::stub::Echo for Echo {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1996,10 +1971,11 @@ impl super::stub::Echo for Echo {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2014,10 +1990,11 @@ impl super::stub::Echo for Echo {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2027,10 +2004,11 @@ impl super::stub::Echo for Echo {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2081,6 +2059,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2102,7 +2082,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -2111,6 +2091,7 @@ impl super::stub::Echo for Echo {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2126,7 +2107,7 @@ impl super::stub::Echo for Echo {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2136,6 +2117,7 @@ impl super::stub::Echo for Echo {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2151,7 +2133,7 @@ impl super::stub::Echo for Echo {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2166,6 +2148,7 @@ impl super::stub::Echo for Echo {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2181,7 +2164,7 @@ impl super::stub::Echo for Echo {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2191,6 +2174,7 @@ impl super::stub::Echo for Echo {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -2206,7 +2190,7 @@ impl super::stub::Echo for Echo {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2257,6 +2241,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2278,7 +2264,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -2287,10 +2273,11 @@ impl super::stub::Echo for Echo {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2300,10 +2287,11 @@ impl super::stub::Echo for Echo {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2318,10 +2306,11 @@ impl super::stub::Echo for Echo {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2331,10 +2320,11 @@ impl super::stub::Echo for Echo {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2385,6 +2375,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2404,9 +2396,10 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
+                let path_template = "/v1beta1/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
@@ -2414,7 +2407,7 @@ impl super::stub::Echo for Echo {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2424,6 +2417,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2445,7 +2440,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2457,10 +2452,11 @@ impl super::stub::Echo for Echo {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2479,6 +2475,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2500,7 +2498,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2512,10 +2510,11 @@ impl super::stub::Echo for Echo {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2534,6 +2533,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2560,7 +2561,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -2572,10 +2573,11 @@ impl super::stub::Echo for Echo {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2594,6 +2596,8 @@ impl super::stub::Echo for Echo {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2642,7 +2646,15 @@ impl std::fmt::Debug for Identity {
 
 impl Identity {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -2655,13 +2667,14 @@ impl super::stub::Identity for Identity {
     ) -> Result<gax::response::Response<crate::model::User>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/users".to_string();
+                let path_template = "/v1beta1/users";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2671,6 +2684,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2692,7 +2707,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2701,10 +2716,11 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2720,6 +2736,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2741,7 +2759,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2753,6 +2771,7 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{user.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -2768,7 +2787,7 @@ impl super::stub::Identity for Identity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2787,6 +2806,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2808,7 +2829,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2817,10 +2838,11 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2836,6 +2858,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2860,15 +2884,16 @@ impl super::stub::Identity for Identity {
     ) -> Result<gax::response::Response<crate::model::ListUsersResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/users".to_string();
+                let path_template = "/v1beta1/users";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2878,6 +2903,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2899,7 +2926,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -2908,13 +2935,14 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2930,6 +2958,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2951,7 +2981,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -2965,10 +2995,11 @@ impl super::stub::Identity for Identity {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2989,6 +3020,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3010,7 +3043,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -3019,10 +3052,11 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3032,10 +3066,11 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3050,10 +3085,11 @@ impl super::stub::Identity for Identity {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3063,10 +3099,11 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3117,6 +3154,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3138,7 +3177,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -3147,6 +3186,7 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -3162,7 +3202,7 @@ impl super::stub::Identity for Identity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3172,6 +3212,7 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -3187,7 +3228,7 @@ impl super::stub::Identity for Identity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3202,6 +3243,7 @@ impl super::stub::Identity for Identity {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -3217,7 +3259,7 @@ impl super::stub::Identity for Identity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3227,6 +3269,7 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -3242,7 +3285,7 @@ impl super::stub::Identity for Identity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3293,6 +3336,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3314,7 +3359,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -3323,10 +3368,11 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3336,10 +3382,11 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3354,10 +3401,11 @@ impl super::stub::Identity for Identity {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3367,10 +3415,11 @@ impl super::stub::Identity for Identity {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3421,6 +3470,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3440,9 +3491,10 @@ impl super::stub::Identity for Identity {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
+                let path_template = "/v1beta1/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
@@ -3450,7 +3502,7 @@ impl super::stub::Identity for Identity {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3460,6 +3512,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3481,7 +3535,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -3493,10 +3547,11 @@ impl super::stub::Identity for Identity {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3515,6 +3570,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3536,7 +3593,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -3548,10 +3605,11 @@ impl super::stub::Identity for Identity {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3570,6 +3628,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3596,7 +3656,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -3608,10 +3668,11 @@ impl super::stub::Identity for Identity {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3630,6 +3691,8 @@ impl super::stub::Identity for Identity {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3664,7 +3727,15 @@ impl std::fmt::Debug for Messaging {
 
 impl Messaging {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -3677,13 +3748,14 @@ impl super::stub::Messaging for Messaging {
     ) -> Result<gax::response::Response<crate::model::Room>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/rooms".to_string();
+                let path_template = "/v1beta1/rooms";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3693,6 +3765,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3714,7 +3788,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -3723,10 +3797,11 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3742,6 +3817,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3763,7 +3840,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -3775,6 +3852,7 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{room.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -3790,7 +3868,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3809,6 +3887,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3830,7 +3910,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -3839,10 +3919,11 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3858,6 +3939,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3882,15 +3965,16 @@ impl super::stub::Messaging for Messaging {
     ) -> Result<gax::response::Response<crate::model::ListRoomsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/rooms".to_string();
+                let path_template = "/v1beta1/rooms";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3900,6 +3984,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3921,7 +4007,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/blurbs",
@@ -3930,10 +4016,11 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{parent}/blurbs";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3947,10 +4034,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{parent}/blurbs";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3980,6 +4068,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4001,7 +4091,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -4015,10 +4105,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4033,10 +4124,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4072,6 +4164,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4093,7 +4187,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -4110,6 +4204,7 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{blurb.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -4125,7 +4220,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4143,6 +4238,7 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{blurb.name}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
@@ -4158,7 +4254,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4200,6 +4296,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4221,7 +4319,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -4235,10 +4333,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4253,10 +4352,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4292,6 +4392,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4318,7 +4420,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/blurbs",
@@ -4327,12 +4429,13 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{parent}/blurbs";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4346,12 +4449,13 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{parent}/blurbs";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4381,6 +4485,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4402,7 +4508,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/blurbs:search",
@@ -4411,10 +4517,11 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{parent}/blurbs:search";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4428,13 +4535,14 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{parent}/blurbs:search";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4464,6 +4572,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4485,7 +4595,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -4494,13 +4604,14 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4516,6 +4627,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4537,7 +4650,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -4551,10 +4664,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4575,6 +4689,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4596,7 +4712,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -4605,10 +4721,11 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4618,10 +4735,11 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4636,10 +4754,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4649,10 +4768,11 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4703,6 +4823,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4724,7 +4846,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -4733,6 +4855,7 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -4748,7 +4871,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4758,6 +4881,7 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -4773,7 +4897,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4788,6 +4912,7 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -4803,7 +4928,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4813,6 +4938,7 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -4828,7 +4954,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4879,6 +5005,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4900,7 +5028,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -4909,10 +5037,11 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4922,10 +5051,11 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4940,10 +5070,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4953,10 +5084,11 @@ impl super::stub::Messaging for Messaging {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5007,6 +5139,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5026,9 +5160,10 @@ impl super::stub::Messaging for Messaging {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
+                let path_template = "/v1beta1/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
@@ -5036,7 +5171,7 @@ impl super::stub::Messaging for Messaging {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5046,6 +5181,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5067,7 +5204,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5079,10 +5216,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5101,6 +5239,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5122,7 +5262,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5134,10 +5274,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5156,6 +5297,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5182,7 +5325,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -5194,10 +5337,11 @@ impl super::stub::Messaging for Messaging {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5216,6 +5360,8 @@ impl super::stub::Messaging for Messaging {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5264,7 +5410,15 @@ impl std::fmt::Debug for SequenceService {
 
 impl SequenceService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -5277,13 +5431,14 @@ impl super::stub::SequenceService for SequenceService {
     ) -> Result<gax::response::Response<crate::model::Sequence>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/sequences".to_string();
+                let path_template = "/v1beta1/sequences";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5293,6 +5448,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5312,13 +5469,14 @@ impl super::stub::SequenceService for SequenceService {
     ) -> Result<gax::response::Response<crate::model::StreamingSequence>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/streamingSequences".to_string();
+                let path_template = "/v1beta1/streamingSequences";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5328,6 +5486,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5349,7 +5509,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5362,10 +5522,11 @@ impl super::stub::SequenceService for SequenceService {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5385,6 +5546,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5406,7 +5569,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5419,10 +5582,11 @@ impl super::stub::SequenceService for SequenceService {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5442,6 +5606,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5463,7 +5629,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5472,10 +5638,11 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5491,6 +5658,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5517,7 +5686,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -5526,13 +5695,14 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5548,6 +5718,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5569,7 +5741,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -5583,10 +5755,11 @@ impl super::stub::SequenceService for SequenceService {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5607,6 +5780,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5628,7 +5803,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -5637,10 +5812,11 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5650,10 +5826,11 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5668,10 +5845,11 @@ impl super::stub::SequenceService for SequenceService {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5681,10 +5859,11 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5735,6 +5914,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5756,7 +5937,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -5765,6 +5946,7 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -5780,7 +5962,7 @@ impl super::stub::SequenceService for SequenceService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5790,6 +5972,7 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -5805,7 +5988,7 @@ impl super::stub::SequenceService for SequenceService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5820,6 +6003,7 @@ impl super::stub::SequenceService for SequenceService {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -5835,7 +6019,7 @@ impl super::stub::SequenceService for SequenceService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5845,6 +6029,7 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -5860,7 +6045,7 @@ impl super::stub::SequenceService for SequenceService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5911,6 +6096,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5932,7 +6119,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -5941,10 +6128,11 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5954,10 +6142,11 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5972,10 +6161,11 @@ impl super::stub::SequenceService for SequenceService {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5985,10 +6175,11 @@ impl super::stub::SequenceService for SequenceService {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6039,6 +6230,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6058,9 +6251,10 @@ impl super::stub::SequenceService for SequenceService {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
+                let path_template = "/v1beta1/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
@@ -6068,7 +6262,7 @@ impl super::stub::SequenceService for SequenceService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6078,6 +6272,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6099,7 +6295,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6111,10 +6307,11 @@ impl super::stub::SequenceService for SequenceService {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6133,6 +6330,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6154,7 +6353,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6166,10 +6365,11 @@ impl super::stub::SequenceService for SequenceService {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6188,6 +6388,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6214,7 +6416,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -6226,10 +6428,11 @@ impl super::stub::SequenceService for SequenceService {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6248,6 +6451,8 @@ impl super::stub::SequenceService for SequenceService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6282,7 +6487,15 @@ impl std::fmt::Debug for Testing {
 
 impl Testing {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&crate::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -6295,13 +6508,14 @@ impl super::stub::Testing for Testing {
     ) -> Result<gax::response::Response<crate::model::Session>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/sessions".to_string();
+                let path_template = "/v1beta1/sessions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6311,6 +6525,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6332,7 +6548,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6341,10 +6557,11 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("sessions/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6360,6 +6577,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6379,15 +6598,16 @@ impl super::stub::Testing for Testing {
     ) -> Result<gax::response::Response<crate::model::ListSessionsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/sessions".to_string();
+                let path_template = "/v1beta1/sessions";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6397,6 +6617,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6418,7 +6640,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6427,10 +6649,11 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("sessions/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6446,6 +6669,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6472,7 +6697,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:report",
@@ -6481,10 +6706,11 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("sessions/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}:report";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6500,6 +6726,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6521,7 +6749,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/tests",
@@ -6530,12 +6758,13 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("sessions/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{parent}/tests";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6551,6 +6780,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6572,7 +6803,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6586,10 +6817,11 @@ impl super::stub::Testing for Testing {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6610,6 +6842,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6636,7 +6870,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:check",
@@ -6650,6 +6884,7 @@ impl super::stub::Testing for Testing {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}:check";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("answer", &req.answer)]);
@@ -6658,7 +6893,7 @@ impl super::stub::Testing for Testing {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("answers", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6679,6 +6914,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6700,7 +6937,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}/locations",
@@ -6709,13 +6946,14 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("projects/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6731,6 +6969,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6752,7 +6992,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -6766,10 +7006,11 @@ impl super::stub::Testing for Testing {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6790,6 +7031,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6811,7 +7054,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:setIamPolicy",
@@ -6820,10 +7063,11 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6833,10 +7077,11 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6851,10 +7096,11 @@ impl super::stub::Testing for Testing {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6864,10 +7110,11 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6918,6 +7165,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6939,7 +7188,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:getIamPolicy",
@@ -6948,6 +7197,7 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -6963,7 +7213,7 @@ impl super::stub::Testing for Testing {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6973,6 +7223,7 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -6988,7 +7239,7 @@ impl super::stub::Testing for Testing {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7003,6 +7254,7 @@ impl super::stub::Testing for Testing {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7018,7 +7270,7 @@ impl super::stub::Testing for Testing {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7028,6 +7280,7 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -7043,7 +7296,7 @@ impl super::stub::Testing for Testing {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7094,6 +7347,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7115,7 +7370,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:testIamPermissions",
@@ -7124,10 +7379,11 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("users/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7137,10 +7393,11 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("rooms/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7155,10 +7412,11 @@ impl super::stub::Testing for Testing {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7168,10 +7426,11 @@ impl super::stub::Testing for Testing {
                         &[Segment::Literal("sequences/"), Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7222,6 +7481,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7241,9 +7502,10 @@ impl super::stub::Testing for Testing {
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1beta1/operations".to_string();
+                let path_template = "/v1beta1/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
@@ -7251,7 +7513,7 @@ impl super::stub::Testing for Testing {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7261,6 +7523,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7282,7 +7546,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -7294,10 +7558,11 @@ impl super::stub::Testing for Testing {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7316,6 +7581,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7337,7 +7604,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}",
@@ -7349,10 +7616,11 @@ impl super::stub::Testing for Testing {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7371,6 +7639,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7397,7 +7667,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1beta1/{}:cancel",
@@ -7409,10 +7679,11 @@ impl super::stub::Testing for Testing {
                         ]
                     )?,
                 );
+                let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7431,6 +7702,8 @@ impl super::stub::Testing for Testing {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

@@ -35,6 +35,7 @@ pub struct RequestOptions {
     pub(crate) resumable_upload_buffer_size: usize,
     pub(crate) idempotency: Option<bool>,
     pub(crate) checksum: Checksum,
+    pub(crate) automatic_decompression: bool,
 }
 
 const MIB: usize = 1024 * 1024_usize;
@@ -61,6 +62,7 @@ impl RequestOptions {
                 crc32c: Some(Crc32c::default()),
                 md5_hash: None,
             },
+            automatic_decompression: false,
         }
     }
 }

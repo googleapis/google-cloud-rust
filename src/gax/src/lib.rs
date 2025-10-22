@@ -14,11 +14,6 @@
 
 //! Google APIs eXtensions for Rust.
 //!
-//! **WARNING:** this crate is under active development. We expect multiple
-//! breaking changes in the upcoming releases. Testing is also incomplete, we do
-//! **not** recommend that you use this crate in production. We welcome feedback
-//! about the APIs, documentation, missing features, bugs, etc.
-//!
 //! This crate contains a number of types and functions used in the
 //! implementation of the Google Cloud Client Libraries for Rust.
 //!
@@ -50,6 +45,7 @@ pub mod exponential_backoff;
 pub mod options;
 pub mod polling_backoff_policy;
 pub mod polling_error_policy;
+pub mod polling_state;
 pub mod retry_policy;
 pub mod retry_result;
 pub mod retry_state;

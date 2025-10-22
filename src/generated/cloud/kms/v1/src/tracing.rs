@@ -645,6 +645,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn decapsulate(
+        &self,
+        req: crate::model::DecapsulateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DecapsulateResponse>> {
+        self.inner.decapsulate(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn generate_random_bytes(
         &self,
         req: crate::model::GenerateRandomBytesRequest,

@@ -5543,6 +5543,95 @@ pub mod key_management_service {
         }
     }
 
+    /// The request builder for [KeyManagementService::decapsulate][crate::client::KeyManagementService::decapsulate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::Decapsulate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Decapsulate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Decapsulate(RequestBuilder<crate::model::DecapsulateRequest>);
+
+    impl Decapsulate {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DecapsulateRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DecapsulateResponse> {
+            (*self.0.stub)
+                .decapsulate(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DecapsulateRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [ciphertext][crate::model::DecapsulateRequest::ciphertext].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_ciphertext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.ciphertext = v.into();
+            self
+        }
+
+        /// Sets the value of [ciphertext_crc32c][crate::model::DecapsulateRequest::ciphertext_crc32c].
+        pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ciphertext_crc32c][crate::model::DecapsulateRequest::ciphertext_crc32c].
+        pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Decapsulate {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [KeyManagementService::generate_random_bytes][crate::client::KeyManagementService::generate_random_bytes] calls.
     ///
     /// # Example

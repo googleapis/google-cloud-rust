@@ -14,12 +14,15 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
-    use auth::credentials::testing::test_credentials;
     use gax::options::*;
     use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::grpc;
     use grpc_server::google::test::v1::EchoResponse;
     use grpc_server::{builder, google, start_fixed_responses};
+
+    fn test_credentials() -> auth::credentials::Credentials {
+        auth::credentials::anonymous::Builder::new().build()
+    }
 
     #[tokio::test]
     async fn no_retry_immediate_success() -> anyhow::Result<()> {

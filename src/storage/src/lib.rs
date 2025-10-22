@@ -21,11 +21,6 @@
 //! * [Storage][client::Storage]
 //! * [StorageControl][client::StorageControl]
 //!
-//! **WARNING:** this crate is under active development. We expect multiple
-//! breaking changes in the upcoming releases. Testing is also incomplete, we do
-//! **not** recommend that you use this crate in production. We welcome feedback
-//! about the APIs, documentation, missing features, bugs, etc.
-//!
 //! **NOTE:** This crate used to contain a different implementation, with a
 //! different surface. [@yoshidan](https://github.com/yoshidan) generously
 //! donated the crate name to Google. Their crate continues to live as
@@ -69,6 +64,7 @@ pub mod builder {
 pub mod error;
 /// The messages and enums that are part of this client library.
 pub use crate::control::model;
+pub mod builder_ext;
 pub mod model_ext;
 pub mod stub {
     pub use crate::control::stub::*;

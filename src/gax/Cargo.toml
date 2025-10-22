@@ -13,8 +13,12 @@
 # limitations under the License.
 
 [package]
-name        = "google-cloud-gax"
-version     = "0.24.0"
+name = "google-cloud-gax"
+# ATTENTION: if you change the major version, remember to change the major
+#     version of all downstream dependencies. For details see:
+#         https://github.com/googleapis/google-cloud-rust/issues/3237
+#         https://github.com/googleapis/google-cloud-rust/issues/3265
+version     = "1.1.0"
 description = "Google Cloud Client Libraries for Rust"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
@@ -28,6 +32,9 @@ rust-version.workspace = true
 [package.metadata.docs.rs]
 # We want to generate documentation for streaming APIs, gated by this feature.
 features = ["unstable-stream"]
+
+[lints]
+workspace = true
 
 [dependencies]
 base64.workspace      = true

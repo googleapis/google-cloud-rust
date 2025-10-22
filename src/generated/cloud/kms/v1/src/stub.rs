@@ -741,6 +741,17 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::KeyManagementService::decapsulate].
+    fn decapsulate(
+        &self,
+        _req: crate::model::DecapsulateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DecapsulateResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::KeyManagementService::generate_random_bytes].
     fn generate_random_bytes(
         &self,

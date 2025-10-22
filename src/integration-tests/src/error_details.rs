@@ -14,27 +14,13 @@
 
 use crate::Result;
 use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+use storage::client::StorageControl;
 
-pub async fn error_details_http(
-    builder: ta::builder::telco_automation::ClientBuilder,
-) -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
+pub async fn error_details_http() -> Result<()> {
     let project_id = crate::project_id()?;
     let region_id = crate::region_id();
-    let client = builder
+    let client = ta::client::TelcoAutomation::builder()
+        .with_tracing()
         .with_retry_policy(AlwaysRetry.with_attempt_limit(2))
         .build()
         .await?;
@@ -54,22 +40,8 @@ pub async fn error_details_http(
     Ok(())
 }
 
-pub async fn error_details_grpc(
-    builder: storage::builder::storage_control::ClientBuilder,
-) -> Result<()> {
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
-    let client = builder.build().await?;
+pub async fn error_details_grpc() -> Result<()> {
+    let client = StorageControl::builder().with_tracing().build().await?;
     let err = client
         .get_bucket()
         .set_name("malformed/_/bucket/name")
@@ -84,25 +56,16 @@ pub async fn error_details_grpc(
     Ok(())
 }
 
-pub async fn check_code_for_http(builder: wf::builder::workflows::ClientBuilder) -> Result<()> {
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
+pub async fn check_code_for_http() -> Result<()> {
     let project_id = crate::project_id()?;
     let location_id = crate::region_id();
     let workflow_id = crate::random_workflow_id();
     let workflow_name =
         format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}");
-    let client = builder.build().await?;
+    let client = wf::client::Workflows::builder()
+        .with_tracing()
+        .build()
+        .await?;
 
     match client.get_workflow().set_name(&workflow_name).send().await {
         Ok(g) => panic!("unexpected success {g:?}"),
@@ -119,24 +82,10 @@ pub async fn check_code_for_http(builder: wf::builder::workflows::ClientBuilder)
     Ok(())
 }
 
-pub async fn check_code_for_grpc(
-    builder: storage::builder::storage_control::ClientBuilder,
-) -> Result<()> {
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
+pub async fn check_code_for_grpc() -> Result<()> {
     let bucket_id = crate::random_bucket_id();
     let bucket_name = format!("projects/_/buckets/{bucket_id}");
-    let client = builder.build().await?;
+    let client = StorageControl::builder().with_tracing().build().await?;
 
     match client.get_bucket().set_name(&bucket_name).send().await {
         Ok(g) => panic!("unexpected success {g:?}"),

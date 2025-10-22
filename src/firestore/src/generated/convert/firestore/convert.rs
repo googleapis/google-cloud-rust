@@ -285,7 +285,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::value::ValueType> fo
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::value::ValueType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::value::ValueType as T;
         match self {
-            Self::NullValue(v) => Ok(T::from_null_value(v.cnv()?)),
+            Self::NullValue(v) => Ok(T::from_null_value(v)),
             Self::BooleanValue(v) => Ok(T::from_boolean_value(v.cnv()?)),
             Self::IntegerValue(v) => Ok(T::from_integer_value(v.cnv()?)),
             Self::DoubleValue(v) => Ok(T::from_double_value(v.cnv()?)),
@@ -2117,7 +2117,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::document_transform::
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::document_transform::field_transform::TransformType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::document_transform::field_transform::TransformType as T;
         match self {
-            Self::SetToServerValue(v) => Ok(T::from_set_to_server_value(v.cnv()?)),
+            Self::SetToServerValue(v) => Ok(T::from_set_to_server_value(v)),
             Self::Increment(v) => Ok(T::from_increment(v.cnv()?)),
             Self::Maximum(v) => Ok(T::from_maximum(v.cnv()?)),
             Self::Minimum(v) => Ok(T::from_minimum(v.cnv()?)),

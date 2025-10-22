@@ -55,6 +55,7 @@ use crate::{
         MockBackoffPolicy, MockReadResumePolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
     },
 };
+use auth::credentials::anonymous::Builder as Anonymous;
 use gax::retry_policy::RetryPolicyExt;
 use gax::retry_result::RetryResult;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -81,7 +82,7 @@ async fn start_retry_normal() -> Result {
 
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let mut reader = client
@@ -113,7 +114,7 @@ async fn start_permanent_error() -> Result {
 
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let err = client
@@ -139,7 +140,7 @@ async fn start_too_many_transients() -> Result {
 
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let err = client
@@ -337,7 +338,7 @@ async fn long_read_error() -> Result {
 
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let mut reader = client
@@ -404,7 +405,7 @@ async fn resume_after_start() -> Result {
     );
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let mut reader = client
@@ -475,7 +476,7 @@ async fn resume_after_start_range() -> Result {
     );
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let mut reader = client
@@ -530,7 +531,7 @@ async fn resume_after_start_permanent() -> Result {
     );
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let mut reader = client
@@ -558,7 +559,7 @@ async fn request_after_start_too_many_transients() -> Result {
     return_fragments(&server, 10, 5);
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let mut reader = client
@@ -758,7 +759,7 @@ async fn request_resume_options() -> Result {
     return_fragments(&server, 10, 10);
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     let mut reader = client
@@ -792,7 +793,7 @@ async fn client_resume_options() -> Result {
     return_fragments(&server, 10, 10);
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_credentials(Anonymous::new().build())
         .with_read_resume_policy(resume)
         .build()
         .await?;

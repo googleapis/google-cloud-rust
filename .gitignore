@@ -14,11 +14,6 @@
 
 # Rust places its build artifacts in target/ directories.
 /target/
-**/target/
-
-# We create lockfiles when generating code via Prost+Tonic, but we do not want
-# to save these.
-**/Cargo.lock
 
 # We use a few Python tools for development [^1]. Reserve `.env/` to install
 # these tools in a local Python virtual environment.
@@ -33,10 +28,11 @@ terraform.tfstate
 
 # Ignore code coverage output files.
 cobertura.xml
+coverage.out
 
 # Ignore cargo-mutants directories.
 mutants.out/
 mutants.out.old/
 
 # The rustdocfx tool generates many files in this directory.
-docfx/
+/docfx/

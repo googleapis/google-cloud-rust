@@ -6,6 +6,6 @@
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name_pretty": "Managed Service for Apache Kafka API",
-    "release_level": "preview",
+    "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

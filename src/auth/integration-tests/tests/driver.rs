@@ -14,12 +14,19 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
+    #[cfg(all(test, feature = "run-byoid-integration-tests"))]
     use test_case::test_case;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn run_service_account() -> anyhow::Result<()> {
         auth_integration_tests::service_account().await
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
+    async fn run_service_account_with_audience() -> anyhow::Result<()> {
+        auth_integration_tests::service_account_with_audience().await
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]

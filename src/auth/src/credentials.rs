@@ -22,9 +22,12 @@ use std::future::Future;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 
+pub mod anonymous;
 pub mod api_key_credentials;
 pub mod external_account;
 pub(crate) mod external_account_sources;
+#[cfg(google_cloud_unstable_id_token)]
+pub mod idtoken;
 pub mod impersonated;
 pub(crate) mod internal;
 pub mod mds;
@@ -32,6 +35,8 @@ pub mod service_account;
 pub mod subject_token;
 pub mod user_account;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
+
+#[cfg(test)]
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 /// Represents an Entity Tag for a [CacheableResource].
@@ -573,38 +578,12 @@ fn adc_well_known_path() -> Option<String> {
 #[cfg_attr(test, mutants::skip)]
 #[doc(hidden)]
 pub mod testing {
-    use super::{CacheableResource, EntityTag};
+    use super::CacheableResource;
     use crate::Result;
     use crate::credentials::Credentials;
     use crate::credentials::dynamic::CredentialsProvider;
     use http::{Extensions, HeaderMap};
     use std::sync::Arc;
-
-    /// A simple credentials implementation to use in tests where authentication does not matter.
-    ///
-    /// Always returns a "Bearer" token, with "test-only-token" as the value.
-    pub fn test_credentials() -> Credentials {
-        Credentials {
-            inner: Arc::from(TestCredentials {}),
-        }
-    }
-
-    #[derive(Debug)]
-    struct TestCredentials;
-
-    #[async_trait::async_trait]
-    impl CredentialsProvider for TestCredentials {
-        async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
-            Ok(CacheableResource::New {
-                entity_tag: EntityTag::default(),
-                data: HeaderMap::new(),
-            })
-        }
-
-        async fn universe_domain(&self) -> Option<String> {
-            None
-        }
-    }
 
     /// A simple credentials implementation to use in tests.
     ///
@@ -679,11 +658,7 @@ pub(crate) mod tests {
         #[derive(Debug)]
         pub BackoffPolicy {}
         impl BackoffPolicy for BackoffPolicy {
-            fn on_failure(
-                &self,
-                loop_start: std::time::Instant,
-                attempt_count: u32,
-            ) -> std::time::Duration;
+            fn on_failure(&self, state: &RetryState) -> std::time::Duration;
         }
     }
 

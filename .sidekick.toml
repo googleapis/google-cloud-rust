@@ -18,8 +18,6 @@ specification-format = 'protobuf'
 ignored-directories = [
   # This is where Rust puts all the binaries.
   "target",
-  # We are incubating a Dart SDK in google-cloud-rust, we want to ignore it.
-  "dart",
 ]
 
 [source]
@@ -28,8 +26,11 @@ roots                       = 'googleapis'
 showcase-extracted-name     = 'gapic-showcase-0.36.2'
 showcase-root               = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.36.2.tar.gz'
 showcase-sha256             = '0914bdbb088713aa087a53b355ff6631ad95e4769afd8bbd97d5d9e78d4cdf09'
-googleapis-root             = 'https://github.com/googleapis/googleapis/archive/4cf1f99cccc014627af5e8a6c0f80a3e6ec0d268.tar.gz'
-googleapis-sha256           = '9dc4e5d8181c147fce64cdbc0aa4a8211f5dd5948a7bb4f2ddc51db9f35050fa'
+googleapis-root             = 'https://github.com/googleapis/googleapis/archive/3322511885371d2b2253f209ccc3aa60d4100cfd.tar.gz'
+googleapis-sha256           = '3dd2e10e76613f9e4bacfe6d73b54be8efe31848dc6acf2739c9f6dc1a33ef86'
+discovery-extracted-name    = 'discovery-artifact-manager-e5110917872f89d9ed7181163db107d31f6613eb'
+discovery-root              = 'https://github.com/googleapis/discovery-artifact-manager/archive/e5110917872f89d9ed7181163db107d31f6613eb.tar.gz'
+discovery-sha256            = 'bbc7f13c456d7fd911d813eb99d9e9096069bbc33d3cd1e016230ac818463789'
 protobuf-src-extracted-name = 'protobuf-29.3'
 protobuf-src-root           = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
 protobuf-src-sha256         = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
@@ -41,9 +42,9 @@ conformance-sha256          = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2
 [codec]
 # The default version for all crates. This can be overridden in the crate's
 # `.sidekick.toml` file.
-version = "0.4.5"
+version = "1.0.0"
 # The default release level for all crates.
-release-level = "preview"
+release-level = "stable"
 # Disable a number of warnings.
 # TODO(#1285) - remove `redundant_explicit_links` workaround when no longer needed
 # TODO(#742) - remove `broken_intro_doc_links` workaround when no longer needed
@@ -80,3 +81,20 @@ disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 'package:longrunning'  = 'package=google-cloud-longrunning,source=google.longrunning'
 'package:rpc'          = 'package=google-cloud-rpc,source=google.rpc'
 'package:rpc_context'  = 'package=google-cloud-rpc-context,source=google.rpc.context'
+
+[release]
+remote          = 'upstream'
+branch          = 'main'
+ignored-changes = ['.repo-metadata.json', '.sidekick.toml']
+
+[[release.tools.cargo]]
+name    = 'cargo-semver-checks'
+version = '0.44.0'
+
+[[release.tools.cargo]]
+name    = 'cargo-workspaces'
+version = '0.4.0'
+
+[release.pre-installed]
+cargo = 'cargo'
+git   = 'git'

@@ -16,10 +16,10 @@
 
 use super::*;
 use gax::polling_error_policy::PollingErrorPolicy;
+use gax::polling_state::PollingState;
 use gax::retry_result::RetryResult;
 use std::marker::PhantomData;
 use std::sync::Arc;
-use std::time::Instant;
 
 /// A wrapper around [longrunning::model::Operation] with typed responses.
 ///
@@ -82,8 +82,7 @@ where
 
 pub(crate) fn handle_poll<R, M>(
     error_policy: Arc<dyn PollingErrorPolicy>,
-    loop_start: Instant,
-    attempt_count: u32,
+    state: &PollingState,
     operation_name: String,
     result: Result<Operation<R, M>>,
 ) -> (Option<String>, PollingResult<R, M>)
@@ -93,7 +92,7 @@ where
 {
     match result {
         Err(e) => {
-            let state = error_policy.on_error(loop_start, attempt_count, e);
+            let state = error_policy.on_error(state, e);
             handle_polling_error(state, operation_name)
         }
         Ok(op) => {
@@ -101,7 +100,7 @@ where
             match &result {
                 PollingResult::Completed(_) => (name, result),
                 PollingResult::InProgress(_) => {
-                    match error_policy.on_in_progress(loop_start, attempt_count, &operation_name) {
+                    match error_policy.on_in_progress(state, &operation_name) {
                         Ok(()) => (name, result),
                         Err(e) => (None, PollingResult::Completed(Err(e))),
                     }
@@ -306,8 +305,7 @@ mod tests {
         let result = Ok::<O, Error>(op);
         let (name, poll) = handle_poll(
             Arc::new(AlwaysContinue),
-            Instant::now(),
-            0,
+            &PollingState::default(),
             "test-123".to_string(),
             result,
         );
@@ -334,8 +332,7 @@ mod tests {
         let result = Ok::<O, Error>(op);
         let (name, poll) = handle_poll(
             Arc::new(AlwaysContinue.with_attempt_limit(3)),
-            Instant::now(),
-            5,
+            &PollingState::default().set_attempt_count(5_u32),
             String::from("test-123"),
             result,
         );
@@ -367,8 +364,7 @@ mod tests {
         let result = Err::<O, Error>(continuing_error());
         let (name, poll) = handle_poll(
             Arc::new(AlwaysContinue),
-            Instant::now(),
-            0,
+            &PollingState::default(),
             String::from("test-123"),
             result,
         );
@@ -399,8 +395,7 @@ mod tests {
         let result = Err::<O, Error>(stopping_error());
         let (name, poll) = handle_poll(
             Arc::new(Aip194Strict),
-            Instant::now(),
-            0,
+            &PollingState::default(),
             String::from("test-123"),
             result,
         );

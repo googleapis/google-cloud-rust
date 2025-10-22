@@ -18,7 +18,7 @@ use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::client::StorageInner;
 use crate::storage::perform_upload::PerformUpload;
-use crate::storage::read_object::{ReadObjectResponseImpl, Reader};
+use crate::storage::read_object::Reader;
 use crate::storage::request_options::RequestOptions;
 use crate::storage::streaming_source::{Seek, StreamingSource};
 use std::sync::Arc;
@@ -45,8 +45,7 @@ impl super::stub::Storage for Storage {
             request: req,
             options,
         };
-        let inner = ReadObjectResponseImpl::new(reader).await?;
-        Ok(ReadObjectResponse::new(Box::new(inner)))
+        reader.response().await
     }
 
     /// Implements [crate::client::Storage::write_object].

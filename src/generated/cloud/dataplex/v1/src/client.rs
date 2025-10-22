@@ -21,6 +21,311 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+/// let client = BusinessGlossaryService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataplex API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// BusinessGlossaryService provides APIs for managing business glossary
+/// resources for enterprise customers.
+/// The resources currently supported in Business Glossary are:
+///
+/// 1. Glossary
+/// 1. GlossaryCategory
+/// 1. GlossaryTerm
+///
+/// # Configuration
+///
+/// To configure `BusinessGlossaryService` use the `with_*` methods in the type returned
+/// by [builder()][BusinessGlossaryService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dataplex.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::business_glossary_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::business_glossary_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `BusinessGlossaryService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `BusinessGlossaryService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct BusinessGlossaryService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::BusinessGlossaryService>,
+}
+
+impl BusinessGlossaryService {
+    /// Returns a builder for [BusinessGlossaryService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// let client = BusinessGlossaryService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::business_glossary_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::business_glossary_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::BusinessGlossaryService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::BusinessGlossaryService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BusinessGlossaryService> {
+        super::transport::BusinessGlossaryService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BusinessGlossaryService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::BusinessGlossaryService::new)
+    }
+
+    /// Creates a new Glossary resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_glossary(&self) -> super::builder::business_glossary_service::CreateGlossary {
+        super::builder::business_glossary_service::CreateGlossary::new(self.inner.clone())
+    }
+
+    /// Updates a Glossary resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_glossary(&self) -> super::builder::business_glossary_service::UpdateGlossary {
+        super::builder::business_glossary_service::UpdateGlossary::new(self.inner.clone())
+    }
+
+    /// Deletes a Glossary resource. All the categories and terms within the
+    /// Glossary must be deleted before the Glossary can be deleted.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_glossary(&self) -> super::builder::business_glossary_service::DeleteGlossary {
+        super::builder::business_glossary_service::DeleteGlossary::new(self.inner.clone())
+    }
+
+    /// Gets a Glossary resource.
+    pub fn get_glossary(&self) -> super::builder::business_glossary_service::GetGlossary {
+        super::builder::business_glossary_service::GetGlossary::new(self.inner.clone())
+    }
+
+    /// Lists Glossary resources in a project and location.
+    pub fn list_glossaries(&self) -> super::builder::business_glossary_service::ListGlossaries {
+        super::builder::business_glossary_service::ListGlossaries::new(self.inner.clone())
+    }
+
+    /// Creates a new GlossaryCategory resource.
+    pub fn create_glossary_category(
+        &self,
+    ) -> super::builder::business_glossary_service::CreateGlossaryCategory {
+        super::builder::business_glossary_service::CreateGlossaryCategory::new(self.inner.clone())
+    }
+
+    /// Updates a GlossaryCategory resource.
+    pub fn update_glossary_category(
+        &self,
+    ) -> super::builder::business_glossary_service::UpdateGlossaryCategory {
+        super::builder::business_glossary_service::UpdateGlossaryCategory::new(self.inner.clone())
+    }
+
+    /// Deletes a GlossaryCategory resource. All the GlossaryCategories and
+    /// GlossaryTerms nested directly under the specified GlossaryCategory will be
+    /// moved one level up to the parent in the hierarchy.
+    pub fn delete_glossary_category(
+        &self,
+    ) -> super::builder::business_glossary_service::DeleteGlossaryCategory {
+        super::builder::business_glossary_service::DeleteGlossaryCategory::new(self.inner.clone())
+    }
+
+    /// Gets a GlossaryCategory resource.
+    pub fn get_glossary_category(
+        &self,
+    ) -> super::builder::business_glossary_service::GetGlossaryCategory {
+        super::builder::business_glossary_service::GetGlossaryCategory::new(self.inner.clone())
+    }
+
+    /// Lists GlossaryCategory resources in a Glossary.
+    pub fn list_glossary_categories(
+        &self,
+    ) -> super::builder::business_glossary_service::ListGlossaryCategories {
+        super::builder::business_glossary_service::ListGlossaryCategories::new(self.inner.clone())
+    }
+
+    /// Creates a new GlossaryTerm resource.
+    pub fn create_glossary_term(
+        &self,
+    ) -> super::builder::business_glossary_service::CreateGlossaryTerm {
+        super::builder::business_glossary_service::CreateGlossaryTerm::new(self.inner.clone())
+    }
+
+    /// Updates a GlossaryTerm resource.
+    pub fn update_glossary_term(
+        &self,
+    ) -> super::builder::business_glossary_service::UpdateGlossaryTerm {
+        super::builder::business_glossary_service::UpdateGlossaryTerm::new(self.inner.clone())
+    }
+
+    /// Deletes a GlossaryTerm resource.
+    pub fn delete_glossary_term(
+        &self,
+    ) -> super::builder::business_glossary_service::DeleteGlossaryTerm {
+        super::builder::business_glossary_service::DeleteGlossaryTerm::new(self.inner.clone())
+    }
+
+    /// Gets a GlossaryTerm resource.
+    pub fn get_glossary_term(&self) -> super::builder::business_glossary_service::GetGlossaryTerm {
+        super::builder::business_glossary_service::GetGlossaryTerm::new(self.inner.clone())
+    }
+
+    /// Lists GlossaryTerm resources in a Glossary.
+    pub fn list_glossary_terms(
+        &self,
+    ) -> super::builder::business_glossary_service::ListGlossaryTerms {
+        super::builder::business_glossary_service::ListGlossaryTerms::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::business_glossary_service::ListLocations {
+        super::builder::business_glossary_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::business_glossary_service::GetLocation {
+        super::builder::business_glossary_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    pub fn set_iam_policy(&self) -> super::builder::business_glossary_service::SetIamPolicy {
+        super::builder::business_glossary_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    pub fn get_iam_policy(&self) -> super::builder::business_glossary_service::GetIamPolicy {
+        super::builder::business_glossary_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::business_glossary_service::TestIamPermissions {
+        super::builder::business_glossary_service::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::business_glossary_service::ListOperations {
+        super::builder::business_glossary_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::business_glossary_service::GetOperation {
+        super::builder::business_glossary_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::business_glossary_service::DeleteOperation {
+        super::builder::business_glossary_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::business_glossary_service::CancelOperation {
+        super::builder::business_glossary_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Cloud Dataplex API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_dataplex_v1::client::CatalogService;
 /// let client = CatalogService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
@@ -30,10 +335,10 @@
 /// # Service Description
 ///
 /// The primary resources offered by this service are EntryGroups, EntryTypes,
-/// AspectTypes, and Entries. They collectively let data administrators organize,
-/// manage, secure, and catalog data located across cloud projects in their
-/// organization in a variety of storage systems, including Cloud Storage and
-/// BigQuery.
+/// AspectTypes, Entries and EntryLinks. They collectively let data
+/// administrators organize, manage, secure, and catalog data located across
+/// cloud projects in their organization in a variety of storage systems,
+/// including Cloud Storage and BigQuery.
 ///
 /// # Configuration
 ///
@@ -322,8 +627,8 @@ impl CatalogService {
         super::builder::catalog_service::SearchEntries::new(self.inner.clone())
     }
 
-    /// Creates a metadata job. For example, use a metadata job to import Dataplex
-    /// Catalog entries and aspects from a third-party system into Dataplex.
+    /// Creates a metadata job. For example, use a metadata job to import metadata
+    /// from a third-party system into Dataplex Universal Catalog.
     ///
     /// # Long running operations
     ///
@@ -356,6 +661,21 @@ impl CatalogService {
     /// reverts the changes from the canceled job.
     pub fn cancel_metadata_job(&self) -> super::builder::catalog_service::CancelMetadataJob {
         super::builder::catalog_service::CancelMetadataJob::new(self.inner.clone())
+    }
+
+    /// Creates an Entry Link.
+    pub fn create_entry_link(&self) -> super::builder::catalog_service::CreateEntryLink {
+        super::builder::catalog_service::CreateEntryLink::new(self.inner.clone())
+    }
+
+    /// Deletes an Entry Link.
+    pub fn delete_entry_link(&self) -> super::builder::catalog_service::DeleteEntryLink {
+        super::builder::catalog_service::DeleteEntryLink::new(self.inner.clone())
+    }
+
+    /// Gets an Entry Link.
+    pub fn get_entry_link(&self) -> super::builder::catalog_service::GetEntryLink {
+        super::builder::catalog_service::GetEntryLink::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
@@ -436,7 +756,7 @@ impl CatalogService {
 ///
 /// # Service Description
 ///
-/// Dataplex Cmek Service
+/// Dataplex Universal Catalog Customer Managed Encryption Keys (CMEK) Service
 ///
 /// # Configuration
 ///
@@ -658,7 +978,8 @@ impl CmekService {
 ///
 /// # Service Description
 ///
-/// ContentService manages Notebook and SQL Scripts for Dataplex.
+/// ContentService manages Notebook and SQL Scripts for Dataplex Universal
+/// Catalog.
 ///
 /// # Configuration
 ///

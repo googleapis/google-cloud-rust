@@ -115,6 +115,28 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::LivestreamService::start_distribution].
+    fn start_distribution(
+        &self,
+        _req: crate::model::StartDistributionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::LivestreamService::stop_distribution].
+    fn stop_distribution(
+        &self,
+        _req: crate::model::StopDistributionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::LivestreamService::create_input].
     fn create_input(
         &self,
@@ -166,6 +188,17 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::LivestreamService::preview_input].
+    fn preview_input(
+        &self,
+        _req: crate::model::PreviewInputRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PreviewInputResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

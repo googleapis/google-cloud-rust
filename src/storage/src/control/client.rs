@@ -133,7 +133,7 @@ mod tests {
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
         let _ = StorageControl::builder()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(auth::credentials::anonymous::Builder::new().build())
             .build()
             .await?;
         Ok(())

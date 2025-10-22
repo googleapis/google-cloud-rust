@@ -15,21 +15,7 @@
 use crate::Result;
 use rand::{Rng, distr::Alphanumeric};
 
-pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -> Result<()> {
-    // Enable a basic subscriber. Useful to troubleshoot problems and visually
-    // verify tracing is doing something.
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
-
+pub async fn run() -> Result<()> {
     let project_id = crate::project_id()?;
     let secret_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
@@ -40,7 +26,11 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
     // We must override the configuration to use a regional endpoint.
     let location_id = "us-central1".to_string();
     let endpoint = format!("https://secretmanager.{location_id}.rep.googleapis.com");
-    let client = builder.with_endpoint(endpoint).build().await?;
+    let client = smo::client::SecretManagerService::builder()
+        .with_tracing()
+        .with_endpoint(endpoint)
+        .build()
+        .await?;
 
     cleanup_stale_secrets(&client, &project_id, &location_id).await?;
 
@@ -50,7 +40,7 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
         .set_project(&project_id)
         .set_location(&location_id)
         .set_secret_id(&secret_id)
-        .set_request_body(smo::model::Secret::new().set_labels([("integration-test", "true")]))
+        .set_body(smo::model::Secret::new().set_labels([("integration-test", "true")]))
         .send()
         .await?;
     println!("CREATE = {create:?}");
@@ -76,7 +66,7 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
         .set_location(&location_id)
         .set_secret(&secret_id)
         .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
-        .set_request_body(smo::model::Secret::new().set_labels(new_labels))
+        .set_body(smo::model::Secret::new().set_labels(new_labels))
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -113,7 +103,7 @@ async fn run_iam(
     location_id: &str,
     secret_id: &str,
 ) -> Result<()> {
-    let service_account = crate::service_account_for_iam_tests()?;
+    let service_account = crate::test_service_account()?;
 
     println!("\nTesting get_iam_policy_by_project_and_location_and_secret()");
     let policy = client
@@ -131,7 +121,10 @@ async fn run_iam(
         .set_project(project_id)
         .set_location(location_id)
         .set_secret(secret_id)
-        .set_permissions(["secretmanager.versions.access"])
+        .set_body(
+            smo::model::TestIamPermissionsRequest::new()
+                .set_permissions(["secretmanager.versions.access"]),
+        )
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -162,8 +155,11 @@ async fn run_iam(
         .set_project(project_id)
         .set_location(location_id)
         .set_secret(secret_id)
-        .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
-        .set_policy(new_policy)
+        .set_body(
+            smo::model::SetIamPolicyRequest::new()
+                .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+                .set_policy(new_policy),
+        )
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -185,10 +181,12 @@ async fn run_secret_versions(
         .set_project(project_id)
         .set_location(location_id)
         .set_secret(secret_id)
-        .set_payload(
-            smo::model::SecretPayload::default()
-                .set_data(bytes::Bytes::from(data))
-                .set_data_crc_32_c(checksum as i64),
+        .set_body(
+            smo::model::AddSecretVersionRequest::new().set_payload(
+                smo::model::SecretPayload::default()
+                    .set_data(bytes::Bytes::from(data))
+                    .set_data_crc_32_c(checksum as i64),
+            ),
         )
         .send()
         .await?;

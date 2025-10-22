@@ -14,6 +14,7 @@
 
 #[cfg(test)]
 mod tests {
+    use auth::credentials::anonymous::Builder as Anonymous;
     use gax::error::binding::*;
     use google_cloud_storage as gcs;
     use std::error::Error as _;
@@ -21,7 +22,7 @@ mod tests {
     #[tokio::test]
     async fn useful_binding_error() -> anyhow::Result<()> {
         let client = gcs::client::StorageControl::builder()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -84,7 +85,7 @@ mod tests {
     #[tokio::test]
     async fn binding_error_or() -> anyhow::Result<()> {
         let client = gcs::client::StorageControl::builder()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -133,7 +134,7 @@ mod tests {
     #[tokio::test]
     async fn binding_error_and() -> anyhow::Result<()> {
         let client = gcs::client::StorageControl::builder()
-            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 

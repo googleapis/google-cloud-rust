@@ -34,8 +34,6 @@ operations.
 [gcloud-longrunning]: https://crates.io/crates/gcloud-longrunning"""
 
 [codec]
-# We inherited an existing crate for `google-cloud-longrunning`. We need to use
-# version numbers higher than the existing releases until we hit 1.0.
-version               = "0.25.5"
+version        = '1.2.0'
 copyright-year        = '2024'
 'package:longrunning' = 'ignore=true'

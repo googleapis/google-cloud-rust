@@ -32,6 +32,10 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
+mod debug;
+mod deserialize;
+mod serialize;
+
 /// A [Secret][google.cloud.secretmanager.v1.Secret] is a logical secret whose
 /// value and versions can be accessed.
 ///
@@ -170,7 +174,7 @@ pub struct Secret {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub expiration: std::option::Option<crate::model::secret::Expiration>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Secret {
@@ -179,12 +183,25 @@ impl Secret {
     }
 
     /// Sets the value of [name][crate::model::Secret::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = Secret::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [replication][crate::model::Secret::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_secretmanager_v1::model::Replication;
+    /// let x = Secret::new().set_replication(Replication::default()/* use setters */);
+    /// ```
     pub fn set_replication<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -194,6 +211,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [replication][crate::model::Secret::replication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_secretmanager_v1::model::Replication;
+    /// let x = Secret::new().set_or_clear_replication(Some(Replication::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_replication(None::<Replication>);
+    /// ```
     pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -203,6 +228,13 @@ impl Secret {
     }
 
     /// Sets the value of [create_time][crate::model::Secret::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use wkt::Timestamp;
+    /// let x = Secret::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -212,6 +244,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Secret::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use wkt::Timestamp;
+    /// let x = Secret::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -221,6 +261,15 @@ impl Secret {
     }
 
     /// Sets the value of [labels][crate::model::Secret::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = Secret::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -233,6 +282,17 @@ impl Secret {
     }
 
     /// Sets the value of [topics][crate::model::Secret::topics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_secretmanager_v1::model::Topic;
+    /// let x = Secret::new()
+    ///     .set_topics([
+    ///         Topic::default()/* use setters */,
+    ///         Topic::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_topics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -244,12 +304,25 @@ impl Secret {
     }
 
     /// Sets the value of [etag][crate::model::Secret::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = Secret::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [rotation][crate::model::Secret::rotation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_secretmanager_v1::model::Rotation;
+    /// let x = Secret::new().set_rotation(Rotation::default()/* use setters */);
+    /// ```
     pub fn set_rotation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rotation>,
@@ -259,6 +332,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [rotation][crate::model::Secret::rotation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_secretmanager_v1::model::Rotation;
+    /// let x = Secret::new().set_or_clear_rotation(Some(Rotation::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_rotation(None::<Rotation>);
+    /// ```
     pub fn set_or_clear_rotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rotation>,
@@ -268,6 +349,15 @@ impl Secret {
     }
 
     /// Sets the value of [version_aliases][crate::model::Secret::version_aliases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = Secret::new().set_version_aliases([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_version_aliases<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -280,6 +370,15 @@ impl Secret {
     }
 
     /// Sets the value of [annotations][crate::model::Secret::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = Secret::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -292,6 +391,13 @@ impl Secret {
     }
 
     /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use wkt::Duration;
+    /// let x = Secret::new().set_version_destroy_ttl(Duration::default()/* use setters */);
+    /// ```
     pub fn set_version_destroy_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -301,6 +407,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use wkt::Duration;
+    /// let x = Secret::new().set_or_clear_version_destroy_ttl(Some(Duration::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_version_destroy_ttl(None::<Duration>);
+    /// ```
     pub fn set_or_clear_version_destroy_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -310,6 +424,13 @@ impl Secret {
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+    /// let x = Secret::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
+    /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -319,6 +440,14 @@ impl Secret {
     }
 
     /// Sets or clears the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+    /// let x = Secret::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
+    /// let x = Secret::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
+    /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -328,6 +457,15 @@ impl Secret {
     }
 
     /// Sets the value of [tags][crate::model::Secret::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = Secret::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -343,6 +481,14 @@ impl Secret {
     ///
     /// Note that all the setters affecting `expiration` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use google_cloud_secretmanager_v1::model::secret;
+    /// use wkt::Timestamp;
+    /// let x = Secret::new().set_expiration(Some(secret::Expiration::ExpireTime(Timestamp::default().into())));
+    /// ```
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::secret::Expiration>>,
     >(
@@ -369,6 +515,15 @@ impl Secret {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use wkt::Timestamp;
+    /// let x = Secret::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// assert!(x.expire_time().is_some());
+    /// assert!(x.ttl().is_none());
+    /// ```
     pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -394,6 +549,15 @@ impl Secret {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Secret;
+    /// use wkt::Duration;
+    /// let x = Secret::new().set_ttl(Duration::default()/* use setters */);
+    /// assert!(x.ttl().is_some());
+    /// assert!(x.expire_time().is_none());
+    /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
         self.expiration =
             std::option::Option::Some(crate::model::secret::Expiration::Ttl(v.into()));
@@ -404,394 +568,6 @@ impl Secret {
 impl wkt::message::Message for Secret {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.Secret"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for Secret {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __replication,
-            __create_time,
-            __labels,
-            __topics,
-            __expire_time,
-            __ttl,
-            __etag,
-            __rotation,
-            __version_aliases,
-            __annotations,
-            __version_destroy_ttl,
-            __customer_managed_encryption,
-            __tags,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for Secret")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "replication" => Ok(__FieldTag::__replication),
-                            "createTime" => Ok(__FieldTag::__create_time),
-                            "create_time" => Ok(__FieldTag::__create_time),
-                            "labels" => Ok(__FieldTag::__labels),
-                            "topics" => Ok(__FieldTag::__topics),
-                            "expireTime" => Ok(__FieldTag::__expire_time),
-                            "expire_time" => Ok(__FieldTag::__expire_time),
-                            "ttl" => Ok(__FieldTag::__ttl),
-                            "etag" => Ok(__FieldTag::__etag),
-                            "rotation" => Ok(__FieldTag::__rotation),
-                            "versionAliases" => Ok(__FieldTag::__version_aliases),
-                            "version_aliases" => Ok(__FieldTag::__version_aliases),
-                            "annotations" => Ok(__FieldTag::__annotations),
-                            "versionDestroyTtl" => Ok(__FieldTag::__version_destroy_ttl),
-                            "version_destroy_ttl" => Ok(__FieldTag::__version_destroy_ttl),
-                            "customerManagedEncryption" => {
-                                Ok(__FieldTag::__customer_managed_encryption)
-                            }
-                            "customer_managed_encryption" => {
-                                Ok(__FieldTag::__customer_managed_encryption)
-                            }
-                            "tags" => Ok(__FieldTag::__tags),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = Secret;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct Secret")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__replication => {
-                            if !fields.insert(__FieldTag::__replication) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for replication",
-                                ));
-                            }
-                            result.replication =
-                                map.next_value::<std::option::Option<crate::model::Replication>>()?;
-                        }
-                        __FieldTag::__create_time => {
-                            if !fields.insert(__FieldTag::__create_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for create_time",
-                                ));
-                            }
-                            result.create_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__labels => {
-                            if !fields.insert(__FieldTag::__labels) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for labels",
-                                ));
-                            }
-                            result.labels = map
-                                .next_value::<std::option::Option<
-                                    std::collections::HashMap<
-                                        std::string::String,
-                                        std::string::String,
-                                    >,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__topics => {
-                            if !fields.insert(__FieldTag::__topics) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for topics",
-                                ));
-                            }
-                            result.topics = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Topic>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__expire_time => {
-                            if !fields.insert(__FieldTag::__expire_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for expire_time",
-                                ));
-                            }
-                            if result.expiration.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `expiration`, a oneof with full ID .google.cloud.secretmanager.v1.Secret.expire_time, latest field was expireTime",
-                                ));
-                            }
-                            result.expiration = std::option::Option::Some(
-                                crate::model::secret::Expiration::ExpireTime(
-                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Timestamp>>>()?.unwrap_or_default()
-                                ),
-                            );
-                        }
-                        __FieldTag::__ttl => {
-                            if !fields.insert(__FieldTag::__ttl) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for ttl",
-                                ));
-                            }
-                            if result.expiration.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `expiration`, a oneof with full ID .google.cloud.secretmanager.v1.Secret.ttl, latest field was ttl",
-                                ));
-                            }
-                            result.expiration = std::option::Option::Some(
-                                crate::model::secret::Expiration::Ttl(
-                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>()?.unwrap_or_default()
-                                ),
-                            );
-                        }
-                        __FieldTag::__etag => {
-                            if !fields.insert(__FieldTag::__etag) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for etag",
-                                ));
-                            }
-                            result.etag = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__rotation => {
-                            if !fields.insert(__FieldTag::__rotation) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for rotation",
-                                ));
-                            }
-                            result.rotation =
-                                map.next_value::<std::option::Option<crate::model::Rotation>>()?;
-                        }
-                        __FieldTag::__version_aliases => {
-                            if !fields.insert(__FieldTag::__version_aliases) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for version_aliases",
-                                ));
-                            }
-                            struct __With(
-                                std::option::Option<
-                                    std::collections::HashMap<std::string::String, i64>,
-                                >,
-                            );
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::<
-                                        std::option::Option<
-                                            std::collections::HashMap<
-                                                serde_with::Same,
-                                                wkt::internal::I64,
-                                            >,
-                                        >,
-                                    >::deserialize(deserializer)
-                                    .map(__With)
-                                }
-                            }
-                            result.version_aliases =
-                                map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::__annotations => {
-                            if !fields.insert(__FieldTag::__annotations) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for annotations",
-                                ));
-                            }
-                            result.annotations = map
-                                .next_value::<std::option::Option<
-                                    std::collections::HashMap<
-                                        std::string::String,
-                                        std::string::String,
-                                    >,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__version_destroy_ttl => {
-                            if !fields.insert(__FieldTag::__version_destroy_ttl) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for version_destroy_ttl",
-                                ));
-                            }
-                            result.version_destroy_ttl =
-                                map.next_value::<std::option::Option<wkt::Duration>>()?;
-                        }
-                        __FieldTag::__customer_managed_encryption => {
-                            if !fields.insert(__FieldTag::__customer_managed_encryption) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for customer_managed_encryption",
-                                ));
-                            }
-                            result.customer_managed_encryption = map.next_value::<std::option::Option<crate::model::CustomerManagedEncryption>>()?
-                                ;
-                        }
-                        __FieldTag::__tags => {
-                            if !fields.insert(__FieldTag::__tags) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for tags",
-                                ));
-                            }
-                            result.tags = map
-                                .next_value::<std::option::Option<
-                                    std::collections::HashMap<
-                                        std::string::String,
-                                        std::string::String,
-                                    >,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for Secret {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.replication.is_some() {
-            state.serialize_entry("replication", &self.replication)?;
-        }
-        if self.create_time.is_some() {
-            state.serialize_entry("createTime", &self.create_time)?;
-        }
-        if !self.labels.is_empty() {
-            state.serialize_entry("labels", &self.labels)?;
-        }
-        if !self.topics.is_empty() {
-            state.serialize_entry("topics", &self.topics)?;
-        }
-        if let Some(value) = self.expire_time() {
-            state.serialize_entry("expireTime", value)?;
-        }
-        if let Some(value) = self.ttl() {
-            state.serialize_entry("ttl", value)?;
-        }
-        if !self.etag.is_empty() {
-            state.serialize_entry("etag", &self.etag)?;
-        }
-        if self.rotation.is_some() {
-            state.serialize_entry("rotation", &self.rotation)?;
-        }
-        if !self.version_aliases.is_empty() {
-            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i64>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::I64> >::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("versionAliases", &__With(&self.version_aliases))?;
-        }
-        if !self.annotations.is_empty() {
-            state.serialize_entry("annotations", &self.annotations)?;
-        }
-        if self.version_destroy_ttl.is_some() {
-            state.serialize_entry("versionDestroyTtl", &self.version_destroy_ttl)?;
-        }
-        if self.customer_managed_encryption.is_some() {
-            state.serialize_entry(
-                "customerManagedEncryption",
-                &self.customer_managed_encryption,
-            )?;
-        }
-        if !self.tags.is_empty() {
-            state.serialize_entry("tags", &self.tags)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for Secret {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Secret");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("replication", &self.replication);
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("labels", &self.labels);
-        debug_struct.field("topics", &self.topics);
-        debug_struct.field("etag", &self.etag);
-        debug_struct.field("rotation", &self.rotation);
-        debug_struct.field("version_aliases", &self.version_aliases);
-        debug_struct.field("annotations", &self.annotations);
-        debug_struct.field("version_destroy_ttl", &self.version_destroy_ttl);
-        debug_struct.field(
-            "customer_managed_encryption",
-            &self.customer_managed_encryption,
-        );
-        debug_struct.field("tags", &self.tags);
-        debug_struct.field("expiration", &self.expiration);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -911,7 +687,7 @@ pub struct SecretVersion {
     pub customer_managed_encryption:
         std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecretVersion {
@@ -920,12 +696,25 @@ impl SecretVersion {
     }
 
     /// Sets the value of [name][crate::model::SecretVersion::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::SecretVersion::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -935,6 +724,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::SecretVersion::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -944,6 +741,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [destroy_time][crate::model::SecretVersion::destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_destroy_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_destroy_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -953,6 +757,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [destroy_time][crate::model::SecretVersion::destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_or_clear_destroy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_destroy_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -962,6 +774,15 @@ impl SecretVersion {
     }
 
     /// Sets the value of [state][crate::model::SecretVersion::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use google_cloud_secretmanager_v1::model::secret_version::State;
+    /// let x0 = SecretVersion::new().set_state(State::Enabled);
+    /// let x1 = SecretVersion::new().set_state(State::Disabled);
+    /// let x2 = SecretVersion::new().set_state(State::Destroyed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::secret_version::State>>(
         mut self,
         v: T,
@@ -971,6 +792,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [replication_status][crate::model::SecretVersion::replication_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use google_cloud_secretmanager_v1::model::ReplicationStatus;
+    /// let x = SecretVersion::new().set_replication_status(ReplicationStatus::default()/* use setters */);
+    /// ```
     pub fn set_replication_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationStatus>,
@@ -980,6 +808,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [replication_status][crate::model::SecretVersion::replication_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use google_cloud_secretmanager_v1::model::ReplicationStatus;
+    /// let x = SecretVersion::new().set_or_clear_replication_status(Some(ReplicationStatus::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_replication_status(None::<ReplicationStatus>);
+    /// ```
     pub fn set_or_clear_replication_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationStatus>,
@@ -989,12 +825,24 @@ impl SecretVersion {
     }
 
     /// Sets the value of [etag][crate::model::SecretVersion::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [client_specified_payload_checksum][crate::model::SecretVersion::client_specified_payload_checksum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// let x = SecretVersion::new().set_client_specified_payload_checksum(true);
+    /// ```
     pub fn set_client_specified_payload_checksum<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -1004,6 +852,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_scheduled_destroy_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_scheduled_destroy_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1013,6 +868,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use wkt::Timestamp;
+    /// let x = SecretVersion::new().set_or_clear_scheduled_destroy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_scheduled_destroy_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_scheduled_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1022,6 +885,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = SecretVersion::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
+    /// ```
     pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -1031,6 +901,14 @@ impl SecretVersion {
     }
 
     /// Sets or clears the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = SecretVersion::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
+    /// let x = SecretVersion::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
+    /// ```
     pub fn set_or_clear_customer_managed_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -1043,269 +921,6 @@ impl SecretVersion {
 impl wkt::message::Message for SecretVersion {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.SecretVersion"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for SecretVersion {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __create_time,
-            __destroy_time,
-            __state,
-            __replication_status,
-            __etag,
-            __client_specified_payload_checksum,
-            __scheduled_destroy_time,
-            __customer_managed_encryption,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for SecretVersion")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "createTime" => Ok(__FieldTag::__create_time),
-                            "create_time" => Ok(__FieldTag::__create_time),
-                            "destroyTime" => Ok(__FieldTag::__destroy_time),
-                            "destroy_time" => Ok(__FieldTag::__destroy_time),
-                            "state" => Ok(__FieldTag::__state),
-                            "replicationStatus" => Ok(__FieldTag::__replication_status),
-                            "replication_status" => Ok(__FieldTag::__replication_status),
-                            "etag" => Ok(__FieldTag::__etag),
-                            "clientSpecifiedPayloadChecksum" => {
-                                Ok(__FieldTag::__client_specified_payload_checksum)
-                            }
-                            "client_specified_payload_checksum" => {
-                                Ok(__FieldTag::__client_specified_payload_checksum)
-                            }
-                            "scheduledDestroyTime" => Ok(__FieldTag::__scheduled_destroy_time),
-                            "scheduled_destroy_time" => Ok(__FieldTag::__scheduled_destroy_time),
-                            "customerManagedEncryption" => {
-                                Ok(__FieldTag::__customer_managed_encryption)
-                            }
-                            "customer_managed_encryption" => {
-                                Ok(__FieldTag::__customer_managed_encryption)
-                            }
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = SecretVersion;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct SecretVersion")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__create_time => {
-                            if !fields.insert(__FieldTag::__create_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for create_time",
-                                ));
-                            }
-                            result.create_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__destroy_time => {
-                            if !fields.insert(__FieldTag::__destroy_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for destroy_time",
-                                ));
-                            }
-                            result.destroy_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__state => {
-                            if !fields.insert(__FieldTag::__state) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for state",
-                                ));
-                            }
-                            result.state = map.next_value::<std::option::Option<crate::model::secret_version::State>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__replication_status => {
-                            if !fields.insert(__FieldTag::__replication_status) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for replication_status",
-                                ));
-                            }
-                            result.replication_status = map
-                                .next_value::<std::option::Option<crate::model::ReplicationStatus>>(
-                                )?;
-                        }
-                        __FieldTag::__etag => {
-                            if !fields.insert(__FieldTag::__etag) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for etag",
-                                ));
-                            }
-                            result.etag = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__client_specified_payload_checksum => {
-                            if !fields.insert(__FieldTag::__client_specified_payload_checksum) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for client_specified_payload_checksum",
-                                ));
-                            }
-                            result.client_specified_payload_checksum = map
-                                .next_value::<std::option::Option<bool>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__scheduled_destroy_time => {
-                            if !fields.insert(__FieldTag::__scheduled_destroy_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for scheduled_destroy_time",
-                                ));
-                            }
-                            result.scheduled_destroy_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__customer_managed_encryption => {
-                            if !fields.insert(__FieldTag::__customer_managed_encryption) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for customer_managed_encryption",
-                                ));
-                            }
-                            result.customer_managed_encryption = map
-                                .next_value::<std::option::Option<
-                                    crate::model::CustomerManagedEncryptionStatus,
-                                >>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for SecretVersion {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.create_time.is_some() {
-            state.serialize_entry("createTime", &self.create_time)?;
-        }
-        if self.destroy_time.is_some() {
-            state.serialize_entry("destroyTime", &self.destroy_time)?;
-        }
-        if !wkt::internal::is_default(&self.state) {
-            state.serialize_entry("state", &self.state)?;
-        }
-        if self.replication_status.is_some() {
-            state.serialize_entry("replicationStatus", &self.replication_status)?;
-        }
-        if !self.etag.is_empty() {
-            state.serialize_entry("etag", &self.etag)?;
-        }
-        if !wkt::internal::is_default(&self.client_specified_payload_checksum) {
-            state.serialize_entry(
-                "clientSpecifiedPayloadChecksum",
-                &self.client_specified_payload_checksum,
-            )?;
-        }
-        if self.scheduled_destroy_time.is_some() {
-            state.serialize_entry("scheduledDestroyTime", &self.scheduled_destroy_time)?;
-        }
-        if self.customer_managed_encryption.is_some() {
-            state.serialize_entry(
-                "customerManagedEncryption",
-                &self.customer_managed_encryption,
-            )?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for SecretVersion {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SecretVersion");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("destroy_time", &self.destroy_time);
-        debug_struct.field("state", &self.state);
-        debug_struct.field("replication_status", &self.replication_status);
-        debug_struct.field("etag", &self.etag);
-        debug_struct.field(
-            "client_specified_payload_checksum",
-            &self.client_specified_payload_checksum,
-        );
-        debug_struct.field("scheduled_destroy_time", &self.scheduled_destroy_time);
-        debug_struct.field(
-            "customer_managed_encryption",
-            &self.customer_managed_encryption,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -1479,7 +1094,7 @@ pub struct Replication {
     /// The replication policy for this secret.
     pub replication: std::option::Option<crate::model::replication::Replication>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Replication {
@@ -1491,6 +1106,14 @@ impl Replication {
     ///
     /// Note that all the setters affecting `replication` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Replication;
+    /// use google_cloud_secretmanager_v1::model::replication;
+    /// use google_cloud_secretmanager_v1::model::replication::Automatic;
+    /// let x = Replication::new().set_replication(Some(replication::Replication::Automatic(Automatic::default().into())));
+    /// ```
     pub fn set_replication<
         T: std::convert::Into<std::option::Option<crate::model::replication::Replication>>,
     >(
@@ -1519,6 +1142,15 @@ impl Replication {
     ///
     /// Note that all the setters affecting `replication` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Replication;
+    /// use google_cloud_secretmanager_v1::model::replication::Automatic;
+    /// let x = Replication::new().set_automatic(Automatic::default()/* use setters */);
+    /// assert!(x.automatic().is_some());
+    /// assert!(x.user_managed().is_none());
+    /// ```
     pub fn set_automatic<
         T: std::convert::Into<std::boxed::Box<crate::model::replication::Automatic>>,
     >(
@@ -1548,6 +1180,15 @@ impl Replication {
     ///
     /// Note that all the setters affecting `replication` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Replication;
+    /// use google_cloud_secretmanager_v1::model::replication::UserManaged;
+    /// let x = Replication::new().set_user_managed(UserManaged::default()/* use setters */);
+    /// assert!(x.user_managed().is_some());
+    /// assert!(x.automatic().is_none());
+    /// ```
     pub fn set_user_managed<
         T: std::convert::Into<std::boxed::Box<crate::model::replication::UserManaged>>,
     >(
@@ -1564,155 +1205,6 @@ impl Replication {
 impl wkt::message::Message for Replication {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.Replication"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for Replication {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __automatic,
-            __user_managed,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for Replication")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "automatic" => Ok(__FieldTag::__automatic),
-                            "userManaged" => Ok(__FieldTag::__user_managed),
-                            "user_managed" => Ok(__FieldTag::__user_managed),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = Replication;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct Replication")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__automatic => {
-                            if !fields.insert(__FieldTag::__automatic) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for automatic",
-                                ));
-                            }
-                            if result.replication.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `replication`, a oneof with full ID .google.cloud.secretmanager.v1.Replication.automatic, latest field was automatic",
-                                ));
-                            }
-                            result.replication = std::option::Option::Some(
-                                crate::model::replication::Replication::Automatic(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<crate::model::replication::Automatic>,
-                                    >>()?
-                                    .unwrap_or_default(),
-                                ),
-                            );
-                        }
-                        __FieldTag::__user_managed => {
-                            if !fields.insert(__FieldTag::__user_managed) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for user_managed",
-                                ));
-                            }
-                            if result.replication.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `replication`, a oneof with full ID .google.cloud.secretmanager.v1.Replication.user_managed, latest field was userManaged",
-                                ));
-                            }
-                            result.replication = std::option::Option::Some(
-                                crate::model::replication::Replication::UserManaged(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<crate::model::replication::UserManaged>,
-                                    >>()?
-                                    .unwrap_or_default(),
-                                ),
-                            );
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for Replication {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if let Some(value) = self.automatic() {
-            state.serialize_entry("automatic", value)?;
-        }
-        if let Some(value) = self.user_managed() {
-            state.serialize_entry("userManaged", value)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for Replication {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Replication");
-        debug_struct.field("replication", &self.replication);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -1744,7 +1236,7 @@ pub mod replication {
         pub customer_managed_encryption:
             std::option::Option<crate::model::CustomerManagedEncryption>,
 
-        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Automatic {
@@ -1753,6 +1245,13 @@ pub mod replication {
         }
 
         /// Sets the value of [customer_managed_encryption][crate::model::replication::Automatic::customer_managed_encryption].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_secretmanager_v1::model::replication::Automatic;
+        /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+        /// let x = Automatic::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
+        /// ```
         pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -1762,6 +1261,14 @@ pub mod replication {
         }
 
         /// Sets or clears the value of [customer_managed_encryption][crate::model::replication::Automatic::customer_managed_encryption].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_secretmanager_v1::model::replication::Automatic;
+        /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+        /// let x = Automatic::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
+        /// let x = Automatic::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
+        /// ```
         pub fn set_or_clear_customer_managed_encryption<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1777,134 +1284,6 @@ pub mod replication {
     impl wkt::message::Message for Automatic {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.secretmanager.v1.Replication.Automatic"
-        }
-    }
-
-    #[doc(hidden)]
-    impl<'de> serde::de::Deserialize<'de> for Automatic {
-        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-        where
-            D: serde::Deserializer<'de>,
-        {
-            #[allow(non_camel_case_types)]
-            #[doc(hidden)]
-            #[derive(PartialEq, Eq, Hash)]
-            enum __FieldTag {
-                __customer_managed_encryption,
-                Unknown(std::string::String),
-            }
-            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-                where
-                    D: serde::Deserializer<'de>,
-                {
-                    struct Visitor;
-                    impl<'de> serde::de::Visitor<'de> for Visitor {
-                        type Value = __FieldTag;
-                        fn expecting(
-                            &self,
-                            formatter: &mut std::fmt::Formatter,
-                        ) -> std::fmt::Result {
-                            formatter.write_str("a field name for Automatic")
-                        }
-                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                        where
-                            E: serde::de::Error,
-                        {
-                            use std::result::Result::Ok;
-                            use std::string::ToString;
-                            match value {
-                                "customerManagedEncryption" => {
-                                    Ok(__FieldTag::__customer_managed_encryption)
-                                }
-                                "customer_managed_encryption" => {
-                                    Ok(__FieldTag::__customer_managed_encryption)
-                                }
-                                _ => Ok(__FieldTag::Unknown(value.to_string())),
-                            }
-                        }
-                    }
-                    deserializer.deserialize_identifier(Visitor)
-                }
-            }
-            struct Visitor;
-            impl<'de> serde::de::Visitor<'de> for Visitor {
-                type Value = Automatic;
-                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                    formatter.write_str("struct Automatic")
-                }
-                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-                where
-                    A: serde::de::MapAccess<'de>,
-                {
-                    #[allow(unused_imports)]
-                    use serde::de::Error;
-                    use std::option::Option::Some;
-                    let mut fields = std::collections::HashSet::new();
-                    let mut result = Self::Value::new();
-                    while let Some(tag) = map.next_key::<__FieldTag>()? {
-                        #[allow(clippy::match_single_binding)]
-                        match tag {
-                            __FieldTag::__customer_managed_encryption => {
-                                if !fields.insert(__FieldTag::__customer_managed_encryption) {
-                                    return std::result::Result::Err(A::Error::duplicate_field(
-                                        "multiple values for customer_managed_encryption",
-                                    ));
-                                }
-                                result.customer_managed_encryption =
-                                    map.next_value::<std::option::Option<
-                                        crate::model::CustomerManagedEncryption,
-                                    >>()?;
-                            }
-                            __FieldTag::Unknown(key) => {
-                                let value = map.next_value::<serde_json::Value>()?;
-                                result._unknown_fields.insert(key, value);
-                            }
-                        }
-                    }
-                    std::result::Result::Ok(result)
-                }
-            }
-            deserializer.deserialize_any(Visitor)
-        }
-    }
-
-    #[doc(hidden)]
-    impl serde::ser::Serialize for Automatic {
-        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-        where
-            S: serde::ser::Serializer,
-        {
-            use serde::ser::SerializeMap;
-            #[allow(unused_imports)]
-            use std::option::Option::Some;
-            let mut state = serializer.serialize_map(std::option::Option::None)?;
-            if self.customer_managed_encryption.is_some() {
-                state.serialize_entry(
-                    "customerManagedEncryption",
-                    &self.customer_managed_encryption,
-                )?;
-            }
-            if !self._unknown_fields.is_empty() {
-                for (key, value) in self._unknown_fields.iter() {
-                    state.serialize_entry(key, &value)?;
-                }
-            }
-            state.end()
-        }
-    }
-
-    impl std::fmt::Debug for Automatic {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            let mut debug_struct = f.debug_struct("Automatic");
-            debug_struct.field(
-                "customer_managed_encryption",
-                &self.customer_managed_encryption,
-            );
-            if !self._unknown_fields.is_empty() {
-                debug_struct.field("_unknown_fields", &self._unknown_fields);
-            }
-            debug_struct.finish()
         }
     }
 
@@ -1926,7 +1305,7 @@ pub mod replication {
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
         pub replicas: std::vec::Vec<crate::model::replication::user_managed::Replica>,
 
-        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl UserManaged {
@@ -1935,6 +1314,17 @@ pub mod replication {
         }
 
         /// Sets the value of [replicas][crate::model::replication::UserManaged::replicas].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_secretmanager_v1::model::replication::UserManaged;
+        /// use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
+        /// let x = UserManaged::new()
+        ///     .set_replicas([
+        ///         Replica::default()/* use setters */,
+        ///         Replica::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_replicas<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1949,126 +1339,6 @@ pub mod replication {
     impl wkt::message::Message for UserManaged {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.secretmanager.v1.Replication.UserManaged"
-        }
-    }
-
-    #[doc(hidden)]
-    impl<'de> serde::de::Deserialize<'de> for UserManaged {
-        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-        where
-            D: serde::Deserializer<'de>,
-        {
-            #[allow(non_camel_case_types)]
-            #[doc(hidden)]
-            #[derive(PartialEq, Eq, Hash)]
-            enum __FieldTag {
-                __replicas,
-                Unknown(std::string::String),
-            }
-            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-                where
-                    D: serde::Deserializer<'de>,
-                {
-                    struct Visitor;
-                    impl<'de> serde::de::Visitor<'de> for Visitor {
-                        type Value = __FieldTag;
-                        fn expecting(
-                            &self,
-                            formatter: &mut std::fmt::Formatter,
-                        ) -> std::fmt::Result {
-                            formatter.write_str("a field name for UserManaged")
-                        }
-                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                        where
-                            E: serde::de::Error,
-                        {
-                            use std::result::Result::Ok;
-                            use std::string::ToString;
-                            match value {
-                                "replicas" => Ok(__FieldTag::__replicas),
-                                _ => Ok(__FieldTag::Unknown(value.to_string())),
-                            }
-                        }
-                    }
-                    deserializer.deserialize_identifier(Visitor)
-                }
-            }
-            struct Visitor;
-            impl<'de> serde::de::Visitor<'de> for Visitor {
-                type Value = UserManaged;
-                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                    formatter.write_str("struct UserManaged")
-                }
-                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-                where
-                    A: serde::de::MapAccess<'de>,
-                {
-                    #[allow(unused_imports)]
-                    use serde::de::Error;
-                    use std::option::Option::Some;
-                    let mut fields = std::collections::HashSet::new();
-                    let mut result = Self::Value::new();
-                    while let Some(tag) = map.next_key::<__FieldTag>()? {
-                        #[allow(clippy::match_single_binding)]
-                        match tag {
-                            __FieldTag::__replicas => {
-                                if !fields.insert(__FieldTag::__replicas) {
-                                    return std::result::Result::Err(A::Error::duplicate_field(
-                                        "multiple values for replicas",
-                                    ));
-                                }
-                                result.replicas = map
-                                    .next_value::<std::option::Option<
-                                        std::vec::Vec<
-                                            crate::model::replication::user_managed::Replica,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default();
-                            }
-                            __FieldTag::Unknown(key) => {
-                                let value = map.next_value::<serde_json::Value>()?;
-                                result._unknown_fields.insert(key, value);
-                            }
-                        }
-                    }
-                    std::result::Result::Ok(result)
-                }
-            }
-            deserializer.deserialize_any(Visitor)
-        }
-    }
-
-    #[doc(hidden)]
-    impl serde::ser::Serialize for UserManaged {
-        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-        where
-            S: serde::ser::Serializer,
-        {
-            use serde::ser::SerializeMap;
-            #[allow(unused_imports)]
-            use std::option::Option::Some;
-            let mut state = serializer.serialize_map(std::option::Option::None)?;
-            if !self.replicas.is_empty() {
-                state.serialize_entry("replicas", &self.replicas)?;
-            }
-            if !self._unknown_fields.is_empty() {
-                for (key, value) in self._unknown_fields.iter() {
-                    state.serialize_entry(key, &value)?;
-                }
-            }
-            state.end()
-        }
-    }
-
-    impl std::fmt::Debug for UserManaged {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            let mut debug_struct = f.debug_struct("UserManaged");
-            debug_struct.field("replicas", &self.replicas);
-            if !self._unknown_fields.is_empty() {
-                debug_struct.field("_unknown_fields", &self._unknown_fields);
-            }
-            debug_struct.finish()
         }
     }
 
@@ -2104,7 +1374,7 @@ pub mod replication {
             pub customer_managed_encryption:
                 std::option::Option<crate::model::CustomerManagedEncryption>,
 
-            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Replica {
@@ -2113,6 +1383,12 @@ pub mod replication {
             }
 
             /// Sets the value of [location][crate::model::replication::user_managed::Replica::location].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
+            /// let x = Replica::new().set_location("example");
+            /// ```
             pub fn set_location<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2122,6 +1398,13 @@ pub mod replication {
             }
 
             /// Sets the value of [customer_managed_encryption][crate::model::replication::user_managed::Replica::customer_managed_encryption].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
+            /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+            /// let x = Replica::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
+            /// ```
             pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::CustomerManagedEncryption>,
@@ -2131,6 +1414,14 @@ pub mod replication {
             }
 
             /// Sets or clears the value of [customer_managed_encryption][crate::model::replication::user_managed::Replica::customer_managed_encryption].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
+            /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+            /// let x = Replica::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
+            /// let x = Replica::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryption>);
+            /// ```
             pub fn set_or_clear_customer_managed_encryption<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -2146,157 +1437,6 @@ pub mod replication {
         impl wkt::message::Message for Replica {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.secretmanager.v1.Replication.UserManaged.Replica"
-            }
-        }
-
-        #[doc(hidden)]
-        impl<'de> serde::de::Deserialize<'de> for Replica {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                #[allow(non_camel_case_types)]
-                #[doc(hidden)]
-                #[derive(PartialEq, Eq, Hash)]
-                enum __FieldTag {
-                    __location,
-                    __customer_managed_encryption,
-                    Unknown(std::string::String),
-                }
-                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-                    where
-                        D: serde::Deserializer<'de>,
-                    {
-                        struct Visitor;
-                        impl<'de> serde::de::Visitor<'de> for Visitor {
-                            type Value = __FieldTag;
-                            fn expecting(
-                                &self,
-                                formatter: &mut std::fmt::Formatter,
-                            ) -> std::fmt::Result {
-                                formatter.write_str("a field name for Replica")
-                            }
-                            fn visit_str<E>(
-                                self,
-                                value: &str,
-                            ) -> std::result::Result<Self::Value, E>
-                            where
-                                E: serde::de::Error,
-                            {
-                                use std::result::Result::Ok;
-                                use std::string::ToString;
-                                match value {
-                                    "location" => Ok(__FieldTag::__location),
-                                    "customerManagedEncryption" => {
-                                        Ok(__FieldTag::__customer_managed_encryption)
-                                    }
-                                    "customer_managed_encryption" => {
-                                        Ok(__FieldTag::__customer_managed_encryption)
-                                    }
-                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
-                                }
-                            }
-                        }
-                        deserializer.deserialize_identifier(Visitor)
-                    }
-                }
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = Replica;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("struct Replica")
-                    }
-                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-                    where
-                        A: serde::de::MapAccess<'de>,
-                    {
-                        #[allow(unused_imports)]
-                        use serde::de::Error;
-                        use std::option::Option::Some;
-                        let mut fields = std::collections::HashSet::new();
-                        let mut result = Self::Value::new();
-                        while let Some(tag) = map.next_key::<__FieldTag>()? {
-                            #[allow(clippy::match_single_binding)]
-                            match tag {
-                                __FieldTag::__location => {
-                                    if !fields.insert(__FieldTag::__location) {
-                                        return std::result::Result::Err(
-                                            A::Error::duplicate_field(
-                                                "multiple values for location",
-                                            ),
-                                        );
-                                    }
-                                    result.location = map
-                                        .next_value::<std::option::Option<std::string::String>>()?
-                                        .unwrap_or_default();
-                                }
-                                __FieldTag::__customer_managed_encryption => {
-                                    if !fields.insert(__FieldTag::__customer_managed_encryption) {
-                                        return std::result::Result::Err(
-                                            A::Error::duplicate_field(
-                                                "multiple values for customer_managed_encryption",
-                                            ),
-                                        );
-                                    }
-                                    result.customer_managed_encryption = map
-                                        .next_value::<std::option::Option<
-                                            crate::model::CustomerManagedEncryption,
-                                        >>()?;
-                                }
-                                __FieldTag::Unknown(key) => {
-                                    let value = map.next_value::<serde_json::Value>()?;
-                                    result._unknown_fields.insert(key, value);
-                                }
-                            }
-                        }
-                        std::result::Result::Ok(result)
-                    }
-                }
-                deserializer.deserialize_any(Visitor)
-            }
-        }
-
-        #[doc(hidden)]
-        impl serde::ser::Serialize for Replica {
-            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-            where
-                S: serde::ser::Serializer,
-            {
-                use serde::ser::SerializeMap;
-                #[allow(unused_imports)]
-                use std::option::Option::Some;
-                let mut state = serializer.serialize_map(std::option::Option::None)?;
-                if !self.location.is_empty() {
-                    state.serialize_entry("location", &self.location)?;
-                }
-                if self.customer_managed_encryption.is_some() {
-                    state.serialize_entry(
-                        "customerManagedEncryption",
-                        &self.customer_managed_encryption,
-                    )?;
-                }
-                if !self._unknown_fields.is_empty() {
-                    for (key, value) in self._unknown_fields.iter() {
-                        state.serialize_entry(key, &value)?;
-                    }
-                }
-                state.end()
-            }
-        }
-
-        impl std::fmt::Debug for Replica {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                let mut debug_struct = f.debug_struct("Replica");
-                debug_struct.field("location", &self.location);
-                debug_struct.field(
-                    "customer_managed_encryption",
-                    &self.customer_managed_encryption,
-                );
-                if !self._unknown_fields.is_empty() {
-                    debug_struct.field("_unknown_fields", &self._unknown_fields);
-                }
-                debug_struct.finish()
             }
         }
     }
@@ -2341,7 +1481,7 @@ pub struct CustomerManagedEncryption {
     /// [google.cloud.secretmanager.v1.Replication.UserManaged]: crate::model::replication::UserManaged
     pub kms_key_name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomerManagedEncryption {
@@ -2350,6 +1490,12 @@ impl CustomerManagedEncryption {
     }
 
     /// Sets the value of [kms_key_name][crate::model::CustomerManagedEncryption::kms_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
+    /// let x = CustomerManagedEncryption::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
@@ -2359,120 +1505,6 @@ impl CustomerManagedEncryption {
 impl wkt::message::Message for CustomerManagedEncryption {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.CustomerManagedEncryption"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for CustomerManagedEncryption {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __kms_key_name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CustomerManagedEncryption")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "kmsKeyName" => Ok(__FieldTag::__kms_key_name),
-                            "kms_key_name" => Ok(__FieldTag::__kms_key_name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = CustomerManagedEncryption;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CustomerManagedEncryption")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__kms_key_name => {
-                            if !fields.insert(__FieldTag::__kms_key_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for kms_key_name",
-                                ));
-                            }
-                            result.kms_key_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for CustomerManagedEncryption {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.kms_key_name.is_empty() {
-            state.serialize_entry("kmsKeyName", &self.kms_key_name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for CustomerManagedEncryption {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CustomerManagedEncryption");
-        debug_struct.field("kms_key_name", &self.kms_key_name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -2490,7 +1522,7 @@ pub struct ReplicationStatus {
     pub replication_status:
         std::option::Option<crate::model::replication_status::ReplicationStatus>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicationStatus {
@@ -2502,6 +1534,14 @@ impl ReplicationStatus {
     ///
     /// Note that all the setters affecting `replication_status` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
+    /// use google_cloud_secretmanager_v1::model::replication_status;
+    /// use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
+    /// let x = ReplicationStatus::new().set_replication_status(Some(replication_status::ReplicationStatus::Automatic(AutomaticStatus::default().into())));
+    /// ```
     pub fn set_replication_status<
         T: std::convert::Into<
                 std::option::Option<crate::model::replication_status::ReplicationStatus>,
@@ -2535,6 +1575,15 @@ impl ReplicationStatus {
     ///
     /// Note that all the setters affecting `replication_status` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
+    /// use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
+    /// let x = ReplicationStatus::new().set_automatic(AutomaticStatus::default()/* use setters */);
+    /// assert!(x.automatic().is_some());
+    /// assert!(x.user_managed().is_none());
+    /// ```
     pub fn set_automatic<
         T: std::convert::Into<std::boxed::Box<crate::model::replication_status::AutomaticStatus>>,
     >(
@@ -2568,6 +1617,15 @@ impl ReplicationStatus {
     ///
     /// Note that all the setters affecting `replication_status` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
+    /// use google_cloud_secretmanager_v1::model::replication_status::UserManagedStatus;
+    /// let x = ReplicationStatus::new().set_user_managed(UserManagedStatus::default()/* use setters */);
+    /// assert!(x.user_managed().is_some());
+    /// assert!(x.automatic().is_none());
+    /// ```
     pub fn set_user_managed<
         T: std::convert::Into<std::boxed::Box<crate::model::replication_status::UserManagedStatus>>,
     >(
@@ -2584,159 +1642,6 @@ impl ReplicationStatus {
 impl wkt::message::Message for ReplicationStatus {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ReplicationStatus {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __automatic,
-            __user_managed,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ReplicationStatus")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "automatic" => Ok(__FieldTag::__automatic),
-                            "userManaged" => Ok(__FieldTag::__user_managed),
-                            "user_managed" => Ok(__FieldTag::__user_managed),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ReplicationStatus;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ReplicationStatus")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__automatic => {
-                            if !fields.insert(__FieldTag::__automatic) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for automatic",
-                                ));
-                            }
-                            if result.replication_status.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `replication_status`, a oneof with full ID .google.cloud.secretmanager.v1.ReplicationStatus.automatic, latest field was automatic",
-                                ));
-                            }
-                            result.replication_status = std::option::Option::Some(
-                                crate::model::replication_status::ReplicationStatus::Automatic(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            crate::model::replication_status::AutomaticStatus,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
-                                ),
-                            );
-                        }
-                        __FieldTag::__user_managed => {
-                            if !fields.insert(__FieldTag::__user_managed) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for user_managed",
-                                ));
-                            }
-                            if result.replication_status.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `replication_status`, a oneof with full ID .google.cloud.secretmanager.v1.ReplicationStatus.user_managed, latest field was userManaged",
-                                ));
-                            }
-                            result.replication_status = std::option::Option::Some(
-                                crate::model::replication_status::ReplicationStatus::UserManaged(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            crate::model::replication_status::UserManagedStatus,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
-                                ),
-                            );
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ReplicationStatus {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if let Some(value) = self.automatic() {
-            state.serialize_entry("automatic", value)?;
-        }
-        if let Some(value) = self.user_managed() {
-            state.serialize_entry("userManaged", value)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ReplicationStatus {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ReplicationStatus");
-        debug_struct.field("replication_status", &self.replication_status);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -2765,7 +1670,7 @@ pub mod replication_status {
         pub customer_managed_encryption:
             std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 
-        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AutomaticStatus {
@@ -2774,6 +1679,13 @@ pub mod replication_status {
         }
 
         /// Sets the value of [customer_managed_encryption][crate::model::replication_status::AutomaticStatus::customer_managed_encryption].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
+        /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+        /// let x = AutomaticStatus::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
+        /// ```
         pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -2783,6 +1695,14 @@ pub mod replication_status {
         }
 
         /// Sets or clears the value of [customer_managed_encryption][crate::model::replication_status::AutomaticStatus::customer_managed_encryption].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
+        /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+        /// let x = AutomaticStatus::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
+        /// let x = AutomaticStatus::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
+        /// ```
         pub fn set_or_clear_customer_managed_encryption<T>(
             mut self,
             v: std::option::Option<T>,
@@ -2798,134 +1718,6 @@ pub mod replication_status {
     impl wkt::message::Message for AutomaticStatus {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus.AutomaticStatus"
-        }
-    }
-
-    #[doc(hidden)]
-    impl<'de> serde::de::Deserialize<'de> for AutomaticStatus {
-        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-        where
-            D: serde::Deserializer<'de>,
-        {
-            #[allow(non_camel_case_types)]
-            #[doc(hidden)]
-            #[derive(PartialEq, Eq, Hash)]
-            enum __FieldTag {
-                __customer_managed_encryption,
-                Unknown(std::string::String),
-            }
-            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-                where
-                    D: serde::Deserializer<'de>,
-                {
-                    struct Visitor;
-                    impl<'de> serde::de::Visitor<'de> for Visitor {
-                        type Value = __FieldTag;
-                        fn expecting(
-                            &self,
-                            formatter: &mut std::fmt::Formatter,
-                        ) -> std::fmt::Result {
-                            formatter.write_str("a field name for AutomaticStatus")
-                        }
-                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                        where
-                            E: serde::de::Error,
-                        {
-                            use std::result::Result::Ok;
-                            use std::string::ToString;
-                            match value {
-                                "customerManagedEncryption" => {
-                                    Ok(__FieldTag::__customer_managed_encryption)
-                                }
-                                "customer_managed_encryption" => {
-                                    Ok(__FieldTag::__customer_managed_encryption)
-                                }
-                                _ => Ok(__FieldTag::Unknown(value.to_string())),
-                            }
-                        }
-                    }
-                    deserializer.deserialize_identifier(Visitor)
-                }
-            }
-            struct Visitor;
-            impl<'de> serde::de::Visitor<'de> for Visitor {
-                type Value = AutomaticStatus;
-                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                    formatter.write_str("struct AutomaticStatus")
-                }
-                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-                where
-                    A: serde::de::MapAccess<'de>,
-                {
-                    #[allow(unused_imports)]
-                    use serde::de::Error;
-                    use std::option::Option::Some;
-                    let mut fields = std::collections::HashSet::new();
-                    let mut result = Self::Value::new();
-                    while let Some(tag) = map.next_key::<__FieldTag>()? {
-                        #[allow(clippy::match_single_binding)]
-                        match tag {
-                            __FieldTag::__customer_managed_encryption => {
-                                if !fields.insert(__FieldTag::__customer_managed_encryption) {
-                                    return std::result::Result::Err(A::Error::duplicate_field(
-                                        "multiple values for customer_managed_encryption",
-                                    ));
-                                }
-                                result.customer_managed_encryption = map
-                                    .next_value::<std::option::Option<
-                                        crate::model::CustomerManagedEncryptionStatus,
-                                    >>()?;
-                            }
-                            __FieldTag::Unknown(key) => {
-                                let value = map.next_value::<serde_json::Value>()?;
-                                result._unknown_fields.insert(key, value);
-                            }
-                        }
-                    }
-                    std::result::Result::Ok(result)
-                }
-            }
-            deserializer.deserialize_any(Visitor)
-        }
-    }
-
-    #[doc(hidden)]
-    impl serde::ser::Serialize for AutomaticStatus {
-        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-        where
-            S: serde::ser::Serializer,
-        {
-            use serde::ser::SerializeMap;
-            #[allow(unused_imports)]
-            use std::option::Option::Some;
-            let mut state = serializer.serialize_map(std::option::Option::None)?;
-            if self.customer_managed_encryption.is_some() {
-                state.serialize_entry(
-                    "customerManagedEncryption",
-                    &self.customer_managed_encryption,
-                )?;
-            }
-            if !self._unknown_fields.is_empty() {
-                for (key, value) in self._unknown_fields.iter() {
-                    state.serialize_entry(key, &value)?;
-                }
-            }
-            state.end()
-        }
-    }
-
-    impl std::fmt::Debug for AutomaticStatus {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            let mut debug_struct = f.debug_struct("AutomaticStatus");
-            debug_struct.field(
-                "customer_managed_encryption",
-                &self.customer_managed_encryption,
-            );
-            if !self._unknown_fields.is_empty() {
-                debug_struct.field("_unknown_fields", &self._unknown_fields);
-            }
-            debug_struct.finish()
         }
     }
 
@@ -2948,7 +1740,7 @@ pub mod replication_status {
         pub replicas:
             std::vec::Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>,
 
-        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl UserManagedStatus {
@@ -2957,6 +1749,17 @@ pub mod replication_status {
         }
 
         /// Sets the value of [replicas][crate::model::replication_status::UserManagedStatus::replicas].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_secretmanager_v1::model::replication_status::UserManagedStatus;
+        /// use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
+        /// let x = UserManagedStatus::new()
+        ///     .set_replicas([
+        ///         ReplicaStatus::default()/* use setters */,
+        ///         ReplicaStatus::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_replicas<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2973,120 +1776,6 @@ pub mod replication_status {
     impl wkt::message::Message for UserManagedStatus {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus.UserManagedStatus"
-        }
-    }
-
-    #[doc(hidden)]
-    impl<'de> serde::de::Deserialize<'de> for UserManagedStatus {
-        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-        where
-            D: serde::Deserializer<'de>,
-        {
-            #[allow(non_camel_case_types)]
-            #[doc(hidden)]
-            #[derive(PartialEq, Eq, Hash)]
-            enum __FieldTag {
-                __replicas,
-                Unknown(std::string::String),
-            }
-            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-                where
-                    D: serde::Deserializer<'de>,
-                {
-                    struct Visitor;
-                    impl<'de> serde::de::Visitor<'de> for Visitor {
-                        type Value = __FieldTag;
-                        fn expecting(
-                            &self,
-                            formatter: &mut std::fmt::Formatter,
-                        ) -> std::fmt::Result {
-                            formatter.write_str("a field name for UserManagedStatus")
-                        }
-                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                        where
-                            E: serde::de::Error,
-                        {
-                            use std::result::Result::Ok;
-                            use std::string::ToString;
-                            match value {
-                                "replicas" => Ok(__FieldTag::__replicas),
-                                _ => Ok(__FieldTag::Unknown(value.to_string())),
-                            }
-                        }
-                    }
-                    deserializer.deserialize_identifier(Visitor)
-                }
-            }
-            struct Visitor;
-            impl<'de> serde::de::Visitor<'de> for Visitor {
-                type Value = UserManagedStatus;
-                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                    formatter.write_str("struct UserManagedStatus")
-                }
-                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-                where
-                    A: serde::de::MapAccess<'de>,
-                {
-                    #[allow(unused_imports)]
-                    use serde::de::Error;
-                    use std::option::Option::Some;
-                    let mut fields = std::collections::HashSet::new();
-                    let mut result = Self::Value::new();
-                    while let Some(tag) = map.next_key::<__FieldTag>()? {
-                        #[allow(clippy::match_single_binding)]
-                        match tag {
-                            __FieldTag::__replicas => {
-                                if !fields.insert(__FieldTag::__replicas) {
-                                    return std::result::Result::Err(A::Error::duplicate_field(
-                                        "multiple values for replicas",
-                                    ));
-                                }
-                                result.replicas = map.next_value::<std::option::Option<std::vec::Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>>>()?.unwrap_or_default();
-                            }
-                            __FieldTag::Unknown(key) => {
-                                let value = map.next_value::<serde_json::Value>()?;
-                                result._unknown_fields.insert(key, value);
-                            }
-                        }
-                    }
-                    std::result::Result::Ok(result)
-                }
-            }
-            deserializer.deserialize_any(Visitor)
-        }
-    }
-
-    #[doc(hidden)]
-    impl serde::ser::Serialize for UserManagedStatus {
-        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-        where
-            S: serde::ser::Serializer,
-        {
-            use serde::ser::SerializeMap;
-            #[allow(unused_imports)]
-            use std::option::Option::Some;
-            let mut state = serializer.serialize_map(std::option::Option::None)?;
-            if !self.replicas.is_empty() {
-                state.serialize_entry("replicas", &self.replicas)?;
-            }
-            if !self._unknown_fields.is_empty() {
-                for (key, value) in self._unknown_fields.iter() {
-                    state.serialize_entry(key, &value)?;
-                }
-            }
-            state.end()
-        }
-    }
-
-    impl std::fmt::Debug for UserManagedStatus {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            let mut debug_struct = f.debug_struct("UserManagedStatus");
-            debug_struct.field("replicas", &self.replicas);
-            if !self._unknown_fields.is_empty() {
-                debug_struct.field("_unknown_fields", &self._unknown_fields);
-            }
-            debug_struct.finish()
         }
     }
 
@@ -3114,7 +1803,7 @@ pub mod replication_status {
             pub customer_managed_encryption:
                 std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 
-            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl ReplicaStatus {
@@ -3123,6 +1812,12 @@ pub mod replication_status {
             }
 
             /// Sets the value of [location][crate::model::replication_status::user_managed_status::ReplicaStatus::location].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
+            /// let x = ReplicaStatus::new().set_location("example");
+            /// ```
             pub fn set_location<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -3132,6 +1827,13 @@ pub mod replication_status {
             }
 
             /// Sets the value of [customer_managed_encryption][crate::model::replication_status::user_managed_status::ReplicaStatus::customer_managed_encryption].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
+            /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+            /// let x = ReplicaStatus::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
+            /// ```
             pub fn set_customer_managed_encryption<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::CustomerManagedEncryptionStatus>,
@@ -3141,6 +1843,14 @@ pub mod replication_status {
             }
 
             /// Sets or clears the value of [customer_managed_encryption][crate::model::replication_status::user_managed_status::ReplicaStatus::customer_managed_encryption].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
+            /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+            /// let x = ReplicaStatus::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
+            /// let x = ReplicaStatus::new().set_or_clear_customer_managed_encryption(None::<CustomerManagedEncryptionStatus>);
+            /// ```
             pub fn set_or_clear_customer_managed_encryption<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -3156,157 +1866,6 @@ pub mod replication_status {
         impl wkt::message::Message for ReplicaStatus {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus.UserManagedStatus.ReplicaStatus"
-            }
-        }
-
-        #[doc(hidden)]
-        impl<'de> serde::de::Deserialize<'de> for ReplicaStatus {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                #[allow(non_camel_case_types)]
-                #[doc(hidden)]
-                #[derive(PartialEq, Eq, Hash)]
-                enum __FieldTag {
-                    __location,
-                    __customer_managed_encryption,
-                    Unknown(std::string::String),
-                }
-                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-                    where
-                        D: serde::Deserializer<'de>,
-                    {
-                        struct Visitor;
-                        impl<'de> serde::de::Visitor<'de> for Visitor {
-                            type Value = __FieldTag;
-                            fn expecting(
-                                &self,
-                                formatter: &mut std::fmt::Formatter,
-                            ) -> std::fmt::Result {
-                                formatter.write_str("a field name for ReplicaStatus")
-                            }
-                            fn visit_str<E>(
-                                self,
-                                value: &str,
-                            ) -> std::result::Result<Self::Value, E>
-                            where
-                                E: serde::de::Error,
-                            {
-                                use std::result::Result::Ok;
-                                use std::string::ToString;
-                                match value {
-                                    "location" => Ok(__FieldTag::__location),
-                                    "customerManagedEncryption" => {
-                                        Ok(__FieldTag::__customer_managed_encryption)
-                                    }
-                                    "customer_managed_encryption" => {
-                                        Ok(__FieldTag::__customer_managed_encryption)
-                                    }
-                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
-                                }
-                            }
-                        }
-                        deserializer.deserialize_identifier(Visitor)
-                    }
-                }
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = ReplicaStatus;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("struct ReplicaStatus")
-                    }
-                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-                    where
-                        A: serde::de::MapAccess<'de>,
-                    {
-                        #[allow(unused_imports)]
-                        use serde::de::Error;
-                        use std::option::Option::Some;
-                        let mut fields = std::collections::HashSet::new();
-                        let mut result = Self::Value::new();
-                        while let Some(tag) = map.next_key::<__FieldTag>()? {
-                            #[allow(clippy::match_single_binding)]
-                            match tag {
-                                __FieldTag::__location => {
-                                    if !fields.insert(__FieldTag::__location) {
-                                        return std::result::Result::Err(
-                                            A::Error::duplicate_field(
-                                                "multiple values for location",
-                                            ),
-                                        );
-                                    }
-                                    result.location = map
-                                        .next_value::<std::option::Option<std::string::String>>()?
-                                        .unwrap_or_default();
-                                }
-                                __FieldTag::__customer_managed_encryption => {
-                                    if !fields.insert(__FieldTag::__customer_managed_encryption) {
-                                        return std::result::Result::Err(
-                                            A::Error::duplicate_field(
-                                                "multiple values for customer_managed_encryption",
-                                            ),
-                                        );
-                                    }
-                                    result.customer_managed_encryption = map
-                                        .next_value::<std::option::Option<
-                                            crate::model::CustomerManagedEncryptionStatus,
-                                        >>()?;
-                                }
-                                __FieldTag::Unknown(key) => {
-                                    let value = map.next_value::<serde_json::Value>()?;
-                                    result._unknown_fields.insert(key, value);
-                                }
-                            }
-                        }
-                        std::result::Result::Ok(result)
-                    }
-                }
-                deserializer.deserialize_any(Visitor)
-            }
-        }
-
-        #[doc(hidden)]
-        impl serde::ser::Serialize for ReplicaStatus {
-            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-            where
-                S: serde::ser::Serializer,
-            {
-                use serde::ser::SerializeMap;
-                #[allow(unused_imports)]
-                use std::option::Option::Some;
-                let mut state = serializer.serialize_map(std::option::Option::None)?;
-                if !self.location.is_empty() {
-                    state.serialize_entry("location", &self.location)?;
-                }
-                if self.customer_managed_encryption.is_some() {
-                    state.serialize_entry(
-                        "customerManagedEncryption",
-                        &self.customer_managed_encryption,
-                    )?;
-                }
-                if !self._unknown_fields.is_empty() {
-                    for (key, value) in self._unknown_fields.iter() {
-                        state.serialize_entry(key, &value)?;
-                    }
-                }
-                state.end()
-            }
-        }
-
-        impl std::fmt::Debug for ReplicaStatus {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                let mut debug_struct = f.debug_struct("ReplicaStatus");
-                debug_struct.field("location", &self.location);
-                debug_struct.field(
-                    "customer_managed_encryption",
-                    &self.customer_managed_encryption,
-                );
-                if !self._unknown_fields.is_empty() {
-                    debug_struct.field("_unknown_fields", &self._unknown_fields);
-                }
-                debug_struct.finish()
             }
         }
     }
@@ -3352,7 +1911,7 @@ pub struct CustomerManagedEncryptionStatus {
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*/versions/*`.
     pub kms_key_version_name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomerManagedEncryptionStatus {
@@ -3361,6 +1920,12 @@ impl CustomerManagedEncryptionStatus {
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::CustomerManagedEncryptionStatus::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
+    /// let x = CustomerManagedEncryptionStatus::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3376,120 +1941,6 @@ impl wkt::message::Message for CustomerManagedEncryptionStatus {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for CustomerManagedEncryptionStatus {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __kms_key_version_name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CustomerManagedEncryptionStatus")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "kmsKeyVersionName" => Ok(__FieldTag::__kms_key_version_name),
-                            "kms_key_version_name" => Ok(__FieldTag::__kms_key_version_name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = CustomerManagedEncryptionStatus;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CustomerManagedEncryptionStatus")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__kms_key_version_name => {
-                            if !fields.insert(__FieldTag::__kms_key_version_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for kms_key_version_name",
-                                ));
-                            }
-                            result.kms_key_version_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for CustomerManagedEncryptionStatus {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.kms_key_version_name.is_empty() {
-            state.serialize_entry("kmsKeyVersionName", &self.kms_key_version_name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for CustomerManagedEncryptionStatus {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CustomerManagedEncryptionStatus");
-        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
 #[derive(Clone, Default, PartialEq)]
@@ -3502,7 +1953,7 @@ pub struct Topic {
     /// (`roles/pubsub.publisher`) includes this permission.
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Topic {
@@ -3511,6 +1962,12 @@ impl Topic {
     }
 
     /// Sets the value of [name][crate::model::Topic::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Topic;
+    /// let x = Topic::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3520,119 +1977,6 @@ impl Topic {
 impl wkt::message::Message for Topic {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.Topic"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for Topic {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for Topic")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = Topic;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct Topic")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for Topic {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for Topic {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Topic");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -3678,7 +2022,7 @@ pub struct Rotation {
     /// [google.cloud.secretmanager.v1.Rotation.rotation_period]: crate::model::Rotation::rotation_period
     pub rotation_period: std::option::Option<wkt::Duration>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Rotation {
@@ -3687,6 +2031,13 @@ impl Rotation {
     }
 
     /// Sets the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// use wkt::Timestamp;
+    /// let x = Rotation::new().set_next_rotation_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_next_rotation_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3696,6 +2047,14 @@ impl Rotation {
     }
 
     /// Sets or clears the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// use wkt::Timestamp;
+    /// let x = Rotation::new().set_or_clear_next_rotation_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Rotation::new().set_or_clear_next_rotation_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_next_rotation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3705,6 +2064,13 @@ impl Rotation {
     }
 
     /// Sets the value of [rotation_period][crate::model::Rotation::rotation_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// use wkt::Duration;
+    /// let x = Rotation::new().set_rotation_period(Duration::default()/* use setters */);
+    /// ```
     pub fn set_rotation_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3714,6 +2080,14 @@ impl Rotation {
     }
 
     /// Sets or clears the value of [rotation_period][crate::model::Rotation::rotation_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::Rotation;
+    /// use wkt::Duration;
+    /// let x = Rotation::new().set_or_clear_rotation_period(Some(Duration::default()/* use setters */));
+    /// let x = Rotation::new().set_or_clear_rotation_period(None::<Duration>);
+    /// ```
     pub fn set_or_clear_rotation_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3726,135 +2100,6 @@ impl Rotation {
 impl wkt::message::Message for Rotation {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.Rotation"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for Rotation {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __next_rotation_time,
-            __rotation_period,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for Rotation")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "nextRotationTime" => Ok(__FieldTag::__next_rotation_time),
-                            "next_rotation_time" => Ok(__FieldTag::__next_rotation_time),
-                            "rotationPeriod" => Ok(__FieldTag::__rotation_period),
-                            "rotation_period" => Ok(__FieldTag::__rotation_period),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = Rotation;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct Rotation")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__next_rotation_time => {
-                            if !fields.insert(__FieldTag::__next_rotation_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for next_rotation_time",
-                                ));
-                            }
-                            result.next_rotation_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__rotation_period => {
-                            if !fields.insert(__FieldTag::__rotation_period) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for rotation_period",
-                                ));
-                            }
-                            result.rotation_period =
-                                map.next_value::<std::option::Option<wkt::Duration>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for Rotation {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.next_rotation_time.is_some() {
-            state.serialize_entry("nextRotationTime", &self.next_rotation_time)?;
-        }
-        if self.rotation_period.is_some() {
-            state.serialize_entry("rotationPeriod", &self.rotation_period)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for Rotation {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Rotation");
-        debug_struct.field("next_rotation_time", &self.next_rotation_time);
-        debug_struct.field("rotation_period", &self.rotation_period);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -3892,7 +2137,7 @@ pub struct SecretPayload {
     /// [google.cloud.secretmanager.v1.SecretPayload.data]: crate::model::SecretPayload::data
     pub data_crc32c: std::option::Option<i64>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecretPayload {
@@ -3901,12 +2146,24 @@ impl SecretPayload {
     }
 
     /// Sets the value of [data][crate::model::SecretPayload::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = SecretPayload::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of [data_crc32c][crate::model::SecretPayload::data_crc32c].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = SecretPayload::new().set_data_crc32c(42);
+    /// ```
     pub fn set_data_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3916,6 +2173,13 @@ impl SecretPayload {
     }
 
     /// Sets or clears the value of [data_crc32c][crate::model::SecretPayload::data_crc32c].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = SecretPayload::new().set_or_clear_data_crc32c(Some(42));
+    /// let x = SecretPayload::new().set_or_clear_data_crc32c(None::<i32>);
+    /// ```
     pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3928,174 +2192,6 @@ impl SecretPayload {
 impl wkt::message::Message for SecretPayload {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.SecretPayload"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for SecretPayload {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __data,
-            __data_crc32c,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for SecretPayload")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "data" => Ok(__FieldTag::__data),
-                            "dataCrc32c" => Ok(__FieldTag::__data_crc32c),
-                            "data_crc32c" => Ok(__FieldTag::__data_crc32c),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = SecretPayload;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct SecretPayload")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__data => {
-                            if !fields.insert(__FieldTag::__data) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for data",
-                                ));
-                            }
-                            struct __With(std::option::Option<::bytes::Bytes>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.data = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::__data_crc32c => {
-                            if !fields.insert(__FieldTag::__data_crc32c) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for data_crc32c",
-                                ));
-                            }
-                            struct __With(std::option::Option<i64>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.data_crc32c = map.next_value::<__With>()?.0;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for SecretPayload {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.data.is_empty() {
-            struct __With<'a>(&'a ::bytes::Bytes);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("data", &__With(&self.data))?;
-        }
-        if self.data_crc32c.is_some() {
-            struct __With<'a>(&'a std::option::Option<i64>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("dataCrc32c", &__With(&self.data_crc32c))?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for SecretPayload {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SecretPayload");
-        debug_struct.field("data", &self.data);
-        debug_struct.field("data_crc32c", &self.data_crc32c);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -4131,7 +2227,7 @@ pub struct ListSecretsRequest {
     /// listed.
     pub filter: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretsRequest {
@@ -4140,24 +2236,48 @@ impl ListSecretsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSecretsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
+    /// let x = ListSecretsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSecretsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
+    /// let x = ListSecretsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSecretsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
+    /// let x = ListSecretsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSecretsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
+    /// let x = ListSecretsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4167,187 +2287,6 @@ impl ListSecretsRequest {
 impl wkt::message::Message for ListSecretsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.ListSecretsRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListSecretsRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __page_size,
-            __page_token,
-            __filter,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListSecretsRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "pageSize" => Ok(__FieldTag::__page_size),
-                            "page_size" => Ok(__FieldTag::__page_size),
-                            "pageToken" => Ok(__FieldTag::__page_token),
-                            "page_token" => Ok(__FieldTag::__page_token),
-                            "filter" => Ok(__FieldTag::__filter),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListSecretsRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListSecretsRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__page_size => {
-                            if !fields.insert(__FieldTag::__page_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_size",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::__page_token => {
-                            if !fields.insert(__FieldTag::__page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_token",
-                                ));
-                            }
-                            result.page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__filter => {
-                            if !fields.insert(__FieldTag::__filter) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for filter",
-                                ));
-                            }
-                            result.filter = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListSecretsRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if !wkt::internal::is_default(&self.page_size) {
-            struct __With<'a>(&'a i32);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("pageSize", &__With(&self.page_size))?;
-        }
-        if !self.page_token.is_empty() {
-            state.serialize_entry("pageToken", &self.page_token)?;
-        }
-        if !self.filter.is_empty() {
-            state.serialize_entry("filter", &self.filter)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListSecretsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSecretsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("page_size", &self.page_size);
-        debug_struct.field("page_token", &self.page_token);
-        debug_struct.field("filter", &self.filter);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -4380,7 +2319,7 @@ pub struct ListSecretsResponse {
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     pub total_size: i32,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretsResponse {
@@ -4389,6 +2328,17 @@ impl ListSecretsResponse {
     }
 
     /// Sets the value of [secrets][crate::model::ListSecretsResponse::secrets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsResponse;
+    /// use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = ListSecretsResponse::new()
+    ///     .set_secrets([
+    ///         Secret::default()/* use setters */,
+    ///         Secret::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_secrets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4400,12 +2350,24 @@ impl ListSecretsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSecretsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsResponse;
+    /// let x = ListSecretsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListSecretsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretsResponse;
+    /// let x = ListSecretsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -4429,169 +2391,6 @@ impl gax::paginator::internal::PageableResponse for ListSecretsResponse {
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
         self.next_page_token.clone()
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListSecretsResponse {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __secrets,
-            __next_page_token,
-            __total_size,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListSecretsResponse")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "secrets" => Ok(__FieldTag::__secrets),
-                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
-                            "next_page_token" => Ok(__FieldTag::__next_page_token),
-                            "totalSize" => Ok(__FieldTag::__total_size),
-                            "total_size" => Ok(__FieldTag::__total_size),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListSecretsResponse;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListSecretsResponse")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__secrets => {
-                            if !fields.insert(__FieldTag::__secrets) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for secrets",
-                                ));
-                            }
-                            result.secrets = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Secret>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__next_page_token => {
-                            if !fields.insert(__FieldTag::__next_page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for next_page_token",
-                                ));
-                            }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__total_size => {
-                            if !fields.insert(__FieldTag::__total_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for total_size",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.total_size = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListSecretsResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.secrets.is_empty() {
-            state.serialize_entry("secrets", &self.secrets)?;
-        }
-        if !self.next_page_token.is_empty() {
-            state.serialize_entry("nextPageToken", &self.next_page_token)?;
-        }
-        if !wkt::internal::is_default(&self.total_size) {
-            struct __With<'a>(&'a i32);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("totalSize", &__With(&self.total_size))?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListSecretsResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSecretsResponse");
-        debug_struct.field("secrets", &self.secrets);
-        debug_struct.field("next_page_token", &self.next_page_token);
-        debug_struct.field("total_size", &self.total_size);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -4622,7 +2421,7 @@ pub struct CreateSecretRequest {
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     pub secret: std::option::Option<crate::model::Secret>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSecretRequest {
@@ -4631,18 +2430,37 @@ impl CreateSecretRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSecretRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
+    /// let x = CreateSecretRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [secret_id][crate::model::CreateSecretRequest::secret_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
+    /// let x = CreateSecretRequest::new().set_secret_id("example");
+    /// ```
     pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_id = v.into();
         self
     }
 
     /// Sets the value of [secret][crate::model::CreateSecretRequest::secret].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
+    /// use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = CreateSecretRequest::new().set_secret(Secret::default()/* use setters */);
+    /// ```
     pub fn set_secret<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -4652,6 +2470,14 @@ impl CreateSecretRequest {
     }
 
     /// Sets or clears the value of [secret][crate::model::CreateSecretRequest::secret].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
+    /// use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = CreateSecretRequest::new().set_or_clear_secret(Some(Secret::default()/* use setters */));
+    /// let x = CreateSecretRequest::new().set_or_clear_secret(None::<Secret>);
+    /// ```
     pub fn set_or_clear_secret<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -4664,151 +2490,6 @@ impl CreateSecretRequest {
 impl wkt::message::Message for CreateSecretRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.CreateSecretRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for CreateSecretRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __secret_id,
-            __secret,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CreateSecretRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "secretId" => Ok(__FieldTag::__secret_id),
-                            "secret_id" => Ok(__FieldTag::__secret_id),
-                            "secret" => Ok(__FieldTag::__secret),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = CreateSecretRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CreateSecretRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__secret_id => {
-                            if !fields.insert(__FieldTag::__secret_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for secret_id",
-                                ));
-                            }
-                            result.secret_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__secret => {
-                            if !fields.insert(__FieldTag::__secret) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for secret",
-                                ));
-                            }
-                            result.secret =
-                                map.next_value::<std::option::Option<crate::model::Secret>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for CreateSecretRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if !self.secret_id.is_empty() {
-            state.serialize_entry("secretId", &self.secret_id)?;
-        }
-        if self.secret.is_some() {
-            state.serialize_entry("secret", &self.secret)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for CreateSecretRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateSecretRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("secret_id", &self.secret_id);
-        debug_struct.field("secret", &self.secret);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -4834,7 +2515,7 @@ pub struct AddSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub payload: std::option::Option<crate::model::SecretPayload>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AddSecretVersionRequest {
@@ -4843,12 +2524,25 @@ impl AddSecretVersionRequest {
     }
 
     /// Sets the value of [parent][crate::model::AddSecretVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AddSecretVersionRequest;
+    /// let x = AddSecretVersionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AddSecretVersionRequest;
+    /// use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = AddSecretVersionRequest::new().set_payload(SecretPayload::default()/* use setters */);
+    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -4858,6 +2552,14 @@ impl AddSecretVersionRequest {
     }
 
     /// Sets or clears the value of [payload][crate::model::AddSecretVersionRequest::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AddSecretVersionRequest;
+    /// use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = AddSecretVersionRequest::new().set_or_clear_payload(Some(SecretPayload::default()/* use setters */));
+    /// let x = AddSecretVersionRequest::new().set_or_clear_payload(None::<SecretPayload>);
+    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -4870,134 +2572,6 @@ impl AddSecretVersionRequest {
 impl wkt::message::Message for AddSecretVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.AddSecretVersionRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for AddSecretVersionRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __payload,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for AddSecretVersionRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "payload" => Ok(__FieldTag::__payload),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = AddSecretVersionRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct AddSecretVersionRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__payload => {
-                            if !fields.insert(__FieldTag::__payload) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for payload",
-                                ));
-                            }
-                            result.payload = map
-                                .next_value::<std::option::Option<crate::model::SecretPayload>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for AddSecretVersionRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if self.payload.is_some() {
-            state.serialize_entry("payload", &self.payload)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for AddSecretVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AddSecretVersionRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("payload", &self.payload);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -5015,7 +2589,7 @@ pub struct GetSecretRequest {
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSecretRequest {
@@ -5024,6 +2598,12 @@ impl GetSecretRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSecretRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::GetSecretRequest;
+    /// let x = GetSecretRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5033,119 +2613,6 @@ impl GetSecretRequest {
 impl wkt::message::Message for GetSecretRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.GetSecretRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GetSecretRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GetSecretRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GetSecretRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GetSecretRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GetSecretRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GetSecretRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetSecretRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -5181,7 +2648,7 @@ pub struct ListSecretVersionsRequest {
     /// versions are listed.
     pub filter: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretVersionsRequest {
@@ -5190,24 +2657,48 @@ impl ListSecretVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSecretVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
+    /// let x = ListSecretVersionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSecretVersionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
+    /// let x = ListSecretVersionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSecretVersionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
+    /// let x = ListSecretVersionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSecretVersionsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
+    /// let x = ListSecretVersionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -5217,187 +2708,6 @@ impl ListSecretVersionsRequest {
 impl wkt::message::Message for ListSecretVersionsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.ListSecretVersionsRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListSecretVersionsRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __page_size,
-            __page_token,
-            __filter,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListSecretVersionsRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "pageSize" => Ok(__FieldTag::__page_size),
-                            "page_size" => Ok(__FieldTag::__page_size),
-                            "pageToken" => Ok(__FieldTag::__page_token),
-                            "page_token" => Ok(__FieldTag::__page_token),
-                            "filter" => Ok(__FieldTag::__filter),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListSecretVersionsRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListSecretVersionsRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__page_size => {
-                            if !fields.insert(__FieldTag::__page_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_size",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::__page_token => {
-                            if !fields.insert(__FieldTag::__page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_token",
-                                ));
-                            }
-                            result.page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__filter => {
-                            if !fields.insert(__FieldTag::__filter) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for filter",
-                                ));
-                            }
-                            result.filter = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListSecretVersionsRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if !wkt::internal::is_default(&self.page_size) {
-            struct __With<'a>(&'a i32);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("pageSize", &__With(&self.page_size))?;
-        }
-        if !self.page_token.is_empty() {
-            state.serialize_entry("pageToken", &self.page_token)?;
-        }
-        if !self.filter.is_empty() {
-            state.serialize_entry("filter", &self.filter)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListSecretVersionsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSecretVersionsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("page_size", &self.page_size);
-        debug_struct.field("page_token", &self.page_token);
-        debug_struct.field("filter", &self.filter);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -5431,7 +2741,7 @@ pub struct ListSecretVersionsResponse {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub total_size: i32,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretVersionsResponse {
@@ -5440,6 +2750,17 @@ impl ListSecretVersionsResponse {
     }
 
     /// Sets the value of [versions][crate::model::ListSecretVersionsResponse::versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsResponse;
+    /// use google_cloud_secretmanager_v1::model::SecretVersion;
+    /// let x = ListSecretVersionsResponse::new()
+    ///     .set_versions([
+    ///         SecretVersion::default()/* use setters */,
+    ///         SecretVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5451,12 +2772,24 @@ impl ListSecretVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSecretVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsResponse;
+    /// let x = ListSecretVersionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListSecretVersionsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsResponse;
+    /// let x = ListSecretVersionsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -5483,169 +2816,6 @@ impl gax::paginator::internal::PageableResponse for ListSecretVersionsResponse {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListSecretVersionsResponse {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __versions,
-            __next_page_token,
-            __total_size,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListSecretVersionsResponse")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "versions" => Ok(__FieldTag::__versions),
-                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
-                            "next_page_token" => Ok(__FieldTag::__next_page_token),
-                            "totalSize" => Ok(__FieldTag::__total_size),
-                            "total_size" => Ok(__FieldTag::__total_size),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListSecretVersionsResponse;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListSecretVersionsResponse")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__versions => {
-                            if !fields.insert(__FieldTag::__versions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for versions",
-                                ));
-                            }
-                            result.versions = map.next_value::<std::option::Option<std::vec::Vec<crate::model::SecretVersion>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__next_page_token => {
-                            if !fields.insert(__FieldTag::__next_page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for next_page_token",
-                                ));
-                            }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__total_size => {
-                            if !fields.insert(__FieldTag::__total_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for total_size",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.total_size = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListSecretVersionsResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.versions.is_empty() {
-            state.serialize_entry("versions", &self.versions)?;
-        }
-        if !self.next_page_token.is_empty() {
-            state.serialize_entry("nextPageToken", &self.next_page_token)?;
-        }
-        if !wkt::internal::is_default(&self.total_size) {
-            struct __With<'a>(&'a i32);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("totalSize", &__With(&self.total_size))?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListSecretVersionsResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSecretVersionsResponse");
-        debug_struct.field("versions", &self.versions);
-        debug_struct.field("next_page_token", &self.next_page_token);
-        debug_struct.field("total_size", &self.total_size);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request message for
 /// [SecretManagerService.GetSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion].
 ///
@@ -5666,7 +2836,7 @@ pub struct GetSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSecretVersionRequest {
@@ -5675,6 +2845,12 @@ impl GetSecretVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSecretVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::GetSecretVersionRequest;
+    /// let x = GetSecretVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5684,119 +2860,6 @@ impl GetSecretVersionRequest {
 impl wkt::message::Message for GetSecretVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.GetSecretVersionRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GetSecretVersionRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GetSecretVersionRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GetSecretVersionRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GetSecretVersionRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GetSecretVersionRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GetSecretVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetSecretVersionRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -5816,7 +2879,7 @@ pub struct UpdateSecretRequest {
     /// Required. Specifies the fields to be updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSecretRequest {
@@ -5825,6 +2888,13 @@ impl UpdateSecretRequest {
     }
 
     /// Sets the value of [secret][crate::model::UpdateSecretRequest::secret].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
+    /// use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = UpdateSecretRequest::new().set_secret(Secret::default()/* use setters */);
+    /// ```
     pub fn set_secret<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -5834,6 +2904,14 @@ impl UpdateSecretRequest {
     }
 
     /// Sets or clears the value of [secret][crate::model::UpdateSecretRequest::secret].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
+    /// use google_cloud_secretmanager_v1::model::Secret;
+    /// let x = UpdateSecretRequest::new().set_or_clear_secret(Some(Secret::default()/* use setters */));
+    /// let x = UpdateSecretRequest::new().set_or_clear_secret(None::<Secret>);
+    /// ```
     pub fn set_or_clear_secret<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -5843,6 +2921,13 @@ impl UpdateSecretRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSecretRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5852,6 +2937,14 @@ impl UpdateSecretRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSecretRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSecretRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5864,134 +2957,6 @@ impl UpdateSecretRequest {
 impl wkt::message::Message for UpdateSecretRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.UpdateSecretRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for UpdateSecretRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __secret,
-            __update_mask,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for UpdateSecretRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "secret" => Ok(__FieldTag::__secret),
-                            "updateMask" => Ok(__FieldTag::__update_mask),
-                            "update_mask" => Ok(__FieldTag::__update_mask),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = UpdateSecretRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct UpdateSecretRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__secret => {
-                            if !fields.insert(__FieldTag::__secret) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for secret",
-                                ));
-                            }
-                            result.secret =
-                                map.next_value::<std::option::Option<crate::model::Secret>>()?;
-                        }
-                        __FieldTag::__update_mask => {
-                            if !fields.insert(__FieldTag::__update_mask) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for update_mask",
-                                ));
-                            }
-                            result.update_mask =
-                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for UpdateSecretRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.secret.is_some() {
-            state.serialize_entry("secret", &self.secret)?;
-        }
-        if self.update_mask.is_some() {
-            state.serialize_entry("updateMask", &self.update_mask)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for UpdateSecretRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateSecretRequest");
-        debug_struct.field("secret", &self.secret);
-        debug_struct.field("update_mask", &self.update_mask);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -6015,7 +2980,7 @@ pub struct AccessSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessSecretVersionRequest {
@@ -6024,6 +2989,12 @@ impl AccessSecretVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::AccessSecretVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionRequest;
+    /// let x = AccessSecretVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6033,119 +3004,6 @@ impl AccessSecretVersionRequest {
 impl wkt::message::Message for AccessSecretVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.AccessSecretVersionRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for AccessSecretVersionRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for AccessSecretVersionRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = AccessSecretVersionRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct AccessSecretVersionRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for AccessSecretVersionRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for AccessSecretVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AccessSecretVersionRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -6167,7 +3025,7 @@ pub struct AccessSecretVersionResponse {
     /// Secret payload
     pub payload: std::option::Option<crate::model::SecretPayload>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessSecretVersionResponse {
@@ -6176,12 +3034,25 @@ impl AccessSecretVersionResponse {
     }
 
     /// Sets the value of [name][crate::model::AccessSecretVersionResponse::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionResponse;
+    /// let x = AccessSecretVersionResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [payload][crate::model::AccessSecretVersionResponse::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionResponse;
+    /// use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = AccessSecretVersionResponse::new().set_payload(SecretPayload::default()/* use setters */);
+    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -6191,6 +3062,14 @@ impl AccessSecretVersionResponse {
     }
 
     /// Sets or clears the value of [payload][crate::model::AccessSecretVersionResponse::payload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionResponse;
+    /// use google_cloud_secretmanager_v1::model::SecretPayload;
+    /// let x = AccessSecretVersionResponse::new().set_or_clear_payload(Some(SecretPayload::default()/* use setters */));
+    /// let x = AccessSecretVersionResponse::new().set_or_clear_payload(None::<SecretPayload>);
+    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecretPayload>,
@@ -6203,134 +3082,6 @@ impl AccessSecretVersionResponse {
 impl wkt::message::Message for AccessSecretVersionResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.AccessSecretVersionResponse"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for AccessSecretVersionResponse {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __payload,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for AccessSecretVersionResponse")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "payload" => Ok(__FieldTag::__payload),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = AccessSecretVersionResponse;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct AccessSecretVersionResponse")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__payload => {
-                            if !fields.insert(__FieldTag::__payload) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for payload",
-                                ));
-                            }
-                            result.payload = map
-                                .next_value::<std::option::Option<crate::model::SecretPayload>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for AccessSecretVersionResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.payload.is_some() {
-            state.serialize_entry("payload", &self.payload)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for AccessSecretVersionResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AccessSecretVersionResponse");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("payload", &self.payload);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -6355,7 +3106,7 @@ pub struct DeleteSecretRequest {
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     pub etag: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSecretRequest {
@@ -6364,12 +3115,24 @@ impl DeleteSecretRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSecretRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DeleteSecretRequest;
+    /// let x = DeleteSecretRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteSecretRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DeleteSecretRequest;
+    /// let x = DeleteSecretRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -6379,135 +3142,6 @@ impl DeleteSecretRequest {
 impl wkt::message::Message for DeleteSecretRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.DeleteSecretRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for DeleteSecretRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __etag,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for DeleteSecretRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "etag" => Ok(__FieldTag::__etag),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = DeleteSecretRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct DeleteSecretRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__etag => {
-                            if !fields.insert(__FieldTag::__etag) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for etag",
-                                ));
-                            }
-                            result.etag = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for DeleteSecretRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.etag.is_empty() {
-            state.serialize_entry("etag", &self.etag)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for DeleteSecretRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteSecretRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("etag", &self.etag);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -6534,7 +3168,7 @@ pub struct DisableSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub etag: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DisableSecretVersionRequest {
@@ -6543,12 +3177,24 @@ impl DisableSecretVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DisableSecretVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DisableSecretVersionRequest;
+    /// let x = DisableSecretVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DisableSecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DisableSecretVersionRequest;
+    /// let x = DisableSecretVersionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -6558,135 +3204,6 @@ impl DisableSecretVersionRequest {
 impl wkt::message::Message for DisableSecretVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.DisableSecretVersionRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for DisableSecretVersionRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __etag,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for DisableSecretVersionRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "etag" => Ok(__FieldTag::__etag),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = DisableSecretVersionRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct DisableSecretVersionRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__etag => {
-                            if !fields.insert(__FieldTag::__etag) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for etag",
-                                ));
-                            }
-                            result.etag = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for DisableSecretVersionRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.etag.is_empty() {
-            state.serialize_entry("etag", &self.etag)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for DisableSecretVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DisableSecretVersionRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("etag", &self.etag);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -6713,7 +3230,7 @@ pub struct EnableSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub etag: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnableSecretVersionRequest {
@@ -6722,12 +3239,24 @@ impl EnableSecretVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::EnableSecretVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::EnableSecretVersionRequest;
+    /// let x = EnableSecretVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::EnableSecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::EnableSecretVersionRequest;
+    /// let x = EnableSecretVersionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -6737,135 +3266,6 @@ impl EnableSecretVersionRequest {
 impl wkt::message::Message for EnableSecretVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.EnableSecretVersionRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for EnableSecretVersionRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __etag,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for EnableSecretVersionRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "etag" => Ok(__FieldTag::__etag),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = EnableSecretVersionRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct EnableSecretVersionRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__etag => {
-                            if !fields.insert(__FieldTag::__etag) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for etag",
-                                ));
-                            }
-                            result.etag = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for EnableSecretVersionRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.etag.is_empty() {
-            state.serialize_entry("etag", &self.etag)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for EnableSecretVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("EnableSecretVersionRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("etag", &self.etag);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -6892,7 +3292,7 @@ pub struct DestroySecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub etag: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DestroySecretVersionRequest {
@@ -6901,12 +3301,24 @@ impl DestroySecretVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DestroySecretVersionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DestroySecretVersionRequest;
+    /// let x = DestroySecretVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DestroySecretVersionRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::model::DestroySecretVersionRequest;
+    /// let x = DestroySecretVersionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -6916,134 +3328,5 @@ impl DestroySecretVersionRequest {
 impl wkt::message::Message for DestroySecretVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.secretmanager.v1.DestroySecretVersionRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for DestroySecretVersionRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __etag,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for DestroySecretVersionRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "etag" => Ok(__FieldTag::__etag),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = DestroySecretVersionRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct DestroySecretVersionRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__etag => {
-                            if !fields.insert(__FieldTag::__etag) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for etag",
-                                ));
-                            }
-                            result.etag = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for DestroySecretVersionRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.etag.is_empty() {
-            state.serialize_entry("etag", &self.etag)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for DestroySecretVersionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DestroySecretVersionRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("etag", &self.etag);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }

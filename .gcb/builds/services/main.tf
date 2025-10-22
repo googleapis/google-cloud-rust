@@ -14,9 +14,33 @@
 
 variable "project" {}
 
+resource "google_project_service" "aiplatform" {
+  project = var.project
+  service = "aiplatform.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
+
 resource "google_project_service" "bigquery" {
   project = var.project
   service = "bigquery.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "compute" {
+  project = var.project
+  service = "compute.googleapis.com"
 
   timeouts {
     create = "30m"

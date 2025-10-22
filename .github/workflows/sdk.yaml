@@ -16,14 +16,17 @@ name: Rust SDK
 permissions: read-all
 on:
   push:
-    branches: [main]
+    branches: [main, 'release-*']
   pull_request:
-    branches: [main]
+    branches: [main, 'release-*']
   release:
     types: [published]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.89", "rust:nightly": "nightly" }'
-  GHA_GO_VERSIONS: '{ "go:current": "1.23.8" }'
+  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.90", "rust:nightly": "nightly" }'
+  GHA_GO_VERSIONS: '{ "go:current": "1.25.0" }'
+  # Define the unstable flags once
+  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token'
+
 jobs:
   build:
     strategy:
@@ -34,6 +37,8 @@ jobs:
           - os: 'ubuntu-24.04'
             rust-version: 'rust:msrv'
     runs-on: ${{ matrix.os }}
+    env:
+      RUSTFLAGS: *unstable_cfgs
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
@@ -53,10 +58,12 @@ jobs:
       - name: Build full workspace
         # See Cargo.toml for the definition and motivation of this profile
         run: cargo clean && cargo build --profile=ci --workspace
+        if: matrix.os != 'windows-2025'
       - name: Running tests for full workspace
         # See Cargo.toml for the definition and motivation of this profile
         run: cargo clean && cargo test --profile=ci --workspace
         if: github.event_name == 'push'
+
   features:
     strategy:
       matrix:
@@ -64,7 +71,7 @@ jobs:
         rust-version: ['rust:current']
     runs-on: ${{ matrix.os }}
     env:
-      RUSTDOCFLAGS: "-D warnings"
+      RUSTDOCFLAGS: '-D warnings'
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
@@ -154,11 +161,60 @@ jobs:
           cargo clippy --no-deps --package google-cloud-storage --all-targets -- --deny warnings
           cargo clippy --no-deps --package google-cloud-storage --all-features --all-targets --profile=test -- --deny warnings
 
+  test-unstable-cfg:
+    strategy:
+      matrix:
+        os: ['ubuntu-24.04']
+        rust-version: ['rust:current']
+    runs-on: ${{ matrix.os }}
+    env:
+      RUSTFLAGS: *unstable_cfgs
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}-unstable
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup component add clippy
+      - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - name: Test key crates and integration tests with Unstable CFGs
+        run: |
+          set -e
+          echo "RUSTFLAGS in test-unstable-cfg: $RUSTFLAGS"
+
+          # Key crates
+          KEY_CRATES=("google-cloud-gax" "google-cloud-gax-internal" "google-cloud-test-utils")
+          for crate in "${KEY_CRATES[@]}"; do
+            cargo clean
+            echo "==== ${crate} (UNSTABLE - No Default Features) ===="
+            cargo test --package ${crate} --no-default-features
+
+            cargo clean
+            echo "==== ${crate} (UNSTABLE - All Features) ===="
+            cargo test --package ${crate} --all-features
+          done
+
+          # Integration tests
+          echo "==== integration-tests (UNSTABLE) ===="
+          cargo test -p integration-tests --features run-showcase-tests
+
   coverage:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
         rust-version: ['rust:current']
+    env:
+      RUSTFLAGS: *unstable_cfgs
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
@@ -188,6 +244,8 @@ jobs:
     strategy:
       matrix:
         rust-version: ['rust:current']
+    env:
+      RUSTFLAGS: *unstable_cfgs
     steps:
       - uses: actions/checkout@v5
       - uses: actions/cache@v4
@@ -211,10 +269,111 @@ jobs:
           cargo minimal-versions test --package user-guide-samples
           cargo minimal-versions test --package storage-samples
           cargo minimal-versions test --package google-cloud-storage
+          cargo minimal-versions check --package google-cloud-storage
           cargo minimal-versions test --package google-cloud-gax-internal
+          cargo minimal-versions check --package google-cloud-gax-internal
           cargo minimal-versions test --package google-cloud-auth
+          cargo minimal-versions check --package google-cloud-auth
           cargo minimal-versions test --package google-cloud-gax
+          cargo minimal-versions check --package google-cloud-gax
           cargo minimal-versions test --package google-cloud-wkt
+          cargo minimal-versions check --package google-cloud-wkt
+
+  semver-checks:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['rust:current']
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Check for major breaks in key libraries
+        # TODO(#3265) - replace with a standard tool or a program in Go or Rust.
+        run: |
+          set -e
+          if [[ '${{ contains(github.event.pull_request.labels.*.name, 'rust: no-semver-checks') }}' == 'true' ]]; then
+            exit 0
+          fi
+          dirs=(
+            src/wkt
+            src/gax
+            src/lro
+            src/auth
+            src/generated/cloud/location
+            src/generated/iam/v1
+            src/generated/longrunning
+          )
+          git fetch origin main
+          cat >major-break.awk <<'_EOF_'
+            function v(s) {
+                s = substr(s, 2, length(s)-2);
+                return s
+            }
+            /^\+version/ { new = v($2) }
+            /^\-version/ { old = v($2) }
+            END {
+                if (new == "" || old == "") {
+                  exit 1
+                }
+                split(old, a, ".")
+                split(new, b, ".")
+                if (a[1] != b[1]) {
+                    printf("major version mismatch: new=%s old=%s\n", new, old)
+                    exit 0
+                }
+                if (a[1] == "0" && b[1] == "0" && a[2] != b[2]) {
+                    printf("minor version mismatch on 0.x series: new=%s old=%s\n", new, old)
+                    exit 0
+                }
+                printf("major versions match: old=%s, new=%s\n", old, new)
+                exit 1
+            }
+          _EOF_
+          set +e
+          for name in "${dirs[@]}"; do
+            if git diff origin/main..HEAD -- "${name}/Cargo.toml" | awk -F' = ' -f major-break.awk; then
+              cat <<_EOF_
+          The major version (or minor for a 0.x series) of a critical package
+          (located in ${name}) is changing. The types from this package are part
+          of the public API for many other packages. You need to bump the
+          version of all downstream packages and then disable this check using
+          the 'rust: no-semver-checks' github label.
+          _EOF_
+              exit 1
+            fi
+          done
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          cargo install --locked cargo-semver-checks@0.44.0
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - run: |
+          set -e
+          cargo semver-checks --all-features -p google-cloud-wkt
+          cargo semver-checks --all-features -p google-cloud-api
+          cargo semver-checks --all-features -p google-cloud-rpc
+          cargo semver-checks --all-features -p google-cloud-gax
+          cargo semver-checks --all-features -p google-cloud-auth
+          cargo semver-checks --all-features -p google-cloud-gax-internal
+          cargo semver-checks --all-features -p google-cloud-type
+          cargo semver-checks --all-features -p google-cloud-iam-v1
+          cargo semver-checks --all-features -p google-cloud-location
+          cargo semver-checks --all-features -p google-cloud-longrunning
+          cargo semver-checks --all-features -p google-cloud-lro
+          cargo semver-checks --all-features -p google-cloud-kms-v1
+          cargo semver-checks --all-features -p google-cloud-language-v2
+          cargo semver-checks --all-features -p google-cloud-secretmanager-v1
+          cargo semver-checks --all-features -p google-cloud-speech-v2
+          cargo semver-checks --all-features -p google-cloud-storage
 
   showcase:
     runs-on: ubuntu-24.04
@@ -239,7 +398,7 @@ jobs:
       - name: Display rustc version
         run: rustup show active-toolchain -v
       - name: Setup Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
       - run: |
@@ -310,19 +469,24 @@ jobs:
       - name: Display rustc version
         run: rustup show active-toolchain -v
       - run: cargo doc --workspace
+        if: matrix.rust-version == 'rust:current'
         env:
-          RUSTDOCFLAGS: "-D warnings"
-      - run: cargo doc --package google-cloud-gax
+          RUSTDOCFLAGS: '-D warnings'
+      - run: cargo doc
+        # The nightly builds are slow for some reason, so we run a smaller set
+        # of documents for them. We expect these will catch most problems.
+        if: matrix.rust-version == 'rust:nightly'
         env:
-          RUSTDOCFLAGS: "-D warnings"
+          RUSTDOCFLAGS: '-D warnings'
       - run: mdbook build guide
       - run: mdbook test guide
       - name: Upload user guide
-        if: ${{ matrix.rust-version == 'rust:current' }}
+        if: matrix.rust-version == 'rust:current'
         id: deployment
         uses: actions/upload-pages-artifact@v4 # or specific "vX.X.X" version tag for this action
         with:
           path: guide/book/
+
   deploy:
     if: github.event_name == 'release'
     runs-on: ubuntu-24.04
@@ -339,6 +503,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
   lint:
     runs-on: ubuntu-24.04
     strategy:
@@ -364,6 +529,35 @@ jobs:
       - run: cargo clippy --workspace --all-targets --profile=test -- --deny warnings
       - run: cargo fmt
       - run: git diff --exit-code
+
+  lint-unstable:
+    runs-on: ubuntu-24.04
+    env:
+      RUSTFLAGS: *unstable_cfgs
+    strategy:
+      matrix:
+        rust-version: ['rust:current']
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup component add clippy rustfmt
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - run: cargo clippy --workspace --all-targets --profile=test -- --deny warnings
+      - run: cargo fmt
+      - run: git diff --exit-code
+
   regenerate:
     # Verifies the generated code has not been tampered with. Or maybe that the
     # code requires no tampering.
@@ -390,7 +584,7 @@ jobs:
       - name: Display rustc version
         run: rustup show active-toolchain -v
       - name: Setup Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
       - name: Install protoc
@@ -401,9 +595,42 @@ jobs:
           sudo unzip -x /tmp/protoc.zip
           protoc --version
       - name: Regenerate all the code
-        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.1.2-0.20250827183345-8f409cc46adc refreshall -project-root .
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.4.1-0.20251020204149-2c94a53f0fb5 refreshall
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,
         # including the generator version and the googleapis SHA.
       - run: git diff --exit-code
+
+  compute-all-features:
+    strategy:
+      matrix:
+        os: ['ubuntu-24.04']
+        rust-version: ['rust:current']
+    runs-on: ${{ matrix.os }}
+    env:
+      RUSTDOCFLAGS: '-D warnings'
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup component add clippy
+      - run: rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - name: lint
+        run: cargo clippy --all-features --all-targets --profile=test -p google-cloud-compute-v1
+      - name: docs
+        run: cargo doc --all-features -p google-cloud-compute-v1
+      - name: tests
+        run: cargo test --all-features -p google-cloud-compute-v1

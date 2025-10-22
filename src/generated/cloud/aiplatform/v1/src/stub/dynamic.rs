@@ -1822,6 +1822,12 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SearchNearestEntitiesResponse>>;
 
+    async fn generate_fetch_access_token(
+        &self,
+        req: crate::model::GenerateFetchAccessTokenRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateFetchAccessTokenResponse>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -1903,6 +1909,16 @@ impl<T: super::FeatureOnlineStoreService> FeatureOnlineStoreService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SearchNearestEntitiesResponse>> {
         T::search_nearest_entities(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn generate_fetch_access_token(
+        &self,
+        req: crate::model::GenerateFetchAccessTokenRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateFetchAccessTokenResponse>>
+    {
+        T::generate_fetch_access_token(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

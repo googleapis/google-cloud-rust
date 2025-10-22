@@ -15,7 +15,11 @@
 [package]
 description = "Google Cloud Client Libraries for Rust - LRO Helpers"
 name        = "google-cloud-lro"
-version     = "0.3.5"
+# ATTENTION: if you change the major version, remember to change the major
+#     version of all downstream dependencies. For details see:
+#         https://github.com/googleapis/google-cloud-rust/issues/3237
+#         https://github.com/googleapis/google-cloud-rust/issues/3265
+version = "1.1.0"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true

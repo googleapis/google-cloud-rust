@@ -26,6 +26,7 @@ ignore:
   - "src/gax-internal/grpc-server"
   - "src/w1r3"
   - "tools/check-copyright"
+  - "tools/golints"
   # Ignore libraries which go unused in the coverage build.
   - "guide/samples"
   - "src/integration-tests"

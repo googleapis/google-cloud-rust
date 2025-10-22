@@ -36,6 +36,9 @@ pub mod query_parameter;
 #[cfg(feature = "_internal-http-client")]
 pub mod http;
 
+#[cfg(feature = "_internal-http-client")]
+pub mod observability;
+
 #[cfg(feature = "_internal-grpc-client")]
 pub mod grpc;
 
@@ -50,6 +53,9 @@ pub mod unimplemented;
 
 #[cfg(feature = "_internal-common")]
 pub mod routing_parameter;
+
+#[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
+pub(crate) mod host;
 
 #[cfg(feature = "_internal-grpc-client")]
 pub(crate) mod google {

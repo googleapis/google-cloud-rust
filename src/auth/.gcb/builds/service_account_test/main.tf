@@ -51,8 +51,8 @@ resource "google_secret_manager_secret" "test-sa-creds-json-secret" {
 
 # Store the test service account key in secret manager.
 resource "google_secret_manager_secret_version" "test-sa-creds-json-secret-version" {
-  secret      = google_secret_manager_secret.test-sa-creds-json-secret.id
-  secret_data = base64decode(google_service_account_key.test-sa-creds-principal-key.private_key)
+  secret         = google_secret_manager_secret.test-sa-creds-json-secret.id
+  secret_data_wo = base64decode(google_service_account_key.test-sa-creds-principal-key.private_key)
 }
 
 # The "secret" that will be accessed by the principal testing service account
@@ -76,7 +76,7 @@ resource "google_secret_manager_secret_version" "test-sa-creds-secret-version" {
   secret = google_secret_manager_secret.test-sa-creds-secret.id
 
   # We do not care that the value is public. We are just testing ACLs.
-  secret_data = "service_account"
+  secret_data_wo = "service_account"
 }
 
 # Set up secret permissions for service account credentials.

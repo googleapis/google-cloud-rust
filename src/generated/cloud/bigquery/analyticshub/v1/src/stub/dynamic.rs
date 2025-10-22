@@ -149,6 +149,48 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
+    async fn create_query_template(
+        &self,
+        req: crate::model::CreateQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>>;
+
+    async fn get_query_template(
+        &self,
+        req: crate::model::GetQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>>;
+
+    async fn list_query_templates(
+        &self,
+        req: crate::model::ListQueryTemplatesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListQueryTemplatesResponse>>;
+
+    async fn update_query_template(
+        &self,
+        req: crate::model::UpdateQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>>;
+
+    async fn delete_query_template(
+        &self,
+        req: crate::model::DeleteQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn submit_query_template(
+        &self,
+        req: crate::model::SubmitQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>>;
+
+    async fn approve_query_template(
+        &self,
+        req: crate::model::ApproveQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>>;
+
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
@@ -366,6 +408,69 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_query_template(
+        &self,
+        req: crate::model::CreateQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>> {
+        T::create_query_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_query_template(
+        &self,
+        req: crate::model::GetQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>> {
+        T::get_query_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_query_templates(
+        &self,
+        req: crate::model::ListQueryTemplatesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListQueryTemplatesResponse>> {
+        T::list_query_templates(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_query_template(
+        &self,
+        req: crate::model::UpdateQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>> {
+        T::update_query_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_query_template(
+        &self,
+        req: crate::model::DeleteQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_query_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn submit_query_template(
+        &self,
+        req: crate::model::SubmitQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>> {
+        T::submit_query_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn approve_query_template(
+        &self,
+        req: crate::model::ApproveQueryTemplateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>> {
+        T::approve_query_template(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

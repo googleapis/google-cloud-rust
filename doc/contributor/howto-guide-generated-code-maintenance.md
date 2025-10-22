@@ -67,6 +67,30 @@ git commit -m"chore: update googleapis SHA circa $(date +%Y-%m-%d)" .
 
 Then send a PR with whatever changed.
 
+## Update the code with new discovery docs
+
+```bash
+git checkout -b chore-update-discovery-sha-circa-$(date +%Y-%m-%d)
+go run github.com/googleapis/librarian/cmd/sidekick@main update -updated-root discovery && taplo fmt .sidekick.toml && cargo fmt
+git commit -m"chore: update discovery SHA circa $(date +%Y-%m-%d)" .
+```
+
+Then send a PR with whatever changed.
+
+## Bump all version numbers
+
+Run:
+
+```bash
+git checkout -b chore-bump-version-numbers-circa-$(date +%Y-%m-%d)
+go run github.com/googleapis/librarian/cmd/sidekick@main rust-bump-versions
+# The previous command fails when `gax-internal` has changed.
+git ls-files -z -- \
+    '*.toml' ':!:**/testdata/**' ':!:**/generated/**' | \
+    xargs -0 taplo fmt
+git commit -m"chore: bump version numbers circa $(date +%Y-%m-%d)" .
+```
+
 ## Refreshing the code
 
 ### All libraries
@@ -131,13 +155,13 @@ Wait for the PR to be approved and merged.
 Then finish your PR in `google-cloud-rust` by running sidekick again:
 
 ```bash
-go run github.com/googleapis/librarian/cmd/sidekick@main refreshall && cargo fmt
+GOPROXY=direct go run github.com/googleapis/librarian/cmd/sidekick@main refreshall && cargo fmt
 ```
 
 Find out what is the new version of librarian:
 
 ```bash
-go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main
+GOPROXY=direct go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main
 ```
 
 Then update any references in this document and in the `.github/workflows/*`

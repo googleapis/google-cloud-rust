@@ -17,7 +17,6 @@
 //! # Example
 //! ```
 //! # use google_cloud_gax::polling_error_policy::*;
-//! # use google_cloud_gax::options;
 //! use std::time::Duration;
 //! // Poll for at most 15 minutes or at most 50 attempts: whichever limit is
 //! // reached first stops the polling loop.
@@ -43,6 +42,7 @@
 //! [RequestOptionsBuilder::with_polling_error_policy]: crate::options::RequestOptionsBuilder::with_polling_error_policy
 
 use crate::error::Error;
+use crate::polling_state::PollingState;
 use crate::retry_result::RetryResult;
 use std::sync::Arc;
 
@@ -54,28 +54,18 @@ pub trait PollingErrorPolicy: Send + Sync + std::fmt::Debug {
     /// Query the polling policy after an error.
     ///
     /// # Parameters
-    /// * `loop_start` - when the polling loop started.
-    /// * `attempt_count` - the number of attempts. This includes the initial
-    ///   attempt. This method called after LRO successfully starts, it is
-    ///   always non-zero.
+    /// * `state` - the current state of the polling loop.
     /// * `error` - the last error when attempting the request.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    fn on_error(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-        error: Error,
-    ) -> RetryResult;
+    fn on_error(&self, state: &PollingState, error: Error) -> RetryResult;
 
     /// Called when the LRO is successfully polled, but the LRO is still in
     /// progress.
+    ///
+    /// # Parameters
+    /// * `state` - the current state of the polling loop.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    fn on_in_progress(
-        &self,
-        _loop_start: std::time::Instant,
-        _attempt_count: u32,
-        _operation_name: &str,
-    ) -> Result<(), Error> {
+    fn on_in_progress(&self, _state: &PollingState, _operation_name: &str) -> Result<(), Error> {
         Ok(())
     }
 }
@@ -113,11 +103,12 @@ pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
     /// # Example
     /// ```
     /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::polling_state::PollingState;
     /// use polling_error_policy::*;
-    /// use std::time::{Duration, Instant};
+    /// use std::time::Duration;
     /// let policy = Aip194Strict.with_time_limit(Duration::from_secs(10)).with_attempt_limit(3);
-    /// let attempt_count = 4;
-    /// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
+    /// let state = PollingState::default().set_attempt_count(4_u32);
+    /// assert!(policy.on_error(&state, transient_error()).is_exhausted());
     ///
     /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
@@ -142,13 +133,13 @@ pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
     /// # Example
     /// ```
     /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::polling_state::PollingState;
     /// use polling_error_policy::*;
-    /// use std::time::Instant;
     /// let policy = Aip194Strict.with_attempt_limit(3);
-    /// assert!(policy.on_error(Instant::now(), 0, transient_error()).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 1, transient_error()).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 2, transient_error()).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 3, transient_error()).is_exhausted());
+    /// assert!(policy.on_error(&PollingState::default().set_attempt_count(0_u32), transient_error()).is_continue());
+    /// assert!(policy.on_error(&PollingState::default().set_attempt_count(1_u32), transient_error()).is_continue());
+    /// assert!(policy.on_error(&PollingState::default().set_attempt_count(2_u32), transient_error()).is_continue());
+    /// assert!(policy.on_error(&PollingState::default().set_attempt_count(3_u32), transient_error()).is_exhausted());
     ///
     /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
@@ -172,10 +163,10 @@ impl<T: PollingErrorPolicy> PollingErrorPolicyExt for T {}
 /// ```
 /// # use google_cloud_gax::*;
 /// # use google_cloud_gax::polling_error_policy::*;
-/// use std::time::Instant;
+/// # use google_cloud_gax::polling_state::PollingState;
 /// let policy = Aip194Strict.with_attempt_limit(3);
-/// let attempt_count = 4;
-/// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
+/// let state = PollingState::default().set_attempt_count(4_u32);
+/// assert!(policy.on_error(&state, transient_error()).is_exhausted());
 ///
 /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
@@ -186,12 +177,7 @@ impl<T: PollingErrorPolicy> PollingErrorPolicyExt for T {}
 pub struct Aip194Strict;
 
 impl PollingErrorPolicy for Aip194Strict {
-    fn on_error(
-        &self,
-        _loop_start: std::time::Instant,
-        _attempt_count: u32,
-        error: Error,
-    ) -> RetryResult {
+    fn on_error(&self, _state: &PollingState, error: Error) -> RetryResult {
         if error.is_transient_and_before_rpc() {
             return RetryResult::Continue(error);
         }
@@ -226,9 +212,9 @@ impl PollingErrorPolicy for Aip194Strict {
 /// ```
 /// # use google_cloud_gax::*;
 /// # use google_cloud_gax::polling_error_policy::*;
-/// use std::time::Instant;
+/// # use google_cloud_gax::polling_state::PollingState;
 /// let policy = AlwaysContinue;
-/// assert!(policy.on_error(Instant::now(), 1, permanent_error()).is_continue());
+/// assert!(policy.on_error(&PollingState::default().set_attempt_count(1_u32), permanent_error()).is_continue());
 ///
 /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::Aborted)) }
@@ -239,12 +225,7 @@ impl PollingErrorPolicy for Aip194Strict {
 pub struct AlwaysContinue;
 
 impl PollingErrorPolicy for AlwaysContinue {
-    fn on_error(
-        &self,
-        _loop_start: std::time::Instant,
-        _attempt_count: u32,
-        error: Error,
-    ) -> RetryResult {
+    fn on_error(&self, _state: &PollingState, error: Error) -> RetryResult {
         RetryResult::Continue(error)
     }
 }
@@ -280,10 +261,11 @@ impl LimitedElapsedTime {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::polling_error_policy::*;
+    /// # use google_cloud_gax::polling_state::PollingState;
     /// use std::time::{Duration, Instant};
     /// let policy = LimitedElapsedTime::new(Duration::from_secs(10));
-    /// let start = Instant::now() - Duration::from_secs(20);
-    /// assert!(policy.on_error(start, 1, transient_error()).is_exhausted());
+    /// let state = PollingState::default().set_start(Instant::now() - Duration::from_secs(20));
+    /// assert!(policy.on_error(&state, transient_error()).is_exhausted());
     ///
     /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
@@ -306,10 +288,11 @@ where
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::polling_error_policy::*;
+    /// # use google_cloud_gax::polling_state::PollingState;
     /// use std::time::{Duration, Instant};
     /// let policy = LimitedElapsedTime::custom(AlwaysContinue, Duration::from_secs(10));
-    /// let start = Instant::now() - Duration::from_secs(20);
-    /// assert!(policy.on_error(start, 1, permanent_error()).is_exhausted());
+    /// let state = PollingState::default().set_start(Instant::now() - Duration::from_secs(20));
+    /// assert!(policy.on_error(&state, permanent_error()).is_exhausted());
     ///
     /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
     /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::Aborted)) }
@@ -343,12 +326,12 @@ impl<P> PollingErrorPolicy for LimitedElapsedTime<P>
 where
     P: PollingErrorPolicy + 'static,
 {
-    fn on_error(&self, start: std::time::Instant, count: u32, error: Error) -> RetryResult {
-        match self.inner.on_error(start, count, error) {
+    fn on_error(&self, state: &PollingState, error: Error) -> RetryResult {
+        match self.inner.on_error(state, error) {
             RetryResult::Permanent(e) => RetryResult::Permanent(e),
             RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
             RetryResult::Continue(e) => {
-                if std::time::Instant::now() >= start + self.maximum_duration {
+                if std::time::Instant::now() >= state.start + self.maximum_duration {
                     RetryResult::Exhausted(e)
                 } else {
                     RetryResult::Continue(e)
@@ -357,15 +340,10 @@ where
         }
     }
 
-    fn on_in_progress(
-        &self,
-        start: std::time::Instant,
-        count: u32,
-        operation_name: &str,
-    ) -> Result<(), Error> {
+    fn on_in_progress(&self, state: &PollingState, operation_name: &str) -> Result<(), Error> {
         self.inner
-            .on_in_progress(start, count, operation_name)
-            .and_then(|_| self.in_progress_impl(start, operation_name))
+            .on_in_progress(state, operation_name)
+            .and_then(|_| self.in_progress_impl(state.start, operation_name))
     }
 }
 
@@ -398,10 +376,11 @@ impl LimitedAttemptCount {
     /// ```
     /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::polling_error_policy::*;
+    /// # use google_cloud_gax::polling_state::PollingState;
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::new(5);
-    /// let attempt_count = 10;
-    /// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
+    /// let state = PollingState::default().set_attempt_count(10_u32);
+    /// assert!(policy.on_error(&state, transient_error()).is_exhausted());
     ///
     /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
     /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
@@ -423,11 +402,11 @@ where
     /// # Example
     /// ```
     /// # use google_cloud_gax::polling_error_policy::*;
+    /// # use google_cloud_gax::polling_state::PollingState;
     /// # use google_cloud_gax::*;
-    /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::custom(AlwaysContinue, 2);
-    /// assert!(policy.on_error(Instant::now(), 1, permanent_error()).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 2, permanent_error()).is_exhausted());
+    /// assert!(policy.on_error(&PollingState::default().set_attempt_count(1_u32), permanent_error()).is_continue());
+    /// assert!(policy.on_error(&PollingState::default().set_attempt_count(2_u32), permanent_error()).is_exhausted());
     ///
     /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
     /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::Aborted)) }
@@ -456,12 +435,12 @@ impl<P> PollingErrorPolicy for LimitedAttemptCount<P>
 where
     P: PollingErrorPolicy,
 {
-    fn on_error(&self, start: std::time::Instant, count: u32, error: Error) -> RetryResult {
-        match self.inner.on_error(start, count, error) {
+    fn on_error(&self, state: &PollingState, error: Error) -> RetryResult {
+        match self.inner.on_error(state, error) {
             RetryResult::Permanent(e) => RetryResult::Permanent(e),
             RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
             RetryResult::Continue(e) => {
-                if count >= self.maximum_attempts {
+                if state.attempt_count >= self.maximum_attempts {
                     RetryResult::Exhausted(e)
                 } else {
                     RetryResult::Continue(e)
@@ -470,15 +449,10 @@ where
         }
     }
 
-    fn on_in_progress(
-        &self,
-        start: std::time::Instant,
-        count: u32,
-        operation_name: &str,
-    ) -> Result<(), Error> {
+    fn on_in_progress(&self, state: &PollingState, operation_name: &str) -> Result<(), Error> {
         self.inner
-            .on_in_progress(start, count, operation_name)
-            .and_then(|_| self.in_progress_impl(count, operation_name))
+            .on_in_progress(state, operation_name)
+            .and_then(|_| self.in_progress_impl(state.attempt_count, operation_name))
     }
 }
 
@@ -531,8 +505,8 @@ mod tests {
         #[derive(Debug)]
         Policy {}
         impl PollingErrorPolicy for Policy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> RetryResult;
-            fn on_in_progress(&self, loop_start: std::time::Instant, attempt_count: u32, operation_name: &str) -> Result<(), Error>;
+            fn on_error(&self, state: &PollingState, error: Error) -> RetryResult;
+            fn on_in_progress(&self, state: &PollingState, operation_name: &str) -> Result<(), Error>;
         }
     }
 
@@ -550,29 +524,39 @@ mod tests {
     fn aip194_strict() {
         let p = Aip194Strict;
 
-        let now = std::time::Instant::now();
-        assert!(p.on_in_progress(now, 0, "unused").is_ok());
-        assert!(p.on_error(now, 0, unavailable()).is_continue());
-        assert!(p.on_error(now, 0, permission_denied()).is_permanent());
-        assert!(p.on_error(now, 0, http_unavailable()).is_continue());
-        assert!(p.on_error(now, 0, http_permission_denied()).is_permanent());
+        assert!(p.on_in_progress(&PollingState::default(), "unused").is_ok());
+        assert!(
+            p.on_error(&PollingState::default(), unavailable())
+                .is_continue()
+        );
+        assert!(
+            p.on_error(&PollingState::default(), permission_denied())
+                .is_permanent()
+        );
+        assert!(
+            p.on_error(&PollingState::default(), http_unavailable())
+                .is_continue()
+        );
+        assert!(
+            p.on_error(&PollingState::default(), http_permission_denied())
+                .is_permanent()
+        );
 
         assert!(
-            p.on_error(now, 0, Error::io("err".to_string()))
+            p.on_error(&PollingState::default(), Error::io("err".to_string()))
                 .is_continue()
         );
 
         assert!(
             p.on_error(
-                now,
-                0,
+                &PollingState::default(),
                 Error::authentication(CredentialsError::from_msg(true, "err"))
             )
             .is_continue()
         );
 
         assert!(
-            p.on_error(now, 0, Error::ser("err".to_string()))
+            p.on_error(&PollingState::default(), Error::ser("err".to_string()))
                 .is_permanent()
         );
     }
@@ -581,10 +565,15 @@ mod tests {
     fn always_continue() {
         let p = AlwaysContinue;
 
-        let now = std::time::Instant::now();
-        assert!(p.on_in_progress(now, 0, "unused").is_ok());
-        assert!(p.on_error(now, 0, http_unavailable()).is_continue());
-        assert!(p.on_error(now, 0, unavailable()).is_continue());
+        assert!(p.on_in_progress(&PollingState::default(), "unused").is_ok());
+        assert!(
+            p.on_error(&PollingState::default(), http_unavailable())
+                .is_continue()
+        );
+        assert!(
+            p.on_error(&PollingState::default(), unavailable())
+                .is_continue()
+        );
     }
 
     #[test_case::test_case(Error::io("err"))]
@@ -592,8 +581,7 @@ mod tests {
     #[test_case::test_case(Error::ser("err"))]
     fn always_continue_error_kind(error: Error) {
         let p = AlwaysContinue;
-        let now = std::time::Instant::now();
-        assert!(p.on_error(now, 0, error).is_continue());
+        assert!(p.on_error(&PollingState::default(), error).is_continue());
     }
 
     #[test]
@@ -602,8 +590,9 @@ mod tests {
         assert!(
             policy
                 .on_error(
-                    Instant::now() - Duration::from_secs(1),
-                    1,
+                    &PollingState::default()
+                        .set_start(Instant::now() - Duration::from_secs(1))
+                        .set_attempt_count(1_u32),
                     permission_denied()
                 )
                 .is_continue(),
@@ -612,8 +601,9 @@ mod tests {
         assert!(
             policy
                 .on_error(
-                    Instant::now() - Duration::from_secs(20),
-                    1,
+                    &PollingState::default()
+                        .set_start(Instant::now() - Duration::from_secs(20))
+                        .set_attempt_count(1_u32),
                     permission_denied()
                 )
                 .is_exhausted(),
@@ -626,13 +616,19 @@ mod tests {
         let policy = AlwaysContinue.with_attempt_limit(3);
         assert!(
             policy
-                .on_error(Instant::now(), 1, permission_denied())
+                .on_error(
+                    &PollingState::default().set_attempt_count(1_u32),
+                    permission_denied()
+                )
                 .is_continue(),
             "{policy:?}"
         );
         assert!(
             policy
-                .on_error(Instant::now(), 5, permission_denied())
+                .on_error(
+                    &PollingState::default().set_attempt_count(5_u32),
+                    permission_denied()
+                )
                 .is_exhausted(),
             "{policy:?}"
         );
@@ -676,13 +672,23 @@ mod tests {
         let policy = LimitedElapsedTime::new(Duration::from_secs(20));
         assert!(
             policy
-                .on_error(Instant::now() - Duration::from_secs(10), 1, unavailable())
+                .on_error(
+                    &PollingState::default()
+                        .set_start(Instant::now() - Duration::from_secs(10))
+                        .set_attempt_count(1_u32),
+                    unavailable()
+                )
                 .is_continue(),
             "{policy:?}"
         );
         assert!(
             policy
-                .on_error(Instant::now() - Duration::from_secs(30), 1, unavailable())
+                .on_error(
+                    &PollingState::default()
+                        .set_start(Instant::now() - Duration::from_secs(30))
+                        .set_attempt_count(1_u32),
+                    unavailable()
+                )
                 .is_exhausted(),
             "{policy:?}"
         );
@@ -691,12 +697,18 @@ mod tests {
     #[test]
     fn test_limited_elapsed_time_in_progress() {
         let policy = LimitedElapsedTime::new(Duration::from_secs(20));
-        let result = policy.on_in_progress(Instant::now() - Duration::from_secs(10), 1, "unused");
+        let result = policy.on_in_progress(
+            &PollingState::default()
+                .set_start(Instant::now() - Duration::from_secs(10))
+                .set_attempt_count(1_u32),
+            "unused",
+        );
         assert!(result.is_ok(), "{result:?}");
         let err = policy
             .on_in_progress(
-                Instant::now() - Duration::from_secs(30),
-                1,
+                &PollingState::default()
+                    .set_start(Instant::now() - Duration::from_secs(30))
+                    .set_attempt_count(1_u32),
                 "test-operation-name",
             )
             .unwrap_err();
@@ -709,11 +721,10 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, e| RetryResult::Continue(e));
+            .returning(|_, e| RetryResult::Continue(e));
 
-        let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        let rf = policy.on_error(now, 0, transient_error());
+        let rf = policy.on_error(&PollingState::default(), transient_error());
         assert!(rf.is_continue());
     }
 
@@ -722,13 +733,33 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_in_progress()
             .times(3)
-            .returning(|_, _, _| Ok(()));
+            .returning(|_, _| Ok(()));
 
-        let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        assert!(policy.on_in_progress(now, 1, "test-op-name").is_ok());
-        assert!(policy.on_in_progress(now, 2, "test-op-name").is_ok());
-        assert!(policy.on_in_progress(now, 3, "test-op-name").is_ok());
+        assert!(
+            policy
+                .on_in_progress(
+                    &PollingState::default().set_attempt_count(1_u32),
+                    "test-op-name"
+                )
+                .is_ok()
+        );
+        assert!(
+            policy
+                .on_in_progress(
+                    &PollingState::default().set_attempt_count(2_u32),
+                    "test-op-name"
+                )
+                .is_ok()
+        );
+        assert!(
+            policy
+                .on_in_progress(
+                    &PollingState::default().set_attempt_count(3_u32),
+                    "test-op-name"
+                )
+                .is_ok()
+        );
     }
 
     #[test]
@@ -736,11 +767,17 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_in_progress()
             .times(1)
-            .returning(|_, _, _| Err(transient_error()));
+            .returning(|_, _| Err(transient_error()));
 
-        let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        assert!(policy.on_in_progress(now, 1, "test-op-name").is_err());
+        assert!(
+            policy
+                .on_in_progress(
+                    &PollingState::default().set_attempt_count(1_u32),
+                    "test-op-name"
+                )
+                .is_err()
+        );
     }
 
     #[test]
@@ -748,14 +785,24 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, e| RetryResult::Continue(e));
+            .returning(|_, e| RetryResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        let rf = policy.on_error(now - Duration::from_secs(10), 1, transient_error());
+        let rf = policy.on_error(
+            &PollingState::default()
+                .set_start(now - Duration::from_secs(10))
+                .set_attempt_count(1_u32),
+            transient_error(),
+        );
         assert!(rf.is_continue());
 
-        let rf = policy.on_error(now - Duration::from_secs(70), 1, transient_error());
+        let rf = policy.on_error(
+            &PollingState::default()
+                .set_start(now - Duration::from_secs(70))
+                .set_attempt_count(1_u32),
+            transient_error(),
+        );
         assert!(rf.is_exhausted());
     }
 
@@ -764,15 +811,25 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, e| RetryResult::Permanent(e));
+            .returning(|_, e| RetryResult::Permanent(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let rf = policy.on_error(now - Duration::from_secs(10), 1, transient_error());
+        let rf = policy.on_error(
+            &PollingState::default()
+                .set_start(now - Duration::from_secs(10))
+                .set_attempt_count(1_u32),
+            transient_error(),
+        );
         assert!(rf.is_permanent());
 
-        let rf = policy.on_error(now + Duration::from_secs(10), 1, transient_error());
+        let rf = policy.on_error(
+            &PollingState::default()
+                .set_start(now + Duration::from_secs(10))
+                .set_attempt_count(1_u32),
+            transient_error(),
+        );
         assert!(rf.is_permanent());
     }
 
@@ -781,15 +838,25 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, e| RetryResult::Exhausted(e));
+            .returning(|_, e| RetryResult::Exhausted(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let rf = policy.on_error(now - Duration::from_secs(10), 1, transient_error());
+        let rf = policy.on_error(
+            &PollingState::default()
+                .set_start(now - Duration::from_secs(10))
+                .set_attempt_count(1_u32),
+            transient_error(),
+        );
         assert!(rf.is_exhausted());
 
-        let rf = policy.on_error(now + Duration::from_secs(10), 1, transient_error());
+        let rf = policy.on_error(
+            &PollingState::default()
+                .set_start(now + Duration::from_secs(10))
+                .set_attempt_count(1_u32),
+            transient_error(),
+        );
         assert!(rf.is_exhausted());
     }
 
@@ -798,13 +865,19 @@ mod tests {
         let policy = LimitedAttemptCount::new(20);
         assert!(
             policy
-                .on_error(Instant::now(), 10, unavailable())
+                .on_error(
+                    &PollingState::default().set_attempt_count(10_u32),
+                    unavailable()
+                )
                 .is_continue(),
             "{policy:?}"
         );
         assert!(
             policy
-                .on_error(Instant::now(), 30, unavailable())
+                .on_error(
+                    &PollingState::default().set_attempt_count(30_u32),
+                    unavailable()
+                )
                 .is_exhausted(),
             "{policy:?}"
         );
@@ -813,10 +886,14 @@ mod tests {
     #[test]
     fn test_limited_attempt_count_in_progress() {
         let policy = LimitedAttemptCount::new(20);
-        let result = policy.on_in_progress(Instant::now(), 10, "unused");
+        let result =
+            policy.on_in_progress(&PollingState::default().set_attempt_count(10_u32), "unused");
         assert!(result.is_ok(), "{result:?}");
         let err = policy
-            .on_in_progress(Instant::now(), 30, "test-operation-name")
+            .on_in_progress(
+                &PollingState::default().set_attempt_count(30_u32),
+                "test-operation-name",
+            )
             .unwrap_err();
         let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
         assert!(exhausted.is_some());
@@ -827,13 +904,33 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, e| RetryResult::Continue(e));
+            .returning(|_, e| RetryResult::Continue(e));
 
-        let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
-        assert!(policy.on_error(now, 1, transient_error()).is_continue());
-        assert!(policy.on_error(now, 2, transient_error()).is_continue());
-        assert!(policy.on_error(now, 3, transient_error()).is_exhausted());
+        assert!(
+            policy
+                .on_error(
+                    &PollingState::default().set_attempt_count(1_u32),
+                    transient_error()
+                )
+                .is_continue()
+        );
+        assert!(
+            policy
+                .on_error(
+                    &PollingState::default().set_attempt_count(2_u32),
+                    transient_error()
+                )
+                .is_continue()
+        );
+        assert!(
+            policy
+                .on_error(
+                    &PollingState::default().set_attempt_count(3_u32),
+                    transient_error()
+                )
+                .is_exhausted()
+        );
     }
 
     #[test]
@@ -841,13 +938,33 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_in_progress()
             .times(3)
-            .returning(|_, _, _| Ok(()));
+            .returning(|_, _| Ok(()));
 
-        let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 5);
-        assert!(policy.on_in_progress(now, 1, "test-op-name").is_ok());
-        assert!(policy.on_in_progress(now, 2, "test-op-name").is_ok());
-        assert!(policy.on_in_progress(now, 3, "test-op-name").is_ok());
+        assert!(
+            policy
+                .on_in_progress(
+                    &PollingState::default().set_attempt_count(1_u32),
+                    "test-op-name"
+                )
+                .is_ok()
+        );
+        assert!(
+            policy
+                .on_in_progress(
+                    &PollingState::default().set_attempt_count(2_u32),
+                    "test-op-name"
+                )
+                .is_ok()
+        );
+        assert!(
+            policy
+                .on_in_progress(
+                    &PollingState::default().set_attempt_count(3_u32),
+                    "test-op-name"
+                )
+                .is_ok()
+        );
     }
 
     #[test]
@@ -855,11 +972,17 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_in_progress()
             .times(1)
-            .returning(|_, _, _| Err(unavailable()));
+            .returning(|_, _| Err(unavailable()));
 
-        let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 5);
-        assert!(policy.on_in_progress(now, 1, "test-op-name").is_err());
+        assert!(
+            policy
+                .on_in_progress(
+                    &PollingState::default().set_attempt_count(1_u32),
+                    "test-op-name"
+                )
+                .is_err()
+        );
     }
 
     #[test]
@@ -867,13 +990,18 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, e| RetryResult::Permanent(e));
+            .returning(|_, e| RetryResult::Permanent(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
-        let now = std::time::Instant::now();
-        let rf = policy.on_error(now, 1, Error::ser("err"));
+        let rf = policy.on_error(
+            &PollingState::default().set_attempt_count(1_u32),
+            Error::ser("err"),
+        );
         assert!(rf.is_permanent());
 
-        let rf = policy.on_error(now, 1, Error::ser("err"));
+        let rf = policy.on_error(
+            &PollingState::default().set_attempt_count(1_u32),
+            Error::ser("err"),
+        );
         assert!(rf.is_permanent());
     }
 
@@ -882,14 +1010,19 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, e| RetryResult::Exhausted(e));
+            .returning(|_, e| RetryResult::Exhausted(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
-        let now = std::time::Instant::now();
 
-        let rf = policy.on_error(now, 1, transient_error());
+        let rf = policy.on_error(
+            &PollingState::default().set_attempt_count(1_u32),
+            transient_error(),
+        );
         assert!(rf.is_exhausted());
 
-        let rf = policy.on_error(now, 1, transient_error());
+        let rf = policy.on_error(
+            &PollingState::default().set_attempt_count(1_u32),
+            transient_error(),
+        );
         assert!(rf.is_exhausted());
     }
 

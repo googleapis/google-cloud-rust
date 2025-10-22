@@ -295,6 +295,53 @@ impl AnalyticsHubService {
         super::builder::analytics_hub_service::TestIamPermissions::new(self.inner.clone())
     }
 
+    /// Creates a new QueryTemplate
+    pub fn create_query_template(
+        &self,
+    ) -> super::builder::analytics_hub_service::CreateQueryTemplate {
+        super::builder::analytics_hub_service::CreateQueryTemplate::new(self.inner.clone())
+    }
+
+    /// Gets a QueryTemplate
+    pub fn get_query_template(&self) -> super::builder::analytics_hub_service::GetQueryTemplate {
+        super::builder::analytics_hub_service::GetQueryTemplate::new(self.inner.clone())
+    }
+
+    /// Lists all QueryTemplates in a given project and location.
+    pub fn list_query_templates(
+        &self,
+    ) -> super::builder::analytics_hub_service::ListQueryTemplates {
+        super::builder::analytics_hub_service::ListQueryTemplates::new(self.inner.clone())
+    }
+
+    /// Updates an existing QueryTemplate
+    pub fn update_query_template(
+        &self,
+    ) -> super::builder::analytics_hub_service::UpdateQueryTemplate {
+        super::builder::analytics_hub_service::UpdateQueryTemplate::new(self.inner.clone())
+    }
+
+    /// Deletes a query template.
+    pub fn delete_query_template(
+        &self,
+    ) -> super::builder::analytics_hub_service::DeleteQueryTemplate {
+        super::builder::analytics_hub_service::DeleteQueryTemplate::new(self.inner.clone())
+    }
+
+    /// Submits a query template for approval.
+    pub fn submit_query_template(
+        &self,
+    ) -> super::builder::analytics_hub_service::SubmitQueryTemplate {
+        super::builder::analytics_hub_service::SubmitQueryTemplate::new(self.inner.clone())
+    }
+
+    /// Approves a query template.
+    pub fn approve_query_template(
+        &self,
+    ) -> super::builder::analytics_hub_service::ApproveQueryTemplate {
+        super::builder::analytics_hub_service::ApproveQueryTemplate::new(self.inner.clone())
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations

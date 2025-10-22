@@ -25,24 +25,106 @@ mod driver {
             .with_attempt_limit(5)
     }
 
-    #[test_case(bigquery::client::DatasetService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_bigquery(
-        builder: bigquery::builder::dataset_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::bigquery::dataset_admin(builder)
+    async fn run_aiplatform() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::aiplatform::locational_endpoint()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(firestore::client::Firestore::builder(); "default")]
-    #[test_case(firestore::client::Firestore::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(firestore::client::Firestore::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_firestore(
-        builder: firestore::builder::firestore::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::firestore::basic(builder)
+    async fn run_bigquery_dataset_service() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::bigquery::dataset_admin()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_bigquery_job_service() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::bigquery::job_service()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_zones() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::zones()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_errors() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::errors()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_lro_errors() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::lro_errors()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_machine_types() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::machine_types()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_images() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::images()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_instances() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::instances()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_region_instances() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::region_instances()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_firestore() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::firestore::basic()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_pubsub_basic_topic() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::pubsub::basic_topic()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_pubsub_basic_publisher() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::pubsub::basic_publisher()
             .await
             .map_err(integration_tests::report_error)
     }
@@ -55,174 +137,105 @@ mod driver {
     async fn run_secretmanager_protobuf(
         builder: sm::builder::secret_manager_service::ClientBuilder,
     ) -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
         integration_tests::secret_manager::protobuf::run(builder)
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(smo::client::SecretManagerService::builder(); "default")]
-    #[test_case(smo::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(smo::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi(
-        builder: smo::builder::secret_manager_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi::run(builder)
+    async fn run_secretmanager_openapi() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::secret_manager::openapi::run()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(smo::client::SecretManagerService::builder(); "default")]
-    #[test_case(smo::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(smo::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi_locational(
-        builder: smo::builder::secret_manager_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi_locational::run(builder)
+    async fn run_secretmanager_openapi_locational() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::secret_manager::openapi_locational::run()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(sql::client::SqlInstancesService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_sql(
-        builder: sql::builder::sql_instances_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::sql::run_sql_instances_service(builder)
+    async fn run_sql() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::sql::run_sql_instances_service()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(sql::client::SqlTiersService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_sql_tiers_service(
-        builder: sql::builder::sql_tiers_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::sql::run_sql_tiers_service(builder)
+    async fn run_sql_tiers_service() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::sql::run_sql_tiers_service()
             .await
             .map_err(integration_tests::report_error)
     }
 
     #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
-    #[test_case(StorageControl::builder().with_retry_policy(retry_policy()); "with retry enabled")]
-    #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with alternative endpoint")]
+    #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with global endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_control_buckets(
         builder: storage::builder::storage_control::ClientBuilder,
     ) -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
         integration_tests::storage::buckets(builder)
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder(); "default")]
-    #[test_case(Storage::builder().with_endpoint("https://www.googleapis.com"); "with alternative endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_objects(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::storage::objects(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_objects_large_file(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::storage::objects_large_file(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_upload_buffered(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::storage::upload_buffered(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test]
-    async fn run_storage_upload_buffered_resumable_known_size(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::storage::upload_buffered_resumable_known_size(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test]
-    async fn run_storage_upload_buffered_resumable_unknown_size(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::storage::upload_buffered_resumable_unknown_size(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test]
-    async fn run_storage_upload_unbuffered_resumable_known_size(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::storage::upload_unbuffered_resumable_known_size(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test]
-    async fn run_storage_upload_unbuffered_resumable_unknown_size(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::storage::upload_unbuffered_resumable_unknown_size(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[test_case(Storage::builder(); "default")]
-    #[tokio::test]
-    async fn run_storage_abort_upload(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
+    async fn run_storage_objects() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-        let result = integration_tests::storage::abort_upload(builder, &bucket.name)
-            .await
-            .map_err(integration_tests::report_error);
-        let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
+        let variants = || async {
+            tracing::info!("default builder");
+            let builder = Storage::builder();
+            integration_tests::storage::objects(builder).await?;
+            tracing::info!("with global endpoint");
+            let builder = Storage::builder().with_endpoint("https://www.googleapis.com");
+            integration_tests::storage::objects(builder).await?;
+            tracing::info!("with locational endpoint");
+            let builder =
+                Storage::builder().with_endpoint("https://us-central1-storage.googleapis.com");
+            integration_tests::storage::objects(builder).await?;
+            Ok(())
+        };
+        let result = variants().await;
+        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
+            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
+        };
         result
     }
 
     #[test_case(Storage::builder(); "default")]
-    #[tokio::test]
-    async fn run_storage_checksums(
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_storage_read_object(
         builder: storage::builder::storage::ClientBuilder,
     ) -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-        let result = integration_tests::storage::checksums(builder, &bucket.name)
-            .await
-            .map_err(integration_tests::report_error);
-        let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
+        let result = integration_tests::storage::read_object::run(builder, &bucket.name).await;
+        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
+            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
+        };
         result
     }
 
     #[test_case(Storage::builder(); "default")]
-    #[tokio::test]
-    async fn run_storage_ranged_reads(
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_storage_write_object(
         builder: storage::builder::storage::ClientBuilder,
     ) -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
-        let result = integration_tests::storage::ranged_reads(builder, &bucket.name)
-            .await
-            .map_err(integration_tests::report_error);
-        let _ = storage_samples::cleanup_bucket(control, bucket.name).await;
+        let result = integration_tests::storage::write_object::run(builder, &bucket.name).await;
+        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
+            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
+        };
         result
     }
 
@@ -231,6 +244,7 @@ mod driver {
     async fn run_storage_object_names(
         builder: storage::builder::storage::ClientBuilder,
     ) -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
         let result =
             integration_tests::storage::object_names(builder, control.clone(), &bucket.name)
@@ -240,98 +254,66 @@ mod driver {
         result
     }
 
-    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_objects_with_key(
-        builder: storage::builder::storage::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::storage::objects_customer_supplied_encryption(builder)
+    async fn run_error_details_http() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::error_details::error_details_http()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(ta::client::TelcoAutomation::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_error_details_http(
-        builder: ta::builder::telco_automation::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::error_details::error_details_http(builder)
+    async fn run_error_details_grpc() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::error_details::error_details_grpc()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(StorageControl::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_error_details_grpc(
-        builder: storage::builder::storage_control::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::error_details::error_details_grpc(builder)
+    async fn run_check_code_for_http() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::error_details::check_code_for_http()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_check_code_for_http(
-        builder: wf::builder::workflows::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::error_details::check_code_for_http(builder)
+    async fn run_check_code_for_grpc() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::error_details::check_code_for_grpc()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(StorageControl::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_check_code_for_grpc(
-        builder: storage::builder::storage_control::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::error_details::check_code_for_grpc(builder)
+    async fn workflows_until_done() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::workflows::until_done()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(wf::client::Workflows::builder(); "default")]
-    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(wf::client::Workflows::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_until_done(
-        builder: wf::builder::workflows::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::workflows::until_done(builder)
+    async fn workflows_explicit() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::workflows::explicit_loop()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(wf::client::Workflows::builder(); "default")]
-    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(wf::client::Workflows::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_explicit(
-        builder: wf::builder::workflows::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::workflows::explicit_loop(builder)
+    async fn workflows_manual() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::workflows::until_done()
             .await
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(wf::client::Workflows::builder(); "default")]
-    #[test_case(wf::client::Workflows::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(wf::client::Workflows::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_manual(
-        builder: wf::builder::workflows::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::workflows::until_done(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[test_case(wfe::client::Executions::builder().with_retry_policy(retry_policy()).with_tracing(); "with tracing and retry enabled")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_executions(
-        builder: wfe::builder::executions::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::workflows_executions::list(builder)
+    async fn workflows_executions() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::workflows_executions::list()
             .await
             .map_err(integration_tests::report_error)
     }

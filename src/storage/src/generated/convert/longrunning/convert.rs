@@ -40,6 +40,7 @@ impl gaxi::prost::ToProto<ListOperationsRequest> for longrunning::model::ListOpe
             filter: self.filter.to_proto()?,
             page_size: self.page_size.to_proto()?,
             page_token: self.page_token.to_proto()?,
+            return_partial_success: self.return_partial_success.to_proto()?,
         })
     }
 }
@@ -52,6 +53,7 @@ impl gaxi::prost::FromProto<longrunning::model::ListOperationsRequest> for ListO
                 .set_filter(self.filter)
                 .set_page_size(self.page_size)
                 .set_page_token(self.page_token)
+                .set_return_partial_success(self.return_partial_success)
         )
     }
 }
@@ -65,6 +67,10 @@ impl gaxi::prost::ToProto<ListOperationsResponse> for longrunning::model::ListOp
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             next_page_token: self.next_page_token.to_proto()?,
+            unreachable: self.unreachable
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
 }
@@ -76,6 +82,8 @@ impl gaxi::prost::FromProto<longrunning::model::ListOperationsResponse> for List
                 .set_operations(self.operations.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_next_page_token(self.next_page_token)
+                .set_unreachable(self.unreachable.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }

@@ -35,6 +35,10 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
+mod debug;
+mod deserialize;
+mod serialize;
+
 /// Workflow program to be executed by Workflows.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -158,7 +162,7 @@ pub struct Workflow {
     /// revision.
     pub source_code: std::option::Option<crate::model::workflow::SourceCode>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Workflow {
@@ -167,30 +171,63 @@ impl Workflow {
     }
 
     /// Sets the value of [name][crate::model::Workflow::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Workflow::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Workflow::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use google_cloud_workflows_v1::model::workflow::State;
+    /// let x0 = Workflow::new().set_state(State::Active);
+    /// let x1 = Workflow::new().set_state(State::Unavailable);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::workflow::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::Workflow::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Workflow::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use wkt::Timestamp;
+    /// let x = Workflow::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -200,6 +237,14 @@ impl Workflow {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Workflow::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use wkt::Timestamp;
+    /// let x = Workflow::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Workflow::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -209,6 +254,13 @@ impl Workflow {
     }
 
     /// Sets the value of [update_time][crate::model::Workflow::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use wkt::Timestamp;
+    /// let x = Workflow::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -218,6 +270,14 @@ impl Workflow {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Workflow::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use wkt::Timestamp;
+    /// let x = Workflow::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Workflow::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -227,6 +287,13 @@ impl Workflow {
     }
 
     /// Sets the value of [revision_create_time][crate::model::Workflow::revision_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use wkt::Timestamp;
+    /// let x = Workflow::new().set_revision_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -236,6 +303,14 @@ impl Workflow {
     }
 
     /// Sets or clears the value of [revision_create_time][crate::model::Workflow::revision_create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use wkt::Timestamp;
+    /// let x = Workflow::new().set_or_clear_revision_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Workflow::new().set_or_clear_revision_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -245,6 +320,15 @@ impl Workflow {
     }
 
     /// Sets the value of [labels][crate::model::Workflow::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -257,18 +341,37 @@ impl Workflow {
     }
 
     /// Sets the value of [service_account][crate::model::Workflow::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [crypto_key_name][crate::model::Workflow::crypto_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_crypto_key_name("example");
+    /// ```
     pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
         self
     }
 
     /// Sets the value of [state_error][crate::model::Workflow::state_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use google_cloud_workflows_v1::model::workflow::StateError;
+    /// let x = Workflow::new().set_state_error(StateError::default()/* use setters */);
+    /// ```
     pub fn set_state_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workflow::StateError>,
@@ -278,6 +381,14 @@ impl Workflow {
     }
 
     /// Sets or clears the value of [state_error][crate::model::Workflow::state_error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use google_cloud_workflows_v1::model::workflow::StateError;
+    /// let x = Workflow::new().set_or_clear_state_error(Some(StateError::default()/* use setters */));
+    /// let x = Workflow::new().set_or_clear_state_error(None::<StateError>);
+    /// ```
     pub fn set_or_clear_state_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workflow::StateError>,
@@ -287,6 +398,15 @@ impl Workflow {
     }
 
     /// Sets the value of [call_log_level][crate::model::Workflow::call_log_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use google_cloud_workflows_v1::model::workflow::CallLogLevel;
+    /// let x0 = Workflow::new().set_call_log_level(CallLogLevel::LogAllCalls);
+    /// let x1 = Workflow::new().set_call_log_level(CallLogLevel::LogErrorsOnly);
+    /// let x2 = Workflow::new().set_call_log_level(CallLogLevel::LogNone);
+    /// ```
     pub fn set_call_log_level<T: std::convert::Into<crate::model::workflow::CallLogLevel>>(
         mut self,
         v: T,
@@ -296,6 +416,15 @@ impl Workflow {
     }
 
     /// Sets the value of [user_env_vars][crate::model::Workflow::user_env_vars].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_user_env_vars([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_user_env_vars<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -308,6 +437,14 @@ impl Workflow {
     }
 
     /// Sets the value of [execution_history_level][crate::model::Workflow::execution_history_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use google_cloud_workflows_v1::model::ExecutionHistoryLevel;
+    /// let x0 = Workflow::new().set_execution_history_level(ExecutionHistoryLevel::ExecutionHistoryBasic);
+    /// let x1 = Workflow::new().set_execution_history_level(ExecutionHistoryLevel::ExecutionHistoryDetailed);
+    /// ```
     pub fn set_execution_history_level<
         T: std::convert::Into<crate::model::ExecutionHistoryLevel>,
     >(
@@ -319,6 +456,12 @@ impl Workflow {
     }
 
     /// Sets the value of [all_kms_keys][crate::model::Workflow::all_kms_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_all_kms_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_all_kms_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -330,6 +473,12 @@ impl Workflow {
     }
 
     /// Sets the value of [all_kms_keys_versions][crate::model::Workflow::all_kms_keys_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_all_kms_keys_versions(["a", "b", "c"]);
+    /// ```
     pub fn set_all_kms_keys_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -341,6 +490,12 @@ impl Workflow {
     }
 
     /// Sets the value of [crypto_key_version][crate::model::Workflow::crypto_key_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_crypto_key_version("example");
+    /// ```
     pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -350,6 +505,15 @@ impl Workflow {
     }
 
     /// Sets the value of [tags][crate::model::Workflow::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -365,6 +529,13 @@ impl Workflow {
     ///
     /// Note that all the setters affecting `source_code` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// use google_cloud_workflows_v1::model::workflow;
+    /// let x = Workflow::new().set_source_code(Some(workflow::SourceCode::SourceContents("example".to_string())));
+    /// ```
     pub fn set_source_code<
         T: std::convert::Into<std::option::Option<crate::model::workflow::SourceCode>>,
     >(
@@ -391,6 +562,13 @@ impl Workflow {
     ///
     /// Note that all the setters affecting `source_code` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::Workflow;
+    /// let x = Workflow::new().set_source_contents("example");
+    /// assert!(x.source_contents().is_some());
+    /// ```
     pub fn set_source_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_code =
             std::option::Option::Some(crate::model::workflow::SourceCode::SourceContents(v.into()));
@@ -401,432 +579,6 @@ impl Workflow {
 impl wkt::message::Message for Workflow {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.workflows.v1.Workflow"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for Workflow {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __description,
-            __state,
-            __revision_id,
-            __create_time,
-            __update_time,
-            __revision_create_time,
-            __labels,
-            __service_account,
-            __source_contents,
-            __crypto_key_name,
-            __state_error,
-            __call_log_level,
-            __user_env_vars,
-            __execution_history_level,
-            __all_kms_keys,
-            __all_kms_keys_versions,
-            __crypto_key_version,
-            __tags,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for Workflow")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "description" => Ok(__FieldTag::__description),
-                            "state" => Ok(__FieldTag::__state),
-                            "revisionId" => Ok(__FieldTag::__revision_id),
-                            "revision_id" => Ok(__FieldTag::__revision_id),
-                            "createTime" => Ok(__FieldTag::__create_time),
-                            "create_time" => Ok(__FieldTag::__create_time),
-                            "updateTime" => Ok(__FieldTag::__update_time),
-                            "update_time" => Ok(__FieldTag::__update_time),
-                            "revisionCreateTime" => Ok(__FieldTag::__revision_create_time),
-                            "revision_create_time" => Ok(__FieldTag::__revision_create_time),
-                            "labels" => Ok(__FieldTag::__labels),
-                            "serviceAccount" => Ok(__FieldTag::__service_account),
-                            "service_account" => Ok(__FieldTag::__service_account),
-                            "sourceContents" => Ok(__FieldTag::__source_contents),
-                            "source_contents" => Ok(__FieldTag::__source_contents),
-                            "cryptoKeyName" => Ok(__FieldTag::__crypto_key_name),
-                            "crypto_key_name" => Ok(__FieldTag::__crypto_key_name),
-                            "stateError" => Ok(__FieldTag::__state_error),
-                            "state_error" => Ok(__FieldTag::__state_error),
-                            "callLogLevel" => Ok(__FieldTag::__call_log_level),
-                            "call_log_level" => Ok(__FieldTag::__call_log_level),
-                            "userEnvVars" => Ok(__FieldTag::__user_env_vars),
-                            "user_env_vars" => Ok(__FieldTag::__user_env_vars),
-                            "executionHistoryLevel" => Ok(__FieldTag::__execution_history_level),
-                            "execution_history_level" => Ok(__FieldTag::__execution_history_level),
-                            "allKmsKeys" => Ok(__FieldTag::__all_kms_keys),
-                            "all_kms_keys" => Ok(__FieldTag::__all_kms_keys),
-                            "allKmsKeysVersions" => Ok(__FieldTag::__all_kms_keys_versions),
-                            "all_kms_keys_versions" => Ok(__FieldTag::__all_kms_keys_versions),
-                            "cryptoKeyVersion" => Ok(__FieldTag::__crypto_key_version),
-                            "crypto_key_version" => Ok(__FieldTag::__crypto_key_version),
-                            "tags" => Ok(__FieldTag::__tags),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = Workflow;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct Workflow")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__description => {
-                            if !fields.insert(__FieldTag::__description) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for description",
-                                ));
-                            }
-                            result.description = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__state => {
-                            if !fields.insert(__FieldTag::__state) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for state",
-                                ));
-                            }
-                            result.state = map
-                                .next_value::<std::option::Option<crate::model::workflow::State>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__revision_id => {
-                            if !fields.insert(__FieldTag::__revision_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for revision_id",
-                                ));
-                            }
-                            result.revision_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__create_time => {
-                            if !fields.insert(__FieldTag::__create_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for create_time",
-                                ));
-                            }
-                            result.create_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__update_time => {
-                            if !fields.insert(__FieldTag::__update_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for update_time",
-                                ));
-                            }
-                            result.update_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__revision_create_time => {
-                            if !fields.insert(__FieldTag::__revision_create_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for revision_create_time",
-                                ));
-                            }
-                            result.revision_create_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__labels => {
-                            if !fields.insert(__FieldTag::__labels) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for labels",
-                                ));
-                            }
-                            result.labels = map
-                                .next_value::<std::option::Option<
-                                    std::collections::HashMap<
-                                        std::string::String,
-                                        std::string::String,
-                                    >,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__service_account => {
-                            if !fields.insert(__FieldTag::__service_account) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for service_account",
-                                ));
-                            }
-                            result.service_account = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__source_contents => {
-                            if !fields.insert(__FieldTag::__source_contents) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for source_contents",
-                                ));
-                            }
-                            if result.source_code.is_some() {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for `source_code`, a oneof with full ID .google.cloud.workflows.v1.Workflow.source_contents, latest field was sourceContents",
-                                ));
-                            }
-                            result.source_code = std::option::Option::Some(
-                                crate::model::workflow::SourceCode::SourceContents(
-                                    map.next_value::<std::option::Option<std::string::String>>()?
-                                        .unwrap_or_default(),
-                                ),
-                            );
-                        }
-                        __FieldTag::__crypto_key_name => {
-                            if !fields.insert(__FieldTag::__crypto_key_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for crypto_key_name",
-                                ));
-                            }
-                            result.crypto_key_name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__state_error => {
-                            if !fields.insert(__FieldTag::__state_error) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for state_error",
-                                ));
-                            }
-                            result.state_error = map.next_value::<std::option::Option<crate::model::workflow::StateError>>()?
-                                ;
-                        }
-                        __FieldTag::__call_log_level => {
-                            if !fields.insert(__FieldTag::__call_log_level) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for call_log_level",
-                                ));
-                            }
-                            result.call_log_level = map.next_value::<std::option::Option<crate::model::workflow::CallLogLevel>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__user_env_vars => {
-                            if !fields.insert(__FieldTag::__user_env_vars) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for user_env_vars",
-                                ));
-                            }
-                            result.user_env_vars = map
-                                .next_value::<std::option::Option<
-                                    std::collections::HashMap<
-                                        std::string::String,
-                                        std::string::String,
-                                    >,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__execution_history_level => {
-                            if !fields.insert(__FieldTag::__execution_history_level) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for execution_history_level",
-                                ));
-                            }
-                            result.execution_history_level = map.next_value::<std::option::Option<crate::model::ExecutionHistoryLevel>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__all_kms_keys => {
-                            if !fields.insert(__FieldTag::__all_kms_keys) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for all_kms_keys",
-                                ));
-                            }
-                            result.all_kms_keys = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__all_kms_keys_versions => {
-                            if !fields.insert(__FieldTag::__all_kms_keys_versions) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for all_kms_keys_versions",
-                                ));
-                            }
-                            result.all_kms_keys_versions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__crypto_key_version => {
-                            if !fields.insert(__FieldTag::__crypto_key_version) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for crypto_key_version",
-                                ));
-                            }
-                            result.crypto_key_version = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__tags => {
-                            if !fields.insert(__FieldTag::__tags) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for tags",
-                                ));
-                            }
-                            result.tags = map
-                                .next_value::<std::option::Option<
-                                    std::collections::HashMap<
-                                        std::string::String,
-                                        std::string::String,
-                                    >,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for Workflow {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.description.is_empty() {
-            state.serialize_entry("description", &self.description)?;
-        }
-        if !wkt::internal::is_default(&self.state) {
-            state.serialize_entry("state", &self.state)?;
-        }
-        if !self.revision_id.is_empty() {
-            state.serialize_entry("revisionId", &self.revision_id)?;
-        }
-        if self.create_time.is_some() {
-            state.serialize_entry("createTime", &self.create_time)?;
-        }
-        if self.update_time.is_some() {
-            state.serialize_entry("updateTime", &self.update_time)?;
-        }
-        if self.revision_create_time.is_some() {
-            state.serialize_entry("revisionCreateTime", &self.revision_create_time)?;
-        }
-        if !self.labels.is_empty() {
-            state.serialize_entry("labels", &self.labels)?;
-        }
-        if !self.service_account.is_empty() {
-            state.serialize_entry("serviceAccount", &self.service_account)?;
-        }
-        if let Some(value) = self.source_contents() {
-            state.serialize_entry("sourceContents", value)?;
-        }
-        if !self.crypto_key_name.is_empty() {
-            state.serialize_entry("cryptoKeyName", &self.crypto_key_name)?;
-        }
-        if self.state_error.is_some() {
-            state.serialize_entry("stateError", &self.state_error)?;
-        }
-        if !wkt::internal::is_default(&self.call_log_level) {
-            state.serialize_entry("callLogLevel", &self.call_log_level)?;
-        }
-        if !self.user_env_vars.is_empty() {
-            state.serialize_entry("userEnvVars", &self.user_env_vars)?;
-        }
-        if !wkt::internal::is_default(&self.execution_history_level) {
-            state.serialize_entry("executionHistoryLevel", &self.execution_history_level)?;
-        }
-        if !self.all_kms_keys.is_empty() {
-            state.serialize_entry("allKmsKeys", &self.all_kms_keys)?;
-        }
-        if !self.all_kms_keys_versions.is_empty() {
-            state.serialize_entry("allKmsKeysVersions", &self.all_kms_keys_versions)?;
-        }
-        if !self.crypto_key_version.is_empty() {
-            state.serialize_entry("cryptoKeyVersion", &self.crypto_key_version)?;
-        }
-        if !self.tags.is_empty() {
-            state.serialize_entry("tags", &self.tags)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for Workflow {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Workflow");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("description", &self.description);
-        debug_struct.field("state", &self.state);
-        debug_struct.field("revision_id", &self.revision_id);
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("update_time", &self.update_time);
-        debug_struct.field("revision_create_time", &self.revision_create_time);
-        debug_struct.field("labels", &self.labels);
-        debug_struct.field("service_account", &self.service_account);
-        debug_struct.field("crypto_key_name", &self.crypto_key_name);
-        debug_struct.field("state_error", &self.state_error);
-        debug_struct.field("call_log_level", &self.call_log_level);
-        debug_struct.field("user_env_vars", &self.user_env_vars);
-        debug_struct.field("execution_history_level", &self.execution_history_level);
-        debug_struct.field("all_kms_keys", &self.all_kms_keys);
-        debug_struct.field("all_kms_keys_versions", &self.all_kms_keys_versions);
-        debug_struct.field("crypto_key_version", &self.crypto_key_version);
-        debug_struct.field("tags", &self.tags);
-        debug_struct.field("source_code", &self.source_code);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -845,7 +597,7 @@ pub mod workflow {
         /// The type of this state error.
         pub r#type: crate::model::workflow::state_error::Type,
 
-        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StateError {
@@ -854,12 +606,25 @@ pub mod workflow {
         }
 
         /// Sets the value of [details][crate::model::workflow::StateError::details].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_v1::model::workflow::StateError;
+        /// let x = StateError::new().set_details("example");
+        /// ```
         pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.details = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::workflow::StateError::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_workflows_v1::model::workflow::StateError;
+        /// use google_cloud_workflows_v1::model::workflow::state_error::Type;
+        /// let x0 = StateError::new().set_type(Type::KmsError);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::workflow::state_error::Type>>(
             mut self,
             v: T,
@@ -872,140 +637,6 @@ pub mod workflow {
     impl wkt::message::Message for StateError {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.workflows.v1.Workflow.StateError"
-        }
-    }
-
-    #[doc(hidden)]
-    impl<'de> serde::de::Deserialize<'de> for StateError {
-        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-        where
-            D: serde::Deserializer<'de>,
-        {
-            #[allow(non_camel_case_types)]
-            #[doc(hidden)]
-            #[derive(PartialEq, Eq, Hash)]
-            enum __FieldTag {
-                __details,
-                __type,
-                Unknown(std::string::String),
-            }
-            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-                where
-                    D: serde::Deserializer<'de>,
-                {
-                    struct Visitor;
-                    impl<'de> serde::de::Visitor<'de> for Visitor {
-                        type Value = __FieldTag;
-                        fn expecting(
-                            &self,
-                            formatter: &mut std::fmt::Formatter,
-                        ) -> std::fmt::Result {
-                            formatter.write_str("a field name for StateError")
-                        }
-                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                        where
-                            E: serde::de::Error,
-                        {
-                            use std::result::Result::Ok;
-                            use std::string::ToString;
-                            match value {
-                                "details" => Ok(__FieldTag::__details),
-                                "type" => Ok(__FieldTag::__type),
-                                _ => Ok(__FieldTag::Unknown(value.to_string())),
-                            }
-                        }
-                    }
-                    deserializer.deserialize_identifier(Visitor)
-                }
-            }
-            struct Visitor;
-            impl<'de> serde::de::Visitor<'de> for Visitor {
-                type Value = StateError;
-                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                    formatter.write_str("struct StateError")
-                }
-                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-                where
-                    A: serde::de::MapAccess<'de>,
-                {
-                    #[allow(unused_imports)]
-                    use serde::de::Error;
-                    use std::option::Option::Some;
-                    let mut fields = std::collections::HashSet::new();
-                    let mut result = Self::Value::new();
-                    while let Some(tag) = map.next_key::<__FieldTag>()? {
-                        #[allow(clippy::match_single_binding)]
-                        match tag {
-                            __FieldTag::__details => {
-                                if !fields.insert(__FieldTag::__details) {
-                                    return std::result::Result::Err(A::Error::duplicate_field(
-                                        "multiple values for details",
-                                    ));
-                                }
-                                result.details = map
-                                    .next_value::<std::option::Option<std::string::String>>()?
-                                    .unwrap_or_default();
-                            }
-                            __FieldTag::__type => {
-                                if !fields.insert(__FieldTag::__type) {
-                                    return std::result::Result::Err(A::Error::duplicate_field(
-                                        "multiple values for type",
-                                    ));
-                                }
-                                result.r#type =
-                                    map.next_value::<std::option::Option<
-                                        crate::model::workflow::state_error::Type,
-                                    >>()?
-                                    .unwrap_or_default();
-                            }
-                            __FieldTag::Unknown(key) => {
-                                let value = map.next_value::<serde_json::Value>()?;
-                                result._unknown_fields.insert(key, value);
-                            }
-                        }
-                    }
-                    std::result::Result::Ok(result)
-                }
-            }
-            deserializer.deserialize_any(Visitor)
-        }
-    }
-
-    #[doc(hidden)]
-    impl serde::ser::Serialize for StateError {
-        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-        where
-            S: serde::ser::Serializer,
-        {
-            use serde::ser::SerializeMap;
-            #[allow(unused_imports)]
-            use std::option::Option::Some;
-            let mut state = serializer.serialize_map(std::option::Option::None)?;
-            if !self.details.is_empty() {
-                state.serialize_entry("details", &self.details)?;
-            }
-            if !wkt::internal::is_default(&self.r#type) {
-                state.serialize_entry("type", &self.r#type)?;
-            }
-            if !self._unknown_fields.is_empty() {
-                for (key, value) in self._unknown_fields.iter() {
-                    state.serialize_entry(key, &value)?;
-                }
-            }
-            state.end()
-        }
-    }
-
-    impl std::fmt::Debug for StateError {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            let mut debug_struct = f.debug_struct("StateError");
-            debug_struct.field("details", &self.details);
-            debug_struct.field("r#type", &self.r#type);
-            if !self._unknown_fields.is_empty() {
-                debug_struct.field("_unknown_fields", &self._unknown_fields);
-            }
-            debug_struct.finish()
         }
     }
 
@@ -1471,7 +1102,7 @@ pub struct ListWorkflowsRequest {
     /// If not specified, the results are returned in an unspecified order.
     pub order_by: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkflowsRequest {
@@ -1480,30 +1111,60 @@ impl ListWorkflowsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkflowsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowsRequest;
+    /// let x = ListWorkflowsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkflowsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowsRequest;
+    /// let x = ListWorkflowsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkflowsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowsRequest;
+    /// let x = ListWorkflowsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListWorkflowsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowsRequest;
+    /// let x = ListWorkflowsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListWorkflowsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowsRequest;
+    /// let x = ListWorkflowsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1513,204 +1174,6 @@ impl ListWorkflowsRequest {
 impl wkt::message::Message for ListWorkflowsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.workflows.v1.ListWorkflowsRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListWorkflowsRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __page_size,
-            __page_token,
-            __filter,
-            __order_by,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListWorkflowsRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "pageSize" => Ok(__FieldTag::__page_size),
-                            "page_size" => Ok(__FieldTag::__page_size),
-                            "pageToken" => Ok(__FieldTag::__page_token),
-                            "page_token" => Ok(__FieldTag::__page_token),
-                            "filter" => Ok(__FieldTag::__filter),
-                            "orderBy" => Ok(__FieldTag::__order_by),
-                            "order_by" => Ok(__FieldTag::__order_by),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListWorkflowsRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListWorkflowsRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__page_size => {
-                            if !fields.insert(__FieldTag::__page_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_size",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::__page_token => {
-                            if !fields.insert(__FieldTag::__page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_token",
-                                ));
-                            }
-                            result.page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__filter => {
-                            if !fields.insert(__FieldTag::__filter) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for filter",
-                                ));
-                            }
-                            result.filter = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__order_by => {
-                            if !fields.insert(__FieldTag::__order_by) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for order_by",
-                                ));
-                            }
-                            result.order_by = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListWorkflowsRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if !wkt::internal::is_default(&self.page_size) {
-            struct __With<'a>(&'a i32);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("pageSize", &__With(&self.page_size))?;
-        }
-        if !self.page_token.is_empty() {
-            state.serialize_entry("pageToken", &self.page_token)?;
-        }
-        if !self.filter.is_empty() {
-            state.serialize_entry("filter", &self.filter)?;
-        }
-        if !self.order_by.is_empty() {
-            state.serialize_entry("orderBy", &self.order_by)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListWorkflowsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListWorkflowsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("page_size", &self.page_size);
-        debug_struct.field("page_token", &self.page_token);
-        debug_struct.field("filter", &self.filter);
-        debug_struct.field("order_by", &self.order_by);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -1732,7 +1195,7 @@ pub struct ListWorkflowsResponse {
     /// Unreachable resources.
     pub unreachable: std::vec::Vec<std::string::String>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkflowsResponse {
@@ -1741,6 +1204,17 @@ impl ListWorkflowsResponse {
     }
 
     /// Sets the value of [workflows][crate::model::ListWorkflowsResponse::workflows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowsResponse;
+    /// use google_cloud_workflows_v1::model::Workflow;
+    /// let x = ListWorkflowsResponse::new()
+    ///     .set_workflows([
+    ///         Workflow::default()/* use setters */,
+    ///         Workflow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_workflows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1752,12 +1226,24 @@ impl ListWorkflowsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkflowsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowsResponse;
+    /// let x = ListWorkflowsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListWorkflowsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowsResponse;
+    /// let x = ListWorkflowsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1789,148 +1275,6 @@ impl gax::paginator::internal::PageableResponse for ListWorkflowsResponse {
     }
 }
 
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListWorkflowsResponse {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __workflows,
-            __next_page_token,
-            __unreachable,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListWorkflowsResponse")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "workflows" => Ok(__FieldTag::__workflows),
-                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
-                            "next_page_token" => Ok(__FieldTag::__next_page_token),
-                            "unreachable" => Ok(__FieldTag::__unreachable),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListWorkflowsResponse;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListWorkflowsResponse")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__workflows => {
-                            if !fields.insert(__FieldTag::__workflows) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for workflows",
-                                ));
-                            }
-                            result.workflows = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Workflow>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__next_page_token => {
-                            if !fields.insert(__FieldTag::__next_page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for next_page_token",
-                                ));
-                            }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__unreachable => {
-                            if !fields.insert(__FieldTag::__unreachable) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for unreachable",
-                                ));
-                            }
-                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListWorkflowsResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.workflows.is_empty() {
-            state.serialize_entry("workflows", &self.workflows)?;
-        }
-        if !self.next_page_token.is_empty() {
-            state.serialize_entry("nextPageToken", &self.next_page_token)?;
-        }
-        if !self.unreachable.is_empty() {
-            state.serialize_entry("unreachable", &self.unreachable)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListWorkflowsResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListWorkflowsResponse");
-        debug_struct.field("workflows", &self.workflows);
-        debug_struct.field("next_page_token", &self.next_page_token);
-        debug_struct.field("unreachable", &self.unreachable);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 /// Request for the
 /// [GetWorkflow][google.cloud.workflows.v1.Workflows.GetWorkflow] method.
 ///
@@ -1949,7 +1293,7 @@ pub struct GetWorkflowRequest {
     /// three hexadecimal characters.
     pub revision_id: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetWorkflowRequest {
@@ -1958,12 +1302,24 @@ impl GetWorkflowRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWorkflowRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::GetWorkflowRequest;
+    /// let x = GetWorkflowRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::GetWorkflowRequest::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::GetWorkflowRequest;
+    /// let x = GetWorkflowRequest::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
@@ -1973,136 +1329,6 @@ impl GetWorkflowRequest {
 impl wkt::message::Message for GetWorkflowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.workflows.v1.GetWorkflowRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for GetWorkflowRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __revision_id,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for GetWorkflowRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "revisionId" => Ok(__FieldTag::__revision_id),
-                            "revision_id" => Ok(__FieldTag::__revision_id),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = GetWorkflowRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct GetWorkflowRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__revision_id => {
-                            if !fields.insert(__FieldTag::__revision_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for revision_id",
-                                ));
-                            }
-                            result.revision_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for GetWorkflowRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.revision_id.is_empty() {
-            state.serialize_entry("revisionId", &self.revision_id)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for GetWorkflowRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetWorkflowRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("revision_id", &self.revision_id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -2131,7 +1357,7 @@ pub struct CreateWorkflowRequest {
     /// * Must be unique within the customer project and location.
     pub workflow_id: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateWorkflowRequest {
@@ -2140,12 +1366,25 @@ impl CreateWorkflowRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkflowRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::CreateWorkflowRequest;
+    /// let x = CreateWorkflowRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::CreateWorkflowRequest;
+    /// use google_cloud_workflows_v1::model::Workflow;
+    /// let x = CreateWorkflowRequest::new().set_workflow(Workflow::default()/* use setters */);
+    /// ```
     pub fn set_workflow<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Workflow>,
@@ -2155,6 +1394,14 @@ impl CreateWorkflowRequest {
     }
 
     /// Sets or clears the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::CreateWorkflowRequest;
+    /// use google_cloud_workflows_v1::model::Workflow;
+    /// let x = CreateWorkflowRequest::new().set_or_clear_workflow(Some(Workflow::default()/* use setters */));
+    /// let x = CreateWorkflowRequest::new().set_or_clear_workflow(None::<Workflow>);
+    /// ```
     pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workflow>,
@@ -2164,6 +1411,12 @@ impl CreateWorkflowRequest {
     }
 
     /// Sets the value of [workflow_id][crate::model::CreateWorkflowRequest::workflow_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::CreateWorkflowRequest;
+    /// let x = CreateWorkflowRequest::new().set_workflow_id("example");
+    /// ```
     pub fn set_workflow_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workflow_id = v.into();
         self
@@ -2173,151 +1426,6 @@ impl CreateWorkflowRequest {
 impl wkt::message::Message for CreateWorkflowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.workflows.v1.CreateWorkflowRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for CreateWorkflowRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __parent,
-            __workflow,
-            __workflow_id,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for CreateWorkflowRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "parent" => Ok(__FieldTag::__parent),
-                            "workflow" => Ok(__FieldTag::__workflow),
-                            "workflowId" => Ok(__FieldTag::__workflow_id),
-                            "workflow_id" => Ok(__FieldTag::__workflow_id),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = CreateWorkflowRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct CreateWorkflowRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__parent => {
-                            if !fields.insert(__FieldTag::__parent) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for parent",
-                                ));
-                            }
-                            result.parent = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__workflow => {
-                            if !fields.insert(__FieldTag::__workflow) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for workflow",
-                                ));
-                            }
-                            result.workflow =
-                                map.next_value::<std::option::Option<crate::model::Workflow>>()?;
-                        }
-                        __FieldTag::__workflow_id => {
-                            if !fields.insert(__FieldTag::__workflow_id) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for workflow_id",
-                                ));
-                            }
-                            result.workflow_id = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for CreateWorkflowRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.parent.is_empty() {
-            state.serialize_entry("parent", &self.parent)?;
-        }
-        if self.workflow.is_some() {
-            state.serialize_entry("workflow", &self.workflow)?;
-        }
-        if !self.workflow_id.is_empty() {
-            state.serialize_entry("workflowId", &self.workflow_id)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for CreateWorkflowRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateWorkflowRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("workflow", &self.workflow);
-        debug_struct.field("workflow_id", &self.workflow_id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -2333,7 +1441,7 @@ pub struct DeleteWorkflowRequest {
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     pub name: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteWorkflowRequest {
@@ -2342,6 +1450,12 @@ impl DeleteWorkflowRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWorkflowRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::DeleteWorkflowRequest;
+    /// let x = DeleteWorkflowRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2351,119 +1465,6 @@ impl DeleteWorkflowRequest {
 impl wkt::message::Message for DeleteWorkflowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.workflows.v1.DeleteWorkflowRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for DeleteWorkflowRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for DeleteWorkflowRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = DeleteWorkflowRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct DeleteWorkflowRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for DeleteWorkflowRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for DeleteWorkflowRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteWorkflowRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -2482,7 +1483,7 @@ pub struct UpdateWorkflowRequest {
     /// will be updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateWorkflowRequest {
@@ -2491,6 +1492,13 @@ impl UpdateWorkflowRequest {
     }
 
     /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::UpdateWorkflowRequest;
+    /// use google_cloud_workflows_v1::model::Workflow;
+    /// let x = UpdateWorkflowRequest::new().set_workflow(Workflow::default()/* use setters */);
+    /// ```
     pub fn set_workflow<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Workflow>,
@@ -2500,6 +1508,14 @@ impl UpdateWorkflowRequest {
     }
 
     /// Sets or clears the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::UpdateWorkflowRequest;
+    /// use google_cloud_workflows_v1::model::Workflow;
+    /// let x = UpdateWorkflowRequest::new().set_or_clear_workflow(Some(Workflow::default()/* use setters */));
+    /// let x = UpdateWorkflowRequest::new().set_or_clear_workflow(None::<Workflow>);
+    /// ```
     pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workflow>,
@@ -2509,6 +1525,13 @@ impl UpdateWorkflowRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::UpdateWorkflowRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateWorkflowRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2518,6 +1541,14 @@ impl UpdateWorkflowRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::UpdateWorkflowRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateWorkflowRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateWorkflowRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2530,134 +1561,6 @@ impl UpdateWorkflowRequest {
 impl wkt::message::Message for UpdateWorkflowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.workflows.v1.UpdateWorkflowRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for UpdateWorkflowRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __workflow,
-            __update_mask,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for UpdateWorkflowRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "workflow" => Ok(__FieldTag::__workflow),
-                            "updateMask" => Ok(__FieldTag::__update_mask),
-                            "update_mask" => Ok(__FieldTag::__update_mask),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = UpdateWorkflowRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct UpdateWorkflowRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__workflow => {
-                            if !fields.insert(__FieldTag::__workflow) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for workflow",
-                                ));
-                            }
-                            result.workflow =
-                                map.next_value::<std::option::Option<crate::model::Workflow>>()?;
-                        }
-                        __FieldTag::__update_mask => {
-                            if !fields.insert(__FieldTag::__update_mask) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for update_mask",
-                                ));
-                            }
-                            result.update_mask =
-                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for UpdateWorkflowRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.workflow.is_some() {
-            state.serialize_entry("workflow", &self.workflow)?;
-        }
-        if self.update_mask.is_some() {
-            state.serialize_entry("updateMask", &self.update_mask)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for UpdateWorkflowRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateWorkflowRequest");
-        debug_struct.field("workflow", &self.workflow);
-        debug_struct.field("update_mask", &self.update_mask);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -2680,7 +1583,7 @@ pub struct OperationMetadata {
     /// API version used to start the operation.
     pub api_version: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -2689,6 +1592,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2698,6 +1608,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2707,6 +1625,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2716,6 +1641,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2725,18 +1658,36 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -2746,184 +1697,6 @@ impl OperationMetadata {
 impl wkt::message::Message for OperationMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.workflows.v1.OperationMetadata"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for OperationMetadata {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __create_time,
-            __end_time,
-            __target,
-            __verb,
-            __api_version,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for OperationMetadata")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "createTime" => Ok(__FieldTag::__create_time),
-                            "create_time" => Ok(__FieldTag::__create_time),
-                            "endTime" => Ok(__FieldTag::__end_time),
-                            "end_time" => Ok(__FieldTag::__end_time),
-                            "target" => Ok(__FieldTag::__target),
-                            "verb" => Ok(__FieldTag::__verb),
-                            "apiVersion" => Ok(__FieldTag::__api_version),
-                            "api_version" => Ok(__FieldTag::__api_version),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = OperationMetadata;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct OperationMetadata")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__create_time => {
-                            if !fields.insert(__FieldTag::__create_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for create_time",
-                                ));
-                            }
-                            result.create_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__end_time => {
-                            if !fields.insert(__FieldTag::__end_time) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for end_time",
-                                ));
-                            }
-                            result.end_time =
-                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
-                        }
-                        __FieldTag::__target => {
-                            if !fields.insert(__FieldTag::__target) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for target",
-                                ));
-                            }
-                            result.target = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__verb => {
-                            if !fields.insert(__FieldTag::__verb) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for verb",
-                                ));
-                            }
-                            result.verb = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__api_version => {
-                            if !fields.insert(__FieldTag::__api_version) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for api_version",
-                                ));
-                            }
-                            result.api_version = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for OperationMetadata {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.create_time.is_some() {
-            state.serialize_entry("createTime", &self.create_time)?;
-        }
-        if self.end_time.is_some() {
-            state.serialize_entry("endTime", &self.end_time)?;
-        }
-        if !self.target.is_empty() {
-            state.serialize_entry("target", &self.target)?;
-        }
-        if !self.verb.is_empty() {
-            state.serialize_entry("verb", &self.verb)?;
-        }
-        if !self.api_version.is_empty() {
-            state.serialize_entry("apiVersion", &self.api_version)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for OperationMetadata {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("OperationMetadata");
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("end_time", &self.end_time);
-        debug_struct.field("target", &self.target);
-        debug_struct.field("verb", &self.verb);
-        debug_struct.field("api_version", &self.api_version);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -2948,7 +1721,7 @@ pub struct ListWorkflowRevisionsRequest {
     /// Provide this to retrieve the subsequent page.
     pub page_token: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkflowRevisionsRequest {
@@ -2957,18 +1730,36 @@ impl ListWorkflowRevisionsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListWorkflowRevisionsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsRequest;
+    /// let x = ListWorkflowRevisionsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkflowRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsRequest;
+    /// let x = ListWorkflowRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkflowRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsRequest;
+    /// let x = ListWorkflowRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2978,171 +1769,6 @@ impl ListWorkflowRevisionsRequest {
 impl wkt::message::Message for ListWorkflowRevisionsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.workflows.v1.ListWorkflowRevisionsRequest"
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListWorkflowRevisionsRequest {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __name,
-            __page_size,
-            __page_token,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListWorkflowRevisionsRequest")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "name" => Ok(__FieldTag::__name),
-                            "pageSize" => Ok(__FieldTag::__page_size),
-                            "page_size" => Ok(__FieldTag::__page_size),
-                            "pageToken" => Ok(__FieldTag::__page_token),
-                            "page_token" => Ok(__FieldTag::__page_token),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListWorkflowRevisionsRequest;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListWorkflowRevisionsRequest")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__name => {
-                            if !fields.insert(__FieldTag::__name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for name",
-                                ));
-                            }
-                            result.name = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__page_size => {
-                            if !fields.insert(__FieldTag::__page_size) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_size",
-                                ));
-                            }
-                            struct __With(std::option::Option<i32>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
-                        }
-                        __FieldTag::__page_token => {
-                            if !fields.insert(__FieldTag::__page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for page_token",
-                                ));
-                            }
-                            result.page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListWorkflowRevisionsRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.name.is_empty() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !wkt::internal::is_default(&self.page_size) {
-            struct __With<'a>(&'a i32);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("pageSize", &__With(&self.page_size))?;
-        }
-        if !self.page_token.is_empty() {
-            state.serialize_entry("pageToken", &self.page_token)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListWorkflowRevisionsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListWorkflowRevisionsRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("page_size", &self.page_size);
-        debug_struct.field("page_token", &self.page_token);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 
@@ -3161,7 +1787,7 @@ pub struct ListWorkflowRevisionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     pub next_page_token: std::string::String,
 
-    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkflowRevisionsResponse {
@@ -3170,6 +1796,17 @@ impl ListWorkflowRevisionsResponse {
     }
 
     /// Sets the value of [workflows][crate::model::ListWorkflowRevisionsResponse::workflows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsResponse;
+    /// use google_cloud_workflows_v1::model::Workflow;
+    /// let x = ListWorkflowRevisionsResponse::new()
+    ///     .set_workflows([
+    ///         Workflow::default()/* use setters */,
+    ///         Workflow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_workflows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3181,6 +1818,12 @@ impl ListWorkflowRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkflowRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsResponse;
+    /// let x = ListWorkflowRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3204,134 +1847,6 @@ impl gax::paginator::internal::PageableResponse for ListWorkflowRevisionsRespons
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
         self.next_page_token.clone()
-    }
-}
-
-#[doc(hidden)]
-impl<'de> serde::de::Deserialize<'de> for ListWorkflowRevisionsResponse {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[allow(non_camel_case_types)]
-        #[doc(hidden)]
-        #[derive(PartialEq, Eq, Hash)]
-        enum __FieldTag {
-            __workflows,
-            __next_page_token,
-            Unknown(std::string::String),
-        }
-        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct Visitor;
-                impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = __FieldTag;
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("a field name for ListWorkflowRevisionsResponse")
-                    }
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        use std::result::Result::Ok;
-                        use std::string::ToString;
-                        match value {
-                            "workflows" => Ok(__FieldTag::__workflows),
-                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
-                            "next_page_token" => Ok(__FieldTag::__next_page_token),
-                            _ => Ok(__FieldTag::Unknown(value.to_string())),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(Visitor)
-            }
-        }
-        struct Visitor;
-        impl<'de> serde::de::Visitor<'de> for Visitor {
-            type Value = ListWorkflowRevisionsResponse;
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("struct ListWorkflowRevisionsResponse")
-            }
-            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
-            where
-                A: serde::de::MapAccess<'de>,
-            {
-                #[allow(unused_imports)]
-                use serde::de::Error;
-                use std::option::Option::Some;
-                let mut fields = std::collections::HashSet::new();
-                let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<__FieldTag>()? {
-                    #[allow(clippy::match_single_binding)]
-                    match tag {
-                        __FieldTag::__workflows => {
-                            if !fields.insert(__FieldTag::__workflows) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for workflows",
-                                ));
-                            }
-                            result.workflows = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Workflow>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__next_page_token => {
-                            if !fields.insert(__FieldTag::__next_page_token) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for next_page_token",
-                                ));
-                            }
-                            result.next_page_token = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::Unknown(key) => {
-                            let value = map.next_value::<serde_json::Value>()?;
-                            result._unknown_fields.insert(key, value);
-                        }
-                    }
-                }
-                std::result::Result::Ok(result)
-            }
-        }
-        deserializer.deserialize_any(Visitor)
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for ListWorkflowRevisionsResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.workflows.is_empty() {
-            state.serialize_entry("workflows", &self.workflows)?;
-        }
-        if !self.next_page_token.is_empty() {
-            state.serialize_entry("nextPageToken", &self.next_page_token)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-impl std::fmt::Debug for ListWorkflowRevisionsResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListWorkflowRevisionsResponse");
-        debug_struct.field("workflows", &self.workflows);
-        debug_struct.field("next_page_token", &self.next_page_token);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
     }
 }
 

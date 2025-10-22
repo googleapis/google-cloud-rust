@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-storage"
-version     = "0.25.0"
+version     = "1.2.0"
 description = "Google Cloud Client Libraries for Rust - Storage"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -24,6 +24,9 @@ repository.workspace   = true
 keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
+
+[lints]
+workspace = true
 
 [dependencies]
 async-trait.workspace      = true
@@ -50,6 +53,8 @@ tokio                      = { workspace = true, features = ["io-util"] }
 tonic.workspace            = true
 tracing.workspace          = true
 uuid.workspace             = true
+# Transitive dependencies. Used for minimal version selection.
+mime.workspace = true
 # Local crates
 auth.workspace        = true
 gax.workspace         = true

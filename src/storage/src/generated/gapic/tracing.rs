@@ -83,33 +83,6 @@ where
     }
 
     #[tracing::instrument(ret)]
-    async fn get_iam_policy(
-        &self,
-        req: iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        self.inner.get_iam_policy(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn set_iam_policy(
-        &self,
-        req: iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        self.inner.set_iam_policy(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
     async fn update_bucket(
         &self,
         req: crate::model::UpdateBucketRequest,

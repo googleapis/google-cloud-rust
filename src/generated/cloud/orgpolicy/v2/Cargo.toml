@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-orgpolicy-v2"
-version                = "0.4.5"
+version                = "1.1.0"
 description            = "Google Cloud Client Libraries for Rust - Organization Policy API"
 edition.workspace      = true
 authors.workspace      = true

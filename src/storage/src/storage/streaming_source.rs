@@ -93,6 +93,13 @@ impl From<&'static str> for Payload<BytesSource> {
     }
 }
 
+impl From<String> for Payload<BytesSource> {
+    fn from(value: String) -> Self {
+        let payload = BytesSource::new(bytes::Bytes::from(value));
+        Self { payload }
+    }
+}
+
 impl From<Vec<bytes::Bytes>> for Payload<IterSource> {
     fn from(value: Vec<bytes::Bytes>) -> Self {
         let payload = IterSource::new(value);
@@ -421,6 +428,17 @@ pub mod tests {
     async fn simple_str() -> Result {
         const LAZY: &str = "the quick brown fox jumps over the lazy dog";
         let buffer = Payload::from(LAZY);
+        let range = buffer.size_hint().await?;
+        assert_eq!(range.exact(), Some(LAZY.len() as u64));
+        let got = collect(buffer).await?;
+        assert_eq!(&got, LAZY.as_bytes(), "{got:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn simple_string() -> Result {
+        const LAZY: &str = "the quick brown fox jumps over the lazy dog";
+        let buffer = Payload::from(String::from(LAZY));
         let range = buffer.size_hint().await?;
         assert_eq!(range.exact(), Some(LAZY.len() as u64));
         let got = collect(buffer).await?;

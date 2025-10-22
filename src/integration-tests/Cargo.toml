@@ -20,7 +20,7 @@ publish           = false
 version           = "0.0.0"
 
 [features]
-log-integration-tests = ["dep:tracing-subscriber"]
+log-integration-tests = []
 # These are normally disabled because they run against production.
 run-integration-tests = []
 # These are normally disabled because they require installing the golang
@@ -28,29 +28,41 @@ run-integration-tests = []
 run-showcase-tests = []
 
 [dependencies]
-anyhow.workspace      = true
-bytes.workspace       = true
-crc32c.workspace      = true
-futures.workspace     = true
-auth.workspace        = true
-gax                   = { workspace = true, features = ["unstable-stream"] }
-gaxi                  = { workspace = true, features = ["_internal-http-client"] }
-iam_v1.workspace      = true
-longrunning.workspace = true
-lro.workspace         = true
-rand                  = { workspace = true, features = ["thread_rng"] }
-serde_json.workspace  = true
-tokio                 = { workspace = true, features = ["process"] }
-tracing.workspace     = true
-tracing-subscriber    = { workspace = true, optional = true, features = ["fmt", "std"] }
-uuid                  = { workspace = true, features = ["std", "v4"] }
-wkt.workspace         = true
+anyhow.workspace                  = true
+bytes.workspace                   = true
+chrono                            = { workspace = true, features = ["now"] }
+crc32c.workspace                  = true
+flate2                            = { workspace = true, features = ["zlib-rs"] }
+futures.workspace                 = true
+auth.workspace                    = true
+gax                               = { workspace = true, features = ["unstable-stream"] }
+gaxi                              = { workspace = true, features = ["_internal-http-client"] }
+google-cloud-test-utils.workspace = true
+iam_v1.workspace                  = true
+longrunning.workspace             = true
+lro.workspace                     = true
+rand                              = { workspace = true, features = ["thread_rng"] }
+serde_json.workspace              = true
+tokio                             = { workspace = true, features = ["process"] }
+tracing.workspace                 = true
+tracing-subscriber                = { workspace = true, features = ["fmt", "std"] }
+uuid                              = { workspace = true, features = ["std", "v4"] }
+wkt.workspace                     = true
+# Formatting trick: this comment preserves formatting in the preceding block.
+google-cloud-compute-v1 = { workspace = true, features = [
+  "images",
+  "instances",
+  "machine-types",
+  "region-instances",
+  "zone-operations",
+  "zones",
+] }
 
 [dependencies.aiplatform]
 package          = "google-cloud-aiplatform-v1"
 path             = "../../src/generated/cloud/aiplatform/v1"
 default-features = false
-features         = ["prediction-service"]
+features         = ["model-service", "prediction-service"]
 
 [dependencies.bigquery]
 package = "google-cloud-bigquery-v2"
@@ -59,6 +71,10 @@ path    = "../../src/generated/cloud/bigquery/v2"
 [dependencies.firestore]
 package = "google-cloud-firestore"
 path    = "../../src/firestore"
+
+[dependencies.pubsub]
+package = "google-cloud-pubsub"
+path    = "../../src/pubsub"
 
 [dependencies.showcase]
 package = "google-cloud-showcase-v1beta1"
@@ -97,11 +113,12 @@ package = "google-cloud-workflows-executions-v1"
 path    = "../../src/generated/cloud/workflows/executions/v1"
 
 [dev-dependencies]
-anyhow.workspace     = true
-httptest.workspace   = true
-mockall.workspace    = true
-reqwest.workspace    = true
-serde.workspace      = true
-serde_with.workspace = true
-test-case.workspace  = true
-tokio.workspace      = true
+anyhow.workspace            = true
+httptest.workspace          = true
+mockall.workspace           = true
+reqwest.workspace           = true
+serde.workspace             = true
+serde_with.workspace        = true
+static_assertions.workspace = true
+test-case.workspace         = true
+tokio.workspace             = true

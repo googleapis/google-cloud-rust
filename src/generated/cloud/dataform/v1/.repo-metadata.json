@@ -6,6 +6,6 @@
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name_pretty": "Dataform API",
-    "release_level": "preview",
+    "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

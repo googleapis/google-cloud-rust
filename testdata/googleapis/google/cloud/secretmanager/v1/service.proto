@@ -51,8 +51,8 @@ service SecretManagerService {
   // Lists [Secrets][google.cloud.secretmanager.v1.Secret].
   rpc ListSecrets(ListSecretsRequest) returns (ListSecretsResponse) {
     option (google.api.http) = {
-      get: "/v1/{parent=projects/*}/secrets"
-      additional_bindings { get: "/v1/{parent=projects/*/locations/*}/secrets" }
+      get : "/v1/{parent=projects/*}/secrets"
+      additional_bindings {get : "/v1/{parent=projects/*/locations/*}/secrets"}
     };
     option (google.api.method_signature) = "parent";
   }
@@ -61,11 +61,11 @@ service SecretManagerService {
   // [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
   rpc CreateSecret(CreateSecretRequest) returns (Secret) {
     option (google.api.http) = {
-      post: "/v1/{parent=projects/*}/secrets"
-      body: "secret"
+      post : "/v1/{parent=projects/*}/secrets"
+      body : "secret"
       additional_bindings {
-        post: "/v1/{parent=projects/*/locations/*}/secrets"
-        body: "secret"
+        post : "/v1/{parent=projects/*/locations/*}/secrets"
+        body : "secret"
       }
     };
     option (google.api.method_signature) = "parent,secret_id,secret";
@@ -76,11 +76,11 @@ service SecretManagerService {
   // [Secret][google.cloud.secretmanager.v1.Secret].
   rpc AddSecretVersion(AddSecretVersionRequest) returns (SecretVersion) {
     option (google.api.http) = {
-      post: "/v1/{parent=projects/*/secrets/*}:addVersion"
-      body: "*"
+      post : "/v1/{parent=projects/*/secrets/*}:addVersion"
+      body : "*"
       additional_bindings {
-        post: "/v1/{parent=projects/*/locations/*/secrets/*}:addVersion"
-        body: "*"
+        post : "/v1/{parent=projects/*/locations/*/secrets/*}:addVersion"
+        body : "*"
       }
     };
     option (google.api.method_signature) = "parent,payload";
@@ -89,8 +89,8 @@ service SecretManagerService {
   // Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
   rpc GetSecret(GetSecretRequest) returns (Secret) {
     option (google.api.http) = {
-      get: "/v1/{name=projects/*/secrets/*}"
-      additional_bindings { get: "/v1/{name=projects/*/locations/*/secrets/*}" }
+      get : "/v1/{name=projects/*/secrets/*}"
+      additional_bindings {get : "/v1/{name=projects/*/locations/*/secrets/*}"}
     };
     option (google.api.method_signature) = "name";
   }
@@ -99,11 +99,11 @@ service SecretManagerService {
   // [Secret][google.cloud.secretmanager.v1.Secret].
   rpc UpdateSecret(UpdateSecretRequest) returns (Secret) {
     option (google.api.http) = {
-      patch: "/v1/{secret.name=projects/*/secrets/*}"
-      body: "secret"
+      patch : "/v1/{secret.name=projects/*/secrets/*}"
+      body : "secret"
       additional_bindings {
-        patch: "/v1/{secret.name=projects/*/locations/*/secrets/*}"
-        body: "secret"
+        patch : "/v1/{secret.name=projects/*/locations/*/secrets/*}"
+        body : "secret"
       }
     };
     option (google.api.method_signature) = "secret,update_mask";
@@ -112,9 +112,9 @@ service SecretManagerService {
   // Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
   rpc DeleteSecret(DeleteSecretRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/{name=projects/*/secrets/*}"
+      delete : "/v1/{name=projects/*/secrets/*}"
       additional_bindings {
-        delete: "/v1/{name=projects/*/locations/*/secrets/*}"
+        delete : "/v1/{name=projects/*/locations/*/secrets/*}"
       }
     };
     option (google.api.method_signature) = "name";
@@ -125,9 +125,9 @@ service SecretManagerService {
   rpc ListSecretVersions(ListSecretVersionsRequest)
       returns (ListSecretVersionsResponse) {
     option (google.api.http) = {
-      get: "/v1/{parent=projects/*/secrets/*}/versions"
+      get : "/v1/{parent=projects/*/secrets/*}/versions"
       additional_bindings {
-        get: "/v1/{parent=projects/*/locations/*/secrets/*}/versions"
+        get : "/v1/{parent=projects/*/locations/*/secrets/*}/versions"
       }
     };
     option (google.api.method_signature) = "parent";
@@ -140,9 +140,9 @@ service SecretManagerService {
   // created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
   rpc GetSecretVersion(GetSecretVersionRequest) returns (SecretVersion) {
     option (google.api.http) = {
-      get: "/v1/{name=projects/*/secrets/*/versions/*}"
+      get : "/v1/{name=projects/*/secrets/*/versions/*}"
       additional_bindings {
-        get: "/v1/{name=projects/*/locations/*/secrets/*/versions/*}"
+        get : "/v1/{name=projects/*/locations/*/secrets/*/versions/*}"
       }
     };
     option (google.api.method_signature) = "name";
@@ -156,9 +156,9 @@ service SecretManagerService {
   rpc AccessSecretVersion(AccessSecretVersionRequest)
       returns (AccessSecretVersionResponse) {
     option (google.api.http) = {
-      get: "/v1/{name=projects/*/secrets/*/versions/*}:access"
+      get : "/v1/{name=projects/*/secrets/*/versions/*}:access"
       additional_bindings {
-        get: "/v1/{name=projects/*/locations/*/secrets/*/versions/*}:access"
+        get : "/v1/{name=projects/*/locations/*/secrets/*/versions/*}:access"
       }
     };
     option (google.api.method_signature) = "name";
@@ -172,11 +172,11 @@ service SecretManagerService {
   rpc DisableSecretVersion(DisableSecretVersionRequest)
       returns (SecretVersion) {
     option (google.api.http) = {
-      post: "/v1/{name=projects/*/secrets/*/versions/*}:disable"
-      body: "*"
+      post : "/v1/{name=projects/*/secrets/*/versions/*}:disable"
+      body : "*"
       additional_bindings {
-        post: "/v1/{name=projects/*/locations/*/secrets/*/versions/*}:disable"
-        body: "*"
+        post : "/v1/{name=projects/*/locations/*/secrets/*/versions/*}:disable"
+        body : "*"
       }
     };
     option (google.api.method_signature) = "name";
@@ -189,11 +189,11 @@ service SecretManagerService {
   // [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED].
   rpc EnableSecretVersion(EnableSecretVersionRequest) returns (SecretVersion) {
     option (google.api.http) = {
-      post: "/v1/{name=projects/*/secrets/*/versions/*}:enable"
-      body: "*"
+      post : "/v1/{name=projects/*/secrets/*/versions/*}:enable"
+      body : "*"
       additional_bindings {
-        post: "/v1/{name=projects/*/locations/*/secrets/*/versions/*}:enable"
-        body: "*"
+        post : "/v1/{name=projects/*/locations/*/secrets/*/versions/*}:enable"
+        body : "*"
       }
     };
     option (google.api.method_signature) = "name";
@@ -208,11 +208,11 @@ service SecretManagerService {
   rpc DestroySecretVersion(DestroySecretVersionRequest)
       returns (SecretVersion) {
     option (google.api.http) = {
-      post: "/v1/{name=projects/*/secrets/*/versions/*}:destroy"
-      body: "*"
+      post : "/v1/{name=projects/*/secrets/*/versions/*}:destroy"
+      body : "*"
       additional_bindings {
-        post: "/v1/{name=projects/*/locations/*/secrets/*/versions/*}:destroy"
-        body: "*"
+        post : "/v1/{name=projects/*/locations/*/secrets/*/versions/*}:destroy"
+        body : "*"
       }
     };
     option (google.api.method_signature) = "name";
@@ -228,11 +228,11 @@ service SecretManagerService {
   rpc SetIamPolicy(google.iam.v1.SetIamPolicyRequest)
       returns (google.iam.v1.Policy) {
     option (google.api.http) = {
-      post: "/v1/{resource=projects/*/secrets/*}:setIamPolicy"
-      body: "*"
+      post : "/v1/{resource=projects/*/secrets/*}:setIamPolicy"
+      body : "*"
       additional_bindings {
-        post: "/v1/{resource=projects/*/locations/*/secrets/*}:setIamPolicy"
-        body: "*"
+        post : "/v1/{resource=projects/*/locations/*/secrets/*}:setIamPolicy"
+        body : "*"
       }
     };
   }
@@ -242,9 +242,9 @@ service SecretManagerService {
   rpc GetIamPolicy(google.iam.v1.GetIamPolicyRequest)
       returns (google.iam.v1.Policy) {
     option (google.api.http) = {
-      get: "/v1/{resource=projects/*/secrets/*}:getIamPolicy"
+      get : "/v1/{resource=projects/*/secrets/*}:getIamPolicy"
       additional_bindings {
-        get: "/v1/{resource=projects/*/locations/*/secrets/*}:getIamPolicy"
+        get : "/v1/{resource=projects/*/locations/*/secrets/*}:getIamPolicy"
       }
     };
   }
@@ -259,11 +259,12 @@ service SecretManagerService {
   rpc TestIamPermissions(google.iam.v1.TestIamPermissionsRequest)
       returns (google.iam.v1.TestIamPermissionsResponse) {
     option (google.api.http) = {
-      post: "/v1/{resource=projects/*/secrets/*}:testIamPermissions"
-      body: "*"
+      post : "/v1/{resource=projects/*/secrets/*}:testIamPermissions"
+      body : "*"
       additional_bindings {
-        post: "/v1/{resource=projects/*/locations/*/secrets/*}:testIamPermissions"
-        body: "*"
+        post : "/v1/{resource=projects/*/locations/*/secrets/"
+               "*}:testIamPermissions"
+        body : "*"
       }
     };
   }
@@ -278,25 +279,25 @@ message ListSecretsRequest {
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      child_type: "secretmanager.googleapis.com/Secret"
+      child_type : "secretmanager.googleapis.com/Secret"
     }
   ];
 
   // Optional. The maximum number of results to be returned in a single page. If
   // set to 0, the server decides the number of results to return. If the
   // number is greater than 25000, it is capped at 25000.
-  int32 page_size = 2 [(google.api.field_behavior) = OPTIONAL];
+  int32 page_size = 2 [ (google.api.field_behavior) = OPTIONAL ];
 
   // Optional. Pagination token, returned earlier via
   // [ListSecretsResponse.next_page_token][google.cloud.secretmanager.v1.ListSecretsResponse.next_page_token].
-  string page_token = 3 [(google.api.field_behavior) = OPTIONAL];
+  string page_token = 3 [ (google.api.field_behavior) = OPTIONAL ];
 
   // Optional. Filter string, adhering to the rules in
   // [List-operation
   // filtering](https://cloud.google.com/secret-manager/docs/filtering). List
   // only secrets matching the filter. If filter is empty, all secrets are
   // listed.
-  string filter = 4 [(google.api.field_behavior) = OPTIONAL];
+  string filter = 4 [ (google.api.field_behavior) = OPTIONAL ];
 }
 
 // Response message for
@@ -327,7 +328,7 @@ message CreateSecretRequest {
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      child_type: "secretmanager.googleapis.com/Secret"
+      child_type : "secretmanager.googleapis.com/Secret"
     }
   ];
 
@@ -336,11 +337,11 @@ message CreateSecretRequest {
   // A secret ID is a string with a maximum length of 255 characters and can
   // contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
   // underscore (`_`) characters.
-  string secret_id = 2 [(google.api.field_behavior) = REQUIRED];
+  string secret_id = 2 [ (google.api.field_behavior) = REQUIRED ];
 
   // Required. A [Secret][google.cloud.secretmanager.v1.Secret] with initial
   // field values.
-  Secret secret = 3 [(google.api.field_behavior) = REQUIRED];
+  Secret secret = 3 [ (google.api.field_behavior) = REQUIRED ];
 }
 
 // Request message for
@@ -353,13 +354,13 @@ message AddSecretVersionRequest {
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "secretmanager.googleapis.com/Secret"
+      type : "secretmanager.googleapis.com/Secret"
     }
   ];
 
   // Required. The secret payload of the
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  SecretPayload payload = 2 [(google.api.field_behavior) = REQUIRED];
+  SecretPayload payload = 2 [ (google.api.field_behavior) = REQUIRED ];
 }
 
 // Request message for
@@ -371,7 +372,7 @@ message GetSecretRequest {
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "secretmanager.googleapis.com/Secret"
+      type : "secretmanager.googleapis.com/Secret"
     }
   ];
 }
@@ -386,25 +387,25 @@ message ListSecretVersionsRequest {
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "secretmanager.googleapis.com/Secret"
+      type : "secretmanager.googleapis.com/Secret"
     }
   ];
 
   // Optional. The maximum number of results to be returned in a single page. If
   // set to 0, the server decides the number of results to return. If the
   // number is greater than 25000, it is capped at 25000.
-  int32 page_size = 2 [(google.api.field_behavior) = OPTIONAL];
+  int32 page_size = 2 [ (google.api.field_behavior) = OPTIONAL ];
 
   // Optional. Pagination token, returned earlier via
   // ListSecretVersionsResponse.next_page_token][].
-  string page_token = 3 [(google.api.field_behavior) = OPTIONAL];
+  string page_token = 3 [ (google.api.field_behavior) = OPTIONAL ];
 
   // Optional. Filter string, adhering to the rules in
   // [List-operation
   // filtering](https://cloud.google.com/secret-manager/docs/filtering). List
   // only secret versions matching the filter. If filter is empty, all secret
   // versions are listed.
-  string filter = 4 [(google.api.field_behavior) = OPTIONAL];
+  string filter = 4 [ (google.api.field_behavior) = OPTIONAL ];
 }
 
 // Response message for
@@ -442,7 +443,7 @@ message GetSecretVersionRequest {
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "secretmanager.googleapis.com/SecretVersion"
+      type : "secretmanager.googleapis.com/SecretVersion"
     }
   ];
 }
@@ -452,11 +453,11 @@ message GetSecretVersionRequest {
 message UpdateSecretRequest {
   // Required. [Secret][google.cloud.secretmanager.v1.Secret] with updated field
   // values.
-  Secret secret = 1 [(google.api.field_behavior) = REQUIRED];
+  Secret secret = 1 [ (google.api.field_behavior) = REQUIRED ];
 
   // Required. Specifies the fields to be updated.
   google.protobuf.FieldMask update_mask = 2
-      [(google.api.field_behavior) = REQUIRED];
+      [ (google.api.field_behavior) = REQUIRED ];
 }
 
 // Request message for
@@ -474,7 +475,7 @@ message AccessSecretVersionRequest {
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "secretmanager.googleapis.com/SecretVersion"
+      type : "secretmanager.googleapis.com/SecretVersion"
     }
   ];
 }
@@ -486,9 +487,9 @@ message AccessSecretVersionResponse {
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   // `projects/*/secrets/*/versions/*` or
   // `projects/*/locations/*/secrets/*/versions/*`.
-  string name = 1 [(google.api.resource_reference) = {
-    type: "secretmanager.googleapis.com/SecretVersion"
-  }];
+  string name = 1 [ (google.api.resource_reference) = {
+    type : "secretmanager.googleapis.com/SecretVersion"
+  } ];
 
   // Secret payload
   SecretPayload payload = 2;
@@ -503,14 +504,14 @@ message DeleteSecretRequest {
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "secretmanager.googleapis.com/Secret"
+      type : "secretmanager.googleapis.com/Secret"
     }
   ];
 
   // Optional. Etag of the [Secret][google.cloud.secretmanager.v1.Secret]. The
   // request succeeds if it matches the etag of the currently stored secret
   // object. If the etag is omitted, the request succeeds.
-  string etag = 2 [(google.api.field_behavior) = OPTIONAL];
+  string etag = 2 [ (google.api.field_behavior) = OPTIONAL ];
 }
 
 // Request message for
@@ -523,7 +524,7 @@ message DisableSecretVersionRequest {
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "secretmanager.googleapis.com/SecretVersion"
+      type : "secretmanager.googleapis.com/SecretVersion"
     }
   ];
 
@@ -531,7 +532,7 @@ message DisableSecretVersionRequest {
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
   // succeeds if it matches the etag of the currently stored secret version
   // object. If the etag is omitted, the request succeeds.
-  string etag = 2 [(google.api.field_behavior) = OPTIONAL];
+  string etag = 2 [ (google.api.field_behavior) = OPTIONAL ];
 }
 
 // Request message for
@@ -544,7 +545,7 @@ message EnableSecretVersionRequest {
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "secretmanager.googleapis.com/SecretVersion"
+      type : "secretmanager.googleapis.com/SecretVersion"
     }
   ];
 
@@ -552,7 +553,7 @@ message EnableSecretVersionRequest {
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
   // succeeds if it matches the etag of the currently stored secret version
   // object. If the etag is omitted, the request succeeds.
-  string etag = 2 [(google.api.field_behavior) = OPTIONAL];
+  string etag = 2 [ (google.api.field_behavior) = OPTIONAL ];
 }
 
 // Request message for
@@ -565,7 +566,7 @@ message DestroySecretVersionRequest {
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "secretmanager.googleapis.com/SecretVersion"
+      type : "secretmanager.googleapis.com/SecretVersion"
     }
   ];
 
@@ -573,5 +574,5 @@ message DestroySecretVersionRequest {
   // [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
   // succeeds if it matches the etag of the currently stored secret version
   // object. If the etag is omitted, the request succeeds.
-  string etag = 2 [(google.api.field_behavior) = OPTIONAL];
+  string etag = 2 [ (google.api.field_behavior) = OPTIONAL ];
 }

@@ -16,10 +16,10 @@
 extend-exclude = [
   # The test data have typos, or at least uncommon spelling. We do not care
   # about them as they are not customer visible.
-  "doc/rustdocfx/testdata/**",
   "testdata/**",
+  "tools/cmd/docfx/testdata/**",
   # Generated libraries often contain typos coming from upstream protos.
-  "dart/generated/**",
+  "/go.work.sum",
   "src/*/src/generated/**",
   "src/generated/**",
 ]
