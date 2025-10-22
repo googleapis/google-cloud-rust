@@ -492,8 +492,8 @@ struct Oauth2RefreshResponse {
     refresh_token: Option<String>,
 }
 
-#[allow(dead_code)]
-pub(crate) mod idtoken {
+#[cfg(google_cloud_unstable_id_token)]
+pub mod idtoken {
     /// Credentials for authenticating with [ID tokens] from a [user account].
     ///
     /// This module provides a builder for [`IDTokenCredentials`] from
@@ -1351,6 +1351,7 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[cfg(google_cloud_unstable_id_token)]
     async fn id_token_success() -> TestResult {
         let server = Server::run();
         let response = Oauth2RefreshResponse {
@@ -1379,6 +1380,7 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[cfg(google_cloud_unstable_id_token)]
     async fn id_token_missing_id_token_in_response() -> TestResult {
         let server = Server::run();
         let response = Oauth2RefreshResponse {
@@ -1408,6 +1410,7 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[cfg(google_cloud_unstable_id_token)]
     async fn id_token_builder_malformed_authorized_json_nonretryable() -> TestResult {
         let authorized_user = serde_json::json!({
             "client_secret": "test-client-secret",
@@ -1423,6 +1426,7 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[cfg(google_cloud_unstable_id_token)]
     async fn id_token_retryable_error() -> TestResult {
         let server = Server::run();
         server
@@ -1442,6 +1446,7 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[cfg(google_cloud_unstable_id_token)]
     async fn id_token_nonretryable_error() -> TestResult {
         let server = Server::run();
         server
