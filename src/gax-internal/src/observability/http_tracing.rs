@@ -256,6 +256,14 @@ mod tests {
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
     use reqwest;
     use std::collections::HashMap;
+    use test_case::test_case;
+
+    const INFO: InstrumentationClientInfo = InstrumentationClientInfo {
+        service_name: "test.service",
+        client_version: "1.2.3",
+        client_artifact: "google-cloud-test",
+        default_host: "example.com",
+    };
 
     #[tokio::test]
     async fn test_create_span_attributes() {
@@ -410,32 +418,78 @@ mod tests {
         assert_eq!(*attributes, expected_attributes);
     }
 
+    #[test_case(Method::GET, "https://example.com/test", None, None, 0, "GET", "https://example.com/test", "example.com", 443, Some("https"), None, None; "basic get")]
+    #[test_case(Method::POST, "http://localhost:8080/", None, None, 0, "POST", "http://localhost:8080/", "localhost", 8080, Some("http"), None, None; "basic post")]
+    #[test_case(Method::PUT, "https://example.com/items/123", Some("/items/{item_id}"), None, 0, "PUT /items/{item_id}", "https://example.com/items/123", "example.com", 443, Some("https"), Some("/items/{item_id}"), None; "put with template")]
+    #[test_case(Method::GET, "https://example.com/test", None, Some(&INFO), 0, "GET", "https://example.com/test", "example.com", 443, Some("https"), None, Some("example.com".to_string()); "with instrumentation")]
+    #[test_case(Method::GET, "https://example.com/test", None, None, 1, "GET", "https://example.com/test", "example.com", 443, Some("https"), None, None; "with prior attempt")  ]
     #[tokio::test]
-    async fn test_http_span_info_from_request_basic() {
-        let request =
-            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-        let options = RequestOptions::default();
+    #[allow(clippy::too_many_arguments)]
+    async fn test_http_span_info_from_request(
+        method: Method,
+        url: &str,
+        template: Option<&'static str>,
+        instrumentation: Option<&'static InstrumentationClientInfo>,
+        prior_attempt_count: u32,
+        expected_otel_name: &str,
+        expected_url_full: &str,
+        expected_server_address: &str,
+        expected_server_port: i64,
+        expected_url_scheme: Option<&str>,
+        expected_url_template: Option<&'static str>,
+        expected_url_domain: Option<String>,
+    ) {
+        let request = reqwest::Request::new(method, url.parse().unwrap());
+        let options = template.map_or_else(RequestOptions::default, |t| {
+            gax::options::internal::set_path_template(RequestOptions::default(), t)
+        });
 
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
+        let span_info =
+            HttpSpanInfo::from_request(&request, &options, instrumentation, prior_attempt_count);
 
         assert_eq!(span_info.rpc_system, "http");
         assert_eq!(span_info.otel_kind, "Client");
-        assert_eq!(span_info.otel_name, "GET");
+        assert_eq!(span_info.otel_name, expected_otel_name);
         assert_eq!(span_info.otel_status, OtelStatus::Unset);
-        assert_eq!(span_info.http_request_method, "GET");
-        assert_eq!(span_info.server_address, "example.com".to_string());
-        assert_eq!(span_info.server_port, 443);
-        assert_eq!(span_info.url_full, "https://example.com/test");
-        assert_eq!(span_info.url_scheme, Some("https".to_string()));
-        assert_eq!(span_info.url_template, None);
-        assert_eq!(span_info.url_domain, None);
+        assert_eq!(span_info.http_request_method, request.method().to_string());
+        assert_eq!(span_info.server_address, expected_server_address);
+        assert_eq!(span_info.server_port, expected_server_port);
+        assert_eq!(span_info.url_full, expected_url_full);
+        assert_eq!(
+            span_info.url_scheme,
+            expected_url_scheme.map(|s| s.to_string())
+        );
+        assert_eq!(span_info.url_template, expected_url_template);
+        assert_eq!(span_info.url_domain, expected_url_domain);
         assert_eq!(span_info.http_response_status_code, None);
         assert_eq!(span_info.error_type, None);
-        assert_eq!(span_info.http_request_resend_count, None);
-        assert_eq!(span_info.gcp_client_service, None);
-        assert_eq!(span_info.gcp_client_version, None);
+        assert_eq!(
+            span_info.http_request_resend_count,
+            if prior_attempt_count > 0 {
+                Some(prior_attempt_count as i64)
+            } else {
+                None
+            }
+        );
+        if let Some(inst) = instrumentation {
+            assert_eq!(
+                span_info.gcp_client_service,
+                Some(inst.service_name.to_string())
+            );
+            assert_eq!(
+                span_info.gcp_client_version,
+                Some(inst.client_version.to_string())
+            );
+            assert_eq!(
+                span_info.gcp_client_artifact,
+                Some(inst.client_artifact.to_string())
+            );
+        } else {
+            assert_eq!(span_info.gcp_client_service, None);
+            assert_eq!(span_info.gcp_client_version, None);
+            assert_eq!(span_info.gcp_client_artifact, None);
+        }
         assert_eq!(span_info.gcp_client_repo, "googleapis/google-cloud-rust");
-        assert_eq!(span_info.gcp_client_artifact, None);
     }
 
     #[tokio::test]
@@ -466,41 +520,6 @@ mod tests {
         assert_eq!(span_info.url_domain, Some("test.service.dev".to_string()));
         assert_eq!(span_info.server_address, "test.service.dev".to_string());
         assert_eq!(span_info.server_port, 443);
-    }
-
-    #[tokio::test]
-    async fn test_http_span_info_from_request_with_path_template() {
-        let request = reqwest::Request::new(
-            Method::GET,
-            "https://example.com/items/123".parse().unwrap(),
-        );
-        let options = gax::options::internal::set_path_template(
-            RequestOptions::default(),
-            "/items/{item_id}",
-        );
-
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
-
-        assert_eq!(span_info.url_template, Some("/items/{item_id}"));
-        assert_eq!(span_info.otel_name, "GET /items/{item_id}");
-    }
-
-    #[tokio::test]
-    async fn test_http_span_info_from_request_with_prior_attempt_count() {
-        let request =
-            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-        let options = RequestOptions::default();
-
-        // prior_attempt_count is 0 for the first try
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
-        assert_eq!(span_info.http_request_resend_count, None);
-
-        // prior_attempt_count is 1 for the second try (first retry)
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 1);
-        assert_eq!(span_info.http_request_resend_count, Some(1));
-
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 5);
-        assert_eq!(span_info.http_request_resend_count, Some(5));
     }
 
     #[tokio::test]
