@@ -105,7 +105,7 @@ pub(crate) mod dynamic {
 /// [Application Default Credentials (ADC)][ADC-link] strategy.
 /// ADC is the recommended approach for most applications and conforms to
 /// [AIP-4110]. If you need to load credentials from a non-standard location
-/// or source, you can use Builders on the specific credential types.
+/// or source, you can use the builder for the desired credential type.
 ///
 /// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
 /// [AIP-4110]: https://google.aip.dev/auth/4110
@@ -114,13 +114,13 @@ pub struct Builder {
 }
 
 impl Builder {
-    /// Creates a new builder where id tokens will be obtained via [application-default login].
+    /// Creates a new builder where id tokens will be obtained via [gcloud auth application-default login].
     ///
     /// The `target_audience` is a required parameter that specifies the
     /// intended audience of the ID token. This is typically the URL of the
     /// service that will be receiving the token.
     ///
-    /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
+    /// [gcloud auth application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
     pub fn new<S: Into<String>>(target_audience: S) -> Self {
         Self {
             target_audience: target_audience.into(),
