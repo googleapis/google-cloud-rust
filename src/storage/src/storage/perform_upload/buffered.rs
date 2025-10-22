@@ -118,6 +118,7 @@ where
         progress: &mut InProgressUpload,
     ) -> Result<reqwest::RequestBuilder> {
         let range = progress.range_header();
+        tracing::info!("  ***** range={range} progress={progress:?}");
         let builder = self
             .inner
             .client

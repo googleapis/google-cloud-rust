@@ -16,6 +16,18 @@ use crate::Result;
 use storage::client::Storage;
 use storage::streaming_source::{Seek, SizeHint, StreamingSource};
 
+pub async fn repro(
+    builder: storage::builder::storage::ClientBuilder,
+    bucket_name: &str,
+) -> Result<()> {
+    // Run all the upload tests in parallel, using the same bucket.
+    // Creating a new bucket is rate-limited, and slow. Creating objects
+    // is relatively cheap.
+    let client = builder.build().await?;
+    repro_3608_buffered(&client, bucket_name).await?;
+    Ok(())
+}
+
 pub async fn run(
     builder: storage::builder::storage::ClientBuilder,
     bucket_name: &str,
@@ -33,8 +45,10 @@ pub async fn run(
             &client,
             bucket_name,
         )),
-        Box::pin(abort_upload_unbuffered(&client, bucket_name)),
+        Box::pin(repro_3608_buffered(&client, bucket_name)),
+        Box::pin(repro_3608_unbuffered(&client, bucket_name)),
         Box::pin(abort_upload_buffered(&client, bucket_name)),
+        Box::pin(abort_upload_unbuffered(&client, bucket_name)),
         Box::pin(checksums(&client, bucket_name)),
     ];
     let result: Result<Vec<_>> = futures::future::join_all(pending.into_iter())
@@ -215,7 +229,7 @@ pub(super) async fn upload_buffered_resumable_unknown_size(
     client: &Storage,
     bucket_name: &str,
 ) -> Result<()> {
-    tracing::info!("testing send_unbuffered() [1]");
+    tracing::info!("testing send_buffered() [1]");
     let payload = TestDataSource::new(0_u64).without_size_hint();
     let insert = client
         .write_object(
@@ -231,7 +245,7 @@ pub(super) async fn upload_buffered_resumable_unknown_size(
     assert_eq!(insert.size, 0_i64);
 
     let payload = TestDataSource::new(128 * 1024_u64).without_size_hint();
-    tracing::info!("testing upload_object_buffered() [2]");
+    tracing::info!("testing send_buffered() [2]");
     let insert = client
         .write_object(
             bucket_name,
@@ -261,7 +275,7 @@ pub(super) async fn upload_buffered_resumable_unknown_size(
     assert_eq!(insert.size, 512 * 1024_i64);
 
     let payload = TestDataSource::new(500 * 1024_u64).without_size_hint();
-    tracing::info!("testing upload_object_buffered() [4]");
+    tracing::info!("testing send_buffered() [4]");
     let insert = client
         .write_object(
             bucket_name,
@@ -274,6 +288,40 @@ pub(super) async fn upload_buffered_resumable_unknown_size(
         .await?;
     tracing::info!("success with insert={insert:?}");
     assert_eq!(insert.size, 500 * 1024_i64);
+
+    Ok(())
+}
+
+async fn repro_3608_buffered(client: &Storage, bucket_name: &str) -> Result<()> {
+    const BUFFER_SIZE: u64 = 256 * 1024;
+    const OBJECT_SIZE: u64 = 4 * BUFFER_SIZE;
+    let payload = TestDataSource::new(OBJECT_SIZE).without_size_hint();
+    tracing::info!("testing repro_3608()");
+    let insert = client
+        .write_object(bucket_name, "repro-3608/buffered.txt", payload)
+        .set_if_generation_match(0)
+        .with_resumable_upload_buffer_size(BUFFER_SIZE as usize)
+        .send_buffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, OBJECT_SIZE as i64);
+
+    Ok(())
+}
+
+async fn repro_3608_unbuffered(client: &Storage, bucket_name: &str) -> Result<()> {
+    const BUFFER_SIZE: u64 = 256 * 1024;
+    const OBJECT_SIZE: u64 = 4 * BUFFER_SIZE;
+    let payload = TestDataSource::new(OBJECT_SIZE).without_size_hint();
+    tracing::info!("testing repro_3608()");
+    let insert = client
+        .write_object(bucket_name, "repro-3608/unbuffered.txt", payload)
+        .set_if_generation_match(0)
+        .with_resumable_upload_buffer_size(BUFFER_SIZE as usize)
+        .send_unbuffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, OBJECT_SIZE as i64);
 
     Ok(())
 }
