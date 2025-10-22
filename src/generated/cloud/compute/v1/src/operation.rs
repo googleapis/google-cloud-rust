@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use crate::model::Operation;
-use gax::error::rpc::Status;
 
 impl lro::internal::DiscoveryOperation for Operation {
     fn name(&self) -> Option<&String> {
@@ -21,8 +20,5 @@ impl lro::internal::DiscoveryOperation for Operation {
     }
     fn done(&self) -> bool {
         self.status == Some(crate::model::operation::Status::Done)
-    }
-    fn status(&self) -> Option<Status> {
-        None
     }
 }

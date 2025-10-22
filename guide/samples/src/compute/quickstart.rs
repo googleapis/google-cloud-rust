@@ -12,11 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub async fn quickstart() -> anyhow::Result<()> {
-    // [START rust_compute_instances_client] ANCHOR: client
+// [START compute_instances_list] ANCHOR: all
+pub async fn quickstart(project_id: &str) -> anyhow::Result<()> {
     use google_cloud_compute_v1::client::Instances;
+    use google_cloud_gax::paginator::ItemPaginator;
+
+    const ZONE: &str = "us-central1-a";
+
     let client = Instances::builder().build().await?;
-    // [END rust_compute_instances_client] ANCHOR_END: client
-    let _ = client;
+    println!("Listing instances for project {project_id}");
+    let mut instances = client
+        .list()
+        .set_project(project_id)
+        .set_zone(ZONE)
+        .by_item();
+    while let Some(item) = instances.next().await.transpose()? {
+        println!("  {:?}", item.name);
+    }
+    println!("DONE");
     Ok(())
 }
+// [END compute_instances_list] ANCHOR_END: all
