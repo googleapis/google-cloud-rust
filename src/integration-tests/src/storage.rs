@@ -29,15 +29,16 @@ use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 use storage::read_object::ReadObjectResponse;
 use storage_samples::cleanup_bucket;
 
-pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Result<()> {
-    // Create a temporary bucket for the test.
-    let (control, bucket) = create_test_bucket().await?;
-
+pub async fn objects(
+    builder: storage::builder::storage::ClientBuilder,
+    bucket_name: &str,
+    prefix: &str,
+) -> Result<()> {
     let client = builder.build().await?;
     tracing::info!("testing insert_object()");
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
-        .write_object(&bucket.name, "quick.text", CONTENTS)
+        .write_object(bucket_name, format!("{prefix}/quick.text"), CONTENTS)
         .set_metadata([("verify-metadata-works", "yes")])
         .set_content_type("text/plain")
         .set_content_language("en")
@@ -54,10 +55,7 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     );
 
     tracing::info!("testing read_object()");
-    let mut response = client
-        .read_object(&bucket.name, &insert.name)
-        .send()
-        .await?;
+    let mut response = client.read_object(bucket_name, &insert.name).send().await?;
 
     // Retrieve the metadata before reading the data.
     let object = response.object();
@@ -82,19 +80,6 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     let contents = bytes::Bytes::from_owner(contents);
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
-
-    control
-        .delete_object()
-        .set_bucket(&insert.bucket)
-        .set_object(&insert.name)
-        .set_generation(insert.generation)
-        .send()
-        .await?;
-    control
-        .delete_bucket()
-        .set_name(&bucket.name)
-        .send()
-        .await?;
 
     Ok(())
 }
