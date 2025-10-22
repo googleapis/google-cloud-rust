@@ -12,24 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START compute_instances_delete] ANCHOR: all
-use google_cloud_compute_v1::client::Instances;
-use google_cloud_lro::Poller;
+// [START compute_instances_list] ANCHOR: all
+pub async fn quickstart(project_id: &str) -> anyhow::Result<()> {
+    use google_cloud_compute_v1::client::Instances;
+    use google_cloud_gax::paginator::ItemPaginator;
 
-pub async fn sample(client: &Instances, project_id: &str, name: &str) -> anyhow::Result<()> {
     const ZONE: &str = "us-central1-a";
 
-    let operation = client
-        .delete()
+    let client = Instances::builder().build().await?;
+    println!("Listing instances for project {project_id}");
+    let mut instances = client
+        .list()
         .set_project(project_id)
         .set_zone(ZONE)
-        .set_instance(name)
-        .poller()
-        .until_done()
-        .await?
-        .to_result()?;
-    println!("Instance successfully deleted: {operation:?}");
-
+        .by_item();
+    while let Some(item) = instances.next().await.transpose()? {
+        println!("  {:?}", item.name);
+    }
+    println!("DONE");
     Ok(())
 }
-// [END compute_instances_delete] ANCHOR_END: all
+// [END compute_instances_list] ANCHOR_END: all

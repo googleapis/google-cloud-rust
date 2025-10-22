@@ -49,6 +49,7 @@ mod tests {
         let name = random_vm_id();
         compute_instances_create::sample(&client, &project_id, &name).await?;
         compute_instances_list_all::sample(&client, &project_id).await?;
+        quickstart::quickstart(&project_id).await?;
         compute_instances_delete::sample(&client, &project_id, &name).await?;
 
         let name = random_vm_id();

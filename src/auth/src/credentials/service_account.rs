@@ -469,12 +469,15 @@ pub(crate) mod idtoken {
     use crate::Result;
     use crate::build_errors::Error as BuilderError;
     use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
+    use crate::credentials::CacheableResource;
     use crate::credentials::idtoken::dynamic::IDTokenCredentialsProvider;
     use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
-    use crate::token::{Token, TokenProvider};
+    use crate::token::{CachedTokenProvider, Token, TokenProvider};
+    use crate::token_cache::TokenCache;
     use crate::{BuildResult, credentials::idtoken::IDTokenCredentials};
     use async_trait::async_trait;
     use gax::error::CredentialsError;
+    use http::Extensions;
     use reqwest::Client;
     use serde_json::Value;
     use std::sync::Arc;
@@ -482,7 +485,7 @@ pub(crate) mod idtoken {
     #[derive(Debug)]
     struct ServiceAccountCredentials<T>
     where
-        T: TokenProvider,
+        T: CachedTokenProvider,
     {
         token_provider: T,
     }
@@ -490,10 +493,16 @@ pub(crate) mod idtoken {
     #[async_trait]
     impl<T> IDTokenCredentialsProvider for ServiceAccountCredentials<T>
     where
-        T: TokenProvider,
+        T: CachedTokenProvider,
     {
         async fn id_token(&self) -> Result<String> {
-            self.token_provider.token().await.map(|token| token.token)
+            let cached_token = self.token_provider.token(Extensions::new()).await?;
+            match cached_token {
+                CacheableResource::New { data, .. } => Ok(data.token),
+                CacheableResource::NotModified => {
+                    Err(CredentialsError::from_msg(false, "failed to fetch token"))
+                }
+            }
         }
     }
 
@@ -596,7 +605,7 @@ pub(crate) mod idtoken {
         pub fn build(self) -> BuildResult<IDTokenCredentials> {
             let target_audience = self.target_audience.clone();
             let creds = ServiceAccountCredentials {
-                token_provider: self.build_token_provider(target_audience)?,
+                token_provider: TokenCache::new(self.build_token_provider(target_audience)?),
             };
             Ok(IDTokenCredentials {
                 inner: Arc::new(creds),
@@ -1027,6 +1036,36 @@ mod tests {
 
         let err = creds.id_token().await.unwrap_err();
         assert!(!err.is_transient());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn idtoken_caching() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("POST"),
+                request::path("/"),
+                request::body(url_decoded(contains(("grant_type", JWT_BEARER_GRANT_TYPE)))),
+                request::body(url_decoded(contains(("assertion", any())))),
+            ])
+            .times(1)
+            .respond_with(status_code(200).body("test-id-token")),
+        );
+
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
+
+        let creds = idtoken::Builder::new("test-audience", service_account_key)
+            .with_token_server_url(format!("http://{}", server.addr()))
+            .build()?;
+
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, "test-id-token");
+
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, "test-id-token");
+
         Ok(())
     }
 }
