@@ -991,6 +991,7 @@ mod tests {
 
 #[cfg(all(test, google_cloud_unstable_id_token))]
 mod unstable_tests {
+    use super::tests::*;
     use super::*;
     use crate::constants::JWT_BEARER_GRANT_TYPE;
     use crate::credentials::tests::PKCS8_PK;
@@ -1016,7 +1017,7 @@ mod unstable_tests {
             .respond_with(status_code(200).body("test-id-token")),
         );
 
-        let mut service_account_key = super::tests::get_mock_service_key();
+        let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
 
         let creds = idtoken::Builder::new("test-audience", service_account_key)
@@ -1036,7 +1037,7 @@ mod unstable_tests {
                 .respond_with(status_code(501)),
         );
 
-        let mut service_account_key = super::tests::get_mock_service_key();
+        let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
 
         let creds = idtoken::Builder::new("test-audience", service_account_key)

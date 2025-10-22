@@ -1356,6 +1356,7 @@ mod tests {
 
 #[cfg(all(test, google_cloud_unstable_id_token))]
 mod unstable_tests {
+    use super::tests::*;
     use super::*;
     use crate::credentials::tests::find_source_error;
     use http::StatusCode;
@@ -1380,13 +1381,13 @@ mod unstable_tests {
             Expectation::matching(all_of![
                 request::path("/token"),
                 request::body(json_decoded(|req: &Oauth2RefreshRequest| {
-                    super::tests::check_request(req, None)
+                    check_request(req, None)
                 }))
             ])
             .respond_with(json_encoded(response)),
         );
 
-        let authorized_user = super::tests::authorized_user_json(server.url("/token").to_string());
+        let authorized_user = authorized_user_json(server.url("/token").to_string());
         let creds = super::idtoken::Builder::new(authorized_user).build()?;
         let id_token = creds.id_token().await?;
         assert_eq!(id_token, "test-id-token");
@@ -1408,13 +1409,13 @@ mod unstable_tests {
             Expectation::matching(all_of![
                 request::path("/token"),
                 request::body(json_decoded(|req: &Oauth2RefreshRequest| {
-                    super::tests::check_request(req, None)
+                    check_request(req, None)
                 }))
             ])
             .respond_with(json_encoded(response)),
         );
 
-        let authorized_user = super::tests::authorized_user_json(server.url("/token").to_string());
+        let authorized_user = authorized_user_json(server.url("/token").to_string());
         let creds = super::idtoken::Builder::new(authorized_user).build()?;
         let err = creds.id_token().await.unwrap_err();
         assert!(!err.is_transient());
@@ -1443,7 +1444,7 @@ mod unstable_tests {
         server
             .expect(Expectation::matching(request::path("/token")).respond_with(status_code(503)));
 
-        let authorized_user = super::tests::authorized_user_json(server.url("/token").to_string());
+        let authorized_user = authorized_user_json(server.url("/token").to_string());
         let creds = super::idtoken::Builder::new(authorized_user).build()?;
         let err = creds.id_token().await.unwrap_err();
         assert!(err.is_transient());
@@ -1462,7 +1463,7 @@ mod unstable_tests {
         server
             .expect(Expectation::matching(request::path("/token")).respond_with(status_code(401)));
 
-        let authorized_user = super::tests::authorized_user_json(server.url("/token").to_string());
+        let authorized_user = authorized_user_json(server.url("/token").to_string());
         let creds = super::idtoken::Builder::new(authorized_user).build()?;
         let err = creds.id_token().await.unwrap_err();
         assert!(!err.is_transient());
