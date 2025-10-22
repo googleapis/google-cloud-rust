@@ -17,18 +17,16 @@ mod tests {
     use gax::options::RequestOptions;
     use gax::response::Response;
     use google_cloud_gax_internal::http::{NoBody, ReqwestClient};
-    use google_cloud_gax_internal::observability::attributes::{
-        KEY_GCP_CLIENT_ARTIFACT, KEY_GCP_CLIENT_REPO, KEY_GCP_CLIENT_SERVICE,
-        KEY_GCP_CLIENT_VERSION, KEY_OTEL_KIND, KEY_OTEL_NAME, KEY_OTEL_STATUS,
-    };
+    use google_cloud_gax_internal::observability::attributes::*;
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
-    use http::Method;
+    use http::{Method, StatusCode};
     use httptest::matchers::request::{method, path};
     use httptest::{Expectation, Server, all_of, responders::*};
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
     use serde::Deserialize;
     use std::collections::HashMap;
+    use test_case::test_case;
 
     #[derive(Debug, Deserialize, Default, PartialEq)]
     struct TestResponse {
@@ -145,5 +143,78 @@ mod tests {
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 0, "Should capture no spans: {captured:?}");
+    }
+
+    #[test_case(StatusCode::BAD_REQUEST, "400", 3, "INVALID_ARGUMENT"; "400 Bad Request")]
+    #[test_case(StatusCode::UNAUTHORIZED, "401", 16, "UNAUTHENTICATED"; "401 Unauthorized")]
+    #[test_case(StatusCode::FORBIDDEN, "403", 7, "PERMISSION_DENIED"; "403 Forbidden")]
+    #[test_case(StatusCode::NOT_FOUND, "404", 5, "NOT_FOUND"; "404 Not Found")]
+    #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500", 13, "INTERNAL"; "500 Internal Server Error")]
+    #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503", 14, "UNAVAILABLE"; "503 Service Unavailable")]
+    #[tokio::test]
+    async fn test_error_responses(
+        http_status_code: StatusCode,
+        expected_error_type: &str,
+        expected_grpc_code: i64,
+        expected_grpc_status: &str,
+    ) {
+        let server = Server::run();
+        let server_addr = server.addr();
+        let server_url = format!("http://{}", server_addr);
+        server.expect(
+            Expectation::matching(all_of![method("GET"), path("/error"),])
+                .respond_with(status_code(http_status_code.as_u16()).body("error")),
+        );
+
+        let client = create_client(true, server_url.clone()).await;
+        let guard = TestLayer::initialize();
+
+        let options =
+            gax::options::internal::set_path_template(RequestOptions::default(), "/error");
+        let request = client.builder(Method::GET, "/error".to_string());
+        let _response: gax::Result<Response<TestResponse>> =
+            client.execute(request, None::<NoBody>, options).await;
+
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1, "Should capture one span");
+
+        let span = &captured[0];
+
+        let attrs = &span.attributes;
+
+        assert_eq!(
+            attrs.get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(http_status_code.as_u16() as i64).into()),
+            "http.response.status_code mismatch, attrs: {:?}",
+            attrs
+        );
+
+        assert_eq!(
+            attrs.get(otel_trace::ERROR_TYPE),
+            Some(&expected_error_type.into()),
+            "error.type mismatch, attrs: {:?}",
+            attrs
+        );
+
+        assert_eq!(
+            attrs.get(KEY_OTEL_STATUS),
+            Some(&"Error".into()),
+            "otel.status mismatch, attrs: {:?}",
+            attrs
+        );
+
+        assert_eq!(
+            attrs.get(otel_attr::RPC_GRPC_STATUS_CODE),
+            Some(&expected_grpc_code.into()),
+            "rpc.grpc.status_code mismatch, attrs: {:?}",
+            attrs
+        );
+
+        assert_eq!(
+            attrs.get(google_cloud_gax_internal::observability::attributes::KEY_GRPC_STATUS),
+            Some(&expected_grpc_status.into()),
+            "grpc.status mismatch, attrs: {:?}",
+            attrs
+        );
     }
 }
