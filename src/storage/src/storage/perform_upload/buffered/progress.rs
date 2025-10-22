@@ -162,7 +162,6 @@ impl InProgressUpload {
     pub fn range_header(&self) -> String {
         match (self.buffer_size as u64, self.offset, self.hint.exact()) {
             (0, 0, Some(len)) => format!("bytes */{len}"),
-            (0, 0, None) => "bytes */0".to_string(),
             (n, o, Some(len)) => format!("bytes {o}-{}/{len}", o + n - 1),
             (0, o, None) => format!("bytes */{o}"),
             (n, o, None) if n < self.target_size as u64 => {

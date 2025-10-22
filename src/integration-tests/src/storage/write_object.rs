@@ -16,18 +16,6 @@ use crate::Result;
 use storage::client::Storage;
 use storage::streaming_source::{Seek, SizeHint, StreamingSource};
 
-pub async fn repro(
-    builder: storage::builder::storage::ClientBuilder,
-    bucket_name: &str,
-) -> Result<()> {
-    // Run all the upload tests in parallel, using the same bucket.
-    // Creating a new bucket is rate-limited, and slow. Creating objects
-    // is relatively cheap.
-    let client = builder.build().await?;
-    repro_3608_buffered(&client, bucket_name).await?;
-    Ok(())
-}
-
 pub async fn run(
     builder: storage::builder::storage::ClientBuilder,
     bucket_name: &str,
