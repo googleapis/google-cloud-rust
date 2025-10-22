@@ -464,8 +464,8 @@ where
     }
 }
 
-#[allow(dead_code)]
-pub(crate) mod idtoken {
+#[cfg(google_cloud_unstable_id_token)]
+pub mod idtoken {
     use crate::Result;
     use crate::build_errors::Error as BuilderError;
     use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
@@ -617,7 +617,6 @@ pub(crate) mod idtoken {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::constants::JWT_BEARER_GRANT_TYPE;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         PKCS8_PK, b64_decode_to_json, get_headers_from_cache, get_token_from_headers,
@@ -625,11 +624,6 @@ mod tests {
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
-    use httptest::{
-        Expectation, Server,
-        matchers::{all_of, any, contains, request, url_decoded},
-        responders::*,
-    };
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::LineEnding;
     use rustls_pemfile::Item;
@@ -761,7 +755,7 @@ mod tests {
         assert!(sac.headers(Extensions::new()).await.is_err());
     }
 
-    fn get_mock_service_key() -> Value {
+    pub(crate) fn get_mock_service_key() -> Value {
         json!({
             "client_email": "test-client-email",
             "private_key_id": "test-private-key-id",
@@ -993,6 +987,22 @@ mod tests {
         assert_eq!(claims["sub"], service_account_key["client_email"]);
         Ok(())
     }
+}
+
+#[cfg(all(test, google_cloud_unstable_id_token))]
+mod unstable_tests {
+    use super::tests::*;
+    use super::*;
+    use crate::constants::JWT_BEARER_GRANT_TYPE;
+    use crate::credentials::tests::PKCS8_PK;
+    use httptest::{
+        Expectation, Server,
+        matchers::{all_of, any, contains, request, url_decoded},
+        responders::*,
+    };
+    use serde_json::Value;
+
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
     async fn idtoken_success() -> TestResult {
