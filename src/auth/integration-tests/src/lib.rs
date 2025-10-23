@@ -30,8 +30,9 @@ use auth::credentials::{
     },
     subject_token::{Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider},
 };
-use auth::errors::SubjectTokenProviderError;
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+use serde_json::Value;
+use auth::errors::SubjectTokenProviderError;
 use bigquery::client::DatasetService;
 use gax::error::rpc::Code;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -39,7 +40,6 @@ use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
 use secretmanager::{client::SecretManagerService, model::SecretPayload};
-use serde_json::Value;
 use std::sync::Arc;
 
 pub async fn service_account() -> anyhow::Result<()> {
