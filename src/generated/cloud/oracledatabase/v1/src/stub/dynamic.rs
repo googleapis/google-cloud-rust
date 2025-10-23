@@ -89,6 +89,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListGiVersionsResponse>>;
 
+    async fn list_minor_versions(
+        &self,
+        req: crate::model::ListMinorVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListMinorVersionsResponse>>;
+
     async fn list_db_system_shapes(
         &self,
         req: crate::model::ListDbSystemShapesRequest,
@@ -110,6 +116,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     async fn create_autonomous_database(
         &self,
         req: crate::model::CreateAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_autonomous_database(
+        &self,
+        req: crate::model::UpdateAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
@@ -170,6 +182,192 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         req: crate::model::RestartAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn switchover_autonomous_database(
+        &self,
+        req: crate::model::SwitchoverAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn failover_autonomous_database(
+        &self,
+        req: crate::model::FailoverAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_odb_networks(
+        &self,
+        req: crate::model::ListOdbNetworksRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListOdbNetworksResponse>>;
+
+    async fn get_odb_network(
+        &self,
+        req: crate::model::GetOdbNetworkRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::OdbNetwork>>;
+
+    async fn create_odb_network(
+        &self,
+        req: crate::model::CreateOdbNetworkRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_odb_network(
+        &self,
+        req: crate::model::DeleteOdbNetworkRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_odb_subnets(
+        &self,
+        req: crate::model::ListOdbSubnetsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListOdbSubnetsResponse>>;
+
+    async fn get_odb_subnet(
+        &self,
+        req: crate::model::GetOdbSubnetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::OdbSubnet>>;
+
+    async fn create_odb_subnet(
+        &self,
+        req: crate::model::CreateOdbSubnetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_odb_subnet(
+        &self,
+        req: crate::model::DeleteOdbSubnetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_exadb_vm_clusters(
+        &self,
+        req: crate::model::ListExadbVmClustersRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListExadbVmClustersResponse>>;
+
+    async fn get_exadb_vm_cluster(
+        &self,
+        req: crate::model::GetExadbVmClusterRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ExadbVmCluster>>;
+
+    async fn create_exadb_vm_cluster(
+        &self,
+        req: crate::model::CreateExadbVmClusterRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_exadb_vm_cluster(
+        &self,
+        req: crate::model::DeleteExadbVmClusterRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_exadb_vm_cluster(
+        &self,
+        req: crate::model::UpdateExadbVmClusterRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn remove_virtual_machine_exadb_vm_cluster(
+        &self,
+        req: crate::model::RemoveVirtualMachineExadbVmClusterRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_exascale_db_storage_vaults(
+        &self,
+        req: crate::model::ListExascaleDbStorageVaultsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListExascaleDbStorageVaultsResponse>>;
+
+    async fn get_exascale_db_storage_vault(
+        &self,
+        req: crate::model::GetExascaleDbStorageVaultRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ExascaleDbStorageVault>>;
+
+    async fn create_exascale_db_storage_vault(
+        &self,
+        req: crate::model::CreateExascaleDbStorageVaultRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_exascale_db_storage_vault(
+        &self,
+        req: crate::model::DeleteExascaleDbStorageVaultRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_db_system_initial_storage_sizes(
+        &self,
+        req: crate::model::ListDbSystemInitialStorageSizesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>>;
+
+    async fn list_databases(
+        &self,
+        req: crate::model::ListDatabasesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>;
+
+    async fn get_database(
+        &self,
+        req: crate::model::GetDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Database>>;
+
+    async fn list_pluggable_databases(
+        &self,
+        req: crate::model::ListPluggableDatabasesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPluggableDatabasesResponse>>;
+
+    async fn get_pluggable_database(
+        &self,
+        req: crate::model::GetPluggableDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PluggableDatabase>>;
+
+    async fn list_db_systems(
+        &self,
+        req: crate::model::ListDbSystemsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemsResponse>>;
+
+    async fn get_db_system(
+        &self,
+        req: crate::model::GetDbSystemRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DbSystem>>;
+
+    async fn create_db_system(
+        &self,
+        req: crate::model::CreateDbSystemRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_db_system(
+        &self,
+        req: crate::model::DeleteDbSystemRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_db_versions(
+        &self,
+        req: crate::model::ListDbVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDbVersionsResponse>>;
+
+    async fn list_database_character_sets(
+        &self,
+        req: crate::model::ListDatabaseCharacterSetsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatabaseCharacterSetsResponse>>;
 
     async fn list_locations(
         &self,
@@ -331,6 +529,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn list_minor_versions(
+        &self,
+        req: crate::model::ListMinorVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListMinorVersionsResponse>> {
+        T::list_minor_versions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_db_system_shapes(
         &self,
         req: crate::model::ListDbSystemShapesRequest,
@@ -364,6 +571,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_autonomous_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_autonomous_database(
+        &self,
+        req: crate::model::UpdateAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_autonomous_database(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -451,6 +667,288 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::restart_autonomous_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn switchover_autonomous_database(
+        &self,
+        req: crate::model::SwitchoverAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::switchover_autonomous_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn failover_autonomous_database(
+        &self,
+        req: crate::model::FailoverAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::failover_autonomous_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_odb_networks(
+        &self,
+        req: crate::model::ListOdbNetworksRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListOdbNetworksResponse>> {
+        T::list_odb_networks(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_odb_network(
+        &self,
+        req: crate::model::GetOdbNetworkRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::OdbNetwork>> {
+        T::get_odb_network(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_odb_network(
+        &self,
+        req: crate::model::CreateOdbNetworkRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_odb_network(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_odb_network(
+        &self,
+        req: crate::model::DeleteOdbNetworkRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_odb_network(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_odb_subnets(
+        &self,
+        req: crate::model::ListOdbSubnetsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListOdbSubnetsResponse>> {
+        T::list_odb_subnets(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_odb_subnet(
+        &self,
+        req: crate::model::GetOdbSubnetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::OdbSubnet>> {
+        T::get_odb_subnet(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_odb_subnet(
+        &self,
+        req: crate::model::CreateOdbSubnetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_odb_subnet(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_odb_subnet(
+        &self,
+        req: crate::model::DeleteOdbSubnetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_odb_subnet(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_exadb_vm_clusters(
+        &self,
+        req: crate::model::ListExadbVmClustersRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListExadbVmClustersResponse>> {
+        T::list_exadb_vm_clusters(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_exadb_vm_cluster(
+        &self,
+        req: crate::model::GetExadbVmClusterRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ExadbVmCluster>> {
+        T::get_exadb_vm_cluster(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_exadb_vm_cluster(
+        &self,
+        req: crate::model::CreateExadbVmClusterRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_exadb_vm_cluster(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_exadb_vm_cluster(
+        &self,
+        req: crate::model::DeleteExadbVmClusterRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_exadb_vm_cluster(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_exadb_vm_cluster(
+        &self,
+        req: crate::model::UpdateExadbVmClusterRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_exadb_vm_cluster(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn remove_virtual_machine_exadb_vm_cluster(
+        &self,
+        req: crate::model::RemoveVirtualMachineExadbVmClusterRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::remove_virtual_machine_exadb_vm_cluster(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_exascale_db_storage_vaults(
+        &self,
+        req: crate::model::ListExascaleDbStorageVaultsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListExascaleDbStorageVaultsResponse>>
+    {
+        T::list_exascale_db_storage_vaults(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_exascale_db_storage_vault(
+        &self,
+        req: crate::model::GetExascaleDbStorageVaultRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ExascaleDbStorageVault>> {
+        T::get_exascale_db_storage_vault(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_exascale_db_storage_vault(
+        &self,
+        req: crate::model::CreateExascaleDbStorageVaultRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_exascale_db_storage_vault(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_exascale_db_storage_vault(
+        &self,
+        req: crate::model::DeleteExascaleDbStorageVaultRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_exascale_db_storage_vault(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_db_system_initial_storage_sizes(
+        &self,
+        req: crate::model::ListDbSystemInitialStorageSizesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>>
+    {
+        T::list_db_system_initial_storage_sizes(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_databases(
+        &self,
+        req: crate::model::ListDatabasesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>> {
+        T::list_databases(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_database(
+        &self,
+        req: crate::model::GetDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Database>> {
+        T::get_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_pluggable_databases(
+        &self,
+        req: crate::model::ListPluggableDatabasesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPluggableDatabasesResponse>> {
+        T::list_pluggable_databases(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_pluggable_database(
+        &self,
+        req: crate::model::GetPluggableDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PluggableDatabase>> {
+        T::get_pluggable_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_db_systems(
+        &self,
+        req: crate::model::ListDbSystemsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemsResponse>> {
+        T::list_db_systems(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_db_system(
+        &self,
+        req: crate::model::GetDbSystemRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DbSystem>> {
+        T::get_db_system(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_db_system(
+        &self,
+        req: crate::model::CreateDbSystemRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_db_system(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_db_system(
+        &self,
+        req: crate::model::DeleteDbSystemRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_db_system(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_db_versions(
+        &self,
+        req: crate::model::ListDbVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDbVersionsResponse>> {
+        T::list_db_versions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_database_character_sets(
+        &self,
+        req: crate::model::ListDatabaseCharacterSetsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatabaseCharacterSetsResponse>>
+    {
+        T::list_database_character_sets(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

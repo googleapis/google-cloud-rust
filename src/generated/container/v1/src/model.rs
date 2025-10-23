@@ -108,6 +108,12 @@ pub struct LinuxNodeConfig {
     /// for more details.
     pub transparent_hugepage_defrag: crate::model::linux_node_config::TransparentHugepageDefrag,
 
+    /// Optional. Configuration for kernel module loading on nodes.
+    /// When enabled, the node pool will be provisioned with a Container-Optimized
+    /// OS image that enforces kernel module signature verification.
+    pub node_kernel_module_loading:
+        std::option::Option<crate::model::linux_node_config::NodeKernelModuleLoading>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -174,6 +180,24 @@ impl LinuxNodeConfig {
         v: T,
     ) -> Self {
         self.transparent_hugepage_defrag = v.into();
+        self
+    }
+
+    /// Sets the value of [node_kernel_module_loading][crate::model::LinuxNodeConfig::node_kernel_module_loading].
+    pub fn set_node_kernel_module_loading<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::linux_node_config::NodeKernelModuleLoading>,
+    {
+        self.node_kernel_module_loading = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_kernel_module_loading][crate::model::LinuxNodeConfig::node_kernel_module_loading].
+    pub fn set_or_clear_node_kernel_module_loading<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::linux_node_config::NodeKernelModuleLoading>,
+    {
+        self.node_kernel_module_loading = v.map(|x| x.into());
         self
     }
 }
@@ -247,6 +271,196 @@ pub mod linux_node_config {
     impl wkt::message::Message for HugepagesConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.container.v1.LinuxNodeConfig.HugepagesConfig"
+        }
+    }
+
+    /// Configuration for kernel module loading on nodes.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct NodeKernelModuleLoading {
+        /// Set the node module loading policy for nodes in the node pool.
+        pub policy: crate::model::linux_node_config::node_kernel_module_loading::Policy,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl NodeKernelModuleLoading {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [policy][crate::model::linux_node_config::NodeKernelModuleLoading::policy].
+        pub fn set_policy<
+            T: std::convert::Into<crate::model::linux_node_config::node_kernel_module_loading::Policy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.policy = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for NodeKernelModuleLoading {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.LinuxNodeConfig.NodeKernelModuleLoading"
+        }
+    }
+
+    /// Defines additional types related to [NodeKernelModuleLoading].
+    pub mod node_kernel_module_loading {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Defines the kernel module loading policy for nodes in the nodepool.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Policy {
+            /// Default behavior. GKE selects the image based on node type.
+            /// For CPU and TPU nodes, the image will not allow loading external
+            /// kernel modules.
+            /// For GPU nodes, the image will allow loading any module, whether it
+            /// is signed or not.
+            Unspecified,
+            /// Enforced signature verification: Node pools will use a
+            /// Container-Optimized OS image configured to allow loading of
+            /// *Google-signed* external kernel modules.
+            /// Loadpin is enabled but configured to exclude modules, and kernel
+            /// module signature checking is enforced.
+            EnforceSignedModules,
+            /// Mirrors existing DEFAULT behavior:
+            /// For CPU and TPU nodes, the image will not allow loading external
+            /// kernel modules.
+            /// For GPU nodes, the image will allow loading any module, whether it
+            /// is signed or not.
+            DoNotEnforceSignedModules,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Policy::value] or
+            /// [Policy::name].
+            UnknownValue(policy::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod policy {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Policy {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::EnforceSignedModules => std::option::Option::Some(1),
+                    Self::DoNotEnforceSignedModules => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("POLICY_UNSPECIFIED"),
+                    Self::EnforceSignedModules => {
+                        std::option::Option::Some("ENFORCE_SIGNED_MODULES")
+                    }
+                    Self::DoNotEnforceSignedModules => {
+                        std::option::Option::Some("DO_NOT_ENFORCE_SIGNED_MODULES")
+                    }
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Policy {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Policy {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Policy {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::EnforceSignedModules,
+                    2 => Self::DoNotEnforceSignedModules,
+                    _ => Self::UnknownValue(policy::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Policy {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "POLICY_UNSPECIFIED" => Self::Unspecified,
+                    "ENFORCE_SIGNED_MODULES" => Self::EnforceSignedModules,
+                    "DO_NOT_ENFORCE_SIGNED_MODULES" => Self::DoNotEnforceSignedModules,
+                    _ => Self::UnknownValue(policy::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Policy {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::EnforceSignedModules => serializer.serialize_i32(1),
+                    Self::DoNotEnforceSignedModules => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Policy {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Policy>::new(
+                    ".google.container.v1.LinuxNodeConfig.NodeKernelModuleLoading.Policy",
+                ))
+            }
         }
     }
 
@@ -555,7 +769,7 @@ pub mod linux_node_config {
         Always,
         /// It means that an application will wake kswapd in the background to
         /// reclaim pages and wake kcompactd to compact memory so that THP is
-        /// available in the near future. It’s the responsibility of khugepaged to
+        /// available in the near future. It's the responsibility of khugepaged to
         /// then install the THP pages later.
         Defer,
         /// It means that an application will enter direct reclaim and compaction
@@ -916,7 +1130,7 @@ pub struct NodeKubeletConfig {
     /// The string must be a sequence of decimal numbers, each with optional
     /// fraction and a unit suffix, such as "300ms".
     /// Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
-    /// The value must be a positive duration.
+    /// The value must be a positive duration between 1ms and 1 second, inclusive.
     pub cpu_cfs_quota_period: std::string::String,
 
     /// Set the Pod PID limits. See
@@ -1770,8 +1984,7 @@ pub struct NodeConfig {
     ///   persistent storage on your nodes.
     /// * `<https://www.googleapis.com/auth/devstorage.read_only>` is required for
     ///   communicating with **gcr.io**
-    ///   (the [Google Container
-    ///   Registry](https://cloud.google.com/container-registry/)).
+    ///   (the [Artifact Registry](https://cloud.google.com/artifact-registry/)).
     ///
     /// If unspecified, no scopes are added, unless Cloud Logging or Cloud
     /// Monitoring are enabled, in which case their required scopes will be added.
@@ -3229,6 +3442,11 @@ pub struct NodeNetworkConfig {
     /// creation and is immutable.
     pub subnetwork: std::string::String,
 
+    /// Output only. The network tier configuration for the node pool inherits from
+    /// the cluster-level configuration and remains immutable throughout the node
+    /// pool's lifecycle, including during upgrades.
+    pub network_tier_config: std::option::Option<crate::model::NetworkTierConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3346,6 +3564,24 @@ impl NodeNetworkConfig {
     /// Sets the value of [subnetwork][crate::model::NodeNetworkConfig::subnetwork].
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
+        self
+    }
+
+    /// Sets the value of [network_tier_config][crate::model::NodeNetworkConfig::network_tier_config].
+    pub fn set_network_tier_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTierConfig>,
+    {
+        self.network_tier_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_tier_config][crate::model::NodeNetworkConfig::network_tier_config].
+    pub fn set_or_clear_network_tier_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTierConfig>,
+    {
+        self.network_tier_config = v.map(|x| x.into());
         self
     }
 }
@@ -4362,6 +4598,10 @@ pub struct ContainerdConfig {
     pub private_registry_access_config:
         std::option::Option<crate::model::containerd_config::PrivateRegistryAccessConfig>,
 
+    /// Optional. WritableCgroups defines writable cgroups configuration for the
+    /// node pool.
+    pub writable_cgroups: std::option::Option<crate::model::containerd_config::WritableCgroups>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4388,6 +4628,24 @@ impl ContainerdConfig {
         T: std::convert::Into<crate::model::containerd_config::PrivateRegistryAccessConfig>,
     {
         self.private_registry_access_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [writable_cgroups][crate::model::ContainerdConfig::writable_cgroups].
+    pub fn set_writable_cgroups<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::containerd_config::WritableCgroups>,
+    {
+        self.writable_cgroups = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [writable_cgroups][crate::model::ContainerdConfig::writable_cgroups].
+    pub fn set_or_clear_writable_cgroups<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::containerd_config::WritableCgroups>,
+    {
+        self.writable_cgroups = v.map(|x| x.into());
         self
     }
 }
@@ -4539,8 +4797,7 @@ pub mod containerd_config {
             use super::*;
 
             /// GCPSecretManagerCertificateConfig configures a secret from
-            /// [Google Secret
-            /// Manager](https://cloud.google.com/secret-manager).
+            /// [Secret Manager](https://cloud.google.com/secret-manager).
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct GCPSecretManagerCertificateConfig {
@@ -4582,6 +4839,34 @@ pub mod containerd_config {
                 /// Google Secret Manager (GCP) certificate configuration.
                 GcpSecretManagerCertificateConfig(std::boxed::Box<crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig>),
             }
+        }
+    }
+
+    /// Defines writable cgroups configuration.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct WritableCgroups {
+        /// Optional. Whether writable cgroups is enabled.
+        pub enabled: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl WritableCgroups {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::containerd_config::WritableCgroups::enabled].
+        pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enabled = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for WritableCgroups {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.ContainerdConfig.WritableCgroups"
         }
     }
 }
@@ -4854,7 +5139,7 @@ impl wkt::message::Message for NodeLabels {
     }
 }
 
-/// Collection of [GCP
+/// Collection of [Resource Manager
 /// labels](https://cloud.google.com/resource-manager/docs/creating-managing-labels).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5104,14 +5389,15 @@ pub struct AddonsConfig {
     pub dns_cache_config: std::option::Option<crate::model::DnsCacheConfig>,
 
     /// Configuration for the ConfigConnector add-on, a Kubernetes
-    /// extension to manage hosted GCP services through the Kubernetes API
+    /// extension to manage hosted Google Cloud services through the Kubernetes
+    /// API.
     pub config_connector_config: std::option::Option<crate::model::ConfigConnectorConfig>,
 
     /// Configuration for the Compute Engine Persistent Disk CSI driver.
     pub gce_persistent_disk_csi_driver_config:
         std::option::Option<crate::model::GcePersistentDiskCsiDriverConfig>,
 
-    /// Configuration for the GCP Filestore CSI driver.
+    /// Configuration for the Filestore CSI driver.
     pub gcp_filestore_csi_driver_config:
         std::option::Option<crate::model::GcpFilestoreCsiDriverConfig>,
 
@@ -6074,11 +6360,11 @@ impl wkt::message::Message for GcePersistentDiskCsiDriverConfig {
     }
 }
 
-/// Configuration for the GCP Filestore CSI driver.
+/// Configuration for the Filestore CSI driver.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpFilestoreCsiDriverConfig {
-    /// Whether the GCP Filestore CSI driver is enabled for this cluster.
+    /// Whether the Filestore CSI driver is enabled for this cluster.
     pub enabled: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6197,6 +6483,17 @@ pub struct LustreCsiDriverConfig {
 
     /// If set to true, the Lustre CSI driver will install Lustre kernel modules
     /// using port 6988.
+    /// This serves as a workaround for a port conflict with the
+    /// gke-metadata-server. This field is required ONLY under the following
+    /// conditions:
+    ///
+    /// 1. The GKE node version is older than 1.33.2-gke.4655000.
+    /// 1. You're connecting to a Lustre instance that has the
+    ///    'gke-support-enabled' flag.
+    ///    Deprecated: This flag is no longer required as of GKE node version
+    ///    1.33.2-gke.4655000, unless you are connecting to a Lustre instance
+    ///    that has the `gke-support-enabled` flag.
+    #[deprecated]
     pub enable_legacy_lustre_port: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6214,6 +6511,7 @@ impl LustreCsiDriverConfig {
     }
 
     /// Sets the value of [enable_legacy_lustre_port][crate::model::LustreCsiDriverConfig::enable_legacy_lustre_port].
+    #[deprecated]
     pub fn set_enable_legacy_lustre_port<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_legacy_lustre_port = v.into();
         self
@@ -7094,6 +7392,11 @@ pub struct IPAllocationPolicy {
     /// Optional. AutoIpamConfig contains all information related to Auto IPAM
     pub auto_ipam_config: std::option::Option<crate::model::AutoIpamConfig>,
 
+    /// Cluster-level network tier configuration is used to determine the default
+    /// network tier for external IP addresses on cluster resources, such as node
+    /// pools and load balancers.
+    pub network_tier_config: std::option::Option<crate::model::NetworkTierConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7317,6 +7620,24 @@ impl IPAllocationPolicy {
         self.auto_ipam_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [network_tier_config][crate::model::IPAllocationPolicy::network_tier_config].
+    pub fn set_network_tier_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTierConfig>,
+    {
+        self.network_tier_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_tier_config][crate::model::IPAllocationPolicy::network_tier_config].
+    pub fn set_or_clear_network_tier_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTierConfig>,
+    {
+        self.network_tier_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for IPAllocationPolicy {
@@ -7524,8 +7845,7 @@ pub struct Cluster {
     /// REGULAR channel with its default version.
     pub release_channel: std::option::Option<crate::model::ReleaseChannel>,
 
-    /// Configuration for the use of Kubernetes Service Accounts in GCP IAM
-    /// policies.
+    /// Configuration for the use of Kubernetes Service Accounts in IAM policies.
     pub workload_identity_config: std::option::Option<crate::model::WorkloadIdentityConfig>,
 
     /// Configuration for issuance of mTLS keys and certificates to Kubernetes
@@ -7694,6 +8014,10 @@ pub struct Cluster {
     pub enable_k8s_beta_apis: std::option::Option<crate::model::K8sBetaAPIConfig>,
 
     /// GKE Enterprise Configuration.
+    ///
+    /// Deprecated: GKE Enterprise features are now available without an Enterprise
+    /// tier.
+    #[deprecated]
     pub enterprise_config: std::option::Option<crate::model::EnterpriseConfig>,
 
     /// Secret CSI driver configuration.
@@ -8642,6 +8966,7 @@ impl Cluster {
     }
 
     /// Sets the value of [enterprise_config][crate::model::Cluster::enterprise_config].
+    #[deprecated]
     pub fn set_enterprise_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EnterpriseConfig>,
@@ -8651,6 +8976,7 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [enterprise_config][crate::model::Cluster::enterprise_config].
+    #[deprecated]
     pub fn set_or_clear_enterprise_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EnterpriseConfig>,
@@ -10538,6 +10864,10 @@ pub struct ClusterUpdate {
         std::option::Option<crate::model::DesiredAdditionalIPRangesConfig>,
 
     /// The desired enterprise configuration for the cluster.
+    ///
+    /// Deprecated: GKE Enterprise features are now available without an Enterprise
+    /// tier.
+    #[deprecated]
     pub desired_enterprise_config: std::option::Option<crate::model::DesiredEnterpriseConfig>,
 
     /// AutoIpamConfig contains all information related to Auto IPAM
@@ -10563,6 +10893,9 @@ pub struct ClusterUpdate {
 
     /// Configuration for GKE auto upgrade.
     pub gke_auto_upgrade_config: std::option::Option<crate::model::GkeAutoUpgradeConfig>,
+
+    /// The desired network tier configuration for the cluster.
+    pub desired_network_tier_config: std::option::Option<crate::model::NetworkTierConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -11726,6 +12059,7 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_enterprise_config][crate::model::ClusterUpdate::desired_enterprise_config].
+    #[deprecated]
     pub fn set_desired_enterprise_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DesiredEnterpriseConfig>,
@@ -11735,6 +12069,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_enterprise_config][crate::model::ClusterUpdate::desired_enterprise_config].
+    #[deprecated]
     pub fn set_or_clear_desired_enterprise_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DesiredEnterpriseConfig>,
@@ -11860,6 +12195,24 @@ impl ClusterUpdate {
         T: std::convert::Into<crate::model::GkeAutoUpgradeConfig>,
     {
         self.gke_auto_upgrade_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [desired_network_tier_config][crate::model::ClusterUpdate::desired_network_tier_config].
+    pub fn set_desired_network_tier_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTierConfig>,
+    {
+        self.desired_network_tier_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_network_tier_config][crate::model::ClusterUpdate::desired_network_tier_config].
+    pub fn set_or_clear_desired_network_tier_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NetworkTierConfig>,
+    {
+        self.desired_network_tier_config = v.map(|x| x.into());
         self
     }
 }
@@ -12006,12 +12359,33 @@ impl wkt::message::Message for DesiredAdditionalIPRangesConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoIpamConfig {
+    /// The flag that enables Auto IPAM on this cluster
+    pub enabled: std::option::Option<bool>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutoIpamConfig {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::AutoIpamConfig::enabled].
+    pub fn set_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enabled][crate::model::AutoIpamConfig::enabled].
+    pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = v.map(|x| x.into());
+        self
     }
 }
 
@@ -12059,8 +12433,12 @@ impl wkt::message::Message for RangeInfo {
 }
 
 /// DesiredEnterpriseConfig is a wrapper used for updating enterprise_config.
+///
+/// Deprecated: GKE Enterprise features are now available without an Enterprise
+/// tier.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct DesiredEnterpriseConfig {
     /// desired_tier specifies the desired tier of the cluster.
     pub desired_tier: crate::model::enterprise_config::ClusterTier,
@@ -13325,6 +13703,14 @@ pub struct UpdateNodePoolRequest {
     /// in which the node pool's nodes should be located. Changing the locations
     /// for a node pool will result in nodes being either created or removed from
     /// the node pool, depending on whether locations are being added or removed.
+    ///
+    /// Warning: It is recommended to update node pool locations in a standalone
+    /// API call. Do not combine a location update with changes to other fields
+    /// (such as `tags`, `labels`, `taints`, etc.) in the same request.
+    /// Otherwise, the API performs a structural modification where changes to
+    /// other fields will only apply to newly created nodes and will not be
+    /// applied to existing nodes in the node pool. To ensure all nodes are updated
+    /// consistently, use a separate API call for location changes.
     pub locations: std::vec::Vec<std::string::String>,
 
     /// The desired workload metadata config for the node pool.
@@ -15777,6 +16163,42 @@ impl BlueGreenSettings {
         );
         self
     }
+
+    /// The value of [rollout_policy][crate::model::BlueGreenSettings::rollout_policy]
+    /// if it holds a `AutoscaledRolloutPolicy`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn autoscaled_rollout_policy(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::blue_green_settings::AutoscaledRolloutPolicy>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.rollout_policy.as_ref().and_then(|v| match v {
+            crate::model::blue_green_settings::RolloutPolicy::AutoscaledRolloutPolicy(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [rollout_policy][crate::model::BlueGreenSettings::rollout_policy]
+    /// to hold a `AutoscaledRolloutPolicy`.
+    ///
+    /// Note that all the setters affecting `rollout_policy` are
+    /// mutually exclusive.
+    pub fn set_autoscaled_rollout_policy<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::blue_green_settings::AutoscaledRolloutPolicy>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rollout_policy = std::option::Option::Some(
+            crate::model::blue_green_settings::RolloutPolicy::AutoscaledRolloutPolicy(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for BlueGreenSettings {
@@ -15920,6 +16342,49 @@ pub mod blue_green_settings {
         }
     }
 
+    /// Autoscaled rollout policy utilizes the cluster autoscaler during
+    /// blue-green upgrade to scale both the blue and green pools.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AutoscaledRolloutPolicy {
+        /// Optional. Time to wait after cordoning the blue pool before draining the
+        /// nodes. Defaults to 3 days. The value can be set between 0 and 7 days,
+        /// inclusive.
+        pub wait_for_drain_duration: std::option::Option<wkt::Duration>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AutoscaledRolloutPolicy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [wait_for_drain_duration][crate::model::blue_green_settings::AutoscaledRolloutPolicy::wait_for_drain_duration].
+        pub fn set_wait_for_drain_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.wait_for_drain_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [wait_for_drain_duration][crate::model::blue_green_settings::AutoscaledRolloutPolicy::wait_for_drain_duration].
+        pub fn set_or_clear_wait_for_drain_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.wait_for_drain_duration = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for AutoscaledRolloutPolicy {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.BlueGreenSettings.AutoscaledRolloutPolicy"
+        }
+    }
+
     /// The rollout policy controls the general rollout progress of blue-green.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -15927,6 +16392,10 @@ pub mod blue_green_settings {
         /// Standard policy for the blue-green upgrade.
         StandardRolloutPolicy(
             std::boxed::Box<crate::model::blue_green_settings::StandardRolloutPolicy>,
+        ),
+        /// Autoscaled policy for cluster autoscaler enabled blue-green upgrade.
+        AutoscaledRolloutPolicy(
+            std::boxed::Box<crate::model::blue_green_settings::AutoscaledRolloutPolicy>,
         ),
     }
 }
@@ -17618,6 +18087,9 @@ pub struct MaintenanceExclusionOptions {
     /// exclusion.
     pub scope: crate::model::maintenance_exclusion_options::Scope,
 
+    /// EndTimeBehavior specifies the behavior of the exclusion end time.
+    pub end_time_behavior: crate::model::maintenance_exclusion_options::EndTimeBehavior,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -17632,6 +18104,17 @@ impl MaintenanceExclusionOptions {
         v: T,
     ) -> Self {
         self.scope = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time_behavior][crate::model::MaintenanceExclusionOptions::end_time_behavior].
+    pub fn set_end_time_behavior<
+        T: std::convert::Into<crate::model::maintenance_exclusion_options::EndTimeBehavior>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time_behavior = v.into();
         self
     }
 }
@@ -17782,6 +18265,133 @@ pub mod maintenance_exclusion_options {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scope>::new(
                 ".google.container.v1.MaintenanceExclusionOptions.Scope",
+            ))
+        }
+    }
+
+    /// EndTimeBehavior specifies the behavior of the exclusion end time.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EndTimeBehavior {
+        /// END_TIME_BEHAVIOR_UNSPECIFIED is the default behavior, which is fixed
+        /// end time.
+        Unspecified,
+        /// UNTIL_END_OF_SUPPORT means the exclusion will be in effect until the end
+        /// of the support of the cluster's current version.
+        UntilEndOfSupport,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EndTimeBehavior::value] or
+        /// [EndTimeBehavior::name].
+        UnknownValue(end_time_behavior::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod end_time_behavior {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl EndTimeBehavior {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::UntilEndOfSupport => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("END_TIME_BEHAVIOR_UNSPECIFIED"),
+                Self::UntilEndOfSupport => std::option::Option::Some("UNTIL_END_OF_SUPPORT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for EndTimeBehavior {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EndTimeBehavior {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EndTimeBehavior {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::UntilEndOfSupport,
+                _ => Self::UnknownValue(end_time_behavior::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EndTimeBehavior {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "END_TIME_BEHAVIOR_UNSPECIFIED" => Self::Unspecified,
+                "UNTIL_END_OF_SUPPORT" => Self::UntilEndOfSupport,
+                _ => Self::UnknownValue(end_time_behavior::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EndTimeBehavior {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::UntilEndOfSupport => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EndTimeBehavior {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EndTimeBehavior>::new(
+                ".google.container.v1.MaintenanceExclusionOptions.EndTimeBehavior",
             ))
         }
     }
@@ -22441,8 +23051,7 @@ impl wkt::message::Message for MaxPodsConstraint {
     }
 }
 
-/// Configuration for the use of Kubernetes Service Accounts in GCP IAM
-/// policies.
+/// Configuration for the use of Kubernetes Service Accounts in IAM policies.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkloadIdentityConfig {
@@ -25000,6 +25609,10 @@ pub struct Autopilot {
     /// WorkloadPolicyConfig is the configuration related to GCW workload policy
     pub workload_policy_config: std::option::Option<crate::model::WorkloadPolicyConfig>,
 
+    /// PrivilegedAdmissionConfig is the configuration related to privileged
+    /// admission control.
+    pub privileged_admission_config: std::option::Option<crate::model::PrivilegedAdmissionConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -25031,11 +25644,73 @@ impl Autopilot {
         self.workload_policy_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [privileged_admission_config][crate::model::Autopilot::privileged_admission_config].
+    pub fn set_privileged_admission_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivilegedAdmissionConfig>,
+    {
+        self.privileged_admission_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [privileged_admission_config][crate::model::Autopilot::privileged_admission_config].
+    pub fn set_or_clear_privileged_admission_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivilegedAdmissionConfig>,
+    {
+        self.privileged_admission_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Autopilot {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.Autopilot"
+    }
+}
+
+/// PrivilegedAdmissionConfig stores the list of authorized allowlist
+/// paths for the cluster.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PrivilegedAdmissionConfig {
+    /// The customer allowlist Cloud Storage paths for the cluster. These paths are
+    /// used with the `--autopilot-privileged-admission` flag to authorize
+    /// privileged workloads in Autopilot clusters.
+    ///
+    /// Paths can be GKE-owned, in the format
+    /// `gke://<partner_name>/<app_name>/<allowlist_path>`, or customer-owned, in
+    /// the format `gs://<bucket_name>/<allowlist_path>`.
+    ///
+    /// Wildcards (`*`) are supported to authorize all allowlists under specific
+    /// paths or directories. Example: `gs://my-bucket/*` will authorize all
+    /// allowlists under the `my-bucket` bucket.
+    pub allowlist_paths: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PrivilegedAdmissionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [allowlist_paths][crate::model::PrivilegedAdmissionConfig::allowlist_paths].
+    pub fn set_allowlist_paths<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.allowlist_paths = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for PrivilegedAdmissionConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.PrivilegedAdmissionConfig"
     }
 }
 
@@ -26594,6 +27269,9 @@ pub struct Fleet {
     /// API.
     pub pre_registered: bool,
 
+    /// The type of the cluster's fleet membership.
+    pub membership_type: crate::model::fleet::MembershipType,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -26619,11 +27297,152 @@ impl Fleet {
         self.pre_registered = v.into();
         self
     }
+
+    /// Sets the value of [membership_type][crate::model::Fleet::membership_type].
+    pub fn set_membership_type<T: std::convert::Into<crate::model::fleet::MembershipType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.membership_type = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Fleet {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.Fleet"
+    }
+}
+
+/// Defines additional types related to [Fleet].
+pub mod fleet {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// MembershipType describes if the membership supports all features or only
+    /// lightweight compatible ones.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MembershipType {
+        /// The MembershipType is not set.
+        Unspecified,
+        /// The membership supports only lightweight compatible features.
+        Lightweight,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [MembershipType::value] or
+        /// [MembershipType::name].
+        UnknownValue(membership_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod membership_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl MembershipType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Lightweight => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MEMBERSHIP_TYPE_UNSPECIFIED"),
+                Self::Lightweight => std::option::Option::Some("LIGHTWEIGHT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for MembershipType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for MembershipType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for MembershipType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Lightweight,
+                _ => Self::UnknownValue(membership_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for MembershipType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MEMBERSHIP_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "LIGHTWEIGHT" => Self::Lightweight,
+                _ => Self::UnknownValue(membership_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for MembershipType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Lightweight => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MembershipType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<MembershipType>::new(
+                ".google.container.v1.Fleet.MembershipType",
+            ))
+        }
     }
 }
 
@@ -26709,8 +27528,14 @@ pub mod control_plane_endpoints_config {
         pub endpoint: std::string::String,
 
         /// Controls whether user traffic is allowed over this endpoint. Note that
-        /// GCP-managed services may still use the endpoint even if this is false.
+        /// Google-managed services may still use the endpoint even if this is false.
         pub allow_external_traffic: std::option::Option<bool>,
+
+        /// Controls whether the k8s token auth is allowed via DNS.
+        pub enable_k8s_tokens_via_dns: std::option::Option<bool>,
+
+        /// Controls whether the k8s certs auth is allowed via DNS.
+        pub enable_k8s_certs_via_dns: std::option::Option<bool>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -26741,6 +27566,45 @@ pub mod control_plane_endpoints_config {
             T: std::convert::Into<bool>,
         {
             self.allow_external_traffic = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [enable_k8s_tokens_via_dns][crate::model::control_plane_endpoints_config::DNSEndpointConfig::enable_k8s_tokens_via_dns].
+        pub fn set_enable_k8s_tokens_via_dns<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enable_k8s_tokens_via_dns = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enable_k8s_tokens_via_dns][crate::model::control_plane_endpoints_config::DNSEndpointConfig::enable_k8s_tokens_via_dns].
+        pub fn set_or_clear_enable_k8s_tokens_via_dns<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enable_k8s_tokens_via_dns = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [enable_k8s_certs_via_dns][crate::model::control_plane_endpoints_config::DNSEndpointConfig::enable_k8s_certs_via_dns].
+        pub fn set_enable_k8s_certs_via_dns<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enable_k8s_certs_via_dns = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enable_k8s_certs_via_dns][crate::model::control_plane_endpoints_config::DNSEndpointConfig::enable_k8s_certs_via_dns].
+        pub fn set_or_clear_enable_k8s_certs_via_dns<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enable_k8s_certs_via_dns = v.map(|x| x.into());
             self
         }
     }
@@ -27059,8 +27923,12 @@ impl wkt::message::Message for ResourceManagerTags {
 }
 
 /// EnterpriseConfig is the cluster enterprise configuration.
+///
+/// Deprecated: GKE Enterprise features are now available without an Enterprise
+/// tier.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct EnterpriseConfig {
     /// Output only. cluster_tier indicates the effective tier of the cluster.
     pub cluster_tier: crate::model::enterprise_config::ClusterTier,
@@ -27108,6 +27976,9 @@ pub mod enterprise_config {
 
     /// Premium tiers for GKE Cluster.
     ///
+    /// Deprecated: GKE Enterprise features are now available without an Enterprise
+    /// tier.
+    ///
     /// # Working with unknown values
     ///
     /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
@@ -27123,6 +27994,7 @@ pub mod enterprise_config {
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
+    #[deprecated]
     pub enum ClusterTier {
         /// CLUSTER_TIER_UNSPECIFIED is when cluster_tier is not set.
         Unspecified,
@@ -27246,6 +28118,9 @@ pub struct SecretManagerConfig {
     /// Enable/Disable Secret Manager Config.
     pub enabled: std::option::Option<bool>,
 
+    /// Rotation config for secret manager.
+    pub rotation_config: std::option::Option<crate::model::secret_manager_config::RotationConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -27271,11 +28146,97 @@ impl SecretManagerConfig {
         self.enabled = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [rotation_config][crate::model::SecretManagerConfig::rotation_config].
+    pub fn set_rotation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::secret_manager_config::RotationConfig>,
+    {
+        self.rotation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rotation_config][crate::model::SecretManagerConfig::rotation_config].
+    pub fn set_or_clear_rotation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::secret_manager_config::RotationConfig>,
+    {
+        self.rotation_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for SecretManagerConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.SecretManagerConfig"
+    }
+}
+
+/// Defines additional types related to [SecretManagerConfig].
+pub mod secret_manager_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// RotationConfig is config for secret manager auto rotation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RotationConfig {
+        /// Whether the rotation is enabled.
+        pub enabled: std::option::Option<bool>,
+
+        /// The interval between two consecutive rotations. Default rotation interval
+        /// is 2 minutes.
+        pub rotation_interval: std::option::Option<wkt::Duration>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RotationConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::secret_manager_config::RotationConfig::enabled].
+        pub fn set_enabled<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enabled = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enabled][crate::model::secret_manager_config::RotationConfig::enabled].
+        pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enabled = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [rotation_interval][crate::model::secret_manager_config::RotationConfig::rotation_interval].
+        pub fn set_rotation_interval<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.rotation_interval = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rotation_interval][crate::model::secret_manager_config::RotationConfig::rotation_interval].
+        pub fn set_or_clear_rotation_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.rotation_interval = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for RotationConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.SecretManagerConfig.RotationConfig"
+        }
     }
 }
 
@@ -29097,6 +30058,190 @@ pub mod gke_auto_upgrade_config {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PatchMode>::new(
                 ".google.container.v1.GkeAutoUpgradeConfig.PatchMode",
+            ))
+        }
+    }
+}
+
+/// NetworkTierConfig contains network tier information.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct NetworkTierConfig {
+    /// Network tier configuration.
+    pub network_tier: crate::model::network_tier_config::NetworkTier,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl NetworkTierConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [network_tier][crate::model::NetworkTierConfig::network_tier].
+    pub fn set_network_tier<
+        T: std::convert::Into<crate::model::network_tier_config::NetworkTier>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.network_tier = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for NetworkTierConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.NetworkTierConfig"
+    }
+}
+
+/// Defines additional types related to [NetworkTierConfig].
+pub mod network_tier_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Network tier configuration.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum NetworkTier {
+        /// By default, use project-level configuration. When unspecified, the
+        /// behavior defaults to NETWORK_TIER_DEFAULT. For cluster updates, this
+        /// implies no action (no-op).
+        Unspecified,
+        /// Default network tier. Use project-level configuration. User can specify
+        /// this value, meaning they want to keep the same behaviour as before
+        /// cluster level network tier configuration is introduced. This field
+        /// ensures backward compatibility for the network tier of cluster resources,
+        /// such as node pools and load balancers, for their external IP addresses.
+        Default,
+        /// Premium network tier.
+        Premium,
+        /// Standard network tier.
+        Standard,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [NetworkTier::value] or
+        /// [NetworkTier::name].
+        UnknownValue(network_tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod network_tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl NetworkTier {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Default => std::option::Option::Some(1),
+                Self::Premium => std::option::Option::Some(2),
+                Self::Standard => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("NETWORK_TIER_UNSPECIFIED"),
+                Self::Default => std::option::Option::Some("NETWORK_TIER_DEFAULT"),
+                Self::Premium => std::option::Option::Some("NETWORK_TIER_PREMIUM"),
+                Self::Standard => std::option::Option::Some("NETWORK_TIER_STANDARD"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for NetworkTier {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for NetworkTier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for NetworkTier {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Default,
+                2 => Self::Premium,
+                3 => Self::Standard,
+                _ => Self::UnknownValue(network_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for NetworkTier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "NETWORK_TIER_UNSPECIFIED" => Self::Unspecified,
+                "NETWORK_TIER_DEFAULT" => Self::Default,
+                "NETWORK_TIER_PREMIUM" => Self::Premium,
+                "NETWORK_TIER_STANDARD" => Self::Standard,
+                _ => Self::UnknownValue(network_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for NetworkTier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Default => serializer.serialize_i32(1),
+                Self::Premium => serializer.serialize_i32(2),
+                Self::Standard => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for NetworkTier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<NetworkTier>::new(
+                ".google.container.v1.NetworkTierConfig.NetworkTier",
             ))
         }
     }

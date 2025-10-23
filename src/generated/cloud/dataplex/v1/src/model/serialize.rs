@@ -1079,6 +1079,9 @@ impl serde::ser::Serialize for super::AspectType {
         if !self.etag.is_empty() {
             state.serialize_entry("etag", &self.etag)?;
         }
+        if !wkt::internal::is_default(&self.data_classification) {
+            state.serialize_entry("dataClassification", &self.data_classification)?;
+        }
         if self.authorization.is_some() {
             state.serialize_entry("authorization", &self.authorization)?;
         }
@@ -3218,6 +3221,12 @@ impl serde::ser::Serialize for super::EncryptionConfig {
         if self.failure_details.is_some() {
             state.serialize_entry("failureDetails", &self.failure_details)?;
         }
+        if !wkt::internal::is_default(&self.enable_metastore_encryption) {
+            state.serialize_entry(
+                "enableMetastoreEncryption",
+                &self.enable_metastore_encryption,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3913,6 +3922,153 @@ impl serde::ser::Serialize for super::data_discovery_result::ScanStatistics {
                 }
             }
             state.serialize_entry("filesetsUpdated", &__With(&self.filesets_updated))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DataDocumentationSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DataDocumentationResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.table_result() {
+            state.serialize_entry("tableResult", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::data_documentation_result::TableResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.overview.is_empty() {
+            state.serialize_entry("overview", &self.overview)?;
+        }
+        if self.schema.is_some() {
+            state.serialize_entry("schema", &self.schema)?;
+        }
+        if !self.queries.is_empty() {
+            state.serialize_entry("queries", &self.queries)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::data_documentation_result::Query {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.sql.is_empty() {
+            state.serialize_entry("sql", &self.sql)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::data_documentation_result::Schema {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.fields.is_empty() {
+            state.serialize_entry("fields", &self.fields)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::data_documentation_result::Field {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.fields.is_empty() {
+            state.serialize_entry("fields", &self.fields)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4767,6 +4923,12 @@ impl serde::ser::Serialize for super::DataQualityResult {
         if self.catalog_publishing_status.is_some() {
             state.serialize_entry("catalogPublishingStatus", &self.catalog_publishing_status)?;
         }
+        if self.anomaly_detection_generated_assets.is_some() {
+            state.serialize_entry(
+                "anomalyDetectionGeneratedAssets",
+                &self.anomaly_detection_generated_assets,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4815,6 +4977,40 @@ impl serde::ser::Serialize
         }
         if !self.message.is_empty() {
             state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::data_quality_result::AnomalyDetectionGeneratedAssets {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.result_table.is_empty() {
+            state.serialize_entry("resultTable", &self.result_table)?;
+        }
+        if !self.data_intermediate_table.is_empty() {
+            state.serialize_entry("dataIntermediateTable", &self.data_intermediate_table)?;
+        }
+        if !self.freshness_intermediate_table.is_empty() {
+            state.serialize_entry(
+                "freshnessIntermediateTable",
+                &self.freshness_intermediate_table,
+            )?;
+        }
+        if !self.volume_intermediate_table.is_empty() {
+            state.serialize_entry("volumeIntermediateTable", &self.volume_intermediate_table)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -6457,6 +6653,9 @@ impl serde::ser::Serialize for super::DataScan {
         if let Some(value) = self.data_discovery_spec() {
             state.serialize_entry("dataDiscoverySpec", value)?;
         }
+        if let Some(value) = self.data_documentation_spec() {
+            state.serialize_entry("dataDocumentationSpec", value)?;
+        }
         if let Some(value) = self.data_quality_result() {
             state.serialize_entry("dataQualityResult", value)?;
         }
@@ -6465,6 +6664,9 @@ impl serde::ser::Serialize for super::DataScan {
         }
         if let Some(value) = self.data_discovery_result() {
             state.serialize_entry("dataDiscoveryResult", value)?;
+        }
+        if let Some(value) = self.data_documentation_result() {
+            state.serialize_entry("dataDocumentationResult", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -6571,6 +6773,9 @@ impl serde::ser::Serialize for super::DataScanJob {
         if let Some(value) = self.data_discovery_spec() {
             state.serialize_entry("dataDiscoverySpec", value)?;
         }
+        if let Some(value) = self.data_documentation_spec() {
+            state.serialize_entry("dataDocumentationSpec", value)?;
+        }
         if let Some(value) = self.data_quality_result() {
             state.serialize_entry("dataQualityResult", value)?;
         }
@@ -6579,6 +6784,9 @@ impl serde::ser::Serialize for super::DataScanJob {
         }
         if let Some(value) = self.data_discovery_result() {
             state.serialize_entry("dataDiscoveryResult", value)?;
+        }
+        if let Some(value) = self.data_documentation_result() {
+            state.serialize_entry("dataDocumentationResult", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
