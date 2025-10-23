@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Copyright 2025 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +27,7 @@ limitations under the License.
   - [Speed up large object downloads](storage/striped_downloads.md)
   - [Use errors to terminate uploads](storage/terminate_uploads.md)
   - [How to write tests using the Storage client](storage/mocking.md)
+- [Using the Compute Engine API](compute.md)
 - [Update a resource using a field mask](update_resource.md)
 - [Configuring retry policies](configuring_retry_policies.md)
 - [Error handling](error_handling.md)

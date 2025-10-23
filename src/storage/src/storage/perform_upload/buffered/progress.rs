@@ -162,8 +162,8 @@ impl InProgressUpload {
     pub fn range_header(&self) -> String {
         match (self.buffer_size as u64, self.offset, self.hint.exact()) {
             (0, 0, Some(len)) => format!("bytes */{len}"),
-            (0, 0, None) => "bytes */0".to_string(),
             (n, o, Some(len)) => format!("bytes {o}-{}/{len}", o + n - 1),
+            (0, o, None) => format!("bytes */{o}"),
             (n, o, None) if n < self.target_size as u64 => {
                 format!("bytes {o}-{}/{}", o + n - 1, o + n)
             }
@@ -481,6 +481,44 @@ mod tests {
             )
         );
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn range_header_unknown_multiple() -> Result {
+        let mut upload = InProgressUpload::fake(1024);
+        let mut payload = Payload::from(new_line(0, 2048));
+        upload.next_buffer(&mut payload).await?;
+        assert_eq!(upload.range_header(), "bytes 0-1023/*", "{upload:?}");
+        let handled = upload.handle_partial(1024);
+        assert!(handled.is_ok(), "{handled:?}");
+
+        upload.next_buffer(&mut Payload::from("")).await?;
+        assert_eq!(upload.range_header(), "bytes 1024-2047/*", "{upload:?}");
+        let handled = upload.handle_partial(2048);
+        assert!(handled.is_ok(), "{handled:?}");
+
+        upload.next_buffer(&mut payload).await?;
+        assert_eq!(upload.range_header(), "bytes */2048", "{upload:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn range_header_unknown_remainder() -> Result {
+        let mut upload = InProgressUpload::fake(1024);
+        let mut payload = Payload::from(new_line(0, 2058));
+        upload.next_buffer(&mut payload).await?;
+        assert_eq!(upload.range_header(), "bytes 0-1023/*", "{upload:?}");
+        let handled = upload.handle_partial(1024);
+        assert!(handled.is_ok(), "{handled:?}");
+
+        upload.next_buffer(&mut Payload::from("")).await?;
+        assert_eq!(upload.range_header(), "bytes 1024-2047/*", "{upload:?}");
+        let handled = upload.handle_partial(2048);
+        assert!(handled.is_ok(), "{handled:?}");
+
+        upload.next_buffer(&mut payload).await?;
+        assert_eq!(upload.range_header(), "bytes 2048-2057/2058", "{upload:?}");
         Ok(())
     }
 

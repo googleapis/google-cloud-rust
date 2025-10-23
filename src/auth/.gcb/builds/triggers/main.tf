@@ -158,9 +158,15 @@ locals {
   #
   gcb_secret_name = "projects/${var.project}/secrets/github-github-oauthtoken-319d75/versions/latest"
 
-  # Add to this list if you want to have more triggers.
+  # Add to these lists if you want to have more triggers.
   builds = {
-    integration = {}
+    integration = {
+      config = "integration.yaml"
+    }
+    integration-unstable = {
+      config = "integration.yaml"
+      flags  = "--cfg google_cloud_unstable_id_token"
+    }
   }
 }
 
@@ -189,7 +195,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
   for_each = tomap(local.builds)
   location = var.region
   name     = "gcb-pr-auth-${each.key}"
-  filename = "src/auth/.gcb/${each.key}.yaml"
+  filename = "src/auth/.gcb/${each.value.config}"
   tags     = ["pull-request", "name:${each.key}"]
 
   service_account = data.google_service_account.integration-test-runner.id
@@ -197,6 +203,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
     _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
     _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
     _WORKLOAD_IDENTITY_AUDIENCE             = var.workload_identity_audience
+    _UNSTABLE_CFG_FLAGS                     = lookup(each.value, "flags", "")
   }
 
   repository_event_config {
@@ -214,7 +221,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
   for_each = tomap(local.builds)
   location = var.region
   name     = "gcb-pm-auth-${each.key}"
-  filename = "src/auth/.gcb/${each.key}.yaml"
+  filename = "src/auth/.gcb/${each.value.config}"
   tags     = ["post-merge", "push", "name:${each.key}"]
 
   service_account = data.google_service_account.integration-test-runner.id
@@ -222,6 +229,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
     _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
     _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
     _WORKLOAD_IDENTITY_AUDIENCE             = var.workload_identity_audience
+    _UNSTABLE_CFG_FLAGS                     = lookup(each.value, "flags", "")
   }
 
   repository_event_config {

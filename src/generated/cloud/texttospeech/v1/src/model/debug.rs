@@ -60,6 +60,7 @@ impl std::fmt::Debug for super::AdvancedVoiceOptions {
             "low_latency_journey_synthesis",
             &self.low_latency_journey_synthesis,
         );
+        debug_struct.field("relax_safety_filters", &self.relax_safety_filters);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

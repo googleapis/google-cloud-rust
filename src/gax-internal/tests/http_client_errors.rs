@@ -82,7 +82,7 @@ mod tests {
             assert!(result.is_err(), "Expected connection error");
 
             let spans = TestLayer::capture(&guard);
-            assert_eq!(spans.len(), 1, "Expected 1 span, got: {:?}", spans);
+            assert_eq!(spans.len(), 1, "Should capture one span: {:?}", spans);
 
             let span = &spans[0];
             let attributes = &span.attributes;
@@ -96,15 +96,75 @@ mod tests {
             assert_eq!(
                 attributes.get(semconv::ERROR_TYPE),
                 Some(&expected_error_type),
-                "Span 0: '{}' mismatch, expected: {:?}, got: {:?}, all attributes: {:?}",
+                "Span 0: '{}' mismatch, all attributes: {:?}",
                 semconv::ERROR_TYPE,
-                Some(&expected_error_type),
-                attributes.get(semconv::ERROR_TYPE),
                 attributes
             );
             assert!(
                 !attributes.contains_key(semconv::HTTP_RESPONSE_STATUS_CODE),
                 "Span 0: '{}' should not be present on connection error, all attributes: {:?}",
+                semconv::HTTP_RESPONSE_STATUS_CODE,
+                attributes
+            );
+
+            Ok(())
+        }
+
+        #[tokio::test]
+        async fn test_redirect_error_with_tracing_on() -> Result<()> {
+            use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_REDIRECT_ERROR;
+            use httptest::{Expectation, ServerPool, matchers::*, responders::*};
+            use serde_json::Value;
+
+            let server_pool = ServerPool::new(1);
+            let server = server_pool.get_server();
+            let endpoint = server.url("").to_string(); // Base endpoint
+            let redirect_url = server.url("/loop").to_string();
+
+            server.expect(
+                Expectation::matching(request::method_path("GET", "/loop"))
+                    .times(0..100)
+                    .respond_with(
+                        status_code(302).insert_header("location", redirect_url.as_str()),
+                    ),
+            );
+
+            let mut config = ClientConfig::default();
+            config.tracing = true;
+            config.cred = Some(test_credentials());
+            let client = ReqwestClient::new(config, &endpoint).await?;
+
+            let guard = TestLayer::initialize();
+
+            let builder = client.builder(reqwest::Method::GET, "loop".into());
+            let result = client
+                .execute::<Value, Value>(builder, Option::<Value>::None, RequestOptions::default())
+                .await;
+
+            assert!(result.is_err(), "Expected redirect error");
+
+            let spans = TestLayer::capture(&guard);
+            assert_eq!(spans.len(), 1, "Should capture one span: {:?}", spans);
+
+            let span = &spans[0];
+            let attributes = &span.attributes;
+            assert_eq!(
+                span.name, "http_request",
+                "Span name mismatch: {:?}, all attributes: {:?}",
+                span, attributes
+            );
+
+            let expected_error_type = CLIENT_REDIRECT_ERROR.to_string();
+            assert_eq!(
+                attributes.get(semconv::ERROR_TYPE),
+                Some(&expected_error_type),
+                "Span 0: {} mismatch, all attributes: {:?}",
+                semconv::ERROR_TYPE,
+                attributes
+            );
+            assert!(
+                !attributes.contains_key(semconv::HTTP_RESPONSE_STATUS_CODE),
+                "Span 0: {} should not be present on redirect error, all attributes: {:?}",
                 semconv::HTTP_RESPONSE_STATUS_CODE,
                 attributes
             );

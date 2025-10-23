@@ -66,6 +66,14 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_compute_lro_errors() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        integration_tests::compute::lro_errors()
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_machine_types() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
         integration_tests::compute::machine_types()
@@ -186,14 +194,19 @@ mod driver {
         let variants = || async {
             tracing::info!("default builder");
             let builder = Storage::builder();
-            integration_tests::storage::objects(builder).await?;
+            integration_tests::storage::objects(builder, &bucket.name, "default-endpoint").await?;
             tracing::info!("with global endpoint");
+
             let builder = Storage::builder().with_endpoint("https://www.googleapis.com");
-            integration_tests::storage::objects(builder).await?;
-            tracing::info!("with locational endpoint");
-            let builder =
-                Storage::builder().with_endpoint("https://us-central1-storage.googleapis.com");
-            integration_tests::storage::objects(builder).await?;
+            integration_tests::storage::objects(builder, &bucket.name, "global endpoint").await?;
+
+            if std::env::var("GOOGLE_CLOUD_RUST_TEST_RUNNING_ON_GCB").is_ok_and(|s| s == "1") {
+                tracing::info!("with locational endpoint");
+                let builder =
+                    Storage::builder().with_endpoint("https://us-central1-storage.googleapis.com");
+                integration_tests::storage::objects(builder, &bucket.name, "locational-endpoint")
+                    .await?;
+            }
             Ok(())
         };
         let result = variants().await;

@@ -25,7 +25,7 @@ env:
   GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.90", "rust:nightly": "nightly" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.25.0" }'
   # Define the unstable flags once
-  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing'
+  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token'
 
 jobs:
   build:
@@ -595,7 +595,7 @@ jobs:
           sudo unzip -x /tmp/protoc.zip
           protoc --version
       - name: Regenerate all the code
-        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.4.1-0.20251017142006-14a148302470 refreshall
+        run: go run github.com/googleapis/librarian/cmd/sidekick@v0.4.1-0.20251020204149-2c94a53f0fb5 refreshall
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,

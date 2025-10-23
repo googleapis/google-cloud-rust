@@ -415,4 +415,7 @@ integration-tests       = { path = "src/integration-tests" }
 storage-samples         = { path = "src/storage/examples" }
 
 [workspace.lints.rust]
-unexpected_cfgs = { level = "deny", check-cfg = ['cfg(google_cloud_unstable_tracing)'] }
+unexpected_cfgs = { level = "deny", check-cfg = [
+  'cfg(google_cloud_unstable_id_token)',
+  'cfg(google_cloud_unstable_tracing)',
+] }

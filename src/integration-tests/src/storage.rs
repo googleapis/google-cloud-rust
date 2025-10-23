@@ -29,15 +29,16 @@ use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 use storage::read_object::ReadObjectResponse;
 use storage_samples::cleanup_bucket;
 
-pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Result<()> {
-    // Create a temporary bucket for the test.
-    let (control, bucket) = create_test_bucket().await?;
-
+pub async fn objects(
+    builder: storage::builder::storage::ClientBuilder,
+    bucket_name: &str,
+    prefix: &str,
+) -> Result<()> {
     let client = builder.build().await?;
     tracing::info!("testing insert_object()");
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
-        .write_object(&bucket.name, "quick.text", CONTENTS)
+        .write_object(bucket_name, format!("{prefix}/quick.text"), CONTENTS)
         .set_metadata([("verify-metadata-works", "yes")])
         .set_content_type("text/plain")
         .set_content_language("en")
@@ -54,10 +55,7 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     );
 
     tracing::info!("testing read_object()");
-    let mut response = client
-        .read_object(&bucket.name, &insert.name)
-        .send()
-        .await?;
+    let mut response = client.read_object(bucket_name, &insert.name).send().await?;
 
     // Retrieve the metadata before reading the data.
     let object = response.object();
@@ -82,19 +80,6 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     let contents = bytes::Bytes::from_owner(contents);
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
-
-    control
-        .delete_object()
-        .set_bucket(&insert.bucket)
-        .set_object(&insert.name)
-        .set_generation(insert.generation)
-        .send()
-        .await?;
-    control
-        .delete_bucket()
-        .set_name(&bucket.name)
-        .send()
-        .await?;
 
     Ok(())
 }
@@ -197,27 +182,12 @@ pub async fn object_names(
 
 pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
     let project_id = crate::project_id()?;
-    let client = StorageControl::builder()
-        .with_tracing()
-        .with_backoff_policy(
-            gax::exponential_backoff::ExponentialBackoffBuilder::new()
-                .with_initial_delay(Duration::from_secs(2))
-                .with_maximum_delay(Duration::from_secs(8))
-                .build()
-                .unwrap(),
-        )
-        .with_retry_policy(
-            gax::retry_policy::AlwaysRetry
-                .with_attempt_limit(16)
-                .with_time_limit(Duration::from_secs(32)),
-        )
-        .build()
-        .await?;
+    let client = client_for_create_bucket().await?;
     cleanup_stale_buckets(&client, &project_id).await?;
 
     let bucket_id = crate::random_bucket_id();
 
-    tracing::info!("\nTesting create_bucket()");
+    tracing::info!("create_test_bucket()");
     let create = client
         .create_bucket()
         .set_parent("projects/_")
@@ -234,6 +204,56 @@ pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
         .await?;
     tracing::info!("SUCCESS on create_bucket: {create:?}");
     Ok((client, create))
+}
+
+pub async fn create_test_hns_bucket() -> Result<(StorageControl, Bucket)> {
+    let project_id = crate::project_id()?;
+    let client = client_for_create_bucket().await?;
+    cleanup_stale_buckets(&client, &project_id).await?;
+
+    let bucket_id = crate::random_bucket_id();
+
+    tracing::info!("create_test_hns_bucket()");
+    let create = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("us-central1")
+                .set_labels([("integration-test", "true")])
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
+        )
+        .with_backoff_policy(test_backoff())
+        .with_idempotency(true)
+        .send()
+        .await?;
+    tracing::info!("SUCCESS on create_bucket: {create:?}");
+    Ok((client, create))
+}
+
+async fn client_for_create_bucket() -> Result<StorageControl> {
+    let client = StorageControl::builder()
+        .with_tracing()
+        .with_backoff_policy(
+            gax::exponential_backoff::ExponentialBackoffBuilder::new()
+                .with_initial_delay(Duration::from_secs(2))
+                .with_maximum_delay(Duration::from_secs(8))
+                .build()
+                .unwrap(),
+        )
+        .with_retry_policy(
+            gax::retry_policy::AlwaysRetry
+                .with_attempt_limit(16)
+                .with_time_limit(Duration::from_secs(32)),
+        )
+        .build()
+        .await?;
+    Ok(client)
 }
 
 pub async fn buckets(builder: storage::builder::storage_control::ClientBuilder) -> Result<()> {
@@ -425,6 +445,7 @@ async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Res
         }
     }
 
+    println!("cleaning up {} buckets", pending.len());
     let r: std::result::Result<Vec<_>, _> = futures::future::join_all(pending)
         .await
         .into_iter()
@@ -432,7 +453,7 @@ async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Res
     r.map_err(Error::from)?
         .into_iter()
         .zip(names)
-        .for_each(|(r, name)| println!("deleting bucket {name} resulted in {r:?}"));
+        .for_each(|(r, name)| println!("deleting bucket {name}: {r:?}"));
 
     Ok(())
 }

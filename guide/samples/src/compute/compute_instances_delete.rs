@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START compute_instances_delete]
+// [START compute_instances_delete] ANCHOR: all
 use google_cloud_compute_v1::client::Instances;
 use google_cloud_lro::Poller;
 
@@ -26,9 +26,10 @@ pub async fn sample(client: &Instances, project_id: &str, name: &str) -> anyhow:
         .set_instance(name)
         .poller()
         .until_done()
-        .await?;
+        .await?
+        .to_result()?;
     println!("Instance successfully deleted: {operation:?}");
 
     Ok(())
 }
-// [END compute_instances_delete]
+// [END compute_instances_delete] ANCHOR_END: all
