@@ -17,6 +17,6 @@ specification-source = 'google/cloud/discoveryengine/v1'
 service-config       = 'google/cloud/discoveryengine/v1/discoveryengine_v1.yaml'
 
 [codec]
-version              = '2.0.0'
+version        = '2.1.0'
 copyright-year       = '2025'
 per-service-features = 'true'
