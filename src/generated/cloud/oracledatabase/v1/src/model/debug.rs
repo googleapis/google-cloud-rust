@@ -29,7 +29,30 @@ impl std::fmt::Debug for super::AutonomousDatabase {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("network", &self.network);
         debug_struct.field("cidr", &self.cidr);
+        debug_struct.field("odb_network", &self.odb_network);
+        debug_struct.field("odb_subnet", &self.odb_subnet);
+        debug_struct.field("source_config", &self.source_config);
+        debug_struct.field("peer_autonomous_databases", &self.peer_autonomous_databases);
         debug_struct.field("create_time", &self.create_time);
+        debug_struct.field(
+            "disaster_recovery_supported_locations",
+            &self.disaster_recovery_supported_locations,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SourceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceConfig");
+        debug_struct.field("autonomous_database", &self.autonomous_database);
+        debug_struct.field(
+            "automatic_backups_replication_enabled",
+            &self.automatic_backups_replication_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -140,8 +163,47 @@ impl std::fmt::Debug for super::AutonomousDatabaseProperties {
             "next_long_term_backup_time",
             &self.next_long_term_backup_time,
         );
+        debug_struct.field(
+            "data_guard_role_changed_time",
+            &self.data_guard_role_changed_time,
+        );
+        debug_struct.field(
+            "disaster_recovery_role_changed_time",
+            &self.disaster_recovery_role_changed_time,
+        );
         debug_struct.field("maintenance_begin_time", &self.maintenance_begin_time);
         debug_struct.field("maintenance_end_time", &self.maintenance_end_time);
+        debug_struct.field("allowlisted_ips", &self.allowlisted_ips);
+        debug_struct.field("encryption_key", &self.encryption_key);
+        debug_struct.field(
+            "encryption_key_history_entries",
+            &self.encryption_key_history_entries,
+        );
+        debug_struct.field("service_agent_email", &self.service_agent_email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::EncryptionKeyHistoryEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionKeyHistoryEntry");
+        debug_struct.field("encryption_key", &self.encryption_key);
+        debug_struct.field("activation_time", &self.activation_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::EncryptionKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionKey");
+        debug_struct.field("provider", &self.provider);
+        debug_struct.field("kms_key", &self.kms_key);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -350,6 +412,188 @@ impl std::fmt::Debug for super::CustomerContact {
     }
 }
 
+impl std::fmt::Debug for super::IdentityConnector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IdentityConnector");
+        debug_struct.field("service_agent_email", &self.service_agent_email);
+        debug_struct.field("connection_state", &self.connection_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DataCollectionOptionsCommon {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataCollectionOptionsCommon");
+        debug_struct.field(
+            "is_diagnostics_events_enabled",
+            &self.is_diagnostics_events_enabled,
+        );
+        debug_struct.field(
+            "is_health_monitoring_enabled",
+            &self.is_health_monitoring_enabled,
+        );
+        debug_struct.field("is_incident_logs_enabled", &self.is_incident_logs_enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Database {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Database");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("db_name", &self.db_name);
+        debug_struct.field("db_unique_name", &self.db_unique_name);
+        debug_struct.field("admin_password", &self.admin_password);
+        debug_struct.field("tde_wallet_password", &self.tde_wallet_password);
+        debug_struct.field("character_set", &self.character_set);
+        debug_struct.field("ncharacter_set", &self.ncharacter_set);
+        debug_struct.field("oci_url", &self.oci_url);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("database_id", &self.database_id);
+        debug_struct.field("db_home_name", &self.db_home_name);
+        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
+        debug_struct.field("ops_insights_status", &self.ops_insights_status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DatabaseProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseProperties");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("db_version", &self.db_version);
+        debug_struct.field("db_backup_config", &self.db_backup_config);
+        debug_struct.field(
+            "database_management_config",
+            &self.database_management_config,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DbBackupConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbBackupConfig");
+        debug_struct.field("auto_backup_enabled", &self.auto_backup_enabled);
+        debug_struct.field(
+            "backup_destination_details",
+            &self.backup_destination_details,
+        );
+        debug_struct.field("retention_period_days", &self.retention_period_days);
+        debug_struct.field("backup_deletion_policy", &self.backup_deletion_policy);
+        debug_struct.field("auto_full_backup_day", &self.auto_full_backup_day);
+        debug_struct.field("auto_full_backup_window", &self.auto_full_backup_window);
+        debug_struct.field(
+            "auto_incremental_backup_window",
+            &self.auto_incremental_backup_window,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::db_backup_config::BackupDestinationDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupDestinationDetails");
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDatabaseRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDatabasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDatabasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabasesResponse");
+        debug_struct.field("databases", &self.databases);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DatabaseCharacterSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseCharacterSet");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("character_set_type", &self.character_set_type);
+        debug_struct.field("character_set", &self.character_set);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDatabaseCharacterSetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabaseCharacterSetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDatabaseCharacterSetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabaseCharacterSetsResponse");
+        debug_struct.field("database_character_sets", &self.database_character_sets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::DbNode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DbNode");
@@ -373,6 +617,7 @@ impl std::fmt::Debug for super::DbNodeProperties {
         debug_struct.field("hostname", &self.hostname);
         debug_struct.field("state", &self.state);
         debug_struct.field("total_cpu_core_count", &self.total_cpu_core_count);
+        debug_struct.field("create_time", &self.create_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -416,6 +661,236 @@ impl std::fmt::Debug for super::DbServerProperties {
     }
 }
 
+impl std::fmt::Debug for super::DbSystem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbSystem");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("odb_network", &self.odb_network);
+        debug_struct.field("odb_subnet", &self.odb_subnet);
+        debug_struct.field("entitlement_id", &self.entitlement_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("oci_url", &self.oci_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DbSystemProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbSystemProperties");
+        debug_struct.field("shape", &self.shape);
+        debug_struct.field("compute_count", &self.compute_count);
+        debug_struct.field(
+            "initial_data_storage_size_gb",
+            &self.initial_data_storage_size_gb,
+        );
+        debug_struct.field("database_edition", &self.database_edition);
+        debug_struct.field("license_model", &self.license_model);
+        debug_struct.field("ssh_public_keys", &self.ssh_public_keys);
+        debug_struct.field("hostname_prefix", &self.hostname_prefix);
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("private_ip", &self.private_ip);
+        debug_struct.field("data_collection_options", &self.data_collection_options);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field("lifecycle_state", &self.lifecycle_state);
+        debug_struct.field("db_home", &self.db_home);
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("memory_size_gb", &self.memory_size_gb);
+        debug_struct.field("compute_model", &self.compute_model);
+        debug_struct.field("data_storage_size_gb", &self.data_storage_size_gb);
+        debug_struct.field("reco_storage_size_gb", &self.reco_storage_size_gb);
+        debug_struct.field("domain", &self.domain);
+        debug_struct.field("node_count", &self.node_count);
+        debug_struct.field("db_system_options", &self.db_system_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DataCollectionOptionsDbSystem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataCollectionOptionsDbSystem");
+        debug_struct.field(
+            "is_diagnostics_events_enabled",
+            &self.is_diagnostics_events_enabled,
+        );
+        debug_struct.field("is_incident_logs_enabled", &self.is_incident_logs_enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DbSystemOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbSystemOptions");
+        debug_struct.field("storage_management", &self.storage_management);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DbHome {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbHome");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("db_version", &self.db_version);
+        debug_struct.field("database", &self.database);
+        debug_struct.field(
+            "is_unified_auditing_enabled",
+            &self.is_unified_auditing_enabled,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateDbSystemRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDbSystemRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("db_system_id", &self.db_system_id);
+        debug_struct.field("db_system", &self.db_system);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteDbSystemRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDbSystemRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetDbSystemRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDbSystemRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDbSystemsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbSystemsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDbSystemsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbSystemsResponse");
+        debug_struct.field("db_systems", &self.db_systems);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DbSystemInitialStorageSize {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbSystemInitialStorageSize");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DbSystemInitialStorageSizeProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbSystemInitialStorageSizeProperties");
+        debug_struct.field("storage_management", &self.storage_management);
+        debug_struct.field("shape_type", &self.shape_type);
+        debug_struct.field("storage_size_details", &self.storage_size_details);
+        debug_struct.field(
+            "launch_from_backup_storage_size_details",
+            &self.launch_from_backup_storage_size_details,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StorageSizeDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StorageSizeDetails");
+        debug_struct.field("data_storage_size_in_gbs", &self.data_storage_size_in_gbs);
+        debug_struct.field("reco_storage_size_in_gbs", &self.reco_storage_size_in_gbs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDbSystemInitialStorageSizesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbSystemInitialStorageSizesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDbSystemInitialStorageSizesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbSystemInitialStorageSizesResponse");
+        debug_struct.field(
+            "db_system_initial_storage_sizes",
+            &self.db_system_initial_storage_sizes,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::DbSystemShape {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DbSystemShape");
@@ -440,6 +915,62 @@ impl std::fmt::Debug for super::DbSystemShape {
             "min_db_node_storage_per_node_gb",
             &self.min_db_node_storage_per_node_gb,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DbVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DbVersionProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbVersionProperties");
+        debug_struct.field("version", &self.version);
+        debug_struct.field(
+            "is_latest_for_major_version",
+            &self.is_latest_for_major_version,
+        );
+        debug_struct.field("supports_pdb", &self.supports_pdb);
+        debug_struct.field("is_preview_db_version", &self.is_preview_db_version);
+        debug_struct.field("is_upgrade_supported", &self.is_upgrade_supported);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDbVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDbVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbVersionsResponse");
+        debug_struct.field("db_versions", &self.db_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -531,6 +1062,9 @@ impl std::fmt::Debug for super::CloudExadataInfrastructureProperties {
             &self.monthly_storage_server_version,
         );
         debug_struct.field("monthly_db_server_version", &self.monthly_db_server_version);
+        debug_struct.field("compute_model", &self.compute_model);
+        debug_struct.field("database_server_type", &self.database_server_type);
+        debug_struct.field("storage_server_type", &self.storage_server_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -563,6 +1097,201 @@ impl std::fmt::Debug for super::MaintenanceWindow {
     }
 }
 
+impl std::fmt::Debug for super::ExadbVmCluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExadbVmCluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("odb_network", &self.odb_network);
+        debug_struct.field("odb_subnet", &self.odb_subnet);
+        debug_struct.field("backup_odb_subnet", &self.backup_odb_subnet);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("entitlement_id", &self.entitlement_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExadbVmClusterStorageDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExadbVmClusterStorageDetails");
+        debug_struct.field("size_in_gbs_per_node", &self.size_in_gbs_per_node);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExadbVmClusterProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExadbVmClusterProperties");
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("grid_image_id", &self.grid_image_id);
+        debug_struct.field("node_count", &self.node_count);
+        debug_struct.field(
+            "enabled_ecpu_count_per_node",
+            &self.enabled_ecpu_count_per_node,
+        );
+        debug_struct.field(
+            "additional_ecpu_count_per_node",
+            &self.additional_ecpu_count_per_node,
+        );
+        debug_struct.field("vm_file_system_storage", &self.vm_file_system_storage);
+        debug_struct.field("license_model", &self.license_model);
+        debug_struct.field("exascale_db_storage_vault", &self.exascale_db_storage_vault);
+        debug_struct.field("hostname_prefix", &self.hostname_prefix);
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("ssh_public_keys", &self.ssh_public_keys);
+        debug_struct.field("data_collection_options", &self.data_collection_options);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field("lifecycle_state", &self.lifecycle_state);
+        debug_struct.field("shape_attribute", &self.shape_attribute);
+        debug_struct.field("memory_size_gb", &self.memory_size_gb);
+        debug_struct.field("scan_listener_port_tcp", &self.scan_listener_port_tcp);
+        debug_struct.field("oci_uri", &self.oci_uri);
+        debug_struct.field("gi_version", &self.gi_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExascaleDbStorageVault {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExascaleDbStorageVault");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("entitlement_id", &self.entitlement_id);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExascaleDbStorageVaultProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExascaleDbStorageVaultProperties");
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field(
+            "exascale_db_storage_details",
+            &self.exascale_db_storage_details,
+        );
+        debug_struct.field("state", &self.state);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("vm_cluster_ids", &self.vm_cluster_ids);
+        debug_struct.field("vm_cluster_count", &self.vm_cluster_count);
+        debug_struct.field(
+            "additional_flash_cache_percent",
+            &self.additional_flash_cache_percent,
+        );
+        debug_struct.field("oci_uri", &self.oci_uri);
+        debug_struct.field("attached_shape_attributes", &self.attached_shape_attributes);
+        debug_struct.field(
+            "available_shape_attributes",
+            &self.available_shape_attributes,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExascaleDbStorageDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExascaleDbStorageDetails");
+        debug_struct.field("available_size_gbs", &self.available_size_gbs);
+        debug_struct.field("total_size_gbs", &self.total_size_gbs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetExascaleDbStorageVaultRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetExascaleDbStorageVaultRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListExascaleDbStorageVaultsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExascaleDbStorageVaultsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListExascaleDbStorageVaultsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExascaleDbStorageVaultsResponse");
+        debug_struct.field(
+            "exascale_db_storage_vaults",
+            &self.exascale_db_storage_vaults,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateExascaleDbStorageVaultRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateExascaleDbStorageVaultRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "exascale_db_storage_vault_id",
+            &self.exascale_db_storage_vault_id,
+        );
+        debug_struct.field("exascale_db_storage_vault", &self.exascale_db_storage_vault);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteExascaleDbStorageVaultRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteExascaleDbStorageVaultRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GiVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GiVersion");
@@ -586,12 +1315,216 @@ impl std::fmt::Debug for super::LocationMetadata {
     }
 }
 
+impl std::fmt::Debug for super::MinorVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MinorVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("grid_image_id", &self.grid_image_id);
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListMinorVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMinorVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListMinorVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMinorVersionsResponse");
+        debug_struct.field("minor_versions", &self.minor_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::OdbNetwork {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OdbNetwork");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("entitlement_id", &self.entitlement_id);
+        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateOdbNetworkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateOdbNetworkRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("odb_network_id", &self.odb_network_id);
+        debug_struct.field("odb_network", &self.odb_network);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteOdbNetworkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteOdbNetworkRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListOdbNetworksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOdbNetworksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListOdbNetworksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOdbNetworksResponse");
+        debug_struct.field("odb_networks", &self.odb_networks);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetOdbNetworkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOdbNetworkRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::OdbSubnet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OdbSubnet");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("cidr_range", &self.cidr_range);
+        debug_struct.field("purpose", &self.purpose);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateOdbSubnetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateOdbSubnetRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("odb_subnet_id", &self.odb_subnet_id);
+        debug_struct.field("odb_subnet", &self.odb_subnet);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteOdbSubnetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteOdbSubnetRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListOdbSubnetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOdbSubnetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListOdbSubnetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOdbSubnetsResponse");
+        debug_struct.field("odb_subnets", &self.odb_subnets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetOdbSubnetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOdbSubnetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ListCloudExadataInfrastructuresRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCloudExadataInfrastructuresRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -803,6 +1736,7 @@ impl std::fmt::Debug for super::ListGiVersionsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -828,6 +1762,7 @@ impl std::fmt::Debug for super::ListDbSystemShapesRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -917,6 +1852,19 @@ impl std::fmt::Debug for super::CreateAutonomousDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for super::UpdateAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAutonomousDatabaseRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("autonomous_database", &self.autonomous_database);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::DeleteAutonomousDatabaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAutonomousDatabaseRequest");
@@ -967,6 +1915,30 @@ impl std::fmt::Debug for super::RestartAutonomousDatabaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestartAutonomousDatabaseRequest");
         debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SwitchoverAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SwitchoverAutonomousDatabaseRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("peer_autonomous_database", &self.peer_autonomous_database);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FailoverAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FailoverAutonomousDatabaseRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("peer_autonomous_database", &self.peer_autonomous_database);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1082,19 +2054,239 @@ impl std::fmt::Debug for super::ListAutonomousDatabaseBackupsResponse {
     }
 }
 
+impl std::fmt::Debug for super::CreateExadbVmClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateExadbVmClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("exadb_vm_cluster_id", &self.exadb_vm_cluster_id);
+        debug_struct.field("exadb_vm_cluster", &self.exadb_vm_cluster);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteExadbVmClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteExadbVmClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetExadbVmClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetExadbVmClusterRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListExadbVmClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExadbVmClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListExadbVmClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExadbVmClustersResponse");
+        debug_struct.field("exadb_vm_clusters", &self.exadb_vm_clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateExadbVmClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateExadbVmClusterRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("exadb_vm_cluster", &self.exadb_vm_cluster);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RemoveVirtualMachineExadbVmClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveVirtualMachineExadbVmClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("hostnames", &self.hostnames);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PluggableDatabase {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PluggableDatabase");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("oci_url", &self.oci_url);
+        debug_struct.field("create_time", &self.create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PluggableDatabaseProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PluggableDatabaseProperties");
+        debug_struct.field("compartment_id", &self.compartment_id);
+        debug_struct.field("connection_strings", &self.connection_strings);
+        debug_struct.field("container_database_ocid", &self.container_database_ocid);
+        debug_struct.field("defined_tags", &self.defined_tags);
+        debug_struct.field("freeform_tags", &self.freeform_tags);
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("is_restricted", &self.is_restricted);
+        debug_struct.field("lifecycle_details", &self.lifecycle_details);
+        debug_struct.field("lifecycle_state", &self.lifecycle_state);
+        debug_struct.field("pdb_name", &self.pdb_name);
+        debug_struct.field("pdb_node_level_details", &self.pdb_node_level_details);
+        debug_struct.field(
+            "database_management_config",
+            &self.database_management_config,
+        );
+        debug_struct.field("operations_insights_state", &self.operations_insights_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::pluggable_database_properties::DefinedTagValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DefinedTagValue");
+        debug_struct.field("tags", &self.tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PluggableDatabaseConnectionStrings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PluggableDatabaseConnectionStrings");
+        debug_struct.field("all_connection_strings", &self.all_connection_strings);
+        debug_struct.field("pdb_default", &self.pdb_default);
+        debug_struct.field("pdb_ip_default", &self.pdb_ip_default);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PluggableDatabaseNodeLevelDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PluggableDatabaseNodeLevelDetails");
+        debug_struct.field("node_name", &self.node_name);
+        debug_struct.field("open_mode", &self.open_mode);
+        debug_struct.field("pluggable_database_id", &self.pluggable_database_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DatabaseManagementConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseManagementConfig");
+        debug_struct.field("management_state", &self.management_state);
+        debug_struct.field("management_type", &self.management_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetPluggableDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPluggableDatabaseRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListPluggableDatabasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPluggableDatabasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListPluggableDatabasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPluggableDatabasesResponse");
+        debug_struct.field("pluggable_databases", &self.pluggable_databases);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CloudVmCluster {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudVmCluster");
         debug_struct.field("name", &self.name);
         debug_struct.field("exadata_infrastructure", &self.exadata_infrastructure);
         debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
         debug_struct.field("properties", &self.properties);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("cidr", &self.cidr);
         debug_struct.field("backup_subnet_cidr", &self.backup_subnet_cidr);
         debug_struct.field("network", &self.network);
+        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
+        debug_struct.field("odb_network", &self.odb_network);
+        debug_struct.field("odb_subnet", &self.odb_subnet);
+        debug_struct.field("backup_odb_subnet", &self.backup_odb_subnet);
+        debug_struct.field("identity_connector", &self.identity_connector);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1143,6 +2335,7 @@ impl std::fmt::Debug for super::CloudVmClusterProperties {
         debug_struct.field("compartment_id", &self.compartment_id);
         debug_struct.field("dns_listener_ip", &self.dns_listener_ip);
         debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("compute_model", &self.compute_model);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

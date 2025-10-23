@@ -177,6 +177,12 @@ pub struct AdvancedVoiceOptions {
     /// and has a higher latency.
     pub low_latency_journey_synthesis: std::option::Option<bool>,
 
+    /// Optional. Input only. If true, relaxes safety filters for Gemini TTS. Only
+    /// supported for accounts linked to Invoiced (Offline) Cloud billing accounts.
+    /// Otherwise, will return result
+    /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
+    pub relax_safety_filters: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -203,6 +209,12 @@ impl AdvancedVoiceOptions {
         T: std::convert::Into<bool>,
     {
         self.low_latency_journey_synthesis = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [relax_safety_filters][crate::model::AdvancedVoiceOptions::relax_safety_filters].
+    pub fn set_relax_safety_filters<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.relax_safety_filters = v.into();
         self
     }
 }

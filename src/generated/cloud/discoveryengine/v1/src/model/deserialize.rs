@@ -2324,7 +2324,11 @@ impl<'de> serde::de::Deserialize<'de>
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::AssistAnswer {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2444,7 +2448,11 @@ impl<'de> serde::de::Deserialize<'de> for super::AssistAnswer {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::assist_answer::Reply {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2536,7 +2544,11 @@ impl<'de> serde::de::Deserialize<'de> for super::assist_answer::Reply {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::AssistantContent {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2744,7 +2756,11 @@ impl<'de> serde::de::Deserialize<'de> for super::AssistantContent {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::assistant_content::Blob {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2847,7 +2863,11 @@ impl<'de> serde::de::Deserialize<'de> for super::assistant_content::Blob {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::assistant_content::File {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2942,7 +2962,11 @@ impl<'de> serde::de::Deserialize<'de> for super::assistant_content::File {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::assistant_content::ExecutableCode {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3023,7 +3047,11 @@ impl<'de> serde::de::Deserialize<'de> for super::assistant_content::ExecutableCo
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::assistant_content::CodeExecutionResult {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3118,7 +3146,11 @@ impl<'de> serde::de::Deserialize<'de> for super::assistant_content::CodeExecutio
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::AssistantGroundedContent {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3219,7 +3251,11 @@ impl<'de> serde::de::Deserialize<'de> for super::AssistantGroundedContent {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::assistant_grounded_content::TextGroundingMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3308,7 +3344,11 @@ impl<'de> serde::de::Deserialize<'de> for super::assistant_grounded_content::Tex
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de>
     for super::assistant_grounded_content::text_grounding_metadata::Segment
@@ -3484,7 +3524,11 @@ impl<'de> serde::de::Deserialize<'de>
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de>
     for super::assistant_grounded_content::text_grounding_metadata::Reference
@@ -3579,7 +3623,11 @@ impl<'de> serde::de::Deserialize<'de>
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de>
     for super::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata
@@ -40049,6 +40097,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Session {
             __state,
             __user_pseudo_id,
             __turns,
+            __labels,
             __start_time,
             __end_time,
             __is_pinned,
@@ -40079,6 +40128,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Session {
                             "userPseudoId" => Ok(__FieldTag::__user_pseudo_id),
                             "user_pseudo_id" => Ok(__FieldTag::__user_pseudo_id),
                             "turns" => Ok(__FieldTag::__turns),
+                            "labels" => Ok(__FieldTag::__labels),
                             "startTime" => Ok(__FieldTag::__start_time),
                             "start_time" => Ok(__FieldTag::__start_time),
                             "endTime" => Ok(__FieldTag::__end_time),
@@ -40158,6 +40208,14 @@ impl<'de> serde::de::Deserialize<'de> for super::Session {
                             }
                             result.turns = map.next_value::<std::option::Option<std::vec::Vec<crate::model::session::Turn>>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
                         __FieldTag::__start_time => {
                             if !fields.insert(__FieldTag::__start_time) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -40213,6 +40271,7 @@ impl<'de> serde::de::Deserialize<'de> for super::session::Turn {
             __query,
             __answer,
             __detailed_answer,
+            __detailed_assist_answer,
             __query_config,
             Unknown(std::string::String),
         }
@@ -40238,6 +40297,8 @@ impl<'de> serde::de::Deserialize<'de> for super::session::Turn {
                             "answer" => Ok(__FieldTag::__answer),
                             "detailedAnswer" => Ok(__FieldTag::__detailed_answer),
                             "detailed_answer" => Ok(__FieldTag::__detailed_answer),
+                            "detailedAssistAnswer" => Ok(__FieldTag::__detailed_assist_answer),
+                            "detailed_assist_answer" => Ok(__FieldTag::__detailed_assist_answer),
                             "queryConfig" => Ok(__FieldTag::__query_config),
                             "query_config" => Ok(__FieldTag::__query_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -40292,6 +40353,15 @@ impl<'de> serde::de::Deserialize<'de> for super::session::Turn {
                             }
                             result.detailed_answer =
                                 map.next_value::<std::option::Option<crate::model::Answer>>()?;
+                        }
+                        __FieldTag::__detailed_assist_answer => {
+                            if !fields.insert(__FieldTag::__detailed_assist_answer) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for detailed_assist_answer",
+                                ));
+                            }
+                            result.detailed_assist_answer = map
+                                .next_value::<std::option::Option<crate::model::AssistAnswer>>()?;
                         }
                         __FieldTag::__query_config => {
                             if !fields.insert(__FieldTag::__query_config) {

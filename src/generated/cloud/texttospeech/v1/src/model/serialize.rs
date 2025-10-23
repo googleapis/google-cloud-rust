@@ -120,6 +120,9 @@ impl serde::ser::Serialize for super::AdvancedVoiceOptions {
                 &self.low_latency_journey_synthesis,
             )?;
         }
+        if !wkt::internal::is_default(&self.relax_safety_filters) {
+            state.serialize_entry("relaxSafetyFilters", &self.relax_safety_filters)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
