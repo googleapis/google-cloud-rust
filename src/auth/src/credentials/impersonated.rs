@@ -2132,7 +2132,7 @@ mod tests {
     }
 }
 
-#[cfg(google_cloud_unstable_id_token)]
+#[cfg(all(test, google_cloud_unstable_id_token))]
 mod unstable_tests {
     use super::*;
     use crate::credentials::idtoken::tests::generate_test_id_token;
