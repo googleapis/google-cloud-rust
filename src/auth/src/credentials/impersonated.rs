@@ -667,6 +667,250 @@ struct GenerateAccessTokenResponse {
     expire_time: String,
 }
 
+pub mod idtoken {
+    use crate::{
+        BuildResult, Result,
+        credentials::{
+            CacheableResource, Credentials,
+            idtoken::{
+                IDTokenCredentials, dynamic::IDTokenCredentialsProvider, parse_id_token_from_str,
+            },
+            impersonated::{BuilderSource, IMPERSONATED_CREDENTIAL_TYPE, MSG},
+        },
+        errors,
+        headers_util::{self, ID_TOKEN_REQUEST_TYPE, metrics_header_value},
+        token::{CachedTokenProvider, Token, TokenProvider},
+        token_cache::TokenCache,
+    };
+    use async_trait::async_trait;
+    use gax::error::CredentialsError;
+    use http::{Extensions, HeaderMap};
+    use reqwest::Client;
+    use serde_json::Value;
+    use std::sync::Arc;
+
+    /// A builder for constructing Impersonated Service Account [IDTokenCredentials] instance.
+    pub struct Builder {
+        source: BuilderSource,
+        delegates: Option<Vec<String>>,
+        include_email: Option<bool>,
+        target_audience: String,
+        service_account_impersonation_url: Option<String>,
+    }
+
+    impl Builder {
+        /// Creates a new builder using `impersonated_service_account` JSON value.
+        ///
+        /// The `impersonated_service_account` JSON is typically generated using
+        /// a [gcloud command] for [application default login].
+        ///
+        /// [gcloud command]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
+        /// [application default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login    
+        pub fn new<S: Into<String>>(target_audience: S, impersonated_credential: Value) -> Self {
+            Self {
+                source: BuilderSource::FromJson(impersonated_credential),
+                delegates: None,
+                include_email: None,
+                target_audience: target_audience.into(),
+                service_account_impersonation_url: None,
+            }
+        }
+
+        /// Creates a new builder with a source [Credentials] object, target principal and audience.
+        /// Target principal is the email of the service account to impersonate.
+        pub fn from_source_credentials<S: Into<String>>(
+            target_audience: S,
+            target_principal: S,
+            source_credentials: Credentials,
+        ) -> Self {
+            Self {
+                source: BuilderSource::FromCredentials(source_credentials),
+                delegates: None,
+                include_email: None,
+                target_audience: target_audience.into(),
+                service_account_impersonation_url: Some(format!(
+                    "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateIdToken",
+                    target_principal.into()
+                )),
+            }
+        }
+
+        /// Should include email claims in the ID Token.
+        pub fn with_include_email(mut self, include_email: bool) -> Self {
+            self.include_email = Some(include_email);
+            self
+        }
+
+        /// Sets the chain of delegates.
+        pub fn with_delegates<I, S>(mut self, delegates: I) -> Self
+        where
+            I: IntoIterator<Item = S>,
+            S: Into<String>,
+        {
+            self.delegates = Some(delegates.into_iter().map(|s| s.into()).collect());
+            self
+        }
+
+        /// Returns a [Credentials] instance with the configured settings.
+        ///
+        /// # Errors
+        ///
+        /// Returns a [BuilderError] for one of the following cases:
+        /// - If the `impersonated_service_account` provided to [`Builder::new`] cannot
+        ///   be successfully deserialized into the expected format. This typically happens
+        ///   if the JSON value is malformed or missing required fields. For more information,
+        ///   on how to generate `impersonated_service_account` json, consult the relevant
+        ///   section in the [application-default credentials] guide.
+        /// - If the `impersonated_service_account` provided to [`Builder::new`] has a
+        ///   `source_credentials` of `impersonated_service_account` type.
+        ///
+        /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+        pub fn build(self) -> BuildResult<IDTokenCredentials> {
+            let components = match self.source {
+                BuilderSource::FromJson(json) => {
+                    let mut components = super::build_components_from_json(json)?;
+                    components.service_account_impersonation_url = components
+                        .service_account_impersonation_url
+                        .replace("generateAccessToken", "generateIdToken");
+                    components
+                }
+                BuilderSource::FromCredentials(source_credentials) => {
+                    super::build_components_from_credentials(
+                        source_credentials,
+                        self.service_account_impersonation_url,
+                    )?
+                }
+            };
+            let token_provider = ImpersonatedTokenProvider {
+                source_credentials: components.source_credentials,
+                service_account_impersonation_url: components.service_account_impersonation_url,
+                delegates: self.delegates.or(components.delegates),
+                include_email: self.include_email,
+                target_audience: self.target_audience,
+            };
+            Ok(IDTokenCredentials {
+                inner: Arc::new(ImpersonatedServiceAccount {
+                    token_provider: TokenCache::new(token_provider),
+                }),
+            })
+        }
+    }
+
+    #[derive(Debug)]
+    struct ImpersonatedServiceAccount<T>
+    where
+        T: CachedTokenProvider,
+    {
+        token_provider: T,
+    }
+
+    #[async_trait::async_trait]
+    impl<T> IDTokenCredentialsProvider for ImpersonatedServiceAccount<T>
+    where
+        T: CachedTokenProvider,
+    {
+        async fn id_token(&self) -> Result<String> {
+            let cached_token = self.token_provider.token(Extensions::new()).await?;
+            match cached_token {
+                CacheableResource::New { data, .. } => Ok(data.token),
+                CacheableResource::NotModified => {
+                    Err(CredentialsError::from_msg(false, "failed to fetch token"))
+                }
+            }
+        }
+    }
+
+    #[derive(Debug)]
+    struct ImpersonatedTokenProvider {
+        source_credentials: Credentials,
+        service_account_impersonation_url: String,
+        delegates: Option<Vec<String>>,
+        target_audience: String,
+        include_email: Option<bool>,
+    }
+
+    #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+    struct GenerateIdTokenRequest {
+        #[serde(skip_serializing_if = "Option::is_none")]
+        delegates: Option<Vec<String>>,
+        audience: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        include_email: Option<bool>,
+    }
+
+    async fn generate_id_token(
+        source_headers: HeaderMap,
+        delegates: Option<Vec<String>>,
+        audience: String,
+        include_email: Option<bool>,
+        service_account_impersonation_url: &str,
+    ) -> Result<Token> {
+        let client = Client::new();
+
+        let body = GenerateIdTokenRequest {
+            audience,
+            delegates,
+            include_email,
+        };
+
+        let response = client
+            .post(service_account_impersonation_url)
+            .header("Content-Type", "application/json")
+            .header(
+                headers_util::X_GOOG_API_CLIENT,
+                metrics_header_value(ID_TOKEN_REQUEST_TYPE, IMPERSONATED_CREDENTIAL_TYPE),
+            )
+            .headers(source_headers)
+            .json(&body)
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, MSG))?;
+
+        if !response.status().is_success() {
+            let err = errors::from_http_response(response, MSG).await;
+            return Err(err);
+        }
+
+        let token_response = response
+            .json::<GenerateIdTokenResponse>()
+            .await
+            .map_err(|e| {
+                let retryable = !e.is_decode();
+                CredentialsError::from_source(retryable, e)
+            })?;
+
+        parse_id_token_from_str(token_response.token)
+    }
+
+    #[async_trait]
+    impl TokenProvider for ImpersonatedTokenProvider {
+        async fn token(&self) -> Result<Token> {
+            let source_headers = self.source_credentials.headers(Extensions::new()).await?;
+            let source_headers = match source_headers {
+                CacheableResource::New { data, .. } => data,
+                CacheableResource::NotModified => {
+                    unreachable!("requested source credentials without a caching etag")
+                }
+            };
+
+            generate_id_token(
+                source_headers,
+                self.delegates.clone(),
+                self.target_audience.clone(),
+                self.include_email.clone(),
+                &self.service_account_impersonation_url,
+            )
+            .await
+        }
+    }
+
+    #[derive(serde::Deserialize)]
+    struct GenerateIdTokenResponse {
+        #[serde(rename = "token")]
+        token: String,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -14,7 +14,8 @@
 
 use crate::build_errors::Error as BuilderError;
 use crate::credentials::{
-    AdcContents, extract_credential_type, load_adc, mds, service_account, user_account,
+    AdcContents, extract_credential_type, impersonated, load_adc, mds, service_account,
+    user_account,
 };
 use crate::token::Token;
 use crate::{BuildResult, Result};
@@ -165,8 +166,7 @@ fn build_id_token_credentials(
                 }
                 "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
                 "impersonated_service_account" => {
-                    // TODO(#3449): to be implemented
-                    Err(BuilderError::not_supported(cred_type))
+                    impersonated::idtoken::Builder::new(audience, json).build()
                 }
                 "external_account" => {
                     // never gonna be supported for id tokens

@@ -20,7 +20,10 @@ use auth::credentials::{
         ProgrammaticBuilder as ExternalAccountProgrammaticBuilder,
     },
     idtoken::Builder as IDTokenCredentialBuilder,
-    impersonated::Builder as ImpersonatedCredentialsBuilder,
+    impersonated::{
+        Builder as ImpersonatedCredentialsBuilder,
+        idtoken::Builder as ImpersonatedIDTokenBuilder,
+    },
     service_account::{
         Builder as ServiceAccountCredentialsBuilder,
         idtoken::Builder as ServiceAccountIDTokenBuilder,
@@ -32,7 +35,6 @@ use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
 use bigquery::client::DatasetService;
 use gax::error::rpc::Code;
 use httptest::{Expectation, Server, matchers::*, responders::*};
-use iamcredentials::client::IAMCredentials;
 use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
@@ -552,8 +554,7 @@ async fn get_secret_with_mds_creds(
     Ok(payload)
 }
 
-/// Generates a Google ID token using the iamcredentials generateIdToken API.
-/// https://cloud.google.com/iam/docs/creating-short-lived-service-account-credentials#sa-credentials-oidc
+/// Generates a Google ID token using the impersonated::idtoken::Builder.
 async fn generate_id_token(
     audience: String,
     target_principal_email: String,
@@ -562,27 +563,20 @@ async fn generate_id_token(
         .build()
         .expect("failed to get default credentials for IAM");
 
-    let client = IAMCredentials::builder()
-        .with_credentials(creds)
+    let id_token_creds = ImpersonatedIDTokenBuilder::from_source_credentials(
+            audience,
+            target_principal_email,
+            creds,
+        )
+        .with_include_email(true)
         .build()
-        .await
-        .expect("failed to setup IAM client");
+        .expect("failed to setup id token credentials");
 
-    let res = client
-        .generate_id_token()
-        .set_audience(audience)
-        .set_include_email(true)
-        .set_name(format!(
-            "projects/-/serviceAccounts/{target_principal_email}"
-        ))
-        .set_delegates(vec![format!(
-            "projects/-/serviceAccounts/{target_principal_email}"
-        )])
-        .send()
+    let token = id_token_creds.id_token()
         .await
         .expect("failed to generate id token");
 
-    Ok(res.token)
+    Ok(token)
 }
 
 fn get_oidc_audience() -> String {

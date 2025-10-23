@@ -465,11 +465,6 @@ where
 }
 
 pub mod idtoken {
-    use std::sync::Arc;
-    use async_trait::async_trait;
-    use gax::error::CredentialsError;
-    use reqwest::Client;
-    use serde_json::Value;
     use crate::Result;
     use crate::build_errors::Error as BuilderError;
     use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};
@@ -477,6 +472,11 @@ pub mod idtoken {
     use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
     use crate::token::{Token, TokenProvider};
     use crate::{BuildResult, credentials::idtoken::IDTokenCredentials};
+    use async_trait::async_trait;
+    use gax::error::CredentialsError;
+    use reqwest::Client;
+    use serde_json::Value;
+    use std::sync::Arc;
 
     #[derive(Debug)]
     struct ServiceAccountCredentials<T>
