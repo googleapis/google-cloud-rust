@@ -703,10 +703,10 @@ pub mod idtoken {
         /// Creates a new builder using `impersonated_service_account` JSON value.
         ///
         /// The `impersonated_service_account` JSON is typically generated using
-        /// a [gcloud command] for [application default login].
+        /// [application default login] with the [impersonation flag].
         ///
-        /// [gcloud command]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
-        /// [application default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login    
+        /// [impersonation flag]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
+        /// [application default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login  
         pub fn new<S: Into<String>>(target_audience: S, impersonated_credential: Value) -> Self {
             Self {
                 source: BuilderSource::FromJson(impersonated_credential),
@@ -769,12 +769,11 @@ pub mod idtoken {
         /// - If the `impersonated_service_account` provided to [`Builder::new`] cannot
         ///   be successfully deserialized into the expected format. This typically happens
         ///   if the JSON value is malformed or missing required fields. For more information,
-        ///   on how to generate `impersonated_service_account` json, consult the relevant
-        ///   section in the [application-default credentials] guide.
+        ///   see the guide on how to [use service account impersonation].
         /// - If the `impersonated_service_account` provided to [`Builder::new`] has a
         ///   `source_credentials` of `impersonated_service_account` type.
         ///
-        /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+        /// [use service account impersonation]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
         pub fn build(self) -> BuildResult<IDTokenCredentials> {
             let components = match self.source {
                 BuilderSource::FromJson(json) => {
