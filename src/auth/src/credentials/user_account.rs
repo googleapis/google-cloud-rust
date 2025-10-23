@@ -492,7 +492,6 @@ struct Oauth2RefreshResponse {
     refresh_token: Option<String>,
 }
 
-#[cfg(google_cloud_unstable_id_token)]
 pub mod idtoken {
     /// Credentials for authenticating with [ID tokens] from a [user account].
     ///
