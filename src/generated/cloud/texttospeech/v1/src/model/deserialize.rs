@@ -316,6 +316,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedVoiceOptions {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __low_latency_journey_synthesis,
+            __relax_safety_filters,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -342,6 +343,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedVoiceOptions {
                             "low_latency_journey_synthesis" => {
                                 Ok(__FieldTag::__low_latency_journey_synthesis)
                             }
+                            "relaxSafetyFilters" => Ok(__FieldTag::__relax_safety_filters),
+                            "relax_safety_filters" => Ok(__FieldTag::__relax_safety_filters),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -375,6 +378,16 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedVoiceOptions {
                             }
                             result.low_latency_journey_synthesis =
                                 map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::__relax_safety_filters => {
+                            if !fields.insert(__FieldTag::__relax_safety_filters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for relax_safety_filters",
+                                ));
+                            }
+                            result.relax_safety_filters = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

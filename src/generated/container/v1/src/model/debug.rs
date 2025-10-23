@@ -31,6 +31,10 @@ impl std::fmt::Debug for super::LinuxNodeConfig {
             "transparent_hugepage_defrag",
             &self.transparent_hugepage_defrag,
         );
+        debug_struct.field(
+            "node_kernel_module_loading",
+            &self.node_kernel_module_loading,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -43,6 +47,17 @@ impl std::fmt::Debug for super::linux_node_config::HugepagesConfig {
         let mut debug_struct = f.debug_struct("HugepagesConfig");
         debug_struct.field("hugepage_size2m", &self.hugepage_size2m);
         debug_struct.field("hugepage_size1g", &self.hugepage_size1g);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::linux_node_config::NodeKernelModuleLoading {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeKernelModuleLoading");
+        debug_struct.field("policy", &self.policy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -291,6 +306,7 @@ impl std::fmt::Debug for super::NodeNetworkConfig {
             &self.pod_ipv4_range_utilization,
         );
         debug_struct.field("subnetwork", &self.subnetwork);
+        debug_struct.field("network_tier_config", &self.network_tier_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -419,6 +435,7 @@ impl std::fmt::Debug for super::ContainerdConfig {
             "private_registry_access_config",
             &self.private_registry_access_config,
         );
+        debug_struct.field("writable_cgroups", &self.writable_cgroups);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -459,6 +476,17 @@ impl std::fmt::Debug for super::containerd_config::private_registry_access_confi
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GCPSecretManagerCertificateConfig");
         debug_struct.field("secret_uri", &self.secret_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::containerd_config::WritableCgroups {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WritableCgroups");
+        debug_struct.field("enabled", &self.enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -948,6 +976,7 @@ impl std::fmt::Debug for super::IPAllocationPolicy {
             &self.additional_ip_ranges_configs,
         );
         debug_struct.field("auto_ipam_config", &self.auto_ipam_config);
+        debug_struct.field("network_tier_config", &self.network_tier_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1417,6 +1446,10 @@ impl std::fmt::Debug for super::ClusterUpdate {
             &self.desired_anonymous_authentication_config,
         );
         debug_struct.field("gke_auto_upgrade_config", &self.gke_auto_upgrade_config);
+        debug_struct.field(
+            "desired_network_tier_config",
+            &self.desired_network_tier_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1465,6 +1498,7 @@ impl std::fmt::Debug for super::DesiredAdditionalIPRangesConfig {
 impl std::fmt::Debug for super::AutoIpamConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoIpamConfig");
+        debug_struct.field("enabled", &self.enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1959,6 +1993,17 @@ impl std::fmt::Debug for super::blue_green_settings::StandardRolloutPolicy {
     }
 }
 
+impl std::fmt::Debug for super::blue_green_settings::AutoscaledRolloutPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoscaledRolloutPolicy");
+        debug_struct.field("wait_for_drain_duration", &self.wait_for_drain_duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::NodePool {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NodePool");
@@ -2135,6 +2180,7 @@ impl std::fmt::Debug for super::MaintenanceExclusionOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MaintenanceExclusionOptions");
         debug_struct.field("scope", &self.scope);
+        debug_struct.field("end_time_behavior", &self.end_time_behavior);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3099,6 +3145,21 @@ impl std::fmt::Debug for super::Autopilot {
         let mut debug_struct = f.debug_struct("Autopilot");
         debug_struct.field("enabled", &self.enabled);
         debug_struct.field("workload_policy_config", &self.workload_policy_config);
+        debug_struct.field(
+            "privileged_admission_config",
+            &self.privileged_admission_config,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PrivilegedAdmissionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivilegedAdmissionConfig");
+        debug_struct.field("allowlist_paths", &self.allowlist_paths);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3267,6 +3328,7 @@ impl std::fmt::Debug for super::Fleet {
         debug_struct.field("project", &self.project);
         debug_struct.field("membership", &self.membership);
         debug_struct.field("pre_registered", &self.pre_registered);
+        debug_struct.field("membership_type", &self.membership_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3291,6 +3353,8 @@ impl std::fmt::Debug for super::control_plane_endpoints_config::DNSEndpointConfi
         let mut debug_struct = f.debug_struct("DNSEndpointConfig");
         debug_struct.field("endpoint", &self.endpoint);
         debug_struct.field("allow_external_traffic", &self.allow_external_traffic);
+        debug_struct.field("enable_k8s_tokens_via_dns", &self.enable_k8s_tokens_via_dns);
+        debug_struct.field("enable_k8s_certs_via_dns", &self.enable_k8s_certs_via_dns);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3371,6 +3435,19 @@ impl std::fmt::Debug for super::SecretManagerConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecretManagerConfig");
         debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("rotation_config", &self.rotation_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::secret_manager_config::RotationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RotationConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("rotation_interval", &self.rotation_interval);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3504,6 +3581,17 @@ impl std::fmt::Debug for super::GkeAutoUpgradeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GkeAutoUpgradeConfig");
         debug_struct.field("patch_mode", &self.patch_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::NetworkTierConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkTierConfig");
+        debug_struct.field("network_tier", &self.network_tier);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
