@@ -34,7 +34,7 @@ where
             .size_hint()
             .await
             .map_err(Error::deser)?;
-        let threshold = self.options.resumable_upload_threshold as u64;
+        let threshold = self.options.resumable_upload_threshold() as u64;
         if hint.upper().is_none_or(|max| max >= threshold) {
             self.send_unbuffered_resumable(hint).await
         } else {

@@ -763,7 +763,7 @@ where
     /// [single-shot]: https://cloud.google.com/storage/docs/uploading-objects
     /// [resumable]: https://cloud.google.com/storage/docs/resumable-uploads
     pub fn with_resumable_upload_threshold<V: Into<usize>>(mut self, v: V) -> Self {
-        self.options.resumable_upload_threshold = v.into();
+        self.options.set_resumable_upload_threshold(v.into());
         self
     }
 
@@ -798,7 +798,7 @@ where
     /// [resumable uploads]: https://cloud.google.com/storage/docs/resumable-uploads
     /// [Seek]: crate::streaming_source::Seek
     pub fn with_resumable_upload_buffer_size<V: Into<usize>>(mut self, v: V) -> Self {
-        self.options.resumable_upload_buffer_size = v.into();
+        self.options.set_resumable_upload_buffer_size(v.into());
         self
     }
 
@@ -1287,14 +1287,14 @@ mod tests {
             "",
             options.clone(),
         );
-        assert_eq!(request.options.resumable_upload_threshold, 123);
-        assert_eq!(request.options.resumable_upload_buffer_size, 234);
+        assert_eq!(request.options.resumable_upload_threshold(), 123);
+        assert_eq!(request.options.resumable_upload_buffer_size(), 234);
 
         let request = WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
             .with_resumable_upload_threshold(345_usize)
             .with_resumable_upload_buffer_size(456_usize);
-        assert_eq!(request.options.resumable_upload_threshold, 345);
-        assert_eq!(request.options.resumable_upload_buffer_size, 456);
+        assert_eq!(request.options.resumable_upload_threshold(), 345);
+        assert_eq!(request.options.resumable_upload_buffer_size(), 456);
     }
 
     const QUICK: &str = "the quick brown fox jumps over the lazy dog";
