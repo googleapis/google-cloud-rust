@@ -289,28 +289,6 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[parallel]
-    async fn test_build_id_token_credentials_impersonated_service_account_not_supported()
-    -> TestResult {
-        let audience = "test_audience".to_string();
-        let json = serde_json::json!({
-            "type": "impersonated_service_account",
-            "source_credentials": {},
-            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
-            "audience": "//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/my-pool/providers/my-provider",
-            "scope": "https://www.googleapis.com/auth/cloud-platform",
-            "lifetime": "3600s"
-        });
-
-        let result = build_id_token_credentials(audience, Some(json));
-        assert!(result.is_err());
-        let err = result.unwrap_err();
-        assert!(err.is_not_supported());
-        assert!(err.to_string().contains("impersonated_service_account"));
-        Ok(())
-    }
-
-    #[tokio::test]
-    #[parallel]
     async fn test_build_id_token_credentials_external_account_not_supported() -> TestResult {
         let audience = "test_audience".to_string();
         let json = serde_json::json!({
