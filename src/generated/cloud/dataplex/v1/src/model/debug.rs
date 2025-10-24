@@ -463,6 +463,7 @@ impl std::fmt::Debug for super::AspectType {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("etag", &self.etag);
+        debug_struct.field("data_classification", &self.data_classification);
         debug_struct.field("authorization", &self.authorization);
         debug_struct.field("metadata_template", &self.metadata_template);
         debug_struct.field("transfer_status", &self.transfer_status);
@@ -1345,6 +1346,10 @@ impl std::fmt::Debug for super::EncryptionConfig {
         debug_struct.field("encryption_state", &self.encryption_state);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("failure_details", &self.failure_details);
+        debug_struct.field(
+            "enable_metastore_encryption",
+            &self.enable_metastore_encryption,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1621,6 +1626,77 @@ impl std::fmt::Debug for super::data_discovery_result::ScanStatistics {
         debug_struct.field("filesets_created", &self.filesets_created);
         debug_struct.field("filesets_deleted", &self.filesets_deleted);
         debug_struct.field("filesets_updated", &self.filesets_updated);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DataDocumentationSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataDocumentationSpec");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DataDocumentationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataDocumentationResult");
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_documentation_result::TableResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableResult");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("overview", &self.overview);
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("queries", &self.queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_documentation_result::Query {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Query");
+        debug_struct.field("sql", &self.sql);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_documentation_result::Schema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Schema");
+        debug_struct.field("fields", &self.fields);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_documentation_result::Field {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Field");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("fields", &self.fields);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1921,6 +1997,10 @@ impl std::fmt::Debug for super::DataQualityResult {
         debug_struct.field("scanned_data", &self.scanned_data);
         debug_struct.field("post_scan_actions_result", &self.post_scan_actions_result);
         debug_struct.field("catalog_publishing_status", &self.catalog_publishing_status);
+        debug_struct.field(
+            "anomaly_detection_generated_assets",
+            &self.anomaly_detection_generated_assets,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1946,6 +2026,23 @@ impl std::fmt::Debug
         let mut debug_struct = f.debug_struct("BigQueryExportResult");
         debug_struct.field("state", &self.state);
         debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_quality_result::AnomalyDetectionGeneratedAssets {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnomalyDetectionGeneratedAssets");
+        debug_struct.field("result_table", &self.result_table);
+        debug_struct.field("data_intermediate_table", &self.data_intermediate_table);
+        debug_struct.field(
+            "freshness_intermediate_table",
+            &self.freshness_intermediate_table,
+        );
+        debug_struct.field("volume_intermediate_table", &self.volume_intermediate_table);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

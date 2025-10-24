@@ -13453,6 +13453,12 @@ pub trait ReservationBlocks: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ReservationBlocksGetResponse>>;
 
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::reservation_blocks::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+
     async fn list(
         &self,
         req: crate::model::reservation_blocks::ListRequest,
@@ -13464,6 +13470,18 @@ pub trait ReservationBlocks: std::fmt::Debug + Send + Sync {
         req: crate::model::reservation_blocks::PerformMaintenanceRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::reservation_blocks::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::reservation_blocks::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
 
     async fn get_operation(
         &self,
@@ -13496,6 +13514,15 @@ impl<T: super::ReservationBlocks> ReservationBlocks for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::reservation_blocks::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list(
         &self,
         req: crate::model::reservation_blocks::ListRequest,
@@ -13511,6 +13538,24 @@ impl<T: super::ReservationBlocks> ReservationBlocks for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::perform_maintenance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::reservation_blocks::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::reservation_blocks::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -13547,6 +13592,12 @@ pub trait ReservationSubBlocks: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ReservationSubBlocksGetResponse>>;
 
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::reservation_sub_blocks::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+
     async fn list(
         &self,
         req: crate::model::reservation_sub_blocks::ListRequest,
@@ -13564,6 +13615,18 @@ pub trait ReservationSubBlocks: std::fmt::Debug + Send + Sync {
         req: crate::model::reservation_sub_blocks::ReportFaultyRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::reservation_sub_blocks::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::reservation_sub_blocks::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
 
     async fn get_operation(
         &self,
@@ -13596,6 +13659,15 @@ impl<T: super::ReservationSubBlocks> ReservationSubBlocks for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::reservation_sub_blocks::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list(
         &self,
         req: crate::model::reservation_sub_blocks::ListRequest,
@@ -13621,6 +13693,24 @@ impl<T: super::ReservationSubBlocks> ReservationSubBlocks for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::report_faulty(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::reservation_sub_blocks::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::reservation_sub_blocks::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

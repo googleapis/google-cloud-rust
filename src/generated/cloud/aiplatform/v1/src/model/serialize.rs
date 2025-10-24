@@ -34346,6 +34346,12 @@ impl serde::ser::Serialize for super::tool::ComputerUse {
         if !wkt::internal::is_default(&self.environment) {
             state.serialize_entry("environment", &self.environment)?;
         }
+        if !self.excluded_predefined_functions.is_empty() {
+            state.serialize_entry(
+                "excludedPredefinedFunctions",
+                &self.excluded_predefined_functions,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -34463,6 +34469,120 @@ impl serde::ser::Serialize for super::FunctionCall {
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
+impl serde::ser::Serialize for super::FunctionResponsePart {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.inline_data() {
+            state.serialize_entry("inlineData", value)?;
+        }
+        if let Some(value) = self.file_data() {
+            state.serialize_entry("fileData", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FunctionResponseBlob {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.mime_type.is_empty() {
+            state.serialize_entry("mimeType", &self.mime_type)?;
+        }
+        if !self.data.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("data", &__With(&self.data))?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FunctionResponseFileData {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.mime_type.is_empty() {
+            state.serialize_entry("mimeType", &self.mime_type)?;
+        }
+        if !self.file_uri.is_empty() {
+            state.serialize_entry("fileUri", &self.file_uri)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+#[doc(hidden)]
 impl serde::ser::Serialize for super::FunctionResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -34477,6 +34597,9 @@ impl serde::ser::Serialize for super::FunctionResponse {
         }
         if self.response.is_some() {
             state.serialize_entry("response", &self.response)?;
+        }
+        if !self.parts.is_empty() {
+            state.serialize_entry("parts", &self.parts)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -35509,6 +35632,9 @@ impl serde::ser::Serialize for super::TuningJob {
         if let Some(value) = self.base_model() {
             state.serialize_entry("baseModel", value)?;
         }
+        if let Some(value) = self.pre_tuned_model() {
+            state.serialize_entry("preTunedModel", value)?;
+        }
         if let Some(value) = self.supervised_tuning_spec() {
             state.serialize_entry("supervisedTuningSpec", value)?;
         }
@@ -36095,6 +36221,35 @@ impl serde::ser::Serialize for super::TunedModelCheckpoint {
         }
         if !self.endpoint.is_empty() {
             state.serialize_entry("endpoint", &self.endpoint)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PreTunedModel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.tuned_model_name.is_empty() {
+            state.serialize_entry("tunedModelName", &self.tuned_model_name)?;
+        }
+        if !self.checkpoint_id.is_empty() {
+            state.serialize_entry("checkpointId", &self.checkpoint_id)?;
+        }
+        if !self.base_model.is_empty() {
+            state.serialize_entry("baseModel", &self.base_model)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

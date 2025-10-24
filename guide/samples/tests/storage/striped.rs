@@ -14,6 +14,7 @@
 
 // ANCHOR: all
 
+use google_cloud_gax::options::RequestOptionsBuilder;
 // ANCHOR: seed-function
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::client::StorageControl;
@@ -29,6 +30,7 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
     let buffer = String::from_iter(('a'..='z').cycle().take(1024 * 1024));
     let seed = client
         .write_object(bucket_name, "1MiB.txt", bytes::Bytes::from_owner(buffer))
+        .set_if_generation_match(0)
         .send_unbuffered()
         .await?;
     println!(
@@ -47,6 +49,8 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
                 .set_name(&seed.name)
                 .set_generation(seed.generation)
         }))
+        .set_if_generation_match(0)
+        .with_idempotency(true)
         .send()
         .await?;
     println!(
@@ -65,6 +69,8 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
                 .set_name(&seed_32.name)
                 .set_generation(seed_32.generation)
         }))
+        .set_if_generation_match(0)
+        .with_idempotency(true)
         .send()
         .await?;
     println!(
@@ -85,6 +91,8 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
                     .set_name(&seed_1024.name)
                     .set_generation(seed_1024.generation)
             }))
+            .set_if_generation_match(0)
+            .with_idempotency(true)
             .send()
             .await?;
         println!(

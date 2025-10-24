@@ -15111,6 +15111,10 @@ impl std::fmt::Debug for super::tool::ComputerUse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ComputerUse");
         debug_struct.field("environment", &self.environment);
+        debug_struct.field(
+            "excluded_predefined_functions",
+            &self.excluded_predefined_functions,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15182,11 +15186,73 @@ impl std::fmt::Debug for super::FunctionCall {
     feature = "prediction-service",
     feature = "vertex-rag-service",
 ))]
+impl std::fmt::Debug for super::FunctionResponsePart {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FunctionResponsePart");
+        debug_struct.field("data", &self.data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+impl std::fmt::Debug for super::FunctionResponseBlob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FunctionResponseBlob");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+impl std::fmt::Debug for super::FunctionResponseFileData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FunctionResponseFileData");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("file_uri", &self.file_uri);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
 impl std::fmt::Debug for super::FunctionResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FunctionResponse");
         debug_struct.field("name", &self.name);
         debug_struct.field("response", &self.response);
+        debug_struct.field("parts", &self.parts);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15822,6 +15888,20 @@ impl std::fmt::Debug for super::TunedModelCheckpoint {
         debug_struct.field("epoch", &self.epoch);
         debug_struct.field("step", &self.step);
         debug_struct.field("endpoint", &self.endpoint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::PreTunedModel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreTunedModel");
+        debug_struct.field("tuned_model_name", &self.tuned_model_name);
+        debug_struct.field("checkpoint_id", &self.checkpoint_id);
+        debug_struct.field("base_model", &self.base_model);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

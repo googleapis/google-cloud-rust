@@ -172,6 +172,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::list_minor_versions].
+    fn list_minor_versions(
+        &self,
+        _req: crate::model::ListMinorVersionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListMinorVersionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::list_db_system_shapes].
     fn list_db_system_shapes(
         &self,
@@ -211,6 +222,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     fn create_autonomous_database(
         &self,
         _req: crate::model::CreateAutonomousDatabaseRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::update_autonomous_database].
+    fn update_autonomous_database(
+        &self,
+        _req: crate::model::UpdateAutonomousDatabaseRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
@@ -321,6 +343,355 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::switchover_autonomous_database].
+    fn switchover_autonomous_database(
+        &self,
+        _req: crate::model::SwitchoverAutonomousDatabaseRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::failover_autonomous_database].
+    fn failover_autonomous_database(
+        &self,
+        _req: crate::model::FailoverAutonomousDatabaseRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_odb_networks].
+    fn list_odb_networks(
+        &self,
+        _req: crate::model::ListOdbNetworksRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListOdbNetworksResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_odb_network].
+    fn get_odb_network(
+        &self,
+        _req: crate::model::GetOdbNetworkRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OdbNetwork>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::create_odb_network].
+    fn create_odb_network(
+        &self,
+        _req: crate::model::CreateOdbNetworkRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::delete_odb_network].
+    fn delete_odb_network(
+        &self,
+        _req: crate::model::DeleteOdbNetworkRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_odb_subnets].
+    fn list_odb_subnets(
+        &self,
+        _req: crate::model::ListOdbSubnetsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListOdbSubnetsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_odb_subnet].
+    fn get_odb_subnet(
+        &self,
+        _req: crate::model::GetOdbSubnetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OdbSubnet>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::create_odb_subnet].
+    fn create_odb_subnet(
+        &self,
+        _req: crate::model::CreateOdbSubnetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::delete_odb_subnet].
+    fn delete_odb_subnet(
+        &self,
+        _req: crate::model::DeleteOdbSubnetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_exadb_vm_clusters].
+    fn list_exadb_vm_clusters(
+        &self,
+        _req: crate::model::ListExadbVmClustersRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListExadbVmClustersResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_exadb_vm_cluster].
+    fn get_exadb_vm_cluster(
+        &self,
+        _req: crate::model::GetExadbVmClusterRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ExadbVmCluster>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::create_exadb_vm_cluster].
+    fn create_exadb_vm_cluster(
+        &self,
+        _req: crate::model::CreateExadbVmClusterRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::delete_exadb_vm_cluster].
+    fn delete_exadb_vm_cluster(
+        &self,
+        _req: crate::model::DeleteExadbVmClusterRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::update_exadb_vm_cluster].
+    fn update_exadb_vm_cluster(
+        &self,
+        _req: crate::model::UpdateExadbVmClusterRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::remove_virtual_machine_exadb_vm_cluster].
+    fn remove_virtual_machine_exadb_vm_cluster(
+        &self,
+        _req: crate::model::RemoveVirtualMachineExadbVmClusterRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_exascale_db_storage_vaults].
+    fn list_exascale_db_storage_vaults(
+        &self,
+        _req: crate::model::ListExascaleDbStorageVaultsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListExascaleDbStorageVaultsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_exascale_db_storage_vault].
+    fn get_exascale_db_storage_vault(
+        &self,
+        _req: crate::model::GetExascaleDbStorageVaultRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ExascaleDbStorageVault>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::create_exascale_db_storage_vault].
+    fn create_exascale_db_storage_vault(
+        &self,
+        _req: crate::model::CreateExascaleDbStorageVaultRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::delete_exascale_db_storage_vault].
+    fn delete_exascale_db_storage_vault(
+        &self,
+        _req: crate::model::DeleteExascaleDbStorageVaultRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_db_system_initial_storage_sizes].
+    fn list_db_system_initial_storage_sizes(
+        &self,
+        _req: crate::model::ListDbSystemInitialStorageSizesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_databases].
+    fn list_databases(
+        &self,
+        _req: crate::model::ListDatabasesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_database].
+    fn get_database(
+        &self,
+        _req: crate::model::GetDatabaseRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Database>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_pluggable_databases].
+    fn list_pluggable_databases(
+        &self,
+        _req: crate::model::ListPluggableDatabasesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListPluggableDatabasesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_pluggable_database].
+    fn get_pluggable_database(
+        &self,
+        _req: crate::model::GetPluggableDatabaseRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PluggableDatabase>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_db_systems].
+    fn list_db_systems(
+        &self,
+        _req: crate::model::ListDbSystemsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDbSystemsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_db_system].
+    fn get_db_system(
+        &self,
+        _req: crate::model::GetDbSystemRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DbSystem>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::create_db_system].
+    fn create_db_system(
+        &self,
+        _req: crate::model::CreateDbSystemRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::delete_db_system].
+    fn delete_db_system(
+        &self,
+        _req: crate::model::DeleteDbSystemRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_db_versions].
+    fn list_db_versions(
+        &self,
+        _req: crate::model::ListDbVersionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDbVersionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_database_character_sets].
+    fn list_database_character_sets(
+        &self,
+        _req: crate::model::ListDatabaseCharacterSetsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListDatabaseCharacterSetsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

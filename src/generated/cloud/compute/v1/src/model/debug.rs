@@ -717,6 +717,8 @@ impl std::fmt::Debug for super::AttachedDiskInitializeParams {
     feature = "region-disks",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -757,6 +759,8 @@ impl std::fmt::Debug for super::AuditConfig {
     feature = "region-disks",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -1945,6 +1949,8 @@ impl std::fmt::Debug for super::BgpRouteNetworkLayerReachabilityInformation {
     feature = "region-disks",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -3415,6 +3421,8 @@ impl std::fmt::Debug for super::exchanged_peering_routes_list::warning::Data {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-security-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "routers",
@@ -13393,6 +13401,8 @@ impl std::fmt::Debug for super::PerInstanceConfig {
     feature = "region-disks",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -21193,6 +21203,8 @@ impl std::fmt::Debug for super::TestFailure {
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -21243,6 +21255,8 @@ impl std::fmt::Debug for super::TestPermissionsRequest {
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -22533,6 +22547,20 @@ impl std::fmt::Debug for super::ZoneSetLabelsRequest {
         let mut debug_struct = f.debug_struct("ZoneSetLabelsRequest");
         debug_struct.field("label_fingerprint", &self.label_fingerprint);
         debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "reservation-blocks", feature = "reservation-sub-blocks",))]
+impl std::fmt::Debug for super::ZoneSetNestedPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ZoneSetNestedPolicyRequest");
+        debug_struct.field("bindings", &self.bindings);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("policy", &self.policy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -32990,6 +33018,25 @@ impl std::fmt::Debug for super::reservation_blocks::GetRequest {
 }
 
 #[cfg(feature = "reservation-blocks")]
+impl std::fmt::Debug for super::reservation_blocks::GetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
+        debug_struct.field(
+            "options_requested_policy_version",
+            &self.options_requested_policy_version,
+        );
+        debug_struct.field("parent_resource", &self.parent_resource);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-blocks")]
 impl std::fmt::Debug for super::reservation_blocks::ListRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRequest");
@@ -33025,6 +33072,38 @@ impl std::fmt::Debug for super::reservation_blocks::PerformMaintenanceRequest {
     }
 }
 
+#[cfg(feature = "reservation-blocks")]
+impl std::fmt::Debug for super::reservation_blocks::SetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetIamPolicyRequest");
+        debug_struct.field("parent_resource", &self.parent_resource);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-blocks")]
+impl std::fmt::Debug for super::reservation_blocks::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("parent_resource", &self.parent_resource);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "reservation-sub-blocks")]
 impl std::fmt::Debug for super::reservation_sub_blocks::GetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -33032,6 +33111,25 @@ impl std::fmt::Debug for super::reservation_sub_blocks::GetRequest {
         debug_struct.field("parent_name", &self.parent_name);
         debug_struct.field("project", &self.project);
         debug_struct.field("reservation_sub_block", &self.reservation_sub_block);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-sub-blocks")]
+impl std::fmt::Debug for super::reservation_sub_blocks::GetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
+        debug_struct.field(
+            "options_requested_policy_version",
+            &self.options_requested_policy_version,
+        );
+        debug_struct.field("parent_resource", &self.parent_resource);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -33083,6 +33181,38 @@ impl std::fmt::Debug for super::reservation_sub_blocks::ReportFaultyRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("reservation_sub_block", &self.reservation_sub_block);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-sub-blocks")]
+impl std::fmt::Debug for super::reservation_sub_blocks::SetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetIamPolicyRequest");
+        debug_struct.field("parent_resource", &self.parent_resource);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-sub-blocks")]
+impl std::fmt::Debug for super::reservation_sub_blocks::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("parent_resource", &self.parent_resource);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("zone", &self.zone);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {

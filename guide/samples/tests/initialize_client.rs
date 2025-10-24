@@ -13,9 +13,7 @@
 // limitations under the License.
 
 // [START test_only_snippet] ANCHOR: all
-pub type Result = std::result::Result<(), Box<dyn std::error::Error>>;
-
-pub async fn initialize_client(project_id: &str) -> Result {
+pub async fn initialize_client(project_id: &str) -> anyhow::Result<()> {
     // [START test_only] ANCHOR: use
     use google_cloud_secretmanager_v1::client::SecretManagerService;
     // [END test_only] ANCHOR_END: use
@@ -44,6 +42,13 @@ pub async fn initialize_client(project_id: &str) -> Result {
 
     Ok(())
 }
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    let project_id = std::env::args().nth(1).unwrap();
+
+    initialize_client(&project_id).await
+}
 // [END test_only_snippet] ANCHOR_END: all
 
 #[cfg(all(test, feature = "run-integration-tests"))]
@@ -51,7 +56,7 @@ mod tests {
     use super::*;
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn driver() -> Result {
+    async fn driver() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         initialize_client(&project_id).await
     }
