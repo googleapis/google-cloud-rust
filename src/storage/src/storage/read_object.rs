@@ -356,7 +356,7 @@ where
     where
         V: ReadResumePolicy + 'static,
     {
-        self.options.read_resume_policy = std::sync::Arc::new(v);
+        self.options.set_read_resume_policy(std::sync::Arc::new(v));
         self
     }
 

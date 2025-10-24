@@ -14,6 +14,7 @@
 
 pub(crate) mod checksum;
 pub(crate) mod client;
+pub(crate) mod common_options;
 pub(crate) mod perform_upload;
 pub(crate) mod read_object;
 pub mod request_options;
