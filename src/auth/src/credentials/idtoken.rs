@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use crate::build_errors::Error as BuilderError;
-use crate::credentials::{AdcContents, extract_credential_type, load_adc, mds, service_account};
+use crate::credentials::{
+    AdcContents, extract_credential_type, impersonated, load_adc, mds, service_account,
+};
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
@@ -98,7 +100,7 @@ pub(crate) mod dynamic {
     }
 }
 
-/// A builder for constructing [`IDTokenCredentials`] instances that
+/// Creates [`IDTokenCredentials`] instances that
 /// fetch ID tokens using the loaded credential.
 ///
 /// This builder loads credentials according to the standard
@@ -168,7 +170,7 @@ fn build_id_token_credentials(
                 ))),
                 "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
                 "impersonated_service_account" => {
-                    impersonate::idtoken::Builder::new(audience, json).build()
+                    impersonated::idtoken::Builder::new(audience, json).build()
                 }
                 "external_account" => {
                     // never gonna be supported for id tokens
