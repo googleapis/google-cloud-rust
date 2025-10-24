@@ -1213,7 +1213,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-auth"
-version = "1.0.1"
+version = "1.1.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1939,7 +1939,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-container-v1"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2062,7 +2062,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dataplex-v1"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2260,7 +2260,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-discoveryengine-v1"
-version = "2.0.0"
+version = "2.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2525,7 +2525,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "anyhow",
  "base64",
@@ -2548,7 +2548,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.2"
+version = "0.7.3"
 dependencies = [
  "anyhow",
  "bytes",
@@ -3529,7 +3529,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-oracledatabase-v1"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4585,7 +4585,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-texttospeech-v1"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "async-trait",
  "bytes",
