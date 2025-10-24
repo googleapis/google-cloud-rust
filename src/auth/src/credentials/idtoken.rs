@@ -168,8 +168,7 @@ fn build_id_token_credentials(
                 ))),
                 "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
                 "impersonated_service_account" => {
-                    // TODO(#3449): to be implemented
-                    Err(BuilderError::not_supported(cred_type))
+                    impersonate::idtoken::Builder::new(audience, json).build()
                 }
                 "external_account" => {
                     // never gonna be supported for id tokens
