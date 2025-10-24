@@ -49,8 +49,9 @@ mod tests {
         let got = CommonOptions::new();
         assert_ne!(got.resumable_upload_threshold, 0);
         assert_ne!(got.resumable_upload_buffer_size, 0);
-        assert!(
-            got.resumable_upload_buffer_size.is_multiple_of(256 * 1024),
+        assert_eq!(
+            got.resumable_upload_buffer_size % (256 * 1024),
+            0,
             "{got:?}"
         );
     }
