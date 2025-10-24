@@ -53,9 +53,12 @@ pub mod storage {
 
     pub async fn run(client: &StorageControl, bucket_name: &str) -> anyhow::Result<()> {
         queue::queue(bucket_name, "test-only").await?;
+        println!("running rewrite_object() test");
         rewrite_object::rewrite_object(bucket_name).await?;
+        println!("running rewrite_object_until_done() test");
         rewrite_object::rewrite_object_until_done(bucket_name).await?;
         {
+            println!("running striped::test() test");
             let destination = tempfile::NamedTempFile::new()?;
             let path = destination
                 .path()
@@ -63,8 +66,11 @@ pub mod storage {
                 .ok_or(anyhow::Error::msg("cannot open temporary file"))?;
             striped::test(bucket_name, path).await?;
         }
+        println!("running terminate_uploads() test");
         terminate_uploads::attempt_upload(bucket_name).await?;
+        println!("running lros() test");
         lros::test(client, bucket_name).await?;
+        println!("running polling_policies() test");
         polling_policies::test(client, bucket_name).await?;
         Ok(())
     }
