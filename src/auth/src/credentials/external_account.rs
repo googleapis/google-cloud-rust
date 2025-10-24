@@ -386,7 +386,7 @@ impl<T> TokenProvider for ExternalAccountTokenProvider<T>
 where
     T: dynamic::SubjectTokenProvider,
 {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<Arc<Token>> {
         let subject_token = self.subject_token_provider.subject_token().await?;
 
         let audience = self.config.audience.clone();
@@ -444,7 +444,7 @@ where
             expires_at: Some(Instant::now() + Duration::from_secs(token_res.expires_in)),
             metadata: None,
         };
-        Ok(token)
+        Ok(Arc::new(token))
     }
 }
 

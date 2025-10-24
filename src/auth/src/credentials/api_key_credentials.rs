@@ -42,13 +42,13 @@ impl std::fmt::Debug for ApiKeyTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for ApiKeyTokenProvider {
-    async fn token(&self) -> Result<Token> {
-        Ok(Token {
+    async fn token(&self) -> Result<Arc<Token>> {
+        Ok(Arc::new(Token {
             token: self.api_key.clone(),
             token_type: String::new(),
             expires_at: None,
             metadata: None,
-        })
+        }))
     }
 }
 
@@ -142,7 +142,7 @@ mod tests {
     async fn api_key_credentials_token_provider() {
         let tp = Builder::new("test-api-key").build_token_provider();
         assert_eq!(
-            tp.token().await.unwrap(),
+            *tp.token().await.unwrap(),
             Token {
                 token: "test-api-key".to_string(),
                 token_type: String::new(),

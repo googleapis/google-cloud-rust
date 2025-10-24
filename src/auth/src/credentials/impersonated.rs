@@ -586,7 +586,7 @@ pub(crate) async fn generate_access_token(
     scopes: Vec<String>,
     lifetime: Duration,
     service_account_impersonation_url: &str,
-) -> Result<Token> {
+) -> Result<Arc<Token>> {
     let client = Client::new();
     let body = GenerateAccessTokenRequest {
         delegates,
@@ -635,12 +635,12 @@ pub(crate) async fn generate_access_token(
         expires_at: Some(expires_at),
         metadata: None,
     };
-    Ok(token)
+    Ok(Arc::new(token))
 }
 
 #[async_trait]
 impl TokenProvider for ImpersonatedTokenProvider {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<Arc<Token>> {
         let source_headers = self.source_credentials.headers(Extensions::new()).await?;
         let source_headers = match source_headers {
             CacheableResource::New { data, .. } => data,
