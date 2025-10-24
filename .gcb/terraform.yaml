@@ -28,7 +28,7 @@ steps:
       echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
       apt-get update && apt-get install -y terraform
       echo "Running terraform"
-      cd /workspace/src/auth/.gcb/builds
+      cd /workspace/.gcb/builds
       terraform init
       terraform plan -out /tmp/bootstrap.tplan
       terraform apply /tmp/bootstrap.tplan

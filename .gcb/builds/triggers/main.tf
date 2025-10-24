@@ -72,6 +72,11 @@ locals {
 data "google_project" "project" {
 }
 
+# This service account is created externally. It is used for the terraform build.
+data "google_service_account" "terraform-runner" {
+  account_id = "terraform-runner"
+}
+
 resource "google_cloudbuildv2_connection" "github" {
   project  = var.project
   location = var.region
@@ -137,5 +142,44 @@ resource "google_cloudbuild_trigger" "post-merge" {
 
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
+  }
+}
+
+resource "google_pubsub_topic" "terraform_runner_topic" {
+  name = "terraform-runner"
+}
+
+resource "google_pubsub_subscription" "terraform_runner_sub" {
+  name  = "terraform-sub"
+  topic = google_pubsub_topic.terraform_runner_topic.name
+}
+
+resource "google_cloud_scheduler_job" "job" {
+  name        = "terraform-job"
+  description = "Periodically sync terraform build"
+  schedule    = "0 0 * * 0" # Once a week at midnight on Sunday.
+
+  pubsub_target {
+    topic_name = google_pubsub_topic.terraform_runner_topic.id
+    data       = base64encode("sync")
+  }
+}
+
+resource "google_cloudbuild_trigger" "pubsub-trigger" {
+  location = var.region
+  name     = "gcb-pubsub-terraform"
+  filename = ".gcb/terraform.yaml"
+  tags     = ["scheduler", "name:terraform"]
+
+  service_account = data.google_service_account.terraform-runner.id
+
+  pubsub_config {
+    topic = google_pubsub_topic.terraform_runner_topic.id
+  }
+
+  source_to_build {
+    repository = google_cloudbuildv2_repository.main.id
+    ref        = "refs/heads/main"
+    repo_type  = "GITHUB"
   }
 }
