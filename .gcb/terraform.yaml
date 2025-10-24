@@ -18,7 +18,7 @@ options:
   logging: CLOUD_LOGGING_ONLY
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/terraform-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
-  - name: 'ubuntu:latest'
+  - name: 'ubuntu:24.04'
     script: |
       #!/usr/bin/env bash
       set -e
