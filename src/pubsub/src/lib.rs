@@ -26,7 +26,7 @@
 
 pub(crate) mod generated;
 
-pub mod publisher;
+pub(crate) mod publisher;
 
 pub use gax::Result;
 pub use gax::error::Error;
