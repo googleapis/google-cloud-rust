@@ -87,6 +87,7 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
+ "google-cloud-iam-credentials-v1",
  "google-cloud-language-v2",
  "google-cloud-secretmanager-v1",
  "httptest",

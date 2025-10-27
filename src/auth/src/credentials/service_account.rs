@@ -464,6 +464,7 @@ where
     }
 }
 
+#[cfg(google_cloud_unstable_id_token)]
 pub mod idtoken {
     use crate::Result;
     use crate::build_errors::Error as BuilderError;

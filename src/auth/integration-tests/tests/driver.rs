@@ -40,22 +40,6 @@ mod driver {
         auth_integration_tests::api_key().await
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_id_token_adc() -> anyhow::Result<()> {
-        auth_integration_tests::id_token_adc().await
-    }
-
-    //TODO: remove, just for local testing with user account
-    /*#[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_id_token_user_account() -> anyhow::Result<()> {
-        auth_integration_tests::id_token_user_account().await
-    }*/
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_id_token_service_account() -> anyhow::Result<()> {
-        auth_integration_tests::id_token_service_account().await
-    }
-
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
     #[test_case(false; "without impersonation")]
     #[test_case(true; "with impersonation")]
@@ -96,5 +80,17 @@ mod driver {
         with_impersonation: bool,
     ) -> anyhow::Result<()> {
         auth_integration_tests::workload_identity_provider_file_sourced(with_impersonation).await
+    }
+
+    #[cfg(all(test, google_cloud_unstable_id_token))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_id_token_adc() -> anyhow::Result<()> {
+        auth_integration_tests::unstable::id_token_adc().await
+    }
+
+    #[cfg(all(test, google_cloud_unstable_id_token))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_id_token_service_account() -> anyhow::Result<()> {
+        auth_integration_tests::unstable::id_token_service_account().await
     }
 }

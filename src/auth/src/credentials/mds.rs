@@ -397,6 +397,7 @@ impl TokenProvider for MDSAccessTokenProvider {
     }
 }
 
+#[cfg(google_cloud_unstable_id_token)]
 pub mod idtoken {
     //! Types for fetching ID tokens from the metadata service.
     use super::{
