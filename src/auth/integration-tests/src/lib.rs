@@ -467,7 +467,7 @@ async fn generate_id_token(
     target_principal_email: String,
 ) -> anyhow::Result<String> {
     use iamcredentials::client::IAMCredentials;
-    
+
     let creds = AccessTokenCredentialBuilder::default()
         .build()
         .expect("failed to get default credentials for IAM");
@@ -531,18 +531,17 @@ impl SubjectTokenProvider for TestSubjectTokenProvider {
     }
 }
 
- #[cfg(google_cloud_unstable_id_token)]
+#[cfg(google_cloud_unstable_id_token)]
 pub mod unstable {
     use super::*;
     use auth::credentials::{
-        Builder as AccessTokenCredentialBuilder,
-        idtoken::Builder as IDTokenCredentialBuilder,
-        impersonated::idtoken::Builder as ImpersonatedIDTokenBuilder,        
+        Builder as AccessTokenCredentialBuilder, idtoken::Builder as IDTokenCredentialBuilder,
+        impersonated::idtoken::Builder as ImpersonatedIDTokenBuilder,
         service_account::idtoken::Builder as ServiceAccountIDTokenBuilder,
     };
     use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
-    use serde_json::Value;
     use scoped_env::ScopedEnv;
+    use serde_json::Value;
 
     pub async fn id_token_adc() -> anyhow::Result<()> {
         let (project, adc_json) = get_project_and_service_account().await?;
@@ -582,9 +581,10 @@ pub mod unstable {
         let expected_email = source_sa_json["client_email"].as_str().unwrap();
         let target_audience = "https://example.com";
 
-        let id_token_creds = ServiceAccountIDTokenBuilder::new(target_audience, source_sa_json.clone())
-            .build()
-            .expect("failed to create id token credentials");
+        let id_token_creds =
+            ServiceAccountIDTokenBuilder::new(target_audience, source_sa_json.clone())
+                .build()
+                .expect("failed to create id token credentials");
 
         let token = id_token_creds
             .id_token()
@@ -610,15 +610,16 @@ pub mod unstable {
             .expect("failed to get default credentials for IAM");
 
         let id_token_creds = ImpersonatedIDTokenBuilder::from_source_credentials(
-                audience,
-                target_principal_email,
-                creds,
-            )
-            .with_include_email(true)
-            .build()
-            .expect("failed to setup id token credentials");
+            audience,
+            target_principal_email,
+            creds,
+        )
+        .with_include_email(true)
+        .build()
+        .expect("failed to setup id token credentials");
 
-        let token = id_token_creds.id_token()
+        let token = id_token_creds
+            .id_token()
             .await
             .expect("failed to generate id token");
 
