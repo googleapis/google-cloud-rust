@@ -106,6 +106,7 @@ impl JwkClient {
 
     async fn fetch_certs(&self, jwks_url: String) -> Result<JwkSet> {
         let client = reqwest::Client::new();
+        // TODO(#3592): add retries
         let response = client
             .get(jwks_url)
             .send()

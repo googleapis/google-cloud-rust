@@ -217,29 +217,16 @@ fn instant_from_epoch_seconds(secs: u64) -> Option<Instant> {
     }
 }
 
-/// Verifier is used to verify OIDC ID Tokens.
-#[derive(Debug)]
-pub(crate) struct Verifier {
-    jwk_client: JwkClient,
+/// VerifierBuilder is used construct a Verifier of id tokens.
+#[derive(Debug, Default)]
+pub(crate) struct VerifierBuilder {
     audience: String,
     email: Option<String>,
     jwks_url: Option<String>,
-    clock_skew: Duration,
+    clock_skew: Option<Duration>,
 }
 
-impl Verifier {
-    /// Create a [`Verifier`] for ID Tokens with a tartget audience
-    /// for the token verification.
-    pub fn new<S: Into<String>>(audience: S) -> Self {
-        Self {
-            jwk_client: JwkClient::new(),
-            audience: audience.into(),
-            email: None,
-            jwks_url: None,
-            clock_skew: Duration::from_secs(10),
-        }
-    }
-
+impl VerifierBuilder {
     /// Sets the email for the token verification.
     pub fn with_email<S: Into<String>>(mut self, email: S) -> Self {
         self.email = Some(email.into());
@@ -254,8 +241,40 @@ impl Verifier {
 
     /// Sets the clock skew for the token verification.
     pub fn with_clock_skew(mut self, clock_skew: Duration) -> Self {
-        self.clock_skew = clock_skew;
+        self.clock_skew = Some(clock_skew);
         self
+    }
+
+    /// Verifies the ID token and returns the claims.
+    pub fn build(self) -> Verifier {
+        Verifier {
+            jwk_client: JwkClient::new(),
+            audience: self.audience.into(),
+            email: self.email.clone(),
+            jwks_url: self.jwks_url.clone(),
+            clock_skew: self.clock_skew.unwrap_or_else(|| Duration::from_secs(10)),
+        }
+    }
+}
+
+/// Verifier is used to verify OIDC ID Tokens.
+#[derive(Debug)]
+pub(crate) struct Verifier {
+    jwk_client: JwkClient,
+    audience: String,
+    email: Option<String>,
+    jwks_url: Option<String>,
+    clock_skew: Duration,
+}
+
+impl Verifier {
+    /// Create a [`Verifier`] for ID Tokens with a target audience
+    /// for the token verification.
+    pub fn new<S: Into<String>>(audience: S) -> VerifierBuilder {
+        VerifierBuilder {
+            audience: audience.into(),
+            ..VerifierBuilder::default()
+        }
     }
 
     /// Verifies the ID token and returns the claims.
@@ -469,8 +488,9 @@ pub(crate) mod tests {
         let token = generate_test_id_token(audience);
         let token = token.as_str();
 
-        let verifier =
-            Verifier::new(audience).with_jwks_url(format!("http://{}/certs", server.addr()));
+        let verifier = Verifier::new(audience)
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .build();
 
         let claims = verifier.verify(token).await?;
         assert!(!claims.is_empty());
@@ -495,7 +515,8 @@ pub(crate) mod tests {
         let token = token.as_str();
 
         let verifier = Verifier::new("https://wrong-audience.com")
-            .with_jwks_url(format!("http://{}/certs", server.addr()));
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .build();
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
@@ -519,8 +540,9 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier =
-            Verifier::new(audience).with_jwks_url(format!("http://{}/certs", server.addr()));
+        let verifier = Verifier::new(audience)
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .build();
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
@@ -548,7 +570,8 @@ pub(crate) mod tests {
 
         let verifier = Verifier::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_email(email);
+            .with_email(email)
+            .build();
 
         let result = verifier.verify(token).await;
         assert!(result.is_ok());
@@ -577,7 +600,8 @@ pub(crate) mod tests {
 
         let verifier = Verifier::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_email("wrong@example.com");
+            .with_email("wrong@example.com")
+            .build();
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
@@ -601,8 +625,9 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier =
-            Verifier::new(audience).with_jwks_url(format!("http://{}/certs", server.addr()));
+        let verifier = Verifier::new(audience)
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .build();
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
@@ -630,7 +655,8 @@ pub(crate) mod tests {
 
         let verifier = Verifier::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_email(email);
+            .with_email(email)
+            .build();
 
         let result = verifier.verify(token).await;
         assert!(result.is_err());
