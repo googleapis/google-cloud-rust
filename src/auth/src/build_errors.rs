@@ -48,6 +48,12 @@ impl Error {
         matches!(self.0, ErrorKind::MissingField(_))
     }
 
+    #[cfg(google_cloud_unstable_id_token)]
+    /// The credential type is not supported for the given use case.
+    pub fn is_not_supported(&self) -> bool {
+        matches!(self.0, ErrorKind::NotSupported(_))
+    }
+
     /// Create an error representing problems loading or reading a credentials
     /// file.
     pub(crate) fn loading<T>(source: T) -> Error
@@ -77,6 +83,15 @@ impl Error {
     pub(crate) fn missing_field(field: &'static str) -> Error {
         Error(ErrorKind::MissingField(field))
     }
+
+    #[cfg(google_cloud_unstable_id_token)]
+    /// The given credential type is not supported.
+    pub(crate) fn not_supported<T>(credential_type: T) -> Error
+    where
+        T: Into<BoxError>,
+    {
+        Error(ErrorKind::NotSupported(credential_type.into()))
+    }
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -89,6 +104,9 @@ enum ErrorKind {
     UnknownType(#[source] BoxError),
     #[error("missing required field: {0}")]
     MissingField(&'static str),
+    #[cfg(google_cloud_unstable_id_token)]
+    #[error("credentials type not supported: {0}")]
+    NotSupported(#[source] BoxError),
 }
 
 #[cfg(test)]

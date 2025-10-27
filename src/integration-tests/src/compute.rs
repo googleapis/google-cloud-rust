@@ -371,7 +371,7 @@ pub async fn lro_errors() -> Result<()> {
         .set_machine_type(format!("zones/{zone_id}/machineTypes/{MACHINE_TYPE}"))
         .set_name(&id)
         .set_description("A test VM created by the Rust client library.")
-        .set_labels([("integration-tests", "true")])
+        .set_labels([("integration-test", "true")])
         .set_disks([AttachedDisk::new()
             .set_initialize_params(
                 AttachedDiskInitializeParams::new()

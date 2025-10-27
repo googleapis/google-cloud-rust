@@ -41,7 +41,11 @@ locals {
     }
     integration-unstable = {
       config = "integration.yaml"
-      flags  = "--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token"
+      flags = join(" ", [
+        "--cfg google_cloud_unstable_tracing",
+        "--cfg google_cloud_unstable_id_token",
+        "--cfg google_cloud_unstable_storage_bidi"
+      ])
     }
   }
 
@@ -51,7 +55,11 @@ locals {
     }
     integration-unstable = {
       config = "integration.yaml"
-      flags  = "--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_id_token"
+      flags = join(" ", [
+        "--cfg google_cloud_unstable_tracing",
+        "--cfg google_cloud_unstable_id_token",
+        "--cfg google_cloud_unstable_storage_bidi"
+      ])
     }
     referenceupload = {
       config = "referenceupload.yaml"
