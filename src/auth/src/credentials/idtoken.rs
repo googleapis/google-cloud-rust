@@ -218,6 +218,25 @@ fn instant_from_epoch_seconds(secs: u64) -> Option<Instant> {
 }
 
 /// VerifierBuilder is used construct a Verifier of id tokens.
+///
+/// # Example
+///
+/// ```
+/// use google_cloud_auth::credentials::idtoken::Verifier;
+/// use std::time::Duration;
+///
+/// async fn verify_id_token(token: &str) {
+///     let audience = "https://example.com";
+///     let verifier = Verifier::new(audience)
+///         .with_email("service-account@example.com")
+///         .with_jwks_url("https://www.googleapis.com/oauth2/v3/certs")
+///         .with_clock_skew(Duration::from_secs(60))
+///         .build();
+///
+///     let claims = verifier.verify(token).await.expect("Failed to verify ID token");
+///     println!("Verified claims: {:?}", claims);
+/// }
+/// ```
 #[derive(Debug, Default)]
 pub(crate) struct VerifierBuilder {
     audience: String,
@@ -227,19 +246,28 @@ pub(crate) struct VerifierBuilder {
 }
 
 impl VerifierBuilder {
-    /// Sets the email for the token verification.
+    /// The email address of the service account that signed the ID token.
+    ///
+    /// If provided, the verifier will check that the `email` claim in the
+    /// ID token matches this value and that the `email_verified` claim is `true`.
     pub fn with_email<S: Into<String>>(mut self, email: S) -> Self {
         self.email = Some(email.into());
         self
     }
 
-    /// Sets the JWKS URL for the token verification.
+    /// The URL of the JSON Web Key Set (JWKS) that contains the public keys
+    /// that can be used to verify the signature of the ID token.
+    ///
+    /// If not provided, the default Google certs URL will be used.
     pub fn with_jwks_url<S: Into<String>>(mut self, jwks_url: S) -> Self {
         self.jwks_url = Some(jwks_url.into());
         self
     }
 
-    /// Sets the clock skew for the token verification.
+    /// The acceptable clock skew when verifying the token's timestamps.
+    ///
+    /// This value is used to account for clock differences between the token
+    /// issuer and the verifier. The default value is 10 seconds.
     pub fn with_clock_skew(mut self, clock_skew: Duration) -> Self {
         self.clock_skew = Some(clock_skew);
         self
@@ -666,6 +694,33 @@ pub(crate) mod tests {
                 .to_string()
                 .contains("email not verified")
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_clock_skew() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(create_jwk_set_response())),
+        );
+
+        let audience = "https://example.com";
+        let mut claims = HashMap::new();
+        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+        claims.insert("exp", (now.as_secs() - 5).into()); // expired 5 seconds ago
+        let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
+
+        let verifier = Verifier::new(audience)
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .with_clock_skew(Duration::from_secs(10))
+            .build();
+
+        let result = verifier.verify(token).await;
+        assert!(result.is_ok());
+
         Ok(())
     }
 }
