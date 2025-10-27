@@ -21,4 +21,3 @@ steps:
   - name: 'hashicorp/terraform:latest'
     entrypoint: '/bin/sh'
     args: ['/workspace/.gcb/scripts/terraform.sh', '-d', '/workspace/.gcb/builds']
-    
