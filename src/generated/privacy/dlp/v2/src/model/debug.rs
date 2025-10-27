@@ -367,6 +367,8 @@ impl std::fmt::Debug for super::RedactImageRequest {
         debug_struct.field("image_redaction_configs", &self.image_redaction_configs);
         debug_struct.field("include_findings", &self.include_findings);
         debug_struct.field("byte_item", &self.byte_item);
+        debug_struct.field("inspect_template", &self.inspect_template);
+        debug_struct.field("deidentify_template", &self.deidentify_template);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1910,6 +1912,16 @@ impl std::fmt::Debug for super::action::PublishFindingsToCloudDataCatalog {
     }
 }
 
+impl std::fmt::Debug for super::action::PublishFindingsToDataplexCatalog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PublishFindingsToDataplexCatalog");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::action::Deidentify {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Deidentify");
@@ -2792,6 +2804,7 @@ impl std::fmt::Debug for super::DiscoveryCloudStorageFilter {
 impl std::fmt::Debug for super::FileStoreCollection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FileStoreCollection");
+        debug_struct.field("include_tags", &self.include_tags);
         debug_struct.field("pattern", &self.pattern);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -3855,6 +3868,28 @@ impl std::fmt::Debug for super::Tag {
         debug_struct.field("namespaced_tag_value", &self.namespaced_tag_value);
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TagFilters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TagFilters");
+        debug_struct.field("tag_filters", &self.tag_filters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TagFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TagFilter");
+        debug_struct.field("format", &self.format);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

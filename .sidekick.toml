@@ -18,8 +18,6 @@ specification-format = 'protobuf'
 ignored-directories = [
   # This is where Rust puts all the binaries.
   "target",
-  # We are incubating a Dart SDK in google-cloud-rust, we want to ignore it.
-  "dart",
 ]
 
 [source]
@@ -28,11 +26,11 @@ roots                       = 'googleapis'
 showcase-extracted-name     = 'gapic-showcase-0.36.2'
 showcase-root               = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.36.2.tar.gz'
 showcase-sha256             = '0914bdbb088713aa087a53b355ff6631ad95e4769afd8bbd97d5d9e78d4cdf09'
-googleapis-root             = 'https://github.com/googleapis/googleapis/archive/7f0c1e5d7a45598b92d2f08e02000f005b757194.tar.gz'
-googleapis-sha256           = '3fac7440aa73f3f7b25470fd4abc51ca63c39be2acc21fa1dc6e967864d56f80'
-discovery-extracted-name    = 'discovery-artifact-manager-e5110917872f89d9ed7181163db107d31f6613eb'
-discovery-root              = 'https://github.com/googleapis/discovery-artifact-manager/archive/e5110917872f89d9ed7181163db107d31f6613eb.tar.gz'
-discovery-sha256            = 'bbc7f13c456d7fd911d813eb99d9e9096069bbc33d3cd1e016230ac818463789'
+googleapis-root             = 'https://github.com/googleapis/googleapis/archive/5ad924f17ca7d0cf72344523bb2d1fa20f864e1d.tar.gz'
+googleapis-sha256           = 'c9f8202baa6e14c5ba5e5c28df02df4bdfcc8cbe4eefe8d3f2a9cc4a936e37f0'
+discovery-extracted-name    = 'discovery-artifact-manager-4e311c74a8997b3fbece49a88446d5b8f84dc55a'
+discovery-root              = 'https://github.com/googleapis/discovery-artifact-manager/archive/4e311c74a8997b3fbece49a88446d5b8f84dc55a.tar.gz'
+discovery-sha256            = '87da60d15b9c228c88cc0388575383032fd8751d5c3724a0d9a0e1f0345a1c1e'
 protobuf-src-extracted-name = 'protobuf-29.3'
 protobuf-src-root           = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
 protobuf-src-sha256         = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'

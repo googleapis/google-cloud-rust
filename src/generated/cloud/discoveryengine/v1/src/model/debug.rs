@@ -293,7 +293,11 @@ impl std::fmt::Debug for super::answer::query_understanding_info::QueryClassific
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::AssistAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssistAnswer");
@@ -308,7 +312,11 @@ impl std::fmt::Debug for super::AssistAnswer {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::assist_answer::Reply {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reply");
@@ -320,7 +328,11 @@ impl std::fmt::Debug for super::assist_answer::Reply {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::AssistantContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssistantContent");
@@ -334,7 +346,11 @@ impl std::fmt::Debug for super::AssistantContent {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::assistant_content::Blob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Blob");
@@ -347,7 +363,11 @@ impl std::fmt::Debug for super::assistant_content::Blob {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::assistant_content::File {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("File");
@@ -360,7 +380,11 @@ impl std::fmt::Debug for super::assistant_content::File {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::assistant_content::ExecutableCode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecutableCode");
@@ -372,7 +396,11 @@ impl std::fmt::Debug for super::assistant_content::ExecutableCode {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::assistant_content::CodeExecutionResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CodeExecutionResult");
@@ -385,7 +413,11 @@ impl std::fmt::Debug for super::assistant_content::CodeExecutionResult {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::AssistantGroundedContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssistantGroundedContent");
@@ -398,7 +430,11 @@ impl std::fmt::Debug for super::AssistantGroundedContent {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::assistant_grounded_content::TextGroundingMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextGroundingMetadata");
@@ -411,7 +447,11 @@ impl std::fmt::Debug for super::assistant_grounded_content::TextGroundingMetadat
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metadata::Segment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Segment");
@@ -427,7 +467,11 @@ impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metad
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metadata::Reference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reference");
@@ -440,7 +484,11 @@ impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metad
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl std::fmt::Debug
     for super::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata
 {
@@ -5201,6 +5249,7 @@ impl std::fmt::Debug for super::Session {
         debug_struct.field("state", &self.state);
         debug_struct.field("user_pseudo_id", &self.user_pseudo_id);
         debug_struct.field("turns", &self.turns);
+        debug_struct.field("labels", &self.labels);
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("is_pinned", &self.is_pinned);
@@ -5218,6 +5267,7 @@ impl std::fmt::Debug for super::session::Turn {
         debug_struct.field("query", &self.query);
         debug_struct.field("answer", &self.answer);
         debug_struct.field("detailed_answer", &self.detailed_answer);
+        debug_struct.field("detailed_assist_answer", &self.detailed_assist_answer);
         debug_struct.field("query_config", &self.query_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

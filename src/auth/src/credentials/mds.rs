@@ -397,8 +397,8 @@ impl TokenProvider for MDSAccessTokenProvider {
     }
 }
 
-#[allow(dead_code)]
-pub(crate) mod idtoken {
+#[cfg(google_cloud_unstable_id_token)]
+pub mod idtoken {
     //! Types for fetching ID tokens from the metadata service.
     use super::{
         GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE,
@@ -589,11 +589,9 @@ pub(crate) mod idtoken {
 
 #[cfg(test)]
 mod tests {
-    use super::idtoken;
     use super::*;
     use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::idtoken::tests::generate_test_id_token;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
         get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
@@ -1155,6 +1153,22 @@ mod tests {
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
         Ok(())
     }
+}
+
+#[cfg(all(test, google_cloud_unstable_id_token))]
+mod unstable_tests {
+    use super::idtoken;
+    use super::*;
+    use crate::credentials::idtoken::tests::generate_test_id_token;
+    use crate::credentials::tests::find_source_error;
+    use httptest::matchers::{all_of, contains, request, url_decoded};
+    use httptest::responders::status_code;
+    use httptest::{Expectation, Server};
+    use reqwest::StatusCode;
+    use scoped_env::ScopedEnv;
+    use serial_test::{parallel, serial};
+
+    type TestResult = anyhow::Result<()>;
 
     #[tokio::test]
     #[parallel]

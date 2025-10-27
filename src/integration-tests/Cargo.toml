@@ -32,6 +32,7 @@ anyhow.workspace                  = true
 bytes.workspace                   = true
 chrono                            = { workspace = true, features = ["now"] }
 crc32c.workspace                  = true
+flate2                            = { workspace = true, features = ["zlib-rs"] }
 futures.workspace                 = true
 auth.workspace                    = true
 gax                               = { workspace = true, features = ["unstable-stream"] }
@@ -47,6 +48,15 @@ tracing.workspace                 = true
 tracing-subscriber                = { workspace = true, features = ["fmt", "std"] }
 uuid                              = { workspace = true, features = ["std", "v4"] }
 wkt.workspace                     = true
+# Formatting trick: this comment preserves formatting in the preceding block.
+google-cloud-compute-v1 = { workspace = true, features = [
+  "images",
+  "instances",
+  "machine-types",
+  "region-instances",
+  "zone-operations",
+  "zones",
+] }
 
 [dependencies.aiplatform]
 package          = "google-cloud-aiplatform-v1"
@@ -57,12 +67,6 @@ features         = ["model-service", "prediction-service"]
 [dependencies.bigquery]
 package = "google-cloud-bigquery-v2"
 path    = "../../src/generated/cloud/bigquery/v2"
-
-[dependencies.compute]
-package          = "google-cloud-compute-v1"
-path             = "../../src/generated/cloud/compute/v1"
-default-features = false
-features         = ["images", "instances", "machine-types", "region-instances", "zone-operations", "zones"]
 
 [dependencies.firestore]
 package = "google-cloud-firestore"

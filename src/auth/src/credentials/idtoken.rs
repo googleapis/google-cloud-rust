@@ -12,10 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
+use crate::build_errors::Error as BuilderError;
 use crate::credentials::internal::jwk_client::JwkClient;
+use crate::credentials::{
+    AdcContents, extract_credential_type, impersonated, load_adc, mds, service_account,
+};
 use crate::errors::CredentialsError;
 use crate::token::Token;
+use crate::{BuildResult, Result};
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
 use jsonwebtoken::Validation;
 pub use serde_json::{Map, Value};
@@ -94,6 +98,88 @@ pub(crate) mod dynamic {
     {
         async fn id_token(&self) -> Result<String> {
             T::id_token(self).await
+        }
+    }
+}
+
+/// Creates [`IDTokenCredentials`] instances that
+/// fetch ID tokens using the loaded credential.
+///
+/// This builder loads credentials according to the standard
+/// [Application Default Credentials (ADC)][ADC-link] strategy.
+/// ADC is the recommended approach for most applications and conforms to
+/// [AIP-4110]. If you need to load credentials from a non-standard location
+/// or source, you can use the builder for the desired credential type.
+///
+/// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
+/// [AIP-4110]: https://google.aip.dev/auth/4110
+pub struct Builder {
+    target_audience: String,
+}
+
+impl Builder {
+    /// Creates a new builder where id tokens will be obtained via [gcloud auth application-default login].
+    ///
+    /// The `target_audience` is a required parameter that specifies the
+    /// intended audience of the ID token. This is typically the URL of the
+    /// service that will be receiving the token.
+    ///
+    /// [gcloud auth application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
+    pub fn new<S: Into<String>>(target_audience: S) -> Self {
+        Self {
+            target_audience: target_audience.into(),
+        }
+    }
+
+    /// Returns a [IDTokenCredentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [BuilderError] if a unsupported credential type is provided
+    /// or if the JSON value is either malformed
+    /// or missing required fields. For more information, on how to generate
+    /// json, consult the relevant section in the [application-default credentials] guide.
+    ///
+    /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+    pub fn build(self) -> BuildResult<IDTokenCredentials> {
+        let json_data = match load_adc()? {
+            AdcContents::Contents(contents) => {
+                Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
+            }
+            AdcContents::FallbackToMds => None,
+        };
+
+        build_id_token_credentials(self.target_audience, json_data)
+    }
+}
+
+fn build_id_token_credentials(
+    audience: String,
+    json: Option<Value>,
+) -> BuildResult<IDTokenCredentials> {
+    match json {
+        None => {
+            // TODO(#3587): pass context that is being built from ADC flow.
+            mds::idtoken::Builder::new(audience)
+                .with_format("full")
+                .build()
+        }
+        Some(json) => {
+            let cred_type = extract_credential_type(&json)?;
+            match cred_type {
+                "authorized_user" => Err(BuilderError::not_supported(format!(
+                    "{cred_type}, use user_account::idtoken::Builder directly."
+                ))),
+                "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
+                "impersonated_service_account" => {
+                    impersonated::idtoken::Builder::new(audience, json).build()
+                }
+                "external_account" => {
+                    // never gonna be supported for id tokens
+                    Err(BuilderError::not_supported(cred_type))
+                }
+                _ => Err(BuilderError::unknown_type(cred_type)),
+            }
         }
     }
 }
@@ -307,6 +393,69 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_credentials_authorized_user_not_supported() -> TestResult {
+        let audience = "test_audience".to_string();
+        let json = serde_json::json!({
+            "type": "authorized_user",
+            "client_id": "test_client_id",
+            "client_secret": "test_client_secret",
+            "refresh_token": "test_refresh_token",
+        });
+
+        let result = build_id_token_credentials(audience, Some(json));
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(err.is_not_supported());
+        assert!(
+            err.to_string()
+                .contains("authorized_user, use user_account::idtoken::Builder directly.")
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_credentials_external_account_not_supported() -> TestResult {
+        let audience = "test_audience".to_string();
+        let json = serde_json::json!({
+            "type": "external_account",
+            "audience": "//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/my-pool/providers/my-provider",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1/token",
+            "credential_source": {
+                "file": "/path/to/file",
+                "format": {
+           "type": "text"
+                }
+            }
+        });
+
+        let result = build_id_token_credentials(audience, Some(json));
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(err.is_not_supported());
+        assert!(err.to_string().contains("external_account"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_credentials_unknown_type() -> TestResult {
+        let audience = "test_audience".to_string();
+        let json = serde_json::json!({
+            "type": "unknown_credential_type",
+        });
+
+        let result = build_id_token_credentials(audience, Some(json));
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(err.is_unknown_type());
+        assert!(err.to_string().contains("unknown_credential_type"));
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn test_verify_success() -> TestResult {
         let server = Server::run();
         let response = create_jwk_set_response();
@@ -381,6 +530,62 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
+    async fn test_verify_email_success() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(create_jwk_set_response())),
+        );
+
+        let audience = "https://example.com";
+        let email = "test@example.com";
+        let mut claims = HashMap::new();
+        claims.insert("email", email.into());
+        claims.insert("email_verified", true.into());
+        let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
+
+        let verifier = Verifier::new(audience)
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .with_email(email);
+
+        let result = verifier.verify(token).await;
+        assert!(result.is_ok());
+        let claims = result.unwrap();
+        assert_eq!(claims["email"].as_str().unwrap(), email);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_verify_email_mismatch() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(create_jwk_set_response())),
+        );
+
+        let audience = "https://example.com";
+        let email = "test@example.com";
+        let mut claims = HashMap::new();
+        claims.insert("email", email.into());
+        claims.insert("email_verified", true.into());
+        let token = generate_test_id_token_with_claims(audience, claims);
+        let token = token.as_str();
+
+        let verifier = Verifier::new(audience)
+            .with_jwks_url(format!("http://{}/certs", server.addr()))
+            .with_email("wrong@example.com");
+
+        let result = verifier.verify(token).await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("invalid email"));
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn test_verify_expired_token() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -435,64 +640,6 @@ pub(crate) mod tests {
                 .to_string()
                 .contains("email not verified")
         );
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn test_verify_email_mismatch() -> TestResult {
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![request::path("/certs"),])
-                .times(1)
-                .respond_with(json_encoded(create_jwk_set_response())),
-        );
-
-        let audience = "https://example.com";
-        let email = "test@example.com";
-        let mut claims = HashMap::new();
-        claims.insert("email", email.into());
-        claims.insert("email_verified", true.into());
-        let token = generate_test_id_token_with_claims(audience, claims);
-        let token = token.as_str();
-
-        let verifier = Verifier::new(audience)
-            .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_email("wrong@example.com");
-
-        let result = verifier.verify(token).await;
-        assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("invalid email"));
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn test_verify_email_success() -> TestResult {
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![request::path("/certs"),])
-                .times(1)
-                .respond_with(json_encoded(create_jwk_set_response())),
-        );
-
-        let audience = "https://example.com";
-        let email = "test@example.com";
-        let mut claims = HashMap::new();
-        claims.insert("email", email.into());
-        claims.insert("email_verified", true.into());
-        let token = generate_test_id_token_with_claims(audience, claims);
-        let token = token.as_str();
-
-        let verifier = Verifier::new(audience)
-            .with_jwks_url(format!("http://{}/certs", server.addr()))
-            .with_email(email);
-
-        let result = verifier.verify(token).await;
-        assert!(result.is_ok());
-        let claims = result.unwrap();
-        assert_eq!(claims["email"].as_str().unwrap(), email);
-
         Ok(())
     }
 }

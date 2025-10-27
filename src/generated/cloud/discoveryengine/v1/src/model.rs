@@ -2427,7 +2427,11 @@ pub mod answer {
 
 /// AssistAnswer resource, main part of
 /// [AssistResponse][google.cloud.discoveryengine.v1.AssistResponse].
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssistAnswer {
@@ -2451,7 +2455,11 @@ pub struct AssistAnswer {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl AssistAnswer {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2495,7 +2503,11 @@ impl AssistAnswer {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl wkt::message::Message for AssistAnswer {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.AssistAnswer"
@@ -2503,13 +2515,21 @@ impl wkt::message::Message for AssistAnswer {
 }
 
 /// Defines additional types related to [AssistAnswer].
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 pub mod assist_answer {
     #[allow(unused_imports)]
     use super::*;
 
     /// One part of the multi-part response of the assist call.
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Reply {
@@ -2519,7 +2539,11 @@ pub mod assist_answer {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl Reply {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -2572,7 +2596,11 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl wkt::message::Message for Reply {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AssistAnswer.Reply"
@@ -2580,13 +2608,21 @@ pub mod assist_answer {
     }
 
     /// Defines additional types related to [Reply].
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     pub mod reply {
         #[allow(unused_imports)]
         use super::*;
 
         /// Alternatives for the assistant reply.
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Reply {
@@ -2610,7 +2646,11 @@ pub mod assist_answer {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -2632,7 +2672,11 @@ pub mod assist_answer {
     }
 
     #[doc(hidden)]
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -2640,7 +2684,11 @@ pub mod assist_answer {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl State {
         /// Gets the enum value.
         ///
@@ -2673,7 +2721,11 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -2681,14 +2733,22 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -2704,7 +2764,11 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -2721,7 +2785,11 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -2738,7 +2806,11 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -2765,7 +2837,11 @@ pub mod assist_answer {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AssistSkippedReason {
@@ -2786,7 +2862,11 @@ pub mod assist_answer {
     }
 
     #[doc(hidden)]
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     pub mod assist_skipped_reason {
         #[allow(unused_imports)]
         use super::*;
@@ -2794,7 +2874,11 @@ pub mod assist_answer {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl AssistSkippedReason {
         /// Gets the enum value.
         ///
@@ -2827,7 +2911,11 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl std::default::Default for AssistSkippedReason {
         fn default() -> Self {
             use std::convert::From;
@@ -2835,14 +2923,22 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl std::fmt::Display for AssistSkippedReason {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl std::convert::From<i32> for AssistSkippedReason {
         fn from(value: i32) -> Self {
             match value {
@@ -2856,7 +2952,11 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl std::convert::From<&str> for AssistSkippedReason {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -2871,7 +2971,11 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl serde::ser::Serialize for AssistSkippedReason {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -2886,7 +2990,11 @@ pub mod assist_answer {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for AssistSkippedReason {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -2900,7 +3008,11 @@ pub mod assist_answer {
 }
 
 /// Multi-modal content.
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssistantContent {
@@ -2916,7 +3028,11 @@ pub struct AssistantContent {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl AssistantContent {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3095,7 +3211,11 @@ impl AssistantContent {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl wkt::message::Message for AssistantContent {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.AssistantContent"
@@ -3103,13 +3223,21 @@ impl wkt::message::Message for AssistantContent {
 }
 
 /// Defines additional types related to [AssistantContent].
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 pub mod assistant_content {
     #[allow(unused_imports)]
     use super::*;
 
     /// Inline blob.
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Blob {
@@ -3122,7 +3250,11 @@ pub mod assistant_content {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl Blob {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -3141,7 +3273,11 @@ pub mod assistant_content {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl wkt::message::Message for Blob {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AssistantContent.Blob"
@@ -3149,7 +3285,11 @@ pub mod assistant_content {
     }
 
     /// A file, e.g., an audio summary.
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct File {
@@ -3162,7 +3302,11 @@ pub mod assistant_content {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl File {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -3181,7 +3325,11 @@ pub mod assistant_content {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl wkt::message::Message for File {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AssistantContent.File"
@@ -3189,7 +3337,11 @@ pub mod assistant_content {
     }
 
     /// Code generated by the model that is meant to be executed by the model.
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExecutableCode {
@@ -3199,7 +3351,11 @@ pub mod assistant_content {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl ExecutableCode {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -3212,7 +3368,11 @@ pub mod assistant_content {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl wkt::message::Message for ExecutableCode {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AssistantContent.ExecutableCode"
@@ -3220,7 +3380,11 @@ pub mod assistant_content {
     }
 
     /// Result of executing ExecutableCode.
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CodeExecutionResult {
@@ -3234,7 +3398,11 @@ pub mod assistant_content {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl CodeExecutionResult {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -3258,7 +3426,11 @@ pub mod assistant_content {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl wkt::message::Message for CodeExecutionResult {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AssistantContent.CodeExecutionResult"
@@ -3266,7 +3438,11 @@ pub mod assistant_content {
     }
 
     /// Defines additional types related to [CodeExecutionResult].
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     pub mod code_execution_result {
         #[allow(unused_imports)]
         use super::*;
@@ -3286,7 +3462,11 @@ pub mod assistant_content {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Outcome {
@@ -3308,7 +3488,11 @@ pub mod assistant_content {
         }
 
         #[doc(hidden)]
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         pub mod outcome {
             #[allow(unused_imports)]
             use super::*;
@@ -3316,7 +3500,11 @@ pub mod assistant_content {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl Outcome {
             /// Gets the enum value.
             ///
@@ -3349,7 +3537,11 @@ pub mod assistant_content {
             }
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl std::default::Default for Outcome {
             fn default() -> Self {
                 use std::convert::From;
@@ -3357,7 +3549,11 @@ pub mod assistant_content {
             }
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl std::fmt::Display for Outcome {
             fn fmt(
                 &self,
@@ -3367,7 +3563,11 @@ pub mod assistant_content {
             }
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl std::convert::From<i32> for Outcome {
             fn from(value: i32) -> Self {
                 match value {
@@ -3382,7 +3582,11 @@ pub mod assistant_content {
             }
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl std::convert::From<&str> for Outcome {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -3398,7 +3602,11 @@ pub mod assistant_content {
             }
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl serde::ser::Serialize for Outcome {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -3414,7 +3622,11 @@ pub mod assistant_content {
             }
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl<'de> serde::de::Deserialize<'de> for Outcome {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -3428,7 +3640,11 @@ pub mod assistant_content {
     }
 
     /// Contained data.
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Data {
@@ -3449,7 +3665,11 @@ pub mod assistant_content {
 ///
 /// Not all content needs grounding. Phrases like "Of course, I will gladly
 /// search it for you." do not need grounding.
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssistantGroundedContent {
@@ -3462,7 +3682,11 @@ pub struct AssistantGroundedContent {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl AssistantGroundedContent {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3537,7 +3761,11 @@ impl AssistantGroundedContent {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 impl wkt::message::Message for AssistantGroundedContent {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.AssistantGroundedContent"
@@ -3545,13 +3773,21 @@ impl wkt::message::Message for AssistantGroundedContent {
 }
 
 /// Defines additional types related to [AssistantGroundedContent].
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 pub mod assistant_grounded_content {
     #[allow(unused_imports)]
     use super::*;
 
     /// Grounding details for text sources.
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextGroundingMetadata {
@@ -3568,7 +3804,11 @@ pub mod assistant_grounded_content {
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl TextGroundingMetadata {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -3601,7 +3841,11 @@ pub mod assistant_grounded_content {
         }
     }
 
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     impl wkt::message::Message for TextGroundingMetadata {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AssistantGroundedContent.TextGroundingMetadata"
@@ -3609,13 +3853,21 @@ pub mod assistant_grounded_content {
     }
 
     /// Defines additional types related to [TextGroundingMetadata].
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     pub mod text_grounding_metadata {
         #[allow(unused_imports)]
         use super::*;
 
         /// Grounding information for a segment of the text.
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Segment {
@@ -3639,7 +3891,11 @@ pub mod assistant_grounded_content {
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl Segment {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -3681,7 +3937,11 @@ pub mod assistant_grounded_content {
             }
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl wkt::message::Message for Segment {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AssistantGroundedContent.TextGroundingMetadata.Segment"
@@ -3689,7 +3949,11 @@ pub mod assistant_grounded_content {
         }
 
         /// Referenced content and related document metadata.
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Reference {
@@ -3703,7 +3967,11 @@ pub mod assistant_grounded_content {
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl Reference {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -3732,7 +4000,11 @@ pub mod assistant_grounded_content {
             }
         }
 
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         impl wkt::message::Message for Reference {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AssistantGroundedContent.TextGroundingMetadata.Reference"
@@ -3740,13 +4012,21 @@ pub mod assistant_grounded_content {
         }
 
         /// Defines additional types related to [Reference].
-        #[cfg(feature = "assistant-service")]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "session-service",
+        ))]
         pub mod reference {
             #[allow(unused_imports)]
             use super::*;
 
             /// Document metadata.
-            #[cfg(feature = "assistant-service")]
+            #[cfg(any(
+                feature = "assistant-service",
+                feature = "conversational-search-service",
+                feature = "session-service",
+            ))]
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct DocumentMetadata {
@@ -3771,7 +4051,11 @@ pub mod assistant_grounded_content {
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
-            #[cfg(feature = "assistant-service")]
+            #[cfg(any(
+                feature = "assistant-service",
+                feature = "conversational-search-service",
+                feature = "session-service",
+            ))]
             impl DocumentMetadata {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -3868,7 +4152,11 @@ pub mod assistant_grounded_content {
                 }
             }
 
-            #[cfg(feature = "assistant-service")]
+            #[cfg(any(
+                feature = "assistant-service",
+                feature = "conversational-search-service",
+                feature = "session-service",
+            ))]
             impl wkt::message::Message for DocumentMetadata {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.AssistantGroundedContent.TextGroundingMetadata.Reference.DocumentMetadata"
@@ -3878,7 +4166,11 @@ pub mod assistant_grounded_content {
     }
 
     /// Grounding metadata for various modals. It only supports text for now.
-    #[cfg(feature = "assistant-service")]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "session-service",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Metadata {
@@ -37797,6 +38089,10 @@ pub struct Session {
     /// Turns.
     pub turns: std::vec::Vec<crate::model::session::Turn>,
 
+    /// Optional. The labels for the session.
+    /// Can be set as filter in ListSessionsRequest.
+    pub labels: std::vec::Vec<std::string::String>,
+
     /// Output only. The time the session started.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -37848,6 +38144,17 @@ impl Session {
     {
         use std::iter::Iterator;
         self.turns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Session::labels].
+    pub fn set_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -37934,6 +38241,17 @@ pub mod session {
         /// [google.cloud.discoveryengine.v1.GetSessionRequest.include_answer_details]: crate::model::GetSessionRequest::include_answer_details
         pub detailed_answer: std::option::Option<crate::model::Answer>,
 
+        /// Output only. In
+        /// [ConversationalSearchService.GetSession][google.cloud.discoveryengine.v1.ConversationalSearchService.GetSession]
+        /// API, if
+        /// [GetSessionRequest.include_answer_details][google.cloud.discoveryengine.v1.GetSessionRequest.include_answer_details]
+        /// is set to true, this field will be populated when getting assistant
+        /// session.
+        ///
+        /// [google.cloud.discoveryengine.v1.ConversationalSearchService.GetSession]: crate::client::ConversationalSearchService::get_session
+        /// [google.cloud.discoveryengine.v1.GetSessionRequest.include_answer_details]: crate::model::GetSessionRequest::include_answer_details
+        pub detailed_assist_answer: std::option::Option<crate::model::AssistAnswer>,
+
         /// Optional. Represents metadata related to the query config, for example
         /// LLM model and version used, model parameters (temperature, grounding
         /// parameters, etc.). The prefix "google." is reserved for Google-developed
@@ -37988,6 +38306,24 @@ pub mod session {
             T: std::convert::Into<crate::model::Answer>,
         {
             self.detailed_answer = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [detailed_assist_answer][crate::model::session::Turn::detailed_assist_answer].
+        pub fn set_detailed_assist_answer<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AssistAnswer>,
+        {
+            self.detailed_assist_answer = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [detailed_assist_answer][crate::model::session::Turn::detailed_assist_answer].
+        pub fn set_or_clear_detailed_assist_answer<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AssistAnswer>,
+        {
+            self.detailed_assist_answer = v.map(|x| x.into());
             self
         }
 

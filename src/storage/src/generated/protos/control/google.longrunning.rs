@@ -55,6 +55,8 @@ pub struct ListOperationsRequest {
     pub page_size: i32,
     #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
+    #[prost(bool, tag = "5")]
+    pub return_partial_success: bool,
 }
 impl ::prost::Name for ListOperationsRequest {
     const NAME: &'static str = "ListOperationsRequest";
@@ -72,6 +74,8 @@ pub struct ListOperationsResponse {
     pub operations: ::prost::alloc::vec::Vec<Operation>,
     #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "3")]
+    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 impl ::prost::Name for ListOperationsResponse {
     const NAME: &'static str = "ListOperationsResponse";

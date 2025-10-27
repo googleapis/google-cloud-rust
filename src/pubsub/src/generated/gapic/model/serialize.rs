@@ -481,6 +481,9 @@ impl serde::ser::Serialize for super::Topic {
         if !self.message_transforms.is_empty() {
             state.serialize_entry("messageTransforms", &self.message_transforms)?;
         }
+        if !self.tags.is_empty() {
+            state.serialize_entry("tags", &self.tags)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -873,6 +876,9 @@ impl serde::ser::Serialize for super::Subscription {
         }
         if !self.message_transforms.is_empty() {
             state.serialize_entry("messageTransforms", &self.message_transforms)?;
+        }
+        if !self.tags.is_empty() {
+            state.serialize_entry("tags", &self.tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1417,6 +1423,9 @@ impl serde::ser::Serialize for super::CreateSnapshotRequest {
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.tags.is_empty() {
+            state.serialize_entry("tags", &self.tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

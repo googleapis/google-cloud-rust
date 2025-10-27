@@ -18,7 +18,7 @@ name = "google-cloud-gax"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version     = "1.1.0"
+version     = "1.2.0"
 description = "Google Cloud Client Libraries for Rust"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
@@ -32,6 +32,9 @@ rust-version.workspace = true
 [package.metadata.docs.rs]
 # We want to generate documentation for streaming APIs, gated by this feature.
 features = ["unstable-stream"]
+
+[lints]
+workspace = true
 
 [dependencies]
 base64.workspace      = true

@@ -28,27 +28,55 @@ rust-version.workspace = true
 
 [features]
 default = [
-    "global-operations",
-    "global-organization-operations",
-    "images",
-    "instance-group-manager-resize-requests",
-    "instance-group-managers",
-    "instance-groups",
     "instances",
-    "machine-types",
     "projects",
-    "region-instance-group-managers",
-    "region-instance-groups",
-    "region-instance-templates",
-    "region-instances",
-    "region-operations",
-    "zone-operations",
-    "zones",
 ]
+# Enables `client::AcceleratorTypes` and all the types it depends on.
+accelerator-types = []
+# Enables `client::Addresses` and all the types it depends on.
+addresses = []
+# Enables `client::Autoscalers` and all the types it depends on.
+autoscalers = []
+# Enables `client::BackendBuckets` and all the types it depends on.
+backend-buckets = []
+# Enables `client::BackendServices` and all the types it depends on.
+backend-services = []
+# Enables `client::CrossSiteNetworks` and all the types it depends on.
+cross-site-networks = []
+# Enables `client::DiskTypes` and all the types it depends on.
+disk-types = []
+# Enables `client::Disks` and all the types it depends on.
+disks = []
+# Enables `client::ExternalVpnGateways` and all the types it depends on.
+external-vpn-gateways = []
+# Enables `client::FirewallPolicies` and all the types it depends on.
+firewall-policies = []
+# Enables `client::Firewalls` and all the types it depends on.
+firewalls = []
+# Enables `client::ForwardingRules` and all the types it depends on.
+forwarding-rules = []
+# Enables `client::FutureReservations` and all the types it depends on.
+future-reservations = []
+# Enables `client::GlobalAddresses` and all the types it depends on.
+global-addresses = []
+# Enables `client::GlobalForwardingRules` and all the types it depends on.
+global-forwarding-rules = []
+# Enables `client::GlobalNetworkEndpointGroups` and all the types it depends on.
+global-network-endpoint-groups = []
 # Enables `client::GlobalOperations` and all the types it depends on.
 global-operations = []
 # Enables `client::GlobalOrganizationOperations` and all the types it depends on.
 global-organization-operations = []
+# Enables `client::GlobalPublicDelegatedPrefixes` and all the types it depends on.
+global-public-delegated-prefixes = []
+# Enables `client::HealthChecks` and all the types it depends on.
+health-checks = []
+# Enables `client::HttpHealthChecks` and all the types it depends on.
+http-health-checks = []
+# Enables `client::HttpsHealthChecks` and all the types it depends on.
+https-health-checks = []
+# Enables `client::ImageFamilyViews` and all the types it depends on.
+image-family-views = []
 # Enables `client::Images` and all the types it depends on.
 images = []
 # Enables `client::InstanceGroupManagerResizeRequests` and all the types it depends on.
@@ -57,12 +85,78 @@ instance-group-manager-resize-requests = []
 instance-group-managers = []
 # Enables `client::InstanceGroups` and all the types it depends on.
 instance-groups = []
+# Enables `client::InstanceSettings` and all the types it depends on.
+instance-settings = []
+# Enables `client::InstanceTemplates` and all the types it depends on.
+instance-templates = []
 # Enables `client::Instances` and all the types it depends on.
 instances = []
+# Enables `client::InstantSnapshots` and all the types it depends on.
+instant-snapshots = []
+# Enables `client::InterconnectAttachmentGroups` and all the types it depends on.
+interconnect-attachment-groups = []
+# Enables `client::InterconnectAttachments` and all the types it depends on.
+interconnect-attachments = []
+# Enables `client::InterconnectGroups` and all the types it depends on.
+interconnect-groups = []
+# Enables `client::InterconnectLocations` and all the types it depends on.
+interconnect-locations = []
+# Enables `client::InterconnectRemoteLocations` and all the types it depends on.
+interconnect-remote-locations = []
+# Enables `client::Interconnects` and all the types it depends on.
+interconnects = []
+# Enables `client::LicenseCodes` and all the types it depends on.
+license-codes = []
+# Enables `client::Licenses` and all the types it depends on.
+licenses = []
+# Enables `client::MachineImages` and all the types it depends on.
+machine-images = []
 # Enables `client::MachineTypes` and all the types it depends on.
 machine-types = []
+# Enables `client::NetworkAttachments` and all the types it depends on.
+network-attachments = []
+# Enables `client::NetworkEdgeSecurityServices` and all the types it depends on.
+network-edge-security-services = []
+# Enables `client::NetworkEndpointGroups` and all the types it depends on.
+network-endpoint-groups = []
+# Enables `client::NetworkFirewallPolicies` and all the types it depends on.
+network-firewall-policies = []
+# Enables `client::NetworkProfiles` and all the types it depends on.
+network-profiles = []
+# Enables `client::Networks` and all the types it depends on.
+networks = []
+# Enables `client::NodeGroups` and all the types it depends on.
+node-groups = []
+# Enables `client::NodeTemplates` and all the types it depends on.
+node-templates = []
+# Enables `client::NodeTypes` and all the types it depends on.
+node-types = []
+# Enables `client::OrganizationSecurityPolicies` and all the types it depends on.
+organization-security-policies = []
+# Enables `client::PacketMirrorings` and all the types it depends on.
+packet-mirrorings = []
+# Enables `client::PreviewFeatures` and all the types it depends on.
+preview-features = []
 # Enables `client::Projects` and all the types it depends on.
 projects = []
+# Enables `client::PublicAdvertisedPrefixes` and all the types it depends on.
+public-advertised-prefixes = []
+# Enables `client::PublicDelegatedPrefixes` and all the types it depends on.
+public-delegated-prefixes = []
+# Enables `client::RegionAutoscalers` and all the types it depends on.
+region-autoscalers = []
+# Enables `client::RegionBackendServices` and all the types it depends on.
+region-backend-services = []
+# Enables `client::RegionCommitments` and all the types it depends on.
+region-commitments = []
+# Enables `client::RegionDiskTypes` and all the types it depends on.
+region-disk-types = []
+# Enables `client::RegionDisks` and all the types it depends on.
+region-disks = []
+# Enables `client::RegionHealthCheckServices` and all the types it depends on.
+region-health-check-services = []
+# Enables `client::RegionHealthChecks` and all the types it depends on.
+region-health-checks = []
 # Enables `client::RegionInstanceGroupManagers` and all the types it depends on.
 region-instance-group-managers = []
 # Enables `client::RegionInstanceGroups` and all the types it depends on.
@@ -71,8 +165,88 @@ region-instance-groups = []
 region-instance-templates = []
 # Enables `client::RegionInstances` and all the types it depends on.
 region-instances = []
+# Enables `client::RegionInstantSnapshots` and all the types it depends on.
+region-instant-snapshots = []
+# Enables `client::RegionNetworkEndpointGroups` and all the types it depends on.
+region-network-endpoint-groups = []
+# Enables `client::RegionNetworkFirewallPolicies` and all the types it depends on.
+region-network-firewall-policies = []
+# Enables `client::RegionNotificationEndpoints` and all the types it depends on.
+region-notification-endpoints = []
 # Enables `client::RegionOperations` and all the types it depends on.
 region-operations = []
+# Enables `client::RegionSecurityPolicies` and all the types it depends on.
+region-security-policies = []
+# Enables `client::RegionSslCertificates` and all the types it depends on.
+region-ssl-certificates = []
+# Enables `client::RegionSslPolicies` and all the types it depends on.
+region-ssl-policies = []
+# Enables `client::RegionTargetHttpProxies` and all the types it depends on.
+region-target-http-proxies = []
+# Enables `client::RegionTargetHttpsProxies` and all the types it depends on.
+region-target-https-proxies = []
+# Enables `client::RegionTargetTcpProxies` and all the types it depends on.
+region-target-tcp-proxies = []
+# Enables `client::RegionUrlMaps` and all the types it depends on.
+region-url-maps = []
+# Enables `client::RegionZones` and all the types it depends on.
+region-zones = []
+# Enables `client::Regions` and all the types it depends on.
+regions = []
+# Enables `client::ReservationBlocks` and all the types it depends on.
+reservation-blocks = []
+# Enables `client::ReservationSubBlocks` and all the types it depends on.
+reservation-sub-blocks = []
+# Enables `client::Reservations` and all the types it depends on.
+reservations = []
+# Enables `client::ResourcePolicies` and all the types it depends on.
+resource-policies = []
+# Enables `client::Routers` and all the types it depends on.
+routers = []
+# Enables `client::Routes` and all the types it depends on.
+routes = []
+# Enables `client::SecurityPolicies` and all the types it depends on.
+security-policies = []
+# Enables `client::ServiceAttachments` and all the types it depends on.
+service-attachments = []
+# Enables `client::SnapshotSettings` and all the types it depends on.
+snapshot-settings = []
+# Enables `client::Snapshots` and all the types it depends on.
+snapshots = []
+# Enables `client::SslCertificates` and all the types it depends on.
+ssl-certificates = []
+# Enables `client::SslPolicies` and all the types it depends on.
+ssl-policies = []
+# Enables `client::StoragePoolTypes` and all the types it depends on.
+storage-pool-types = []
+# Enables `client::StoragePools` and all the types it depends on.
+storage-pools = []
+# Enables `client::Subnetworks` and all the types it depends on.
+subnetworks = []
+# Enables `client::TargetGrpcProxies` and all the types it depends on.
+target-grpc-proxies = []
+# Enables `client::TargetHttpProxies` and all the types it depends on.
+target-http-proxies = []
+# Enables `client::TargetHttpsProxies` and all the types it depends on.
+target-https-proxies = []
+# Enables `client::TargetInstances` and all the types it depends on.
+target-instances = []
+# Enables `client::TargetPools` and all the types it depends on.
+target-pools = []
+# Enables `client::TargetSslProxies` and all the types it depends on.
+target-ssl-proxies = []
+# Enables `client::TargetTcpProxies` and all the types it depends on.
+target-tcp-proxies = []
+# Enables `client::TargetVpnGateways` and all the types it depends on.
+target-vpn-gateways = []
+# Enables `client::UrlMaps` and all the types it depends on.
+url-maps = []
+# Enables `client::VpnGateways` and all the types it depends on.
+vpn-gateways = []
+# Enables `client::VpnTunnels` and all the types it depends on.
+vpn-tunnels = []
+# Enables `client::WireGroups` and all the types it depends on.
+wire-groups = []
 # Enables `client::ZoneOperations` and all the types it depends on.
 zone-operations = []
 # Enables `client::Zones` and all the types it depends on.

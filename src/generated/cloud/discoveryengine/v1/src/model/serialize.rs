@@ -697,7 +697,11 @@ impl serde::ser::Serialize for super::answer::query_understanding_info::QueryCla
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::AssistAnswer {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -729,7 +733,11 @@ impl serde::ser::Serialize for super::AssistAnswer {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::assist_answer::Reply {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -752,7 +760,11 @@ impl serde::ser::Serialize for super::assist_answer::Reply {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::AssistantContent {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -793,7 +805,11 @@ impl serde::ser::Serialize for super::AssistantContent {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::assistant_content::Blob {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -828,7 +844,11 @@ impl serde::ser::Serialize for super::assistant_content::Blob {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::assistant_content::File {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -854,7 +874,11 @@ impl serde::ser::Serialize for super::assistant_content::File {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::assistant_content::ExecutableCode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -877,7 +901,11 @@ impl serde::ser::Serialize for super::assistant_content::ExecutableCode {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::assistant_content::CodeExecutionResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -903,7 +931,11 @@ impl serde::ser::Serialize for super::assistant_content::CodeExecutionResult {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::AssistantGroundedContent {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -929,7 +961,11 @@ impl serde::ser::Serialize for super::AssistantGroundedContent {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::assistant_grounded_content::TextGroundingMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -955,7 +991,11 @@ impl serde::ser::Serialize for super::assistant_grounded_content::TextGroundingM
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::assistant_grounded_content::text_grounding_metadata::Segment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1028,7 +1068,11 @@ impl serde::ser::Serialize for super::assistant_grounded_content::text_grounding
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize
     for super::assistant_grounded_content::text_grounding_metadata::Reference
@@ -1056,7 +1100,11 @@ impl serde::ser::Serialize
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "session-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize
     for super::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata
@@ -11880,6 +11928,9 @@ impl serde::ser::Serialize for super::Session {
         if !self.turns.is_empty() {
             state.serialize_entry("turns", &self.turns)?;
         }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
         if self.start_time.is_some() {
             state.serialize_entry("startTime", &self.start_time)?;
         }
@@ -11917,6 +11968,9 @@ impl serde::ser::Serialize for super::session::Turn {
         }
         if self.detailed_answer.is_some() {
             state.serialize_entry("detailedAnswer", &self.detailed_answer)?;
+        }
+        if self.detailed_assist_answer.is_some() {
+            state.serialize_entry("detailedAssistAnswer", &self.detailed_assist_answer)?;
         }
         if !self.query_config.is_empty() {
             state.serialize_entry("queryConfig", &self.query_config)?;

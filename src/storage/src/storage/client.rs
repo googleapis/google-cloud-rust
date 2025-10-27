@@ -17,10 +17,13 @@ use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
+use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use gaxi::options::ClientConfig;
+use gaxi::options::Credentials;
 use http::Extensions;
 use std::sync::Arc;
 
@@ -237,20 +240,16 @@ impl Storage {
             .no_zstd()
             .build()
             .map_err(Error::transport)?;
-        let mut builder = builder;
-        let cred = if let Some(c) = builder.credentials {
+        let (cred, endpoint, options) = builder.into_parts();
+        let cred = if let Some(c) = cred {
             c
         } else {
             auth::credentials::Builder::default()
                 .build()
                 .map_err(Error::cred)?
         };
-        let endpoint = builder
-            .endpoint
-            .unwrap_or_else(|| self::DEFAULT_HOST.to_string());
-        builder.credentials = Some(cred);
-        builder.endpoint = Some(endpoint);
-        let inner = Arc::new(StorageInner::new(client, builder));
+        let endpoint = endpoint.unwrap_or_else(|| self::DEFAULT_HOST.to_string());
+        let inner = Arc::new(StorageInner::new(client, cred, endpoint, options));
         let options = inner.options.clone();
         let stub = crate::storage::transport::Storage::new(inner);
         Ok(Self { stub, options })
@@ -259,16 +258,17 @@ impl Storage {
 
 impl StorageInner {
     /// Builds a client assuming `config.cred` and `config.endpoint` are initialized, panics otherwise.
-    pub(self) fn new(client: reqwest::Client, builder: ClientBuilder) -> Self {
+    pub(self) fn new(
+        client: reqwest::Client,
+        cred: Credentials,
+        endpoint: String,
+        options: RequestOptions,
+    ) -> Self {
         Self {
             client,
-            cred: builder
-                .credentials
-                .expect("StorageInner assumes the credentials are initialized"),
-            endpoint: builder
-                .endpoint
-                .expect("StorageInner assumes the endpoint is initialized"),
-            options: builder.default_options,
+            cred,
+            endpoint,
+            options,
         }
     }
 
@@ -308,18 +308,22 @@ impl StorageInner {
 /// # Ok(()) }
 /// ```
 pub struct ClientBuilder {
-    pub(crate) endpoint: Option<String>,
-    pub(crate) credentials: Option<auth::credentials::Credentials>,
-    // Default options for requests.
-    pub(crate) default_options: RequestOptions,
+    // Common options for all clients (generated or not).
+    pub(crate) config: ClientConfig,
+    // Specific options for the storage client. `RequestOptions` also requires
+    // these, it makes sense to share them.
+    common_options: CommonOptions,
 }
 
 impl ClientBuilder {
     pub(crate) fn new() -> Self {
+        let mut config = ClientConfig::default();
+        config.retry_policy = Some(Arc::new(crate::retry_policy::storage_default()));
+        config.backoff_policy = Some(Arc::new(crate::backoff_policy::default()));
+        let common_options = CommonOptions::new();
         Self {
-            endpoint: None,
-            credentials: None,
-            default_options: RequestOptions::new(),
+            config,
+            common_options,
         }
     }
 
@@ -349,7 +353,7 @@ impl ClientBuilder {
     /// # Ok(()) }
     /// ```
     pub fn with_endpoint<V: Into<String>>(mut self, v: V) -> Self {
-        self.endpoint = Some(v.into());
+        self.config.endpoint = Some(v.into());
         self
     }
 
@@ -377,7 +381,7 @@ impl ClientBuilder {
     ///
     /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
     pub fn with_credentials<V: Into<auth::credentials::Credentials>>(mut self, v: V) -> Self {
-        self.credentials = Some(v.into());
+        self.config.cred = Some(v.into());
         self
     }
 
@@ -399,7 +403,7 @@ impl ClientBuilder {
     /// # Ok(()) }
     /// ```
     pub fn with_retry_policy<V: Into<gax::retry_policy::RetryPolicyArg>>(mut self, v: V) -> Self {
-        self.default_options.retry_policy = v.into().into();
+        self.config.retry_policy = Some(v.into().into());
         self
     }
 
@@ -425,7 +429,7 @@ impl ClientBuilder {
         mut self,
         v: V,
     ) -> Self {
-        self.default_options.backoff_policy = v.into().into();
+        self.config.backoff_policy = Some(v.into().into());
         self
     }
 
@@ -455,7 +459,7 @@ impl ClientBuilder {
         mut self,
         v: V,
     ) -> Self {
-        self.default_options.retry_throttler = v.into().into();
+        self.config.retry_throttler = v.into().into();
         self
     }
 
@@ -495,7 +499,7 @@ impl ClientBuilder {
     /// [single-shot]: https://cloud.google.com/storage/docs/uploading-objects
     /// [resumable]: https://cloud.google.com/storage/docs/resumable-uploads
     pub fn with_resumable_upload_threshold<V: Into<usize>>(mut self, v: V) -> Self {
-        self.default_options.resumable_upload_threshold = v.into();
+        self.common_options.resumable_upload_threshold = v.into();
         self
     }
 
@@ -533,7 +537,7 @@ impl ClientBuilder {
     /// [resumable uploads]: https://cloud.google.com/storage/docs/resumable-uploads
     /// [Seek]: crate::streaming_source::Seek
     pub fn with_resumable_upload_buffer_size<V: Into<usize>>(mut self, v: V) -> Self {
-        self.default_options.resumable_upload_buffer_size = v.into();
+        self.common_options.resumable_upload_buffer_size = v.into();
         self
     }
 
@@ -559,8 +563,14 @@ impl ClientBuilder {
     where
         V: ReadResumePolicy + 'static,
     {
-        self.default_options.read_resume_policy = Arc::new(v);
+        self.common_options.read_resume_policy = Arc::new(v);
         self
+    }
+
+    pub(crate) fn into_parts(self) -> (Option<Credentials>, Option<String>, RequestOptions) {
+        let request_options =
+            RequestOptions::new_with_client_config(&self.config, self.common_options);
+        (self.config.cred, self.config.endpoint, request_options)
     }
 }
 
@@ -661,7 +671,13 @@ pub(crate) mod tests {
     /// This is used by the request builder tests.
     pub(crate) fn test_inner_client(builder: ClientBuilder) -> Arc<StorageInner> {
         let client = reqwest::Client::new();
-        Arc::new(StorageInner::new(client, builder))
+        let (cred, endpoint, options) = builder.into_parts();
+        Arc::new(StorageInner::new(
+            client,
+            cred.unwrap(),
+            endpoint.unwrap(),
+            options,
+        ))
     }
 
     mockall::mock! {

@@ -66,7 +66,8 @@ pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::R
                 .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
                 .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
                     UniformBucketLevelAccess::new().set_enabled(true),
-                )),
+                ))
+                .set_labels([("integration-test", "true")]),
         )
         .send()
         .await?;
@@ -175,7 +176,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running define_bucket_website_configuration example");
     buckets::define_bucket_website_configuration::sample(&client, &id, "index.html", "404.html")
         .await?;
-    tracing::info!("running cors_configuiration example");
+    tracing::info!("running cors_configuration example");
     buckets::cors_configuration::sample(&client, &id).await?;
     tracing::info!("running remove_cors_configuration example");
     buckets::remove_cors_configuration::sample(&client, &id).await?;
@@ -208,10 +209,11 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets::set_autoclass::sample(&client, &id).await?;
     tracing::info!("running get_autoclass example");
     buckets::get_autoclass::sample(&client, &id).await?;
-    tracing::info!("running enable_requester_pays example");
-    buckets::enable_requester_pays::sample(&client, &id).await?;
     #[cfg(feature = "skipped-integration-tests")]
     {
+        // TODO(#3291): cannot cleanup the bucket if this example runs.
+        tracing::info!("running enable_requester_pays example");
+        buckets::enable_requester_pays::sample(&client, &id).await?;
         // TODO(#3291): fix these samples to provide user project.
         tracing::info!("running get_requester_pays_status example");
         buckets::get_requester_pays_status::sample(&client, &id).await?;
@@ -543,7 +545,9 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
                 .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
                     UniformBucketLevelAccess::new().set_enabled(false),
                 ))
-                .set_object_retention(ObjectRetention::new().set_enabled(true)),
+                .set_object_retention(ObjectRetention::new().set_enabled(true))
+                // Enable garbage collection.
+                .set_labels([("integration-test", "true")]),
         )
         .send()
         .await?;
@@ -645,7 +649,8 @@ async fn create_bucket_kms_key(
         .set_bucket(
             google_cloud_storage::model::Bucket::new()
                 .set_project(format!("projects/{project_id}"))
-                .set_location("US-CENTRAL1"),
+                .set_location("US-CENTRAL1")
+                .set_labels([("integration-test", "true")]),
         )
         .send()
         .await?;
@@ -656,7 +661,34 @@ async fn create_bucket_kms_key(
 }
 
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
-    use google_cloud_gax::paginator::ItemPaginator;
+    use google_cloud_gax::{Result as GaxResult, paginator::ItemPaginator};
+    use google_cloud_wkt::FieldMask;
+
+    // Configure the bucket to be garbage collected. Some buckets are created by
+    // sample code, which does not (and should not) include setting labels to
+    // automatically garbage collect the bucket.
+    let current = client.get_bucket().set_name(&name).send().await?;
+    if current
+        .labels
+        .get("integration-test")
+        .is_none_or(|v| v != "true")
+    {
+        let mut updated = current.clone();
+        updated
+            .labels
+            .insert("integration-test".to_string(), "true".to_string());
+        if let Err(e) = client
+            .update_bucket()
+            .set_bucket(updated)
+            .set_update_mask(FieldMask::default().set_paths(["labels"]))
+            .send()
+            .await
+        {
+            tracing::error!(
+                "error configuring bucket {name} for automatic garbage collection: {e:?}"
+            );
+        }
+    }
 
     let mut objects = client
         .list_objects()
@@ -677,27 +709,47 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
                 .send(),
         );
     }
-    let _ = futures::future::join_all(pending).await;
+    if let Err(e) = futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .collect::<GaxResult<Vec<_>>>()
+    {
+        tracing::error!("Error cleaning up objects in bucket {name}: {e:?}");
+    };
 
-    let mut pending = Vec::new();
-    let mut folders = client.list_managed_folders().set_parent(&name).by_item();
-    while let Some(item) = folders.next().await {
-        let Ok(folder) = item else {
-            continue;
-        };
-        pending.push(client.delete_managed_folder().set_name(folder.name).send());
-    }
-    let _ = futures::future::join_all(pending).await;
+    if current.hierarchical_namespace.is_some_and(|h| h.enabled) {
+        let mut pending = Vec::new();
+        let mut folders = client.list_managed_folders().set_parent(&name).by_item();
+        while let Some(item) = folders.next().await {
+            let Ok(folder) = item else {
+                continue;
+            };
+            pending.push(client.delete_managed_folder().set_name(folder.name).send());
+        }
+        if let Err(e) = futures::future::join_all(pending)
+            .await
+            .into_iter()
+            .collect::<GaxResult<Vec<_>>>()
+        {
+            tracing::error!("Error cleaning up managed folders in bucket {name}: {e:?}");
+        }
 
-    let mut pending = Vec::new();
-    let mut folders = client.list_folders().set_parent(&name).by_item();
-    while let Some(item) = folders.next().await {
-        let Ok(folder) = item else {
-            continue;
+        let mut pending = Vec::new();
+        let mut folders = client.list_folders().set_parent(&name).by_item();
+        while let Some(item) = folders.next().await {
+            let Ok(folder) = item else {
+                continue;
+            };
+            pending.push(client.delete_folder().set_name(folder.name).send());
+        }
+        if let Err(e) = futures::future::join_all(pending)
+            .await
+            .into_iter()
+            .collect::<GaxResult<Vec<_>>>()
+        {
+            tracing::error!("Error cleaning up folders in bucket {name}: {e:?}");
         };
-        pending.push(client.delete_folder().set_name(folder.name).send());
     }
-    let _ = futures::future::join_all(pending).await;
 
     let mut pending = Vec::new();
     let mut caches = client.list_anywhere_caches().set_parent(&name).by_item();
@@ -707,7 +759,13 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
         };
         pending.push(client.disable_anywhere_cache().set_name(cache.name).send());
     }
-    let _ = futures::future::join_all(pending).await;
+    if let Err(e) = futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .collect::<GaxResult<Vec<_>>>()
+    {
+        tracing::error!("Error cleaning up caches in bucket {name}: {e:?}");
+    };
 
     client.delete_bucket().set_name(&name).send().await?;
     Ok(())

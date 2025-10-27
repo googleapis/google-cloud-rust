@@ -19,24 +19,6 @@ service-config       = 'google/cloud/compute/v1/compute_v1.yaml'
 
 [source]
 roots = 'discovery,googleapis'
-included-ids = """\
-    .google.cloud.compute.v1.globalOperations,\
-    .google.cloud.compute.v1.globalOrganizationOperations,\
-    .google.cloud.compute.v1.images,\
-    .google.cloud.compute.v1.instanceGroupManagerResizeRequests,\
-    .google.cloud.compute.v1.instanceGroupManagers,\
-    .google.cloud.compute.v1.instanceGroups,\
-    .google.cloud.compute.v1.instances,\
-    .google.cloud.compute.v1.machineTypes,\
-    .google.cloud.compute.v1.projects,\
-    .google.cloud.compute.v1.regionInstanceGroupManagers,\
-    .google.cloud.compute.v1.regionInstanceGroups,\
-    .google.cloud.compute.v1.regionInstanceTemplates,\
-    .google.cloud.compute.v1.regionInstances,\
-    .google.cloud.compute.v1.regionOperations,\
-    .google.cloud.compute.v1.zoneOperations,\
-    .google.cloud.compute.v1.zones\
-    """
 
 [discovery]
 operation-id = '.google.cloud.compute.v1.Operation'
@@ -58,10 +40,13 @@ prefix    = 'compute/v1/'
 method-id = '.google.cloud.compute.v1.globalOrganizationOperations.get'
 
 [codec]
-version               = '0.2.0'
-copyright-year        = '2025'
-package-name-override = 'google-cloud-compute-v1'
-per-service-features  = 'true'
-extra-modules         = 'operation'
-'package:lro'         = 'force-used=true,package=google-cloud-lro'
-'package:rpc'         = 'force-used=true,package=google-cloud-rpc'
+version                   = '0.2.0'
+copyright-year            = '2025'
+package-name-override     = 'google-cloud-compute-v1'
+per-service-features      = 'true'
+default-features          = 'instances,projects'
+extra-modules             = 'errors,operation'
+'package:lro'             = 'force-used=true,package=google-cloud-lro'
+'package:rpc'             = 'force-used=true,package=google-cloud-rpc'
+disabled-rustdoc-warnings = "bare_urls,broken_intra_doc_links,redundant_explicit_links"
+disabled-clippy-warnings  = "doc_lazy_continuation"

@@ -48,6 +48,9 @@ impl serde::ser::Serialize for super::LinuxNodeConfig {
                 &self.transparent_hugepage_defrag,
             )?;
         }
+        if self.node_kernel_module_loading.is_some() {
+            state.serialize_entry("nodeKernelModuleLoading", &self.node_kernel_module_loading)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -94,6 +97,28 @@ impl serde::ser::Serialize for super::linux_node_config::HugepagesConfig {
                 }
             }
             state.serialize_entry("hugepageSize1g", &__With(&self.hugepage_size1g))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::linux_node_config::NodeKernelModuleLoading {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.policy) {
+            state.serialize_entry("policy", &self.policy)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -722,6 +747,9 @@ impl serde::ser::Serialize for super::NodeNetworkConfig {
         if !self.subnetwork.is_empty() {
             state.serialize_entry("subnetwork", &self.subnetwork)?;
         }
+        if self.network_tier_config.is_some() {
+            state.serialize_entry("networkTierConfig", &self.network_tier_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -989,6 +1017,9 @@ impl serde::ser::Serialize for super::ContainerdConfig {
                 &self.private_registry_access_config,
             )?;
         }
+        if self.writable_cgroups.is_some() {
+            state.serialize_entry("writableCgroups", &self.writable_cgroups)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1065,6 +1096,28 @@ impl serde::ser::Serialize for super::containerd_config::private_registry_access
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.secret_uri.is_empty() {
             state.serialize_entry("secretUri", &self.secret_uri)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::containerd_config::WritableCgroups {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enabled) {
+            state.serialize_entry("enabled", &self.enabled)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2051,6 +2104,9 @@ impl serde::ser::Serialize for super::IPAllocationPolicy {
         if self.auto_ipam_config.is_some() {
             state.serialize_entry("autoIpamConfig", &self.auto_ipam_config)?;
         }
+        if self.network_tier_config.is_some() {
+            state.serialize_entry("networkTierConfig", &self.network_tier_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3011,6 +3067,12 @@ impl serde::ser::Serialize for super::ClusterUpdate {
         if self.gke_auto_upgrade_config.is_some() {
             state.serialize_entry("gkeAutoUpgradeConfig", &self.gke_auto_upgrade_config)?;
         }
+        if self.desired_network_tier_config.is_some() {
+            state.serialize_entry(
+                "desiredNetworkTierConfig",
+                &self.desired_network_tier_config,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3105,6 +3167,9 @@ impl serde::ser::Serialize for super::AutoIpamConfig {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.enabled.is_some() {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4228,6 +4293,9 @@ impl serde::ser::Serialize for super::BlueGreenSettings {
         if let Some(value) = self.standard_rollout_policy() {
             state.serialize_entry("standardRolloutPolicy", value)?;
         }
+        if let Some(value) = self.autoscaled_rollout_policy() {
+            state.serialize_entry("autoscaledRolloutPolicy", value)?;
+        }
         if self.node_pool_soak_duration.is_some() {
             state.serialize_entry("nodePoolSoakDuration", &self.node_pool_soak_duration)?;
         }
@@ -4276,6 +4344,28 @@ impl serde::ser::Serialize for super::blue_green_settings::StandardRolloutPolicy
         }
         if self.batch_soak_duration.is_some() {
             state.serialize_entry("batchSoakDuration", &self.batch_soak_duration)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::blue_green_settings::AutoscaledRolloutPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.wait_for_drain_duration.is_some() {
+            state.serialize_entry("waitForDrainDuration", &self.wait_for_drain_duration)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4724,6 +4814,9 @@ impl serde::ser::Serialize for super::MaintenanceExclusionOptions {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.scope) {
             state.serialize_entry("scope", &self.scope)?;
+        }
+        if !wkt::internal::is_default(&self.end_time_behavior) {
+            state.serialize_entry("endTimeBehavior", &self.end_time_behavior)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -6844,6 +6937,34 @@ impl serde::ser::Serialize for super::Autopilot {
         if self.workload_policy_config.is_some() {
             state.serialize_entry("workloadPolicyConfig", &self.workload_policy_config)?;
         }
+        if self.privileged_admission_config.is_some() {
+            state.serialize_entry(
+                "privilegedAdmissionConfig",
+                &self.privileged_admission_config,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PrivilegedAdmissionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.allowlist_paths.is_empty() {
+            state.serialize_entry("allowlistPaths", &self.allowlist_paths)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -7182,6 +7303,9 @@ impl serde::ser::Serialize for super::Fleet {
         if !wkt::internal::is_default(&self.pre_registered) {
             state.serialize_entry("preRegistered", &self.pre_registered)?;
         }
+        if !wkt::internal::is_default(&self.membership_type) {
+            state.serialize_entry("membershipType", &self.membership_type)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -7231,6 +7355,12 @@ impl serde::ser::Serialize for super::control_plane_endpoints_config::DNSEndpoin
         }
         if self.allow_external_traffic.is_some() {
             state.serialize_entry("allowExternalTraffic", &self.allow_external_traffic)?;
+        }
+        if self.enable_k8s_tokens_via_dns.is_some() {
+            state.serialize_entry("enableK8sTokensViaDns", &self.enable_k8s_tokens_via_dns)?;
+        }
+        if self.enable_k8s_certs_via_dns.is_some() {
+            state.serialize_entry("enableK8sCertsViaDns", &self.enable_k8s_certs_via_dns)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7417,6 +7547,34 @@ impl serde::ser::Serialize for super::SecretManagerConfig {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.enabled.is_some() {
             state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if self.rotation_config.is_some() {
+            state.serialize_entry("rotationConfig", &self.rotation_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::secret_manager_config::RotationConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.enabled.is_some() {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if self.rotation_interval.is_some() {
+            state.serialize_entry("rotationInterval", &self.rotation_interval)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7723,6 +7881,28 @@ impl serde::ser::Serialize for super::GkeAutoUpgradeConfig {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.patch_mode) {
             state.serialize_entry("patchMode", &self.patch_mode)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NetworkTierConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.network_tier) {
+            state.serialize_entry("networkTier", &self.network_tier)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -243,6 +243,18 @@ pub struct ListOperationsRequest {
     /// The standard list page token.
     pub page_token: std::string::String,
 
+    /// When set to `true`, operations that are reachable are returned as normal,
+    /// and those that are unreachable are returned in the
+    /// [ListOperationsResponse.unreachable] field.
+    ///
+    /// This can only be `true` when reading across collections e.g. when `parent`
+    /// is set to `"projects/example/locations/-"`.
+    ///
+    /// This field is not by default supported and will result in an
+    /// `UNIMPLEMENTED` error if set unless explicitly documented otherwise in
+    /// service or product specific documentation.
+    pub return_partial_success: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -274,6 +286,12 @@ impl ListOperationsRequest {
         self.page_token = v.into();
         self
     }
+
+    /// Sets the value of [return_partial_success][crate::model::ListOperationsRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ListOperationsRequest {
@@ -294,6 +312,12 @@ pub struct ListOperationsResponse {
 
     /// The standard List next-page token.
     pub next_page_token: std::string::String,
+
+    /// Unordered list. Unreachable resources. Populated when the request sets
+    /// `ListOperationsRequest.return_partial_success` and reads across
+    /// collections e.g. when attempting to list all resources across all supported
+    /// locations.
+    pub unreachable: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -317,6 +341,17 @@ impl ListOperationsResponse {
     /// Sets the value of [next_page_token][crate::model::ListOperationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListOperationsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

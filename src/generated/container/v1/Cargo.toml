@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-container-v1"
-version                = "1.1.0"
+version                = "1.2.0"
 description            = "Google Cloud Client Libraries for Rust - Kubernetes Engine API"
 edition.workspace      = true
 authors.workspace      = true

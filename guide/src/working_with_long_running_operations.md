@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Copyright 2025 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,15 +27,11 @@ for their completion.
 
 ## Prerequisites
 
-The guide uses the [Speech-To-Text V2] service to keep the code snippets
-concrete. The same ideas work for any other service using LROs.
+The guide uses the [Cloud Storage] service to keep the code snippets concrete.
+The same ideas work for any other service using LROs.
 
-We recommend that you first follow one of the service guides, such as
-[Transcribe speech to text by using the command line]. These guides cover
-critical topics such as ensuring your project has the API enabled, your account
-has the right permissions, and how to set up billing for your project (if
-needed). Skipping the service guides may result in problems that are hard to
-diagnose.
+The guide assumes you have an existing [Google Cloud project] with
+[billing enabled].
 
 For complete setup instructions for the Rust libraries, see
 [Setting up your development environment].
@@ -45,7 +41,7 @@ For complete setup instructions for the Rust libraries, see
 Declare Google Cloud dependencies in your `Cargo.toml` file:
 
 ```shell
-cargo add google-cloud-speech-v2 google-cloud-lro google-cloud-longrunning
+cargo add google-cloud-storage google-cloud-lro google-cloud-longrunning
 ```
 
 You'll also need several `tokio` features:
@@ -61,44 +57,30 @@ To start a long-running operation, you'll
 first, add some use declarations to avoid the long package names:
 
 ```rust,ignore
-{{#include ../samples/src/lro.rs:use}}
+{{#include ../samples/tests/storage/lros.rs:use}}
 ```
 
 Now create the client:
 
 ```rust,ignore
-{{#include ../samples/src/lro.rs:client}}
+{{#include ../samples/tests/storage/lros.rs:client}}
 ```
 
-You'll use [batch recognize] for this example. While this is designed for long
-audio files, it works well with small files too.
+You'll use [rename folder] for this example. This operation may take a long time
+when using large folders, but it is relatively fast with smaller folders.
 
 In the Rust client libraries, each request is represented by a method that
 returns a request builder. First, call the right method on the client to create
-the request builder. You'll use the default [recognizer] (`_`) in the `global`
-region.
+the request builder:
 
 ```rust,ignore
-{{#include ../samples/src/lro.rs:request-builder}}
+{{#include ../samples/tests/storage/lros.rs:request-builder}}
 ```
 
-Then initialize the request to use a publicly available audio file:
+The sample functions accept the bucket and folder names as arguments:
 
 ```rust,ignore
-{{#include ../samples/src/lro.rs:audio-file}}
-```
-
-Configure the request to return the transcripts inline:
-
-```rust,ignore
-{{#include ../samples/src/lro.rs:transcript-output}}
-```
-
-Then configure the service to transcribe to US English, using the [short model]
-and some other default configuration:
-
-```rust,ignore
-{{#include ../samples/src/lro.rs:configuration}}
+{{#include ../samples/tests/storage/lros.rs:manual-arguments}}
 ```
 
 Make the request and wait for an [Operation][longrunning::model::operation] to
@@ -106,17 +88,15 @@ be returned. This `Operation` acts as a promise for the result of the
 long-running request:
 
 ```rust,ignore
-{{#include ../samples/src/lro.rs:send}}
+    let operation =
+        // ... ...
+{{#include ../samples/tests/storage/lros.rs:send}}
 ```
 
-Finally, poll the promise until it completes:
-
-```rust,ignore
-{{#include ../samples/src/lro.rs:call-manual}}
-```
-
-You'll examine the `manually_poll_lro()` function in the
-[Manually polling a long-running operation] section.
+While this request has started the operation in the background, you should wait
+until the operation completes to determine if it was successful or failed.
+Continue reading to learn how you use the client library polling loops, or how
+to write your own.
 
 You can find the
 [full function](#automatically-polling-a-long-running-operation-complete-code)
@@ -124,53 +104,47 @@ below.
 
 ## Automatically polling a long-running operation
 
-To configure automatic polling, you prepare the request just like you did to
-start a long-running operation. The difference comes at the end, where instead
-of sending the request to get the `Operation` promise:
+To configure automatic polling, prepare the request as you did to start a
+long-running operation. The difference comes at the end, where instead of
+sending the request using `.send().await` you create a `Poller` and wait until
+it is done:
 
 ```rust,ignore
-{{#include ../samples/src/lro.rs:send}}
+{{#include ../samples/tests/storage/lros.rs:automatic-poller-until-done}}
 ```
 
-... you create a `Poller` and wait until it is done:
+Let's review the code step-by-step. First, introduce the `Poller` trait in scope
+via a `use` declaration:
 
 ```rust,ignore
-{{#include ../samples/src/lro.rs:automatic-poller-until-done}}
-```
-
-Let's review the code step-by-step.
-
-First, introduce the trait in scope via a `use` declaration:
-
-```rust,ignore
-{{#include ../samples/src/lro.rs:automatic-use}}
+{{#include ../samples/tests/storage/lros.rs:automatic-use}}
 ```
 
 Then initialize the client and prepare the request as before:
 
 ```rust,ignore
-{{#include ../samples/src/lro.rs:automatic-prepare}}
+{{#include ../samples/tests/storage/lros.rs:automatic-prepare}}
 ```
 
 And then poll until the operation is completed and print the result:
 
 ```rust,ignore
-{{#include ../samples/src/lro.rs:automatic-print}}
+{{#include ../samples/tests/storage/lros.rs:automatic-print}}
 ```
 
 You can find the
 [full function](#automatically-polling-a-long-running-operation-complete-code)
 below.
 
-## Polling a long-running operation
+## Polling a long-running operation with intermediate results
 
 While `.until_done()` is convenient, it omits some information: long-running
 operations may report partial progress via a "metadata" attribute. If your
-application requires such information, you need to use the poller directly:
+application requires such information, use the poller directly:
 
 ```rust,ignore
     let mut poller = client
-        .batch_recognize(/* stuff */)
+        .rename_object()
         /* more stuff */
         .poller();
 ```
@@ -178,7 +152,7 @@ application requires such information, you need to use the poller directly:
 Then use the poller in a loop:
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:polling-loop}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:polling-loop}}
 ```
 
 Note how this loop explicitly waits before polling again. The polling period
@@ -207,28 +181,27 @@ Recall that you started the long-running operation using the client:
 
 ```rust,ignore
     let mut operation = client
-        .batch_recognize(/* stuff */)
+        .rename_folder()
         /* more stuff */
         .send()
         .await?;
 ```
 
-You are going to start a loop to poll the `operation`, and you need to check if
-the operation completed immediately (this is rare but does happen). The `done`
-field indicates if the operation completed:
+Start a loop to poll the `operation`, and check if the operation completed using
+the `done` field:
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:manual-if-done}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:manual-if-done}}
 ```
 
-In most cases, if the operation is done it contains a result. However, the field
-is optional because the service could return `done` as true and no result: maybe
-the operation deletes resources and a successful completion has no return value.
-In this example using the Speech-to-Text service, you can treat this as an
-error:
+In most cases, when the operation is completed it contains a result. However,
+the field is optional because the service could return `done` as true and no
+result. For example, if the operation deletes resources and a successful
+completion has no return value. In this example, using the Storage service, you
+can ignore this nuance and assume a value will be present:
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:manual-match-none}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:manual-match-none}}
 ```
 
 Starting a long-running operation successfully does not guarantee that it will
@@ -236,7 +209,7 @@ complete successfully. The result may be an error or a valid response. You need
 to check for both. First check for errors:
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:manual-match-error}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:manual-match-error}}
 ```
 
 The error type is a [Status][rpc::model::status] message type. This does **not**
@@ -248,7 +221,7 @@ can find this type in the documentation for the LRO method, or by reading the
 service API documentation:
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:manual-match-success}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:manual-match-success}}
 ```
 
 Note that extraction of the value may fail if the type does not match what the
@@ -261,7 +234,7 @@ structs and enums as `#[non_exhaustive]` to signal that such changes are
 possible. In this case, you must handle this unexpected case:
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:manual-match-default}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:manual-match-default}}
 ```
 
 If the operation has not completed, then it may contain some metadata. Some
@@ -270,7 +243,7 @@ services include partial progress reports. You can choose to extract and report
 this metadata:
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:manual-metadata}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:manual-metadata}}
 ```
 
 As the operation has not completed, you need to wait before polling again.
@@ -278,13 +251,13 @@ Consider adjusting the polling period, maybe using a form of truncated
 [exponential backoff]. This example simply polls every 500ms:
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:manual-backoff}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:manual-backoff}}
 ```
 
-Then you can poll the operation to get its new status:
+If the operation has not completed, you need to query its status:
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:manual-poll-again}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:manual-poll-again}}
 ```
 
 For simplicity, the example ignores all errors. In your application you may
@@ -304,36 +277,34 @@ You can find the
 ## Starting a long-running operation: complete code
 
 ```rust,ignore
-{{#include ../samples/src/lro.rs:start}}
+{{#include ../samples/tests/storage/lros.rs:start}}
 ```
 
 ## Automatically polling a long-running operation: complete code
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:automatic}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:automatic}}
 ```
 
 ## Polling a long-running operation: complete code
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:polling}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:polling}}
 ```
 
 ## Manually polling a long-running operation: complete code
 
 ```rust,ignore
-{{#rustdoc_include ../samples/src/lro.rs:manual}}
+{{#rustdoc_include ../samples/tests/storage/lros.rs:manual}}
 ```
 
-[batch recognize]: https://cloud.google.com/speech-to-text/v2/docs/batch-recognize
+[billing enabled]: https://cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project
+[cloud storage]: https://cloud.google.com/storage
 [configuring polling policies]: ./configuring_polling_policies.md
 [error::service]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/struct.Error.html
 [exponential backoff]: https://en.wikipedia.org/wiki/Exponential_backoff
+[google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
 [longrunning::model::operation]: https://docs.rs/google-cloud-longrunning/latest/google_cloud_longrunning/model/struct.Operation.html
-[manually polling a long-running operation]: #manually-polling-a-long-running-operation
-[recognizer]: https://cloud.google.com/speech-to-text/v2/docs/recognizers
+[rename folder]: https://cloud.google.com/storage/docs/rename-hns-folders
 [rpc::model::status]: https://docs.rs/google-cloud-rpc/latest/google_cloud_rpc/model/struct.Status.html
 [setting up your development environment]: setting_up_your_development_environment.md
-[short model]: https://cloud.google.com/speech-to-text/v2/docs/transcription-model
-[speech-to-text v2]: https://cloud.google.com/speech-to-text/v2
-[transcribe speech to text by using the command line]: https://cloud.google.com/speech-to-text/v2/docs/transcribe-api

@@ -12,13 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::read_resume_policy::{ReadResumePolicy, Recommended};
-use crate::storage::checksum::details::{Checksum, Crc32c};
+use super::common_options::CommonOptions;
+use crate::{
+    read_resume_policy::ReadResumePolicy,
+    storage::checksum::details::{Checksum, Crc32c},
+};
 use gax::{
     backoff_policy::BackoffPolicy,
     retry_policy::RetryPolicy,
     retry_throttler::{AdaptiveThrottler, SharedRetryThrottler},
 };
+use gaxi::options::ClientConfig;
 use std::sync::{Arc, Mutex};
 
 /// The per-request options for a client call.
@@ -30,37 +34,87 @@ pub struct RequestOptions {
     pub(crate) retry_policy: Arc<dyn RetryPolicy>,
     pub(crate) backoff_policy: Arc<dyn BackoffPolicy>,
     pub(crate) retry_throttler: SharedRetryThrottler,
-    pub(crate) read_resume_policy: Arc<dyn ReadResumePolicy>,
-    pub(crate) resumable_upload_threshold: usize,
-    pub(crate) resumable_upload_buffer_size: usize,
     pub(crate) idempotency: Option<bool>,
     pub(crate) checksum: Checksum,
+    pub(crate) automatic_decompression: bool,
+    pub(crate) common_options: CommonOptions,
 }
-
-const MIB: usize = 1024 * 1024_usize;
-// There is some justification for these magic numbers at:
-//     https://github.com/googleapis/google-cloud-cpp/issues/2657
-const RESUMABLE_UPLOAD_THRESHOLD: usize = 16 * MIB;
-const RESUMABLE_UPLOAD_TARGET_CHUNK: usize = 8 * MIB;
 
 impl RequestOptions {
     pub(crate) fn new() -> Self {
         let retry_policy = Arc::new(crate::retry_policy::storage_default());
         let backoff_policy = Arc::new(crate::backoff_policy::default());
         let retry_throttler = Arc::new(Mutex::new(AdaptiveThrottler::default()));
-        let read_resume_policy = Arc::new(Recommended);
+        Self::new_with_policies(
+            retry_policy,
+            backoff_policy,
+            retry_throttler,
+            CommonOptions::new(),
+        )
+    }
+
+    pub(crate) fn new_with_client_config(
+        config: &ClientConfig,
+        common_options: CommonOptions,
+    ) -> Self {
+        let retry_policy = config
+            .retry_policy
+            .clone()
+            .unwrap_or_else(|| Arc::new(crate::retry_policy::storage_default()));
+        let backoff_policy = config
+            .backoff_policy
+            .clone()
+            .unwrap_or_else(|| Arc::new(crate::backoff_policy::default()));
+        let retry_throttler = config.retry_throttler.clone();
+        Self::new_with_policies(
+            retry_policy,
+            backoff_policy,
+            retry_throttler,
+            common_options,
+        )
+    }
+
+    pub fn set_read_resume_policy(&mut self, v: Arc<dyn ReadResumePolicy>) {
+        self.common_options.read_resume_policy = v;
+    }
+
+    pub fn read_resume_policy(&self) -> Arc<dyn ReadResumePolicy> {
+        self.common_options.read_resume_policy.clone()
+    }
+
+    pub fn set_resumable_upload_threshold(&mut self, v: usize) {
+        self.common_options.resumable_upload_threshold = v;
+    }
+
+    pub fn resumable_upload_threshold(&self) -> usize {
+        self.common_options.resumable_upload_threshold
+    }
+
+    pub fn set_resumable_upload_buffer_size(&mut self, v: usize) {
+        self.common_options.resumable_upload_buffer_size = v;
+    }
+
+    pub fn resumable_upload_buffer_size(&self) -> usize {
+        self.common_options.resumable_upload_buffer_size
+    }
+
+    fn new_with_policies(
+        retry_policy: Arc<dyn RetryPolicy>,
+        backoff_policy: Arc<dyn BackoffPolicy>,
+        retry_throttler: SharedRetryThrottler,
+        common_options: CommonOptions,
+    ) -> Self {
         Self {
             retry_policy,
             backoff_policy,
             retry_throttler,
-            read_resume_policy,
-            resumable_upload_threshold: RESUMABLE_UPLOAD_THRESHOLD,
-            resumable_upload_buffer_size: RESUMABLE_UPLOAD_TARGET_CHUNK,
+            common_options,
             idempotency: None,
             checksum: Checksum {
                 crc32c: Some(Crc32c::default()),
                 md5_hash: None,
             },
+            automatic_decompression: false,
         }
     }
 }

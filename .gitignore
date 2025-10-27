@@ -36,3 +36,6 @@ mutants.out.old/
 
 # The rustdocfx tool generates many files in this directory.
 /docfx/
+
+# Allow local customization for development.
+/.cargo/config.toml
