@@ -122,7 +122,7 @@ impl ResumableResponse {
         match self
             .reader
             .options
-            .read_resume_policy
+            .read_resume_policy()
             .on_error(&query, error)
         {
             ResumeResult::Continue(_) => {}

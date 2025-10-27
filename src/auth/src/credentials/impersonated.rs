@@ -667,6 +667,7 @@ struct GenerateAccessTokenResponse {
     expire_time: String,
 }
 
+#[cfg(google_cloud_unstable_id_token)]
 pub mod idtoken {
     use crate::{
         BuildResult, Result,
@@ -702,10 +703,10 @@ pub mod idtoken {
         /// Creates a new builder using `impersonated_service_account` JSON value.
         ///
         /// The `impersonated_service_account` JSON is typically generated using
-        /// a [gcloud command] for [application default login].
+        /// [application default login] with the [impersonation flag].
         ///
-        /// [gcloud command]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
-        /// [application default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login    
+        /// [impersonation flag]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
+        /// [application default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
         pub fn new<S: Into<String>>(target_audience: S, impersonated_credential: Value) -> Self {
             Self {
                 source: BuilderSource::FromJson(impersonated_credential),
@@ -735,6 +736,15 @@ pub mod idtoken {
             }
         }
 
+        #[cfg(test)]
+        // just used for tests when from_source_credentials is used and we need to override the impersonation url.
+        pub(crate) fn with_impersonation_url_host<S: Into<String>>(mut self, host: S) -> Self {
+            self.service_account_impersonation_url = self
+                .service_account_impersonation_url
+                .map(|s| s.replace("https://iamcredentials.googleapis.com/", &host.into()));
+            self
+        }
+
         /// Should include email claims in the ID Token.
         pub fn with_include_email(mut self, include_email: bool) -> Self {
             self.include_email = Some(include_email);
@@ -759,12 +769,11 @@ pub mod idtoken {
         /// - If the `impersonated_service_account` provided to [`Builder::new`] cannot
         ///   be successfully deserialized into the expected format. This typically happens
         ///   if the JSON value is malformed or missing required fields. For more information,
-        ///   on how to generate `impersonated_service_account` json, consult the relevant
-        ///   section in the [application-default credentials] guide.
+        ///   see the guide on how to [use service account impersonation].
         /// - If the `impersonated_service_account` provided to [`Builder::new`] has a
         ///   `source_credentials` of `impersonated_service_account` type.
         ///
-        /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+        /// [use service account impersonation]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
         pub fn build(self) -> BuildResult<IDTokenCredentials> {
             let components = match self.source {
                 BuilderSource::FromJson(json) => {
@@ -834,7 +843,7 @@ pub mod idtoken {
         #[serde(skip_serializing_if = "Option::is_none")]
         delegates: Option<Vec<String>>,
         audience: String,
-        #[serde(skip_serializing_if = "Option::is_none")]
+        #[serde(skip_serializing_if = "Option::is_none", rename = "includeEmail")]
         include_email: Option<bool>,
     }
 
@@ -897,7 +906,7 @@ pub mod idtoken {
                 source_headers,
                 self.delegates.clone(),
                 self.target_audience.clone(),
-                self.include_email.clone(),
+                self.include_email,
                 &self.service_account_impersonation_url,
             )
             .await
@@ -2118,6 +2127,274 @@ mod tests {
         assert!(!err.is_transient());
 
         server.verify_and_clear();
+        Ok(())
+    }
+}
+
+#[cfg(all(test, google_cloud_unstable_id_token))]
+mod unstable_tests {
+    use super::*;
+    use crate::credentials::idtoken::tests::generate_test_id_token;
+    use httptest::{Expectation, Server, matchers::*, responders::*};
+    use serde_json::json;
+
+    type TestResult = anyhow::Result<()>;
+
+    #[tokio::test]
+    async fn test_impersonated_service_account_id_token() -> TestResult {
+        let audience = "test-audience";
+        let token_string = generate_test_id_token(audience);
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateIdToken"
+                ),
+                request::headers(contains((
+                    "authorization",
+                    "Bearer test-user-account-token"
+                ))),
+                request::body(json_decoded(eq(json!({
+                    "audience": audience,
+                }))))
+            ])
+            .respond_with(json_encoded(json!({
+                "token": token_string,
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let creds = idtoken::Builder::new(audience, impersonated_credential.clone()).build()?;
+
+        let token = creds.id_token().await?;
+        assert_eq!(token, token_string);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_impersonated_id_token_with_delegates_and_email() -> TestResult {
+        let audience = "test-audience";
+        let token_string = generate_test_id_token(audience);
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateIdToken"
+                ),
+                request::headers(contains((
+                    "authorization",
+                    "Bearer test-user-account-token"
+                ))),
+                request::body(json_decoded(eq(json!({
+                    "audience": audience,
+                    "delegates": ["delegate1", "delegate2"],
+                    "includeEmail": true
+                }))))
+            ])
+            .respond_with(json_encoded(json!({
+                "token": token_string,
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateIdToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let creds = idtoken::Builder::new("test-audience", impersonated_credential)
+            .with_delegates(vec!["delegate1", "delegate2"])
+            .with_include_email(true)
+            .build()?;
+
+        let token = creds.id_token().await?;
+        assert_eq!(token, token_string);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_impersonated_id_token_from_source_credentials() -> TestResult {
+        let audience = "test-audience";
+        let token_string = generate_test_id_token(audience);
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateIdToken"
+                ),
+                request::headers(contains((
+                    "authorization",
+                    "Bearer test-user-account-token"
+                ))),
+                request::body(json_decoded(eq(json!({
+                    "audience": audience,
+                }))))
+            ])
+            .respond_with(json_encoded(json!({
+                "token": token_string,
+            }))),
+        );
+
+        let source_credentials = crate::credentials::user_account::Builder::new(json!({
+            "type": "authorized_user",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "token_uri": server.url("/token").to_string()
+        }))
+        .build()?;
+
+        let creds = idtoken::Builder::from_source_credentials(
+            audience,
+            "test-principal",
+            source_credentials,
+        )
+        .with_impersonation_url_host(server.url("/").to_string())
+        .build()?;
+
+        let token = creds.id_token().await?;
+        assert_eq!(token, token_string);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_impersonated_id_token_fail() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+        server.expect(
+            Expectation::matching(request::method_path(
+                "POST",
+                "/v1/projects/-/serviceAccounts/test-principal:generateIdToken",
+            ))
+            .respond_with(status_code(500)),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let creds = idtoken::Builder::new("test-audience", impersonated_credential).build()?;
+
+        let err = creds.id_token().await.unwrap_err();
+        assert!(err.is_transient());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_impersonated_id_token_metrics_header() -> TestResult {
+        let audience = "test-audience";
+        let token_string = generate_test_id_token(audience);
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateIdToken"
+                ),
+                request::headers(contains(("x-goog-api-client", matches("cred-type/imp")))),
+                request::headers(contains((
+                    "x-goog-api-client",
+                    matches("auth-request-type/it")
+                )))
+            ])
+            .respond_with(json_encoded(json!({
+                "token": token_string,
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let creds = idtoken::Builder::new(audience, impersonated_credential).build()?;
+
+        let token = creds.id_token().await?;
+        assert_eq!(token, token_string);
+
         Ok(())
     }
 }

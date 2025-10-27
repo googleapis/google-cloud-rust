@@ -15,7 +15,7 @@
 //! Examples showing how to use the Vertex AI Gemini API.
 
 // ANCHOR: text-prompt
-pub async fn text_prompt(project_id: &str) -> crate::Result<()> {
+pub async fn text_prompt(project_id: &str) -> anyhow::Result<()> {
     // ANCHOR: text-prompt-client
     use google_cloud_aiplatform_v1 as vertexai;
     let client = vertexai::client::PredictionService::builder()
@@ -46,7 +46,7 @@ pub async fn text_prompt(project_id: &str) -> crate::Result<()> {
 // ANCHOR_END: text-prompt
 
 // ANCHOR: prompt-and-image
-pub async fn prompt_and_image(project_id: &str) -> crate::Result<()> {
+pub async fn prompt_and_image(project_id: &str) -> anyhow::Result<()> {
     // ANCHOR: prompt-and-image-client
     use google_cloud_aiplatform_v1 as vertexai;
     let client = vertexai::client::PredictionService::builder()

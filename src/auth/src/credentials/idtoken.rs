@@ -15,7 +15,6 @@
 use crate::build_errors::Error as BuilderError;
 use crate::credentials::{
     AdcContents, extract_credential_type, impersonated, load_adc, mds, service_account,
-    user_account,
 };
 use crate::token::Token;
 use crate::{BuildResult, Result};
@@ -101,22 +100,29 @@ pub(crate) mod dynamic {
     }
 }
 
+/// Creates [`IDTokenCredentials`] instances that
+/// fetch ID tokens using the loaded credential.
+///
+/// This builder loads credentials according to the standard
+/// [Application Default Credentials (ADC)][ADC-link] strategy.
+/// ADC is the recommended approach for most applications and conforms to
+/// [AIP-4110]. If you need to load credentials from a non-standard location
+/// or source, you can use the builder for the desired credential type.
+///
+/// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
+/// [AIP-4110]: https://google.aip.dev/auth/4110
 pub struct Builder {
     target_audience: String,
 }
 
 impl Builder {
-    /// Creates a new builder where id tokens will be obtained via [application-default login].
+    /// Creates a new builder where id tokens will be obtained via [gcloud auth application-default login].
     ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_auth::credentials::idtoken::Builder;
-    /// # tokio_test::block_on(async {
-    /// let credentials = Builder::new("my-audience").build();
-    /// # });
-    /// ```
+    /// The `target_audience` is a required parameter that specifies the
+    /// intended audience of the ID token. This is typically the URL of the
+    /// service that will be receiving the token.
     ///
-    /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
+    /// [gcloud auth application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
     pub fn new<S: Into<String>>(target_audience: S) -> Self {
         Self {
             target_audience: target_audience.into(),
@@ -151,7 +157,7 @@ fn build_id_token_credentials(
 ) -> BuildResult<IDTokenCredentials> {
     match json {
         None => {
-            // TODO(#3449): pass context that is being built from ADC flow.
+            // TODO(#3587): pass context that is being built from ADC flow.
             mds::idtoken::Builder::new(audience)
                 .with_format("full")
                 .build()
@@ -159,11 +165,9 @@ fn build_id_token_credentials(
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
             match cred_type {
-                "authorized_user" => {
-                    // TODO(#3449): need to guide user to use user_account::idtoken::Builder directly
-                    // Err(BuilderError::not_supported(cred_type))
-                    user_account::idtoken::Builder::new(json).build()
-                }
+                "authorized_user" => Err(BuilderError::not_supported(
+                    "{cred_type}, use user_account::idtoken::Builder directly.",
+                )),
                 "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
                 "impersonated_service_account" => {
                     impersonated::idtoken::Builder::new(audience, json).build()
@@ -258,6 +262,69 @@ pub(crate) mod tests {
         assert!(duration > DEFAULT_TEST_TOKEN_EXPIRATION - skew);
         assert!(duration < DEFAULT_TEST_TOKEN_EXPIRATION + skew);
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_credentials_authorized_user_not_supported() -> TestResult {
+        let audience = "test_audience".to_string();
+        let json = serde_json::json!({
+            "type": "authorized_user",
+            "client_id": "test_client_id",
+            "client_secret": "test_client_secret",
+            "refresh_token": "test_refresh_token",
+        });
+
+        let result = build_id_token_credentials(audience, Some(json));
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(err.is_not_supported());
+        assert!(
+            err.to_string()
+                .contains("authorized_user, use user_account::idtoken::Builder directly.")
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_credentials_external_account_not_supported() -> TestResult {
+        let audience = "test_audience".to_string();
+        let json = serde_json::json!({
+            "type": "external_account",
+            "audience": "//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/my-pool/providers/my-provider",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1/token",
+            "credential_source": {
+                "file": "/path/to/file",
+                "format": {
+           "type": "text"
+                }
+            }
+        });
+
+        let result = build_id_token_credentials(audience, Some(json));
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(err.is_not_supported());
+        assert!(err.to_string().contains("external_account"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_build_id_token_credentials_unknown_type() -> TestResult {
+        let audience = "test_audience".to_string();
+        let json = serde_json::json!({
+            "type": "unknown_credential_type",
+        });
+
+        let result = build_id_token_credentials(audience, Some(json));
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(err.is_unknown_type());
+        assert!(err.to_string().contains("unknown_credential_type"));
         Ok(())
     }
 }

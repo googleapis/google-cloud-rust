@@ -10824,6 +10824,17 @@ pub trait ReservationBlocks: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ReservationBlocks::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: crate::model::reservation_blocks::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ReservationBlocks::list].
     fn list(
         &self,
@@ -10844,6 +10855,28 @@ pub trait ReservationBlocks: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationBlocks::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: crate::model::reservation_blocks::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationBlocks::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::reservation_blocks::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -10909,6 +10942,17 @@ pub trait ReservationSubBlocks: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ReservationSubBlocks::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: crate::model::reservation_sub_blocks::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ReservationSubBlocks::list].
     fn list(
         &self,
@@ -10940,6 +10984,28 @@ pub trait ReservationSubBlocks: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationSubBlocks::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: crate::model::reservation_sub_blocks::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationSubBlocks::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::reservation_sub_blocks::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

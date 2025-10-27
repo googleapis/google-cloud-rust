@@ -13891,6 +13891,12 @@ impl ReservationBlocks {
         super::builder::reservation_blocks::Get::new(self.inner.clone())
     }
 
+    /// Gets the access control policy for a resource. May be empty if no such
+    /// policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::reservation_blocks::GetIamPolicy {
+        super::builder::reservation_blocks::GetIamPolicy::new(self.inner.clone())
+    }
+
     /// Retrieves a list of reservation blocks under a single reservation.
     pub fn list(&self) -> super::builder::reservation_blocks::List {
         super::builder::reservation_blocks::List::new(self.inner.clone())
@@ -13899,6 +13905,17 @@ impl ReservationBlocks {
     /// Allows customers to perform maintenance on a reservation block
     pub fn perform_maintenance(&self) -> super::builder::reservation_blocks::PerformMaintenance {
         super::builder::reservation_blocks::PerformMaintenance::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource.
+    /// Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::reservation_blocks::SetIamPolicy {
+        super::builder::reservation_blocks::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::reservation_blocks::TestIamPermissions {
+        super::builder::reservation_blocks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
@@ -14020,6 +14037,12 @@ impl ReservationSubBlocks {
         super::builder::reservation_sub_blocks::Get::new(self.inner.clone())
     }
 
+    /// Gets the access control policy for a resource. May be empty if no such
+    /// policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::reservation_sub_blocks::GetIamPolicy {
+        super::builder::reservation_sub_blocks::GetIamPolicy::new(self.inner.clone())
+    }
+
     /// Retrieves a list of reservation subBlocks under a single reservation.
     pub fn list(&self) -> super::builder::reservation_sub_blocks::List {
         super::builder::reservation_sub_blocks::List::new(self.inner.clone())
@@ -14035,6 +14058,19 @@ impl ReservationSubBlocks {
     /// Allows customers to report a faulty subBlock.
     pub fn report_faulty(&self) -> super::builder::reservation_sub_blocks::ReportFaulty {
         super::builder::reservation_sub_blocks::ReportFaulty::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource.
+    /// Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::reservation_sub_blocks::SetIamPolicy {
+        super::builder::reservation_sub_blocks::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::reservation_sub_blocks::TestIamPermissions {
+        super::builder::reservation_sub_blocks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.

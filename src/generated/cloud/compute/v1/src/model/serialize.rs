@@ -1666,6 +1666,8 @@ impl serde::ser::Serialize for super::AttachedDiskInitializeParams {
     feature = "region-disks",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -1719,6 +1721,8 @@ impl serde::ser::Serialize for super::AuditConfig {
     feature = "region-disks",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -4882,6 +4886,8 @@ impl serde::ser::Serialize for super::BgpRouteNetworkLayerReachabilityInformatio
     feature = "region-disks",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -8053,6 +8059,8 @@ impl serde::ser::Serialize for super::exchanged_peering_routes_list::warning::Da
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-security-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "routers",
@@ -30065,6 +30073,8 @@ impl serde::ser::Serialize for super::PerInstanceConfig {
     feature = "region-disks",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -47507,6 +47517,8 @@ impl serde::ser::Serialize for super::TestFailure {
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -47568,6 +47580,8 @@ impl serde::ser::Serialize for super::TestPermissionsRequest {
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "reservation-blocks",
+    feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
@@ -50610,6 +50624,48 @@ impl serde::ser::Serialize for super::ZoneSetLabelsRequest {
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "reservation-blocks", feature = "reservation-sub-blocks",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ZoneSetNestedPolicyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.bindings.is_empty() {
+            state.serialize_entry("bindings", &self.bindings)?;
+        }
+        if self.etag.is_some() {
+            struct __With<'a>(&'a std::option::Option<::bytes::Bytes>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<
+                        std::option::Option<
+                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                        >,
+                    >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("etag", &__With(&self.etag))?;
+        }
+        if self.policy.is_some() {
+            state.serialize_entry("policy", &self.policy)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
