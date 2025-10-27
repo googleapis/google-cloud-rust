@@ -525,3 +525,48 @@ impl SubjectTokenProvider for TestSubjectTokenProvider {
         Ok(SubjectTokenBuilder::new(self.subject_token.clone()).build())
     }
 }
+
+#[cfg(google_cloud_unstable_id_token)]
+pub mod unstable {
+    use auth::credentials::mds::idtoken::Builder as IDTokenMDSBuilder;
+    use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+    use serde_json::Value;
+
+    pub async fn mds_id_token() -> anyhow::Result<()> {
+        let audience = "https://example.com";
+
+        // Get the service account email from the metadata server directly
+        let client = reqwest::Client::new();
+        let expected_email = client
+            .get("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email")
+            .header("Metadata-Flavor", "Google")
+            .send()
+            .await
+            .expect("failed to get service account email from metadata server")
+            .text()
+            .await
+            .expect("failed to read service account email from metadata server response");
+
+        // Only works when running on an env that has MDS.
+        let id_token_creds = IDTokenMDSBuilder::new(audience)
+            .with_format("full")
+            .build()
+            .expect("failed to create id token credentials");
+        let token = id_token_creds
+            .id_token()
+            .await
+            .expect("failed to get id token");
+
+        // Decode the JWT and verify its claims
+        let parts: Vec<&str> = token.split('.').collect();
+        anyhow::ensure!(parts.len() == 3, "ID token is not a valid JWT");
+        let payload = URL_SAFE_NO_PAD.decode(parts[1])?;
+        let claims: Value = serde_json::from_slice(&payload)?;
+
+        assert_eq!(claims["aud"], audience);
+        assert_eq!(claims["email"], expected_email);
+        assert_eq!(claims["email_verified"], true);
+
+        Ok(())
+    }
+}

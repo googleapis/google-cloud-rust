@@ -81,4 +81,10 @@ mod driver {
     ) -> anyhow::Result<()> {
         auth_integration_tests::workload_identity_provider_file_sourced(with_impersonation).await
     }
+
+    #[cfg(all(test, google_cloud_unstable_id_token))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_mds_id_token() -> anyhow::Result<()> {
+        auth_integration_tests::unstable::mds_id_token().await
+    }
 }
