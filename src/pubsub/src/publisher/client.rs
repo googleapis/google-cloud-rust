@@ -91,12 +91,15 @@ impl PublisherClient {
     /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
-    pub fn publisher(&self, topic: String) -> Publisher {
+    pub fn publisher<T>(&self, topic: T) -> Publisher
+    where
+        T: Into<String>,
+    {
         // In order to configure the Publisher, we will probably want
         // to return a builder.
         Publisher {
             inner: self.inner.clone(),
-            topic: topic,
+            topic: topic.into(),
         }
     }
 }
@@ -113,7 +116,7 @@ impl PublisherClient {
 ///     .with_endpoint("https://pubsub.googleapis.com")
 ///     .build().await?;
 /// let publisher = client.publisher("projects/my-project/topics/my-topic");
-/// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World"))
+/// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
 /// # Ok(()) }
 /// ```
 pub struct Publisher {
@@ -131,6 +134,9 @@ impl Publisher {
     /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
+    // This function will eventually return a type that implements Future instead,
+    // which will remove the warning.
+    #[allow(clippy::manual_async_fn)]
     pub fn publish(
         &self,
         msg: crate::model::PubsubMessage,
@@ -144,8 +150,7 @@ impl Publisher {
                 .set_topic(self.topic.clone())
                 .set_messages([msg])
                 .send()
-                .await
-                .map_err(Into::into)?;
+                .await?;
             match resp.message_ids.first() {
                 Some(value) => Ok(value.to_owned()),
                 _ => Err(crate::Error::io("service returned no message ID")),
