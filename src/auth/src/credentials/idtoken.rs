@@ -218,27 +218,8 @@ fn instant_from_epoch_seconds(secs: u64) -> Option<Instant> {
 }
 
 /// VerifierBuilder is used construct a Verifier of id tokens.
-///
-/// # Example
-///
-/// ```
-/// use google_cloud_auth::credentials::idtoken::Verifier;
-/// use std::time::Duration;
-///
-/// async fn verify_id_token(token: &str) {
-///     let audience = "https://example.com";
-///     let verifier = Verifier::new(audience)
-///         .with_email("service-account@example.com")
-///         .with_jwks_url("https://www.googleapis.com/oauth2/v3/certs")
-///         .with_clock_skew(Duration::from_secs(60))
-///         .build();
-///
-///     let claims = verifier.verify(token).await.expect("Failed to verify ID token");
-///     println!("Verified claims: {:?}", claims);
-/// }
-/// ```
 #[derive(Debug, Default)]
-pub(crate) struct VerifierBuilder {
+pub struct VerifierBuilder {
     audience: String,
     email: Option<String>,
     jwks_url: Option<String>,
@@ -250,6 +231,16 @@ impl VerifierBuilder {
     ///
     /// If provided, the verifier will check that the `email` claim in the
     /// ID token matches this value and that the `email_verified` claim is `true`.
+    /// 
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken::Verifier;
+    /// let audience = "https://example.com";
+    /// let verifier = Verifier::new(audience)
+    ///     .with_email("service-account@example.com")
+    ///     .build();
+    /// ```
     pub fn with_email<S: Into<String>>(mut self, email: S) -> Self {
         self.email = Some(email.into());
         self
@@ -259,6 +250,16 @@ impl VerifierBuilder {
     /// that can be used to verify the signature of the ID token.
     ///
     /// If not provided, the default Google certs URL will be used.
+    /// 
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken::Verifier;
+    /// let audience = "https://example.com";
+    /// let verifier = Verifier::new(audience)
+    ///     .with_jwks_url("https://www.googleapis.com/oauth2/v3/certs")
+    ///     .build();    
+    /// ```
     pub fn with_jwks_url<S: Into<String>>(mut self, jwks_url: S) -> Self {
         self.jwks_url = Some(jwks_url.into());
         self
@@ -268,6 +269,17 @@ impl VerifierBuilder {
     ///
     /// This value is used to account for clock differences between the token
     /// issuer and the verifier. The default value is 10 seconds.
+    /// 
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken::Verifier;
+    /// # use std::time::Duration;
+    /// let audience = "https://example.com";
+    /// let verifier = Verifier::new(audience)
+    ///     .with_clock_skew(Duration::from_secs(60))
+    ///     .build();
+    /// ```
     pub fn with_clock_skew(mut self, clock_skew: Duration) -> Self {
         self.clock_skew = Some(clock_skew);
         self
@@ -286,8 +298,23 @@ impl VerifierBuilder {
 }
 
 /// Verifier is used to verify OIDC ID Tokens.
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_auth::credentials::idtoken::Verifier;
+/// # use std::time::Duration;
+///
+/// async fn verify_id_token(token: &str) {
+///     let audience = "https://example.com";
+///     let verifier = Verifier::new(audience).build();
+///
+///     let claims = verifier.verify(token).await.expect("Failed to verify ID token");
+///     println!("Verified claims: {:?}", claims);
+/// }
+/// ```
 #[derive(Debug)]
-pub(crate) struct Verifier {
+pub struct Verifier {
     jwk_client: JwkClient,
     audience: String,
     email: Option<String>,
