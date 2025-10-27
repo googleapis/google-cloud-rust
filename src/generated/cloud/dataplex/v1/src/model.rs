@@ -2813,6 +2813,9 @@ pub struct AspectType {
     /// delete requests to ensure it has an up-to-date value before proceeding.
     pub etag: std::string::String,
 
+    /// Optional. Immutable. Stores data classification of the aspect.
+    pub data_classification: crate::model::aspect_type::DataClassification,
+
     /// Immutable. Defines the Authorization for this type.
     pub authorization: std::option::Option<crate::model::aspect_type::Authorization>,
 
@@ -2906,6 +2909,17 @@ impl AspectType {
     /// Sets the value of [etag][crate::model::AspectType::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [data_classification][crate::model::AspectType::data_classification].
+    pub fn set_data_classification<
+        T: std::convert::Into<crate::model::aspect_type::DataClassification>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_classification = v.into();
         self
     }
 
@@ -3395,6 +3409,131 @@ pub mod aspect_type {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dataplex.v1.AspectType.MetadataTemplate.Annotations"
             }
+        }
+    }
+
+    /// Classifies the data stored by the aspect.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DataClassification {
+        /// Denotes that the aspect contains only metadata.
+        Unspecified,
+        /// Metadata and data classification.
+        MetadataAndData,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DataClassification::value] or
+        /// [DataClassification::name].
+        UnknownValue(data_classification::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod data_classification {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DataClassification {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::MetadataAndData => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DATA_CLASSIFICATION_UNSPECIFIED"),
+                Self::MetadataAndData => std::option::Option::Some("METADATA_AND_DATA"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DataClassification {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DataClassification {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DataClassification {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::MetadataAndData,
+                _ => Self::UnknownValue(data_classification::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DataClassification {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DATA_CLASSIFICATION_UNSPECIFIED" => Self::Unspecified,
+                "METADATA_AND_DATA" => Self::MetadataAndData,
+                _ => Self::UnknownValue(data_classification::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DataClassification {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::MetadataAndData => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DataClassification {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataClassification>::new(
+                ".google.cloud.dataplex.v1.AspectType.DataClassification",
+            ))
         }
     }
 }
@@ -7255,14 +7394,13 @@ pub mod metadata_job {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ImportJobScope {
-            /// Required. The entry group that is in scope for the import job,
-            /// specified as a relative resource name in the format
+            /// Required. The entry groups that are in scope for the import job,
+            /// specified as relative resource names in the format
             /// `projects/{project_number_or_id}/locations/{location_id}/entryGroups/{entry_group_id}`.
-            /// Only entries and aspects that belong to the specified entry group are
+            /// Only entries and aspects that belong to the specified entry groups are
             /// affected by the job.
             ///
-            /// Must contain exactly one element. The entry group and the job
-            /// must be in the same location.
+            /// The entry groups and the job must be in the same location.
             pub entry_groups: std::vec::Vec<std::string::String>,
 
             /// Required. The entry types that are in scope for the import job,
@@ -8754,6 +8892,9 @@ pub struct EncryptionConfig {
     /// Output only. Details of the failure if anything related to Cmek db fails.
     pub failure_details: std::option::Option<crate::model::encryption_config::FailureDetails>,
 
+    /// Optional. Represent the state of CMEK opt-in for metastore.
+    pub enable_metastore_encryption: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8842,6 +8983,12 @@ impl EncryptionConfig {
         T: std::convert::Into<crate::model::encryption_config::FailureDetails>,
     {
         self.failure_details = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [enable_metastore_encryption][crate::model::EncryptionConfig::enable_metastore_encryption].
+    pub fn set_enable_metastore_encryption<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_metastore_encryption = v.into();
         self
     }
 }
@@ -10778,6 +10925,304 @@ pub mod data_discovery_result {
     }
 }
 
+/// DataDocumentation scan related spec.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataDocumentationSpec {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataDocumentationSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for DataDocumentationSpec {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationSpec"
+    }
+}
+
+/// The output of a DataDocumentation scan.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataDocumentationResult {
+    /// The result of the data documentation scan.
+    pub result: std::option::Option<crate::model::data_documentation_result::Result>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataDocumentationResult {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [result][crate::model::DataDocumentationResult::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::data_documentation_result::Result>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = v.into();
+        self
+    }
+
+    /// The value of [result][crate::model::DataDocumentationResult::result]
+    /// if it holds a `TableResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn table_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::data_documentation_result::TableResult>>
+    {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::data_documentation_result::Result::TableResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::DataDocumentationResult::result]
+    /// to hold a `TableResult`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    pub fn set_table_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::data_documentation_result::TableResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::data_documentation_result::Result::TableResult(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for DataDocumentationResult {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult"
+    }
+}
+
+/// Defines additional types related to [DataDocumentationResult].
+pub mod data_documentation_result {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Generated metadata about the table.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TableResult {
+        /// Output only. The service-qualified full resource name of the cloud
+        /// resource. Ex:
+        /// //bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID
+        pub name: std::string::String,
+
+        /// Output only. Generated description of the table.
+        pub overview: std::string::String,
+
+        /// Output only. Schema of the table with generated metadata of the columns
+        /// in the schema.
+        pub schema: std::option::Option<crate::model::data_documentation_result::Schema>,
+
+        /// Output only. Sample SQL queries for the table.
+        pub queries: std::vec::Vec<crate::model::data_documentation_result::Query>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TableResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::data_documentation_result::TableResult::name].
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [overview][crate::model::data_documentation_result::TableResult::overview].
+        pub fn set_overview<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.overview = v.into();
+            self
+        }
+
+        /// Sets the value of [schema][crate::model::data_documentation_result::TableResult::schema].
+        pub fn set_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::data_documentation_result::Schema>,
+        {
+            self.schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schema][crate::model::data_documentation_result::TableResult::schema].
+        pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::data_documentation_result::Schema>,
+        {
+            self.schema = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [queries][crate::model::data_documentation_result::TableResult::queries].
+        pub fn set_queries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::data_documentation_result::Query>,
+        {
+            use std::iter::Iterator;
+            self.queries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for TableResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.TableResult"
+        }
+    }
+
+    /// A sample SQL query in data documentation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Query {
+        /// Output only. The SQL query string which can be executed.
+        pub sql: std::string::String,
+
+        /// Output only. The description for the query.
+        pub description: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Query {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [sql][crate::model::data_documentation_result::Query::sql].
+        pub fn set_sql<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.sql = v.into();
+            self
+        }
+
+        /// Sets the value of [description][crate::model::data_documentation_result::Query::description].
+        pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.description = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Query {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.Query"
+        }
+    }
+
+    /// Schema of the table with generated metadata of columns.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Schema {
+        /// Output only. The list of columns.
+        pub fields: std::vec::Vec<crate::model::data_documentation_result::Field>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Schema {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [fields][crate::model::data_documentation_result::Schema::fields].
+        pub fn set_fields<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::data_documentation_result::Field>,
+        {
+            use std::iter::Iterator;
+            self.fields = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Schema {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.Schema"
+        }
+    }
+
+    /// Column of a table with generated metadata and nested fields.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Field {
+        /// Output only. The name of the column.
+        pub name: std::string::String,
+
+        /// Output only. Generated description for columns and fields.
+        pub description: std::string::String,
+
+        /// Output only. Nested fields.
+        pub fields: std::vec::Vec<crate::model::data_documentation_result::Field>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Field {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::data_documentation_result::Field::name].
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [description][crate::model::data_documentation_result::Field::description].
+        pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.description = v.into();
+            self
+        }
+
+        /// Sets the value of [fields][crate::model::data_documentation_result::Field::fields].
+        pub fn set_fields<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::data_documentation_result::Field>,
+        {
+            use std::iter::Iterator;
+            self.fields = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Field {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.Field"
+        }
+    }
+
+    /// The result of the data documentation scan.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Result {
+        /// Output only. Table result for insights.
+        TableResult(std::boxed::Box<crate::model::data_documentation_result::TableResult>),
+    }
+}
+
 /// DataProfileScan related setting.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -12416,6 +12861,10 @@ pub struct DataQualityResult {
     pub catalog_publishing_status:
         std::option::Option<crate::model::DataScanCatalogPublishingStatus>,
 
+    /// Output only. The generated assets for anomaly detection.
+    pub anomaly_detection_generated_assets:
+        std::option::Option<crate::model::data_quality_result::AnomalyDetectionGeneratedAssets>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -12538,6 +12987,27 @@ impl DataQualityResult {
         T: std::convert::Into<crate::model::DataScanCatalogPublishingStatus>,
     {
         self.catalog_publishing_status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [anomaly_detection_generated_assets][crate::model::DataQualityResult::anomaly_detection_generated_assets].
+    pub fn set_anomaly_detection_generated_assets<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::data_quality_result::AnomalyDetectionGeneratedAssets>,
+    {
+        self.anomaly_detection_generated_assets = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [anomaly_detection_generated_assets][crate::model::DataQualityResult::anomaly_detection_generated_assets].
+    pub fn set_or_clear_anomaly_detection_generated_assets<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::data_quality_result::AnomalyDetectionGeneratedAssets>,
+    {
+        self.anomaly_detection_generated_assets = v.map(|x| x.into());
         self
     }
 }
@@ -12782,6 +13252,84 @@ pub mod data_quality_result {
                         ".google.cloud.dataplex.v1.DataQualityResult.PostScanActionsResult.BigQueryExportResult.State"))
                 }
             }
+        }
+    }
+
+    /// The assets generated by Anomaly Detection Data Scan.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AnomalyDetectionGeneratedAssets {
+        /// Output only. The result table for anomaly detection.
+        /// Format:
+        /// PROJECT_ID.DATASET_ID.TABLE_ID
+        /// If the result table is set at AnomalyDetectionAssets, the result table
+        /// here would be the same as the one set in the
+        /// AnomalyDetectionAssets.result_table.
+        pub result_table: std::string::String,
+
+        /// Output only. The intermediate table for data anomaly detection.
+        /// Format:
+        /// PROJECT_ID.DATASET_ID.TABLE_ID
+        pub data_intermediate_table: std::string::String,
+
+        /// Output only. The intermediate table for freshness anomaly detection.
+        /// Format:
+        /// PROJECT_ID.DATASET_ID.TABLE_ID
+        pub freshness_intermediate_table: std::string::String,
+
+        /// Output only. The intermediate table for volume anomaly detection.
+        /// Format:
+        /// PROJECT_ID.DATASET_ID.TABLE_ID
+        pub volume_intermediate_table: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AnomalyDetectionGeneratedAssets {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [result_table][crate::model::data_quality_result::AnomalyDetectionGeneratedAssets::result_table].
+        pub fn set_result_table<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.result_table = v.into();
+            self
+        }
+
+        /// Sets the value of [data_intermediate_table][crate::model::data_quality_result::AnomalyDetectionGeneratedAssets::data_intermediate_table].
+        pub fn set_data_intermediate_table<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.data_intermediate_table = v.into();
+            self
+        }
+
+        /// Sets the value of [freshness_intermediate_table][crate::model::data_quality_result::AnomalyDetectionGeneratedAssets::freshness_intermediate_table].
+        pub fn set_freshness_intermediate_table<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.freshness_intermediate_table = v.into();
+            self
+        }
+
+        /// Sets the value of [volume_intermediate_table][crate::model::data_quality_result::AnomalyDetectionGeneratedAssets::volume_intermediate_table].
+        pub fn set_volume_intermediate_table<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.volume_intermediate_table = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AnomalyDetectionGeneratedAssets {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataQualityResult.AnomalyDetectionGeneratedAssets"
         }
     }
 }
@@ -16784,6 +17332,10 @@ impl wkt::message::Message for GenerateDataQualityRulesResponse {
 /// * Data discovery: scans data in Cloud Storage buckets to extract and then
 ///   catalog metadata. For more information, see [Discover and catalog Cloud
 ///   Storage data](https://cloud.google.com/bigquery/docs/automatic-discovery).
+/// * Data documentation: analyzes the table details and generates insights
+///   including descriptions and sample SQL queries for the table. For more
+///   information, see [Generate data insights in
+///   BigQuery](https://cloud.google.com/bigquery/docs/data-insights).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataScan {
@@ -17087,6 +17639,36 @@ impl DataScan {
         self
     }
 
+    /// The value of [spec][crate::model::DataScan::spec]
+    /// if it holds a `DataDocumentationSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_documentation_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataDocumentationSpec>> {
+        #[allow(unreachable_patterns)]
+        self.spec.as_ref().and_then(|v| match v {
+            crate::model::data_scan::Spec::DataDocumentationSpec(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [spec][crate::model::DataScan::spec]
+    /// to hold a `DataDocumentationSpec`.
+    ///
+    /// Note that all the setters affecting `spec` are
+    /// mutually exclusive.
+    pub fn set_data_documentation_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::DataDocumentationSpec>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.spec = std::option::Option::Some(
+            crate::model::data_scan::Spec::DataDocumentationSpec(v.into()),
+        );
+        self
+    }
+
     /// Sets the value of [result][crate::model::DataScan::result].
     ///
     /// Note that all the setters affecting `result` are mutually
@@ -17185,6 +17767,38 @@ impl DataScan {
     ) -> Self {
         self.result = std::option::Option::Some(
             crate::model::data_scan::Result::DataDiscoveryResult(v.into()),
+        );
+        self
+    }
+
+    /// The value of [result][crate::model::DataScan::result]
+    /// if it holds a `DataDocumentationResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_documentation_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataDocumentationResult>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::data_scan::Result::DataDocumentationResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::DataScan::result]
+    /// to hold a `DataDocumentationResult`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    pub fn set_data_documentation_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::DataDocumentationResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::data_scan::Result::DataDocumentationResult(v.into()),
         );
         self
     }
@@ -17408,6 +18022,8 @@ pub mod data_scan {
         DataProfileSpec(std::boxed::Box<crate::model::DataProfileSpec>),
         /// Settings for a data discovery scan.
         DataDiscoverySpec(std::boxed::Box<crate::model::DataDiscoverySpec>),
+        /// Settings for a data documentation scan.
+        DataDocumentationSpec(std::boxed::Box<crate::model::DataDocumentationSpec>),
     }
 
     /// The result of the data scan.
@@ -17420,6 +18036,8 @@ pub mod data_scan {
         DataProfileResult(std::boxed::Box<crate::model::DataProfileResult>),
         /// Output only. The result of a data discovery scan.
         DataDiscoveryResult(std::boxed::Box<crate::model::DataDiscoveryResult>),
+        /// Output only. The result of a data documentation scan.
+        DataDocumentationResult(std::boxed::Box<crate::model::DataDocumentationResult>),
     }
 }
 
@@ -17658,6 +18276,38 @@ impl DataScanJob {
         self
     }
 
+    /// The value of [spec][crate::model::DataScanJob::spec]
+    /// if it holds a `DataDocumentationSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_documentation_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataDocumentationSpec>> {
+        #[allow(unreachable_patterns)]
+        self.spec.as_ref().and_then(|v| match v {
+            crate::model::data_scan_job::Spec::DataDocumentationSpec(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [spec][crate::model::DataScanJob::spec]
+    /// to hold a `DataDocumentationSpec`.
+    ///
+    /// Note that all the setters affecting `spec` are
+    /// mutually exclusive.
+    pub fn set_data_documentation_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::DataDocumentationSpec>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.spec = std::option::Option::Some(
+            crate::model::data_scan_job::Spec::DataDocumentationSpec(v.into()),
+        );
+        self
+    }
+
     /// Sets the value of [result][crate::model::DataScanJob::result].
     ///
     /// Note that all the setters affecting `result` are mutually
@@ -17764,6 +18414,38 @@ impl DataScanJob {
     ) -> Self {
         self.result = std::option::Option::Some(
             crate::model::data_scan_job::Result::DataDiscoveryResult(v.into()),
+        );
+        self
+    }
+
+    /// The value of [result][crate::model::DataScanJob::result]
+    /// if it holds a `DataDocumentationResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_documentation_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataDocumentationResult>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::data_scan_job::Result::DataDocumentationResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::DataScanJob::result]
+    /// to hold a `DataDocumentationResult`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    pub fn set_data_documentation_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::DataDocumentationResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::data_scan_job::Result::DataDocumentationResult(v.into()),
         );
         self
     }
@@ -17950,6 +18632,8 @@ pub mod data_scan_job {
         DataProfileSpec(std::boxed::Box<crate::model::DataProfileSpec>),
         /// Output only. Settings for a data discovery scan.
         DataDiscoverySpec(std::boxed::Box<crate::model::DataDiscoverySpec>),
+        /// Output only. Settings for a data documentation scan.
+        DataDocumentationSpec(std::boxed::Box<crate::model::DataDocumentationSpec>),
     }
 
     /// The result of the data scan.
@@ -17962,6 +18646,8 @@ pub mod data_scan_job {
         DataProfileResult(std::boxed::Box<crate::model::DataProfileResult>),
         /// Output only. The result of a data discovery scan.
         DataDiscoveryResult(std::boxed::Box<crate::model::DataDiscoveryResult>),
+        /// Output only. The result of a data documentation scan.
+        DataDocumentationResult(std::boxed::Box<crate::model::DataDocumentationResult>),
     }
 }
 
@@ -26580,8 +27266,8 @@ pub mod data_source {
         /// Storage bucket for DataDiscoveryScan Format:
         /// //storage.googleapis.com/projects/PROJECT_ID/buckets/BUCKET_ID
         /// or
-        /// BigQuery table of type "TABLE" for DataProfileScan/DataQualityScan
-        /// Format:
+        /// BigQuery table of type "TABLE" for
+        /// DataProfileScan/DataQualityScan/DataDocumentationScan Format:
         /// //bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID
         Resource(std::string::String),
     }
@@ -35426,8 +36112,6 @@ pub enum EntryView {
     /// Returns aspects matching custom fields in GetEntryRequest. If the number of
     /// aspects exceeds 100, the first 100 will be returned.
     Custom,
-    /// Returns all aspects. If the number of aspects exceeds 100, the first
-    /// 100 will be returned.
     All,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -35710,6 +36394,8 @@ pub enum DataScanType {
     DataProfile,
     /// Data discovery scan.
     DataDiscovery,
+    /// Data documentation scan.
+    DataDocumentation,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [DataScanType::value] or
@@ -35736,6 +36422,7 @@ impl DataScanType {
             Self::DataQuality => std::option::Option::Some(1),
             Self::DataProfile => std::option::Option::Some(2),
             Self::DataDiscovery => std::option::Option::Some(3),
+            Self::DataDocumentation => std::option::Option::Some(4),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -35750,6 +36437,7 @@ impl DataScanType {
             Self::DataQuality => std::option::Option::Some("DATA_QUALITY"),
             Self::DataProfile => std::option::Option::Some("DATA_PROFILE"),
             Self::DataDiscovery => std::option::Option::Some("DATA_DISCOVERY"),
+            Self::DataDocumentation => std::option::Option::Some("DATA_DOCUMENTATION"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -35775,6 +36463,7 @@ impl std::convert::From<i32> for DataScanType {
             1 => Self::DataQuality,
             2 => Self::DataProfile,
             3 => Self::DataDiscovery,
+            4 => Self::DataDocumentation,
             _ => Self::UnknownValue(data_scan_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -35790,6 +36479,7 @@ impl std::convert::From<&str> for DataScanType {
             "DATA_QUALITY" => Self::DataQuality,
             "DATA_PROFILE" => Self::DataProfile,
             "DATA_DISCOVERY" => Self::DataDiscovery,
+            "DATA_DOCUMENTATION" => Self::DataDocumentation,
             _ => Self::UnknownValue(data_scan_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -35807,6 +36497,7 @@ impl serde::ser::Serialize for DataScanType {
             Self::DataQuality => serializer.serialize_i32(1),
             Self::DataProfile => serializer.serialize_i32(2),
             Self::DataDiscovery => serializer.serialize_i32(3),
+            Self::DataDocumentation => serializer.serialize_i32(4),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

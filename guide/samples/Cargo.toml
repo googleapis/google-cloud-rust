@@ -33,6 +33,7 @@ crc32c.workspace                        = true
 futures.workspace                       = true
 google-cloud-aiplatform-v1              = { workspace = true, default-features = false, features = ["prediction-service"] }
 google-cloud-gax                        = { workspace = true, features = ["unstable-stream"] }
+google-cloud-iam-v1                     = { workspace = true }
 google-cloud-language-v2.workspace      = true
 google-cloud-longrunning.workspace      = true
 google-cloud-lro                        = { workspace = true, features = ["unstable-stream"] }
@@ -43,6 +44,13 @@ google-cloud-storage.workspace          = true
 google-cloud-wkt.workspace              = true
 serde_json.workspace                    = true
 tokio                                   = { workspace = true, features = ["full", "macros"] }
+# Formatting trick: this comment preserves formatting in the preceding block.
+google-cloud-compute-v1 = { workspace = true, default-features = false, features = [
+  "images",
+  "instances",
+  "projects",
+  "zone-operations",
+] }
 
 [dev-dependencies]
 anyhow.workspace            = true

@@ -93,7 +93,7 @@ pub(crate) fn random_image_name() -> String {
     format!("{PREFIX}{vm_id}")
 }
 
-pub(crate) fn random_vm_id() -> String {
+pub fn random_vm_id() -> String {
     const PREFIX: &str = "vm-";
     const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
     let vm_id: String = rand::rng()

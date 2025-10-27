@@ -31,6 +31,10 @@ pub(crate) const X_GOOG_API_CLIENT: &str = "x-goog-api-client";
 /// Access token request type.
 pub(crate) const ACCESS_TOKEN_REQUEST_TYPE: &str = "at";
 
+#[cfg(google_cloud_unstable_id_token)]
+/// ID token request type.
+pub(crate) const ID_TOKEN_REQUEST_TYPE: &str = "it";
+
 /// Format the struct as needed for the `x-goog-api-client` header.
 pub(crate) fn metrics_header_value(request_type: &str, cred_type: &str) -> String {
     let rustc_version = build_info::RUSTC_VERSION;

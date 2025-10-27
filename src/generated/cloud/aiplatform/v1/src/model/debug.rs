@@ -360,6 +360,18 @@ impl std::fmt::Debug for super::VideoMetadata {
 }
 
 #[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+impl std::fmt::Debug for super::ImageConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageConfig");
+        debug_struct.field("aspect_ratio", &self.aspect_ratio);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
 impl std::fmt::Debug for super::GenerationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerationConfig");
@@ -379,6 +391,7 @@ impl std::fmt::Debug for super::GenerationConfig {
         debug_struct.field("response_json_schema", &self.response_json_schema);
         debug_struct.field("routing_config", &self.routing_config);
         debug_struct.field("thinking_config", &self.thinking_config);
+        debug_struct.field("image_config", &self.image_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4595,6 +4608,11 @@ impl std::fmt::Debug for super::feature_online_store::Bigtable {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Bigtable");
         debug_struct.field("auto_scaling", &self.auto_scaling);
+        debug_struct.field(
+            "enable_direct_bigtable_access",
+            &self.enable_direct_bigtable_access,
+        );
+        debug_struct.field("bigtable_metadata", &self.bigtable_metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4609,6 +4627,20 @@ impl std::fmt::Debug for super::feature_online_store::bigtable::AutoScaling {
         debug_struct.field("min_node_count", &self.min_node_count);
         debug_struct.field("max_node_count", &self.max_node_count);
         debug_struct.field("cpu_utilization_target", &self.cpu_utilization_target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "feature-online-store-admin-service")]
+impl std::fmt::Debug for super::feature_online_store::bigtable::BigtableMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigtableMetadata");
+        debug_struct.field("tenant_project_id", &self.tenant_project_id);
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("table_id", &self.table_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5201,6 +5233,31 @@ impl std::fmt::Debug for super::feature_view_direct_write_response::WriteRespons
     }
 }
 
+#[cfg(feature = "feature-online-store-service")]
+impl std::fmt::Debug for super::GenerateFetchAccessTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateFetchAccessTokenRequest");
+        debug_struct.field("feature_view", &self.feature_view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "feature-online-store-service")]
+impl std::fmt::Debug for super::GenerateFetchAccessTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateFetchAccessTokenResponse");
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("expire_time", &self.expire_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "feature-registry-service")]
 impl std::fmt::Debug for super::CreateFeatureGroupRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -5410,6 +5467,7 @@ impl std::fmt::Debug for super::FeatureView {
         debug_struct.field("service_account_email", &self.service_account_email);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("bigtable_metadata", &self.bigtable_metadata);
         debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -5528,6 +5586,18 @@ impl std::fmt::Debug for super::feature_view::OptimizedConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OptimizedConfig");
         debug_struct.field("automatic_resources", &self.automatic_resources);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "feature-online-store-admin-service")]
+impl std::fmt::Debug for super::feature_view::BigtableMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigtableMetadata");
+        debug_struct.field("read_app_profile", &self.read_app_profile);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12634,6 +12704,7 @@ impl std::fmt::Debug for super::PredictRequest {
         debug_struct.field("endpoint", &self.endpoint);
         debug_struct.field("instances", &self.instances);
         debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("labels", &self.labels);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13161,6 +13232,7 @@ impl std::fmt::Debug for super::ReasoningEngineSpec {
         debug_struct.field("deployment_spec", &self.deployment_spec);
         debug_struct.field("class_methods", &self.class_methods);
         debug_struct.field("agent_framework", &self.agent_framework);
+        debug_struct.field("deployment_source", &self.deployment_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13202,6 +13274,46 @@ impl std::fmt::Debug for super::reasoning_engine_spec::DeploymentSpec {
 }
 
 #[cfg(feature = "reasoning-engine-service")]
+impl std::fmt::Debug for super::reasoning_engine_spec::SourceCodeSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceCodeSpec");
+        debug_struct.field("source", &self.source);
+        debug_struct.field("language_spec", &self.language_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+impl std::fmt::Debug for super::reasoning_engine_spec::source_code_spec::InlineSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InlineSource");
+        debug_struct.field("source_archive", &self.source_archive);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+impl std::fmt::Debug for super::reasoning_engine_spec::source_code_spec::PythonSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PythonSpec");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("entrypoint_module", &self.entrypoint_module);
+        debug_struct.field("entrypoint_object", &self.entrypoint_object);
+        debug_struct.field("requirements_file", &self.requirements_file);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
 impl std::fmt::Debug for super::ReasoningEngine {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReasoningEngine");
@@ -13213,6 +13325,7 @@ impl std::fmt::Debug for super::ReasoningEngine {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("encryption_spec", &self.encryption_spec);
+        debug_struct.field("labels", &self.labels);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14998,6 +15111,10 @@ impl std::fmt::Debug for super::tool::ComputerUse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ComputerUse");
         debug_struct.field("environment", &self.environment);
+        debug_struct.field(
+            "excluded_predefined_functions",
+            &self.excluded_predefined_functions,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15069,11 +15186,73 @@ impl std::fmt::Debug for super::FunctionCall {
     feature = "prediction-service",
     feature = "vertex-rag-service",
 ))]
+impl std::fmt::Debug for super::FunctionResponsePart {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FunctionResponsePart");
+        debug_struct.field("data", &self.data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+impl std::fmt::Debug for super::FunctionResponseBlob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FunctionResponseBlob");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
+impl std::fmt::Debug for super::FunctionResponseFileData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FunctionResponseFileData");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("file_uri", &self.file_uri);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "data-foundry-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+    feature = "vertex-rag-service",
+))]
 impl std::fmt::Debug for super::FunctionResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FunctionResponse");
         debug_struct.field("name", &self.name);
         debug_struct.field("response", &self.response);
+        debug_struct.field("parts", &self.parts);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15709,6 +15888,20 @@ impl std::fmt::Debug for super::TunedModelCheckpoint {
         debug_struct.field("epoch", &self.epoch);
         debug_struct.field("step", &self.step);
         debug_struct.field("endpoint", &self.endpoint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::PreTunedModel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreTunedModel");
+        debug_struct.field("tuned_model_name", &self.tuned_model_name);
+        debug_struct.field("checkpoint_id", &self.checkpoint_id);
+        debug_struct.field("base_model", &self.base_model);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

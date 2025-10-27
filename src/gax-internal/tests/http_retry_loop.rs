@@ -34,9 +34,9 @@ mod tests {
     use serde_json::json;
     use std::time::Duration;
 
-    #[cfg(feature = "_unstable-o12y")]
+    #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::TestLayer;
-    #[cfg(feature = "_unstable-o12y")]
+    #[cfg(google_cloud_unstable_tracing)]
     use opentelemetry_semantic_conventions::trace::HTTP_REQUEST_RESEND_COUNT;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -111,7 +111,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(feature = "_unstable-o12y")]
+    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn retry_loop_retry_success_with_tracing_on() -> Result<()> {
         let guard = TestLayer::initialize();
@@ -141,7 +141,7 @@ mod tests {
         assert_eq!(
             spans.len(),
             3,
-            "Expected 3 spans for 3 attempts, got: {:?}",
+            "Should capture 3 spans for 3 attempts: {:?}",
             spans
         );
 
@@ -152,9 +152,8 @@ mod tests {
 
         assert!(
             attributes0.get(HTTP_REQUEST_RESEND_COUNT).is_none(),
-            "Span 0: '{}' should not be present, got: {:?}, all attributes: {:?}",
+            "Span 0: '{}' should not be present, all attributes: {:?}",
             HTTP_REQUEST_RESEND_COUNT,
-            attributes0.get(HTTP_REQUEST_RESEND_COUNT),
             attributes0
         );
 
@@ -167,10 +166,8 @@ mod tests {
         assert_eq!(
             attributes1.get(HTTP_REQUEST_RESEND_COUNT),
             Some(&expected_resend_count),
-            "Span 1: '{}' mismatch, expected: {:?}, got: {:?}, all attributes: {:?}",
+            "Span 1: '{}' mismatch, all attributes: {:?}",
             HTTP_REQUEST_RESEND_COUNT,
-            Some(&expected_resend_count),
-            attributes1.get(HTTP_REQUEST_RESEND_COUNT),
             attributes1
         );
 
@@ -183,10 +180,8 @@ mod tests {
         assert_eq!(
             attributes2.get(HTTP_REQUEST_RESEND_COUNT),
             Some(&expected_resend_count),
-            "Span 2: '{}' mismatch, expected: {:?}, got: {:?}, all attributes: {:?}",
+            "Span 2: '{}' mismatch, all attributes: {:?}",
             HTTP_REQUEST_RESEND_COUNT,
-            Some(&expected_resend_count),
-            attributes2.get(HTTP_REQUEST_RESEND_COUNT),
             attributes2
         );
 

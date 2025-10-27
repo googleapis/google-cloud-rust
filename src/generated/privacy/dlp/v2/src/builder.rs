@@ -291,6 +291,18 @@ pub mod dlp_service {
             self.0.request.byte_item = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [inspect_template][crate::model::RedactImageRequest::inspect_template].
+        pub fn set_inspect_template<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.inspect_template = v.into();
+            self
+        }
+
+        /// Sets the value of [deidentify_template][crate::model::RedactImageRequest::deidentify_template].
+        pub fn set_deidentify_template<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.deidentify_template = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]

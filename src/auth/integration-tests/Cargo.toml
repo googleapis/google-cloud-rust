@@ -44,3 +44,6 @@ bigquery       = { path = "../../../src/generated/cloud/bigquery/v2", package = 
 [dev-dependencies]
 serial_test = { workspace = true }
 tokio       = { workspace = true, features = ["full", "macros"] }
+
+[lints]
+workspace = true

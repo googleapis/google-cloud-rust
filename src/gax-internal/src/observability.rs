@@ -17,7 +17,14 @@
 //! This module and its sub-modules contain types and functions for emitting
 //! tracing spans and metrics.
 
-mod attributes;
+#[cfg(google_cloud_unstable_tracing)]
+pub mod attributes;
+
+#[cfg(google_cloud_unstable_tracing)]
+mod errors;
+
+#[cfg(google_cloud_unstable_tracing)]
 mod http_tracing;
 
+#[cfg(google_cloud_unstable_tracing)]
 pub(crate) use http_tracing::HttpSpanInfo;

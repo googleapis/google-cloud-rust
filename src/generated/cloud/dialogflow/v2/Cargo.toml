@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-dialogflow-v2"
-version                = "1.1.0"
+version                = "1.2.0"
 description            = "Google Cloud Client Libraries for Rust - Dialogflow API"
 edition.workspace      = true
 authors.workspace      = true
@@ -31,10 +31,10 @@ default = [
     "agents",
     "answer-records",
     "contexts",
-    "conversations",
     "conversation-datasets",
     "conversation-models",
     "conversation-profiles",
+    "conversations",
     "documents",
     "encryption-spec-service",
     "entity-types",
@@ -44,8 +44,8 @@ default = [
     "intents",
     "knowledge-bases",
     "participants",
-    "sessions",
     "session-entity-types",
+    "sessions",
     "versions",
 ]
 # Enables `client::Agents` and all the types it depends on.

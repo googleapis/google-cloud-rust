@@ -40,7 +40,7 @@ where
             .size_hint()
             .await
             .map_err(Error::ser)?;
-        let threshold = self.options.resumable_upload_threshold as u64;
+        let threshold = self.options.resumable_upload_threshold() as u64;
         if hint.upper().is_none_or(|max| max >= threshold) {
             self.send_buffered_resumable(hint).await
         } else {
@@ -49,7 +49,7 @@ where
     }
 
     async fn send_buffered_resumable(self, hint: SizeHint) -> Result<Object> {
-        let mut progress = InProgressUpload::new(self.options.resumable_upload_buffer_size, hint);
+        let mut progress = InProgressUpload::new(self.options.resumable_upload_buffer_size(), hint);
         let mut url = None;
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));

@@ -11576,6 +11576,72 @@ pub mod feature_online_store_service {
         }
     }
 
+    /// The request builder for [FeatureOnlineStoreService::generate_fetch_access_token][crate::client::FeatureOnlineStoreService::generate_fetch_access_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_aiplatform_v1::builder;
+    /// use builder::feature_online_store_service::GenerateFetchAccessToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateFetchAccessToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GenerateFetchAccessToken(
+        RequestBuilder<crate::model::GenerateFetchAccessTokenRequest>,
+    );
+
+    impl GenerateFetchAccessToken {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FeatureOnlineStoreService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GenerateFetchAccessTokenRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::GenerateFetchAccessTokenResponse> {
+            (*self.0.stub)
+                .generate_fetch_access_token(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [feature_view][crate::model::GenerateFetchAccessTokenRequest::feature_view].
+        pub fn set_feature_view<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.feature_view = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GenerateFetchAccessToken {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [FeatureOnlineStoreService::list_locations][crate::client::FeatureOnlineStoreService::list_locations] calls.
     ///
     /// # Example
@@ -47323,6 +47389,17 @@ pub mod prediction_service {
             T: std::convert::Into<wkt::Value>,
         {
             self.0.request.parameters = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::PredictRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }

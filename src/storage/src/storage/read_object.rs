@@ -12,18 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod non_resumable;
+mod parse_http_response;
+mod resumable;
+
 use super::client::*;
 use super::*;
-use crate::error::ReadError;
-use crate::model::ObjectChecksums;
 use crate::model_ext::KeyAes256;
-use crate::model_ext::ObjectHighlights;
 use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
-use crate::storage::checksum::details::{Md5, validate};
+use crate::storage::checksum::details::Md5;
 use crate::storage::request_options::RequestOptions;
-use base64::Engine;
-use serde_with::DeserializeAs;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -357,7 +356,34 @@ where
     where
         V: ReadResumePolicy + 'static,
     {
-        self.options.read_resume_policy = std::sync::Arc::new(v);
+        self.options.set_read_resume_policy(std::sync::Arc::new(v));
+        self
+    }
+
+    /// Enables automatic decompression.
+    ///
+    /// The Cloud Storage service [automatically decompresses] objects
+    /// with `content_encoding == "gzip"` during reads. The client library
+    /// disables this behavior by default, as it is not possible to
+    /// perform ranged reads or to resume interrupted downloads if automatic
+    /// decompression is enabled.
+    ///
+    /// Use this option to enable automatic decompression.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_automatic_decompression(true)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_automatic_decompression(mut self, v: bool) -> Self {
+        self.options.automatic_decompression = v;
         self
     }
 
@@ -432,6 +458,20 @@ impl Reader {
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
+        let builder = if self.options.automatic_decompression {
+            builder
+        } else {
+            // Disable decompressive transcoding: https://cloud.google.com/storage/docs/transcoding
+            //
+            // The default is to decompress objects that have `contentEncoding == "gzip"`. This header
+            // tells Cloud Storage to disable automatic decompression. It has no effect on objects
+            // with a different `contentEncoding` value.
+            builder.header(
+                "accept-encoding",
+                reqwest::header::HeaderValue::from_static("gzip"),
+            )
+        };
+
         // Add the optional query parameters.
         let builder = if self.request.generation != 0 {
             builder.query(&[("generation", self.request.generation)])
@@ -488,284 +528,46 @@ impl Reader {
 
         self.inner.apply_auth_headers(builder).await
     }
-}
 
-fn headers_to_crc32c(headers: &http::HeaderMap) -> Option<u32> {
-    headers
-        .get("x-goog-hash")
-        .and_then(|hash| hash.to_str().ok())
-        .and_then(|hash| hash.split(",").find(|v| v.starts_with("crc32c")))
-        .and_then(|hash| {
-            let hash = hash.trim_start_matches("crc32c=");
-            v1::Crc32c::deserialize_as(serde_json::json!(hash)).ok()
-        })
-}
-
-fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
-    headers
-        .get("x-goog-hash")
-        .and_then(|hash| hash.to_str().ok())
-        .and_then(|hash| hash.split(",").find(|v| v.starts_with("md5")))
-        .and_then(|hash| {
-            let hash = hash.trim_start_matches("md5=");
-            base64::prelude::BASE64_STANDARD.decode(hash).ok()
-        })
-        .unwrap_or_default()
-}
-
-/// A response to a [Storage::read_object] request.
-#[derive(Debug)]
-pub(crate) struct ReadObjectResponseImpl {
-    reader: Reader,
-    response: Option<reqwest::Response>,
-    highlights: ObjectHighlights,
-    // Fields for tracking the crc checksum checks.
-    response_checksums: ObjectChecksums,
-    // Fields for resuming a read request.
-    range: ReadRange,
-    generation: i64,
-    resume_count: u32,
-}
-
-impl ReadObjectResponseImpl {
-    pub(crate) async fn new(reader: Reader) -> Result<Self> {
-        let response = reader.clone().read().await?;
-
-        let full = reader.request.read_offset == 0 && reader.request.read_limit == 0;
-        let response_checksums =
-            checksums_from_response(full, response.status(), response.headers());
-        let range = response_range(&response).map_err(Error::deser)?;
-        let generation = response_generation(&response).map_err(Error::deser)?;
-
-        let headers = response.headers();
-        let get_as_i64 = |header_name: &str| -> i64 {
-            headers
-                .get(header_name)
-                .and_then(|s| s.to_str().ok())
-                .and_then(|s| s.parse::<i64>().ok())
-                .unwrap_or_default()
-        };
-        let get_as_string = |header_name: &str| -> String {
-            headers
-                .get(header_name)
-                .and_then(|sc| sc.to_str().ok())
-                .map(|sc| sc.to_string())
-                .unwrap_or_default()
-        };
-        let highlights = ObjectHighlights {
-            generation,
-            metageneration: get_as_i64("x-goog-metageneration"),
-            size: get_as_i64("x-goog-stored-content-length"),
-            content_encoding: get_as_string("x-goog-stored-content-encoding"),
-            storage_class: get_as_string("x-goog-storage-class"),
-            content_type: get_as_string("content-type"),
-            content_language: get_as_string("content-language"),
-            content_disposition: get_as_string("content-disposition"),
-            etag: get_as_string("etag"),
-            checksums: headers.get("x-goog-hash").map(|_| {
-                crate::model::ObjectChecksums::new()
-                    .set_or_clear_crc32c(headers_to_crc32c(headers))
-                    .set_md5_hash(headers_to_md5_hash(headers))
-            }),
-        };
-
-        Ok(Self {
-            reader,
-            response: Some(response),
-            highlights,
-            // Fields for computing checksums.
-            response_checksums,
-            // Fields for resuming a read request.
-            range,
-            generation,
-            resume_count: 0,
-        })
-    }
-}
-
-#[async_trait::async_trait]
-impl crate::read_object::dynamic::ReadObjectResponse for ReadObjectResponseImpl {
-    fn object(&self) -> ObjectHighlights {
-        self.highlights.clone()
-    }
-
-    async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
-        match self.next_attempt().await {
-            None => None,
-            Some(Ok(b)) => Some(Ok(b)),
-            // Recursive async requires pin:
-            //     https://rust-lang.github.io/async-book/07_workarounds/04_recursion.html
-            Some(Err(e)) => Box::pin(self.resume(e)).await,
-        }
-    }
-}
-
-impl ReadObjectResponseImpl {
-    async fn next_attempt(&mut self) -> Option<Result<bytes::Bytes>> {
-        let response = self.response.as_mut()?;
-        let res = response.chunk().await.map_err(Error::io);
-        match res {
-            Ok(Some(chunk)) => {
-                self.reader
-                    .options
-                    .checksum
-                    .update(self.range.start, &chunk);
-                let len = chunk.len() as u64;
-                if self.range.limit < len {
-                    return Some(Err(Error::deser(ReadError::LongRead {
-                        expected: self.range.limit,
-                        got: len,
-                    })));
-                }
-                self.range.limit -= len;
-                self.range.start += len;
-                Some(Ok(chunk))
-            }
-            Ok(None) => {
-                if self.range.limit != 0 {
-                    return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
-                }
-                let computed = self.reader.options.checksum.finalize();
-                let res = validate(&self.response_checksums, &Some(computed));
-                match res {
-                    Err(e) => Some(Err(Error::deser(ReadError::ChecksumMismatch(e)))),
-                    Ok(()) => None,
-                }
-            }
-            Err(e) => Some(Err(e)),
-        }
-    }
-
-    async fn resume(&mut self, error: Error) -> Option<Result<bytes::Bytes>> {
-        use crate::read_object::dynamic::ReadObjectResponse;
-        use crate::read_resume_policy::{ResumeQuery, ResumeResult};
-
-        // The existing read is no longer valid.
-        self.response = None;
-        self.resume_count += 1;
-        let query = ResumeQuery::new(self.resume_count);
-        match self
-            .reader
-            .options
-            .read_resume_policy
-            .on_error(&query, error)
+    fn is_gunzipped(response: &reqwest::Response) -> bool {
+        // Cloud Storage automatically [decompresses gzip-compressed][transcoding]
+        // objects. Reading such objects comes with a number of restrictions:
+        // - Ranged reads do not work.
+        // - The size of the decompressed data is not known.
+        // - Checksums do not work because the object checksums correspond to the
+        //   compressed data and the client library receives the decompressed data.
+        //
+        // Because ranged reads do not work, resuming a read does not work. Consequently,
+        // the implementation of `ReadObjectResponse` is substantially different for
+        // objects that are gunzipped.
+        //
+        // [transcoding]: https://cloud.google.com/storage/docs/transcoding
+        const TRANSFORMATION: &str = "x-guploader-response-body-transformations";
+        use http::header::WARNING;
+        if response
+            .headers()
+            .get(TRANSFORMATION)
+            .is_some_and(|h| h.as_bytes() == "gunzipped".as_bytes())
         {
-            ResumeResult::Continue(_) => {}
-            ResumeResult::Permanent(e) => return Some(Err(e)),
-            ResumeResult::Exhausted(e) => return Some(Err(e)),
-        };
-        self.reader.request.read_offset = self.range.start as i64;
-        self.reader.request.read_limit = self.range.limit as i64;
-        self.reader.request.generation = self.generation;
-        self.response = match self.reader.clone().read().await {
-            Ok(r) => Some(r),
-            Err(e) => return Some(Err(e)),
-        };
-        self.next().await
-    }
-}
-
-/// Returns the object checksums to validate against.
-///
-/// For some responses, the checksums are not expected to match the data.
-/// The function returns an empty `ObjectChecksums` in such a case.
-///
-/// Checksum validation is supported iff:
-/// 1. We requested the full content.
-/// 2. We got all the content (status != PartialContent).
-/// 3. The server sent a CRC header.
-/// 4. The http stack did not uncompress the file.
-/// 5. We were not served compressed data that was uncompressed on read.
-///
-/// For 4, we turn off automatic decompression in reqwest::Client when we
-/// create it,
-fn checksums_from_response(
-    full_content_requested: bool,
-    status: http::StatusCode,
-    headers: &http::HeaderMap,
-) -> ObjectChecksums {
-    let checksums = ObjectChecksums::new();
-    if !full_content_requested || status == http::StatusCode::PARTIAL_CONTENT {
-        return checksums;
-    }
-    let stored_encoding = headers
-        .get("x-goog-stored-content-encoding")
-        .and_then(|e| e.to_str().ok())
-        .map_or("", |e| e);
-    let content_encoding = headers
-        .get("content-encoding")
-        .and_then(|e| e.to_str().ok())
-        .map_or("", |e| e);
-    if stored_encoding == "gzip" && content_encoding != "gzip" {
-        return checksums;
-    }
-    checksums
-        .set_or_clear_crc32c(headers_to_crc32c(headers))
-        .set_md5_hash(headers_to_md5_hash(headers))
-}
-
-fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange, ReadError> {
-    match response.status() {
-        reqwest::StatusCode::OK => {
-            let header = required_header(response, "content-length")?;
-            let limit = header
-                .parse::<u64>()
-                .map_err(|e| ReadError::BadHeaderFormat("content-length", e.into()))?;
-            Ok(ReadRange { start: 0, limit })
+            return true;
         }
-        reqwest::StatusCode::PARTIAL_CONTENT => {
-            let header = required_header(response, "content-range")?;
-            let header = header.strip_prefix("bytes ").ok_or_else(|| {
-                ReadError::BadHeaderFormat("content-range", "missing bytes prefix".into())
-            })?;
-            let (range, _) = header.split_once('/').ok_or_else(|| {
-                ReadError::BadHeaderFormat("content-range", "missing / separator".into())
-            })?;
-            let (start, end) = range.split_once('-').ok_or_else(|| {
-                ReadError::BadHeaderFormat("content-range", "missing - separator".into())
-            })?;
-            let start = start
-                .parse::<u64>()
-                .map_err(|e| ReadError::BadHeaderFormat("content-range", e.into()))?;
-            let end = end
-                .parse::<u64>()
-                .map_err(|e| ReadError::BadHeaderFormat("content-range", e.into()))?;
-            // HTTP ranges are inclusive, we need to compute the number of bytes
-            // in the range:
-            let end = end + 1;
-            let limit = end
-                .checked_sub(start)
-                .ok_or_else(|| ReadError::BadHeaderFormat("content-range", format!("range start ({start}) should be less than or equal to the range end ({end})").into()))?;
-            Ok(ReadRange { start, limit })
-        }
-        s => Err(ReadError::UnexpectedSuccessCode(s.as_u16())),
+        response
+            .headers()
+            .get(WARNING)
+            .is_some_and(|h| h.as_bytes() == "214 UploadServer gunzipped".as_bytes())
     }
-}
 
-fn response_generation(response: &reqwest::Response) -> std::result::Result<i64, ReadError> {
-    let header = required_header(response, "x-goog-generation")?;
-    header
-        .parse::<i64>()
-        .map_err(|e| ReadError::BadHeaderFormat("x-goog-generation", e.into()))
-}
-
-fn required_header<'a>(
-    response: &'a reqwest::Response,
-    name: &'static str,
-) -> std::result::Result<&'a str, ReadError> {
-    let header = response
-        .headers()
-        .get(name)
-        .ok_or_else(|| ReadError::MissingHeader(name))?;
-    header
-        .to_str()
-        .map_err(|e| ReadError::BadHeaderFormat(name, e.into()))
-}
-
-#[derive(Debug, PartialEq)]
-struct ReadRange {
-    start: u64,
-    limit: u64,
+    pub(crate) async fn response(self) -> Result<ReadObjectResponse> {
+        let response = self.clone().read().await?;
+        if Self::is_gunzipped(&response) {
+            return Ok(ReadObjectResponse::new(Box::new(
+                non_resumable::NonResumableResponse::new(response)?,
+            )));
+        }
+        Ok(ReadObjectResponse::new(Box::new(
+            resumable::ResumableResponse::new(self, response)?,
+        )))
+    }
 }
 
 #[cfg(test)]
@@ -775,9 +577,10 @@ mod resume_tests;
 mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
-    use crate::error::ChecksumMismatch;
+    use crate::error::{ChecksumMismatch, ReadError};
     use crate::model_ext::{KeyAes256, ReadRange, tests::create_key_helper};
     use auth::credentials::anonymous::Builder as Anonymous;
+    use base64::Engine;
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
@@ -785,7 +588,7 @@ mod tests {
     use std::sync::Arc;
     use test_case::test_case;
 
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+    type Result = anyhow::Result<()>;
 
     async fn http_request_builder(
         inner: Arc<StorageInner>,
@@ -824,12 +627,14 @@ mod tests {
 
         Ok(())
     }
+
     #[tokio::test]
     async fn read_object_normal() -> Result {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
                 request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+                request::headers(contains(("accept-encoding", "gzip"))),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
             .respond_with(
@@ -853,61 +658,6 @@ mod tests {
             got.extend_from_slice(&b);
         }
         assert_eq!(bytes::Bytes::from_owner(got), "hello world");
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn read_object_metadata() -> Result {
-        const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
-                request::query(url_decoded(contains(("alt", "media")))),
-            ])
-            .respond_with(
-                status_code(200)
-                    .body(CONTENTS)
-                    .append_header(
-                        "x-goog-hash",
-                        "crc32c=PBj01g==,md5=d63R1fQSI9VYL8pzalyzNQ==",
-                    )
-                    .append_header("x-goog-generation", 500)
-                    .append_header("x-goog-metageneration", "1")
-                    .append_header("x-goog-stored-content-length", 30)
-                    .append_header("x-goog-stored-content-encoding", "identity")
-                    .append_header("x-goog-storage-class", "STANDARD")
-                    .append_header("content-language", "en")
-                    .append_header("content-type", "text/plain")
-                    .append_header("content-disposition", "inline")
-                    .append_header("etag", "etagval"),
-            ),
-        );
-
-        let endpoint = server.url("");
-        let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await?;
-        let reader = client
-            .read_object("projects/_/buckets/test-bucket", "test-object")
-            .send()
-            .await?;
-        let object = reader.object();
-        assert_eq!(object.generation, 500);
-        assert_eq!(object.metageneration, 1);
-        assert_eq!(object.size, 30);
-        assert_eq!(object.content_encoding, "identity");
-        assert_eq!(
-            object.checksums.as_ref().unwrap().crc32c.unwrap(),
-            crc32c::crc32c(CONTENTS.as_bytes())
-        );
-        assert_eq!(
-            object.checksums.as_ref().unwrap().md5_hash,
-            base64::prelude::BASE64_STANDARD.decode("d63R1fQSI9VYL8pzalyzNQ==")?
-        );
 
         Ok(())
     }
@@ -1261,7 +1011,63 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn read_object_headers() -> Result {
+    async fn read_object_default_headers() -> Result {
+        // The API takes the unencoded byte array.
+        let inner = test_inner_client(test_builder());
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        );
+        let request = http_request_builder(inner, builder).await?.build()?;
+
+        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(
+            request.url().as_str(),
+            "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+
+        let want = [("accept-encoding", "gzip")];
+        let headers = request.headers();
+        for (name, value) in want {
+            assert_eq!(
+                headers.get(name).and_then(|h| h.to_str().ok()),
+                Some(value),
+                "{request:?}"
+            );
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_automatic_decompression_headers() -> Result {
+        // The API takes the unencoded byte array.
+        let inner = test_inner_client(test_builder());
+        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .with_automatic_decompression(true);
+        let request = http_request_builder(inner, builder).await?.build()?;
+
+        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(
+            request.url().as_str(),
+            "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+
+        let headers = request.headers();
+        assert!(headers.get("accept-encoding").is_none(), "{request:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_encryption_headers() -> Result {
         // Make a 32-byte key.
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
@@ -1283,16 +1089,17 @@ mod tests {
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
         );
 
-        let want = vec![
+        let want = [
             ("x-goog-encryption-algorithm", "AES256".to_string()),
             ("x-goog-encryption-key", key_base64),
             ("x-goog-encryption-key-sha256", key_sha256_base64),
         ];
 
+        let headers = request.headers();
         for (name, value) in want {
             assert_eq!(
-                request.headers().get(name).unwrap().as_bytes(),
-                bytes::Bytes::from(value)
+                headers.get(name).and_then(|h| h.to_str().ok()),
+                Some(value.as_str())
             );
         }
         Ok(())
@@ -1354,248 +1161,19 @@ mod tests {
         Ok(())
     }
 
-    #[test]
-    fn document_crc32c_values() {
-        let bytes = (1234567890_u32).to_be_bytes();
-        let base64 = base64::prelude::BASE64_STANDARD.encode(bytes);
-        assert_eq!(base64, "SZYC0g==", "{bytes:?}");
-    }
-
-    #[test_case("", None; "no header")]
-    #[test_case("crc32c=hello", None; "invalid value")]
-    #[test_case("crc32c=AAAAAA==", Some(0); "zero value")]
-    #[test_case("crc32c=SZYC0g==", Some(1234567890_u32); "value")]
-    #[test_case("crc32c=SZYC0g==,md5=something", Some(1234567890_u32); "md5 after crc32c")]
-    #[test_case("md5=something,crc32c=SZYC0g==", Some(1234567890_u32); "md5 before crc32c")]
-    fn test_headers_to_crc(val: &str, want: Option<u32>) -> Result {
-        let mut headers = http::HeaderMap::new();
-        if !val.is_empty() {
-            headers.insert("x-goog-hash", http::HeaderValue::from_str(val)?);
-        }
-        let got = headers_to_crc32c(&headers);
-        assert_eq!(got, want);
-        Ok(())
-    }
-
-    #[test_case("", None; "no header")]
-    #[test_case("md5=invalid", None; "invalid value")]
-    #[test_case("md5=AAAAAAAAAAAAAAAAAA==",Some("AAAAAAAAAAAAAAAAAA=="); "zero value")]
-    #[test_case("md5=d63R1fQSI9VYL8pzalyzNQ==", Some("d63R1fQSI9VYL8pzalyzNQ=="); "value")]
-    #[test_case("crc32c=something,md5=d63R1fQSI9VYL8pzalyzNQ==", Some("d63R1fQSI9VYL8pzalyzNQ=="); "md5 after crc32c")]
-    #[test_case("md5=d63R1fQSI9VYL8pzalyzNQ==,crc32c=something", Some("d63R1fQSI9VYL8pzalyzNQ=="); "md5 before crc32c")]
-    fn test_headers_to_md5(val: &str, want: Option<&str>) -> Result {
-        let mut headers = http::HeaderMap::new();
-        if !val.is_empty() {
-            headers.insert("x-goog-hash", http::HeaderValue::from_str(val)?);
-        }
-        let got = headers_to_md5_hash(&headers);
-        match want {
-            Some(w) => assert_eq!(got, base64::prelude::BASE64_STANDARD.decode(w)?),
-            None => assert!(got.is_empty()),
-        }
-        Ok(())
-    }
-
-    #[test_case(false, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ==")], http::StatusCode::OK, None, ""; "full content not requested")]
-    #[test_case(true, vec![], http::StatusCode::PARTIAL_CONTENT, None, ""; "No x-goog-hash")]
-    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "json")], http::StatusCode::OK, None, ""; "server uncompressed")]
-    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "gzip")], http::StatusCode::OK, Some(1234567890_u32), "d63R1fQSI9VYL8pzalyzNQ=="; "both gzip")]
-    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==,md5=d63R1fQSI9VYL8pzalyzNQ==")], http::StatusCode::OK, Some(1234567890_u32), "d63R1fQSI9VYL8pzalyzNQ=="; "all ok")]
-    fn test_checksums_validation_enabled(
-        full_content_requested: bool,
-        headers: Vec<(&str, &str)>,
-        status: http::StatusCode,
-        want_crc32c: Option<u32>,
-        want_md5: &str,
-    ) -> Result {
-        let mut header_map = http::HeaderMap::new();
-        for (key, value) in headers {
-            header_map.insert(
-                http::HeaderName::from_bytes(key.as_bytes())?,
-                http::HeaderValue::from_bytes(value.as_bytes())?,
-            );
-        }
-
-        let got = checksums_from_response(full_content_requested, status, &header_map);
-        assert_eq!(got.crc32c, want_crc32c);
-        assert_eq!(
-            got.md5_hash,
-            base64::prelude::BASE64_STANDARD.decode(want_md5)?
-        );
-        Ok(())
-    }
-
-    #[test_case(0)]
-    #[test_case(1024)]
-    fn response_range_success(limit: u64) -> Result {
+    #[test_case("x-guploader-response-body-transformations", "gunzipped", true)]
+    #[test_case("x-guploader-response-body-transformations", "no match", false)]
+    #[test_case("warning", "214 UploadServer gunzipped", true)]
+    #[test_case("warning", "no match", false)]
+    #[test_case("unused", "unused", false)]
+    fn test_is_gunzipped(name: &'static str, value: &'static str, want: bool) -> Result {
         let response = http::Response::builder()
             .status(200)
-            .header("content-length", limit)
+            .header(name, value)
             .body(Vec::new())?;
         let response = reqwest::Response::from(response);
-        let range = response_range(&response)?;
-        assert_eq!(range, super::ReadRange { start: 0, limit });
-        Ok(())
-    }
-
-    #[test]
-    fn response_range_missing() -> Result {
-        let response = http::Response::builder().status(200).body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let err = response_range(&response).expect_err("missing header should result in an error");
-        assert!(
-            matches!(err, ReadError::MissingHeader(h) if h == "content-length"),
-            "{err:?}"
-        );
-        Ok(())
-    }
-
-    #[test_case("")]
-    #[test_case("abc")]
-    #[test_case("-123")]
-    fn response_range_format(value: &'static str) -> Result {
-        let response = http::Response::builder()
-            .status(200)
-            .header("content-length", value)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let err = response_range(&response).expect_err("header value should result in an error");
-        assert!(
-            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-length"),
-            "{err:?}"
-        );
-        assert!(err.source().is_some(), "{err:?}");
-        Ok(())
-    }
-
-    #[test_case(0, 123)]
-    #[test_case(123, 456)]
-    fn response_range_partial_success(start: u64, end: u64) -> Result {
-        let response = http::Response::builder()
-            .status(206)
-            .header(
-                "content-range",
-                format!("bytes {}-{}/{}", start, end, end + 1),
-            )
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let range = response_range(&response)?;
-        assert_eq!(
-            range,
-            super::ReadRange {
-                start,
-                limit: (end + 1 - start)
-            }
-        );
-        Ok(())
-    }
-
-    #[test]
-    fn response_range_partial_missing() -> Result {
-        let response = http::Response::builder().status(206).body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let err = response_range(&response).expect_err("missing header should result in an error");
-        assert!(
-            matches!(err, ReadError::MissingHeader(h) if h == "content-range"),
-            "{err:?}"
-        );
-        Ok(())
-    }
-
-    #[test_case("")]
-    #[test_case("123-456/457"; "bad prefix")]
-    #[test_case("bytes 123-456 457"; "bad separator")]
-    #[test_case("bytes 123+456/457"; "bad separator [2]")]
-    #[test_case("bytes abc-456/457"; "start is not numbers")]
-    #[test_case("bytes 123-cde/457"; "end is not numbers")]
-    #[test_case("bytes 123-0/457"; "invalid range")]
-    fn response_range_partial_format(value: &'static str) -> Result {
-        let response = http::Response::builder()
-            .status(206)
-            .header("content-range", value)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let err = response_range(&response).expect_err("header value should result in an error");
-        assert!(
-            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-range"),
-            "{err:?}"
-        );
-        assert!(err.source().is_some(), "{err:?}");
-        Ok(())
-    }
-
-    #[test]
-    fn response_range_bad_response() -> Result {
-        let code = reqwest::StatusCode::CREATED;
-        let response = http::Response::builder().status(code).body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let err = response_range(&response).expect_err("unexpected status creates error");
-        assert!(
-            matches!(err, ReadError::UnexpectedSuccessCode(c) if c == code),
-            "{err:?}"
-        );
-        Ok(())
-    }
-
-    #[test_case(0)]
-    #[test_case(1024)]
-    fn response_generation_success(value: i64) -> Result {
-        let response = http::Response::builder()
-            .status(200)
-            .header("x-goog-generation", value)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let got = response_generation(&response)?;
-        assert_eq!(got, value);
-        Ok(())
-    }
-
-    #[test]
-    fn response_generation_missing() -> Result {
-        let response = http::Response::builder().status(200).body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let err =
-            response_generation(&response).expect_err("missing header should result in an error");
-        assert!(
-            matches!(err, ReadError::MissingHeader(h) if h == "x-goog-generation"),
-            "{err:?}"
-        );
-        Ok(())
-    }
-
-    #[test_case("")]
-    #[test_case("abc")]
-    fn response_generation_format(value: &'static str) -> Result {
-        let response = http::Response::builder()
-            .status(200)
-            .header("x-goog-generation", value)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let err =
-            response_generation(&response).expect_err("header value should result in an error");
-        assert!(
-            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "x-goog-generation"),
-            "{err:?}"
-        );
-        assert!(err.source().is_some(), "{err:?}");
-        Ok(())
-    }
-
-    #[test]
-    fn required_header_not_str() -> Result {
-        let name = "x-goog-test";
-        let response = http::Response::builder()
-            .status(200)
-            .header(name, http::HeaderValue::from_bytes(b"invalid\xfa")?)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let err =
-            required_header(&response, name).expect_err("header value should result in an error");
-        assert!(
-            matches!(err, ReadError::BadHeaderFormat(h, _) if h == name),
-            "{err:?}"
-        );
-        assert!(err.source().is_some(), "{err:?}");
+        let got = Reader::is_gunzipped(&response);
+        assert_eq!(got, want, "{response:?}");
         Ok(())
     }
 }

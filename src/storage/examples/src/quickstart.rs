@@ -13,6 +13,7 @@
 // limitations under the License.
 
 // [START storage_quickstart]
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_storage::{client::StorageControl, model::Bucket};
 
 pub async fn sample(
@@ -30,6 +31,8 @@ pub async fn sample(
                 .set_storage_class("STANDARD")
                 .set_location("US"),
         )
+        // This is an idempotent request: it can only succeed once.
+        .with_idempotency(true)
         .send()
         .await?;
     println!("successfully created bucket {bucket:?}");

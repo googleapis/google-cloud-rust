@@ -1295,6 +1295,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn generate_fetch_access_token(
+        &self,
+        req: crate::model::GenerateFetchAccessTokenRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::GenerateFetchAccessTokenResponse>> {
+        self.inner.generate_fetch_access_token(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

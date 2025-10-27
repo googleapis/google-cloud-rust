@@ -608,16 +608,31 @@ impl CatalogService {
     }
 
     /// Lists Entries within an EntryGroup.
+    /// Caution: The Vertex AI, Bigtable, Spanner, Pub/Sub, Dataform, and Dataproc
+    /// Metastore metadata that is stored in Dataplex Universal Catalog is
+    /// changing. For more information, see [Changes to metadata stored in
+    /// Dataplex Universal
+    /// Catalog](https://cloud.google.com/dataplex/docs/metadata-changes).
     pub fn list_entries(&self) -> super::builder::catalog_service::ListEntries {
         super::builder::catalog_service::ListEntries::new(self.inner.clone())
     }
 
     /// Gets an Entry.
+    /// Caution: The Vertex AI, Bigtable, Spanner, Pub/Sub, Dataform, and Dataproc
+    /// Metastore metadata that is stored in Dataplex Universal Catalog is
+    /// changing. For more information, see [Changes to metadata stored in
+    /// Dataplex Universal
+    /// Catalog](https://cloud.google.com/dataplex/docs/metadata-changes).
     pub fn get_entry(&self) -> super::builder::catalog_service::GetEntry {
         super::builder::catalog_service::GetEntry::new(self.inner.clone())
     }
 
     /// Looks up an entry by name using the permission on the source system.
+    /// Caution: The Vertex AI, Bigtable, Spanner, Pub/Sub, Dataform, and Dataproc
+    /// Metastore metadata that is stored in Dataplex Universal Catalog is
+    /// changing. For more information, see [Changes to metadata stored in
+    /// Dataplex Universal
+    /// Catalog](https://cloud.google.com/dataplex/docs/metadata-changes).
     pub fn lookup_entry(&self) -> super::builder::catalog_service::LookupEntry {
         super::builder::catalog_service::LookupEntry::new(self.inner.clone())
     }
