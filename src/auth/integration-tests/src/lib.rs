@@ -20,12 +20,10 @@ use auth::credentials::{
         ProgrammaticBuilder as ExternalAccountProgrammaticBuilder,
     },
     impersonated::Builder as ImpersonatedCredentialsBuilder,
-    mds::idtoken::Builder as IDTokenMDSBuilder,
     service_account::Builder as ServiceAccountCredentialsBuilder,
     subject_token::{Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider},
 };
 use auth::errors::SubjectTokenProviderError;
-use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
 use bigquery::client::DatasetService;
 use gax::error::rpc::Code;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -34,7 +32,6 @@ use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
 use secretmanager::{client::SecretManagerService, model::SecretPayload};
-use serde_json::Value;
 use std::sync::Arc;
 
 pub async fn service_account() -> anyhow::Result<()> {
@@ -195,44 +192,6 @@ pub async fn api_key() -> anyhow::Result<()> {
         .set_content("Hello, world!")
         .set_type(language::model::document::Type::PlainText);
     client.analyze_sentiment().set_document(d).send().await?;
-
-    Ok(())
-}
-
-pub async fn mds_id_token() -> anyhow::Result<()> {
-    let audience = "https://example.com";
-
-    // Get the service account email from the metadata server directly
-    let client = reqwest::Client::new();
-    let expected_email = client
-        .get("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email")
-        .header("Metadata-Flavor", "Google")
-        .send()
-        .await
-        .expect("failed to get service account email from metadata server")
-        .text()
-        .await
-        .expect("failed to read service account email from metadata server response");
-
-    // Only works when running on an env that has MDS.
-    let id_token_creds = IDTokenMDSBuilder::new(audience)
-        .with_format("full")
-        .build()
-        .expect("failed to create id token credentials");
-    let token = id_token_creds
-        .id_token()
-        .await
-        .expect("failed to get id token");
-
-    // Decode the JWT and verify its claims
-    let parts: Vec<&str> = token.split('.').collect();
-    anyhow::ensure!(parts.len() == 3, "ID token is not a valid JWT");
-    let payload = URL_SAFE_NO_PAD.decode(parts[1])?;
-    let claims: Value = serde_json::from_slice(&payload)?;
-
-    assert_eq!(claims["aud"], audience);
-    assert_eq!(claims["email"], expected_email);
-    assert_eq!(claims["email_verified"], true);
 
     Ok(())
 }
@@ -564,5 +523,50 @@ impl SubjectTokenProvider for TestSubjectTokenProvider {
     type Error = TestProviderError;
     async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
         Ok(SubjectTokenBuilder::new(self.subject_token.clone()).build())
+    }
+}
+
+#[cfg(google_cloud_unstable_id_token)]
+pub mod unstable {
+    use auth::credentials::mds::idtoken::Builder as IDTokenMDSBuilder;
+    use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+    use serde_json::Value;
+
+    pub async fn mds_id_token() -> anyhow::Result<()> {
+        let audience = "https://example.com";
+
+        // Get the service account email from the metadata server directly
+        let client = reqwest::Client::new();
+        let expected_email = client
+            .get("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email")
+            .header("Metadata-Flavor", "Google")
+            .send()
+            .await
+            .expect("failed to get service account email from metadata server")
+            .text()
+            .await
+            .expect("failed to read service account email from metadata server response");
+
+        // Only works when running on an env that has MDS.
+        let id_token_creds = IDTokenMDSBuilder::new(audience)
+            .with_format("full")
+            .build()
+            .expect("failed to create id token credentials");
+        let token = id_token_creds
+            .id_token()
+            .await
+            .expect("failed to get id token");
+
+        // Decode the JWT and verify its claims
+        let parts: Vec<&str> = token.split('.').collect();
+        anyhow::ensure!(parts.len() == 3, "ID token is not a valid JWT");
+        let payload = URL_SAFE_NO_PAD.decode(parts[1])?;
+        let claims: Value = serde_json::from_slice(&payload)?;
+
+        assert_eq!(claims["aud"], audience);
+        assert_eq!(claims["email"], expected_email);
+        assert_eq!(claims["email_verified"], true);
+
+        Ok(())
     }
 }
