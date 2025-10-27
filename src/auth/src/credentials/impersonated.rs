@@ -706,7 +706,7 @@ pub mod idtoken {
         /// [application default login] with the [impersonation flag].
         ///
         /// [impersonation flag]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
-        /// [application default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
+        /// [application default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login  
         pub fn new<S: Into<String>>(target_audience: S, impersonated_credential: Value) -> Self {
             Self {
                 source: BuilderSource::FromJson(impersonated_credential),

@@ -165,9 +165,9 @@ fn build_id_token_credentials(
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
             match cred_type {
-                "authorized_user" => Err(BuilderError::not_supported(
-                    "{cred_type}, use user_account::idtoken::Builder directly.",
-                )),
+                "authorized_user" => Err(BuilderError::not_supported(format!(
+                    "{cred_type}, use user_account::idtoken::Builder directly."
+                ))),
                 "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
                 "impersonated_service_account" => {
                     impersonated::idtoken::Builder::new(audience, json).build()
