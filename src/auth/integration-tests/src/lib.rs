@@ -537,11 +537,47 @@ pub mod unstable {
     use auth::credentials::{
         Builder as AccessTokenCredentialBuilder, idtoken::Builder as IDTokenCredentialBuilder,
         impersonated::idtoken::Builder as ImpersonatedIDTokenBuilder,
+        mds::idtoken::Builder as IDTokenMDSBuilder,
         service_account::idtoken::Builder as ServiceAccountIDTokenBuilder,
     };
     use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
     use scoped_env::ScopedEnv;
     use serde_json::Value;
+
+    pub async fn mds_id_token() -> anyhow::Result<()> {
+        let audience = "https://example.com";
+
+        // Get the service account email from the metadata server directly
+        let client = reqwest::Client::new();
+        let expected_email = client
+            .get("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email")
+            .header("Metadata-Flavor", "Google")
+            .send()
+            .await
+            .expect("failed to get service account email from metadata server")
+            .text()
+            .await
+            .expect("failed to read service account email from metadata server response");
+
+        // Only works when running on an env that has MDS.
+        let id_token_creds = IDTokenMDSBuilder::new(audience)
+            .with_format("full")
+            .build()
+            .expect("failed to create id token credentials");
+
+        let token = id_token_creds
+            .id_token()
+            .await
+            .expect("failed to get id token");
+
+        let claims = parse_id_token(token)?;
+
+        assert_eq!(claims["aud"], audience);
+        assert_eq!(claims["email"], expected_email);
+        assert_eq!(claims["email_verified"], true);
+
+        Ok(())
+    }
 
     pub async fn id_token_adc() -> anyhow::Result<()> {
         let (project, adc_json) = get_project_and_service_account().await?;

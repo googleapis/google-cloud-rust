@@ -84,6 +84,12 @@ mod driver {
 
     #[cfg(all(test, google_cloud_unstable_id_token))]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_mds_id_token() -> anyhow::Result<()> {
+        auth_integration_tests::unstable::mds_id_token().await
+    }
+
+    #[cfg(all(test, google_cloud_unstable_id_token))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_id_token_adc() -> anyhow::Result<()> {
         auth_integration_tests::unstable::id_token_adc().await
     }

@@ -20,5 +20,5 @@ serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/terraform-runner@${PROJE
 steps:
   - name: 'hashicorp/terraform:latest'
     entrypoint: '/bin/sh'
-    dir: 'src/auth/.gcb/builds'
+    dir: '.gcb/builds'
     args: ['-c', 'terraform init && terraform plan -out /tmp/bootstrap.tplan && terraform apply /tmp/bootstrap.tplan']
