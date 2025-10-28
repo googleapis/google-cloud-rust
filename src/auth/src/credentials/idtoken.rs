@@ -227,17 +227,26 @@ pub struct VerifierBuilder {
 }
 
 impl VerifierBuilder {
+    /// Create a [`Verifier`] for ID Tokens with a target audience
+    /// for the token verification.
+    pub fn new<S: Into<String>>(audience: S) -> Self {
+        Self {
+            audience: audience.into(),
+            ..Self::default()
+        }
+    }
+
     /// The email address of the service account that signed the ID token.
     ///
     /// If provided, the verifier will check that the `email` claim in the
     /// ID token matches this value and that the `email_verified` claim is `true`.
-    /// 
+    ///
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_auth::credentials::idtoken::Verifier;
+    /// # use google_cloud_auth::credentials::idtoken::VerifierBuilder;
     /// let audience = "https://example.com";
-    /// let verifier = Verifier::new(audience)
+    /// let verifier = VerifierBuilder::new(audience)
     ///     .with_email("service-account@example.com")
     ///     .build();
     /// ```
@@ -250,13 +259,13 @@ impl VerifierBuilder {
     /// that can be used to verify the signature of the ID token.
     ///
     /// If not provided, the default Google certs URL will be used.
-    /// 
+    ///
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_auth::credentials::idtoken::Verifier;
+    /// # use google_cloud_auth::credentials::idtoken::VerifierBuilder;
     /// let audience = "https://example.com";
-    /// let verifier = Verifier::new(audience)
+    /// let verifier = VerifierBuilder::new(audience)
     ///     .with_jwks_url("https://www.googleapis.com/oauth2/v3/certs")
     ///     .build();    
     /// ```
@@ -269,14 +278,14 @@ impl VerifierBuilder {
     ///
     /// This value is used to account for clock differences between the token
     /// issuer and the verifier. The default value is 10 seconds.
-    /// 
+    ///
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_auth::credentials::idtoken::Verifier;
+    /// # use google_cloud_auth::credentials::idtoken::VerifierBuilder;
     /// # use std::time::Duration;
     /// let audience = "https://example.com";
-    /// let verifier = Verifier::new(audience)
+    /// let verifier = VerifierBuilder::new(audience)
     ///     .with_clock_skew(Duration::from_secs(60))
     ///     .build();
     /// ```
@@ -289,7 +298,7 @@ impl VerifierBuilder {
     pub fn build(self) -> Verifier {
         Verifier {
             jwk_client: JwkClient::new(),
-            audience: self.audience.into(),
+            audience: self.audience.clone(),
             email: self.email.clone(),
             jwks_url: self.jwks_url.clone(),
             clock_skew: self.clock_skew.unwrap_or_else(|| Duration::from_secs(10)),
@@ -302,12 +311,12 @@ impl VerifierBuilder {
 /// # Example
 ///
 /// ```
-/// # use google_cloud_auth::credentials::idtoken::Verifier;
+/// # use google_cloud_auth::credentials::idtoken::VerifierBuilder;
 /// # use std::time::Duration;
 ///
 /// async fn verify_id_token(token: &str) {
 ///     let audience = "https://example.com";
-///     let verifier = Verifier::new(audience).build();
+///     let verifier = VerifierBuilder::new(audience).build();
 ///
 ///     let claims = verifier.verify(token).await.expect("Failed to verify ID token");
 ///     println!("Verified claims: {:?}", claims);
@@ -323,15 +332,6 @@ pub struct Verifier {
 }
 
 impl Verifier {
-    /// Create a [`Verifier`] for ID Tokens with a target audience
-    /// for the token verification.
-    pub fn new<S: Into<String>>(audience: S) -> VerifierBuilder {
-        VerifierBuilder {
-            audience: audience.into(),
-            ..VerifierBuilder::default()
-        }
-    }
-
     /// Verifies the ID token and returns the claims.
     pub async fn verify(&self, token: &str) -> Result<Map<String, Value>> {
         let header = jsonwebtoken::decode_header(token)
@@ -543,7 +543,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token(audience);
         let token = token.as_str();
 
-        let verifier = Verifier::new(audience)
+        let verifier = VerifierBuilder::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
 
@@ -569,7 +569,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token(audience);
         let token = token.as_str();
 
-        let verifier = Verifier::new("https://wrong-audience.com")
+        let verifier = VerifierBuilder::new("https://wrong-audience.com")
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
 
@@ -595,7 +595,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Verifier::new(audience)
+        let verifier = VerifierBuilder::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
 
@@ -623,7 +623,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Verifier::new(audience)
+        let verifier = VerifierBuilder::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .with_email(email)
             .build();
@@ -653,7 +653,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Verifier::new(audience)
+        let verifier = VerifierBuilder::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .with_email("wrong@example.com")
             .build();
@@ -680,7 +680,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Verifier::new(audience)
+        let verifier = VerifierBuilder::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .build();
 
@@ -708,7 +708,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Verifier::new(audience)
+        let verifier = VerifierBuilder::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .with_email(email)
             .build();
@@ -740,7 +740,7 @@ pub(crate) mod tests {
         let token = generate_test_id_token_with_claims(audience, claims);
         let token = token.as_str();
 
-        let verifier = Verifier::new(audience)
+        let verifier = VerifierBuilder::new(audience)
             .with_jwks_url(format!("http://{}/certs", server.addr()))
             .with_clock_skew(Duration::from_secs(10))
             .build();
