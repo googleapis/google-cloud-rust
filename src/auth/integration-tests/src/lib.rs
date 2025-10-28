@@ -27,6 +27,7 @@ use auth::errors::SubjectTokenProviderError;
 use bigquery::client::DatasetService;
 use gax::error::rpc::Code;
 use httptest::{Expectation, Server, matchers::*, responders::*};
+use iamcredentials::client::IAMCredentials;
 use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
@@ -462,8 +463,6 @@ async fn generate_id_token(
     audience: String,
     target_principal_email: String,
 ) -> anyhow::Result<String> {
-    use iamcredentials::client::IAMCredentials;
-
     let creds = AccessTokenCredentialBuilder::default()
         .build()
         .expect("failed to get default credentials for IAM");
