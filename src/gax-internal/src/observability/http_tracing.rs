@@ -19,223 +19,102 @@ use gax::options::RequestOptions;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use tracing::{Span, field};
 
-/// Populate attributes of tracing spans for HTTP requests.
+/// Creates a new tracing span for an HTTP request attempt.
 ///
-/// OpenTelemetry recommends a number of semantic conventions for
-/// tracing HTTP requests. This type holds the information extracted
-/// from HTTP requests and responses, formatted to align with these
-/// OpenTelemetry semantic conventions.
-/// See [OpenTelemetry Semantic Conventions for HTTP](https://opentelemetry.io/docs/specs/semconv/http/http-spans/).
-#[derive(Debug, Clone)]
-pub(crate) struct HttpSpanInfo {
-    // Attributes for OpenTelemetry SDK interop
-    /// The span kind for OpenTelemetry interop.
-    ///
-    /// Always "Client" for a span representing an outbound HTTP request.
-    otel_kind: String,
-    /// The span name for OpenTelemetry interop.
-    ///
-    /// If `url.template` is available use "{http.request.method} {url.template}", otherwise use "{http.request.method}".
-    otel_name: String,
-    /// The span status for OpenTelemetry interop.
-    ///
-    /// Use "Error" for unrecoverable errors like network issues or 5xx status codes.
-    /// Otherwise, leave "Unset" (including for 4xx codes on CLIENT spans).
-    otel_status: OtelStatus,
+/// Populates the span with attributes available before the request is sent,
+/// adhering to OpenTelemetry semantic conventions.
+pub(crate) fn create_http_attempt_span(
+    request: &reqwest::Request,
+    options: &RequestOptions,
+    instrumentation: Option<&'static InstrumentationClientInfo>,
+    prior_attempt_count: u32,
+) -> Span {
+    let url = request.url();
+    let method = request.method();
 
-    // OpenTelemetry Semantic Conventions
-    /// The RPC system used.
-    ///
-    /// Always "http" for REST calls.
-    rpc_system: String,
-    /// The HTTP request method.
-    ///
-    /// Examples: GET, POST, HEAD.
-    http_request_method: String,
-    /// The destination host name or IP address.
-    ///
-    /// Examples: myservice.googleapis.com, myservice-staging.sandbox.googleapis.com, 10.0.0.1
-    server_address: String,
-    /// The destination port number.
-    ///
-    /// Examples: 443, 8080
-    server_port: i64,
-    /// The absolute URL of the request.
-    ///
-    /// Example: https://www.foo.bar/search?q=OpenTelemetry
-    url_full: String,
-    /// The URI scheme component.
-    ///
-    /// Examples: http, https
-    url_scheme: Option<String>,
-    /// The low-cardinality template of the absolute path.
-    ///
-    /// Example: /v2/locations/{location}/projects/{project}/
-    url_template: Option<&'static str>,
-    /// The nominal domain from the original URL.
-    ///
-    /// Example: myservice.googleapis.com
-    url_domain: Option<String>,
+    let url_template = gax::options::internal::get_path_template(options);
+    let otel_name = url_template.map_or_else(
+        || method.to_string(),
+        |template| format!("{} {}", method, template),
+    );
 
-    /// The numeric HTTP response status code.
-    ///
-    /// Examples: 200, 404, 500
-    http_response_status_code: Option<i64>,
-    /// A low-cardinality classification of the error.
-    ///
-    /// For HTTP status codes >= 400, this is the status code as a string.
-    /// For network errors, use a short identifier like TIMEOUT, CONNECTION_ERROR.
-    error_type: Option<ErrorType>,
-    /// The ordinal number of times this request has been resent.
-    ///
-    /// None for the first attempt.
-    http_request_resend_count: Option<i64>,
+    let http_request_resend_count = if prior_attempt_count > 0 {
+        Some(prior_attempt_count as i64)
+    } else {
+        None
+    };
 
-    // Custom GCP Attributes
-    /// The Google Cloud service name.
-    ///
-    /// Examples: appengine, run, firestore
-    gcp_client_service: Option<String>,
-    /// The client library version.
-    ///
-    /// Example: v1.0.2
-    gcp_client_version: Option<String>,
-    /// The client library repository.
-    ///
-    /// Always "googleapis/google-cloud-rust".
-    gcp_client_repo: String,
-    /// The client library crate name.
-    ///
-    /// Example: google-cloud-storage
-    gcp_client_artifact: Option<String>,
+    let (gcp_client_service, gcp_client_version, gcp_client_artifact, url_domain) = instrumentation
+        .map_or((None, None, None, None), |info| {
+            (
+                Some(info.service_name),
+                Some(info.client_version),
+                Some(info.client_artifact),
+                Some(info.default_host),
+            )
+        });
+
+    tracing::info_span!(
+        "http_request",
+        { KEY_OTEL_NAME } = otel_name,
+        { KEY_OTEL_KIND } = "Client",
+        { otel_trace::RPC_SYSTEM } = "http",
+        { otel_trace::HTTP_REQUEST_METHOD } = method.as_str(),
+        { otel_trace::SERVER_ADDRESS } = url
+            .host_str()
+            .map(|h| h.trim_start_matches('[').trim_end_matches(']'))
+            .unwrap_or(""),
+        { otel_trace::SERVER_PORT } = url.port_or_known_default().map(|p| p as i64).unwrap_or(0),
+        { otel_trace::URL_FULL } = url.as_str(),
+        { otel_trace::URL_SCHEME } = url.scheme(),
+        { otel_attr::URL_TEMPLATE } = url_template,
+        { otel_attr::URL_DOMAIN } = url_domain,
+        { KEY_GCP_CLIENT_SERVICE } = gcp_client_service,
+        { KEY_GCP_CLIENT_VERSION } = gcp_client_version,
+        { KEY_GCP_CLIENT_REPO } = "googleapis/google-cloud-rust",
+        { KEY_GCP_CLIENT_ARTIFACT } = gcp_client_artifact,
+        { otel_trace::HTTP_REQUEST_RESEND_COUNT } = http_request_resend_count,
+        // Fields to be recorded later
+        { KEY_OTEL_STATUS } = OtelStatus::Unset.as_str(), // Initial state
+        { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
+        { otel_trace::ERROR_TYPE } = field::Empty,
+        { otel_attr::RPC_GRPC_STATUS_CODE } = field::Empty,
+        { KEY_GRPC_STATUS } = field::Empty,
+    )
 }
 
-impl HttpSpanInfo {
-    pub(crate) fn from_request(
-        request: &reqwest::Request,
-        options: &RequestOptions,
-        instrumentation: Option<&'static InstrumentationClientInfo>,
-        prior_attempt_count: u32,
-    ) -> Self {
-        let url = request.url();
-        let method = request.method();
-
-        let url_template = gax::options::internal::get_path_template(options);
-        let otel_name = url_template.map_or_else(
-            || method.to_string(),
-            |template| format!("{} {}", method, template),
-        );
-
-        let http_request_resend_count = if prior_attempt_count > 0 {
-            Some(prior_attempt_count as i64)
-        } else {
-            None
-        };
-
-        let (gcp_client_service, gcp_client_version, gcp_client_artifact, url_domain) =
-            instrumentation.map_or((None, None, None, None), |info| {
-                (
-                    Some(info.service_name.to_string()),
-                    Some(info.client_version.to_string()),
-                    Some(info.client_artifact.to_string()),
-                    Some(info.default_host.to_string()),
-                )
-            });
-
-        Self {
-            rpc_system: "http".to_string(),
-            otel_kind: "Client".to_string(),
-            otel_name,
-            otel_status: OtelStatus::Unset,
-            http_request_method: method.to_string(),
-            // Remove brackets from IPv6 addresses (e.g., "[::1]" -> "::1")
-            // as per OpenTelemetry spec for server.address.
-            server_address: url
-                .host_str()
-                .map(|h| h.trim_start_matches('[').trim_end_matches(']').to_string())
-                .unwrap_or_default(),
-            server_port: url.port_or_known_default().map(|p| p as i64).unwrap_or(0),
-            url_full: url.to_string(),
-            url_scheme: Some(url.scheme().to_string()),
-            url_template,
-            url_domain,
-            http_response_status_code: None,
-            error_type: None,
-            http_request_resend_count,
-            gcp_client_service,
-            gcp_client_version,
-            gcp_client_repo: "googleapis/google-cloud-rust".to_string(),
-            gcp_client_artifact,
-        }
-    }
-
-    /// Updates the span info based on the outcome of the HTTP request.
-    ///
-    /// This method should be called after the request has completed, it will fill in any parts of
-    /// the span that depend on the result of the request.
-    pub(crate) fn update_from_response(
-        &mut self,
-        result: &Result<reqwest::Response, reqwest::Error>,
-    ) {
-        match result {
-            Ok(response) => {
-                let status = response.status();
-                self.http_response_status_code = Some(status.as_u16() as i64);
-                if status.is_success() {
-                    self.otel_status = OtelStatus::Ok;
-                    self.error_type = None;
-                } else {
-                    self.otel_status = OtelStatus::Error;
-                    // TODO(#3239): Extract reason from response headers/body if available
-                    self.error_type = Some(ErrorType::HttpError {
-                        code: status,
-                        reason: None,
-                    });
-                }
-            }
-            Err(err) => {
-                self.otel_status = OtelStatus::Error;
-                self.error_type = Some(ErrorType::from_reqwest_error(err));
+/// Records additional attributes to the span based on the response outcome.
+pub(crate) fn record_http_response_attributes(
+    span: &Span,
+    result: &Result<reqwest::Response, reqwest::Error>,
+) {
+    match result {
+        Ok(response) => {
+            let status = response.status();
+            span.record(
+                otel_trace::HTTP_RESPONSE_STATUS_CODE,
+                status.as_u16() as i64,
+            );
+            if status.is_success() {
+                span.record(KEY_OTEL_STATUS, OtelStatus::Ok.as_str());
+            } else {
+                span.record(KEY_OTEL_STATUS, OtelStatus::Error.as_str());
+                // TODO(#3239): Extract reason from response headers/body if available
+                let error_type = ErrorType::HttpError {
+                    code: status,
+                    reason: None,
+                };
+                span.record(otel_trace::ERROR_TYPE, error_type.as_str());
+                span.record(
+                    otel_attr::RPC_GRPC_STATUS_CODE,
+                    error_type.grpc_code() as i64,
+                );
+                span.record(KEY_GRPC_STATUS, error_type.grpc_status());
             }
         }
-    }
-
-    /// Creates a new tracing span with attributes populated from the request.
-    pub(crate) fn create_span(&self) -> Span {
-        tracing::info_span!(
-            "http_request",
-            { KEY_OTEL_NAME } = self.otel_name,
-            { KEY_OTEL_KIND } = self.otel_kind,
-            { otel_trace::RPC_SYSTEM } = self.rpc_system,
-            { otel_trace::HTTP_REQUEST_METHOD } = self.http_request_method,
-            { otel_trace::SERVER_ADDRESS } = self.server_address,
-            { otel_trace::SERVER_PORT } = self.server_port,
-            { otel_trace::URL_FULL } = self.url_full,
-            { otel_trace::URL_SCHEME } = self.url_scheme,
-            { otel_attr::URL_TEMPLATE } = self.url_template,
-            { otel_attr::URL_DOMAIN } = self.url_domain,
-            { KEY_GCP_CLIENT_SERVICE } = self.gcp_client_service,
-            { KEY_GCP_CLIENT_VERSION } = self.gcp_client_version,
-            { KEY_GCP_CLIENT_REPO } = self.gcp_client_repo,
-            { KEY_GCP_CLIENT_ARTIFACT } = self.gcp_client_artifact,
-            { otel_trace::HTTP_REQUEST_RESEND_COUNT } = self.http_request_resend_count,
-            // Fields to be recorded later
-            { KEY_OTEL_STATUS } = self.otel_status.as_str(), // Initial state
-            { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
-            { otel_trace::ERROR_TYPE } = field::Empty,
-            { otel_attr::RPC_GRPC_STATUS_CODE } = field::Empty,
-            { KEY_GRPC_STATUS } = field::Empty,
-        )
-    }
-
-    /// Records additional attributes to the span based on the response outcome.
-    pub(crate) fn record_response_attributes(&self, span: &Span) {
-        span.record(KEY_OTEL_STATUS, self.otel_status.as_str());
-        span.record(
-            otel_trace::HTTP_RESPONSE_STATUS_CODE,
-            self.http_response_status_code,
-        );
-        if let Some(error_type) = &self.error_type {
+        Err(err) => {
+            span.record(KEY_OTEL_STATUS, OtelStatus::Error.as_str());
+            let error_type = ErrorType::from_reqwest_error(err);
             span.record(otel_trace::ERROR_TYPE, error_type.as_str());
             span.record(
                 otel_attr::RPC_GRPC_STATUS_CODE,
@@ -252,7 +131,7 @@ mod tests {
     use crate::options::InstrumentationClientInfo;
     use gax::options::RequestOptions;
     use google_cloud_test_utils::test_layer::TestLayer;
-    use http::{Method, StatusCode};
+    use http::Method;
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
     use reqwest;
     use std::collections::HashMap;
@@ -269,8 +148,7 @@ mod tests {
             client_artifact: "google-cloud-test",
             default_host: "example.com",
         };
-        let span_info = HttpSpanInfo::from_request(&request, &options, Some(&INFO), 1);
-        let _span = span_info.create_span();
+        let _span = create_http_attempt_span(&request, &options, Some(&INFO), 1);
 
         let expected_attributes: HashMap<String, String> = [
             (KEY_OTEL_NAME, "GET /test"),
@@ -295,9 +173,13 @@ mod tests {
         .collect();
 
         let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
         let attributes = &captured[0].attributes;
-        assert_eq!(*attributes, expected_attributes);
+        assert_eq!(
+            *attributes, expected_attributes,
+            "captured spans: {:?}",
+            captured
+        );
     }
 
     #[tokio::test]
@@ -307,8 +189,7 @@ mod tests {
             reqwest::Request::new(Method::POST, "http://localhost:8080/".parse().unwrap());
         let options = RequestOptions::default(); // No path template
         // No InstrumentationClientInfo
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
-        let _span = span_info.create_span();
+        let _span = create_http_attempt_span(&request, &options, None, 0);
 
         let expected_attributes: HashMap<String, String> = [
             (KEY_OTEL_NAME, "POST"),
@@ -327,9 +208,13 @@ mod tests {
         .collect();
 
         let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
         let attributes = &captured[0].attributes;
-        assert_eq!(*attributes, expected_attributes);
+        assert_eq!(
+            *attributes, expected_attributes,
+            "captured spans: {:?}",
+            captured
+        );
     }
 
     #[tokio::test]
@@ -337,15 +222,14 @@ mod tests {
         let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-        let mut span_info =
-            HttpSpanInfo::from_request(&request, &RequestOptions::default(), None, 0);
-
-        let span = span_info.create_span();
+        let options = RequestOptions::default();
+        let span = create_http_attempt_span(&request, &options, None, 0);
         let _enter = span.enter();
-        span_info.update_from_response(&Ok(reqwest::Response::from(
+
+        let result = Ok(reqwest::Response::from(
             http::Response::builder().status(200).body("").unwrap(),
-        )));
-        span_info.record_response_attributes(&span);
+        ));
+        record_http_response_attributes(&span, &result);
 
         let expected_attributes: HashMap<String, String> = [
             (KEY_OTEL_NAME, "GET"),
@@ -365,25 +249,31 @@ mod tests {
         .collect();
 
         let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
         let attributes = &captured[0].attributes;
-        assert_eq!(*attributes, expected_attributes);
+        assert_eq!(
+            *attributes, expected_attributes,
+            "captured spans: {:?}",
+            captured
+        );
     }
-
     #[tokio::test]
     async fn test_record_response_attributes_error() {
         let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-        let mut span_info =
-            HttpSpanInfo::from_request(&request, &RequestOptions::default(), None, 0);
-
-        let span = span_info.create_span();
+        let options = RequestOptions::default();
+        let span = create_http_attempt_span(&request, &options, None, 0);
         let _enter = span.enter();
+
         // Simulate a timeout error
-        span_info.otel_status = OtelStatus::Error;
-        span_info.error_type = Some(ErrorType::ClientTimeout);
-        span_info.record_response_attributes(&span);
+        let client = reqwest::Client::builder()
+            .timeout(std::time::Duration::from_millis(1))
+            .build()
+            .unwrap();
+        let error_result = client.execute(request).await;
+        assert!(error_result.is_err(), "error_result: {:?}", error_result);
+        record_http_response_attributes(&span, &error_result);
 
         let expected_attributes: HashMap<String, String> = [
             (KEY_OTEL_NAME, "GET"),
@@ -405,139 +295,104 @@ mod tests {
         .collect();
 
         let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
         let attributes = &captured[0].attributes;
-        assert_eq!(*attributes, expected_attributes);
+        assert_eq!(
+            *attributes, expected_attributes,
+            "captured spans: {:?}",
+            captured
+        );
     }
 
     #[tokio::test]
-    async fn test_http_span_info_from_request_basic() {
+    async fn test_record_response_attributes_http_error() {
+        let guard = TestLayer::initialize();
+        let request =
+            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
+        let options = RequestOptions::default();
+        let span = create_http_attempt_span(&request, &options, None, 0);
+        let _enter = span.enter();
+
+        let result = Ok(reqwest::Response::from(
+            http::Response::builder().status(404).body("").unwrap(),
+        ));
+        record_http_response_attributes(&span, &result);
+
+        let expected_attributes: HashMap<String, String> = [
+            (KEY_OTEL_NAME, "GET"),
+            (KEY_OTEL_KIND, "Client"),
+            (otel_trace::RPC_SYSTEM, "http"),
+            (otel_trace::HTTP_REQUEST_METHOD, "GET"),
+            (otel_trace::SERVER_ADDRESS, "example.com"),
+            (otel_trace::SERVER_PORT, "443"),
+            (otel_trace::URL_FULL, "https://example.com/test"),
+            (otel_trace::URL_SCHEME, "https"),
+            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+            (KEY_OTEL_STATUS, "Error"), // Updated
+            (otel_trace::HTTP_RESPONSE_STATUS_CODE, "404"),
+            (otel_trace::ERROR_TYPE, "404"),
+            (otel_attr::RPC_GRPC_STATUS_CODE, "5"), // NOT_FOUND
+            (KEY_GRPC_STATUS, "NOT_FOUND"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
+        let attributes = &captured[0].attributes;
+        assert_eq!(
+            *attributes, expected_attributes,
+            "captured spans: {:?}",
+            captured
+        );
+    }
+
+    #[tokio::test]
+    async fn test_retry_attribute() {
+        let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
         let options = RequestOptions::default();
 
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
-
-        assert_eq!(span_info.rpc_system, "http");
-        assert_eq!(span_info.otel_kind, "Client");
-        assert_eq!(span_info.otel_name, "GET");
-        assert_eq!(span_info.otel_status, OtelStatus::Unset);
-        assert_eq!(span_info.http_request_method, "GET");
-        assert_eq!(span_info.server_address, "example.com".to_string());
-        assert_eq!(span_info.server_port, 443);
-        assert_eq!(span_info.url_full, "https://example.com/test");
-        assert_eq!(span_info.url_scheme, Some("https".to_string()));
-        assert_eq!(span_info.url_template, None);
-        assert_eq!(span_info.url_domain, None);
-        assert_eq!(span_info.http_response_status_code, None);
-        assert_eq!(span_info.error_type, None);
-        assert_eq!(span_info.http_request_resend_count, None);
-        assert_eq!(span_info.gcp_client_service, None);
-        assert_eq!(span_info.gcp_client_version, None);
-        assert_eq!(span_info.gcp_client_repo, "googleapis/google-cloud-rust");
-        assert_eq!(span_info.gcp_client_artifact, None);
-    }
-
-    #[tokio::test]
-    async fn test_http_span_info_from_request_with_instrumentation() {
-        let request = reqwest::Request::new(
-            Method::POST,
-            "https://test.service.dev:443/v1/items".parse().unwrap(),
+        // First attempt
+        let _span1 = create_http_attempt_span(&request, &options, None, 0);
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
+        assert!(
+            !captured[0]
+                .attributes
+                .contains_key(otel_trace::HTTP_REQUEST_RESEND_COUNT),
+            "captured spans: {:?}",
+            captured
         );
-        let options = RequestOptions::default();
-        const INFO: InstrumentationClientInfo = InstrumentationClientInfo {
-            service_name: "test.service",
-            client_version: "1.2.3",
-            client_artifact: "google-cloud-test",
-            default_host: "test.service.dev",
-        };
 
-        let span_info = HttpSpanInfo::from_request(&request, &options, Some(&INFO), 0);
-
+        // First retry
+        let _span2 = create_http_attempt_span(&request, &options, None, 1);
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
         assert_eq!(
-            span_info.gcp_client_service,
-            Some("test.service".to_string())
+            captured[0]
+                .attributes
+                .get(otel_trace::HTTP_REQUEST_RESEND_COUNT)
+                .unwrap(),
+            "1",
+            "captured spans: {:?}",
+            captured
         );
-        assert_eq!(span_info.gcp_client_version, Some("1.2.3".to_string()));
+
+        // Second retry
+        let _span3 = create_http_attempt_span(&request, &options, None, 2);
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
         assert_eq!(
-            span_info.gcp_client_artifact,
-            Some("google-cloud-test".to_string())
-        );
-        assert_eq!(span_info.url_domain, Some("test.service.dev".to_string()));
-        assert_eq!(span_info.server_address, "test.service.dev".to_string());
-        assert_eq!(span_info.server_port, 443);
-    }
-
-    #[tokio::test]
-    async fn test_http_span_info_from_request_with_path_template() {
-        let request = reqwest::Request::new(
-            Method::GET,
-            "https://example.com/items/123".parse().unwrap(),
-        );
-        let options = gax::options::internal::set_path_template(
-            RequestOptions::default(),
-            "/items/{item_id}",
-        );
-
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
-
-        assert_eq!(span_info.url_template, Some("/items/{item_id}"));
-        assert_eq!(span_info.otel_name, "GET /items/{item_id}");
-    }
-
-    #[tokio::test]
-    async fn test_http_span_info_from_request_with_prior_attempt_count() {
-        let request =
-            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-        let options = RequestOptions::default();
-
-        // prior_attempt_count is 0 for the first try
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 0);
-        assert_eq!(span_info.http_request_resend_count, None);
-
-        // prior_attempt_count is 1 for the second try (first retry)
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 1);
-        assert_eq!(span_info.http_request_resend_count, Some(1));
-
-        let span_info = HttpSpanInfo::from_request(&request, &options, None, 5);
-        assert_eq!(span_info.http_request_resend_count, Some(5));
-    }
-
-    #[tokio::test]
-    async fn test_update_from_response_success() {
-        let request =
-            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-        let mut span_info =
-            HttpSpanInfo::from_request(&request, &RequestOptions::default(), None, 0);
-
-        let response =
-            reqwest::Response::from(http::Response::builder().status(200).body("").unwrap());
-        span_info.update_from_response(&Ok(response));
-
-        assert_eq!(span_info.otel_status, OtelStatus::Ok);
-        assert_eq!(span_info.http_response_status_code, Some(200));
-        assert_eq!(span_info.error_type, None);
-    }
-
-    #[tokio::test]
-    async fn test_update_from_response_http_error() {
-        let request =
-            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-        let mut span_info =
-            HttpSpanInfo::from_request(&request, &RequestOptions::default(), None, 0);
-
-        let response =
-            reqwest::Response::from(http::Response::builder().status(404).body("").unwrap());
-        span_info.update_from_response(&Ok(response));
-
-        assert_eq!(span_info.otel_status, OtelStatus::Error);
-        assert_eq!(span_info.http_response_status_code, Some(404));
-        assert_eq!(
-            span_info.error_type,
-            Some(ErrorType::HttpError {
-                code: StatusCode::NOT_FOUND,
-                reason: None
-            })
+            captured[0]
+                .attributes
+                .get(otel_trace::HTTP_REQUEST_RESEND_COUNT)
+                .unwrap(),
+            "2",
+            "captured spans: {:?}",
+            captured
         );
     }
 }

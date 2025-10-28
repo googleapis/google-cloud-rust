@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(google_cloud_unstable_tracing)]
+use crate::observability::{create_http_attempt_span, record_http_response_attributes};
 use auth::credentials::{CacheableResource, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
@@ -179,19 +181,13 @@ impl ReqwestClient {
 
         #[cfg(google_cloud_unstable_tracing)]
         let response_result = if self._tracing_enabled {
-            let mut span_info = crate::observability::HttpSpanInfo::from_request(
-                &request,
-                options,
-                self.instrumentation,
-                _attempt_count,
-            );
-            let span = span_info.create_span();
+            let span =
+                create_http_attempt_span(&request, options, self.instrumentation, _attempt_count);
             // The instrument call ensures the span is entered/exited as the execute future is polled.
             let result = self.inner.execute(request).instrument(span.clone()).await;
             // Re-enter the span's context to record response attributes after the future has completed.
             let _enter = span.enter();
-            span_info.update_from_response(&result);
-            span_info.record_response_attributes(&span);
+            record_http_response_attributes(&span, &result);
             result
         } else {
             self.inner.execute(request).await
