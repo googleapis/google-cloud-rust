@@ -456,10 +456,6 @@ async fn get_secret_with_mds_creds(
     Ok(payload)
 }
 
-#[cfg(google_cloud_unstable_id_token)]
-use unstable::generate_id_token;
-
-#[cfg(not(google_cloud_unstable_id_token))]
 /// Generates a Google ID token using the iamcredentials generateIdToken API.
 /// https://cloud.google.com/iam/docs/creating-short-lived-service-account-credentials#sa-credentials-oidc
 async fn generate_id_token(
@@ -535,7 +531,7 @@ impl SubjectTokenProvider for TestSubjectTokenProvider {
 pub mod unstable {
     use super::*;
     use auth::credentials::{
-        Builder as AccessTokenCredentialBuilder, idtoken::Builder as IDTokenCredentialBuilder,
+        idtoken::Builder as IDTokenCredentialBuilder,
         impersonated::idtoken::Builder as ImpersonatedIDTokenBuilder,
         mds::idtoken::Builder as IDTokenMDSBuilder,
         service_account::idtoken::Builder as ServiceAccountIDTokenBuilder,
@@ -636,19 +632,19 @@ pub mod unstable {
         Ok(())
     }
 
-    /// Generates a Google ID token using the impersonated::idtoken::Builder.
-    pub async fn generate_id_token(
-        audience: String,
-        target_principal_email: String,
-    ) -> anyhow::Result<String> {
-        let creds = AccessTokenCredentialBuilder::default()
-            .build()
-            .expect("failed to get default credentials for IAM");
+    pub async fn id_token_impersonated() -> anyhow::Result<()> {
+        let (project, adc_json) = get_project_and_service_account().await?;
+        let source_sa_json: serde_json::Value = serde_json::from_slice(&adc_json)?;
+        let source_sa_creds = ServiceAccountCredentialsBuilder::new(source_sa_json).build()?;
+
+        let target_principal_email =
+            format!("impersonation-target@{project}.iam.gserviceaccount.com");
+        let target_audience = "https://example.com";
 
         let id_token_creds = ImpersonatedIDTokenBuilder::from_source_credentials(
-            audience,
-            target_principal_email,
-            creds,
+            target_audience,
+            &target_principal_email,
+            source_sa_creds,
         )
         .with_include_email(true)
         .build()
@@ -659,7 +655,13 @@ pub mod unstable {
             .await
             .expect("failed to generate id token");
 
-        Ok(token)
+        let claims = parse_id_token(token)?;
+
+        assert_eq!(claims["aud"], target_audience);
+        assert_eq!(claims["email"], target_principal_email);
+        assert_eq!(claims["email_verified"], true);
+
+        Ok(())
     }
 
     fn parse_id_token(token: String) -> anyhow::Result<Value> {

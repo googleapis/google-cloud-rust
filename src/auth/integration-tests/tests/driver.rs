@@ -99,4 +99,10 @@ mod driver {
     async fn run_id_token_service_account() -> anyhow::Result<()> {
         auth_integration_tests::unstable::id_token_service_account().await
     }
+
+    #[cfg(all(test, google_cloud_unstable_id_token))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_id_token_impersonated() -> anyhow::Result<()> {
+        auth_integration_tests::unstable::id_token_impersonated().await
+    }
 }
