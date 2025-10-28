@@ -667,8 +667,7 @@ pub mod unstable {
         let parts: Vec<&str> = token.split('.').collect();
         anyhow::ensure!(parts.len() == 3, "ID token is not a valid JWT");
         let payload = URL_SAFE_NO_PAD.decode(parts[1])?;
-        let claims: Value = serde_json::from_slice(&payload)?;
 
-        Ok(claims)
+        serde_json::from_slice(&payload).map_err(anyhow::Error::from)
     }
 }
