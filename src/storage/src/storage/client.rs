@@ -572,6 +572,13 @@ impl ClientBuilder {
             RequestOptions::new_with_client_config(&self.config, self.common_options);
         (self.config.cred, self.config.endpoint, request_options)
     }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    pub(crate) fn into_client_config(self) -> (ClientConfig, RequestOptions) {
+        let request_options =
+            RequestOptions::new_with_client_config(&self.config, self.common_options);
+        (self.config, request_options)
+    }
 }
 
 /// The set of characters that are percent encoded.

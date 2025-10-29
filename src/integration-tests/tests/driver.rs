@@ -259,6 +259,18 @@ mod driver {
         result
     }
 
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_storage_bidi() -> integration_tests::Result<()> {
+        let _guard = integration_tests::enable_tracing();
+        let (control, bucket) = integration_tests::storage::create_test_hns_bucket().await?;
+        let result = integration_tests::storage::bidi_read::run(&bucket.name).await;
+        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
+            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
+        };
+        result
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_error_details_http() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();

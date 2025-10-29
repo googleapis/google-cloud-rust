@@ -700,6 +700,46 @@ pub async fn create_test_hns_bucket() -> anyhow::Result<(StorageControl, Bucket)
     Ok((client, create))
 }
 
+pub async fn create_test_zonal_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
+    use google_cloud_storage::model::bucket::CustomPlacementConfig;
+
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    let region = std::env::var("GOOGLE_CLOUD_RUST_TEST_REGION")
+        .ok()
+        .unwrap_or("us-central1".to_string());
+    let zone = std::env::var("GOOGLE_CLOUD_RUST_STORAGE_TEST_ZONE")
+        .ok()
+        .unwrap_or("us-central1-c".to_string());
+    let client = client_for_create_bucket().await?;
+    cleanup_stale_buckets(&client, &project_id).await?;
+
+    let bucket_id = crate::random_bucket_id();
+
+    let create = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_storage_class("RAPID")
+                .set_location(region)
+                .set_custom_placement_config(
+                    CustomPlacementConfig::new().set_data_locations([zone]),
+                )
+                .set_labels([("integration-test", "true")])
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
+        )
+        .with_idempotency(true)
+        .send()
+        .await;
+    println!("create_test_hns_bucket(): {create:?}");
+    Ok((client, create?))
+}
+
 async fn client_for_create_bucket() -> anyhow::Result<StorageControl> {
     let client = StorageControl::builder()
         .with_tracing()
