@@ -22,7 +22,7 @@ mod tests {
         KEY_GCP_CLIENT_VERSION, KEY_OTEL_KIND, KEY_OTEL_NAME, KEY_OTEL_STATUS,
     };
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
-    use google_cloud_test_utils::test_layer::TestLayer;
+    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use http::Method;
     use httptest::matchers::request::{method, path};
     use httptest::{Expectation, Server, all_of, responders::*};
@@ -88,39 +88,43 @@ mod tests {
         let span = &captured[0];
         let attrs = &span.attributes;
 
-        let mut expected_attributes: HashMap<String, String> = [
-            (KEY_OTEL_NAME, "GET /test"),
-            (KEY_OTEL_KIND, "Client"),
-            (otel_trace::RPC_SYSTEM, "http"),
-            (otel_trace::HTTP_REQUEST_METHOD, "GET"),
-            (otel_trace::URL_SCHEME, "http"),
-            (otel_attr::URL_TEMPLATE, "/test"),
-            (otel_attr::URL_DOMAIN, TEST_HOST),
-            (otel_trace::HTTP_RESPONSE_STATUS_CODE, "200"),
-            (KEY_OTEL_STATUS, "Ok"),
-            (KEY_GCP_CLIENT_SERVICE, TEST_SERVICE),
-            (KEY_GCP_CLIENT_VERSION, TEST_VERSION),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
-            (KEY_GCP_CLIENT_ARTIFACT, TEST_ARTIFACT),
+        let mut expected_attributes: HashMap<String, AttributeValue> = [
+            (KEY_OTEL_NAME, "GET /test".into()),
+            (KEY_OTEL_KIND, "Client".into()),
+            (otel_trace::RPC_SYSTEM, "http".into()),
+            (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
+            (otel_trace::URL_SCHEME, "http".into()),
+            (otel_attr::URL_TEMPLATE, "/test".into()),
+            (otel_attr::URL_DOMAIN, TEST_HOST.into()),
+            (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
+            (KEY_OTEL_STATUS, "Ok".into()),
+            (KEY_GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
+            (KEY_GCP_CLIENT_VERSION, TEST_VERSION.into()),
+            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
+            (KEY_GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
         ]
         .into_iter()
-        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .map(|(k, v)| (k.to_string(), v))
         .collect();
 
         expected_attributes.insert(
             otel_trace::SERVER_ADDRESS.to_string(),
-            server_addr.ip().to_string(),
+            server_addr.ip().to_string().into(),
         );
         expected_attributes.insert(
             otel_trace::SERVER_PORT.to_string(),
-            server_addr.port().to_string(),
+            (server_addr.port() as i64).into(),
         );
         expected_attributes.insert(
             otel_trace::URL_FULL.to_string(),
-            format!("{}/test", server_url),
+            format!("{}/test", server_url).into(),
         );
 
-        assert_eq!(attrs, &expected_attributes, "Attribute mismatch");
+        assert_eq!(
+            attrs, &expected_attributes,
+            "Attribute mismatch: {:?}",
+            captured
+        );
     }
 
     #[tokio::test]

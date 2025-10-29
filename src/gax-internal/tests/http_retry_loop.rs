@@ -162,10 +162,9 @@ mod tests {
         assert_eq!(span1.name, "http_request");
         let attributes1 = &span1.attributes;
 
-        let expected_resend_count = "1".to_string();
         assert_eq!(
             attributes1.get(HTTP_REQUEST_RESEND_COUNT),
-            Some(&expected_resend_count),
+            Some(&1_i64.into()),
             "Span 1: '{}' mismatch, all attributes: {:?}",
             HTTP_REQUEST_RESEND_COUNT,
             attributes1
@@ -176,10 +175,9 @@ mod tests {
         assert_eq!(span2.name, "http_request");
         let attributes2 = &span2.attributes;
 
-        let expected_resend_count = "2".to_string();
         assert_eq!(
             attributes2.get(HTTP_REQUEST_RESEND_COUNT),
-            Some(&expected_resend_count),
+            Some(&2_i64.into()),
             "Span 2: '{}' mismatch, all attributes: {:?}",
             HTTP_REQUEST_RESEND_COUNT,
             attributes2

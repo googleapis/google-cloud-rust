@@ -92,10 +92,9 @@ mod tests {
                 span, attributes
             );
 
-            let expected_error_type = CLIENT_CONNECTION_ERROR.to_string();
             assert_eq!(
                 attributes.get(semconv::ERROR_TYPE),
-                Some(&expected_error_type),
+                Some(&CLIENT_CONNECTION_ERROR.into()),
                 "Span 0: '{}' mismatch, all attributes: {:?}",
                 semconv::ERROR_TYPE,
                 attributes
@@ -154,10 +153,9 @@ mod tests {
                 span, attributes
             );
 
-            let expected_error_type = CLIENT_REDIRECT_ERROR.to_string();
             assert_eq!(
                 attributes.get(semconv::ERROR_TYPE),
-                Some(&expected_error_type),
+                Some(&CLIENT_REDIRECT_ERROR.into()),
                 "Span 0: {} mismatch, all attributes: {:?}",
                 semconv::ERROR_TYPE,
                 attributes

@@ -271,10 +271,9 @@ mod tests {
                 attributes
             );
 
-            let expected_error_type = CLIENT_TIMEOUT.to_string();
             assert_eq!(
                 attributes.get(semconv::ERROR_TYPE),
-                Some(&expected_error_type),
+                Some(&CLIENT_TIMEOUT.into()),
                 "Span 0: '{}' mismatch, all attributes: {:?}",
                 semconv::ERROR_TYPE,
                 attributes
