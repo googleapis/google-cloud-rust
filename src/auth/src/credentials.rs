@@ -15,12 +15,14 @@
 use crate::build_errors::Error as BuilderError;
 use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
+use crate::token::Token;
 use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
+use tokio::time::Instant;
 
 pub mod anonymous;
 pub mod api_key_credentials;
@@ -135,6 +137,78 @@ impl Credentials {
     pub async fn universe_domain(&self) -> Option<String> {
         self.inner.universe_domain().await
     }
+}
+
+#[derive(Clone, Debug)]
+pub struct AccessTokenCredentials {
+    // We use an `Arc` to hold the inner implementation.
+    //
+    // AccessTokenCredentials may be shared across threads (`Send + Sync`), so an `Rc`
+    // will not do.
+    //
+    // They also need to derive `Clone`, as the
+    // `gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
+    // `Box` will not do.
+    inner: Arc<dyn dynamic::AccessTokenCredentialsProvider>,
+}
+
+impl<T> std::convert::From<T> for AccessTokenCredentials
+where
+    T: crate::credentials::AccessTokenCredentialsProvider + Send + Sync + 'static,
+{
+    fn from(value: T) -> Self {
+        Self {
+            inner: Arc::new(value),
+        }
+    }
+}
+
+impl AccessTokenCredentials {
+    pub async fn token(&self) -> Result<AccessToken> {
+        self.inner.token().await
+    }
+}
+
+impl CredentialsProvider for AccessTokenCredentials {
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        self.inner.headers(extensions).await
+    }
+
+    async fn universe_domain(&self) -> Option<String> {
+        self.inner.universe_domain().await
+    }
+}
+
+pub struct AccessToken {
+    pub token: String,
+    pub token_type: String,
+    pub expires_at: Option<Instant>,
+}
+
+impl std::convert::From<CacheableResource<Token>> for Result<AccessToken> {
+    fn from(token: CacheableResource<Token>) -> Self {
+        match token {
+            CacheableResource::New { data, .. } => Ok(data.into()),
+            CacheableResource::NotModified => Err(errors::CredentialsError::from_msg(
+                false,
+                "Expecting token to be present",
+            )),
+        }
+    }
+}
+
+impl std::convert::From<Token> for AccessToken {
+    fn from(token: Token) -> Self {
+        Self {
+            token: token.token,
+            token_type: token.token_type,
+            expires_at: token.expires_at,
+        }
+    }
+}
+
+pub trait AccessTokenCredentialsProvider: CredentialsProvider + std::fmt::Debug {
+    fn token(&self) -> impl Future<Output = Result<AccessToken>> + Send;
 }
 
 /// Represents a [Credentials] used to obtain auth request headers.
@@ -254,6 +328,24 @@ pub(crate) mod dynamic {
         }
         async fn universe_domain(&self) -> Option<String> {
             T::universe_domain(self).await
+        }
+    }
+
+    /// A dyn-compatible, crate-private version of `AccessTokenCredentialsProvider`.
+    #[async_trait::async_trait]
+    pub trait AccessTokenCredentialsProvider:
+        CredentialsProvider + Send + Sync + std::fmt::Debug
+    {
+        async fn token(&self) -> Result<super::AccessToken>;
+    }
+
+    #[async_trait::async_trait]
+    impl<T> AccessTokenCredentialsProvider for T
+    where
+        T: super::AccessTokenCredentialsProvider + Send + Sync,
+    {
+        async fn token(&self) -> Result<super::AccessToken> {
+            T::token(self).await
         }
     }
 }
@@ -404,6 +496,20 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns a [Credentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if a unsupported credential type is provided
+    /// or if the JSON value is either malformed
+    /// or missing required fields. For more information, on how to generate
+    /// json, consult the relevant section in the [application-default credentials] guide.
+    ///
+    /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let json_data = match load_adc()? {
             AdcContents::Contents(contents) => {
                 Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
@@ -454,7 +560,7 @@ macro_rules! config_builder {
             .into_iter()
             .fold(builder, |b, s| $apply_scopes_closure(b, s));
 
-        builder.build()
+        builder.build_access_token_credentials()
     }};
 }
 
@@ -462,7 +568,7 @@ fn build_credentials(
     json: Option<Value>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
-) -> BuildResult<Credentials> {
+) -> BuildResult<AccessTokenCredentials> {
     match json {
         None => config_builder!(
             mds::Builder::from_adc(),

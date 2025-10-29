@@ -74,8 +74,8 @@ mod jws;
 
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
-use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{CacheableResource, Credentials};
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
+use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
@@ -287,7 +287,23 @@ impl Builder {
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(Credentials {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns a [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if the `service_account_key`
+    /// provided to [`Builder::new`] cannot be successfully deserialized into the
+    /// expected format for a service account key. This typically happens if the
+    /// JSON value is malformed or missing required fields. For more information,
+    /// on the expected format for a service account key, consult the
+    /// relevant section in the [service account keys] guide.
+    ///
+    /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(AccessTokenCredentials {
             inner: Arc::new(ServiceAccountCredentials {
                 quota_project_id: self.quota_project_id.clone(),
                 token_provider: TokenCache::new(self.build_token_provider()?),
@@ -461,6 +477,17 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&token, &self.quota_project_id)
+    }
+}
+
+#[async_trait::async_trait]
+impl<T> AccessTokenCredentialsProvider for ServiceAccountCredentials<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
     }
 }
 

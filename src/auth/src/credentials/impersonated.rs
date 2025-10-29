@@ -93,9 +93,10 @@
 
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
-use crate::credentials::dynamic::CredentialsProvider;
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{
-    CacheableResource, Credentials, build_credentials, extract_credential_type,
+    AccessToken, AccessTokenCredentials, CacheableResource, Credentials, build_credentials,
+    extract_credential_type,
 };
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::{
@@ -421,8 +422,28 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns a [Credentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [BuilderError] for one of the following cases:
+    /// - If the `impersonated_service_account` provided to [`Builder::new`] cannot
+    ///   be successfully deserialized into the expected format. This typically happens
+    ///   if the JSON value is malformed or missing required fields. For more information,
+    ///   on how to generate `impersonated_service_account` json, consult the relevant
+    ///   section in the [application-default credentials] guide.
+    /// - If the `impersonated_service_account` provided to [`Builder::new`] has a
+    ///   `source_credentials` of `impersonated_service_account` type.
+    /// - If `service_account_impersonation_url` is not provided after initializing
+    ///   the builder with [`Builder::from_source_credentials`].
+    ///
+    /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let (token_provider, quota_project_id) = self.build_components()?;
-        Ok(Credentials {
+        Ok(AccessTokenCredentials {
             inner: Arc::new(ImpersonatedServiceAccount {
                 token_provider: TokenCache::new(token_provider),
                 quota_project_id,
@@ -491,7 +512,7 @@ fn build_components_from_json(json: Value) -> BuildResult<ImpersonatedCredential
     // the quota project and they typically need different scopes.
     // If user does want some specific scopes or quota, they can build using the
     // from_source_credentials method.
-    let source_credentials = build_credentials(Some(config.source_credentials), None, None)?;
+    let source_credentials = build_credentials(Some(config.source_credentials), None, None)?.into();
 
     Ok(ImpersonatedCredentialComponents {
         source_credentials,
@@ -546,6 +567,17 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&token, &self.quota_project_id)
+    }
+}
+
+#[async_trait::async_trait]
+impl<T> AccessTokenCredentialsProvider for ImpersonatedServiceAccount<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
     }
 }
 

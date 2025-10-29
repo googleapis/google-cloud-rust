@@ -116,8 +116,10 @@ use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, 
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::{DEFAULT_SCOPE, STS_TOKEN_URL};
+use crate::credentials::dynamic::AccessTokenCredentialsProvider;
 use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
 use crate::credentials::subject_token::dynamic;
+use crate::credentials::{AccessToken, AccessTokenCredentials};
 use crate::errors::non_retryable;
 use crate::headers_util::build_cacheable_headers;
 use crate::retry::Builder as RetryTokenProviderBuilder;
@@ -327,7 +329,7 @@ impl ExternalAccountConfig {
         self,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
-    ) -> Credentials {
+    ) -> AccessTokenCredentials {
         let config = self.clone();
         match self.credential_source {
             CredentialSource::Url(source) => {
@@ -353,7 +355,7 @@ impl ExternalAccountConfig {
         config: ExternalAccountConfig,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
-    ) -> Credentials
+    ) -> AccessTokenCredentials
     where
         T: dynamic::SubjectTokenProvider + 'static,
     {
@@ -363,7 +365,7 @@ impl ExternalAccountConfig {
         };
         let token_provider_with_retry = retry_builder.build(token_provider);
         let cache = TokenCache::new(token_provider_with_retry);
-        Credentials {
+        AccessTokenCredentials {
             inner: Arc::new(ExternalAccountCredentials {
                 token_provider: cache,
                 quota_project_id,
@@ -643,6 +645,22 @@ impl Builder {
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns a [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [BuilderError] if the `external_account_config`
+    /// provided to [`Builder::new`] cannot be successfully deserialized into the
+    /// expected format for an external account configuration. This typically happens if the
+    /// JSON value is malformed or missing required fields. For more information,
+    /// on the expected format, consult the relevant section in the
+    /// [external_account_credentials] guide.
+    ///
+    /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let mut file: ExternalAccountFile =
             serde_json::from_value(self.external_account_config).map_err(BuilderError::parsing)?;
 
@@ -1220,7 +1238,9 @@ impl ProgrammaticBuilder {
     /// `audience` or `subject_token_type`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
         let (config, quota_project_id, retry_builder) = self.build_components()?;
-        Ok(config.make_credentials(quota_project_id, retry_builder))
+        Ok(config
+            .make_credentials(quota_project_id, retry_builder)
+            .into())
     }
 
     /// Consumes the builder and returns its configured components.
@@ -1258,6 +1278,17 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&token, &self.quota_project_id)
+    }
+}
+
+#[async_trait::async_trait]
+impl<T> AccessTokenCredentialsProvider for ExternalAccountCredentials<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
     }
 }
 
