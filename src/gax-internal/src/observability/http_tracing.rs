@@ -133,8 +133,9 @@ mod tests {
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use http::Method;
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
-    use reqwest;
+    use reqwest::{self, StatusCode};
     use std::collections::HashMap;
+    use test_case::test_case;
 
     #[tokio::test]
     async fn test_create_span_attributes() {
@@ -217,8 +218,10 @@ mod tests {
         );
     }
 
+    #[test_case(StatusCode::OK; "OK")]
+    #[test_case(StatusCode::CREATED; "Created")]
     #[tokio::test]
-    async fn test_record_response_attributes_ok() {
+    async fn test_record_response_attributes_ok(status_code: StatusCode) {
         let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
@@ -227,7 +230,10 @@ mod tests {
         let _enter = span.enter();
 
         let result = Ok(reqwest::Response::from(
-            http::Response::builder().status(200).body("").unwrap(),
+            http::Response::builder()
+                .status(status_code)
+                .body("")
+                .unwrap(),
         ));
         record_http_response_attributes(&span, &result);
 
@@ -242,7 +248,10 @@ mod tests {
             (otel_trace::URL_SCHEME, "https".into()),
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (KEY_OTEL_STATUS, "Ok".into()),
-            (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
+            (
+                otel_trace::HTTP_RESPONSE_STATUS_CODE,
+                (status_code.as_u16() as i64).into(),
+            ),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -257,6 +266,7 @@ mod tests {
             captured
         );
     }
+
     #[tokio::test]
     async fn test_record_response_attributes_error() {
         let guard = TestLayer::initialize();
@@ -304,8 +314,19 @@ mod tests {
         );
     }
 
+    #[test_case(StatusCode::BAD_REQUEST, "400", 3, "INVALID_ARGUMENT"; "Bad Request")]
+    #[test_case(StatusCode::UNAUTHORIZED, "401", 16, "UNAUTHENTICATED"; "Unauthorized")]
+    #[test_case(StatusCode::FORBIDDEN, "403", 7, "PERMISSION_DENIED"; "Forbidden")]
+    #[test_case(StatusCode::NOT_FOUND, "404", 5, "NOT_FOUND"; "Not Found")]
+    #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500", 13, "INTERNAL"; "Internal Server Error")]
+    #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503", 14, "UNAVAILABLE"; "Service Unavailable")]
     #[tokio::test]
-    async fn test_record_response_attributes_http_error() {
+    async fn test_record_response_attributes_http_error(
+        status_code: StatusCode,
+        expected_error_type: &str,
+        expected_grpc_code: i64,
+        expected_grpc_status: &str,
+    ) {
         let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
@@ -314,7 +335,10 @@ mod tests {
         let _enter = span.enter();
 
         let result = Ok(reqwest::Response::from(
-            http::Response::builder().status(404).body("").unwrap(),
+            http::Response::builder()
+                .status(status_code)
+                .body("")
+                .unwrap(),
         ));
         record_http_response_attributes(&span, &result);
 
@@ -329,10 +353,13 @@ mod tests {
             (otel_trace::URL_SCHEME, "https".into()),
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (KEY_OTEL_STATUS, "Error".into()),
-            (otel_trace::HTTP_RESPONSE_STATUS_CODE, 404_i64.into()),
-            (otel_trace::ERROR_TYPE, "404".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 5_i64.into()),
-            (KEY_GRPC_STATUS, "NOT_FOUND".into()),
+            (
+                otel_trace::HTTP_RESPONSE_STATUS_CODE,
+                (status_code.as_u16() as i64).into(),
+            ),
+            (otel_trace::ERROR_TYPE, expected_error_type.into()),
+            (otel_attr::RPC_GRPC_STATUS_CODE, expected_grpc_code.into()),
+            (KEY_GRPC_STATUS, expected_grpc_status.into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
