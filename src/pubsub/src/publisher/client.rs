@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::result::Result::*;
+use crate::publisher::topic_publisher::TopicPublisherBuilder;
+
 /// Client for publishing messages to Pub/Sub topics.
 #[derive(Clone, Debug)]
 pub struct PublisherClient {
@@ -91,123 +92,11 @@ impl PublisherClient {
     /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
-    pub fn publisher<T>(&self, topic: T) -> PublisherBuilder
+    pub fn publisher<T>(&self, topic: T) -> TopicPublisherBuilder
     where
         T: Into<String>,
     {
-        PublisherBuilder::new(self.inner.clone(), topic.into())
-    }
-}
-
-/// Publishes messages to a single topic.
-///
-/// ```
-/// # async fn sample() -> anyhow::Result<()> {
-/// # use google_cloud_pubsub::*;
-/// # use builder::publisher::ClientBuilder;
-/// # use client::PublisherClient;
-/// # use model::PubsubMessage;
-/// let client = PublisherClient::builder()
-///     .with_endpoint("https://pubsub.googleapis.com")
-///     .build().await?;
-/// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
-/// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
-/// # Ok(()) }
-/// ```
-#[derive(Debug)]
-pub struct Publisher {
-    pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
-    topic: String,
-    #[allow(dead_code)]
-    batching_settings: BatchingSettings,
-}
-
-impl Publisher {
-    /// Publishes a message to the topic.
-    ///
-    /// ```
-    /// # use google_cloud_pubsub::client::Publisher;
-    /// # async fn sample(publisher: Publisher) -> anyhow::Result<()> {
-    /// # use google_cloud_pubsub::model::PubsubMessage;
-    /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
-    /// # Ok(()) }
-    /// ```
-    // This function will eventually return a type that implements Future instead,
-    // which will remove the warning.
-    #[allow(clippy::manual_async_fn)]
-    pub fn publish(
-        &self,
-        msg: crate::model::PubsubMessage,
-    ) -> impl Future<Output = crate::Result<String>> {
-        async {
-            // This will need to be done on the background task. For now, just
-            // do it here to make the types work.
-            let resp = self
-                .inner
-                .publish()
-                .set_topic(self.topic.clone())
-                .set_messages([msg])
-                .send()
-                .await?;
-            match resp.message_ids.first() {
-                Some(value) => Ok(value.to_owned()),
-                _ => Err(crate::Error::io("service returned no message ID")),
-            }
-        }
-    }
-}
-
-#[derive(Clone, Debug)]
-pub struct PublisherBuilder {
-    pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
-    topic: String,
-    batching_settings: BatchingSettings,
-}
-
-impl PublisherBuilder {
-    /// Creates a new Pub/Sub publisher builder for topic.
-    pub(crate) fn new(
-        client: crate::generated::gapic_dataplane::client::Publisher,
-        topic: String,
-    ) -> Self {
-        Self {
-            inner: client,
-            topic,
-            batching_settings: BatchingSettings::default(),
-        }
-    }
-
-    // Change the message batching settings.
-    pub fn with_batching(mut self, settings: BatchingSettings) -> PublisherBuilder {
-        self.batching_settings = settings;
-        self
-    }
-
-    pub fn build(self) -> Publisher {
-        Publisher {
-            inner: self.inner,
-            topic: self.topic,
-            batching_settings: self.batching_settings,
-        }
-    }
-}
-
-#[derive(Clone, Debug)]
-#[non_exhaustive]
-pub struct BatchingSettings {
-    // To turn off batching, set the value of max_messages to 1.
-    pub message_count_threshold: Option<u32>,
-    pub byte_threshold: Option<u32>,
-    pub delay_threshold_ms: Option<std::time::Duration>,
-}
-
-impl std::default::Default for BatchingSettings {
-    fn default() -> Self {
-        Self {
-            message_count_threshold: Some(100u32),
-            byte_threshold: Some(1000u32),
-            delay_threshold_ms: Some(std::time::Duration::from_millis(10)),
-        }
+        TopicPublisherBuilder::new(self.inner.clone(), topic.into())
     }
 }
 

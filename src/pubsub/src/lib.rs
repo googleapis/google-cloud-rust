@@ -36,6 +36,7 @@ pub mod builder {
     pub mod publisher {
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
         pub use crate::publisher::client::ClientBuilder;
+        pub use crate::publisher::topic_publisher::TopicPublisherBuilder;
     }
 }
 pub mod model {
@@ -44,10 +45,16 @@ pub mod model {
 }
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::client::*;
+    pub use crate::publisher::client::PublisherClient;
+    pub use crate::publisher::topic_publisher::TopicPublisher;
 }
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
+}
+pub mod options {
+    pub mod publisher {
+        pub use crate::publisher::options::BatchingOptions;
+    }
 }
 
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";

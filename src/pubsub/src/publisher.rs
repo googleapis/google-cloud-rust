@@ -13,3 +13,5 @@
 // limitations under the License.
 
 pub mod client;
+pub mod options;
+pub mod topic_publisher;
