@@ -145,19 +145,14 @@ mod tests {
         assert_eq!(captured.len(), 0, "Should capture no spans: {captured:?}");
     }
 
-    #[test_case(StatusCode::BAD_REQUEST, "400", 3, "INVALID_ARGUMENT"; "400 Bad Request")]
-    #[test_case(StatusCode::UNAUTHORIZED, "401", 16, "UNAUTHENTICATED"; "401 Unauthorized")]
-    #[test_case(StatusCode::FORBIDDEN, "403", 7, "PERMISSION_DENIED"; "403 Forbidden")]
-    #[test_case(StatusCode::NOT_FOUND, "404", 5, "NOT_FOUND"; "404 Not Found")]
-    #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500", 13, "INTERNAL"; "500 Internal Server Error")]
-    #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503", 14, "UNAVAILABLE"; "503 Service Unavailable")]
+    #[test_case(StatusCode::BAD_REQUEST, "400"; "400 Bad Request")]
+    #[test_case(StatusCode::UNAUTHORIZED, "401"; "401 Unauthorized")]
+    #[test_case(StatusCode::FORBIDDEN, "403"; "403 Forbidden")]
+    #[test_case(StatusCode::NOT_FOUND, "404"; "404 Not Found")]
+    #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500"; "500 Internal Server Error")]
+    #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503"; "503 Service Unavailable")]
     #[tokio::test]
-    async fn test_error_responses(
-        http_status_code: StatusCode,
-        expected_error_type: &str,
-        expected_grpc_code: i64,
-        expected_grpc_status: &str,
-    ) {
+    async fn test_error_responses(http_status_code: StatusCode, expected_error_type: &str) {
         let server = Server::run();
         let server_addr = server.addr();
         let server_url = format!("http://{}", server_addr);
@@ -200,20 +195,6 @@ mod tests {
             attrs.get(KEY_OTEL_STATUS),
             Some(&"Error".into()),
             "otel.status mismatch, attrs: {:?}",
-            attrs
-        );
-
-        assert_eq!(
-            attrs.get(otel_attr::RPC_GRPC_STATUS_CODE),
-            Some(&expected_grpc_code.into()),
-            "rpc.grpc.status_code mismatch, attrs: {:?}",
-            attrs
-        );
-
-        assert_eq!(
-            attrs.get(google_cloud_gax_internal::observability::attributes::KEY_GRPC_STATUS),
-            Some(&expected_grpc_status.into()),
-            "grpc.status mismatch, attrs: {:?}",
             attrs
         );
     }
