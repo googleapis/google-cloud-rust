@@ -111,8 +111,8 @@ impl PublisherBuilder {
     }
 
     /// Change the message batching options.
-    /// TODO(#3015): Provide example.
     pub fn with_batching(mut self, options: BatchingOptions) -> PublisherBuilder {
+        // TODO(#3015): Provide example in the public documentation.
         self.batching_options = options;
         self
     }
