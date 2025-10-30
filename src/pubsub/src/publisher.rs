@@ -14,4 +14,5 @@
 
 pub mod client;
 pub mod options;
-pub mod topic_publisher;
+#[allow(clippy::module_inception)]
+pub mod publisher;

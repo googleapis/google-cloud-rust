@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::publisher::topic_publisher::TopicPublisherBuilder;
+use crate::publisher::publisher::PublisherBuilder;
 
 /// Client for publishing messages to Pub/Sub topics.
 #[derive(Clone, Debug)]
@@ -92,11 +92,11 @@ impl PublisherClient {
     /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
-    pub fn publisher<T>(&self, topic: T) -> TopicPublisherBuilder
+    pub fn publisher<T>(&self, topic: T) -> PublisherBuilder
     where
         T: Into<String>,
     {
-        TopicPublisherBuilder::new(self.inner.clone(), topic.into())
+        PublisherBuilder::new(self.inner.clone(), topic.into())
     }
 }
 

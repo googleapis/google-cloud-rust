@@ -31,19 +31,19 @@ use std::result::Result::*;
 /// # Ok(()) }
 /// ```
 #[derive(Debug)]
-pub struct TopicPublisher {
+pub struct Publisher {
     pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
     topic: String,
     #[allow(dead_code)]
     pub(crate) batching_options: BatchingOptions,
 }
 
-impl TopicPublisher {
+impl Publisher {
     /// Publishes a message to the topic.
     ///
     /// ```
-    /// # use google_cloud_pubsub::client::TopicPublisher;
-    /// # async fn sample(publisher: TopicPublisher) -> anyhow::Result<()> {
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample(publisher: Publisher) -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::model::PubsubMessage;
     /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
@@ -73,7 +73,7 @@ impl TopicPublisher {
     }
 }
 
-/// A builder for [TopicPublisher].
+/// A builder for [Publisher].
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
@@ -91,13 +91,13 @@ impl TopicPublisher {
 /// # Ok(()) }
 /// ```
 #[derive(Clone, Debug)]
-pub struct TopicPublisherBuilder {
+pub struct PublisherBuilder {
     pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
     topic: String,
     batching_options: BatchingOptions,
 }
 
-impl TopicPublisherBuilder {
+impl PublisherBuilder {
     /// Creates a new Pub/Sub publisher builder for topic.
     pub(crate) fn new(
         client: crate::generated::gapic_dataplane::client::Publisher,
@@ -112,13 +112,13 @@ impl TopicPublisherBuilder {
 
     /// Change the message batching options.
     /// TODO(#3015): Provide example.
-    pub fn with_batching(mut self, options: BatchingOptions) -> TopicPublisherBuilder {
+    pub fn with_batching(mut self, options: BatchingOptions) -> PublisherBuilder {
         self.batching_options = options;
         self
     }
 
-    pub fn build(self) -> TopicPublisher {
-        TopicPublisher {
+    pub fn build(self) -> Publisher {
+        Publisher {
             inner: self.inner,
             topic: self.topic,
             batching_options: self.batching_options,
@@ -138,6 +138,16 @@ mod tests {
             .with_batching(BatchingOptions::new().set_message_count_threshold(1_u32))
             .build();
         assert_eq!(publisher.batching_options.message_count_threshold, 1_u32);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn default_batching() -> anyhow::Result<()> {
+        let client = PublisherClient::builder().build().await?;
+        let publisher = client
+            .publisher("projects/my-project/topics/my-topic".to_string())
+            .build();
+        assert_ne!(publisher.batching_options.message_count_threshold, 1_u32);
         Ok(())
     }
 }
