@@ -75,7 +75,8 @@ pub(crate) fn create_http_attempt_span(
         { KEY_GCP_CLIENT_ARTIFACT } = gcp_client_artifact,
         { otel_trace::HTTP_REQUEST_RESEND_COUNT } = http_request_resend_count,
         // Fields to be recorded later
-        { KEY_OTEL_STATUS } = OtelStatus::Unset.as_str(), // Initial state
+        { KEY_OTEL_STATUS_CODE } = otel_status_codes::UNSET, // Initial state
+        { KEY_OTEL_STATUS_DESCRIPTION } = field::Empty,
         { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
         { otel_trace::HTTP_RESPONSE_BODY_SIZE } = field::Empty,
         { otel_trace::ERROR_TYPE } = field::Empty,
@@ -98,8 +99,6 @@ pub(crate) fn record_http_response_attributes(
                 response.status().as_u16() as i64,
             );
 
-            span.record(KEY_OTEL_STATUS, OtelStatus::Ok.as_str());
-
             if let Some(content_length) = response.headers().get(http::header::CONTENT_LENGTH) {
                 if let Ok(content_length_str) = content_length.to_str() {
                     if let Ok(size) = content_length_str.parse::<i64>() {
@@ -109,12 +108,14 @@ pub(crate) fn record_http_response_attributes(
             }
         }
         Err(err) => {
-            span.record(KEY_OTEL_STATUS, OtelStatus::Error.as_str());
+            span.record(KEY_OTEL_STATUS_CODE, otel_status_codes::ERROR);
             if let Some(status) = err.http_status_code() {
                 span.record(otel_trace::HTTP_RESPONSE_STATUS_CODE, status as i64);
             }
             let error_type = ErrorType::from_gax_error(err);
             span.record(otel_trace::ERROR_TYPE, error_type.as_str());
+            // TODO(#3239): clean up error messages
+            span.record(KEY_OTEL_STATUS_DESCRIPTION, err.to_string());
         }
     }
 }
@@ -161,7 +162,7 @@ mod tests {
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (KEY_GCP_CLIENT_ARTIFACT, "google-cloud-test".into()),
             (otel_trace::HTTP_REQUEST_RESEND_COUNT, 1_i64.into()),
-            (KEY_OTEL_STATUS, "Unset".into()),
+            (KEY_OTEL_STATUS_CODE, "UNSET".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -196,7 +197,7 @@ mod tests {
             (otel_trace::URL_FULL, "http://localhost:8080/".into()),
             (otel_trace::URL_SCHEME, "http".into()),
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (KEY_OTEL_STATUS, "Unset".into()),
+            (KEY_OTEL_STATUS_CODE, "UNSET".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -240,7 +241,7 @@ mod tests {
             (otel_trace::URL_FULL, "https://example.com/test".into()),
             (otel_trace::URL_SCHEME, "https".into()),
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (KEY_OTEL_STATUS, "Ok".into()),
+            (KEY_OTEL_STATUS_CODE, "UNSET".into()),
             (
                 otel_trace::HTTP_RESPONSE_STATUS_CODE,
                 (status_code.as_u16() as i64).into(),
@@ -283,8 +284,12 @@ mod tests {
             (otel_trace::URL_FULL, "https://example.com/test".into()),
             (otel_trace::URL_SCHEME, "https".into()),
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (KEY_OTEL_STATUS, "Error".into()),
+            (KEY_OTEL_STATUS_CODE, "ERROR".into()),
             (otel_trace::ERROR_TYPE, "CLIENT_TIMEOUT".into()),
+            (
+                KEY_OTEL_STATUS_DESCRIPTION,
+                "the request exceeded the request deadline test timeout".into(),
+            ),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -300,16 +305,17 @@ mod tests {
         );
     }
 
-    #[test_case(StatusCode::BAD_REQUEST, "400"; "Bad Request")]
-    #[test_case(StatusCode::UNAUTHORIZED, "401"; "Unauthorized")]
-    #[test_case(StatusCode::FORBIDDEN, "403"; "Forbidden")]
-    #[test_case(StatusCode::NOT_FOUND, "404"; "Not Found")]
-    #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500"; "Internal Server Error")]
-    #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503"; "Service Unavailable")]
+    #[test_case(StatusCode::BAD_REQUEST, "400", "the HTTP transport reports a [400] error: "; "Bad Request")]
+    #[test_case(StatusCode::UNAUTHORIZED, "401", "the HTTP transport reports a [401] error: "; "Unauthorized")]
+    #[test_case(StatusCode::FORBIDDEN, "403", "the HTTP transport reports a [403] error: "; "Forbidden")]
+    #[test_case(StatusCode::NOT_FOUND, "404", "the HTTP transport reports a [404] error: "; "Not Found")]
+    #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500", "the HTTP transport reports a [500] error: "; "Internal Server Error")]
+    #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503", "the HTTP transport reports a [503] error: "; "Service Unavailable")]
     #[tokio::test]
     async fn test_record_response_attributes_http_error(
         status_code: StatusCode,
         expected_error_type: &str,
+        expected_description_prefix: &str,
     ) {
         let guard = TestLayer::initialize();
         let request =
@@ -327,34 +333,43 @@ mod tests {
 
         record_http_response_attributes(&span, Err(&error));
 
-        let expected_attributes: HashMap<String, AttributeValue> = [
-            (KEY_OTEL_NAME, "GET".into()),
-            (KEY_OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_SYSTEM, "http".into()),
-            (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
-            (otel_trace::SERVER_ADDRESS, "example.com".into()),
-            (otel_trace::SERVER_PORT, 443_i64.into()),
-            (otel_trace::URL_FULL, "https://example.com/test".into()),
-            (otel_trace::URL_SCHEME, "https".into()),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (KEY_OTEL_STATUS, "Error".into()),
-            (
-                otel_trace::HTTP_RESPONSE_STATUS_CODE,
-                (status_code.as_u16() as i64).into(),
-            ),
-            (otel_trace::ERROR_TYPE, expected_error_type.into()),
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v))
-        .collect();
-
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
         let attributes = &captured[0].attributes;
+
         assert_eq!(
-            *attributes, expected_attributes,
-            "captured spans: {:?}",
-            captured
+            attributes.get(KEY_OTEL_STATUS_CODE),
+            Some(&"ERROR".into()),
+            "{} mismatch, attrs: {:?}",
+            KEY_OTEL_STATUS_CODE,
+            attributes
+        );
+        assert_eq!(
+            attributes.get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
+            Some(&(status_code.as_u16() as i64).into()),
+            "{} mismatch, attrs: {:?}",
+            otel_trace::HTTP_RESPONSE_STATUS_CODE,
+            attributes
+        );
+        assert_eq!(
+            attributes.get(otel_trace::ERROR_TYPE),
+            Some(&expected_error_type.into()),
+            "{} mismatch, attrs: {:?}",
+            otel_trace::ERROR_TYPE,
+            attributes
+        );
+        let description = attributes
+            .get(KEY_OTEL_STATUS_DESCRIPTION)
+            .unwrap_or_else(|| panic!("{} missing", KEY_OTEL_STATUS_DESCRIPTION))
+            .as_string()
+            .unwrap_or_else(|| panic!("{} not a string", KEY_OTEL_STATUS_DESCRIPTION));
+        assert!(
+            description.starts_with(expected_description_prefix),
+            "{} '{}' does not start with '{}', attrs: {:?}",
+            KEY_OTEL_STATUS_DESCRIPTION,
+            description,
+            expected_description_prefix,
+            attributes
         );
     }
 

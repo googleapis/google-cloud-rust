@@ -23,11 +23,14 @@ pub const KEY_OTEL_KIND: &str = "otel.kind";
 ///
 /// If `url.template` is available use "{http.request.method} {url.template}", otherwise use "{http.request.method}".
 pub const KEY_OTEL_NAME: &str = "otel.name";
-/// Span Status for OpenTelemetry interop.
+/// Span Status Code for OpenTelemetry interop.
 ///
-/// Use "Error" for unrecoverable errors like network issues or 5xx status codes.
-/// Otherwise, leave "Unset" (including for 4xx codes on CLIENT spans).
-pub const KEY_OTEL_STATUS: &str = "otel.status";
+/// Must be one of "UNSET", "OK", or "ERROR".
+pub const KEY_OTEL_STATUS_CODE: &str = "otel.status_code";
+/// Span Status Description for OpenTelemetry interop.
+///
+/// A human-readable description of the status, used when status_code is "ERROR".
+pub const KEY_OTEL_STATUS_DESCRIPTION: &str = "otel.status_description";
 
 /// The string representation of the gRPC status code.
 pub const KEY_GRPC_STATUS: &str = "grpc.status";
@@ -65,37 +68,16 @@ pub mod error_type_values {
     pub const CLIENT_AUTHENTICATION_ERROR: &str = "CLIENT_AUTHENTICATION_ERROR";
     /// Resource exhausted (e.g. retry limit reached).
     pub const CLIENT_RETRY_EXHAUSTED: &str = "CLIENT_RETRY_EXHAUSTED";
-    /// Unexpected issue within the client library's own logic.
-    pub const INTERNAL: &str = "INTERNAL";
     /// Unknown error type.
     pub const UNKNOWN: &str = "UNKNOWN";
 }
 
-#[derive(Debug, Clone, PartialEq)]
-pub(crate) enum OtelStatus {
-    Unset,
-    Ok,
-    Error,
-}
-
-impl OtelStatus {
-    pub(crate) fn as_str(&self) -> &'static str {
-        match self {
-            OtelStatus::Unset => "Unset",
-            OtelStatus::Ok => "Ok",
-            OtelStatus::Error => "Error",
-        }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_otel_status_as_str() {
-        assert_eq!(OtelStatus::Unset.as_str(), "Unset");
-        assert_eq!(OtelStatus::Ok.as_str(), "Ok");
-        assert_eq!(OtelStatus::Error.as_str(), "Error");
-    }
+/// Values for the OpenTelemetry `otel.status_code` attribute.
+pub mod otel_status_codes {
+    /// The operation has been validated by an Application developer or Operator to have completed successfully.
+    pub const OK: &str = "OK";
+    /// The operation contains an error.
+    pub const ERROR: &str = "ERROR";
+    /// The default status.
+    pub const UNSET: &str = "UNSET";
 }
