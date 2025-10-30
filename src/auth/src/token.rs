@@ -20,6 +20,7 @@ use crate::Result;
 use crate::credentials::CacheableResource;
 use http::Extensions;
 use std::collections::HashMap;
+use std::sync::Arc;
 use tokio::time::Instant;
 
 /// Represents an auth token.
@@ -71,12 +72,12 @@ impl std::fmt::Debug for Token {
 
 #[async_trait::async_trait]
 pub(crate) trait TokenProvider: std::fmt::Debug + Send + Sync {
-    async fn token(&self) -> Result<Token>;
+    async fn token(&self) -> Result<Arc<Token>>;
 }
 
 #[async_trait::async_trait]
 pub(crate) trait CachedTokenProvider: std::fmt::Debug + Send + Sync {
-    async fn token(&self, extensions: Extensions) -> Result<CacheableResource<Token>>;
+    async fn token(&self, extensions: Extensions) -> Result<CacheableResource<Arc<Token>>>;
 }
 
 #[cfg(test)]
@@ -91,7 +92,7 @@ pub(crate) mod tests {
 
         #[async_trait::async_trait]
         impl TokenProvider for TokenProvider {
-            async fn token(&self) -> Result<Token>;
+            async fn token(&self) -> Result<Arc<Token>>;
         }
     }
 

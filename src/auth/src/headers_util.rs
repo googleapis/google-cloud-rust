@@ -19,6 +19,7 @@ use crate::token::Token;
 
 use http::HeaderMap;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
+use std::sync::Arc;
 
 mod build_info {
     // The file has been placed there by the build script.
@@ -49,7 +50,7 @@ const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
 
 /// A utility function to create cacheable headers.
 pub(crate) fn build_cacheable_headers(
-    cached_token: &CacheableResource<Token>,
+    cached_token: &CacheableResource<Arc<Token>>,
     quota_project_id: &Option<String>,
 ) -> Result<CacheableResource<HeaderMap>> {
     match cached_token {
@@ -76,7 +77,7 @@ fn build_bearer_headers(
 }
 
 pub(crate) fn build_cacheable_api_key_headers(
-    cached_token: &CacheableResource<Token>,
+    cached_token: &CacheableResource<Arc<Token>>,
 ) -> Result<CacheableResource<HeaderMap>> {
     match cached_token {
         CacheableResource::NotModified => Ok(CacheableResource::NotModified),
@@ -144,7 +145,7 @@ mod tests {
         let token = create_test_token("test_token", "Bearer");
         let cacheable_token = CacheableResource::New {
             entity_tag: EntityTag::default(),
-            data: token,
+            data: Arc::new(token),
         };
 
         let result = build_cacheable_headers(&cacheable_token, &None);
@@ -184,7 +185,7 @@ mod tests {
         let token = create_test_token("test_token", "Bearer");
         let cacheable_token = CacheableResource::New {
             entity_tag: EntityTag::default(),
-            data: token,
+            data: Arc::new(token),
         };
 
         let quota_project_id = Some("test-project-123".to_string());
@@ -252,7 +253,7 @@ mod tests {
         let token = create_test_token("api_key_12345", "Bearer");
         let cacheable_token = CacheableResource::New {
             entity_tag: EntityTag::default(),
-            data: token,
+            data: Arc::new(token),
         };
 
         let result = build_cacheable_api_key_headers(&cacheable_token);
