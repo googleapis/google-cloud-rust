@@ -50,44 +50,29 @@ pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::R
         tracing::subscriber::set_default(subscriber)
     };
 
-    let client = control_client().await?;
-    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-
-    let id = random_bucket_id();
-    buckets.push(id.clone());
     let zone = "us-central1-f";
     tracing::info!("Create bucket for anywhere cache examples");
-    let _bucket = client
-        .create_bucket()
-        .set_parent("projects/_")
-        .set_bucket_id(&id)
-        .set_bucket(
-            Bucket::new()
-                .set_project(format!("projects/{project_id}"))
-                .set_location("us-central1")
-                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
-                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
-                    UniformBucketLevelAccess::new().set_enabled(true),
-                ))
-                .set_labels([("integration-tests", "true")]),
-        )
-        .send()
-        .await?;
+    let (client, bucket) = create_test_hns_bucket().await?;
+    let id = bucket
+        .name
+        .strip_prefix("projects/_/buckets/")
+        .expect("bucket name has prefix");
+    buckets.push(id.to_string());
 
     tracing::info!("running control_create_anywhere_cache");
-    control::create_anywhere_cache::sample(&client, &id, zone).await?;
+    control::create_anywhere_cache::sample(&client, id, zone).await?;
     tracing::info!("running control_get_anywhere_cache");
-    control::get_anywhere_cache::sample(&client, &id, zone).await?;
+    control::get_anywhere_cache::sample(&client, id, zone).await?;
     tracing::info!("running control_list_anywhere_caches");
-    control::list_anywhere_caches::sample(&client, &id).await?;
+    control::list_anywhere_caches::sample(&client, id).await?;
     tracing::info!("running control_pause_anywhere_caches");
-    control::pause_anywhere_cache::sample(&client, &id, zone).await?;
+    control::pause_anywhere_cache::sample(&client, id, zone).await?;
     tracing::info!("running control_resume_anywhere_caches");
-    control::resume_anywhere_cache::sample(&client, &id, zone).await?;
+    control::resume_anywhere_cache::sample(&client, id, zone).await?;
     tracing::info!("running control_update_anywhere_caches");
-    control::update_anywhere_cache::sample(&client, &id, zone).await?;
+    control::update_anywhere_cache::sample(&client, id, zone).await?;
     tracing::info!("running control_disable_anywhere_caches");
-    control::disable_anywhere_cache::sample(&client, &id, zone).await?;
+    control::disable_anywhere_cache::sample(&client, id, zone).await?;
 
     Ok(())
 }
@@ -549,7 +534,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
                 ))
                 .set_object_retention(ObjectRetention::new().set_enabled(true))
                 // Enable garbage collection.
-                .set_labels([("integration-tests", "true")]),
+                .set_labels([("integration-test", "true")]),
         )
         .send()
         .await?;
@@ -652,7 +637,7 @@ async fn create_bucket_kms_key(
             google_cloud_storage::model::Bucket::new()
                 .set_project(format!("projects/{project_id}"))
                 .set_location("US-CENTRAL1")
-                .set_labels([("integration-tests", "true")]),
+                .set_labels([("integration-test", "true")]),
         )
         .send()
         .await?;
@@ -790,13 +775,13 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
     let current = client.get_bucket().set_name(&name).send().await?;
     if current
         .labels
-        .get("integration-tests")
+        .get("integration-test")
         .is_none_or(|v| v != "true")
     {
         let mut updated = current.clone();
         updated
             .labels
-            .insert("integration-tests".to_string(), "true".to_string());
+            .insert("integration-test".to_string(), "true".to_string());
         if let Err(e) = client
             .update_bucket()
             .set_bucket(updated)
