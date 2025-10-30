@@ -45,7 +45,6 @@ mod driver {
     #[test_case(false; "without impersonation")]
     #[test_case(true; "with impersonation")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    #[serial_test::serial]
     async fn run_workload_identity_provider_url_sourced(
         with_impersonation: bool,
     ) -> anyhow::Result<()> {
@@ -79,7 +78,6 @@ mod driver {
     #[test_case(false; "without impersonation")]
     #[test_case(true; "with impersonation")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    #[serial_test::serial]
     async fn run_workload_identity_provider_file_sourced(
         with_impersonation: bool,
     ) -> anyhow::Result<()> {
