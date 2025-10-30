@@ -18,6 +18,8 @@ mod control;
 mod objects;
 mod quickstart;
 
+use google_cloud_gax::options::RequestOptionsBuilder;
+use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use google_cloud_gax::{
     exponential_backoff::ExponentialBackoffBuilder, retry_policy::RetryPolicyExt,
@@ -67,7 +69,7 @@ pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::R
                 .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
                     UniformBucketLevelAccess::new().set_enabled(true),
                 ))
-                .set_labels([("integration-test", "true")]),
+                .set_labels([("integration-tests", "true")]),
         )
         .send()
         .await?;
@@ -547,7 +549,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
                 ))
                 .set_object_retention(ObjectRetention::new().set_enabled(true))
                 // Enable garbage collection.
-                .set_labels([("integration-test", "true")]),
+                .set_labels([("integration-tests", "true")]),
         )
         .send()
         .await?;
@@ -650,7 +652,7 @@ async fn create_bucket_kms_key(
             google_cloud_storage::model::Bucket::new()
                 .set_project(format!("projects/{project_id}"))
                 .set_location("US-CENTRAL1")
-                .set_labels([("integration-test", "true")]),
+                .set_labels([("integration-tests", "true")]),
         )
         .send()
         .await?;
@@ -658,6 +660,124 @@ async fn create_bucket_kms_key(
         "projects/{project_id}/locations/us-central1/keyRings/{kms_ring}/cryptoKeys/storage-examples"
     );
     Ok(kms_key)
+}
+
+pub async fn create_test_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    let client = client_for_create_bucket().await?;
+    cleanup_stale_buckets(&client, &project_id).await?;
+
+    let bucket_id = crate::random_bucket_id();
+
+    tracing::info!("create_test_bucket()");
+    let create = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("us-central1")
+                .set_labels([("integration-test", "true")]),
+        )
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("create_test_bucket(): {create:?}");
+    Ok((client, create))
+}
+
+pub async fn create_test_hns_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    let client = client_for_create_bucket().await?;
+    cleanup_stale_buckets(&client, &project_id).await?;
+
+    let bucket_id = crate::random_bucket_id();
+
+    let create = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("us-central1")
+                .set_labels([("integration-test", "true")])
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
+        )
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("create_test_hns_bucket(): {create:?}");
+    Ok((client, create))
+}
+
+async fn client_for_create_bucket() -> anyhow::Result<StorageControl> {
+    let client = StorageControl::builder()
+        .with_tracing()
+        .with_backoff_policy(
+            google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder::new()
+                .with_initial_delay(Duration::from_secs(2))
+                .with_maximum_delay(Duration::from_secs(8))
+                .build()
+                .unwrap(),
+        )
+        .with_retry_policy(
+            google_cloud_gax::retry_policy::AlwaysRetry
+                .with_attempt_limit(16)
+                .with_time_limit(Duration::from_secs(32)),
+        )
+        .build()
+        .await?;
+    Ok(client)
+}
+
+pub async fn cleanup_stale_buckets(
+    client: &StorageControl,
+    project_id: &str,
+) -> anyhow::Result<()> {
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
+    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
+    let stale_deadline = google_cloud_wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+
+    let mut buckets = client
+        .list_buckets()
+        .set_parent(format!("projects/{project_id}"))
+        .by_item();
+    let mut pending = Vec::new();
+    let mut names = Vec::new();
+    while let Some(bucket) = buckets.next().await {
+        let bucket = bucket?;
+        if bucket
+            .labels
+            .get("integration-test")
+            .is_some_and(|v| v == "true")
+            && bucket.create_time.is_some_and(|v| v < stale_deadline)
+        {
+            let client = client.clone();
+            let name = bucket.name.clone();
+            pending.push(tokio::spawn(
+                async move { cleanup_bucket(client, name).await },
+            ));
+            names.push(bucket.name);
+        }
+    }
+
+    println!("cleaning up {} buckets", pending.len());
+    let r: std::result::Result<Vec<_>, _> = futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .collect();
+    r.map_err(anyhow::Error::from)?
+        .into_iter()
+        .zip(names)
+        .for_each(|(r, name)| println!("deleting bucket {name}: {r:?}"));
+
+    Ok(())
 }
 
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
@@ -670,13 +790,13 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
     let current = client.get_bucket().set_name(&name).send().await?;
     if current
         .labels
-        .get("integration-test")
+        .get("integration-tests")
         .is_none_or(|v| v != "true")
     {
         let mut updated = current.clone();
         updated
             .labels
-            .insert("integration-test".to_string(), "true".to_string());
+            .insert("integration-tests".to_string(), "true".to_string());
         if let Err(e) = client
             .update_bucket()
             .set_bucket(updated)
