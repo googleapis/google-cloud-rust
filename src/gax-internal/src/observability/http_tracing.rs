@@ -104,23 +104,15 @@ pub(crate) fn record_http_response_attributes(
                     code: status,
                     reason: None,
                 };
+
                 span.record(otel_trace::ERROR_TYPE, error_type.as_str());
-                span.record(
-                    otel_attr::RPC_GRPC_STATUS_CODE,
-                    error_type.grpc_code() as i64,
-                );
-                span.record(KEY_GRPC_STATUS, error_type.grpc_status());
             }
         }
         Err(err) => {
             span.record(KEY_OTEL_STATUS, OtelStatus::Error.as_str());
             let error_type = ErrorType::from_reqwest_error(err);
+
             span.record(otel_trace::ERROR_TYPE, error_type.as_str());
-            span.record(
-                otel_attr::RPC_GRPC_STATUS_CODE,
-                error_type.grpc_code() as i64,
-            );
-            span.record(KEY_GRPC_STATUS, error_type.grpc_status());
         }
     }
 }
@@ -297,8 +289,6 @@ mod tests {
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (KEY_OTEL_STATUS, "Error".into()),
             (otel_trace::ERROR_TYPE, "CLIENT_TIMEOUT".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 4_i64.into()),
-            (KEY_GRPC_STATUS, "DEADLINE_EXCEEDED".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -314,18 +304,16 @@ mod tests {
         );
     }
 
-    #[test_case(StatusCode::BAD_REQUEST, "400", 3, "INVALID_ARGUMENT"; "Bad Request")]
-    #[test_case(StatusCode::UNAUTHORIZED, "401", 16, "UNAUTHENTICATED"; "Unauthorized")]
-    #[test_case(StatusCode::FORBIDDEN, "403", 7, "PERMISSION_DENIED"; "Forbidden")]
-    #[test_case(StatusCode::NOT_FOUND, "404", 5, "NOT_FOUND"; "Not Found")]
-    #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500", 13, "INTERNAL"; "Internal Server Error")]
-    #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503", 14, "UNAVAILABLE"; "Service Unavailable")]
+    #[test_case(StatusCode::BAD_REQUEST, "400"; "Bad Request")]
+    #[test_case(StatusCode::UNAUTHORIZED, "401"; "Unauthorized")]
+    #[test_case(StatusCode::FORBIDDEN, "403"; "Forbidden")]
+    #[test_case(StatusCode::NOT_FOUND, "404"; "Not Found")]
+    #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500"; "Internal Server Error")]
+    #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503"; "Service Unavailable")]
     #[tokio::test]
     async fn test_record_response_attributes_http_error(
         status_code: StatusCode,
         expected_error_type: &str,
-        expected_grpc_code: i64,
-        expected_grpc_status: &str,
     ) {
         let guard = TestLayer::initialize();
         let request =
@@ -358,8 +346,6 @@ mod tests {
                 (status_code.as_u16() as i64).into(),
             ),
             (otel_trace::ERROR_TYPE, expected_error_type.into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, expected_grpc_code.into()),
-            (KEY_GRPC_STATUS, expected_grpc_status.into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
