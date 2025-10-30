@@ -77,6 +77,7 @@ pub(crate) fn create_http_attempt_span(
         // Fields to be recorded later
         { KEY_OTEL_STATUS } = OtelStatus::Unset.as_str(), // Initial state
         { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
+        { otel_trace::HTTP_RESPONSE_BODY_SIZE } = field::Empty,
         { otel_trace::ERROR_TYPE } = field::Empty,
         { otel_attr::RPC_GRPC_STATUS_CODE } = field::Empty,
         { KEY_GRPC_STATUS } = field::Empty,
@@ -95,6 +96,13 @@ pub(crate) fn record_http_response_attributes(
                 otel_trace::HTTP_RESPONSE_STATUS_CODE,
                 status.as_u16() as i64,
             );
+            if let Some(content_length) = response.headers().get(http::header::CONTENT_LENGTH) {
+                if let Ok(content_length_str) = content_length.to_str() {
+                    if let Ok(size) = content_length_str.parse::<i64>() {
+                        span.record(otel_trace::HTTP_RESPONSE_BODY_SIZE, size);
+                    }
+                }
+            }
             if status.is_success() {
                 span.record(KEY_OTEL_STATUS, OtelStatus::Ok.as_str());
             } else {

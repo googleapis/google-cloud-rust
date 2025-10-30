@@ -100,6 +100,7 @@ mod tests {
             (KEY_GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (KEY_GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
+            (otel_trace::HTTP_RESPONSE_BODY_SIZE, 18_i64.into()), // {"hello": "world"} is 18 bytes
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
