@@ -25,7 +25,7 @@ pub async fn basic_publisher() -> Result<()> {
 
     tracing::info!("testing publish()");
     let client = PublisherClient::builder().build().await?;
-    let publisher = client.publisher(topic.name.clone());
+    let publisher = client.publisher(topic.name.clone()).build();
     let messages: [PubsubMessage; 2] = [
         PubsubMessage::new().set_data("Hello"),
         PubsubMessage::new().set_data("World"),
