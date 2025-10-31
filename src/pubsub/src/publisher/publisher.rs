@@ -12,8 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::publisher::options::BatchingOptions;
-use std::result::Result::*;
+use tokio::sync::mpsc::UnboundedSender;
+
+use crate::publisher::{
+    options::BatchingOptions,
+    worker::{ToWorker, Worker},
+};
 
 /// Publishes messages to a single topic.
 ///
@@ -32,10 +36,9 @@ use std::result::Result::*;
 /// ```
 #[derive(Debug)]
 pub struct Publisher {
-    pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
-    topic: String,
     #[allow(dead_code)]
     pub(crate) batching_options: BatchingOptions,
+    tx: UnboundedSender<ToWorker>,
 }
 
 impl Publisher {
@@ -50,26 +53,19 @@ impl Publisher {
     /// ```
     // This function will eventually return a type that implements Future instead,
     // which will remove the warning.
-    #[allow(clippy::manual_async_fn)]
-    pub fn publish(
-        &self,
-        msg: crate::model::PubsubMessage,
-    ) -> impl Future<Output = crate::Result<String>> {
-        async {
-            // This will need to be done on the background task. For now, just
-            // do it here to make the types work.
-            let resp = self
-                .inner
-                .publish()
-                .set_topic(self.topic.clone())
-                .set_messages([msg])
-                .send()
-                .await?;
-            match resp.message_ids.first() {
-                Some(value) => Ok(value.to_owned()),
-                _ => Err(crate::Error::io("service returned no message ID")),
-            }
+    pub fn publish(&self, msg: crate::model::PubsubMessage) -> crate::model_ext::PublishHandle {
+        let (tx, rx) = tokio::sync::oneshot::channel();
+
+        // This also should not fail unless the receiver is dropped.
+        // With the worker running in the background task everything should be ok.
+        if let Err(e) = self.tx.send(ToWorker { msg, tx }) {
+            e.0.tx
+                .send(Err(crate::Error::ser(
+                    "internal error adding message to buffer",
+                )))
+                .expect("rx is still in scope");
         }
+        crate::model_ext::PublishHandle { rx }
     }
 }
 
@@ -118,10 +114,17 @@ impl PublisherBuilder {
     }
 
     pub fn build(self) -> Publisher {
+        let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
+        // Create the batching worker that will run in the background.
+        // We don't need to keep track of a handle to the worker.
+        // Dropping the Publisher will drop the only sender to the channel.
+        // This wil cause worker.run() to read None from the channel and close.
+        let worker = Worker::new(self.topic, self.inner, self.batching_options.clone(), rx);
+        tokio::spawn(worker.run());
+
         Publisher {
-            inner: self.inner,
-            topic: self.topic,
             batching_options: self.batching_options,
+            tx,
         }
     }
 }
