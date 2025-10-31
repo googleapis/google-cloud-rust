@@ -96,8 +96,8 @@
 
 use crate::build_errors::Error as BuilderError;
 use crate::constants::OAUTH2_TOKEN_SERVER_URL;
-use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{CacheableResource, Credentials};
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
+use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_cacheable_headers;
 use crate::retry::Builder as RetryTokenProviderBuilder;
@@ -315,6 +315,22 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
+        Ok(self.build_access_token_credentials()?.into())
+    }
+
+    /// Returns a [AccessTokenCredentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if the `authorized_user`
+    /// provided to [`Builder::new`] cannot be successfully deserialized into the
+    /// expected format. This typically happens if the JSON value is malformed or
+    /// missing required fields. For more information, on how to generate
+    /// `authorized_user` json, consult the relevant section in the
+    /// [application-default credentials] guide.
+    ///
+    /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+    pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
             .map_err(BuilderError::parsing)?;
         let endpoint = self
@@ -334,7 +350,7 @@ impl Builder {
 
         let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
 
-        Ok(Credentials {
+        Ok(AccessTokenCredentials {
             inner: Arc::new(UserCredentials {
                 token_provider,
                 quota_project_id,
@@ -447,6 +463,17 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
         build_cacheable_headers(&token, &self.quota_project_id)
+    }
+}
+
+#[async_trait::async_trait]
+impl<T> AccessTokenCredentialsProvider for UserCredentials<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
     }
 }
 
