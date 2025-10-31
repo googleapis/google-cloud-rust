@@ -259,16 +259,15 @@ impl Builder {
         }
     }
 
-    fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
+    fn resolve_endpoint(&self) -> (String, bool) {
         let final_endpoint: String;
         let endpoint_overridden: bool;
-
         // Determine the endpoint and whether it was overridden
         if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
             // Check GCE_METADATA_HOST environment variable first
             final_endpoint = format!("http://{host_from_env}");
             endpoint_overridden = true;
-        } else if let Some(builder_endpoint) = self.endpoint {
+        } else if let Some(builder_endpoint) = self.endpoint.clone() {
             // Else, check if an endpoint was provided to the mds::Builder
             final_endpoint = builder_endpoint;
             endpoint_overridden = true;
@@ -277,6 +276,11 @@ impl Builder {
             final_endpoint = METADATA_ROOT.to_string();
             endpoint_overridden = false;
         };
+        (final_endpoint, endpoint_overridden)
+    }
+
+    fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
+        let (final_endpoint, endpoint_overridden) = self.resolve_endpoint();
 
         let tp = MDSAccessTokenProvider::builder()
             .endpoint(final_endpoint)
@@ -296,6 +300,66 @@ impl Builder {
         Ok(Credentials {
             inner: Arc::new(mdsc),
         })
+    }
+
+    #[cfg(google_cloud_unstable_signer)]
+    pub fn signer(self) -> BuildResult<crate::signer::Signer> {
+        // TODO: have MDS specific impl that fetches email as needed
+        let (endpoint, _) = self.resolve_endpoint();
+
+        Ok(crate::signer::Signer {
+            inner: Arc::new(MDSCredentialsSigner {
+                endpoint,
+                inner: self.build()?,
+            }),
+        })
+    }
+}
+
+// Implements Signer for MDS that extends the existing CredentialsSigner by fetching
+// email via MDS email endpoint.
+#[derive(Clone, Debug)]
+#[cfg(google_cloud_unstable_signer)]
+struct MDSCredentialsSigner {
+    endpoint: String,
+    inner: Credentials,
+}
+
+#[cfg(google_cloud_unstable_signer)]
+#[async_trait::async_trait]
+impl crate::signer::SigningProvider for MDSCredentialsSigner {
+    async fn requestor(&self) -> crate::signer::Result<String> {
+        let client = Client::new();
+
+        let request = client
+            .get(format!("{}{}/email", self.endpoint, MDS_DEFAULT_URI))
+            .header(
+                METADATA_FLAVOR,
+                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
+            );
+
+        let response = request
+            .send()
+            .await
+            .map_err(crate::signer::SigningError::transport)?;
+        let client_email = response
+            .text()
+            .await
+            .map_err(crate::signer::SigningError::transport)?;
+
+        Ok(client_email)
+    }
+
+    async fn sign(&self, content: &str) -> crate::signer::Result<String> {
+        // TODO: not efficient at all, recreating CredentialSigner and refetching email
+        let client_email = self.requestor().await?;
+
+        let signer = crate::signer::CredentialsSigner {
+            client_email,
+            inner: self.inner.clone(),
+        };
+
+        signer.sign(content).await
     }
 }
 

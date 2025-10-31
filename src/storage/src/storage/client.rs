@@ -225,6 +225,92 @@ where
     {
         ReadObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
+    
+    #[cfg(google_cloud_unstable_signer)]
+    pub async fn signed_url<B, O>(&self, signer: auth::signer::Signer, bucket: B, object: O) -> std::result::Result<String, crate::error::ReadError>
+    where
+        B: Into<String>,
+        O: Into<String>,
+    {   
+        use std::collections::BTreeMap;
+        use base64::{Engine, prelude::BASE64_STANDARD};
+        use chrono::Utc;
+        use sha2::{Digest, Sha256};
+
+        // TODO: have builder for those parameters
+        let expiration = 7*24*60*60; // default is 7 days 
+        let http_method="GET"; // default access http method
+        // important to use BTreeMap to keep ordered by keys
+        let mut headers: BTreeMap<&'static str, String> = BTreeMap::new(); 
+        let mut query_parameters: BTreeMap<&'static str, String> = BTreeMap::new(); 
+        
+        let canonical_uri = format!("/{}", object.into()); // TODO: escape object name        
+
+        let now = Utc::now();
+        let request_timestamp = now.format("%Y%m%dT%H%M%SZ");
+        let datestamp = now.format("%Y%m%d");
+        let credential_scope = format!("{datestamp}/auto/storage/goog4_request");
+        let requestor = signer.requestor().await.unwrap(); // TODO: map_err
+        let credential = format!("{requestor}/{credential_scope}");
+
+        let host = format!("{}.storage.googleapis.com", bucket.into());
+        headers.insert("host",  host.clone());
+        let canonical_headers = "".to_string();
+        let canonical_headers = headers
+            .iter()
+            .fold(canonical_headers, |acc, (k, v)| {
+                format!("{acc}\n{k}:{v}")
+            });
+
+        let signed_headers = "".to_string();
+        let signed_headers = headers
+            .iter()
+            .fold(signed_headers, |acc, (k, _)| {
+                format!("{acc}{k};")
+            });
+        let signed_headers = signed_headers.trim_end_matches(';').to_string();
+
+        query_parameters.insert("X-Goog-Algorithm", "GOOG4-RSA-SHA256".to_string());
+        query_parameters.insert("X-Goog-Credential", credential);
+        query_parameters.insert("X-Goog-Expires", expiration.to_string());
+        query_parameters.insert("X-Goog-SignedHeaders", signed_headers.clone());
+
+        let canonical_query_string = "".to_string();
+        let canonical_query_string = query_parameters
+            .iter()
+            .fold(canonical_query_string, |acc, (k, v)| {
+                format!("{acc}{k}={v}&")
+        });
+        let canonical_query_string = canonical_query_string.trim_start_matches('&').to_string();
+        
+        let canonical_request = vec![
+            http_method.to_string(),
+            canonical_uri.clone(),
+            canonical_query_string.clone(),
+            canonical_headers,
+            signed_headers,
+            "UNSIGNED-PAYLOAD".to_string(),
+        ].join("\n");
+
+        let canonical_request_hash =  Sha256::digest(canonical_request.as_bytes());
+        let canonical_request_hash = BASE64_STANDARD.encode(canonical_request_hash);
+
+        let string_to_sign = vec![
+            "GOOG4-RSA-SHA256".to_string(),
+            request_timestamp.to_string(),
+            credential_scope,
+            canonical_request_hash,
+        ].join("\n");
+            
+        let signature = signer.sign(string_to_sign.as_str()).await.unwrap(); // TODO map_err
+
+        let scheme_and_host = format!("https://{}", host);
+        let signed_url = format!("{}{}?{}&x-goog-signature={}",
+            scheme_and_host, canonical_uri, canonical_query_string, signature
+        );
+
+        Ok(signed_url)
+    }
 }
 
 impl Storage {

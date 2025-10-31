@@ -122,3 +122,6 @@ serde_with.workspace        = true
 static_assertions.workspace = true
 test-case.workspace         = true
 tokio.workspace             = true
+
+[lints]
+workspace = true

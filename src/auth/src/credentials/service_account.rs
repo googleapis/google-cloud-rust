@@ -294,6 +294,21 @@ impl Builder {
             }),
         })
     }
+
+    #[cfg(google_cloud_unstable_signer)]
+    pub fn signer(self) -> BuildResult<crate::signer::Signer> {
+        let service_account_key =
+            serde_json::from_value::<ServiceAccountKey>(self.service_account_key.clone())
+                .map_err(BuilderError::parsing)?;
+        let client_email = service_account_key.client_email;
+
+        Ok(crate::signer::Signer {
+            inner: Arc::new(crate::signer::CredentialsSigner {
+                client_email,
+                inner: self.build()?,
+            }),
+        })
+    }
 }
 
 /// A representation of a [service account key].

@@ -122,6 +122,7 @@ const IMPERSONATED_CREDENTIAL_TYPE: &str = "imp";
 pub(crate) const DEFAULT_LIFETIME: Duration = Duration::from_secs(3600);
 const MSG: &str = "failed to fetch token";
 
+#[derive(Clone)]
 enum BuilderSource {
     FromJson(Value),
     FromCredentials(Credentials),
@@ -426,6 +427,36 @@ impl Builder {
             inner: Arc::new(ImpersonatedServiceAccount {
                 token_provider: TokenCache::new(token_provider),
                 quota_project_id,
+            }),
+        })
+    }
+
+    #[cfg(google_cloud_unstable_signer)]
+    pub fn signer(self) -> BuildResult<crate::signer::Signer> {
+        let source = self.source.clone();
+        let components = match source {
+            BuilderSource::FromJson(json) => build_components_from_json(json)?,
+            BuilderSource::FromCredentials(source_credentials) => {
+                build_components_from_credentials(
+                    source_credentials,
+                    self.service_account_impersonation_url.clone(),
+                )?
+            }
+        };
+
+        // TODO: better use regex to extract email ?
+        let parts: Vec<&str> = components
+            .service_account_impersonation_url
+            .split("serviceAccounts/")
+            .collect();
+        let client_email = parts[1]
+            .trim_end_matches(":generateAccessToken")
+            .to_string();
+
+        Ok(crate::signer::Signer {
+            inner: Arc::new(crate::signer::CredentialsSigner {
+                client_email,
+                inner: self.build()?,
             }),
         })
     }

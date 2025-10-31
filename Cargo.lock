@@ -4381,6 +4381,7 @@ dependencies = [
  "async-trait",
  "base64",
  "bytes",
+ "chrono",
  "crc32c",
  "flate2",
  "futures",

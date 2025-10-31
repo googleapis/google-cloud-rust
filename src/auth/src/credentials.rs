@@ -415,6 +415,20 @@ impl Builder {
             .or(self.quota_project_id);
         build_credentials(json_data, quota_project_id, self.scopes)
     }
+
+    #[cfg(google_cloud_unstable_signer)]
+    pub fn signer(self) -> BuildResult<crate::signer::Signer> {
+        let json_data = match load_adc()? {
+            AdcContents::Contents(contents) => {
+                Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
+            }
+            AdcContents::FallbackToMds => None,
+        };
+        let quota_project_id = std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
+            .ok()
+            .or(self.quota_project_id);
+        build_signer(json_data, quota_project_id, self.scopes)
+    }
 }
 
 #[derive(Debug, PartialEq)]
@@ -455,6 +469,24 @@ macro_rules! config_builder {
             .fold(builder, |b, s| $apply_scopes_closure(b, s));
 
         builder.build()
+    }};
+}
+
+/// Applies common optional configurations (quota project ID, scopes) to a
+/// specific credential builder instance and then return a signer for it.
+#[cfg(google_cloud_unstable_signer)]
+macro_rules! config_signer {
+    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
+        let builder = $builder_instance;
+        let builder = $quota_project_id_option
+            .into_iter()
+            .fold(builder, |b, qp| b.with_quota_project_id(qp));
+
+        let builder = $scopes_option
+            .into_iter()
+            .fold(builder, |b, s| $apply_scopes_closure(b, s));
+
+        builder.signer()
     }};
 }
 
@@ -502,6 +534,50 @@ fn build_credentials(
                     scopes,
                     |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
                 ),
+                _ => Err(BuilderError::unknown_type(cred_type)),
+            }
+        }
+    }
+}
+
+#[cfg(google_cloud_unstable_signer)]
+fn build_signer(
+    json: Option<Value>,
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+) -> BuildResult<crate::signer::Signer> {
+    match json {
+        None => config_signer!(
+            mds::Builder::from_adc(),
+            quota_project_id,
+            scopes,
+            |b: mds::Builder, s: Vec<String>| b.with_scopes(s)
+        ),
+        Some(json) => {
+            let cred_type = extract_credential_type(&json)?;
+            match cred_type {
+                "authorized_user" => config_signer!(
+                    user_account::Builder::new(json),
+                    quota_project_id,
+                    scopes,
+                    |b: user_account::Builder, s: Vec<String>| b.with_scopes(s)
+                ),
+                "service_account" => config_signer!(
+                    service_account::Builder::new(json),
+                    quota_project_id,
+                    scopes,
+                    |b: service_account::Builder, s: Vec<String>| b
+                        .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
+                ),
+                "impersonated_service_account" => {
+                    config_signer!(
+                        impersonated::Builder::new(json),
+                        quota_project_id,
+                        scopes,
+                        |b: impersonated::Builder, s: Vec<String>| b.with_scopes(s)
+                    )
+                }
+                "external_account" => panic!("external account signer not supported yet"),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
