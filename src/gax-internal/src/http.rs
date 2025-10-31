@@ -177,7 +177,7 @@ impl ReqwestClient {
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
 
-        let request = builder.build().map_err(Self::map_send_error)?;
+        let request = builder.build().map_err(map_send_error)?;
 
         #[cfg(google_cloud_unstable_tracing)]
         let response_result = if self._tracing_enabled {
@@ -195,18 +195,11 @@ impl ReqwestClient {
         #[cfg(not(google_cloud_unstable_tracing))]
         let response_result = self.inner.execute(request).await;
 
-        let response = response_result.map_err(Self::map_send_error)?;
+        let response = response_result.map_err(map_send_error)?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;
         }
         self::to_http_response(response).await
-    }
-
-    fn map_send_error(err: reqwest::Error) -> Error {
-        match err {
-            e if e.is_timeout() => Error::timeout(e),
-            e => Error::io(e),
-        }
     }
 
     fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
@@ -254,6 +247,37 @@ impl ReqwestClient {
             .polling_backoff_policy()
             .clone()
             .unwrap_or_else(|| self.polling_backoff_policy.clone())
+    }
+}
+
+fn as_inner<E>(error: &reqwest::Error) -> Option<&E>
+where
+    E: std::error::Error + 'static,
+{
+    use std::error::Error as _;
+    let mut e = error.source()?;
+    // Prevent infinite loops due to cycles in the `source()` errors. This seems
+    // unlikely, and it would require effort to create, but it is easy to
+    // prevent.
+    for _ in 0..32 {
+        if let Some(value) = e.downcast_ref::<E>() {
+            return Some(value);
+        }
+        e = e.source()?;
+    }
+    None
+}
+
+pub fn map_send_error(err: reqwest::Error) -> Error {
+    if let Some(e) = as_inner::<hyper::Error>(&err) {
+        if e.is_user() {
+            return Error::ser(err);
+        }
+    }
+    match err {
+        e if e.is_connect() => Error::connect(e),
+        e if e.is_timeout() => Error::timeout(e),
+        e => Error::io(e),
     }
 }
 

@@ -2550,7 +2550,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.3"
+version = "0.7.4"
 dependencies = [
  "anyhow",
  "bytes",
@@ -2564,6 +2564,7 @@ dependencies = [
  "http",
  "http-body-util",
  "httptest",
+ "hyper",
  "lazy_static",
  "mockall",
  "opentelemetry-semantic-conventions",
