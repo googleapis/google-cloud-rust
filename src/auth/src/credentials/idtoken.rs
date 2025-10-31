@@ -16,11 +16,11 @@ use crate::build_errors::Error as BuilderError;
 use crate::credentials::{
     AdcContents, extract_credential_type, impersonated, load_adc, mds, service_account,
 };
+use crate::errors::CredentialsError;
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
-use gax::error::CredentialsError;
-use serde_json::Value;
+pub use serde_json::{Map, Value};
 use std::collections::HashMap;
 use std::future::Future;
 use std::sync::Arc;
@@ -215,33 +215,59 @@ fn instant_from_epoch_seconds(secs: u64) -> Option<Instant> {
     }
 }
 
+pub(crate) mod verifier;
+
+/// VerifierBuilder is used construct a Verifier of id tokens.
+pub use verifier::Builder as VerifierBuilder;
+pub use verifier::Verifier;
+
 #[cfg(test)]
 pub(crate) mod tests {
     use super::parse_id_token_from_str;
     use super::*;
-    use base64::prelude::BASE64_URL_SAFE_NO_PAD;
+    use jsonwebtoken::{Algorithm, EncodingKey, Header};
+    use rsa::pkcs1::EncodeRsaPrivateKey;
     use serial_test::parallel;
+    use std::collections::HashMap;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
     type TestResult = anyhow::Result<()>;
 
     const DEFAULT_TEST_TOKEN_EXPIRATION: Duration = Duration::from_secs(3600);
+    pub(crate) const TEST_KEY_ID: &str = "test-key-id";
 
     /// Function to be used in tests to generate a fake, but valid enough, id token.
     pub(crate) fn generate_test_id_token<S: Into<String>>(audience: S) -> String {
+        generate_test_id_token_with_claims(audience, HashMap::new())
+    }
+
+    pub(crate) fn generate_test_id_token_with_claims<S: Into<String>>(
+        audience: S,
+        claims_to_add: HashMap<&str, Value>,
+    ) -> String {
         let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
         let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
-        let claims = serde_json::json!({
-            "iss": "test_iss".to_string(),
-            "aud": Some(audience.into()),
-            "exp": then.as_secs(),
-            "iat": now.as_secs(),
-        });
 
-        let json = serde_json::to_string(&claims).expect("failed to encode jwt claims");
-        let payload = BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes());
+        let mut header = Header::new(Algorithm::RS256);
+        header.kid = Some(TEST_KEY_ID.to_string());
 
-        format!("test_header.{}.test_signature", payload)
+        let mut claims: HashMap<&str, Value> = HashMap::new();
+        claims.insert("aud", Value::String(audience.into()));
+        claims.insert("iss", "accounts.google.com".into());
+        claims.insert("exp", then.as_secs().into());
+        claims.insert("iat", now.as_secs().into());
+
+        for (k, v) in claims_to_add {
+            claims.insert(k, v);
+        }
+
+        let private_cert = crate::credentials::tests::RSA_PRIVATE_KEY
+            .to_pkcs1_der()
+            .expect("Failed to encode private key to PKCS#1 DER");
+
+        let private_key = EncodingKey::from_rsa_der(private_cert.as_bytes());
+
+        jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt")
     }
 
     #[tokio::test]

@@ -14,3 +14,6 @@
 
 #[allow(dead_code)]
 pub mod sts_exchange;
+
+#[allow(dead_code)]
+pub mod jwk_client;
