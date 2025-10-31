@@ -23,6 +23,7 @@ use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::Md5;
 use crate::storage::request_options::RequestOptions;
+use gaxi::http::map_send_error;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -420,7 +421,7 @@ impl Reader {
 
     async fn read_attempt(&self) -> Result<reqwest::Response> {
         let builder = self.http_request_builder().await?;
-        let response = builder.send().await.map_err(Error::io)?;
+        let response = builder.send().await.map_err(map_send_error)?;
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
         }
