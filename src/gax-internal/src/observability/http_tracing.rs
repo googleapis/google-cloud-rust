@@ -16,6 +16,7 @@ use crate::observability::attributes::*;
 use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
 use gax::options::RequestOptions;
+use gax::response::Response;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use tracing::{Span, field};
 
@@ -84,18 +85,22 @@ pub(crate) fn create_http_attempt_span(
     )
 }
 
-/// Records additional attributes to the span based on the response outcome.
-pub(crate) fn record_http_response_attributes(
+/// Records additional attributes to the span based on the final gax::Result outcome.
+pub(crate) fn record_http_response_attributes<O>(
     span: &Span,
-    result: &Result<reqwest::Response, reqwest::Error>,
+    result: &gax::Result<Response<O>>,
+    status_code: Option<reqwest::StatusCode>,
 ) {
+    if let Some(status) = status_code {
+        span.record(
+            otel_trace::HTTP_RESPONSE_STATUS_CODE,
+            status.as_u16() as i64,
+        );
+    }
+
     match result {
         Ok(response) => {
-            let status = response.status();
-            span.record(
-                otel_trace::HTTP_RESPONSE_STATUS_CODE,
-                status.as_u16() as i64,
-            );
+            span.record(KEY_OTEL_STATUS, OtelStatus::Ok.as_str());
             if let Some(content_length) = response.headers().get(http::header::CONTENT_LENGTH) {
                 if let Ok(content_length_str) = content_length.to_str() {
                     if let Ok(size) = content_length_str.parse::<i64>() {
@@ -103,23 +108,10 @@ pub(crate) fn record_http_response_attributes(
                     }
                 }
             }
-            if status.is_success() {
-                span.record(KEY_OTEL_STATUS, OtelStatus::Ok.as_str());
-            } else {
-                span.record(KEY_OTEL_STATUS, OtelStatus::Error.as_str());
-                // TODO(#3239): Extract reason from response headers/body if available
-                let error_type = ErrorType::HttpError {
-                    code: status,
-                    reason: None,
-                };
-
-                span.record(otel_trace::ERROR_TYPE, error_type.as_str());
-            }
         }
         Err(err) => {
             span.record(KEY_OTEL_STATUS, OtelStatus::Error.as_str());
-            let error_type = ErrorType::from_reqwest_error(err);
-
+            let error_type = ErrorType::from_gax_error(err);
             span.record(otel_trace::ERROR_TYPE, error_type.as_str());
         }
     }
@@ -229,13 +221,9 @@ mod tests {
         let span = create_http_attempt_span(&request, &options, None, 0);
         let _enter = span.enter();
 
-        let result = Ok(reqwest::Response::from(
-            http::Response::builder()
-                .status(status_code)
-                .body("")
-                .unwrap(),
-        ));
-        record_http_response_attributes(&span, &result);
+        let result: gax::Result<Response<()>> =
+            Ok(Response::from_parts(gax::response::Parts::default(), ()));
+        record_http_response_attributes(&span, &result, Some(status_code));
 
         let expected_attributes: HashMap<String, AttributeValue> = [
             (KEY_OTEL_NAME, "GET".into()),
@@ -277,13 +265,9 @@ mod tests {
         let _enter = span.enter();
 
         // Simulate a timeout error
-        let client = reqwest::Client::builder()
-            .timeout(std::time::Duration::from_millis(1))
-            .build()
-            .unwrap();
-        let error_result = client.execute(request).await;
-        assert!(error_result.is_err(), "error_result: {:?}", error_result);
-        record_http_response_attributes(&span, &error_result);
+        let error_result: gax::Result<Response<()>> =
+            Err(gax::error::Error::timeout("test timeout"));
+        record_http_response_attributes(&span, &error_result, None);
 
         let expected_attributes: HashMap<String, AttributeValue> = [
             (KEY_OTEL_NAME, "GET".into()),
@@ -330,13 +314,12 @@ mod tests {
         let span = create_http_attempt_span(&request, &options, None, 0);
         let _enter = span.enter();
 
-        let result = Ok(reqwest::Response::from(
-            http::Response::builder()
-                .status(status_code)
-                .body("")
-                .unwrap(),
+        let result: gax::Result<Response<()>> = Err(gax::error::Error::http(
+            status_code.as_u16(),
+            http::HeaderMap::new(),
+            bytes::Bytes::new(),
         ));
-        record_http_response_attributes(&span, &result);
+        record_http_response_attributes(&span, &result, Some(status_code));
 
         let expected_attributes: HashMap<String, AttributeValue> = [
             (KEY_OTEL_NAME, "GET".into()),

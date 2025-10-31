@@ -191,5 +191,59 @@ mod tests {
 
             Ok(())
         }
+
+        #[tokio::test]
+        async fn test_response_decode_error_with_tracing_on() -> Result<()> {
+            use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_RESPONSE_DECODE_ERROR;
+            use httptest::{Expectation, ServerPool, matchers::*, responders::*};
+            use serde_json::Value;
+
+            let server_pool = ServerPool::new(1);
+            let server = server_pool.get_server();
+            let endpoint = server.url("").to_string();
+
+            server.expect(
+                Expectation::matching(request::method_path("GET", "/test"))
+                    .respond_with(status_code(200).body("invalid-json")),
+            );
+
+            let mut config = ClientConfig::default();
+            config.tracing = true;
+            config.cred = Some(test_credentials());
+            let client = ReqwestClient::new(config, &endpoint).await?;
+
+            let guard = TestLayer::initialize();
+
+            let builder = client.builder(reqwest::Method::GET, "test".into());
+            // Expecting Value (JSON), but getting "invalid-json" string.
+            let result = client
+                .execute::<Value, Value>(builder, Option::<Value>::None, RequestOptions::default())
+                .await;
+
+            assert!(result.is_err(), "Expected decode error");
+
+            let spans = TestLayer::capture(&guard);
+            assert_eq!(spans.len(), 1, "Should capture one span");
+
+            let span = &spans[0];
+            let attributes = &span.attributes;
+
+            assert_eq!(
+                attributes.get(semconv::ERROR_TYPE),
+                Some(&CLIENT_RESPONSE_DECODE_ERROR.into()),
+                "Span 0: {} mismatch, all attributes: {:?}",
+                semconv::ERROR_TYPE,
+                attributes
+            );
+            assert_eq!(
+                attributes.get(semconv::HTTP_RESPONSE_STATUS_CODE),
+                Some(&200_i64.into()),
+                "Span 0: {} should be 200 even on decode error, all attributes: {:?}",
+                semconv::HTTP_RESPONSE_STATUS_CODE,
+                attributes
+            );
+
+            Ok(())
+        }
     }
 }
