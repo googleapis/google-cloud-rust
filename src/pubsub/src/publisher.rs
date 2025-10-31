@@ -13,3 +13,6 @@
 // limitations under the License.
 
 pub mod client;
+pub mod options;
+#[allow(clippy::module_inception)]
+pub mod publisher;
