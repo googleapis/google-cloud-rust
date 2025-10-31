@@ -180,26 +180,36 @@ impl ReqwestClient {
         let request = builder.build().map_err(map_send_error)?;
 
         #[cfg(google_cloud_unstable_tracing)]
-        let response_result = if self._tracing_enabled {
+        let (reqwest_result, span) = if self._tracing_enabled {
             let span =
                 create_http_attempt_span(&request, options, self.instrumentation, _attempt_count);
             // The instrument call ensures the span is entered/exited as the execute future is polled.
             let result = self.inner.execute(request).instrument(span.clone()).await;
-            // Re-enter the span's context to record response attributes after the future has completed.
-            let _enter = span.enter();
-            record_http_response_attributes(&span, &result);
-            result
+            (result, Some(span))
         } else {
-            self.inner.execute(request).await
+            (self.inner.execute(request).await, None)
         };
         #[cfg(not(google_cloud_unstable_tracing))]
-        let response_result = self.inner.execute(request).await;
+        let reqwest_result = self.inner.execute(request).await;
 
-        let response = response_result.map_err(map_send_error)?;
-        if !response.status().is_success() {
-            return self::to_http_error(response).await;
+        let intermediate_result = reqwest_result.map_err(map_send_error);
+
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(s) = span {
+            record_http_response_attributes(&s, &intermediate_result);
+            // Span 's' is dropped here, ending it before decoding starts.
         }
-        self::to_http_response(response).await
+
+        match intermediate_result {
+            Ok(response) => {
+                if !response.status().is_success() {
+                    self::to_http_error(response).await
+                } else {
+                    self::to_http_response(response).await
+                }
+            }
+            Err(err) => Err(err),
+        }
     }
 
     fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {

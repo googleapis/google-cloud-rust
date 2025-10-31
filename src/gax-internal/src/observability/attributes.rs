@@ -59,12 +59,12 @@ pub mod error_type_values {
     pub const CLIENT_CONNECTION_ERROR: &str = "CLIENT_CONNECTION_ERROR";
     /// Client-side issue forming or sending the request.
     pub const CLIENT_REQUEST_ERROR: &str = "CLIENT_REQUEST_ERROR";
-    /// Error streaming the request body.
-    pub const CLIENT_REQUEST_BODY_ERROR: &str = "CLIENT_REQUEST_BODY_ERROR";
     /// Client-side error decoding the response body.
     pub const CLIENT_RESPONSE_DECODE_ERROR: &str = "CLIENT_RESPONSE_DECODE_ERROR";
-    /// Problem handling HTTP redirects.
-    pub const CLIENT_REDIRECT_ERROR: &str = "CLIENT_REDIRECT_ERROR";
+    /// Error during credential acquisition or application.
+    pub const CLIENT_AUTHENTICATION_ERROR: &str = "CLIENT_AUTHENTICATION_ERROR";
+    /// Resource exhausted (e.g. retry limit reached).
+    pub const RESOURCE_EXHAUSTED: &str = "RESOURCE_EXHAUSTED";
     /// Unexpected issue within the client library's own logic.
     pub const INTERNAL: &str = "INTERNAL";
 }

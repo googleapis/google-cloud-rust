@@ -133,7 +133,7 @@ mod tests {
 
         #[tokio::test]
         async fn test_redirect_error_with_tracing_on() -> Result<()> {
-            use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_REDIRECT_ERROR;
+            use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_CONNECTION_ERROR;
             use httptest::{Expectation, ServerPool, matchers::*, responders::*};
             use serde_json::Value;
 
@@ -177,7 +177,7 @@ mod tests {
 
             assert_eq!(
                 attributes.get(semconv::ERROR_TYPE),
-                Some(&CLIENT_REDIRECT_ERROR.into()),
+                Some(&CLIENT_CONNECTION_ERROR.into()),
                 "Span 0: {} mismatch, all attributes: {:?}",
                 semconv::ERROR_TYPE,
                 attributes

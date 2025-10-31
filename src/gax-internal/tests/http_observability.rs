@@ -200,7 +200,7 @@ mod tests {
                 path("/test"),
                 body("{\"name\":\"test\"}"),
             ])
-            .respond_with(status_code(201).body("{\"status\":\"created\"}")),
+            .respond_with(status_code(201).body("{\"hello\": \"world\"}")),
         );
 
         let client = create_client(true, server_url.clone()).await;
@@ -232,7 +232,7 @@ mod tests {
             (KEY_GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (KEY_GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
-            (otel_trace::HTTP_RESPONSE_BODY_SIZE, 20_i64.into()), // {"status":"created"} is 20 bytes
+            (otel_trace::HTTP_RESPONSE_BODY_SIZE, 18_i64.into()), // {"hello": "world"} is 18 bytes
             (
                 otel_trace::SERVER_ADDRESS,
                 server_addr.ip().to_string().into(),
