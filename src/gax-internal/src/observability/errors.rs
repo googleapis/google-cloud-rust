@@ -25,56 +25,33 @@ pub enum ErrorType {
     ClientTimeout,
     ClientConnectionError,
     ClientRequestError,
-    ClientRequestBodyError,
     ClientResponseDecodeError,
-    ClientRedirectError,
+    ClientAuthenticationError,
+    ClientRetryExhausted,
     Internal,
 }
 
-// Trait to abstract reqwest::Error for testing
-pub trait ReqwestErrorDetails {
-    fn is_timeout(&self) -> bool;
-    fn is_connect(&self) -> bool;
-    fn is_request(&self) -> bool;
-    fn is_body(&self) -> bool;
-    fn is_decode(&self) -> bool;
-    fn is_redirect(&self) -> bool;
-}
-
-impl ReqwestErrorDetails for reqwest::Error {
-    fn is_timeout(&self) -> bool {
-        self.is_timeout()
-    }
-    fn is_connect(&self) -> bool {
-        self.is_connect()
-    }
-    fn is_request(&self) -> bool {
-        self.is_request()
-    }
-    fn is_body(&self) -> bool {
-        self.is_body()
-    }
-    fn is_decode(&self) -> bool {
-        self.is_decode()
-    }
-    fn is_redirect(&self) -> bool {
-        self.is_redirect()
-    }
-}
-
 impl ErrorType {
-    pub(crate) fn from_reqwest_error<E>(err: &E) -> Self
-    where
-        E: ReqwestErrorDetails,
-    {
+    pub(crate) fn from_gax_error(err: &gax::error::Error) -> Self {
         match err {
             e if e.is_timeout() => ErrorType::ClientTimeout,
-            e if e.is_connect() => ErrorType::ClientConnectionError,
-            e if e.is_request() => ErrorType::ClientRequestError,
-            e if e.is_body() => ErrorType::ClientRequestBodyError,
-            e if e.is_decode() => ErrorType::ClientResponseDecodeError,
-            e if e.is_redirect() => ErrorType::ClientRedirectError,
-            _ => ErrorType::Internal,
+            e if e.is_exhausted() => ErrorType::ClientRetryExhausted,
+            e if e.is_binding() => ErrorType::ClientRequestError,
+            e if e.is_serialization() => ErrorType::ClientRequestError,
+            e if e.is_deserialization() => ErrorType::ClientResponseDecodeError,
+            e if e.is_authentication() => ErrorType::ClientAuthenticationError,
+            e if e.is_io() || e.is_connect() => ErrorType::ClientConnectionError,
+            e => {
+                if let Some(status) = e.http_status_code() {
+                    ErrorType::HttpError {
+                        code: http::StatusCode::from_u16(status)
+                            .unwrap_or(http::StatusCode::INTERNAL_SERVER_ERROR),
+                        reason: None,
+                    }
+                } else {
+                    ErrorType::Internal
+                }
+            }
         }
     }
 
@@ -87,9 +64,9 @@ impl ErrorType {
             ErrorType::ClientTimeout => CLIENT_TIMEOUT.to_string(),
             ErrorType::ClientConnectionError => CLIENT_CONNECTION_ERROR.to_string(),
             ErrorType::ClientRequestError => CLIENT_REQUEST_ERROR.to_string(),
-            ErrorType::ClientRequestBodyError => CLIENT_REQUEST_BODY_ERROR.to_string(),
             ErrorType::ClientResponseDecodeError => CLIENT_RESPONSE_DECODE_ERROR.to_string(),
-            ErrorType::ClientRedirectError => CLIENT_REDIRECT_ERROR.to_string(),
+            ErrorType::ClientAuthenticationError => CLIENT_AUTHENTICATION_ERROR.to_string(),
+            ErrorType::ClientRetryExhausted => CLIENT_RETRY_EXHAUSTED.to_string(),
             ErrorType::Internal => INTERNAL.to_string(),
         }
     }
@@ -98,39 +75,9 @@ impl ErrorType {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use http::StatusCode;
+    use gax::error::Error;
+    use http::{HeaderMap, StatusCode};
     use test_case::test_case;
-
-    #[derive(Default)]
-    pub struct MockReqwestError {
-        pub is_timeout: bool,
-        pub is_connect: bool,
-        pub is_request: bool,
-        pub is_body: bool,
-        pub is_decode: bool,
-        pub is_redirect: bool,
-    }
-
-    impl ReqwestErrorDetails for MockReqwestError {
-        fn is_timeout(&self) -> bool {
-            self.is_timeout
-        }
-        fn is_connect(&self) -> bool {
-            self.is_connect
-        }
-        fn is_request(&self) -> bool {
-            self.is_request
-        }
-        fn is_body(&self) -> bool {
-            self.is_body
-        }
-        fn is_decode(&self) -> bool {
-            self.is_decode
-        }
-        fn is_redirect(&self) -> bool {
-            self.is_redirect
-        }
-    }
 
     #[test_case(ErrorType::HttpError { code: StatusCode::OK, reason: None }, "200"; "OK")]
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: None }, "400"; "Bad Request")]
@@ -152,9 +99,9 @@ pub(crate) mod tests {
     #[test_case(ErrorType::ClientTimeout, CLIENT_TIMEOUT; "Client Timeout")]
     #[test_case(ErrorType::ClientConnectionError, CLIENT_CONNECTION_ERROR; "Client Connection Error")]
     #[test_case(ErrorType::ClientRequestError, CLIENT_REQUEST_ERROR; "Client Request Error")]
-    #[test_case(ErrorType::ClientRequestBodyError, CLIENT_REQUEST_BODY_ERROR; "Client Request Body Error")]
     #[test_case(ErrorType::ClientResponseDecodeError, CLIENT_RESPONSE_DECODE_ERROR; "Client Response Decode Error")]
-    #[test_case(ErrorType::ClientRedirectError, CLIENT_REDIRECT_ERROR; "Client Redirect Error")]
+    #[test_case(ErrorType::ClientAuthenticationError, CLIENT_AUTHENTICATION_ERROR; "Client Authentication Error")]
+    #[test_case(ErrorType::ClientRetryExhausted, CLIENT_RETRY_EXHAUSTED; "Client Retry Exhausted")]
     #[test_case(ErrorType::Internal, INTERNAL; "Internal")]
     fn test_error_type_conversions(error_type: ErrorType, expected_as_str: &str) {
         assert_eq!(
@@ -165,17 +112,17 @@ pub(crate) mod tests {
         );
     }
 
-    #[test_case(MockReqwestError { is_timeout: true, ..Default::default() }, ErrorType::ClientTimeout; "Timeout")]
-    #[test_case(MockReqwestError { is_connect: true, ..Default::default() }, ErrorType::ClientConnectionError; "Connect")]
-    #[test_case(MockReqwestError { is_request: true, ..Default::default() }, ErrorType::ClientRequestError; "Request")]
-    #[test_case(MockReqwestError { is_body: true, ..Default::default() }, ErrorType::ClientRequestBodyError; "Body")]
-    #[test_case(MockReqwestError { is_decode: true, ..Default::default() }, ErrorType::ClientResponseDecodeError; "Decode")]
-    #[test_case(MockReqwestError { is_redirect: true, ..Default::default() }, ErrorType::ClientRedirectError; "Redirect")]
-    #[test_case(MockReqwestError { ..Default::default() }, ErrorType::Internal; "Internal")]
-    fn test_from_reqwest_error(mock_err: MockReqwestError, expected_error_type: ErrorType) {
-        assert_eq!(
-            ErrorType::from_reqwest_error(&mock_err),
-            expected_error_type
-        );
+    #[test_case(Error::timeout("test"), CLIENT_TIMEOUT; "Timeout")]
+    #[test_case(Error::exhausted("test"), CLIENT_RETRY_EXHAUSTED; "Exhausted")]
+    #[test_case(Error::binding("test"), CLIENT_REQUEST_ERROR; "Binding")]
+    #[test_case(Error::ser("test"), CLIENT_REQUEST_ERROR; "Serialization")]
+    #[test_case(Error::deser("test"), CLIENT_RESPONSE_DECODE_ERROR; "Deserialization")]
+    #[test_case(Error::authentication(gax::error::CredentialsError::from_msg(false, "test")), CLIENT_AUTHENTICATION_ERROR; "Authentication")]
+    #[test_case(Error::io("test"), CLIENT_CONNECTION_ERROR; "IO")]
+    #[test_case(Error::http(404, HeaderMap::new(), bytes::Bytes::new()), "404"; "HTTP 404")]
+    #[test_case(Error::http(503, HeaderMap::new(), bytes::Bytes::new()), "503"; "HTTP 503")]
+    #[test_case(Error::service(gax::error::rpc::Status::default()), INTERNAL; "Internal")]
+    fn test_from_gax_error(err: Error, expected: &str) {
+        assert_eq!(ErrorType::from_gax_error(&err).as_str(), expected);
     }
 }
