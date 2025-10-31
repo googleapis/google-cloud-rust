@@ -147,7 +147,19 @@ mod tests {
         let publisher = client
             .publisher("projects/my-project/topics/my-topic".to_string())
             .build();
-        assert_ne!(publisher.batching_options.message_count_threshold, 1_u32);
+
+        assert_eq!(
+            publisher.batching_options.message_count_threshold,
+            BatchingOptions::default().message_count_threshold
+        );
+        assert_eq!(
+            publisher.batching_options.byte_threshold,
+            BatchingOptions::default().byte_threshold
+        );
+        assert_eq!(
+            publisher.batching_options.delay_threshold,
+            BatchingOptions::default().delay_threshold
+        );
         Ok(())
     }
 }
