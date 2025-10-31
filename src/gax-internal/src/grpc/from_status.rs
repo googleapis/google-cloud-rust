@@ -47,6 +47,9 @@ pub fn to_gax_error(status: tonic::Status) -> Error {
     if as_inner::<tonic::TimeoutExpired>(&status).is_some() {
         return Error::timeout(status);
     }
+    if as_inner::<tonic::ConnectError>(&status).is_some() {
+        return Error::connect(status);
+    }
     let headers = status.metadata().clone().into_headers();
     if as_inner::<tonic::transport::Error>(&status).is_some() {
         return Error::transport(headers, status);
