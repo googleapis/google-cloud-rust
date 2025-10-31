@@ -117,6 +117,38 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn success_verify_transport_span_info() {
+        let server = Server::run();
+        let server_addr = server.addr();
+        let server_url = format!("http://{}", server_addr);
+        server.expect(
+            Expectation::matching(all_of![method("GET"), path("/test"),])
+                .respond_with(status_code(200).body("{\"hello\": \"world\"}")),
+        );
+
+        let client = create_client(true, server_url.clone()).await;
+
+        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        let request = client.builder(Method::GET, "/test".to_string());
+        let response: gax::Result<Response<TestResponse>> =
+            client.execute(request, None::<NoBody>, options).await;
+
+        assert!(response.is_ok());
+        let response = response.unwrap();
+        let transport_span_info = gax::response::internal::transport_span_info(&response);
+        assert!(transport_span_info.is_some());
+        let info = transport_span_info.unwrap();
+
+        assert_eq!(info.http_status_code, Some(200));
+        assert_eq!(info.url_full, Some(format!("{}/test", server_url)));
+        assert_eq!(info.server_address, Some(server_addr.ip().to_string()));
+        assert_eq!(info.server_port, Some(server_addr.port() as i32));
+        assert_eq!(info.request_resend_count, None);
+        assert_eq!(info.error_type, None);
+        assert_eq!(info.rpc_grpc_status_code, None);
+    }
+
+    #[tokio::test]
     async fn success_with_tracing_off() {
         let server = Server::run();
         server.expect(

@@ -204,7 +204,7 @@ impl ReqwestClient {
             record_http_response_attributes(&s, intermediate_result.as_ref());
         }
 
-        self::to_http_response(intermediate_result?).await
+        return self::to_http_response(intermediate_result?, _attempt_count).await;
     }
 
     fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
@@ -325,9 +325,20 @@ pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
 
 async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
     response: reqwest::Response,
+    _prior_attempt_count: u32,
 ) -> Result<Response<O>> {
+    // We must create TransportSpanInfo before consuming the reqwest::Response
+    // because we need access to fields like URL and remote address which are
+    // not preserved in the http::Response conversion.
+    #[cfg(google_cloud_unstable_tracing)]
+    let transport_span_info = Some(crate::observability::create_transport_span_info(
+        &response,
+        _prior_attempt_count,
+    ));
+
     // 204 No Content has no body and throws EOF error if we try to parse with serde::json
     let no_content_status = response.status() == reqwest::StatusCode::NO_CONTENT;
+
     let response = http::Response::from(response);
     let (parts, body) = response.into_parts();
 
@@ -340,10 +351,13 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
         content => serde_json::from_slice::<O>(&content).map_err(Error::deser)?,
     };
 
-    Ok(Response::from_parts(
-        Parts::new().set_headers(parts.headers),
-        response,
-    ))
+    let mut gax_response = Response::from_parts(Parts::new().set_headers(parts.headers), response);
+    #[cfg(google_cloud_unstable_tracing)]
+    if let Some(info) = transport_span_info {
+        gax::response::internal::set_transport_span_info(&mut gax_response, Some(info));
+    }
+
+    Ok(gax_response)
 }
 
 #[cfg(test)]
@@ -423,7 +437,7 @@ mod tests {
         let response = resp_from_code_content(code, content)?;
         assert!(response.status().is_success());
 
-        let response = super::to_http_response::<wkt::Empty>(response).await;
+        let response = super::to_http_response::<wkt::Empty>(response, 0).await;
         assert!(response.is_ok());
 
         let response = response.unwrap();
@@ -441,7 +455,7 @@ mod tests {
         let response = resp_from_code_content(code, content)?;
         assert!(response.status().is_success());
 
-        let response = super::to_http_response::<wkt::Empty>(response).await;
+        let response = super::to_http_response::<wkt::Empty>(response, 0).await;
         assert!(response.is_err());
         Ok(())
     }

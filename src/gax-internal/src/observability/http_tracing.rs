@@ -122,6 +122,68 @@ pub(crate) fn record_http_response_attributes(
     }
 }
 
+/// Creates a TransportSpanInfo from the result of an HTTP request.
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) fn create_transport_span_info(
+    response: &reqwest::Response,
+    prior_attempt_count: u32,
+) -> gax::response::internal::TransportSpanInfo {
+    let mut info = gax::response::internal::TransportSpanInfo::default();
+    info.request_resend_count = if prior_attempt_count > 0 {
+        Some(prior_attempt_count as i64)
+    } else {
+        None
+    };
+
+    info.http_status_code = Some(response.status().as_u16());
+    info.url_full = Some(response.url().to_string());
+    if let Some(remote_addr) = response.remote_addr() {
+        info.server_address = Some(remote_addr.ip().to_string());
+        info.server_port = Some(remote_addr.port() as i32);
+    }
+
+    info
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+#[cfg(test)]
+mod transport_span_info_tests {
+    use super::*;
+    use reqwest::StatusCode;
+
+    fn mock_response(status: StatusCode) -> Result<reqwest::Response, reqwest::Error> {
+        Ok(reqwest::Response::from(
+            http::Response::builder()
+                .status(status)
+                .body("")
+                .unwrap(),
+        ))
+    }
+
+    #[test]
+    fn test_create_transport_span_info_ok() {
+        let response = mock_response(StatusCode::OK).unwrap();
+        let info = create_transport_span_info(&response, 0);
+        assert_eq!(info.http_status_code, Some(200));
+        assert_eq!(info.request_resend_count, None);
+        assert_eq!(info.error_type, None);
+        assert_eq!(info.rpc_grpc_status_code, None);
+        // Mock response doesn't have remote_addr set by default, so these will be None
+        assert_eq!(info.server_address, None);
+        assert_eq!(info.server_port, None);
+    }
+
+    #[test]
+    fn test_create_transport_span_info_ok_with_retries() {
+        let response = mock_response(StatusCode::OK).unwrap();
+        let info = create_transport_span_info(&response, 2);
+        assert_eq!(info.http_status_code, Some(200));
+        assert_eq!(info.request_resend_count, Some(2));
+        assert_eq!(info.error_type, None);
+        assert_eq!(info.rpc_grpc_status_code, None);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
