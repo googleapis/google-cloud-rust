@@ -30,6 +30,7 @@ limitations under the License.
 - [Using the Compute Engine API](compute.md)
 - [Update a resource using a field mask](update_resource.md)
 - [Configuring retry policies](configuring_retry_policies.md)
+- [Override the authentication credentials](credentials.md)
 - [Error handling](error_handling.md)
 - [Examine error details](examine_error_details.md)
 - [Handling binding errors](binding_errors.md)
