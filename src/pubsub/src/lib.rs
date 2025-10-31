@@ -34,7 +34,6 @@ pub use gax::error::Error;
 pub mod builder {
     pub use crate::generated::gapic::builder::*;
     pub mod publisher {
-        pub use crate::generated::gapic_dataplane::builder::publisher::*;
         pub use crate::publisher::client::ClientBuilder;
         pub use crate::publisher::publisher::PublisherBuilder;
     }
@@ -45,8 +44,8 @@ pub mod model {
 }
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::client::*;
-    pub use crate::publisher::publisher::*;
+    pub use crate::publisher::client::PublisherClient;
+    pub use crate::publisher::publisher::Publisher;
 }
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
