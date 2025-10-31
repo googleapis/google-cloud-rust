@@ -26,8 +26,8 @@ This guide uses the [Cloud Natural Language API]. The same concepts apply to the
 client libraries for other service. You may want to follow the
 [service quickstart], which shows you how to enable the service.
 
-For complete setup instructions for the Rust libraries, see [Setting up your
-development environment](/setting_up_your_development_environment.md).
+For complete setup instructions for the Rust libraries, see
+[Setting up your development environment](/setting_up_your_development_environment.md).
 
 ### Dependencies
 
@@ -163,14 +163,14 @@ Learn about other authentication methods in the Rust client libraries:
 [anonymous builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/anonymous/struct.Builder.html
 [api keys]: https://cloud.google.com/docs/authentication/api-keys
 [api keys builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/api_key_credentials/struct.Builder.html
-[external account builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/external_account/struct.Builder.html
 [authentication methods]: https://cloud.google.com/docs/authentication
 [best practices for managing api keys]: https://cloud.google.com/docs/authentication/api-keys-best-practices
 [cloud natural language api]: https://cloud.google.com/natural-language
+[external account builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/external_account/struct.Builder.html
 [how application default credentials work]: https://cloud.google.com/docs/authentication/application-default-credentials
 [impersonated builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/impersonated/struct.Builder.html
 [service account builder]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/impersonated/struct.Builder.html
+[service account key]: https://cloud.google.com/iam/docs/service-account-creds#key-types
 [service quickstart]: https://cloud.google.com/natural-language/docs/setup
 [use service account impersonation]: https://cloud.google.com/docs/authentication/use-service-account-impersonation
 [workload identity federation]: https://cloud.google.com/iam/docs/workload-identity-federation
-[service account key]: https://cloud.google.com/iam/docs/service-account-creds#key-types
