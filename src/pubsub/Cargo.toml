@@ -48,5 +48,7 @@ wkt.workspace         = true
 [dev-dependencies]
 auth.workspace       = true
 anyhow.workspace     = true
+mockall.workspace    = true
 tokio-test.workspace = true
 tokio.workspace      = true
+tonic.workspace      = true

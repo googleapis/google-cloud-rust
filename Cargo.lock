@@ -3839,6 +3839,7 @@ dependencies = [
  "google-cloud-wkt",
  "http",
  "lazy_static",
+ "mockall",
  "prost",
  "prost-types",
  "reqwest",
