@@ -36,7 +36,7 @@ use tokio::sync::{mpsc, oneshot};
 pub struct Publisher {
     #[allow(dead_code)]
     pub(crate) batching_options: BatchingOptions,
-    tx: UnboundedSender<ToWorker>,
+    tx: UnboundedSender<BundledMessage>,
 }
 
 impl Publisher {
@@ -54,7 +54,7 @@ impl Publisher {
 
         // If this fails, the worker is gone, which indicates something bad has happened.
         // The PublishHandle will automatically receive an error when `tx` is dropped.
-        if self.tx.send(ToWorker { msg, tx }).is_err() {
+        if self.tx.send(BundledMessage { msg, tx }).is_err() {
             // `tx` is dropped here if the send errors.
         }
         crate::model_ext::PublishHandle { rx }
@@ -110,7 +110,7 @@ impl PublisherBuilder {
         // Create the batching worker that will run in the background.
         // We don't need to keep track of a handle to the worker.
         // Dropping the Publisher will drop the only sender to the channel.
-        // This wil cause worker.run() to read None from the channel and close.
+        // This will cause worker.run() to read None from the channel and close.
         let worker = Worker::new(self.topic, self.inner, self.batching_options.clone(), rx);
         tokio::spawn(worker.run());
 
@@ -124,7 +124,7 @@ impl PublisherBuilder {
 /// Object that is passed to the worker task over the
 /// main channel. This represents a single message and the sender
 /// half of the channel to resolve the [PublishHandle].
-struct ToWorker {
+struct BundledMessage {
     pub msg: crate::model::PubsubMessage,
     pub tx: oneshot::Sender<crate::Result<String>>,
 }
@@ -137,7 +137,7 @@ struct Worker {
     client: gapic_dataplane::client::Publisher,
     #[allow(dead_code)]
     batching_options: BatchingOptions,
-    rx: mpsc::UnboundedReceiver<ToWorker>,
+    rx: mpsc::UnboundedReceiver<BundledMessage>,
 }
 
 impl Worker {
@@ -145,7 +145,7 @@ impl Worker {
         topic_name: String,
         client: gapic_dataplane::client::Publisher,
         batching_options: BatchingOptions,
-        rx: mpsc::UnboundedReceiver<ToWorker>,
+        rx: mpsc::UnboundedReceiver<BundledMessage>,
     ) -> Self {
         Self {
             topic_name,
@@ -233,7 +233,7 @@ mod tests {
         let mut handles = Vec::new();
         for msg in messages {
             let (tx, rx) = tokio::sync::oneshot::channel();
-            let bundled = ToWorker {
+            let bundled = BundledMessage {
                 msg: msg.clone(),
                 tx,
             };
@@ -287,7 +287,7 @@ mod tests {
         let mut handles = Vec::new();
         for msg in messages {
             let (tx, rx) = tokio::sync::oneshot::channel();
-            let bundled = ToWorker { msg, tx };
+            let bundled = BundledMessage { msg, tx };
             tx_worker
                 .send(bundled)
                 .expect("channel should not be dropped");
