@@ -75,3 +75,77 @@ impl Worker {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{
+        generated::gapic_dataplane::client::Publisher,
+        model::{PublishResponse, PubsubMessage},
+    };
+
+    mockall::mock! {
+        #[derive(Debug)]
+        GapicPublisher {}
+        impl crate::generated::gapic_dataplane::stub::Publisher for GapicPublisher {
+            async fn publish(&self, req: crate::model::PublishRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<crate::model::PublishResponse>>;
+        }
+    }
+
+    #[tokio::test]
+    async fn test_worker_success() {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .returning({
+                |r, _| {
+                    assert_eq!(r.topic, "my-topic");
+                    assert_eq!(r.messages.len(), 1);
+                    let id = String::from_utf8(r.messages[0].data.to_vec()).unwrap();
+                    Ok(gax::response::Response::from(
+                        PublishResponse::new().set_message_ids(vec![id]),
+                    ))
+                }
+            })
+            .times(2);
+
+        let client = Publisher::from_stub(mock);
+        let (tx_worker, rx_worker) = tokio::sync::mpsc::unbounded_channel();
+        let worker = Worker::new(
+            "my-topic".to_string(),
+            client,
+            BatchingOptions {
+                message_count_threshold: 2,
+                ..Default::default()
+            },
+            rx_worker,
+        );
+        tokio::spawn(worker.run());
+
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+
+        let mut handles = Vec::new();
+        for msg in messages {
+            let (tx, rx) = tokio::sync::oneshot::channel();
+            let bundled = ToWorker {
+                msg: msg.clone(),
+                tx,
+            };
+            tx_worker
+                .send(bundled)
+                .expect("channel should not be dropped");
+            handles.push((msg, rx));
+        }
+
+        for (id, rx) in handles.into_iter() {
+            let got = rx
+                .await
+                .expect("expected successful receive")
+                .expect("expected message id");
+            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            assert_eq!(got, id);
+        }
+    }
+}
