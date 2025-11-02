@@ -49,8 +49,6 @@ impl Publisher {
     /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
-    // This function will eventually return a type that implements Future instead,
-    // which will remove the warning.
     pub fn publish(&self, msg: crate::model::PubsubMessage) -> crate::model_ext::PublishHandle {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
