@@ -12,12 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::generated::gapic_dataplane;
+use crate::publisher::options::BatchingOptions;
 use tokio::sync::mpsc::UnboundedSender;
-
-use crate::publisher::{
-    options::BatchingOptions,
-    worker::{ToWorker, Worker},
-};
+use tokio::sync::{mpsc, oneshot};
 
 /// Publishes messages to a single topic.
 ///
@@ -56,14 +54,10 @@ impl Publisher {
     pub fn publish(&self, msg: crate::model::PubsubMessage) -> crate::model_ext::PublishHandle {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
-        // This also should not fail unless the receiver is dropped.
-        // With the worker running in the background task everything should be ok.
-        if let Err(e) = self.tx.send(ToWorker { msg, tx }) {
-            e.0.tx
-                .send(Err(crate::Error::ser(
-                    "internal error adding message to buffer",
-                )))
-                .expect("rx is still in scope");
+        // If this fails, the worker is gone, which indicates something bad has happened.
+        // The PublishHandle will automatically receive an error when `tx` is dropped.
+        if self.tx.send(ToWorker { msg, tx }).is_err() {
+            // `tx` is dropped here if the send errors.
         }
         crate::model_ext::PublishHandle { rx }
     }
@@ -129,9 +123,184 @@ impl PublisherBuilder {
     }
 }
 
+/// Object that is passed to the worker task over the
+/// main channel. This represents a single message and the sender
+/// half of the channel to resolve the [PublishHandle].
+struct ToWorker {
+    pub msg: crate::model::PubsubMessage,
+    pub tx: oneshot::Sender<crate::Result<String>>,
+}
+
+/// The worker is spawned in a background task and handles
+/// batching and publishing all messages that are sent to the publisher.
+#[derive(Debug)]
+struct Worker {
+    topic_name: String,
+    client: gapic_dataplane::client::Publisher,
+    #[allow(dead_code)]
+    batching_options: BatchingOptions,
+    rx: mpsc::UnboundedReceiver<ToWorker>,
+}
+
+impl Worker {
+    fn new(
+        topic_name: String,
+        client: gapic_dataplane::client::Publisher,
+        batching_options: BatchingOptions,
+        rx: mpsc::UnboundedReceiver<ToWorker>,
+    ) -> Self {
+        Self {
+            topic_name,
+            client,
+            rx,
+            batching_options,
+        }
+    }
+
+    async fn run(mut self) {
+        while let Some(msg) = self.rx.recv().await {
+            let client = self.client.clone();
+            let topic = self.topic_name.clone();
+            // In the future, we may also want to keep track of JoinHandles in order to
+            // flush the results.
+            let _handle = tokio::spawn(async move {
+                // For now, we just send the message immediately.
+                // We will want to batch these requests.
+                let request = client
+                    .publish()
+                    .set_topic(topic)
+                    .set_messages(vec![msg.msg]);
+
+                // Handle the response by extracting the message ID on success.
+                let result = request
+                    .send()
+                    .await
+                    .map(|response| response.message_ids.get(0).cloned().unwrap_or_default());
+
+                // The user may have dropped the handle, so it is ok if this fails.
+                let _ = msg.tx.send(result);
+            });
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    use super::*;
     use crate::{client::PublisherClient, publisher::options::BatchingOptions};
+    use crate::{
+        generated::gapic_dataplane::client::Publisher as GapicPublisher,
+        model::{PublishResponse, PubsubMessage},
+    };
+
+    mockall::mock! {
+        #[derive(Debug)]
+        GapicPublisher {}
+        impl crate::generated::gapic_dataplane::stub::Publisher for GapicPublisher {
+            async fn publish(&self, req: crate::model::PublishRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<crate::model::PublishResponse>>;
+        }
+    }
+
+    #[tokio::test]
+    async fn test_worker_success() {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .returning({
+                |r, _| {
+                    assert_eq!(r.topic, "my-topic");
+                    assert_eq!(r.messages.len(), 1);
+                    let id = String::from_utf8(r.messages[0].data.to_vec()).unwrap();
+                    Ok(gax::response::Response::from(
+                        PublishResponse::new().set_message_ids(vec![id]),
+                    ))
+                }
+            })
+            .times(2);
+
+        let client = GapicPublisher::from_stub(mock);
+        let (tx_worker, rx_worker) = tokio::sync::mpsc::unbounded_channel();
+        let worker = Worker::new(
+            "my-topic".to_string(),
+            client,
+            BatchingOptions::default(),
+            rx_worker,
+        );
+        tokio::spawn(worker.run());
+
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+
+        let mut handles = Vec::new();
+        for msg in messages {
+            let (tx, rx) = tokio::sync::oneshot::channel();
+            let bundled = ToWorker {
+                msg: msg.clone(),
+                tx,
+            };
+            tx_worker
+                .send(bundled)
+                .expect("channel should not be dropped");
+            handles.push((msg, rx));
+        }
+
+        for (id, rx) in handles.into_iter() {
+            let got = rx
+                .await
+                .expect("expected successful receive")
+                .expect("expected message id");
+            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            assert_eq!(got, id);
+        }
+    }
+
+    #[tokio::test]
+    async fn test_worker_error() {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .returning({
+                |r, _| {
+                    assert_eq!(r.topic, "my-topic");
+                    assert_eq!(r.messages.len(), 1);
+                    Err(gax::error::Error::io("io error"))
+                }
+            })
+            .times(2);
+
+        let client = GapicPublisher::from_stub(mock);
+        let (tx_worker, rx_worker) = tokio::sync::mpsc::unbounded_channel();
+        let worker = Worker::new(
+            "my-topic".to_string(),
+            client,
+            BatchingOptions {
+                message_count_threshold: 2,
+                ..Default::default()
+            },
+            rx_worker,
+        );
+        tokio::spawn(worker.run());
+
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+
+        let mut handles = Vec::new();
+        for msg in messages {
+            let (tx, rx) = tokio::sync::oneshot::channel();
+            let bundled = ToWorker { msg, tx };
+            tx_worker
+                .send(bundled)
+                .expect("channel should not be dropped");
+            handles.push(rx);
+        }
+
+        for rx in handles.into_iter() {
+            let got = rx.await.expect("expected successful receive");
+            assert!(got.is_err());
+        }
+    }
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {

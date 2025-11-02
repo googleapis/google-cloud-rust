@@ -17,4 +17,3 @@ pub mod model_ext;
 pub mod options;
 #[allow(clippy::module_inception)]
 pub mod publisher;
-pub(crate) mod worker;
