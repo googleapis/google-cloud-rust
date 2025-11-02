@@ -45,8 +45,8 @@ pub mod model {
 }
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::client::*;
-    pub use crate::publisher::publisher::*;
+    pub use crate::publisher::client::PublisherClient;
+    pub use crate::publisher::publisher::Publisher;
 }
 pub mod stub {
     pub use crate::generated::gapic::stub::*;
