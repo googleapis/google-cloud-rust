@@ -29,6 +29,7 @@ limitations under the License.
   - [How to write tests using the Storage client](storage/mocking.md)
 - [Using the Compute Engine API](compute.md)
 - [Update a resource using a field mask](update_resource.md)
+- [Override the default endpoint](endpoint.md)
 - [Configuring retry policies](configuring_retry_policies.md)
 - [Error handling](error_handling.md)
 - [Examine error details](examine_error_details.md)
