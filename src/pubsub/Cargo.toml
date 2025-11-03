@@ -41,11 +41,14 @@ serde.workspace       = true
 serde_json.workspace  = true
 serde_with.workspace  = true
 tonic.workspace       = true
+tokio                 = { workspace = true, features = ["sync"] }
 tracing.workspace     = true
 wkt.workspace         = true
 
 [dev-dependencies]
 auth.workspace       = true
 anyhow.workspace     = true
+mockall.workspace    = true
 tokio-test.workspace = true
 tokio.workspace      = true
+tonic.workspace      = true

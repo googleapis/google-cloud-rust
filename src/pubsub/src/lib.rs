@@ -43,6 +43,11 @@ pub mod model {
     pub use crate::generated::gapic::model::*;
     pub use crate::generated::gapic_dataplane::model::*;
 }
+
+pub mod model_ext {
+    pub use crate::publisher::model_ext::*;
+}
+
 pub mod client {
     pub use crate::generated::gapic::client::*;
     pub use crate::publisher::client::PublisherClient;
