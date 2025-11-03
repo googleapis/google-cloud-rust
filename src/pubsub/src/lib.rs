@@ -50,7 +50,7 @@ pub mod model_ext {
 
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::client::PublisherClient;
+    pub use crate::publisher::client::PublisherFactory;
     pub use crate::publisher::publisher::Publisher;
 }
 pub mod stub {
