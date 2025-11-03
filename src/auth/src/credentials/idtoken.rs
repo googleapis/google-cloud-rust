@@ -226,6 +226,7 @@ pub(crate) mod tests {
     type TestResult = anyhow::Result<()>;
 
     const DEFAULT_TEST_TOKEN_EXPIRATION: Duration = Duration::from_secs(3600);
+    const DEFAULT_TEST_CLOCK_SKEW: Duration = Duration::from_secs(10);
 
     /// Function to be used in tests to generate a fake, but valid enough, id token.
     pub(crate) fn generate_test_id_token<S: Into<String>>(audience: S) -> String {
@@ -257,7 +258,7 @@ pub(crate) mod tests {
 
         let expires_at = token.expires_at.unwrap();
         let now = Instant::now();
-        let skew = Duration::from_secs(1);
+        let skew = DEFAULT_TEST_CLOCK_SKEW;
         let duration = expires_at.duration_since(now);
         assert!(duration > DEFAULT_TEST_TOKEN_EXPIRATION - skew);
         assert!(duration < DEFAULT_TEST_TOKEN_EXPIRATION + skew);
