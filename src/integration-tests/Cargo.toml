@@ -30,7 +30,6 @@ run-showcase-tests = []
 [dependencies]
 anyhow.workspace                  = true
 bytes.workspace                   = true
-chrono                            = { workspace = true, features = ["now"] }
 crc32c.workspace                  = true
 flate2                            = { workspace = true, features = ["zlib-rs"] }
 futures.workspace                 = true
@@ -75,6 +74,9 @@ path    = "../../src/firestore"
 [dependencies.pubsub]
 package = "google-cloud-pubsub"
 path    = "../../src/pubsub"
+
+[dependencies.pubsub-samples]
+path = "../../src/pubsub/examples"
 
 [dependencies.showcase]
 package = "google-cloud-showcase-v1beta1"
