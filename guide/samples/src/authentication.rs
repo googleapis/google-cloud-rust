@@ -12,18 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! This crate contains a number of guides showing how to use the
-//! Google Cloud Client Libraries for Rust.
-
-pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
-
-pub mod authentication;
-pub mod binding_errors;
-pub mod compute;
-pub mod endpoint;
-pub mod error_handling;
-pub mod examine_error_details;
-pub mod gemini;
-pub mod pagination;
-pub mod retry_policies;
-pub mod update_resource;
+pub mod adc;
+pub mod api_key;
+pub mod impersonation;

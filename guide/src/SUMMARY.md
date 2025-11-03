@@ -31,6 +31,7 @@ limitations under the License.
 - [Update a resource using a field mask](update_resource.md)
 - [Override the default endpoint](endpoint.md)
 - [Configuring retry policies](configuring_retry_policies.md)
+- [Override the authentication credentials](credentials.md)
 - [Error handling](error_handling.md)
 - [Examine error details](examine_error_details.md)
 - [Handling binding errors](binding_errors.md)

@@ -7161,6 +7161,7 @@ dependencies = [
  "crc32c",
  "futures",
  "google-cloud-aiplatform-v1",
+ "google-cloud-auth",
  "google-cloud-compute-v1",
  "google-cloud-gax",
  "google-cloud-iam-v1",
