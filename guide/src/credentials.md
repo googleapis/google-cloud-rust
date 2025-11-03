@@ -23,7 +23,7 @@ default authentication. This guide shows you how to override the default.
 ## Prerequisites
 
 This guide uses the [Cloud Natural Language API]. The same concepts apply to the
-client libraries for other service. You may want to follow the
+client libraries for other services. You may want to follow the
 [service quickstart], which shows you how to enable the service.
 
 For complete setup instructions for the Rust libraries, see
@@ -31,7 +31,7 @@ For complete setup instructions for the Rust libraries, see
 
 ### Dependencies
 
-You must declare the dependency in your `Cargo.toml` file:
+You must declare the dependencies in your `Cargo.toml` file:
 
 ```shell
 cargo add google-cloud-language-v2 google-cloud-auth
@@ -40,7 +40,7 @@ cargo add google-cloud-language-v2 google-cloud-auth
 ## The default credentials
 
 The recommended way to authenticate applications in Google Cloud is to use
-Application Default Credentials, without any configuration the client libraries
+Application Default Credentials. Without any configuration the client libraries
 default to this credential type. See [How Application Default Credentials work]
 for information about you can configure this default without any code changes in
 your application.
