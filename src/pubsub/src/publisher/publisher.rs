@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::generated::gapic_dataplane;
+use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::options::BatchingOptions;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{mpsc, oneshot};
@@ -80,17 +80,14 @@ impl Publisher {
 /// ```
 #[derive(Clone, Debug)]
 pub struct PublisherBuilder {
-    pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
+    pub(crate) inner: GapicPublisher,
     topic: String,
     batching_options: BatchingOptions,
 }
 
 impl PublisherBuilder {
     /// Creates a new Pub/Sub publisher builder for topic.
-    pub(crate) fn new(
-        client: crate::generated::gapic_dataplane::client::Publisher,
-        topic: String,
-    ) -> Self {
+    pub(crate) fn new(client: GapicPublisher, topic: String) -> Self {
         Self {
             inner: client,
             topic,
@@ -134,7 +131,7 @@ struct BundledMessage {
 #[derive(Debug)]
 struct Worker {
     topic_name: String,
-    client: gapic_dataplane::client::Publisher,
+    client: GapicPublisher,
     #[allow(dead_code)]
     batching_options: BatchingOptions,
     rx: mpsc::UnboundedReceiver<BundledMessage>,
@@ -143,7 +140,7 @@ struct Worker {
 impl Worker {
     fn new(
         topic_name: String,
-        client: gapic_dataplane::client::Publisher,
+        client: GapicPublisher,
         batching_options: BatchingOptions,
         rx: mpsc::UnboundedReceiver<BundledMessage>,
     ) -> Self {
