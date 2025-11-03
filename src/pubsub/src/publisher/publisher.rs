@@ -199,40 +199,6 @@ mod tests {
         }
     }
 
-    fn create_gapic_publisher_from_stub(
-        mock: MockGapicPublisher,
-    ) -> UnboundedSender<BundledMessage> {
-        let client = GapicPublisher::from_stub(mock);
-        let (tx_worker, rx_worker) = tokio::sync::mpsc::unbounded_channel();
-        let worker = Worker::new(
-            "my-topic".to_string(),
-            client,
-            BatchingOptions::default(),
-            rx_worker,
-        );
-        tokio::spawn(worker.run());
-        tx_worker
-    }
-
-    fn send_all_messages(
-        messages: Vec<PubsubMessage>,
-        tx_worker: UnboundedSender<BundledMessage>,
-    ) -> Vec<(PubsubMessage, oneshot::Receiver<crate::Result<String>>)> {
-        let mut handles = Vec::new();
-        for msg in messages {
-            let (tx, rx) = tokio::sync::oneshot::channel();
-            let bundled = BundledMessage {
-                msg: msg.clone(),
-                tx,
-            };
-            tx_worker
-                .send(bundled)
-                .expect("channel should not be dropped");
-            handles.push((msg, rx));
-        }
-        handles
-    }
-
     #[tokio::test]
     async fn test_worker_success() {
         let mut mock = MockGapicPublisher::new();
@@ -249,19 +215,21 @@ mod tests {
             })
             .times(2);
 
-        let tx_worker = create_gapic_publisher_from_stub(mock);
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string()).build();
 
         let messages = vec![
             PubsubMessage::new().set_data("hello".to_string()),
             PubsubMessage::new().set_data("world".to_string()),
         ];
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push((msg, handle));
+        }
 
-        let handles = send_all_messages(messages, tx_worker);
         for (id, rx) in handles.into_iter() {
-            let got = rx
-                .await
-                .expect("expected successful receive")
-                .expect("expected message id");
+            let got = rx.await.expect("expected message id");
             let id = String::from_utf8(id.data.to_vec()).unwrap();
             assert_eq!(got, id);
         }
@@ -280,17 +248,22 @@ mod tests {
             })
             .times(2);
 
-        let tx_worker = create_gapic_publisher_from_stub(mock);
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string()).build();
 
         let messages = vec![
             PubsubMessage::new().set_data("hello".to_string()),
             PubsubMessage::new().set_data("world".to_string()),
         ];
 
-        let handles = send_all_messages(messages, tx_worker);
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push(handle);
+        }
 
-        for (_, rx) in handles.into_iter() {
-            let got = rx.await.expect("expected successful receive");
+        for rx in handles.into_iter() {
+            let got = rx.await;
             assert!(got.is_err());
         }
     }
