@@ -407,7 +407,7 @@ google-cloud-language-v2      = { version = "1", path = "src/generated/cloud/lan
 google-cloud-speech-v2        = { version = "1", path = "src/generated/cloud/speech/v2" }
 google-cloud-secretmanager-v1 = { version = "1", path = "src/generated/cloud/secretmanager/v1" }
 google-cloud-aiplatform-v1    = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-compute-v1       = { version = "0.3", default-features = false, path = "src/generated/cloud/compute/v1" }
+google-cloud-compute-v1       = { version = "0.2", default-features = false, path = "src/generated/cloud/compute/v1" }
 google-cloud-storage          = { version = "1", path = "src/storage" }
 google-cloud-pubsub           = { path = "src/pubsub" }
 
