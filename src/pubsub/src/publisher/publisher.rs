@@ -170,7 +170,7 @@ impl Worker {
                 let result = request
                     .send()
                     .await
-                    .map(|response| response.message_ids.first().cloned().unwrap_or_default());
+                    .map(|mut response| response.message_ids.pop().unwrap_or_default());
 
                 // The user may have dropped the handle, so it is ok if this fails.
                 let _ = msg.tx.send(result);

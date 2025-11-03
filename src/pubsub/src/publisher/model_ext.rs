@@ -23,7 +23,7 @@ use tokio::sync::oneshot;
 /// result of the publish call: either a server-assigned message ID `String`
 /// or an `Error` if the publish failed.
 pub struct PublishHandle {
-    pub(crate) rx: oneshot::Receiver<Result<String, crate::Error>>,
+    pub(crate) rx: oneshot::Receiver<crate::Result<String>>,
 }
 
 impl Future for PublishHandle {
@@ -31,11 +31,8 @@ impl Future for PublishHandle {
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let result = ready!(Pin::new(&mut self.rx).poll(cx));
-        Poll::Ready(match result {
-            Ok(res) => res,
-            // This error will only occur if the sender of the self.rx was dropped,
-            // which would be a bug.
-            Err(_) => Err(crate::Error::deser("unable to get message id")),
-        })
+        // An error will only occur if the sender of the self.rx was dropped,
+        // which would be a bug.
+        Poll::Ready(result.expect("the client library should not release the sender"))
     }
 }
