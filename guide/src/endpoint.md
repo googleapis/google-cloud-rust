@@ -16,11 +16,11 @@ limitations under the License.
 
 # Override the default endpoint
 
-The Google Cloud client libraries for Rust automatically authenticate configure
-the endpoint for each service. Some applications may need to override the
-default endpoint either because their network has specific requirements, or
-because they wish to use regional versions of the service. This guide shows you
-how to override the default.
+The Google Cloud client libraries for Rust automatically configure the endpoint
+for each service. Some applications may need to override the default endpoint
+either because their network has specific requirements, or because they wish to
+use regional versions of the service. This guide shows you how to override the
+default.
 
 ## Prerequisites
 
@@ -60,7 +60,7 @@ Use this client as usual:
 {{#include ../samples/src/endpoint/default.rs:rust_endpoint_default_call}}
 ```
 
-The project id is receiver as a parameter:
+The project ID is received as a parameter:
 
 ```rust,ignore
 {{#include ../samples/src/endpoint/default.rs:rust_endpoint_default_parameters}}
@@ -73,7 +73,7 @@ In this example we configure the client library to use secret manager's
 with one of the [private access options], or for [locational endpoints] in the
 services that support them.
 
-As before, write an example that receives the project id and region as
+As before, write an example that receives the project ID and region as
 parameters:
 
 ```rust,ignore
