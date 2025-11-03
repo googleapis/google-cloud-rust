@@ -34,8 +34,8 @@ use std::sync::Arc;
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// use google_cloud_storage::client::Storage;
-/// use google_cloud_storage::stub::StorageImpl;
-/// let client: Storage<StorageImpl> = Storage::builder().build().await?;
+/// use google_cloud_storage::stub::DefaultStorage;
+/// let client: Storage<DefaultStorage> = Storage::builder().build().await?;
 /// # Ok(()) }
 /// ```
 #[derive(Clone, Debug)]
@@ -50,6 +50,7 @@ impl Storage {
 }
 
 impl super::stub::Storage for Storage {
+    /// Implements [crate::client::Storage::read_object].
     async fn read_object(
         &self,
         req: ReadObjectRequest,

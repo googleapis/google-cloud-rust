@@ -89,7 +89,7 @@ use std::sync::Arc;
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
-pub struct Storage<S = crate::stub::StorageImpl>
+pub struct Storage<S = crate::stub::DefaultStorage>
 where
     S: crate::stub::Storage + 'static,
 {
