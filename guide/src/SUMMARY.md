@@ -35,6 +35,7 @@ limitations under the License.
 - [Error handling](error_handling.md)
 - [Examine error details](examine_error_details.md)
 - [Handling binding errors](binding_errors.md)
+- [Enable debug logs](logging.md)
 - [Working with list operations](pagination.md)
 - [Working with long-running operations](working_with_long_running_operations.md)
 - [Configuring polling policies](configuring_polling_policies.md)

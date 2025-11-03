@@ -24,6 +24,7 @@ pub mod endpoint;
 pub mod error_handling;
 pub mod examine_error_details;
 pub mod gemini;
+pub mod logging;
 pub mod pagination;
 pub mod retry_policies;
 pub mod update_resource;
