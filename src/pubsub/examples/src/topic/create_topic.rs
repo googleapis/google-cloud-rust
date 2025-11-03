@@ -15,12 +15,8 @@
 // [START pubsub_create_topic]
 use google_cloud_pubsub::{client::TopicAdmin, model::Topic};
 
-pub async fn sample(client: &TopicAdmin, project_id: &str, topic_id: &str) -> anyhow::Result<()> {
-    let topic: Topic = client
-        .create_topic()
-        .set_name(format!("projects/{project_id}/topics/{topic_id}"))
-        .send()
-        .await?;
+pub async fn sample(client: &TopicAdmin, topic_name: &str) -> anyhow::Result<()> {
+    let topic: Topic = client.create_topic().set_name(topic_name).send().await?;
 
     println!("successfully created topic {topic:?}");
     Ok(())

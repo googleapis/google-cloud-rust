@@ -25,8 +25,14 @@ categories.workspace = true
 
 [dependencies]
 anyhow.workspace              = true
+chrono                        = { workspace = true, features = ["now"] }
+futures.workspace             = true
 google-cloud-pubsub.workspace = true
+google-cloud-gax.workspace    = true
+rand.workspace                = true
 tokio.workspace               = true
+tracing-subscriber            = { workspace = true, features = ["fmt", "std"] }
+tracing.workspace             = true
 
 [features]
 run-integration-tests     = []

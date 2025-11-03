@@ -25,7 +25,7 @@ mod tests {
         let result = run_topic_examples(&mut topics).await;
         // Ignore cleanup errors.
         for name in topics.into_iter() {
-            let _ = cleanup_test_topic(client.clone(), name).await;
+            let _ = cleanup_test_topic(&client, name).await;
         }
         result
     }
