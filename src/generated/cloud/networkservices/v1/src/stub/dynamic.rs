@@ -77,6 +77,36 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
+    async fn list_lb_edge_extensions(
+        &self,
+        req: crate::model::ListLbEdgeExtensionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListLbEdgeExtensionsResponse>>;
+
+    async fn get_lb_edge_extension(
+        &self,
+        req: crate::model::GetLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::LbEdgeExtension>>;
+
+    async fn create_lb_edge_extension(
+        &self,
+        req: crate::model::CreateLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_lb_edge_extension(
+        &self,
+        req: crate::model::UpdateLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_lb_edge_extension(
+        &self,
+        req: crate::model::DeleteLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_authz_extensions(
         &self,
         req: crate::model::ListAuthzExtensionsRequest,
@@ -263,6 +293,51 @@ impl<T: super::DepService> DepService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_lb_route_extension(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_lb_edge_extensions(
+        &self,
+        req: crate::model::ListLbEdgeExtensionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListLbEdgeExtensionsResponse>> {
+        T::list_lb_edge_extensions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_lb_edge_extension(
+        &self,
+        req: crate::model::GetLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::LbEdgeExtension>> {
+        T::get_lb_edge_extension(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_lb_edge_extension(
+        &self,
+        req: crate::model::CreateLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_lb_edge_extension(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_lb_edge_extension(
+        &self,
+        req: crate::model::UpdateLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_lb_edge_extension(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_lb_edge_extension(
+        &self,
+        req: crate::model::DeleteLbEdgeExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_lb_edge_extension(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

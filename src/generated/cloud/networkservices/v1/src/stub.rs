@@ -152,6 +152,61 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::DepService::list_lb_edge_extensions].
+    fn list_lb_edge_extensions(
+        &self,
+        _req: crate::model::ListLbEdgeExtensionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListLbEdgeExtensionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DepService::get_lb_edge_extension].
+    fn get_lb_edge_extension(
+        &self,
+        _req: crate::model::GetLbEdgeExtensionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LbEdgeExtension>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DepService::create_lb_edge_extension].
+    fn create_lb_edge_extension(
+        &self,
+        _req: crate::model::CreateLbEdgeExtensionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DepService::update_lb_edge_extension].
+    fn update_lb_edge_extension(
+        &self,
+        _req: crate::model::UpdateLbEdgeExtensionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DepService::delete_lb_edge_extension].
+    fn delete_lb_edge_extension(
+        &self,
+        _req: crate::model::DeleteLbEdgeExtensionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::DepService::list_authz_extensions].
     fn list_authz_extensions(
         &self,

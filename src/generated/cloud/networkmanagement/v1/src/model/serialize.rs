@@ -392,6 +392,12 @@ impl serde::ser::Serialize for super::ProbingDetails {
                 &self.destination_egress_location,
             )?;
         }
+        if !self.edge_responses.is_empty() {
+            state.serialize_entry("edgeResponses", &self.edge_responses)?;
+        }
+        if !wkt::internal::is_default(&self.probed_all_devices) {
+            state.serialize_entry("probedAllDevices", &self.probed_all_devices)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -413,6 +419,67 @@ impl serde::ser::Serialize for super::probing_details::EdgeLocation {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.metropolitan_area.is_empty() {
             state.serialize_entry("metropolitanArea", &self.metropolitan_area)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::probing_details::SingleEdgeResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.result) {
+            state.serialize_entry("result", &self.result)?;
+        }
+        if !wkt::internal::is_default(&self.sent_probe_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("sentProbeCount", &__With(&self.sent_probe_count))?;
+        }
+        if !wkt::internal::is_default(&self.successful_probe_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "successfulProbeCount",
+                &__With(&self.successful_probe_count),
+            )?;
+        }
+        if self.probing_latency.is_some() {
+            state.serialize_entry("probingLatency", &self.probing_latency)?;
+        }
+        if self.destination_egress_location.is_some() {
+            state.serialize_entry(
+                "destinationEgressLocation",
+                &self.destination_egress_location,
+            )?;
+        }
+        if !self.destination_router.is_empty() {
+            state.serialize_entry("destinationRouter", &self.destination_router)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -730,11 +797,17 @@ impl serde::ser::Serialize for super::Step {
         if let Some(value) = self.forwarding_rule() {
             state.serialize_entry("forwardingRule", value)?;
         }
+        if let Some(value) = self.hybrid_subnet() {
+            state.serialize_entry("hybridSubnet", value)?;
+        }
         if let Some(value) = self.vpn_gateway() {
             state.serialize_entry("vpnGateway", value)?;
         }
         if let Some(value) = self.vpn_tunnel() {
             state.serialize_entry("vpnTunnel", value)?;
+        }
+        if let Some(value) = self.interconnect_attachment() {
+            state.serialize_entry("interconnectAttachment", value)?;
         }
         if let Some(value) = self.vpc_connector() {
             state.serialize_entry("vpcConnector", value)?;
@@ -845,6 +918,12 @@ impl serde::ser::Serialize for super::InstanceInfo {
         if !self.psc_network_attachment_uri.is_empty() {
             state.serialize_entry("pscNetworkAttachmentUri", &self.psc_network_attachment_uri)?;
         }
+        if !wkt::internal::is_default(&self.running) {
+            state.serialize_entry("running", &self.running)?;
+        }
+        if !wkt::internal::is_default(&self.status) {
+            state.serialize_entry("status", &self.status)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -939,6 +1018,21 @@ impl serde::ser::Serialize for super::FirewallInfo {
         }
         if !wkt::internal::is_default(&self.firewall_rule_type) {
             state.serialize_entry("firewallRuleType", &self.firewall_rule_type)?;
+        }
+        if !wkt::internal::is_default(&self.policy_priority) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("policyPriority", &__With(&self.policy_priority))?;
+        }
+        if !wkt::internal::is_default(&self.target_type) {
+            state.serialize_entry("targetType", &self.target_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1213,6 +1307,34 @@ impl serde::ser::Serialize for super::LoadBalancerBackend {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::HybridSubnetInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::VpnGatewayInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1285,6 +1407,49 @@ impl serde::ser::Serialize for super::VpnTunnelInfo {
         }
         if !wkt::internal::is_default(&self.routing_type) {
             state.serialize_entry("routingType", &self.routing_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InterconnectAttachmentInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self.interconnect_uri.is_empty() {
+            state.serialize_entry("interconnectUri", &self.interconnect_uri)?;
+        }
+        if !self.region.is_empty() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !self.cloud_router_uri.is_empty() {
+            state.serialize_entry("cloudRouterUri", &self.cloud_router_uri)?;
+        }
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self.l2_attachment_matched_ip_address.is_empty() {
+            state.serialize_entry(
+                "l2AttachmentMatchedIpAddress",
+                &self.l2_attachment_matched_ip_address,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1381,6 +1546,9 @@ impl serde::ser::Serialize for super::DeliverInfo {
         if !self.psc_google_api_target.is_empty() {
             state.serialize_entry("pscGoogleApiTarget", &self.psc_google_api_target)?;
         }
+        if !wkt::internal::is_default(&self.google_service_type) {
+            state.serialize_entry("googleServiceType", &self.google_service_type)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1476,6 +1644,15 @@ impl serde::ser::Serialize for super::DropInfo {
         }
         if !self.region.is_empty() {
             state.serialize_entry("region", &self.region)?;
+        }
+        if !self.source_geolocation_code.is_empty() {
+            state.serialize_entry("sourceGeolocationCode", &self.source_geolocation_code)?;
+        }
+        if !self.destination_geolocation_code.is_empty() {
+            state.serialize_entry(
+                "destinationGeolocationCode",
+                &self.destination_geolocation_code,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2270,6 +2447,148 @@ impl serde::ser::Serialize for super::DeleteVpcFlowLogsConfigRequest {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::QueryOrgVpcFlowLogsConfigsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::QueryOrgVpcFlowLogsConfigsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.vpc_flow_logs_configs.is_empty() {
+            state.serialize_entry("vpcFlowLogsConfigs", &self.vpc_flow_logs_configs)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ShowEffectiveFlowLogsConfigsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.resource.is_empty() {
+            state.serialize_entry("resource", &self.resource)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ShowEffectiveFlowLogsConfigsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.effective_flow_logs_configs.is_empty() {
+            state.serialize_entry(
+                "effectiveFlowLogsConfigs",
+                &self.effective_flow_logs_configs,
+            )?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::VpcFlowLogsConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2314,8 +2633,17 @@ impl serde::ser::Serialize for super::VpcFlowLogsConfig {
         if self.filter_expr.is_some() {
             state.serialize_entry("filterExpr", &self.filter_expr)?;
         }
+        if self.cross_project_metadata.is_some() {
+            state.serialize_entry("crossProjectMetadata", &self.cross_project_metadata)?;
+        }
         if self.target_resource_state.is_some() {
             state.serialize_entry("targetResourceState", &self.target_resource_state)?;
+        }
+        if let Some(value) = self.network() {
+            state.serialize_entry("network", value)?;
+        }
+        if let Some(value) = self.subnet() {
+            state.serialize_entry("subnet", value)?;
         }
         if let Some(value) = self.interconnect_attachment() {
             state.serialize_entry("interconnectAttachment", value)?;
@@ -2331,6 +2659,75 @@ impl serde::ser::Serialize for super::VpcFlowLogsConfig {
         }
         if self.update_time.is_some() {
             state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EffectiveVpcFlowLogsConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.aggregation_interval.is_some() {
+            state.serialize_entry("aggregationInterval", &self.aggregation_interval)?;
+        }
+        if self.flow_sampling.is_some() {
+            struct __With<'a>(&'a std::option::Option<f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("flowSampling", &__With(&self.flow_sampling))?;
+        }
+        if self.metadata.is_some() {
+            state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if !self.metadata_fields.is_empty() {
+            state.serialize_entry("metadataFields", &self.metadata_fields)?;
+        }
+        if self.filter_expr.is_some() {
+            state.serialize_entry("filterExpr", &self.filter_expr)?;
+        }
+        if self.cross_project_metadata.is_some() {
+            state.serialize_entry("crossProjectMetadata", &self.cross_project_metadata)?;
+        }
+        if let Some(value) = self.network() {
+            state.serialize_entry("network", value)?;
+        }
+        if let Some(value) = self.subnet() {
+            state.serialize_entry("subnet", value)?;
+        }
+        if let Some(value) = self.interconnect_attachment() {
+            state.serialize_entry("interconnectAttachment", value)?;
+        }
+        if let Some(value) = self.vpn_tunnel() {
+            state.serialize_entry("vpnTunnel", value)?;
+        }
+        if self.scope.is_some() {
+            state.serialize_entry("scope", &self.scope)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -304,6 +304,18 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
+    async fn query_org_vpc_flow_logs_configs(
+        &self,
+        req: crate::model::QueryOrgVpcFlowLogsConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryOrgVpcFlowLogsConfigsResponse>>;
+
+    async fn show_effective_flow_logs_configs(
+        &self,
+        req: crate::model::ShowEffectiveFlowLogsConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ShowEffectiveFlowLogsConfigsResponse>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -372,6 +384,268 @@ pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {
 /// All implementations of [super::VpcFlowLogsService] also implement [VpcFlowLogsService].
 #[async_trait::async_trait]
 impl<T: super::VpcFlowLogsService> VpcFlowLogsService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_vpc_flow_logs_configs(
+        &self,
+        req: crate::model::ListVpcFlowLogsConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListVpcFlowLogsConfigsResponse>> {
+        T::list_vpc_flow_logs_configs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_vpc_flow_logs_config(
+        &self,
+        req: crate::model::GetVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::VpcFlowLogsConfig>> {
+        T::get_vpc_flow_logs_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_vpc_flow_logs_config(
+        &self,
+        req: crate::model::CreateVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_vpc_flow_logs_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_vpc_flow_logs_config(
+        &self,
+        req: crate::model::UpdateVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_vpc_flow_logs_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_vpc_flow_logs_config(
+        &self,
+        req: crate::model::DeleteVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_vpc_flow_logs_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn query_org_vpc_flow_logs_configs(
+        &self,
+        req: crate::model::QueryOrgVpcFlowLogsConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::QueryOrgVpcFlowLogsConfigsResponse>>
+    {
+        T::query_org_vpc_flow_logs_configs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn show_effective_flow_logs_configs(
+        &self,
+        req: crate::model::ShowEffectiveFlowLogsConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ShowEffectiveFlowLogsConfigsResponse>>
+    {
+        T::show_effective_flow_logs_configs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::OrganizationVpcFlowLogsService].
+#[async_trait::async_trait]
+pub trait OrganizationVpcFlowLogsService: std::fmt::Debug + Send + Sync {
+    async fn list_vpc_flow_logs_configs(
+        &self,
+        req: crate::model::ListVpcFlowLogsConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListVpcFlowLogsConfigsResponse>>;
+
+    async fn get_vpc_flow_logs_config(
+        &self,
+        req: crate::model::GetVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::VpcFlowLogsConfig>>;
+
+    async fn create_vpc_flow_logs_config(
+        &self,
+        req: crate::model::CreateVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_vpc_flow_logs_config(
+        &self,
+        req: crate::model::UpdateVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_vpc_flow_logs_config(
+        &self,
+        req: crate::model::DeleteVpcFlowLogsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::OrganizationVpcFlowLogsService] also implement [OrganizationVpcFlowLogsService].
+#[async_trait::async_trait]
+impl<T: super::OrganizationVpcFlowLogsService> OrganizationVpcFlowLogsService for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_vpc_flow_logs_configs(
         &self,

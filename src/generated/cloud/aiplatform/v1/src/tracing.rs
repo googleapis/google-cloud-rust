@@ -5365,6 +5365,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn embed_content(
+        &self,
+        req: crate::model::EmbedContentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::EmbedContentResponse>> {
+        self.inner.embed_content(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

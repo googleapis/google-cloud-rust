@@ -13050,6 +13050,49 @@ impl std::fmt::Debug for super::generate_content_response::UsageMetadata {
     }
 }
 
+#[cfg(feature = "prediction-service")]
+impl std::fmt::Debug for super::EmbedContentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EmbedContentRequest");
+        debug_struct.field("model", &self.model);
+        debug_struct.field("content", &self.content);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("task_type", &self.task_type);
+        debug_struct.field("output_dimensionality", &self.output_dimensionality);
+        debug_struct.field("auto_truncate", &self.auto_truncate);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+impl std::fmt::Debug for super::EmbedContentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EmbedContentResponse");
+        debug_struct.field("embedding", &self.embedding);
+        debug_struct.field("usage_metadata", &self.usage_metadata);
+        debug_struct.field("truncated", &self.truncated);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+impl std::fmt::Debug for super::embed_content_response::Embedding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Embedding");
+        debug_struct.field("values", &self.values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "model-garden-service")]
 impl std::fmt::Debug for super::PublisherModel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -16001,6 +16044,37 @@ impl std::fmt::Debug for super::UnmanagedContainerModel {
         debug_struct.field("artifact_uri", &self.artifact_uri);
         debug_struct.field("predict_schemata", &self.predict_schemata);
         debug_struct.field("container_spec", &self.container_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+impl std::fmt::Debug for super::UsageMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UsageMetadata");
+        debug_struct.field("prompt_token_count", &self.prompt_token_count);
+        debug_struct.field("candidates_token_count", &self.candidates_token_count);
+        debug_struct.field("total_token_count", &self.total_token_count);
+        debug_struct.field(
+            "tool_use_prompt_token_count",
+            &self.tool_use_prompt_token_count,
+        );
+        debug_struct.field("thoughts_token_count", &self.thoughts_token_count);
+        debug_struct.field(
+            "cached_content_token_count",
+            &self.cached_content_token_count,
+        );
+        debug_struct.field("prompt_tokens_details", &self.prompt_tokens_details);
+        debug_struct.field("cache_tokens_details", &self.cache_tokens_details);
+        debug_struct.field("candidates_tokens_details", &self.candidates_tokens_details);
+        debug_struct.field(
+            "tool_use_prompt_tokens_details",
+            &self.tool_use_prompt_tokens_details,
+        );
+        debug_struct.field("traffic_type", &self.traffic_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

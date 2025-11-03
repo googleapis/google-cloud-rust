@@ -1132,6 +1132,9 @@ impl serde::ser::Serialize for super::InstancePartition {
             }
             state.serialize_entry("processingUnits", &__With(value))?;
         }
+        if self.autoscaling_config.is_some() {
+            state.serialize_entry("autoscalingConfig", &self.autoscaling_config)?;
+        }
         if !wkt::internal::is_default(&self.state) {
             state.serialize_entry("state", &self.state)?;
         }
