@@ -15,8 +15,8 @@
 // [START rust_endpoint_default] ANCHOR: rust_endpoint_default
 // [START rust_endpoint_default_parameters] ANCHOR: rust_endpoint_default_parameters
 /// # Parameters
-/// - `project_id`: the id of a Google Cloud project, or its numeric ID. For
-///    example: `my-project`.
+/// - `project_id`: the id of a Google Cloud project, or its numeric ID.
+///   For example: `my-project`.
 pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     // [END rust_endpoint_default_parameters] ANCHOR_END: rust_endpoint_default_parameters
     // [START rust_endpoint_default_use] ANCHOR: rust_endpoint_default_use

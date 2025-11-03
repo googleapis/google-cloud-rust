@@ -15,8 +15,8 @@
 // [START rust_endpoint_regional] ANCHOR: rust_endpoint_regional
 // [START rust_endpoint_regional_parameters] ANCHOR: rust_endpoint_regional_parameters
 /// # Parameters
-/// - `project_id`: the id of a Google Cloud project, or its numeric ID. For
-///    example: `my-project`.
+/// - `project_id`: the id of a Google Cloud project, or its numeric ID.
+///   For example: `my-project`.
 /// - `region`: the id of a Gooogle Cloud region. For example `us-central1`.
 pub async fn sample(project_id: &str, region: &str) -> anyhow::Result<()> {
     // [END rust_endpoint_regional_parameters] ANCHOR_END: rust_endpoint_regional_parameters
