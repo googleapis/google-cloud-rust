@@ -76,6 +76,7 @@ pub mod stub {
     //! this mock in their tests, and verify their application responds as expected.
     pub use crate::control::stub::*;
     pub use crate::storage::stub::*;
+    pub use crate::storage::transport::Storage as DefaultStorage;
 }
 
 #[allow(dead_code)]
