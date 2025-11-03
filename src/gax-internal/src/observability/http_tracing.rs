@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::observability::attributes::keys::*;
 use crate::observability::attributes::*;
 use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
@@ -56,9 +57,9 @@ pub(crate) fn create_http_attempt_span(
 
     tracing::info_span!(
         "http_request",
-        { KEY_OTEL_NAME } = otel_name,
-        { KEY_OTEL_KIND } = "Client",
-        { otel_trace::RPC_SYSTEM } = "http",
+        { OTEL_NAME } = otel_name,
+        { OTEL_KIND } = OTEL_KIND_CLIENT,
+        { otel_trace::RPC_SYSTEM } = RPC_SYSTEM_HTTP,
         { otel_trace::HTTP_REQUEST_METHOD } = method.as_str(),
         { otel_trace::SERVER_ADDRESS } = url
             .host_str()
@@ -69,19 +70,20 @@ pub(crate) fn create_http_attempt_span(
         { otel_trace::URL_SCHEME } = url.scheme(),
         { otel_attr::URL_TEMPLATE } = url_template,
         { otel_attr::URL_DOMAIN } = url_domain,
-        { KEY_GCP_CLIENT_SERVICE } = gcp_client_service,
-        { KEY_GCP_CLIENT_VERSION } = gcp_client_version,
-        { KEY_GCP_CLIENT_REPO } = "googleapis/google-cloud-rust",
-        { KEY_GCP_CLIENT_ARTIFACT } = gcp_client_artifact,
+        { GCP_CLIENT_SERVICE } = gcp_client_service,
+        { GCP_CLIENT_VERSION } = gcp_client_version,
+        { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
+        { GCP_CLIENT_ARTIFACT } = gcp_client_artifact,
+        { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
         { otel_trace::HTTP_REQUEST_RESEND_COUNT } = http_request_resend_count,
         // Fields to be recorded later
-        { KEY_OTEL_STATUS_CODE } = otel_status_codes::UNSET, // Initial state
-        { KEY_OTEL_STATUS_DESCRIPTION } = field::Empty,
+        { OTEL_STATUS_CODE } = otel_status_codes::UNSET, // Initial state
+        { OTEL_STATUS_DESCRIPTION } = field::Empty,
         { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
         { otel_trace::HTTP_RESPONSE_BODY_SIZE } = field::Empty,
         { otel_trace::ERROR_TYPE } = field::Empty,
         { otel_attr::RPC_GRPC_STATUS_CODE } = field::Empty,
-        { KEY_GRPC_STATUS } = field::Empty,
+        { GRPC_STATUS } = field::Empty,
     )
 }
 
@@ -108,14 +110,14 @@ pub(crate) fn record_http_response_attributes(
             }
         }
         Err(err) => {
-            span.record(KEY_OTEL_STATUS_CODE, otel_status_codes::ERROR);
+            span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
             if let Some(status) = err.http_status_code() {
                 span.record(otel_trace::HTTP_RESPONSE_STATUS_CODE, status as i64);
             }
             let error_type = ErrorType::from_gax_error(err);
             span.record(otel_trace::ERROR_TYPE, error_type.as_str());
             // TODO(#3239): clean up error messages
-            span.record(KEY_OTEL_STATUS_DESCRIPTION, err.to_string());
+            span.record(OTEL_STATUS_DESCRIPTION, err.to_string());
         }
     }
 }
@@ -147,8 +149,8 @@ mod tests {
         let _span = create_http_attempt_span(&request, &options, Some(&INFO), 1);
 
         let expected_attributes: HashMap<String, AttributeValue> = [
-            (KEY_OTEL_NAME, "GET /test".into()),
-            (KEY_OTEL_KIND, "Client".into()),
+            (OTEL_NAME, "GET /test".into()),
+            (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
             (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
             (otel_trace::SERVER_ADDRESS, "example.com".into()),
@@ -157,12 +159,13 @@ mod tests {
             (otel_trace::URL_SCHEME, "https".into()),
             (otel_attr::URL_TEMPLATE, "/test".into()),
             (otel_attr::URL_DOMAIN, "example.com".into()),
-            (KEY_GCP_CLIENT_SERVICE, "test.service".into()),
-            (KEY_GCP_CLIENT_VERSION, "1.2.3".into()),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (KEY_GCP_CLIENT_ARTIFACT, "google-cloud-test".into()),
+            (GCP_CLIENT_SERVICE, "test.service".into()),
+            (GCP_CLIENT_VERSION, "1.2.3".into()),
+            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
+            (GCP_CLIENT_ARTIFACT, "google-cloud-test".into()),
+            (GCP_CLIENT_LANGUAGE, "rust".into()),
             (otel_trace::HTTP_REQUEST_RESEND_COUNT, 1_i64.into()),
-            (KEY_OTEL_STATUS_CODE, "UNSET".into()),
+            (OTEL_STATUS_CODE, "UNSET".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -184,16 +187,17 @@ mod tests {
         let _span = create_http_attempt_span(&request, &options, None, 0);
 
         let expected_attributes: HashMap<String, AttributeValue> = [
-            (KEY_OTEL_NAME, "POST".into()),
-            (KEY_OTEL_KIND, "Client".into()),
+            (OTEL_NAME, "POST".into()),
+            (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
             (otel_trace::HTTP_REQUEST_METHOD, "POST".into()),
             (otel_trace::SERVER_ADDRESS, "localhost".into()),
             (otel_trace::SERVER_PORT, 8080_i64.into()),
             (otel_trace::URL_FULL, "http://localhost:8080/".into()),
             (otel_trace::URL_SCHEME, "http".into()),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (KEY_OTEL_STATUS_CODE, "UNSET".into()),
+            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
+            (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (OTEL_STATUS_CODE, "UNSET".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -224,16 +228,17 @@ mod tests {
         record_http_response_attributes(&span, Ok(&reqwest_response));
 
         let expected_attributes: HashMap<String, AttributeValue> = [
-            (KEY_OTEL_NAME, "GET".into()),
-            (KEY_OTEL_KIND, "Client".into()),
+            (OTEL_NAME, "GET".into()),
+            (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
             (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
             (otel_trace::SERVER_ADDRESS, "example.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
             (otel_trace::URL_FULL, "https://example.com/test".into()),
             (otel_trace::URL_SCHEME, "https".into()),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (KEY_OTEL_STATUS_CODE, "UNSET".into()),
+            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
+            (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (OTEL_STATUS_CODE, "UNSET".into()),
             (
                 otel_trace::HTTP_RESPONSE_STATUS_CODE,
                 (status_code.as_u16() as i64).into(),
@@ -263,19 +268,20 @@ mod tests {
         record_http_response_attributes(&span, Err(&error));
 
         let expected_attributes: HashMap<String, AttributeValue> = [
-            (KEY_OTEL_NAME, "GET".into()),
-            (KEY_OTEL_KIND, "Client".into()),
+            (OTEL_NAME, "GET".into()),
+            (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
             (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
             (otel_trace::SERVER_ADDRESS, "example.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
             (otel_trace::URL_FULL, "https://example.com/test".into()),
             (otel_trace::URL_SCHEME, "https".into()),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (KEY_OTEL_STATUS_CODE, "ERROR".into()),
+            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
+            (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (OTEL_STATUS_CODE, "ERROR".into()),
             (otel_trace::ERROR_TYPE, "CLIENT_TIMEOUT".into()),
             (
-                KEY_OTEL_STATUS_DESCRIPTION,
+                OTEL_STATUS_DESCRIPTION,
                 "the request exceeded the request deadline test timeout".into(),
             ),
         ]
@@ -322,10 +328,10 @@ mod tests {
         let attributes = &captured[0].attributes;
 
         assert_eq!(
-            attributes.get(KEY_OTEL_STATUS_CODE),
+            attributes.get(OTEL_STATUS_CODE),
             Some(&"ERROR".into()),
             "{} mismatch, attrs: {:?}",
-            KEY_OTEL_STATUS_CODE,
+            OTEL_STATUS_CODE,
             attributes
         );
         assert_eq!(
@@ -343,14 +349,14 @@ mod tests {
             attributes
         );
         let description = attributes
-            .get(KEY_OTEL_STATUS_DESCRIPTION)
-            .unwrap_or_else(|| panic!("{} missing", KEY_OTEL_STATUS_DESCRIPTION))
+            .get(OTEL_STATUS_DESCRIPTION)
+            .unwrap_or_else(|| panic!("{} missing", OTEL_STATUS_DESCRIPTION))
             .as_string()
-            .unwrap_or_else(|| panic!("{} not a string", KEY_OTEL_STATUS_DESCRIPTION));
+            .unwrap_or_else(|| panic!("{} not a string", OTEL_STATUS_DESCRIPTION));
         assert!(
             description.starts_with(expected_description_prefix),
             "{} '{}' does not start with '{}', attrs: {:?}",
-            KEY_OTEL_STATUS_DESCRIPTION,
+            OTEL_STATUS_DESCRIPTION,
             description,
             expected_description_prefix,
             attributes
@@ -382,10 +388,10 @@ mod tests {
         let attributes = &captured[0].attributes;
 
         assert_eq!(
-            attributes.get(KEY_OTEL_STATUS_CODE),
+            attributes.get(OTEL_STATUS_CODE),
             Some(&"ERROR".into()),
             "{} mismatch, attrs: {:?}",
-            KEY_OTEL_STATUS_CODE,
+            OTEL_STATUS_CODE,
             attributes
         );
         assert_eq!(
@@ -396,14 +402,14 @@ mod tests {
             attributes
         );
         let description = attributes
-            .get(KEY_OTEL_STATUS_DESCRIPTION)
-            .unwrap_or_else(|| panic!("{} missing", KEY_OTEL_STATUS_DESCRIPTION))
+            .get(OTEL_STATUS_DESCRIPTION)
+            .unwrap_or_else(|| panic!("{} missing", OTEL_STATUS_DESCRIPTION))
             .as_string()
-            .unwrap_or_else(|| panic!("{} not a string", KEY_OTEL_STATUS_DESCRIPTION));
+            .unwrap_or_else(|| panic!("{} not a string", OTEL_STATUS_DESCRIPTION));
         assert!(
             description.contains("Invalid API Key"),
             "{} '{}' does not contain 'Invalid API Key', attrs: {:?}",
-            KEY_OTEL_STATUS_DESCRIPTION,
+            OTEL_STATUS_DESCRIPTION,
             description,
             attributes
         );

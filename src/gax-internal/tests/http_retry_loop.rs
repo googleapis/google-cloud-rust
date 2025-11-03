@@ -35,8 +35,8 @@ mod tests {
     use std::time::Duration;
 
     #[cfg(google_cloud_unstable_tracing)]
-    use google_cloud_gax_internal::observability::attributes::{
-        KEY_OTEL_STATUS_CODE, KEY_OTEL_STATUS_DESCRIPTION,
+    use google_cloud_gax_internal::observability::attributes::keys::{
+        OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION,
     };
     #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::TestLayer;
@@ -160,10 +160,10 @@ mod tests {
             attributes0
         );
         assert_eq!(
-            attributes0.get(KEY_OTEL_STATUS_CODE),
+            attributes0.get(OTEL_STATUS_CODE),
             Some(&"ERROR".into()),
             "Span 0: '{}' mismatch, all attributes: {:?}",
-            KEY_OTEL_STATUS_CODE,
+            OTEL_STATUS_CODE,
             attributes0
         );
         assert_eq!(
@@ -174,13 +174,13 @@ mod tests {
             attributes0
         );
         assert_eq!(
-            attributes0.get(KEY_OTEL_STATUS_DESCRIPTION),
+            attributes0.get(OTEL_STATUS_DESCRIPTION),
             Some(
                 &"the service reports an error with code UNAVAILABLE described as: try-again"
                     .into()
             ),
             "Span 0: '{}' mismatch, all attributes: {:?}",
-            KEY_OTEL_STATUS_DESCRIPTION,
+            OTEL_STATUS_DESCRIPTION,
             attributes0
         );
 
@@ -196,10 +196,10 @@ mod tests {
             attributes1
         );
         assert_eq!(
-            attributes1.get(KEY_OTEL_STATUS_CODE),
+            attributes1.get(OTEL_STATUS_CODE),
             Some(&"ERROR".into()),
             "Span 1: '{}' mismatch, all attributes: {:?}",
-            KEY_OTEL_STATUS_CODE,
+            OTEL_STATUS_CODE,
             attributes1
         );
         assert_eq!(
@@ -210,13 +210,13 @@ mod tests {
             attributes1
         );
         assert_eq!(
-            attributes1.get(KEY_OTEL_STATUS_DESCRIPTION),
+            attributes1.get(OTEL_STATUS_DESCRIPTION),
             Some(
                 &"the service reports an error with code UNAVAILABLE described as: try-again"
                     .into()
             ),
             "Span 1: '{}' mismatch, all attributes: {:?}",
-            KEY_OTEL_STATUS_DESCRIPTION,
+            OTEL_STATUS_DESCRIPTION,
             attributes1
         );
 
@@ -232,10 +232,10 @@ mod tests {
             attributes2
         );
         assert_eq!(
-            attributes2.get(KEY_OTEL_STATUS_CODE),
+            attributes2.get(OTEL_STATUS_CODE),
             Some(&"UNSET".into()),
             "Span 2: '{}' mismatch, all attributes: {:?}",
-            KEY_OTEL_STATUS_CODE,
+            OTEL_STATUS_CODE,
             attributes2
         );
         assert_eq!(
@@ -246,9 +246,9 @@ mod tests {
             attributes2
         );
         assert!(
-            attributes2.get(KEY_OTEL_STATUS_DESCRIPTION).is_none(),
+            attributes2.get(OTEL_STATUS_DESCRIPTION).is_none(),
             "Span 2: '{}' should not be present, all attributes: {:?}",
-            KEY_OTEL_STATUS_DESCRIPTION,
+            OTEL_STATUS_DESCRIPTION,
             attributes2
         );
 

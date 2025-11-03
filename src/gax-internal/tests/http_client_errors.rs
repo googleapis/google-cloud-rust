@@ -130,14 +130,14 @@ mod tests {
 
             assert_eq!(
                 attributes.get(
-                    google_cloud_gax_internal::observability::attributes::KEY_OTEL_STATUS_CODE
+                    google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_CODE
                 ),
                 Some(&"ERROR".into()),
                 "Span 0: 'otel.status_code' mismatch, all attributes: {:?}",
                 attributes
             );
             let status_description = attributes
-                .get(google_cloud_gax_internal::observability::attributes::KEY_OTEL_STATUS_DESCRIPTION)
+                .get(google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_DESCRIPTION)
                 .unwrap();
             match status_description {
                 google_cloud_test_utils::test_layer::AttributeValue::String(s) => {
@@ -214,14 +214,14 @@ mod tests {
 
             assert_eq!(
                 attributes.get(
-                    google_cloud_gax_internal::observability::attributes::KEY_OTEL_STATUS_CODE
+                    google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_CODE
                 ),
                 Some(&"ERROR".into()),
                 "Span 0: 'otel.status_code' mismatch, all attributes: {:?}",
                 attributes
             );
             let status_description = attributes
-                .get(google_cloud_gax_internal::observability::attributes::KEY_OTEL_STATUS_DESCRIPTION)
+                .get(google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_DESCRIPTION)
                 .unwrap();
             match status_description {
                 google_cloud_test_utils::test_layer::AttributeValue::String(s) => {
