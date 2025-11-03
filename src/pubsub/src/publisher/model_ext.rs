@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::{pin::Pin, task::Poll};
+use std::future::Future;
+use std::pin::Pin;
+use std::task::{Context, Poll, ready};
 use tokio::sync::oneshot;
 
 /// A handle that represents an in-flight publish operation.
@@ -27,18 +29,13 @@ pub struct PublishHandle {
 impl Future for PublishHandle {
     type Output = crate::Result<String>;
 
-    fn poll(
-        mut self: std::pin::Pin<&mut Self>,
-        cx: &mut std::task::Context<'_>,
-    ) -> std::task::Poll<Self::Output> {
-        match Pin::new(&mut self.rx).poll(cx) {
-            Poll::Ready(Ok(result)) => Poll::Ready(result),
-            Poll::Pending => Poll::Pending,
+    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        let result = ready!(Pin::new(&mut self.rx).poll(cx));
+        Poll::Ready(match result {
+            Ok(res) => res,
             // This error will only occur if the sender of the self.rx was dropped,
             // which would be a bug.
-            Poll::Ready(Err(_)) => {
-                Poll::Ready(Err(crate::Error::deser("unable to get message id")))
-            }
-        }
+            Err(_) => Err(crate::Error::deser("unable to get message id")),
+        })
     }
 }
