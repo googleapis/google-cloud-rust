@@ -1763,6 +1763,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
+ "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
