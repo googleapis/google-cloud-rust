@@ -44,6 +44,7 @@ google-cloud-storage.workspace          = true
 google-cloud-wkt.workspace              = true
 serde_json.workspace                    = true
 tokio                                   = { workspace = true, features = ["full", "macros"] }
+tracing-subscriber                      = { workspace = true, default-features = true }
 # Formatting trick: this comment preserves formatting in the preceding block.
 google-cloud-compute-v1 = { workspace = true, default-features = false, features = [
   "images",
