@@ -59,7 +59,7 @@ First, add a dependency on the `tracing-subscriber` crate:
 cargo add tracing tracing-subscriber
 ```
 
-This example receives the project id as a function parameter:
+This example receives the project ID as a function parameter:
 
 ```rust,ignore
 {{#include ../samples/src/logging.rs:rust_logging_parameters}}
