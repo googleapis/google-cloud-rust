@@ -30,7 +30,7 @@ privacy implications before doing so.
 ## Prerequisites
 
 This guide uses the [Secret Manager API]. The same concepts apply to the client
-libraries for other service. You may want to follow the [service quickstart],
+libraries for other services. You may want to follow the [service quickstart],
 which shows you how to enable the service.
 
 For complete setup instructions for the Rust libraries, see
@@ -38,7 +38,7 @@ For complete setup instructions for the Rust libraries, see
 
 ### Dependencies
 
-You must declare the dependency in your `Cargo.toml` file:
+You must declare the dependencies in your `Cargo.toml` file:
 
 ```shell
 cargo add google-cloud-secretmanager-v1 google-cloud-gax
