@@ -22,7 +22,10 @@ pub enum ErrorType {
         code: StatusCode,
         reason: Option<String>,
     },
-    RpcError(gax::error::rpc::Code),
+    RpcError {
+        code: gax::error::rpc::Code,
+        reason: Option<String>,
+    },
     ClientTimeout,
     ClientConnectionError,
     ClientRequestError,
@@ -42,7 +45,17 @@ impl ErrorType {
             e if e.is_deserialization() => ErrorType::ClientResponseDecodeError,
             e if e.is_authentication() => ErrorType::ClientAuthenticationError,
             e if e.is_io() || e.is_connect() => ErrorType::ClientConnectionError,
-            e if e.status().is_some() => ErrorType::RpcError(e.status().unwrap().code),
+            e if e.status().is_some() => {
+                let status = e.status().unwrap();
+                let reason = status.details.iter().find_map(|d| match d {
+                    gax::error::rpc::StatusDetails::ErrorInfo(info) => Some(info.reason.clone()),
+                    _ => None,
+                });
+                ErrorType::RpcError {
+                    code: status.code,
+                    reason,
+                }
+            }
             e if e.is_transport() => e
                 .http_status_code()
                 .and_then(|s| http::StatusCode::from_u16(s).ok())
@@ -58,7 +71,10 @@ impl ErrorType {
                 reason: Some(r), ..
             } => r.clone(),
             ErrorType::HttpError { code, .. } => code.as_str().to_string(),
-            ErrorType::RpcError(code) => code.name().to_string(),
+            ErrorType::RpcError {
+                reason: Some(r), ..
+            } => r.clone(),
+            ErrorType::RpcError { code, .. } => code.name().to_string(),
             ErrorType::ClientTimeout => CLIENT_TIMEOUT.to_string(),
             ErrorType::ClientConnectionError => CLIENT_CONNECTION_ERROR.to_string(),
             ErrorType::ClientRequestError => CLIENT_REQUEST_ERROR.to_string(),
@@ -94,8 +110,9 @@ pub(crate) mod tests {
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_GATEWAY, reason: None }, "502"; "Bad Gateway")]
     #[test_case(ErrorType::HttpError { code: StatusCode::from_u16(499).unwrap(), reason: None }, "499"; "Client Closed Request")]
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: Some("REASON".to_string()) }, "REASON"; "Bad Request with Reason")]
-    #[test_case(ErrorType::RpcError(gax::error::rpc::Code::NotFound), "NOT_FOUND"; "RPC Not Found")]
-    #[test_case(ErrorType::RpcError(gax::error::rpc::Code::Unavailable), "UNAVAILABLE"; "RPC Unavailable")]
+    #[test_case(ErrorType::RpcError { code: gax::error::rpc::Code::NotFound, reason: None }, "NOT_FOUND"; "RPC Not Found")]
+    #[test_case(ErrorType::RpcError { code: gax::error::rpc::Code::Unavailable, reason: None }, "UNAVAILABLE"; "RPC Unavailable")]
+    #[test_case(ErrorType::RpcError { code: gax::error::rpc::Code::InvalidArgument, reason: Some("API_KEY_INVALID".to_string()) }, "API_KEY_INVALID"; "RPC Invalid Argument with Reason")]
     #[test_case(ErrorType::ClientTimeout, CLIENT_TIMEOUT; "Client Timeout")]
     #[test_case(ErrorType::ClientConnectionError, CLIENT_CONNECTION_ERROR; "Client Connection Error")]
     #[test_case(ErrorType::ClientRequestError, CLIENT_REQUEST_ERROR; "Client Request Error")]
@@ -126,5 +143,19 @@ pub(crate) mod tests {
     #[test_case(Error::service(gax::error::rpc::Status::default()), UNKNOWN; "Service Error Default")]
     fn test_from_gax_error(err: Error, expected: &str) {
         assert_eq!(ErrorType::from_gax_error(&err).as_str(), expected);
+    }
+
+    #[test]
+    fn test_from_gax_error_with_error_info() {
+        let error_info = rpc::model::ErrorInfo::default()
+            .set_reason("API_KEY_INVALID")
+            .set_domain("googleapis.com");
+        let status = gax::error::rpc::Status::default()
+            .set_code(gax::error::rpc::Code::InvalidArgument)
+            .set_message("Invalid API Key")
+            .set_details(vec![gax::error::rpc::StatusDetails::ErrorInfo(error_info)]);
+        let err = Error::service(status);
+
+        assert_eq!(ErrorType::from_gax_error(&err).as_str(), "API_KEY_INVALID");
     }
 }
