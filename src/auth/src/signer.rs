@@ -61,8 +61,6 @@ struct SignBlobRequest {
 
 #[derive(Debug, serde::Deserialize)]
 struct SignBlobResponse {
-    #[serde(rename = "keyId")]
-    key_id: String,
     #[serde(rename = "signedBlob")]
     signed_blob: String,
 }
@@ -74,7 +72,7 @@ impl SigningProvider for CredentialsSigner {
     }
 
     async fn sign(&self, content: &str) -> Result<String> {
-        use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
+        use base64::{Engine, prelude::BASE64_STANDARD};
 
         let source_headers = self
             .inner
@@ -95,7 +93,7 @@ impl SigningProvider for CredentialsSigner {
         );
 
         let client = Client::new();
-        let payload = BASE64_URL_SAFE_NO_PAD.encode(content);
+        let payload = BASE64_STANDARD.encode(content);
         let body = SignBlobRequest { payload };
 
         let response = client
@@ -119,10 +117,15 @@ impl SigningProvider for CredentialsSigner {
 
         println!("response: {res:?}");
 
-        let signature = BASE64_URL_SAFE_NO_PAD
+        let signature = BASE64_STANDARD
             .decode(res.signed_blob)
             .map_err(SigningError::parsing)?;
-        let signature = String::from_utf8(signature).map_err(SigningError::parsing)?;
+
+        println!("signature base64 decode: {:?}", signature);
+
+        let signature = hex::encode(signature);
+
+        println!("signature hex encode: {:?}", signature);
 
         Ok(signature)
     }

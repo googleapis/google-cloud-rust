@@ -110,6 +110,7 @@ pub async fn signed_urls(
     let signed_url = client.signed_url(signer, bucket_name, &insert.name).await?;
 
     tracing::info!("signed_url={signed_url}");
+    println!("signed_url={signed_url}");
 
     Ok(())
 }

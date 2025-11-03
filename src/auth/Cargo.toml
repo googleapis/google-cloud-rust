@@ -46,6 +46,7 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 bon.workspace         = true
+hex                   = { workspace = true, features = ["std"] }
 # Local dependencies
 gax.workspace = true
 
