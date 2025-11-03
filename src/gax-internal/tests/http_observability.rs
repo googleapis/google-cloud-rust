@@ -257,4 +257,95 @@ mod tests {
 
         assert_eq!(attrs, &expected_attributes);
     }
+
+    #[tokio::test]
+    async fn test_error_info_parsing() {
+        let server = Server::run();
+        let server_addr = server.addr();
+        let server_url = format!("http://{}", server_addr);
+
+        let error_body = serde_json::json!({
+            "error": {
+                "code": 400,
+                "message": "Invalid API Key",
+                "status": "INVALID_ARGUMENT",
+                "details": [
+                    {
+                        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+                        "reason": "API_KEY_INVALID",
+                        "domain": "googleapis.com",
+                        "metadata": {
+                            "service": "test.googleapis.com"
+                        }
+                    }
+                ]
+            }
+        });
+
+        server.expect(
+            Expectation::matching(all_of![method("GET"), path("/error-info"),])
+                .respond_with(status_code(400).body(error_body.to_string())),
+        );
+
+        let client = create_client(true, server_url.clone()).await;
+        let guard = TestLayer::initialize();
+
+        let options =
+            gax::options::internal::set_path_template(RequestOptions::default(), "/error-info");
+        let request = client.builder(Method::GET, "/error-info".to_string());
+        let result: gax::Result<Response<TestResponse>> =
+            client.execute(request, None::<NoBody>, options).await;
+
+        assert!(result.is_err());
+
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1, "Should capture one span: {:?}", captured);
+
+        let span = &captured[0];
+        let attrs = &span.attributes;
+
+        assert_eq!(
+            attrs.get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
+            Some(&400_i64.into()),
+            "http.response.status_code mismatch, attrs: {:?}",
+            attrs
+        );
+
+        assert_eq!(
+            attrs.get(otel_trace::ERROR_TYPE),
+            Some(&"API_KEY_INVALID".into()),
+            "error.type should be parsed from ErrorInfo, attrs: {:?}",
+            attrs
+        );
+
+        assert_eq!(
+            attrs.get(KEY_OTEL_STATUS_CODE),
+            Some(&"ERROR".into()),
+            "otel.status_code should be ERROR, attrs: {:?}",
+            attrs
+        );
+
+        let description = attrs
+            .get(KEY_OTEL_STATUS_DESCRIPTION)
+            .unwrap_or_else(|| {
+                panic!(
+                    "{} missing, attrs: {:?}",
+                    KEY_OTEL_STATUS_DESCRIPTION, attrs
+                )
+            })
+            .as_string()
+            .unwrap_or_else(|| {
+                panic!(
+                    "{} not a string, attrs: {:?}",
+                    KEY_OTEL_STATUS_DESCRIPTION, attrs
+                )
+            });
+        assert!(
+            description.contains("Invalid API Key"),
+            "{} '{}' does not contain 'Invalid API Key', attrs: {:?}",
+            KEY_OTEL_STATUS_DESCRIPTION,
+            description,
+            attrs
+        );
+    }
 }
