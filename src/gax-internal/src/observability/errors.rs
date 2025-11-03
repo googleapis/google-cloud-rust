@@ -22,13 +22,14 @@ pub enum ErrorType {
         code: StatusCode,
         reason: Option<String>,
     },
+    RpcError(gax::error::rpc::Code),
     ClientTimeout,
     ClientConnectionError,
     ClientRequestError,
     ClientResponseDecodeError,
     ClientAuthenticationError,
     ClientRetryExhausted,
-    Internal,
+    Unknown,
 }
 
 impl ErrorType {
@@ -41,17 +42,13 @@ impl ErrorType {
             e if e.is_deserialization() => ErrorType::ClientResponseDecodeError,
             e if e.is_authentication() => ErrorType::ClientAuthenticationError,
             e if e.is_io() || e.is_connect() => ErrorType::ClientConnectionError,
-            e => {
-                if let Some(status) = e.http_status_code() {
-                    ErrorType::HttpError {
-                        code: http::StatusCode::from_u16(status)
-                            .unwrap_or(http::StatusCode::INTERNAL_SERVER_ERROR),
-                        reason: None,
-                    }
-                } else {
-                    ErrorType::Internal
-                }
-            }
+            e if e.status().is_some() => ErrorType::RpcError(e.status().unwrap().code),
+            e if e.is_transport() => e
+                .http_status_code()
+                .and_then(|s| http::StatusCode::from_u16(s).ok())
+                .map(|code| ErrorType::HttpError { code, reason: None })
+                .unwrap_or(ErrorType::Unknown),
+            _ => ErrorType::Unknown,
         }
     }
 
@@ -61,13 +58,14 @@ impl ErrorType {
                 reason: Some(r), ..
             } => r.clone(),
             ErrorType::HttpError { code, .. } => code.as_str().to_string(),
+            ErrorType::RpcError(code) => code.name().to_string(),
             ErrorType::ClientTimeout => CLIENT_TIMEOUT.to_string(),
             ErrorType::ClientConnectionError => CLIENT_CONNECTION_ERROR.to_string(),
             ErrorType::ClientRequestError => CLIENT_REQUEST_ERROR.to_string(),
             ErrorType::ClientResponseDecodeError => CLIENT_RESPONSE_DECODE_ERROR.to_string(),
             ErrorType::ClientAuthenticationError => CLIENT_AUTHENTICATION_ERROR.to_string(),
             ErrorType::ClientRetryExhausted => CLIENT_RETRY_EXHAUSTED.to_string(),
-            ErrorType::Internal => INTERNAL.to_string(),
+            ErrorType::Unknown => UNKNOWN.to_string(),
         }
     }
 }
@@ -96,13 +94,15 @@ pub(crate) mod tests {
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_GATEWAY, reason: None }, "502"; "Bad Gateway")]
     #[test_case(ErrorType::HttpError { code: StatusCode::from_u16(499).unwrap(), reason: None }, "499"; "Client Closed Request")]
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: Some("REASON".to_string()) }, "REASON"; "Bad Request with Reason")]
+    #[test_case(ErrorType::RpcError(gax::error::rpc::Code::NotFound), "NOT_FOUND"; "RPC Not Found")]
+    #[test_case(ErrorType::RpcError(gax::error::rpc::Code::Unavailable), "UNAVAILABLE"; "RPC Unavailable")]
     #[test_case(ErrorType::ClientTimeout, CLIENT_TIMEOUT; "Client Timeout")]
     #[test_case(ErrorType::ClientConnectionError, CLIENT_CONNECTION_ERROR; "Client Connection Error")]
     #[test_case(ErrorType::ClientRequestError, CLIENT_REQUEST_ERROR; "Client Request Error")]
     #[test_case(ErrorType::ClientResponseDecodeError, CLIENT_RESPONSE_DECODE_ERROR; "Client Response Decode Error")]
     #[test_case(ErrorType::ClientAuthenticationError, CLIENT_AUTHENTICATION_ERROR; "Client Authentication Error")]
     #[test_case(ErrorType::ClientRetryExhausted, CLIENT_RETRY_EXHAUSTED; "Client Retry Exhausted")]
-    #[test_case(ErrorType::Internal, INTERNAL; "Internal")]
+    #[test_case(ErrorType::Unknown, UNKNOWN; "Unknown")]
     fn test_error_type_conversions(error_type: ErrorType, expected_as_str: &str) {
         assert_eq!(
             error_type.as_str(),
@@ -121,7 +121,9 @@ pub(crate) mod tests {
     #[test_case(Error::io("test"), CLIENT_CONNECTION_ERROR; "IO")]
     #[test_case(Error::http(404, HeaderMap::new(), bytes::Bytes::new()), "404"; "HTTP 404")]
     #[test_case(Error::http(503, HeaderMap::new(), bytes::Bytes::new()), "503"; "HTTP 503")]
-    #[test_case(Error::service(gax::error::rpc::Status::default()), INTERNAL; "Internal")]
+    #[test_case(Error::http(1000, HeaderMap::new(), bytes::Bytes::new()), UNKNOWN; "Invalid HTTP Status")]
+    #[test_case(Error::service(gax::error::rpc::Status::default().set_code(5).set_message("not found")), "NOT_FOUND"; "Service Error")]
+    #[test_case(Error::service(gax::error::rpc::Status::default()), UNKNOWN; "Service Error Default")]
     fn test_from_gax_error(err: Error, expected: &str) {
         assert_eq!(ErrorType::from_gax_error(&err).as_str(), expected);
     }

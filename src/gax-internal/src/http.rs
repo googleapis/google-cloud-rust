@@ -194,24 +194,17 @@ impl ReqwestClient {
 
         let intermediate_result = reqwest_result.map_err(map_send_error);
         let intermediate_result = match intermediate_result {
-            Ok(response) if !response.status().is_success() => {
-                self::to_http_error(response).await
-            }
+            Ok(response) if !response.status().is_success() => self::to_http_error(response).await,
             other => other,
         };
 
         // Record span before parsing result, after parsing error.
         #[cfg(google_cloud_unstable_tracing)]
-        if let Some(s) = &span {
-            record_http_response_attributes(s, intermediate_result.as_ref());
+        if let Some(s) = span {
+            record_http_response_attributes(&s, intermediate_result.as_ref());
         }
-        #[cfg(google_cloud_unstable_tracing)]
-        drop(span);
 
-        match intermediate_result {
-            Ok(response) => self::to_http_response(response).await,
-            Err(err) => Err(err),
-        }
+        self::to_http_response(intermediate_result?).await
     }
 
     fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {

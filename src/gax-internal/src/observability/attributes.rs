@@ -67,6 +67,8 @@ pub mod error_type_values {
     pub const CLIENT_RETRY_EXHAUSTED: &str = "CLIENT_RETRY_EXHAUSTED";
     /// Unexpected issue within the client library's own logic.
     pub const INTERNAL: &str = "INTERNAL";
+    /// Unknown error type.
+    pub const UNKNOWN: &str = "UNKNOWN";
 }
 
 #[derive(Debug, Clone, PartialEq)]
