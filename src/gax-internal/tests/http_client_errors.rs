@@ -128,6 +128,29 @@ mod tests {
                 attributes
             );
 
+            assert_eq!(
+                attributes.get(
+                    google_cloud_gax_internal::observability::attributes::KEY_OTEL_STATUS_CODE
+                ),
+                Some(&"ERROR".into()),
+                "Span 0: 'otel.status_code' mismatch, all attributes: {:?}",
+                attributes
+            );
+            let status_description = attributes
+                .get(google_cloud_gax_internal::observability::attributes::KEY_OTEL_STATUS_DESCRIPTION)
+                .unwrap();
+            match status_description {
+                google_cloud_test_utils::test_layer::AttributeValue::String(s) => {
+                    assert!(
+                        s.contains("error sending request"),
+                        "Span 0: 'otel.status_description' should contain 'error sending request', got: {:?}, all attributes: {:?}",
+                        s,
+                        attributes
+                    );
+                }
+                _ => panic!("Expected string for otel.status_description"),
+            };
+
             Ok(())
         }
 
@@ -188,6 +211,29 @@ mod tests {
                 semconv::HTTP_RESPONSE_STATUS_CODE,
                 attributes
             );
+
+            assert_eq!(
+                attributes.get(
+                    google_cloud_gax_internal::observability::attributes::KEY_OTEL_STATUS_CODE
+                ),
+                Some(&"ERROR".into()),
+                "Span 0: 'otel.status_code' mismatch, all attributes: {:?}",
+                attributes
+            );
+            let status_description = attributes
+                .get(google_cloud_gax_internal::observability::attributes::KEY_OTEL_STATUS_DESCRIPTION)
+                .unwrap();
+            match status_description {
+                google_cloud_test_utils::test_layer::AttributeValue::String(s) => {
+                    assert!(
+                        s.contains("error following redirect"),
+                        "Span 0: 'otel.status_description' should contain 'error following redirect', got: {:?}, all attributes: {:?}",
+                        s,
+                        attributes
+                    );
+                }
+                _ => panic!("Expected string for otel.status_description"),
+            };
 
             Ok(())
         }

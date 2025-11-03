@@ -95,7 +95,7 @@ mod tests {
             (otel_attr::URL_TEMPLATE, "/test".into()),
             (otel_attr::URL_DOMAIN, TEST_HOST.into()),
             (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
-            (KEY_OTEL_STATUS, "Ok".into()),
+            (KEY_OTEL_STATUS_CODE, "UNSET".into()),
             (KEY_GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
             (KEY_GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
@@ -135,14 +135,18 @@ mod tests {
         assert_eq!(captured.len(), 0, "Should capture no spans: {:?}", captured);
     }
 
-    #[test_case(StatusCode::BAD_REQUEST, "400"; "400 Bad Request")]
-    #[test_case(StatusCode::UNAUTHORIZED, "401"; "401 Unauthorized")]
-    #[test_case(StatusCode::FORBIDDEN, "403"; "403 Forbidden")]
-    #[test_case(StatusCode::NOT_FOUND, "404"; "404 Not Found")]
-    #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500"; "500 Internal Server Error")]
-    #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503"; "503 Service Unavailable")]
+    #[test_case(StatusCode::BAD_REQUEST, "400", "the HTTP transport reports a [400] error: error"; "400 Bad Request")]
+    #[test_case(StatusCode::UNAUTHORIZED, "401", "the HTTP transport reports a [401] error: error"; "401 Unauthorized")]
+    #[test_case(StatusCode::FORBIDDEN, "403", "the HTTP transport reports a [403] error: error"; "403 Forbidden")]
+    #[test_case(StatusCode::NOT_FOUND, "404", "the HTTP transport reports a [404] error: error"; "404 Not Found")]
+    #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500", "the HTTP transport reports a [500] error: error"; "500 Internal Server Error")]
+    #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503", "the HTTP transport reports a [503] error: error"; "503 Service Unavailable")]
     #[tokio::test]
-    async fn test_error_responses(http_status_code: StatusCode, expected_error_type: &str) {
+    async fn test_error_responses(
+        http_status_code: StatusCode,
+        expected_error_type: &str,
+        expected_description: &str,
+    ) {
         let server = Server::run();
         let server_addr = server.addr();
         let server_url = format!("http://{}", server_addr);
@@ -182,9 +186,16 @@ mod tests {
         );
 
         assert_eq!(
-            attrs.get(KEY_OTEL_STATUS),
-            Some(&"Error".into()),
-            "otel.status mismatch, attrs: {:?}",
+            attrs.get(KEY_OTEL_STATUS_CODE),
+            Some(&"ERROR".into()),
+            "otel.status_code mismatch, attrs: {:?}",
+            attrs
+        );
+
+        assert_eq!(
+            attrs.get(KEY_OTEL_STATUS_DESCRIPTION),
+            Some(&expected_description.into()),
+            "otel.status_description mismatch, attrs: {:?}",
             attrs
         );
     }
@@ -227,7 +238,7 @@ mod tests {
             (otel_attr::URL_TEMPLATE, "/test".into()),
             (otel_attr::URL_DOMAIN, TEST_HOST.into()),
             (otel_trace::HTTP_RESPONSE_STATUS_CODE, 201_i64.into()),
-            (KEY_OTEL_STATUS, "Ok".into()),
+            (KEY_OTEL_STATUS_CODE, "UNSET".into()),
             (KEY_GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
             (KEY_GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
