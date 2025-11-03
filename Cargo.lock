@@ -5951,6 +5951,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "pubsub-samples"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-pubsub",
+ "tokio",
+]
+
+[[package]]
 name = "quinn"
 version = "0.11.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"

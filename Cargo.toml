@@ -259,6 +259,7 @@ members = [
   "src/lro",
   "src/protojson-conformance",
   "src/pubsub",
+  "src/pubsub/examples",
   "src/root",
   "src/spanner",
   "src/storage",
@@ -408,10 +409,12 @@ google-cloud-secretmanager-v1 = { version = "1", path = "src/generated/cloud/sec
 google-cloud-aiplatform-v1    = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
 google-cloud-compute-v1       = { version = "0.2", default-features = false, path = "src/generated/cloud/compute/v1" }
 google-cloud-storage          = { version = "1", path = "src/storage" }
+google-cloud-pubsub           = { path = "src/pubsub" }
 
 # Local test packages (never add a version)
 google-cloud-test-utils = { path = "src/test-utils" }
 integration-tests       = { path = "src/integration-tests" }
+pubsub-samples          = { path = "src/pubsub/examples" }
 storage-samples         = { path = "src/storage/examples" }
 
 [workspace.lints.rust]

@@ -44,5 +44,8 @@ steps:
       cargo test --features run-integration-tests \
         --package integration-tests \
         --package user-guide-samples \
-        --package storage-samples
+        --package storage-samples \
+        --package pubsub-samples
       cargo build --package storage-samples --profile=test --all-features
+      cargo build --package pubsub-samples --profile=test --all-features
+
