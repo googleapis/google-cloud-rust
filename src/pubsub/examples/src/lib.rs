@@ -22,18 +22,15 @@ pub async fn run_topic_examples(topic_names: &mut Vec<String>) -> anyhow::Result
     let client = TopicAdmin::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
 
-    // TODO: use a real random topic and project.
-    let name = random_topic_name(project_id);
-    topic_names.push(name.clone());
-    topic::create_topic::sample(&client, &name).await?;
+    let id = random_topic_id();
+    topic_names.push(format!("projects/{project_id}/topics/{id}"));
+    topic::create_topic::sample(&client, &project_id, &id).await?;
 
     Ok(())
 }
 
 pub async fn cleanup_test_topic(client: &TopicAdmin, topic_name: String) -> anyhow::Result<()> {
-    tracing::info!("testing delete_topic()");
     client.delete_topic().set_topic(topic_name).send().await?;
-    tracing::info!("success on delete_topic");
     Ok(())
 }
 
@@ -46,17 +43,16 @@ pub async fn create_test_topic() -> anyhow::Result<(TopicAdmin, Topic)> {
 
     cleanup_stale_topics(&client, &project_id).await?;
 
-    let topic_name = random_topic_name(project_id);
+    let topic_id = random_topic_id();
     let now = chrono::Utc::now().timestamp().to_string();
 
-    tracing::info!("testing create_topic()");
     let topic = client
         .create_topic()
-        .set_name(topic_name)
+        .set_name(format!("projects/{project_id}/topics/{topic_id}"))
         .set_labels([("integration-test", "true"), ("create-time", &now)])
         .send()
         .await?;
-    tracing::info!("success on create_topic: {topic:?}");
+    println!("success on create_topic(): {topic:?}");
 
     Ok((client, topic))
 }
@@ -106,12 +102,12 @@ pub async fn cleanup_stale_topics(client: &TopicAdmin, project_id: &str) -> anyh
 
 pub const TOPIC_ID_LENGTH: usize = 255;
 
-fn random_topic_name(project: String) -> String {
+fn random_topic_id() -> String {
     let prefix = "topic-";
     let topic_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
         .take(TOPIC_ID_LENGTH - prefix.len())
         .map(char::from)
         .collect();
-    format!("projects/{project}/topics/{prefix}{topic_id}")
+    format!("{prefix}{topic_id}")
 }
