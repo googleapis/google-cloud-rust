@@ -67,6 +67,13 @@ pub use crate::control::model;
 pub mod builder_ext;
 pub mod model_ext;
 pub mod stub {
+    //! Traits to mock the clients in this library.
+    //!
+    //! Application developers may need to mock the clients in this library to test
+    //! how their application works with different (and sometimes hard to trigger)
+    //! client and service behavior. Such test can define mocks implementing the
+    //! trait(s) defined in this module, initialize the client with an instance of
+    //! this mock in their tests, and verify their application responds as expected.
     pub use crate::control::stub::*;
     pub use crate::storage::stub::*;
 }
