@@ -23,9 +23,9 @@ use tokio::sync::{mpsc, oneshot};
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
 /// # use builder::publisher::ClientBuilder;
-/// # use client::PublisherClient;
+/// # use client::PublisherFactory;
 /// # use model::PubsubMessage;
-/// let client = PublisherClient::builder()
+/// let client = PublisherFactory::builder()
 ///     .with_endpoint("https://pubsub.googleapis.com")
 ///     .build().await?;
 /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
@@ -67,9 +67,9 @@ impl Publisher {
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
 /// # use builder::publisher::ClientBuilder;
-/// # use client::PublisherClient;
+/// # use client::PublisherFactory;
 /// # use options::publisher::BatchingOptions;
-/// let builder : ClientBuilder = PublisherClient::builder();
+/// let builder : ClientBuilder = PublisherFactory::builder();
 /// let client = builder
 ///     .with_endpoint("https://pubsub.googleapis.com")
 ///     .build().await?;
@@ -182,7 +182,7 @@ impl Worker {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{client::PublisherClient, publisher::options::BatchingOptions};
+    use crate::{client::PublisherFactory, publisher::options::BatchingOptions};
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{PublishResponse, PubsubMessage},
@@ -267,7 +267,7 @@ mod tests {
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let client = PublisherClient::builder().build().await?;
+        let client = PublisherFactory::builder().build().await?;
         let builder = client.publisher("projects/my-project/topics/my-topic".to_string());
         let publisher = builder
             .with_batching(BatchingOptions::new().set_message_count_threshold(1_u32))
@@ -278,7 +278,7 @@ mod tests {
 
     #[tokio::test]
     async fn default_batching() -> anyhow::Result<()> {
-        let client = PublisherClient::builder().build().await?;
+        let client = PublisherFactory::builder().build().await?;
         let publisher = client
             .publisher("projects/my-project/topics/my-topic".to_string())
             .build();

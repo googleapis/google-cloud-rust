@@ -16,18 +16,18 @@ use crate::publisher::publisher::PublisherBuilder;
 
 /// Client for publishing messages to Pub/Sub topics.
 #[derive(Clone, Debug)]
-pub struct PublisherClient {
+pub struct PublisherFactory {
     pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
 }
 
-/// A builder for [PublisherClient].
+/// A builder for [PublisherFactory].
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
 /// # use builder::publisher::ClientBuilder;
-/// # use client::PublisherClient;
-/// let builder : ClientBuilder = PublisherClient::builder();
+/// # use client::PublisherFactory;
+/// let builder : ClientBuilder = PublisherFactory::builder();
 /// let client = builder
 ///     .with_endpoint("https://pubsub.googleapis.com")
 ///     .build().await?;
@@ -39,11 +39,11 @@ pub type ClientBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
 
 pub(crate) mod client_builder {
-    use super::PublisherClient;
+    use super::PublisherFactory;
 
     pub struct Factory;
     impl gax::client_builder::internal::ClientFactory for Factory {
-        type Client = PublisherClient;
+        type Client = PublisherFactory;
         type Credentials = gaxi::options::Credentials;
         #[allow(unused_mut)]
         async fn build(
@@ -56,13 +56,13 @@ pub(crate) mod client_builder {
     }
 }
 
-impl PublisherClient {
-    /// Returns a builder for [PublisherClient].
+impl PublisherFactory {
+    /// Returns a builder for [PublisherFactory].
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub::client::PublisherClient;
-    /// let client = PublisherClient::builder().build().await?;
+    /// # use google_cloud_pubsub::client::PublisherFactory;
+    /// let client = PublisherFactory::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> ClientBuilder {
@@ -83,9 +83,9 @@ impl PublisherClient {
     /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::publisher::ClientBuilder;
-    /// # use client::PublisherClient;
+    /// # use client::PublisherFactory;
     /// # use model::PubsubMessage;
-    /// let client = PublisherClient::builder()
+    /// let client = PublisherFactory::builder()
     ///     .with_endpoint("https://pubsub.googleapis.com")
     ///     .build().await?;
     /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
@@ -102,11 +102,11 @@ impl PublisherClient {
 
 #[cfg(test)]
 mod tests {
-    use super::PublisherClient;
+    use super::PublisherFactory;
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let client = PublisherClient::builder()
+        let client = PublisherFactory::builder()
             .with_credentials(auth::credentials::anonymous::Builder::new().build())
             .build()
             .await?;
