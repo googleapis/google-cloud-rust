@@ -199,6 +199,40 @@ mod tests {
         }
     }
 
+    fn create_gapic_publisher_from_stub(
+        mock: MockGapicPublisher,
+    ) -> UnboundedSender<BundledMessage> {
+        let client = GapicPublisher::from_stub(mock);
+        let (tx_worker, rx_worker) = tokio::sync::mpsc::unbounded_channel();
+        let worker = Worker::new(
+            "my-topic".to_string(),
+            client,
+            BatchingOptions::default(),
+            rx_worker,
+        );
+        tokio::spawn(worker.run());
+        tx_worker
+    }
+
+    fn send_all_messages(
+        messages: Vec<PubsubMessage>,
+        tx_worker: UnboundedSender<BundledMessage>,
+    ) -> Vec<(PubsubMessage, oneshot::Receiver<crate::Result<String>>)> {
+        let mut handles = Vec::new();
+        for msg in messages {
+            let (tx, rx) = tokio::sync::oneshot::channel();
+            let bundled = BundledMessage {
+                msg: msg.clone(),
+                tx,
+            };
+            tx_worker
+                .send(bundled)
+                .expect("channel should not be dropped");
+            handles.push((msg, rx));
+        }
+        handles
+    }
+
     #[tokio::test]
     async fn test_worker_success() {
         let mut mock = MockGapicPublisher::new();
@@ -215,34 +249,14 @@ mod tests {
             })
             .times(2);
 
-        let client = GapicPublisher::from_stub(mock);
-        let (tx_worker, rx_worker) = tokio::sync::mpsc::unbounded_channel();
-        let worker = Worker::new(
-            "my-topic".to_string(),
-            client,
-            BatchingOptions::default(),
-            rx_worker,
-        );
-        tokio::spawn(worker.run());
+        let tx_worker = create_gapic_publisher_from_stub(mock);
 
         let messages = vec![
             PubsubMessage::new().set_data("hello".to_string()),
             PubsubMessage::new().set_data("world".to_string()),
         ];
 
-        let mut handles = Vec::new();
-        for msg in messages {
-            let (tx, rx) = tokio::sync::oneshot::channel();
-            let bundled = BundledMessage {
-                msg: msg.clone(),
-                tx,
-            };
-            tx_worker
-                .send(bundled)
-                .expect("channel should not be dropped");
-            handles.push((msg, rx));
-        }
-
+        let handles = send_all_messages(messages, tx_worker);
         for (id, rx) in handles.into_iter() {
             let got = rx
                 .await
@@ -266,35 +280,16 @@ mod tests {
             })
             .times(2);
 
-        let client = GapicPublisher::from_stub(mock);
-        let (tx_worker, rx_worker) = tokio::sync::mpsc::unbounded_channel();
-        let worker = Worker::new(
-            "my-topic".to_string(),
-            client,
-            BatchingOptions {
-                message_count_threshold: 2,
-                ..Default::default()
-            },
-            rx_worker,
-        );
-        tokio::spawn(worker.run());
+        let tx_worker = create_gapic_publisher_from_stub(mock);
 
         let messages = vec![
             PubsubMessage::new().set_data("hello".to_string()),
             PubsubMessage::new().set_data("world".to_string()),
         ];
 
-        let mut handles = Vec::new();
-        for msg in messages {
-            let (tx, rx) = tokio::sync::oneshot::channel();
-            let bundled = BundledMessage { msg, tx };
-            tx_worker
-                .send(bundled)
-                .expect("channel should not be dropped");
-            handles.push(rx);
-        }
+        let handles = send_all_messages(messages, tx_worker);
 
-        for rx in handles.into_iter() {
+        for (_, rx) in handles.into_iter() {
             let got = rx.await.expect("expected successful receive");
             assert!(got.is_err());
         }
