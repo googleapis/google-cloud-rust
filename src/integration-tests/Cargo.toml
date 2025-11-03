@@ -33,6 +33,7 @@ bytes.workspace                   = true
 crc32c.workspace                  = true
 flate2                            = { workspace = true, features = ["zlib-rs"] }
 futures.workspace                 = true
+http.workspace                    = true
 auth.workspace                    = true
 gax                               = { workspace = true, features = ["unstable-stream"] }
 gaxi                              = { workspace = true, features = ["_internal-http-client"] }
