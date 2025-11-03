@@ -15,6 +15,7 @@
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::options::BatchingOptions;
 use std::time::Duration;
+use std::sync::Arc;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{mpsc, oneshot};
 
@@ -142,6 +143,7 @@ impl PublisherBuilder {
 /// Object that is passed to the worker task over the
 /// main channel. This represents a single message and the sender
 /// half of the channel to resolve the [PublishHandle].
+#[derive(Debug)]
 struct BundledMessage {
     pub msg: crate::model::PubsubMessage,
     pub tx: oneshot::Sender<crate::Result<String>>,
@@ -174,28 +176,67 @@ impl Worker {
     }
 
     async fn run(mut self) {
+        let mut batch = Batch::new();
         while let Some(msg) = self.rx.recv().await {
-            let client = self.client.clone();
-            let topic = self.topic_name.clone();
+            // Add the message to the current batch.
+            batch.push(msg);
             // In the future, we may also want to keep track of JoinHandles in order to
             // flush the results.
-            let _handle = tokio::spawn(async move {
-                // For now, we just send the message immediately.
-                // We will want to batch these requests.
-                let request = client
-                    .publish()
-                    .set_topic(topic)
-                    .set_messages(vec![msg.msg]);
+            if batch.batch.len() as u32 >= self.batching_options.message_count_threshold {
+                let batch_to_send = std::mem::take(&mut batch);
+                let _handle =
+                    tokio::spawn(batch_to_send.send(self.client.clone(), self.topic_name.clone()));
+            }
+        }
+    }
+}
+#[derive(Debug)]
+struct Batch {
+    // TODO(#3686): A batch should also keep track of its total size
+    // for improved performance.
+    batch: Vec<BundledMessage>,
+}
 
-                // Handle the response by extracting the message ID on success.
-                let result = request
-                    .send()
-                    .await
-                    .map(|mut response| response.message_ids.pop().unwrap_or_default());
+impl Default for Batch {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
-                // The user may have dropped the handle, so it is ok if this fails.
-                let _ = msg.tx.send(result);
-            });
+impl Batch {
+    fn new() -> Self {
+        Batch { batch: Vec::new() }
+    }
+
+    fn push(&mut self, msg: BundledMessage) {
+        self.batch.push(msg);
+    }
+
+    /// Send the batch to the service and process the results.
+    async fn send(self, client: GapicPublisher, topic: String) {
+        let (msgs, txs): (Vec<_>, Vec<_>) =
+            self.batch.into_iter().map(|msg| (msg.msg, msg.tx)).unzip();
+        let request = client.publish().set_topic(topic).set_messages(msgs);
+
+        // Handle the response by extracting the message ID on success.
+        match request.send().await {
+            Err(e) => {
+                let e = Arc::new(e);
+                txs.into_iter().for_each(|tx| {
+                    // The user may have dropped the handle, so it is ok if this fails.
+                    // TODO(#3689): The error type for this is incorrect, will need to handle
+                    // this error propagation more fully.
+                    let _ = tx.send(Err(gax::error::Error::io(Arc::clone(&e))));
+                });
+            }
+            Ok(result) => {
+                txs.into_iter()
+                    .zip(result.message_ids.into_iter())
+                    .for_each(|(tx, result)| {
+                        // The user may have dropped the handle, so it is ok if this fails.
+                        let _ = tx.send(Ok(result));
+                    });
+            }
         }
     }
 }
@@ -234,7 +275,9 @@ mod tests {
             .times(2);
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string()).build();
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .with_batching(BatchingOptions::default().set_message_count_threshold(1_u32))
+            .build();
 
         let messages = vec![
             PubsubMessage::new().set_data("hello".to_string()),
@@ -267,13 +310,100 @@ mod tests {
             .times(2);
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string()).build();
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .with_batching(BatchingOptions::default().set_message_count_threshold(1_u32))
+            .build();
 
         let messages = vec![
             PubsubMessage::new().set_data("hello".to_string()),
             PubsubMessage::new().set_data("world".to_string()),
         ];
 
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push(handle);
+        }
+
+        for rx in handles.into_iter() {
+            let got = rx.await;
+            assert!(got.is_err());
+        }
+    }
+
+    #[tokio::test]
+    async fn test_batching_message_count_success() {
+        // Make sure all messages in a batch receive the correct message ID.
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().return_once({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                assert_eq!(r.messages.len(), 2);
+                let ids = r
+                    .messages
+                    .iter()
+                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                Ok(gax::response::Response::from(
+                    PublishResponse::new().set_message_ids(ids),
+                ))
+            }
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .with_batching(BatchingOptions {
+                message_count_threshold: 2_u32,
+                // Maximizing byte and delay threshold to make sure that
+                // message count is the metric used.
+                byte_threshold: u32::MAX,
+                delay_threshold: std::time::Duration::MAX,
+            })
+            .build();
+
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push((msg, handle));
+        }
+
+        for (id, rx) in handles.into_iter() {
+            let got = rx.await.expect("expected message id");
+            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            assert_eq!(got, id);
+        }
+    }
+
+    #[tokio::test]
+    async fn test_batching_message_count_error() {
+        // Make sure all messages in a batch receive an error.
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().return_once({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                assert_eq!(r.messages.len(), 2);
+                Err(gax::error::Error::io("io error"))
+            }
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .with_batching(BatchingOptions {
+                message_count_threshold: 2_u32,
+                // Maximizing byte and delay threshold to make sure that
+                // message count is the metric used.
+                byte_threshold: u32::MAX,
+                delay_threshold: std::time::Duration::MAX,
+            })
+            .build();
+
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
         let mut handles = Vec::new();
         for msg in messages {
             let handle = publisher.publish(msg.clone());
@@ -358,5 +488,37 @@ mod tests {
         assert_eq!(got.byte_threshold, normal_options.byte_threshold);
 
         Ok(())
+    fn create_bundled_message_helper(
+        data: String,
+    ) -> (
+        BundledMessage,
+        tokio::sync::oneshot::Receiver<crate::Result<String>>,
+    ) {
+        let (tx, rx) = tokio::sync::oneshot::channel();
+        (
+            BundledMessage {
+                tx,
+                msg: PubsubMessage::new().set_data(data),
+            },
+            rx,
+        )
+    }
+
+    #[tokio::test]
+    async fn test_push_batch() {
+        let mut batch = Batch::new();
+        assert!(batch.batch.is_empty());
+
+        let (message_a, _rx_a) = create_bundled_message_helper("hello".to_string());
+        batch.push(message_a);
+        assert_eq!(batch.batch.len(), 1);
+
+        let (message_b, _rx_b) = create_bundled_message_helper(", ".to_string());
+        batch.push(message_b);
+        assert_eq!(batch.batch.len(), 2);
+
+        let (message_c, _rx_c) = create_bundled_message_helper("world".to_string());
+        batch.push(message_c);
+        assert_eq!(batch.batch.len(), 3);
     }
 }

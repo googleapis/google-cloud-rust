@@ -19,8 +19,8 @@
 #[non_exhaustive]
 pub struct BatchingOptions {
     pub message_count_threshold: u32,
-    pub byte_threshold: u32,
-    pub delay_threshold: std::time::Duration,
+    pub(crate) byte_threshold: u32,
+    pub(crate) delay_threshold: std::time::Duration,
 }
 
 impl BatchingOptions {
@@ -44,11 +44,13 @@ impl BatchingOptions {
     /// Set the [BatchingOptions][Self::byte_threshold] field.
     ///
     /// # Example
-    /// ```
+    /// ```ignore
     /// # use google_cloud_pubsub::options::publisher::BatchingOptions;
     /// let options = BatchingOptions::new().set_byte_threshold(1000_u32);
     /// ```
-    pub fn set_byte_threshold<V: Into<u32>>(mut self, v: V) -> Self {
+    // TODO(#3686): support byte thresholds.
+    #[allow(dead_code)]
+    pub(crate) fn set_byte_threshold<V: Into<u32>>(mut self, v: V) -> Self {
         self.byte_threshold = v.into();
         self
     }
@@ -56,11 +58,14 @@ impl BatchingOptions {
     /// Set the [BatchingOptions][Self::delay_threshold] field.
     ///
     /// # Example
-    /// ```
+    ///
+    /// ```ignore
     /// # use google_cloud_pubsub::options::publisher::BatchingOptions;
     /// let options = BatchingOptions::new().set_delay_threshold(std::time::Duration::from_millis(10));
     /// ```
-    pub fn set_delay_threshold<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
+    // TODO(#3687): support delay thresholds.
+    #[allow(dead_code)]
+    pub(crate) fn set_delay_threshold<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
         self.delay_threshold = v.into();
         self
     }
