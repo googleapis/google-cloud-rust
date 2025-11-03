@@ -20,7 +20,7 @@ pub(crate) mod read_object;
 pub mod request_options;
 pub mod streaming_source;
 pub mod stub;
-pub(crate) mod transport;
+pub mod transport;
 pub(crate) mod v1;
 pub(crate) mod write_object;
 

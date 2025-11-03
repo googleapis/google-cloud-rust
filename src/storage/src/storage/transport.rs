@@ -23,6 +23,21 @@ use crate::storage::request_options::RequestOptions;
 use crate::storage::streaming_source::{Seek, StreamingSource};
 use std::sync::Arc;
 
+/// An implementation of [`stub::Storage`][crate::storage::stub::Storage] that
+/// interacts with the Cloud Storage service.
+///
+/// This is the default implementation of a
+/// [`client::Storage<T>`][crate::storage::client::Storage].
+///
+/// ## Example
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// use google_cloud_storage::client::Storage;
+/// use google_cloud_storage::stub::StorageImpl;
+/// let client: Storage<StorageImpl> = Storage::builder().build().await?;
+/// # Ok(()) }
+/// ```
 #[derive(Clone, Debug)]
 pub struct Storage {
     inner: Arc<StorageInner>,

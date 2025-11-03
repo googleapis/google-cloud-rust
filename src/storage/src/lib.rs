@@ -69,6 +69,7 @@ pub mod model_ext;
 pub mod stub {
     pub use crate::control::stub::*;
     pub use crate::storage::stub::*;
+    pub use crate::storage::transport::Storage as StorageImpl;
 }
 
 #[allow(dead_code)]
