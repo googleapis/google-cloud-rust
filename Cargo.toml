@@ -330,6 +330,11 @@ clap               = { default-features = false, version = "4" }
 parse-size         = { default-features = false, version = "1" }
 humantime          = { default-features = false, version = "2" }
 
+opentelemetry                      = { default-features = false, version = "0.24", features = ["trace"] }
+opentelemetry_sdk                  = { default-features = false, version = "0.24", features = ["rt-tokio", "trace"] }
+opentelemetry-otlp                 = { default-features = false, version = "0.17", features = ["http-proto", "reqwest-client", "tls-roots", "trace"] }
+opentelemetry-http                 = { default-features = false, version = "0.13" }
+tracing-opentelemetry              = { default-features = false, version = "0.25" }
 opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0", features = [
   "semconv_experimental",
 ] }
