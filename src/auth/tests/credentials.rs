@@ -56,7 +56,7 @@ mod tests {
         None
     }
 
-    fn write_cred_json(contents: &str) -> tempfile::TempPath {
+    pub(crate) fn write_cred_json(contents: &str) -> tempfile::TempPath {
         let file = tempfile::NamedTempFile::new().unwrap();
         let path = file.into_temp_path();
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
@@ -656,6 +656,105 @@ mod tests {
         let original_error = find_source_error::<TestProviderError>(&error)
             .expect("source should be a TestProviderError");
         assert!(original_error.to_string().contains("TestProviderError"));
+        Ok(())
+    }
+}
+
+#[cfg(all(test, google_cloud_unstable_id_token))]
+mod unstable_tests {
+    use super::tests::*;
+    use scoped_env::ScopedEnv;
+    use serde_json::json;
+    use serial_test::serial;
+
+    type TestResult = anyhow::Result<()>;
+
+    #[tokio::test]
+    #[serial]
+    async fn create_id_token_credentials_fallback_to_mds() -> TestResult {
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::remove("HOME"); // For posix
+        let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+
+        let id_token_creds =
+            google_cloud_auth::credentials::idtoken::Builder::new("test-audience").build()?;
+        let fmt = format!("{id_token_creds:?}");
+        assert!(fmt.contains("MDSCredentials"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn create_id_token_credentials_adc_service_account() -> TestResult {
+        let contents = r#"{
+            "type": "service_account",
+            "project_id": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+            "client_email": "test-client-email",
+            "universe_domain": "test-universe-domain"
+        }"#;
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let id_token_creds =
+            google_cloud_auth::credentials::idtoken::Builder::new("test-audience").build()?;
+        let fmt = format!("{id_token_creds:?}");
+        assert!(fmt.contains("ServiceAccountCredentials"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn create_id_token_credentials_adc_impersonated_service_account() -> TestResult {
+        let contents = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token"
+            }
+        })
+        .to_string();
+
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let id_token_creds =
+            google_cloud_auth::credentials::idtoken::Builder::new("test-audience").build()?;
+        let fmt = format!("{id_token_creds:?}");
+        assert!(fmt.contains("ImpersonatedServiceAccount"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn create_id_token_credentials_adc_user_account_not_supported() -> TestResult {
+        let contents = r#"{
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "type": "authorized_user"
+            }"#;
+
+        let path = write_cred_json(contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let err = google_cloud_auth::credentials::idtoken::Builder::new("test-audience")
+            .build()
+            .unwrap_err();
+
+        assert!(err.is_not_supported());
+        assert!(
+            err.to_string()
+                .contains("authorized_user, use user_account::idtoken::Builder directly.")
+        );
+
         Ok(())
     }
 }
