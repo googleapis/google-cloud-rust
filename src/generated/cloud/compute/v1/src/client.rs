@@ -127,7 +127,7 @@ impl AcceleratorTypes {
 
     /// Retrieves an aggregated list of accelerator types.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::accelerator_types::AggregatedList {
         super::builder::accelerator_types::AggregatedList::new(self.inner.clone())
@@ -252,7 +252,7 @@ impl Addresses {
 
     /// Retrieves an aggregated list of addresses.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::addresses::AggregatedList {
         super::builder::addresses::AggregatedList::new(self.inner.clone())
@@ -409,7 +409,7 @@ impl Autoscalers {
 
     /// Retrieves an aggregated list of autoscalers.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::autoscalers::AggregatedList {
         super::builder::autoscalers::AggregatedList::new(self.inner.clone())
@@ -757,7 +757,7 @@ impl BackendServices {
     /// Retrieves the list of all BackendService resources, regional and global,
     /// available to the specified project.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::backend_services::AggregatedList {
         super::builder::backend_services::AggregatedList::new(self.inner.clone())
@@ -1119,7 +1119,7 @@ impl DiskTypes {
 
     /// Retrieves an aggregated list of disk types.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::disk_types::AggregatedList {
         super::builder::disk_types::AggregatedList::new(self.inner.clone())
@@ -1251,7 +1251,7 @@ impl Disks {
 
     /// Retrieves an aggregated list of persistent disks.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::disks::AggregatedList {
         super::builder::disks::AggregatedList::new(self.inner.clone())
@@ -1865,6 +1865,11 @@ impl Firewalls {
         super::builder::firewalls::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::firewalls::TestIamPermissions {
+        super::builder::firewalls::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates the specified firewall rule with the data included in the
     /// request.
     /// Note that all fields will be updated if using PUT, even fields that are not
@@ -1989,7 +1994,7 @@ impl ForwardingRules {
 
     /// Retrieves an aggregated list of forwarding rules.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::forwarding_rules::AggregatedList {
         super::builder::forwarding_rules::AggregatedList::new(self.inner.clone())
@@ -2155,7 +2160,7 @@ impl FutureReservations {
 
     /// Retrieves an aggregated list of future reservations.
     ///
-    /// To prevent failure, recommendation is that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::future_reservations::AggregatedList {
         super::builder::future_reservations::AggregatedList::new(self.inner.clone())
@@ -7693,7 +7698,7 @@ impl NetworkFirewallPolicies {
     /// firewall policies from all applicable scopes (global and regional) and
     /// grouping the results per scope.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::network_firewall_policies::AggregatedList {
         super::builder::network_firewall_policies::AggregatedList::new(self.inner.clone())
@@ -9282,10 +9287,13 @@ impl Projects {
         super::builder::projects::ListXpnHosts::new(self.inner.clone())
     }
 
+    /// Moves a persistent disk from one zone to another.
+    /// *Note*: The moveDisk API will be deprecated on September 29, 2026.
+    ///
     /// Starting September 29, 2025, you can't use the moveDisk API on new
     /// projects. To move a disk to a different region or zone, follow the steps in
     /// [Change the location of a
-    /// disk](https://{$universe.dns_names.final_documentation_domain}/compute/docs/disks/migrate-to-hyperdisk#migrate-to-hd).
+    /// disk](https://cloud.google.com/compute/docs/disks/migrate-to-hyperdisk#migrate-to-hd).
     ///
     /// Projects that already use the moveDisk API can continue usage until
     /// September 29, 2026.
@@ -10117,7 +10125,7 @@ impl RegionCommitments {
 
     /// Retrieves an aggregated list of commitments by region.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::region_commitments::AggregatedList {
         super::builder::region_commitments::AggregatedList::new(self.inner.clone())
@@ -14186,7 +14194,7 @@ impl Reservations {
 
     /// Retrieves an aggregated list of reservations.
     ///
-    /// To prevent failure, Google recommends that you set the
+    /// To prevent failure, it is recommended that you set the
     /// `returnPartialSuccess` parameter to `true`.
     pub fn aggregated_list(&self) -> super::builder::reservations::AggregatedList {
         super::builder::reservations::AggregatedList::new(self.inner.clone())

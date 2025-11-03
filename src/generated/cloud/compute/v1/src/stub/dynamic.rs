@@ -1934,6 +1934,12 @@ pub trait Firewalls: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::firewalls::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
+
     async fn update(
         &self,
         req: crate::model::firewalls::UpdateRequest,
@@ -2004,6 +2010,15 @@ impl<T: super::Firewalls> Firewalls for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::firewalls::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

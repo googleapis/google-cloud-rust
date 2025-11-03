@@ -1590,6 +1590,17 @@ pub trait Firewalls: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Firewalls::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::firewalls::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Firewalls::update].
     fn update(
         &self,
