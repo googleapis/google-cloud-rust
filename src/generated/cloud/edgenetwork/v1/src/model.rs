@@ -586,6 +586,10 @@ pub struct Interconnect {
     /// interconnect.
     pub physical_ports: std::vec::Vec<std::string::String>,
 
+    /// Optional. The remote peering network type of the interconnect. It is
+    /// required when peering separation is enabled.
+    pub remote_peering_network_type: crate::model::RemotePeeringNetworkType,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -688,6 +692,17 @@ impl Interconnect {
     {
         use std::iter::Iterator;
         self.physical_ports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [remote_peering_network_type][crate::model::Interconnect::remote_peering_network_type].
+    pub fn set_remote_peering_network_type<
+        T: std::convert::Into<crate::model::RemotePeeringNetworkType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.remote_peering_network_type = v.into();
         self
     }
 }
@@ -869,6 +884,10 @@ pub struct InterconnectAttachment {
     /// Output only. Current stage of the resource to the device by config push.
     pub state: crate::model::ResourceState,
 
+    /// Optional. The remote peering network type of the underlying interconnect.
+    /// It is required when peering separation is enabled.
+    pub peering_type: crate::model::RemotePeeringNetworkType,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -964,6 +983,15 @@ impl InterconnectAttachment {
     /// Sets the value of [state][crate::model::InterconnectAttachment::state].
     pub fn set_state<T: std::convert::Into<crate::model::ResourceState>>(mut self, v: T) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [peering_type][crate::model::InterconnectAttachment::peering_type].
+    pub fn set_peering_type<T: std::convert::Into<crate::model::RemotePeeringNetworkType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.peering_type = v.into();
         self
     }
 }
@@ -4866,6 +4894,145 @@ impl<'de> serde::de::Deserialize<'de> for ResourceState {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResourceState>::new(
             ".google.cloud.edgenetwork.v1.ResourceState",
+        ))
+    }
+}
+
+/// Defines the remote peering destination for the interface. It is required
+/// when peering separation is enabled.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum RemotePeeringNetworkType {
+    /// Unspecified.
+    Unspecified,
+    /// Customer's trusted internal network.
+    CustomerInternal,
+    /// Customer's untrust network that has internet access.
+    CustomerInternet,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [RemotePeeringNetworkType::value] or
+    /// [RemotePeeringNetworkType::name].
+    UnknownValue(remote_peering_network_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod remote_peering_network_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl RemotePeeringNetworkType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::CustomerInternal => std::option::Option::Some(1),
+            Self::CustomerInternet => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => {
+                std::option::Option::Some("REMOTE_PEERING_NETWORK_TYPE_UNSPECIFIED")
+            }
+            Self::CustomerInternal => {
+                std::option::Option::Some("REMOTE_PEERING_NETWORK_TYPE_CUSTOMER_INTERNAL")
+            }
+            Self::CustomerInternet => {
+                std::option::Option::Some("REMOTE_PEERING_NETWORK_TYPE_CUSTOMER_INTERNET")
+            }
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for RemotePeeringNetworkType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for RemotePeeringNetworkType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for RemotePeeringNetworkType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::CustomerInternal,
+            2 => Self::CustomerInternet,
+            _ => Self::UnknownValue(remote_peering_network_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for RemotePeeringNetworkType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "REMOTE_PEERING_NETWORK_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "REMOTE_PEERING_NETWORK_TYPE_CUSTOMER_INTERNAL" => Self::CustomerInternal,
+            "REMOTE_PEERING_NETWORK_TYPE_CUSTOMER_INTERNET" => Self::CustomerInternet,
+            _ => Self::UnknownValue(remote_peering_network_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for RemotePeeringNetworkType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::CustomerInternal => serializer.serialize_i32(1),
+            Self::CustomerInternet => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RemotePeeringNetworkType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<RemotePeeringNetworkType>::new(
+            ".google.cloud.edgenetwork.v1.RemotePeeringNetworkType",
         ))
     }
 }

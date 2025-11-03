@@ -3681,6 +3681,7 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancePartition {
             __display_name,
             __node_count,
             __processing_units,
+            __autoscaling_config,
             __state,
             __create_time,
             __update_time,
@@ -3715,6 +3716,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancePartition {
                             "node_count" => Ok(__FieldTag::__node_count),
                             "processingUnits" => Ok(__FieldTag::__processing_units),
                             "processing_units" => Ok(__FieldTag::__processing_units),
+                            "autoscalingConfig" => Ok(__FieldTag::__autoscaling_config),
+                            "autoscaling_config" => Ok(__FieldTag::__autoscaling_config),
                             "state" => Ok(__FieldTag::__state),
                             "createTime" => Ok(__FieldTag::__create_time),
                             "create_time" => Ok(__FieldTag::__create_time),
@@ -3835,6 +3838,16 @@ impl<'de> serde::de::Deserialize<'de> for super::InstancePartition {
                                     map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
+                        }
+                        __FieldTag::__autoscaling_config => {
+                            if !fields.insert(__FieldTag::__autoscaling_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for autoscaling_config",
+                                ));
+                            }
+                            result.autoscaling_config = map
+                                .next_value::<std::option::Option<crate::model::AutoscalingConfig>>(
+                                )?;
                         }
                         __FieldTag::__state => {
                             if !fields.insert(__FieldTag::__state) {

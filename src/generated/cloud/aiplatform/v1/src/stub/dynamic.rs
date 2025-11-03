@@ -7916,6 +7916,12 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::GenerateContentResponse>>;
 
+    async fn embed_content(
+        &self,
+        req: crate::model::EmbedContentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::EmbedContentResponse>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -8033,6 +8039,15 @@ impl<T: super::PredictionService> PredictionService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::GenerateContentResponse>> {
         T::generate_content(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn embed_content(
+        &self,
+        req: crate::model::EmbedContentRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::EmbedContentResponse>> {
+        T::embed_content(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
