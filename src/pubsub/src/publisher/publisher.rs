@@ -108,7 +108,7 @@ impl PublisherBuilder {
     /// Configure message count and delay
     ///
     /// ```
-    ///  # async fn sample() -> anyhow::Result<()> {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::publisher::ClientBuilder;
     /// # use client::PublisherFactory;

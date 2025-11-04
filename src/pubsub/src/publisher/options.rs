@@ -26,10 +26,10 @@
 ///     .set_delay_threshold(Duration::from_millis(20));
 /// ```
 ///
-/// Disable batching
+/// Set batch size to 1 to disable batching
 ///
 /// ```
-/// // Disable batching by setting batch size to 1.
+/// # use google_cloud_pubsub::options::publisher::BatchingOptions;
 /// let options = BatchingOptions::new()
 ///     .set_message_count_threshold(1_u32);
 /// ```
