@@ -14,15 +14,24 @@
 
 /// Configure publisher batching behavior.
 ///
-/// To turn off batching, set the value of message_count_threshold to 1.
+/// # Examples
 ///
-/// # Example
+/// Configure message count threshold and delay
+///
 /// ```
 /// # use google_cloud_pubsub::options::publisher::BatchingOptions;
-/// # use std::time::Duration;
+/// use std::time::Duration;
 /// let options = BatchingOptions::new()
 ///     .set_message_count_threshold(100_u32)
 ///     .set_delay_threshold(Duration::from_millis(20));
+/// ```
+///
+/// Disable batching
+///
+/// ```
+/// // Disable batching by setting batch size to 1.
+/// let options = BatchingOptions::new()
+///     .set_message_count_threshold(1_u32);
 /// ```
 #[derive(Clone, Debug)]
 #[non_exhaustive]

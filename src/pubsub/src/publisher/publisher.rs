@@ -103,9 +103,10 @@ impl PublisherBuilder {
 
     /// Configure publisher batching behavior.
     ///
-    /// To turn off batching, provide [BatchingOptions] with message_count_threshold
-    /// set to 1.
-    /// # Example
+    /// # Examples
+    ///
+    /// Configure message count and delay
+    ///
     /// ```
     ///  # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
@@ -119,6 +120,27 @@ impl PublisherBuilder {
     ///         .set_message_count_threshold(100_u32)
     ///         .set_delay_threshold(Duration::from_millis(20))
     ///     )
+    ///     .build();
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// Disable batching
+    ///
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # use google_cloud_pubsub::*;
+    /// # use builder::publisher::ClientBuilder;
+    /// # use client::PublisherFactory;
+    /// # use std::time::Duration;
+    /// # use options::publisher::BatchingOptions;
+    /// let client = PublisherFactory::builder().build().await?;
+    /// let publisher = client.publisher("projects/my-project/topics/topic")
+    ///     // Disable batching by setting batch size to 1.
+    ///     // This will send messages to the server as soon as possible.
+    ///     //
+    ///     // Messages may still be batched if it is not possible to send messages
+    ///     // at the time they are received, which can occur when using ordering keys.
+    ///     .with_batching(BatchingOptions::new().set_message_count_threshold(1_u32))
     ///     .build();
     /// # Ok(()) }
     /// ```
