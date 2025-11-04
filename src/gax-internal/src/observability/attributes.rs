@@ -57,6 +57,10 @@ pub mod keys {
     ///
     /// Always "rust".
     pub const GCP_CLIENT_LANGUAGE: &str = "gcp.client.language";
+    /// The Google Cloud resource name.
+    ///
+    /// Example: //pubsub.googleapis.com/projects/my-project/topics/my-topic
+    pub const GCP_RESOURCE_NAME: &str = "gcp.resource.name";
 }
 
 /// Value for [keys::OTEL_KIND].
