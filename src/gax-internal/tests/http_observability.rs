@@ -17,7 +17,7 @@ mod tests {
     use gax::options::RequestOptions;
     use gax::response::Response;
     use google_cloud_gax_internal::http::{NoBody, ReqwestClient};
-    use google_cloud_gax_internal::observability::attributes::*;
+    use google_cloud_gax_internal::observability::attributes::keys::*;
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use http::{Method, StatusCode};
@@ -87,19 +87,20 @@ mod tests {
         let attrs = &span.attributes;
 
         let expected_attributes: HashMap<String, AttributeValue> = [
-            (KEY_OTEL_NAME, "GET /test".into()),
-            (KEY_OTEL_KIND, "Client".into()),
+            (OTEL_NAME, "GET /test".into()),
+            (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
             (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
             (otel_trace::URL_SCHEME, "http".into()),
             (otel_attr::URL_TEMPLATE, "/test".into()),
             (otel_attr::URL_DOMAIN, TEST_HOST.into()),
             (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
-            (KEY_OTEL_STATUS_CODE, "UNSET".into()),
-            (KEY_GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
-            (KEY_GCP_CLIENT_VERSION, TEST_VERSION.into()),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (KEY_GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
+            (OTEL_STATUS_CODE, "UNSET".into()),
+            (GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
+            (GCP_CLIENT_VERSION, TEST_VERSION.into()),
+            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
+            (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
+            (GCP_CLIENT_LANGUAGE, "rust".into()),
             (otel_trace::HTTP_RESPONSE_BODY_SIZE, 18_i64.into()), // {"hello": "world"} is 18 bytes
             (
                 otel_trace::SERVER_ADDRESS,
@@ -186,14 +187,14 @@ mod tests {
         );
 
         assert_eq!(
-            attrs.get(KEY_OTEL_STATUS_CODE),
+            attrs.get(OTEL_STATUS_CODE),
             Some(&"ERROR".into()),
             "otel.status_code mismatch, attrs: {:?}",
             attrs
         );
 
         assert_eq!(
-            attrs.get(KEY_OTEL_STATUS_DESCRIPTION),
+            attrs.get(OTEL_STATUS_DESCRIPTION),
             Some(&expected_description.into()),
             "otel.status_description mismatch, attrs: {:?}",
             attrs
@@ -230,19 +231,20 @@ mod tests {
         let attrs = &span.attributes;
 
         let expected_attributes: HashMap<String, AttributeValue> = [
-            (KEY_OTEL_NAME, "POST /test".into()),
-            (KEY_OTEL_KIND, "Client".into()),
+            (OTEL_NAME, "POST /test".into()),
+            (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
             (otel_trace::HTTP_REQUEST_METHOD, "POST".into()),
             (otel_trace::URL_SCHEME, "http".into()),
             (otel_attr::URL_TEMPLATE, "/test".into()),
             (otel_attr::URL_DOMAIN, TEST_HOST.into()),
             (otel_trace::HTTP_RESPONSE_STATUS_CODE, 201_i64.into()),
-            (KEY_OTEL_STATUS_CODE, "UNSET".into()),
-            (KEY_GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
-            (KEY_GCP_CLIENT_VERSION, TEST_VERSION.into()),
-            (KEY_GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (KEY_GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
+            (OTEL_STATUS_CODE, "UNSET".into()),
+            (GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
+            (GCP_CLIENT_VERSION, TEST_VERSION.into()),
+            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
+            (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
+            (GCP_CLIENT_LANGUAGE, "rust".into()),
             (otel_trace::HTTP_RESPONSE_BODY_SIZE, 20_i64.into()), // {"status":"created"} is 20 bytes
             (
                 otel_trace::SERVER_ADDRESS,
@@ -319,31 +321,26 @@ mod tests {
         );
 
         assert_eq!(
-            attrs.get(KEY_OTEL_STATUS_CODE),
+            attrs.get(OTEL_STATUS_CODE),
             Some(&"ERROR".into()),
             "otel.status_code should be ERROR, attrs: {:?}",
             attrs
         );
 
         let description = attrs
-            .get(KEY_OTEL_STATUS_DESCRIPTION)
-            .unwrap_or_else(|| {
-                panic!(
-                    "{} missing, attrs: {:?}",
-                    KEY_OTEL_STATUS_DESCRIPTION, attrs
-                )
-            })
+            .get(OTEL_STATUS_DESCRIPTION)
+            .unwrap_or_else(|| panic!("{} missing, attrs: {:?}", OTEL_STATUS_DESCRIPTION, attrs))
             .as_string()
             .unwrap_or_else(|| {
                 panic!(
                     "{} not a string, attrs: {:?}",
-                    KEY_OTEL_STATUS_DESCRIPTION, attrs
+                    OTEL_STATUS_DESCRIPTION, attrs
                 )
             });
         assert!(
             description.contains("Invalid API Key"),
             "{} '{}' does not contain 'Invalid API Key', attrs: {:?}",
-            KEY_OTEL_STATUS_DESCRIPTION,
+            OTEL_STATUS_DESCRIPTION,
             description,
             attrs
         );

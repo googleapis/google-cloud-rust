@@ -15,43 +15,58 @@
 // OpenTelemetry Semantic Convention Keys
 // See https://opentelemetry.io/docs/specs/semconv/http/http-spans/
 
-/// Span Kind for OpenTelemetry interop.
-///
-/// Always "Client" for a span representing an outbound HTTP request.
-pub const KEY_OTEL_KIND: &str = "otel.kind";
-/// Span Name for OpenTelemetry interop.
-///
-/// If `url.template` is available use "{http.request.method} {url.template}", otherwise use "{http.request.method}".
-pub const KEY_OTEL_NAME: &str = "otel.name";
-/// Span Status Code for OpenTelemetry interop.
-///
-/// Must be one of "UNSET", "OK", or "ERROR".
-pub const KEY_OTEL_STATUS_CODE: &str = "otel.status_code";
-/// Span Status Description for OpenTelemetry interop.
-///
-/// A human-readable description of the status, used when status_code is "ERROR".
-pub const KEY_OTEL_STATUS_DESCRIPTION: &str = "otel.status_description";
+pub mod keys {
+    /// Span Kind for OpenTelemetry interop.
+    ///
+    /// Always "Client" for a span representing an outbound HTTP request.
+    pub const OTEL_KIND: &str = "otel.kind";
+    /// Span Name for OpenTelemetry interop.
+    ///
+    /// If `url.template` is available use "{http.request.method} {url.template}", otherwise use "{http.request.method}".
+    pub const OTEL_NAME: &str = "otel.name";
+    /// Span Status Code for OpenTelemetry interop.
+    ///
+    /// Must be one of "UNSET", "OK", or "ERROR".
+    pub const OTEL_STATUS_CODE: &str = "otel.status_code";
+    /// Span Status Description for OpenTelemetry interop.
+    ///
+    /// A human-readable description of the status, used when status_code is "ERROR".
+    pub const OTEL_STATUS_DESCRIPTION: &str = "otel.status_description";
 
-/// The string representation of the gRPC status code.
-pub const KEY_GRPC_STATUS: &str = "grpc.status";
+    /// The string representation of the gRPC status code.
+    pub const GRPC_STATUS: &str = "grpc.status";
 
-// Custom GCP Attributes
-/// The Google Cloud service name.
-///
-/// Examples: appengine, run, firestore
-pub const KEY_GCP_CLIENT_SERVICE: &str = "gcp.client.service";
-/// The client library version.
-///
-/// Example: v1.0.2
-pub const KEY_GCP_CLIENT_VERSION: &str = "gcp.client.version";
-/// The client library repository.
-///
-/// Always "googleapis/google-cloud-rust".
-pub const KEY_GCP_CLIENT_REPO: &str = "gcp.client.repo";
-/// The client library crate name.
-///
-/// Example: google-cloud-storage
-pub const KEY_GCP_CLIENT_ARTIFACT: &str = "gcp.client.artifact";
+    // Custom GCP Attributes
+    /// The Google Cloud service name.
+    ///
+    /// Examples: appengine, run, firestore
+    pub const GCP_CLIENT_SERVICE: &str = "gcp.client.service";
+    /// The client library version.
+    ///
+    /// Example: v1.0.2
+    pub const GCP_CLIENT_VERSION: &str = "gcp.client.version";
+    /// The client library repository.
+    ///
+    /// Always "googleapis/google-cloud-rust".
+    pub const GCP_CLIENT_REPO: &str = "gcp.client.repo";
+    /// The client library crate name.
+    ///
+    /// Example: google-cloud-storage
+    pub const GCP_CLIENT_ARTIFACT: &str = "gcp.client.artifact";
+    /// The client library language.
+    ///
+    /// Always "rust".
+    pub const GCP_CLIENT_LANGUAGE: &str = "gcp.client.language";
+}
+
+/// Value for [keys::OTEL_KIND].
+pub const OTEL_KIND_CLIENT: &str = "Client";
+/// Value for `rpc.system`.
+pub const RPC_SYSTEM_HTTP: &str = "http";
+/// Value for [keys::GCP_CLIENT_REPO].
+pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
+/// Value for [keys::GCP_CLIENT_LANGUAGE].
+pub const GCP_CLIENT_LANGUAGE_RUST: &str = "rust";
 
 /// Values for the OpenTelemetry `error.type` attribute.
 /// See [https://opentelemetry.io/docs/specs/semconv/attributes-registry/error/]
