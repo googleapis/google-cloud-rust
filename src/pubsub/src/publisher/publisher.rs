@@ -19,7 +19,8 @@ use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{mpsc, oneshot};
 
 const MAX_DELAY: Duration = Duration::from_secs(60 * 60 * 24); // 1 day
-// These limits come from https://cloud.google.com/pubsub/quotas.
+// These limits come from https://cloud.google.com/pubsub/docs/batch-messaging#quotas_and_limits_on_batch_messaging.
+// Client libraries are expected to enforce these limits on batch siziing.
 const MAX_MESSAGES: u32 = 1000;
 const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 
@@ -111,18 +112,17 @@ impl PublisherBuilder {
     pub fn build(self) -> Publisher {
         // Enforce limits by clamping the user-provided options.
         let batching_options = BatchingOptions::new()
-            .set_delay_threshold(std::cmp::min(
-                self.batching_options.delay_threshold,
-                MAX_DELAY,
-            ))
-            .set_message_count_threshold(std::cmp::min(
-                self.batching_options.message_count_threshold,
-                MAX_MESSAGES,
-            ))
-            .set_byte_threshold(std::cmp::min(
-                self.batching_options.byte_threshold,
-                MAX_BYTES,
-            ));
+            .set_delay_threshold(
+                self.batching_options
+                    .delay_threshold
+                    .clamp(Duration::ZERO, MAX_DELAY),
+            )
+            .set_message_count_threshold(
+                self.batching_options
+                    .message_count_threshold
+                    .clamp(0, MAX_MESSAGES),
+            )
+            .set_byte_threshold(self.batching_options.byte_threshold.clamp(0, MAX_BYTES));
 
         let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
         // Create the batching worker that will run in the background.
