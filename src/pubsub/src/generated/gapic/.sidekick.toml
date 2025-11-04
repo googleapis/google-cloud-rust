@@ -42,7 +42,8 @@ included-ids = """\
     """
 
 [codec]
-copyright-year        = '2025'
-template-override     = 'templates/http-client'
-package-name-override = 'google-cloud-pubsub'
-name-overrides        = '.google.pubsub.v1.Publisher=TopicAdmin,.google.pubsub.v1.Subscriber=SubscriptionAdmin'
+copyright-year          = '2025'
+template-override       = 'templates/http-client'
+package-name-override   = 'google-cloud-pubsub'
+name-overrides          = '.google.pubsub.v1.Publisher=TopicAdmin,.google.pubsub.v1.Subscriber=SubscriptionAdmin'
+generate-setter-samples = 'false'

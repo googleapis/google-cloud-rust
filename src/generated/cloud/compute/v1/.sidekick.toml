@@ -50,3 +50,4 @@ extra-modules             = 'errors,operation'
 'package:rpc'             = 'force-used=true,package=google-cloud-rpc'
 disabled-rustdoc-warnings = "bare_urls,broken_intra_doc_links,redundant_explicit_links"
 disabled-clippy-warnings  = "doc_lazy_continuation"
+generate-setter-samples   = 'false'
