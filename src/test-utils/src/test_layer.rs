@@ -256,7 +256,7 @@ fn find_test_id<S: Subscriber + for<'b> tracing_subscriber::registry::LookupSpan
 ///     assert_eq!(captured.len(), 1);
 ///     let span = &captured[0];
 ///     assert_eq!(span.name, "my_operation");
-///     assert_eq!(span.attributes.get("foo"), Some(&AttributeValue::from("bar")));
+///     assert_eq!(span.attributes.get("foo"), Some("bar".into()));
 /// }
 /// ```
 #[derive(Clone, Default)]
