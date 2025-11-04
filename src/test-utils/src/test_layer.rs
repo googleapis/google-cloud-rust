@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use std::borrow::Cow;
 use std::collections::HashMap;
 use std::sync::{Mutex, Once};
 use tracing::{Subscriber, field, span};
@@ -27,42 +28,24 @@ pub struct TestLayerGuard {
 }
 
 /// Represents the value of a captured tracing attribute.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum AttributeValue {
-    String(String),
-    StaticString(&'static str),
+    String(Cow<'static, str>),
     Int64(i64),
     UInt64(u64),
     Boolean(bool),
     Double(f64),
 }
 
-impl PartialEq for AttributeValue {
-    fn eq(&self, other: &Self) -> bool {
-        match (self, other) {
-            // Compare the string values, regardless of storage (String vs StaticString)
-            (AttributeValue::String(a), AttributeValue::String(b)) => a == b,
-            (AttributeValue::String(a), AttributeValue::StaticString(b)) => a == *b,
-            (AttributeValue::StaticString(a), AttributeValue::String(b)) => *a == b,
-            (AttributeValue::StaticString(a), AttributeValue::StaticString(b)) => a == b,
-            (AttributeValue::Int64(a), AttributeValue::Int64(b)) => a == b,
-            (AttributeValue::UInt64(a), AttributeValue::UInt64(b)) => a == b,
-            (AttributeValue::Boolean(a), AttributeValue::Boolean(b)) => a == b,
-            (AttributeValue::Double(a), AttributeValue::Double(b)) => a == b,
-            _ => false,
-        }
-    }
-}
-
-impl From<&str> for AttributeValue {
-    fn from(s: &str) -> Self {
-        AttributeValue::String(s.to_string())
+impl From<&'static str> for AttributeValue {
+    fn from(s: &'static str) -> Self {
+        AttributeValue::String(Cow::Borrowed(s))
     }
 }
 
 impl From<String> for AttributeValue {
     fn from(s: String) -> Self {
-        AttributeValue::String(s)
+        AttributeValue::String(Cow::Owned(s))
     }
 }
 
@@ -91,11 +74,10 @@ impl From<f64> for AttributeValue {
 }
 
 impl AttributeValue {
-    /// Helper to get the string value if the variant is String or StaticString.
+    /// Helper to get the string value if the variant is String.
     pub fn as_string(&self) -> Option<String> {
         match self {
-            AttributeValue::String(s) => Some(s.clone()),
-            AttributeValue::StaticString(s) => Some(s.to_string()),
+            AttributeValue::String(s) => Some(s.to_string()),
             _ => None,
         }
     }
@@ -131,8 +113,10 @@ struct TestVisitor<'a>(&'a mut HashMap<String, AttributeValue>);
 
 impl<'a> field::Visit for TestVisitor<'a> {
     fn record_str(&mut self, field: &field::Field, value: &str) {
-        self.0
-            .insert(field.name().to_string(), AttributeValue::from(value));
+        self.0.insert(
+            field.name().to_string(),
+            AttributeValue::String(Cow::Owned(value.to_string())),
+        );
     }
 
     fn record_i64(&mut self, field: &field::Field, value: i64) {
@@ -158,7 +142,7 @@ impl<'a> field::Visit for TestVisitor<'a> {
     fn record_debug(&mut self, field: &field::Field, value: &dyn std::fmt::Debug) {
         self.0.insert(
             field.name().to_string(),
-            AttributeValue::String(format!("{:?}", value)),
+            AttributeValue::String(Cow::Owned(format!("{:?}", value))),
         );
     }
 }
@@ -272,7 +256,7 @@ fn find_test_id<S: Subscriber + for<'b> tracing_subscriber::registry::LookupSpan
 ///     assert_eq!(captured.len(), 1);
 ///     let span = &captured[0];
 ///     assert_eq!(span.name, "my_operation");
-///     assert_eq!(span.attributes.get("foo"), Some(&"bar".to_string()));
+///     assert_eq!(span.attributes.get("foo"), Some(&AttributeValue::from("bar")));
 /// }
 /// ```
 #[derive(Clone, Default)]
@@ -509,11 +493,11 @@ mod tests {
     fn test_attribute_value_from() {
         assert_eq!(
             AttributeValue::from("hello"),
-            AttributeValue::String("hello".to_string())
+            AttributeValue::String(Cow::Borrowed("hello"))
         );
         assert_eq!(
             AttributeValue::from("hello".to_string()),
-            AttributeValue::String("hello".to_string())
+            AttributeValue::String(Cow::Owned("hello".to_string()))
         );
         assert_eq!(AttributeValue::from(123_i64), AttributeValue::Int64(123));
         assert_eq!(AttributeValue::from(456_u64), AttributeValue::UInt64(456));
@@ -528,7 +512,7 @@ mod tests {
             Some("hello".to_string())
         );
         assert_eq!(
-            AttributeValue::StaticString("hello").as_string(),
+            AttributeValue::String(Cow::Borrowed("hello")).as_string(),
             Some("hello".to_string())
         );
         assert_eq!(AttributeValue::from(123_i64).as_string(), None);
@@ -538,44 +522,5 @@ mod tests {
     fn test_attribute_value_as_i64() {
         assert_eq!(AttributeValue::from(123_i64).as_i64(), Some(123));
         assert_eq!(AttributeValue::from("hello").as_i64(), None);
-    }
-
-    #[test]
-    fn test_attribute_value_partial_eq() {
-        let string_foo = AttributeValue::String("foo".to_string());
-        let static_foo = AttributeValue::StaticString("foo");
-        let static_foo_2 = AttributeValue::StaticString("foo");
-        let string_bar = AttributeValue::String("bar".to_string());
-        let static_bar = AttributeValue::StaticString("bar");
-
-        assert_eq!(
-            string_foo, static_foo,
-            "String should equal StaticString with same value"
-        );
-        assert_eq!(
-            static_foo, string_foo,
-            "StaticString should equal String with same value"
-        );
-        assert_eq!(
-            static_foo, static_foo_2,
-            "StaticString should equal StaticString with same value"
-        );
-        assert_ne!(
-            string_foo, string_bar,
-            "String should not equal String with different value"
-        );
-        assert_ne!(
-            static_foo, static_bar,
-            "StaticString should not equal StaticString with different value"
-        );
-        assert_ne!(
-            string_foo, static_bar,
-            "String should not equal StaticString with different value"
-        );
-        assert_ne!(
-            AttributeValue::Int64(123),
-            AttributeValue::UInt64(123),
-            "Int64 should not equal UInt64 even with same value"
-        );
     }
 }

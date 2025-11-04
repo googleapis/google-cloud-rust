@@ -298,8 +298,8 @@ mod tests {
     #[tokio::test]
     async fn test_record_response_attributes_http_error(
         status_code: StatusCode,
-        expected_error_type: &str,
-        expected_description_prefix: &str,
+        expected_error_type: &'static str,
+        expected_description_prefix: &'static str,
     ) {
         let guard = TestLayer::initialize();
         let request =

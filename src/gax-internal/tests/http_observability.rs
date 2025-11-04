@@ -144,8 +144,8 @@ mod tests {
     #[tokio::test]
     async fn test_error_responses(
         http_status_code: StatusCode,
-        expected_error_type: &str,
-        expected_description: &str,
+        expected_error_type: &'static str,
+        expected_description: &'static str,
     ) {
         let server = Server::run();
         let server_addr = server.addr();
