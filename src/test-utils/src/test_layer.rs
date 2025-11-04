@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use std::borrow::Cow;
 use std::collections::HashMap;
 use std::sync::{Mutex, Once};
 use tracing::{Subscriber, field, span};
@@ -29,22 +30,22 @@ pub struct TestLayerGuard {
 /// Represents the value of a captured tracing attribute.
 #[derive(Debug, Clone, PartialEq)]
 pub enum AttributeValue {
-    String(String),
+    String(Cow<'static, str>),
     Int64(i64),
     UInt64(u64),
     Boolean(bool),
     Double(f64),
 }
 
-impl From<&str> for AttributeValue {
-    fn from(s: &str) -> Self {
-        AttributeValue::String(s.to_string())
+impl From<&'static str> for AttributeValue {
+    fn from(s: &'static str) -> Self {
+        AttributeValue::String(Cow::Borrowed(s))
     }
 }
 
 impl From<String> for AttributeValue {
     fn from(s: String) -> Self {
-        AttributeValue::String(s)
+        AttributeValue::String(Cow::Owned(s))
     }
 }
 
@@ -76,7 +77,7 @@ impl AttributeValue {
     /// Helper to get the string value if the variant is String.
     pub fn as_string(&self) -> Option<String> {
         match self {
-            AttributeValue::String(s) => Some(s.clone()),
+            AttributeValue::String(s) => Some(s.to_string()),
             _ => None,
         }
     }
@@ -112,8 +113,10 @@ struct TestVisitor<'a>(&'a mut HashMap<String, AttributeValue>);
 
 impl<'a> field::Visit for TestVisitor<'a> {
     fn record_str(&mut self, field: &field::Field, value: &str) {
-        self.0
-            .insert(field.name().to_string(), AttributeValue::from(value));
+        self.0.insert(
+            field.name().to_string(),
+            AttributeValue::String(Cow::Owned(value.to_string())),
+        );
     }
 
     fn record_i64(&mut self, field: &field::Field, value: i64) {
@@ -139,7 +142,7 @@ impl<'a> field::Visit for TestVisitor<'a> {
     fn record_debug(&mut self, field: &field::Field, value: &dyn std::fmt::Debug) {
         self.0.insert(
             field.name().to_string(),
-            AttributeValue::String(format!("{:?}", value)),
+            AttributeValue::String(Cow::Owned(format!("{:?}", value))),
         );
     }
 }
@@ -253,7 +256,7 @@ fn find_test_id<S: Subscriber + for<'b> tracing_subscriber::registry::LookupSpan
 ///     assert_eq!(captured.len(), 1);
 ///     let span = &captured[0];
 ///     assert_eq!(span.name, "my_operation");
-///     assert_eq!(span.attributes.get("foo"), Some(&"bar".to_string()));
+///     assert_eq!(span.attributes.get("foo"), Some("bar".into()));
 /// }
 /// ```
 #[derive(Clone, Default)]
@@ -490,11 +493,11 @@ mod tests {
     fn test_attribute_value_from() {
         assert_eq!(
             AttributeValue::from("hello"),
-            AttributeValue::String("hello".to_string())
+            AttributeValue::String(Cow::Borrowed("hello"))
         );
         assert_eq!(
             AttributeValue::from("hello".to_string()),
-            AttributeValue::String("hello".to_string())
+            AttributeValue::String(Cow::Owned("hello".to_string()))
         );
         assert_eq!(AttributeValue::from(123_i64), AttributeValue::Int64(123));
         assert_eq!(AttributeValue::from(456_u64), AttributeValue::UInt64(456));
@@ -506,6 +509,10 @@ mod tests {
     fn test_attribute_value_as_string() {
         assert_eq!(
             AttributeValue::from("hello").as_string(),
+            Some("hello".to_string())
+        );
+        assert_eq!(
+            AttributeValue::String(Cow::Borrowed("hello")).as_string(),
             Some("hello".to_string())
         );
         assert_eq!(AttributeValue::from(123_i64).as_string(), None);
