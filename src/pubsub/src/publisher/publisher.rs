@@ -101,9 +101,28 @@ impl PublisherBuilder {
         }
     }
 
-    /// Change the message batching options.
+    /// Configure publisher batching behavior.
+    ///
+    /// To turn off batching, provide [BatchingOptions] with message_count_threshold
+    /// set to 1.
+    /// # Example
+    /// ```
+    ///  # async fn sample() -> anyhow::Result<()> {
+    /// # use google_cloud_pubsub::*;
+    /// # use builder::publisher::ClientBuilder;
+    /// # use client::PublisherFactory;
+    /// # use std::time::Duration;
+    /// # use options::publisher::BatchingOptions;
+    /// let client = PublisherFactory::builder().build().await?;
+    /// let publisher = client.publisher("projects/my-project/topics/topic")
+    ///     .with_batching(BatchingOptions::new()
+    ///         .set_message_count_threshold(100_u32)
+    ///         .set_delay_threshold(Duration::from_millis(20))
+    ///     )
+    ///     .build();
+    /// # Ok(()) }
+    /// ```
     pub fn with_batching(mut self, options: BatchingOptions) -> PublisherBuilder {
-        // TODO(#3015): Provide example in the public documentation.
         self.batching_options = options;
         self
     }
