@@ -12,6 +12,67 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Obtain [OIDC ID Tokens].
+//!
+//! `IDTokenCredentials` provide a way to obtain OIDC ID tokens, which are
+//! commonly used for [service to service authentication], like when services are
+//! hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+//! Unlike access tokens, ID tokens are not used to authorize access to
+//! Google Cloud APIs but to verify the identity of a principal.
+//!
+//! This module provides `IDTokenCredentials` which serves as a wrapper around
+//! different credential types that can produce ID tokens, such as service
+//! accounts or metadata server credentials.
+//!
+//! ## Example: Generating ID Tokens using Application Default Credentials
+//!
+//! This example shows how to create `IDTokenCredentials` using the
+//! Application Default Credentials (ADC) flow. The builder will locate
+//! and use the credentials from the environment.
+//!
+//! ```no_run
+//! # use google_cloud_auth::credentials::idtoken;
+//! # use std::time::Duration;
+//! # use reqwest;
+//! #
+//! # async fn send_id_token() -> anyhow::Result<()> {
+//! let audience = "https://my-service.a.run.app";
+//! let credentials = idtoken::Builder::new(audience).build()?;
+//! let id_token = credentials.id_token().await?;
+//! // Make request with ID Token as Bearer Token.
+//! let client = reqwest::Client::new();
+//! let target_url = format!("{audience}/api/method");
+//! client.get(target_url)
+//!     .bearer_auth(id_token)
+//!     .send()
+//!     .await?;
+//! # Ok(())
+//! # }
+//! ```
+//! ## Example: Verifying an ID token
+//!
+//! Within the receiving private service, you can parse the authorization header to
+//! receive the information being sent by the Bearer token and use the [Verifier] to
+//! check if is valid.
+//!
+//! ```no_run
+//! # use google_cloud_auth::credentials::idtoken;
+//! # use std::time::Duration;
+//! let audience = "https://my-service.a.run.app";
+//! let verifier = idtoken::verifier::Builder::new(audience).build();
+//!
+//! async fn verify_id_token(token: &str) -> anyhow::Result<()> {
+//!     let claims = verifier.verify(token).await?;
+//!     let email = claims["email"].as_str()?;
+//!
+//!     println!("Hello: {:?}", email);
+//! #   Ok(())
+//! }
+//! ```
+//!
+//! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+//! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
+
 use crate::build_errors::Error as BuilderError;
 use crate::credentials::{
     AdcContents, extract_credential_type, impersonated, load_adc, mds, service_account,
@@ -215,11 +276,8 @@ fn instant_from_epoch_seconds(secs: u64) -> Option<Instant> {
     }
 }
 
-pub(crate) mod verifier;
-
-/// VerifierBuilder is used construct a Verifier of id tokens.
-pub use verifier::Builder as VerifierBuilder;
-pub use verifier::Verifier;
+// Verify ID Tokens.
+pub mod verifier;
 
 #[cfg(test)]
 pub(crate) mod tests {

@@ -12,12 +12,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Verify OIDC ID tokens.
+//!
+//! The `Verifier` is used to check the validity of an OIDC ID token.
+//! This includes verifying the token's signature against the appropriate
+//! JSON Web Key Set (JWKS), and validating its claims, such as audience and issuer.
+//!
+//! ## Example: Verifying an ID token
+//!
+//! ```no_run
+//! # use google_cloud_auth::credentials::idtoken;
+//! # use std::time::Duration;
+//! let audience = "https://my-service.a.run.app";
+//! let verifier = idtoken::verifier::Builder::new(audience).build();
+//!
+//! async fn verify_my_token(token: &str) -> anyhow::Result<()> {
+//!     let claims = verifier.verify(token).await?;
+//!     let email = claims["email"].as_str()?;
+//!
+//!     println!("Hello: {:?}", email);
+//! #   Ok(())
+//! }
+//! ```
+
 use crate::credentials::internal::jwk_client::JwkClient;
 use jsonwebtoken::Validation;
 pub use serde_json::{Map, Value};
 use std::time::Duration;
 
-/// Builder is used construct a Verifier of id tokens.
+/// Builder is used construct a [Verifier] of id tokens.
 #[derive(Debug, Default)]
 pub struct Builder {
     audience: String,
@@ -44,9 +67,9 @@ impl Builder {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_auth::credentials::idtoken::VerifierBuilder;
+    /// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
     /// let audience = "https://example.com";
-    /// let verifier = VerifierBuilder::new(audience)
+    /// let verifier = Builder::new(audience)
     ///     .with_email("service-account@example.com")
     ///     .build();
     /// ```
@@ -63,9 +86,9 @@ impl Builder {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_auth::credentials::idtoken::VerifierBuilder;
+    /// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
     /// let audience = "https://example.com";
-    /// let verifier = VerifierBuilder::new(audience)
+    /// let verifier = Builder::new(audience)
     ///     .with_jwks_url("https://www.googleapis.com/oauth2/v3/certs")
     ///     .build();    
     /// ```
@@ -82,10 +105,10 @@ impl Builder {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_auth::credentials::idtoken::VerifierBuilder;
+    /// # use google_cloud_auth::credentials::idtoken::Builder;
     /// # use std::time::Duration;
     /// let audience = "https://example.com";
-    /// let verifier = VerifierBuilder::new(audience)
+    /// let verifier = Builder::new(audience)
     ///     .with_clock_skew(Duration::from_secs(60))
     ///     .build();
     /// ```
@@ -111,12 +134,12 @@ impl Builder {
 /// # Example
 ///
 /// ```
-/// # use google_cloud_auth::credentials::idtoken::VerifierBuilder;
+/// # use google_cloud_auth::credentials::idtoken::verifier::Builder;
 /// # use std::time::Duration;
 ///
 /// async fn verify_id_token(token: &str) {
 ///     let audience = "https://example.com";
-///     let verifier = VerifierBuilder::new(audience).build();
+///     let verifier = Builder::new(audience).build();
 ///
 ///     let claims = verifier.verify(token).await.expect("Failed to verify ID token");
 ///     println!("Verified claims: {:?}", claims);
@@ -175,7 +198,7 @@ impl Verifier {
 
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 
-/// The error type for [`Verifier``] errors.
+/// The error type for [Verifier] errors.
 #[derive(thiserror::Error, Debug)]
 #[error(transparent)]
 pub struct Error(ErrorKind);
