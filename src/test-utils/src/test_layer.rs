@@ -27,13 +27,31 @@ pub struct TestLayerGuard {
 }
 
 /// Represents the value of a captured tracing attribute.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone)]
 pub enum AttributeValue {
     String(String),
+    StaticString(&'static str),
     Int64(i64),
     UInt64(u64),
     Boolean(bool),
     Double(f64),
+}
+
+impl PartialEq for AttributeValue {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            // Compare the string values, regardless of storage (String vs StaticString)
+            (AttributeValue::String(a), AttributeValue::String(b)) => a == b,
+            (AttributeValue::String(a), AttributeValue::StaticString(b)) => a == *b,
+            (AttributeValue::StaticString(a), AttributeValue::String(b)) => *a == b,
+            (AttributeValue::StaticString(a), AttributeValue::StaticString(b)) => a == b,
+            (AttributeValue::Int64(a), AttributeValue::Int64(b)) => a == b,
+            (AttributeValue::UInt64(a), AttributeValue::UInt64(b)) => a == b,
+            (AttributeValue::Boolean(a), AttributeValue::Boolean(b)) => a == b,
+            (AttributeValue::Double(a), AttributeValue::Double(b)) => a == b,
+            _ => false,
+        }
+    }
 }
 
 impl From<&str> for AttributeValue {
@@ -73,10 +91,11 @@ impl From<f64> for AttributeValue {
 }
 
 impl AttributeValue {
-    /// Helper to get the string value if the variant is String.
+    /// Helper to get the string value if the variant is String or StaticString.
     pub fn as_string(&self) -> Option<String> {
         match self {
             AttributeValue::String(s) => Some(s.clone()),
+            AttributeValue::StaticString(s) => Some(s.to_string()),
             _ => None,
         }
     }
@@ -508,6 +527,10 @@ mod tests {
             AttributeValue::from("hello").as_string(),
             Some("hello".to_string())
         );
+        assert_eq!(
+            AttributeValue::StaticString("hello").as_string(),
+            Some("hello".to_string())
+        );
         assert_eq!(AttributeValue::from(123_i64).as_string(), None);
     }
 
@@ -515,5 +538,39 @@ mod tests {
     fn test_attribute_value_as_i64() {
         assert_eq!(AttributeValue::from(123_i64).as_i64(), Some(123));
         assert_eq!(AttributeValue::from("hello").as_i64(), None);
+    }
+
+    #[test]
+    fn test_attribute_value_partial_eq() {
+        let string_foo = AttributeValue::String("foo".to_string());
+        let static_foo = AttributeValue::StaticString("foo");
+        let static_foo_2 = AttributeValue::StaticString("foo");
+        let string_bar = AttributeValue::String("bar".to_string());
+        let static_bar = AttributeValue::StaticString("bar");
+
+        assert_eq!(
+            string_foo, static_foo,
+            "String should equal StaticString with same value"
+        );
+        assert_eq!(
+            static_foo, string_foo,
+            "StaticString should equal String with same value"
+        );
+        assert_eq!(
+            static_foo, static_foo_2,
+            "StaticString should equal StaticString with same value"
+        );
+        assert_ne!(
+            string_foo, string_bar,
+            "String should not equal String with different value"
+        );
+        assert_ne!(
+            static_foo, static_bar,
+            "StaticString should not equal StaticString with different value"
+        );
+        assert_ne!(
+            string_foo, static_bar,
+            "String should not equal StaticString with different value"
+        );
     }
 }
