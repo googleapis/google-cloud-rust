@@ -14,8 +14,14 @@
 
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::options::BatchingOptions;
+use std::time::Duration;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{mpsc, oneshot};
+
+const MAX_DELAY: Duration = Duration::from_secs(60 * 60 * 24); // 1 day
+// These limits come from https://cloud.google.com/pubsub/quotas.
+const MAX_MESSAGES: u32 = 1000;
+const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 
 /// Publishes messages to a single topic.
 ///
@@ -103,16 +109,31 @@ impl PublisherBuilder {
     }
 
     pub fn build(self) -> Publisher {
+        // Enforce limits by clamping the user-provided options.
+        let batching_options = BatchingOptions::new()
+            .set_delay_threshold(std::cmp::min(
+                self.batching_options.delay_threshold,
+                MAX_DELAY,
+            ))
+            .set_message_count_threshold(std::cmp::min(
+                self.batching_options.message_count_threshold,
+                MAX_MESSAGES,
+            ))
+            .set_byte_threshold(std::cmp::min(
+                self.batching_options.byte_threshold,
+                MAX_BYTES,
+            ));
+
         let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
         // Create the batching worker that will run in the background.
         // We don't need to keep track of a handle to the worker.
         // Dropping the Publisher will drop the only sender to the channel.
         // This will cause worker.run() to read None from the channel and close.
-        let worker = Worker::new(self.topic, self.inner, self.batching_options.clone(), rx);
+        let worker = Worker::new(self.topic, self.inner, batching_options.clone(), rx);
         tokio::spawn(worker.run());
 
         Publisher {
-            batching_options: self.batching_options,
+            batching_options,
             tx,
         }
     }
@@ -295,6 +316,47 @@ mod tests {
             publisher.batching_options.delay_threshold,
             BatchingOptions::default().delay_threshold
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_builder_clamping() -> anyhow::Result<()> {
+        // Test values that are too high and should be clamped.
+        let oversized_options = BatchingOptions::new()
+            .set_delay_threshold(MAX_DELAY + Duration::from_secs(1))
+            .set_message_count_threshold(MAX_MESSAGES + 1)
+            .set_byte_threshold(MAX_BYTES + 1);
+
+        let client = PublisherFactory::builder().build().await?;
+        let publisher = client
+            .publisher("projects/my-project/topics/my-topic".to_string())
+            .with_batching(oversized_options)
+            .build();
+        let got = publisher.batching_options;
+
+        assert_eq!(got.delay_threshold, MAX_DELAY);
+        assert_eq!(got.message_count_threshold, MAX_MESSAGES);
+        assert_eq!(got.byte_threshold, MAX_BYTES);
+
+        // Test values that are within limits and should not be changed.
+        let normal_options = BatchingOptions::new()
+            .set_delay_threshold(Duration::from_secs(10))
+            .set_message_count_threshold(10_u32)
+            .set_byte_threshold(100_u32);
+
+        let publisher = client
+            .publisher("projects/my-project/topics/my-topic".to_string())
+            .with_batching(normal_options.clone())
+            .build();
+        let got = publisher.batching_options;
+
+        assert_eq!(got.delay_threshold, normal_options.delay_threshold);
+        assert_eq!(
+            got.message_count_threshold,
+            normal_options.message_count_threshold
+        );
+        assert_eq!(got.byte_threshold, normal_options.byte_threshold);
+
         Ok(())
     }
 }
