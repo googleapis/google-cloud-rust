@@ -153,10 +153,7 @@ mod transport_span_info_tests {
 
     fn mock_response(status: StatusCode) -> Result<reqwest::Response, reqwest::Error> {
         Ok(reqwest::Response::from(
-            http::Response::builder()
-                .status(status)
-                .body("")
-                .unwrap(),
+            http::Response::builder().status(status).body("").unwrap(),
         ))
     }
 

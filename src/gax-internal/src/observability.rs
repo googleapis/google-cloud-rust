@@ -27,4 +27,6 @@ mod errors;
 mod http_tracing;
 
 #[cfg(google_cloud_unstable_tracing)]
-pub(crate) use http_tracing::{create_http_attempt_span, record_http_response_attributes, create_transport_span_info};
+pub(crate) use http_tracing::{
+    create_http_attempt_span, create_transport_span_info, record_http_response_attributes,
+};

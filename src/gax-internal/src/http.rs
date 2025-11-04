@@ -204,7 +204,7 @@ impl ReqwestClient {
             record_http_response_attributes(&s, intermediate_result.as_ref());
         }
 
-        return self::to_http_response(intermediate_result?, _attempt_count).await;
+        self::to_http_response(intermediate_result?, _attempt_count).await
     }
 
     fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
@@ -351,7 +351,11 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
         content => serde_json::from_slice::<O>(&content).map_err(Error::deser)?,
     };
 
+    #[cfg(google_cloud_unstable_tracing)]
     let mut gax_response = Response::from_parts(Parts::new().set_headers(parts.headers), response);
+    #[cfg(not(google_cloud_unstable_tracing))]
+    let gax_response = Response::from_parts(Parts::new().set_headers(parts.headers), response);
+
     #[cfg(google_cloud_unstable_tracing)]
     if let Some(info) = transport_span_info {
         gax::response::internal::set_transport_span_info(&mut gax_response, Some(info));
