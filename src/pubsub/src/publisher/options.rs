@@ -58,7 +58,6 @@ impl BatchingOptions {
     /// Set the [BatchingOptions][Self::delay_threshold] field.
     ///
     /// # Example
-    ///
     /// ```
     /// # use google_cloud_pubsub::options::publisher::BatchingOptions;
     /// let options = BatchingOptions::new().set_delay_threshold(std::time::Duration::from_millis(10));

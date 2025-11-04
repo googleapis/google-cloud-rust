@@ -14,7 +14,6 @@
 
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::options::BatchingOptions;
-use std::time::Duration;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::mpsc::UnboundedSender;
@@ -178,11 +177,7 @@ impl Worker {
 
     async fn run(mut self) {
         let mut batch = Batch::new();
-        // Set max delay at 1 year to avoid overflow. This should probably be in the setting itself.
-        // Would be reasonable to make it much less.
-        let delay = self.batching_options.delay_threshold.min(
-            Duration::from_secs(60 * 60 * 24 * 365), // 1 year.
-        );
+        let delay = self.batching_options.delay_threshold;
         let message_limit = self.batching_options.message_count_threshold;
 
         let timer = tokio::time::sleep(delay);
@@ -193,7 +188,7 @@ impl Worker {
                 // Handle timer events.
                 // This branch will only be checked when there is a non-empty batch,
                 // so this will not fire continuously.
-                _ = &mut timer, if !batch.batch.is_empty() => {
+                _ = &mut timer, if !batch.is_empty() => {
                     let batch_to_send = std::mem::take(&mut batch);
                     tokio::spawn(batch_to_send.send(self.client.clone(), self.topic_name.clone()));
                 }
@@ -202,11 +197,11 @@ impl Worker {
                     match msg {
                         Some(msg) => {
                             // Reset the timer if this is the first message to be added to the batch.
-                            if batch.batch.is_empty() {
+                            if batch.is_empty() {
                                 timer.as_mut().reset(tokio::time::Instant::now() + delay);
                             }
                             batch.push(msg);
-                            if batch.batch.len() as u32 >= message_limit {
+                            if batch.len() as u32 >= message_limit {
                                 let batch_to_send = std::mem::take(&mut batch);
                                 // In the future, we may also want to keep track of JoinHandles in order to
                                 // flush the results.
@@ -215,7 +210,13 @@ impl Worker {
                             }
                         },
                         None => {
-                            // The sender has been dropped, stop running.
+                            // The sender has been dropped send batch and stop running.
+                            // This isn't guaranteed to execute if a user does not .await on the
+                            // corresponding PublishHandles for the batch and the program ends.
+                            if !batch.is_empty() {
+                                let _handle =
+                                        tokio::spawn(batch.send(self.client.clone(), self.topic_name.clone()));
+                            }
                             break;
                         }
                     }
@@ -224,6 +225,7 @@ impl Worker {
         }
     }
 }
+
 #[derive(Debug)]
 struct Batch {
     // TODO(#3686): A batch should also keep track of its total size
@@ -242,6 +244,14 @@ impl Batch {
         Batch { batch: Vec::new() }
     }
 
+    fn is_empty(&self) -> bool {
+        self.batch.is_empty()
+    }
+
+    fn len(&self) -> usize {
+        self.batch.len()
+    }
+
     fn push(&mut self, msg: BundledMessage) {
         self.batch.push(msg);
     }
@@ -256,11 +266,11 @@ impl Batch {
         match request.send().await {
             Err(e) => {
                 let e = Arc::new(e);
-                txs.into_iter().for_each(|tx| {
+                txs.into_iter().for_each(move |tx| {
                     // The user may have dropped the handle, so it is ok if this fails.
                     // TODO(#3689): The error type for this is incorrect, will need to handle
                     // this error propagation more fully.
-                    let _ = tx.send(Err(gax::error::Error::io(Arc::clone(&e))));
+                    let _ = tx.send(Err(gax::error::Error::io(e.clone())));
                 });
             }
             Ok(result) => {
@@ -569,6 +579,8 @@ mod tests {
         assert_eq!(got.byte_threshold, normal_options.byte_threshold);
 
         Ok(())
+    }
+
     fn create_bundled_message_helper(
         data: String,
     ) -> (
@@ -588,18 +600,18 @@ mod tests {
     #[tokio::test]
     async fn test_push_batch() {
         let mut batch = Batch::new();
-        assert!(batch.batch.is_empty());
+        assert!(batch.is_empty());
 
         let (message_a, _rx_a) = create_bundled_message_helper("hello".to_string());
         batch.push(message_a);
-        assert_eq!(batch.batch.len(), 1);
+        assert_eq!(batch.len(), 1);
 
         let (message_b, _rx_b) = create_bundled_message_helper(", ".to_string());
         batch.push(message_b);
-        assert_eq!(batch.batch.len(), 2);
+        assert_eq!(batch.len(), 2);
 
         let (message_c, _rx_c) = create_bundled_message_helper("world".to_string());
         batch.push(message_c);
-        assert_eq!(batch.batch.len(), 3);
+        assert_eq!(batch.len(), 3);
     }
 }
